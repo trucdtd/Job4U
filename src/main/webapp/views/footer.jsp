@@ -21,7 +21,7 @@
 			style="background-color: #ECEFF1">
 			<!-- Section: Social media -->
 			<section class="d-flex justify-content-between p-4 text-white"
-				style="background-color: blue">
+				style="background-color: #007bff">
 				<!-- Left -->
 				<div class="me-5">
 					<span>Hãy kết nối với chúng tôi trên các mạng xã hội:</span>
