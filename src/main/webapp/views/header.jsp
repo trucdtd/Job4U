@@ -24,6 +24,7 @@
                 <li><a href="#" class="nav-link px-2 link-dark">Hỏi Đáp</a></li>
                 <li><a href="#" class="nav-link px-2 link-dark">Top Công Việc</a></li>
                 <li><a href="#" class="nav-link px-2 link-dark">Nhà Tuyển Dụng</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark">Ứng Tuyển</a></li>
             </ul>
 
             <div class="col-md-3 text-end">
