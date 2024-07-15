@@ -44,6 +44,11 @@ body {
 	flex-grow: 1;
 	padding: 20px;
 	background-color: #f8f9fa; /* Màu nền cho khu vực nội dung */
+	display: none; /* Ẩn tất cả các phần nội dung */
+}
+
+.content.active {
+	display: block; /* Hiển thị phần nội dung được chọn */
 }
 </style>
 </head>
@@ -56,24 +61,137 @@ body {
 		<div class="row">
 			<aside class="col-md-3">
 				<div class="sidebar">
-					<a class="navbar-brand mb-3" href="#">Quản Lý Tuyển Dụng</a> 
-					<a href="#" class="nav-link">Đăng bài tuyển dụng</a> 
-					<a href="#" class="nav-link">CV ứng tuyển</a>
-					<a href="#" class="nav-link">Bài tuyển dụng</a> 
-					<a href="#" class="nav-link">Dịch vụ bài đăng</a>			
+					<a class="navbar-brand mb-3" href="#">Quản Lý Tuyển Dụng</a> <a
+						href="javascript:void(0);" class="nav-link"
+						onclick="showContent('page1')">Đăng bài tuyển dụng</a> <a
+						href="javascript:void(0);" class="nav-link"
+						onclick="showContent('page2')">CV ứng tuyển</a> <a
+						href="javascript:void(0);" class="nav-link"
+						onclick="showContent('page3')">Bài tuyển dụng</a> <a
+						href="javascript:void(0);" class="nav-link"
+						onclick="showContent('page4')">Dịch vụ bài đăng</a>
 				</div>
 			</aside>
-			
+
 			<article class="col-md-9">
-				<div class="content">
-				<h1>Main Content</h1>
-				<p>This is the main content area.</p>
-			</div>
+				<!-- đăng bài tuyển dụng -->
+				<div class="content" id="page1">
+					<div class="container mt-5">
+						<h1>Đăng bài tuyển dụng</h1>
+						<form action="" method="post">
+							<div class="mb-3">
+								<label for="companyName" class="form-label">Tên công ty</label>
+								<input type="text" class="form-control" id="companyName"
+									name="companyName" required>
+							</div>
+
+							<div class="mb-3">
+								<label for="jobTitle" class="form-label">Tiêu đề công
+									việc</label> <input type="text" class="form-control" id="jobTitle"
+									name="jobTitle" required>
+							</div>
+
+							<div class="mb-3">
+								<label for="jobDescription" class="form-label">Mô tả
+									công việc</label>
+								<textarea class="form-control" id="jobDescription"
+									name="jobDescription" rows="4" required></textarea>
+							</div>
+
+							<div class="mb-3">
+								<label for="jobRequirements" class="form-label">Yêu cầu
+									công việc</label>
+								<textarea class="form-control" id="jobRequirements"
+									name="jobRequirements" rows="4" required></textarea>
+							</div>
+
+							<div class="mb-3">
+								<label for="jobLocation" class="form-label">Địa điểm làm
+									việc</label> <input type="text" class="form-control" id="jobLocation"
+									name="jobLocation" required>
+							</div>
+
+							<div class="mb-3">
+								<label for="salary" class="form-label">Lương</label> <input
+									type="number" class="form-control" id="salary" name="salary">
+							</div>
+
+							<div class="mb-3">
+								<label for="jobType" class="form-label">Loại công việc</label> <input
+									type="text" class="form-control" id="jobType" name="jobType"
+									required>
+							</div>
+
+							<div class="mb-3">
+								<label for="postedDate" class="form-label">Ngày đăng</label> <input
+									type="datetime-local" class="form-control" id="postedDate"
+									name="postedDate" required>
+							</div>
+
+							<div class="mb-3">
+								<label for="applicationDeadline" class="form-label">Hạn
+									nộp hồ sơ</label> <input type="datetime-local" class="form-control"
+									id="applicationDeadline" name="applicationDeadline" required>
+							</div>
+
+							<button type="submit" class="btn btn-primary">Đăng bài</button>
+						</form>
+					</div>
+				</div>
+				<!-- /đăng bài tuyển dụng -->
+
+				<!-- cv -->
+				<div class="content" id="page2">
+					<div class="container mt-5">
+						<h1>CV</h1>
+						<!-- Nội dung cho phần CV -->
+					</div>
+				</div>
+				<!-- /cv -->
+
+				<!-- bài tuyển dụng -->
+				<div class="content" id="page3">
+					<div class="container mt-5">
+						<h1>Bài tuyển dụng</h1>
+						<!-- Nội dung cho phần Bài tuyển dụng -->
+					</div>
+				</div>
+				<!-- /bài tuyển dụng -->
+
+				<!-- dịch vụ bài đăng -->
+				<div class="content" id="page4">
+					<div class="container mt-5">
+						<h1>Dịch vụ bài đăng</h1>
+						<!-- Nội dung cho phần Dịch vụ bài đăng -->
+					</div>
+				</div>
+				<!-- /dịch vụ bài đăng -->
 			</article>
 		</div>
 		<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
 		<!-- /footer -->
 	</div>
+
+	<script>
+function showContent(pageId) {
+    // Ẩn tất cả các phần nội dung
+    const contents = document.querySelectorAll('.content');
+    contents.forEach(content => {
+        content.classList.remove('active');
+    });
+
+    // Hiển thị phần nội dung được chọn
+    const selectedContent = document.getElementById(pageId);
+    if (selectedContent) {
+        selectedContent.classList.add('active');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Hiển thị mặc định trang đầu tiên
+    showContent('page1');
+});
+</script>
 </body>
 </html>
