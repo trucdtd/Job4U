@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+.banner img {
+	height: 350px;
+	width: 100%;
+	object-fit: cover; /* Đảm bảo ảnh không bị bể */
+}
