@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.navbar-collapse {
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+}
+
+.navbar-collapse.show {
+  transform: translateX(0);
+}

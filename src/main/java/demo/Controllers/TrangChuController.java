@@ -45,4 +45,11 @@ public class TrangChuController {
 		 */
 		return "trangChu";
 	}
+	
+	@RequestMapping("/userManager")
+	public String quanlyUser(
+			) {
+		
+		return "quanlyuser";
+	}
 }
