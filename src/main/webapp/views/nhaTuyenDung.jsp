@@ -24,7 +24,7 @@ body {
 .sidebar {
 	min-width: 250px;
 	max-width: 250px;
-	background-color: #007bff; /* Màu xanh dương */
+	background-color: #00688B;
 	padding: 20px 0;
 	color: white;
 }
@@ -134,7 +134,7 @@ body {
 									id="applicationDeadline" name="applicationDeadline" required>
 							</div>
 
-							<button type="submit" class="btn btn-primary">Đăng bài</button>
+							<button type="submit" class="btn text-light" style="background-color: #00688B">Đăng bài</button>
 						</form>
 					</div>
 				</div>
