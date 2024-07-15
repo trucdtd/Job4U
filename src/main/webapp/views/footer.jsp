@@ -17,11 +17,11 @@
 	<!-- Remove the container if you want to extend the Footer to full width. -->
 	<div class="container my-5">
 		<!-- Footer -->
-		<footer class="text-center text-lg-start text-dark"
-			style="background-color: #ECEFF1">
+		<footer class="text-center text-lg-start text-light"
+			style="background-color: #00688B">
 			<!-- Section: Social media -->
 			<section class="d-flex justify-content-between p-4 text-white"
-				style="background-color: #007bff">
+				style="background-color: #00688B">
 				<!-- Left -->
 				<div class="me-5">
 					<span>Hãy kết nối với chúng tôi trên các mạng xã hội:</span>
@@ -66,16 +66,16 @@
 							<hr class="mb-4 mt-0 d-inline-block mx-auto"
 								style="width: 60px; background-color: #7c4dff; height: 2px" />
 							<p>
-								<a href="#!" class="text-dark">Việc làm theo Địa điểm</a>
+								<a href="#!" class="text-light">Việc làm theo Địa điểm</a>
 							</p>
 							<p>
-								<a href="#!" class="text-dark">Việc làm theo ngành</a>
+								<a href="#!" class="text-light">Việc làm theo ngành</a>
 							</p>
 							<p>
-								<a href="#!" class="text-dark">Việc làm theo mức lương</a>
+								<a href="#!" class="text-light">Việc làm theo mức lương</a>
 							</p>
 							<p>
-								<a href="#!" class="text-dark">Các việc làm phổ biến khác</a>
+								<a href="#!" class="text-light">Các việc làm phổ biến khác</a>
 							</p>
 						</div>
 						<!-- Grid column -->
@@ -87,10 +87,10 @@
 							<hr class="mb-4 mt-0 d-inline-block mx-auto"
 								style="width: 60px; background-color: #7c4dff; height: 2px" />
 							<p>
-								<a href="#!" class="text-dark">Tuyển dụng theo vị trí</a>
+								<a href="#!" class="text-light">Tuyển dụng theo vị trí</a>
 							</p>
 							<p>
-								<a href="#!" class="text-dark">Tuyển dụng theo ngành nghề</a>
+								<a href="#!" class="text-light">Tuyển dụng theo ngành nghề</a>
 							</p>
 						</div>
 						<!-- Grid column -->
@@ -121,7 +121,7 @@
 			<!-- Copyright -->
 			<div class="text-center p-3"
 				style="background-color: rgba(0, 0, 0, 0.2)">
-				© 2024 Copyright: <a class="text-dark"
+				© 2024 Copyright: <a class="text-light"
 					href="https://mdbootstrap.com/">Job4U</a>
 			</div>
 			<!-- Copyright -->

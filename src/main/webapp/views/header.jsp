@@ -10,14 +10,19 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/css/header.css">
+    <style>
+        .navbar-custom {
+            background-color: #00688B;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <nav class="navbar navbar-expand-md navbar-light navbar-custom">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/job4u">
                     <img src="/img/logo.png" alt="" width="40" height="32" class="me-2">
-                    <span class="fs-4">Job4U</span>
+                    <span class="fs-4 text-light">Job4U</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,25 +30,25 @@
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="/job4u">Trang Chủ</a>
+                            <a class="nav-link text-light" href="/job4u">Trang Chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Hỏi Đáp</a>
+                            <a class="nav-link text-light" href="#">Hỏi Đáp</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Top Công Việc</a>
+                            <a class="nav-link text-light" href="#">Top Công Việc</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/employers">Nhà Tuyển Dụng</a>
+                            <a class="nav-link text-light" href="/employers">Nhà Tuyển Dụng</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Ứng Tuyển</a>
+                            <a class="nav-link text-light" href="#">Ứng Tuyển</a>
                         </li>
                     </ul>
                 </div>
                 <div class="d-flex align-items-center">
-                    <button type="button" class="btn btn-outline-primary me-2">Đăng Nhập</button>
-                    <button type="button" class="btn btn-primary">Đăng Ký</button>
+                    <button type="button" class="btn btn-outline-light me-2">Đăng Nhập</button>
+                    <button type="button" class="btn btn-light">Đăng Ký</button>
                 </div>
             </div>
         </nav>
