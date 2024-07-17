@@ -18,7 +18,6 @@
 	<div class="container">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
       <h1>THONG KE</h1>
       <nav>
         <ol class="breadcrumb">
