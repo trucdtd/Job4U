@@ -52,4 +52,18 @@ public class TrangChuController {
 		
 		return "quanlyuser";
 	}
+	
+	@RequestMapping("/userManager/detailUser")
+	public String chiTietTaiKhoan(
+			) {
+		
+		return "chiTietTaiKhoan";
+	}
+	
+	@RequestMapping("/userManager/detailPost")
+	public String chiTietBaiViet(
+			) {
+		
+		return "chiTietBaiViet";
+	}
 }
