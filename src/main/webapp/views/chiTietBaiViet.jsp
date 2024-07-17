@@ -82,7 +82,7 @@
 				</div>
 				<!-- aside -->
 				<!-- article -->
-				<div class="col-md-8">
+				<div class="col-md-9">
 					<!-- Home table -->
 					<div id="home" class="card">
 						<div class="card-header">
@@ -99,9 +99,7 @@
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
 						<div class="card-body p-0">
-							<div class="table-responsive">
-								
-							</div>
+							<div class="table-responsive"></div>
 						</div>
 					</div>
 
@@ -111,174 +109,95 @@
 							<div class="card-title">Chi Tiết Bài Viết</div>
 						</div>
 						<div class="card-body p-0">
-							<div class="table-responsive">
-								<form action="" method="post">
-								<div class="card">
-									<div class="card-body">
-										<div class="text-center">
-											<h7 class="mt-4 text-danger">${message}</h7>
-										</div>
-										<br>
-										<div class="row ">
-												<div class="col-md-2">
-													<div class="fw-bold">
-														<label for="jobtitle">Tiêu Đề:</label>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="">
-														<input class="form-control" type="text"
-															placeholder="Tiêu đề bài viết"
-															aria-label="Tiêu đề bài viết"
-															style="border-radius: 10px;" name="jobtitle" required>
-													</div>
-												</div>
-												
-												<div class="col-md-2">
-													<div class="fw-bold">
-														<label for="joblocation">Vị trí:</label>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="">
-														<input class="form-control" type="text"
-															placeholder="Vị trí công việc"
-															aria-label="Vị trí công việc"
-															style="border-radius: 10px;" name="joblocation" required>
-													</div>
-												</div>
-												
-												<div class="col-md-2">
-													<div class="fw-bold">
-														<label for="companyname">Công Ty</label>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="">
-														<input class="form-control" type="text"
-															placeholder="Tên Công Ty"
-															aria-label="Tên Công Ty"
-															style="border-radius: 10px;" name="companyname" required>
-													</div>
-												</div>
-										
-											<div class="col-md-2">
-													<div class="fw-bold">
-														<label for="companywebsite">Trang Web</label>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="">
-														<input class="form-control" type="text"
-															placeholder="Trang web công ty"
-															aria-label="Trang web công ty"
-															style="border-radius: 10px;" name="companywebsite" required>
-													</div>
-												</div>
-												<div class="col-md-2">
-													<div class="fw-bold">
-														<label for="address">Địa chỉ công ty</label>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="">
-														<input class="form-control" type="text"
-															placeholder="Địa chỉ Công Ty"
-															aria-label="Địa chỉ Công Ty"
-															style="border-radius: 10px;" name="address" required>
-													</div>
-												</div>
-										
-											<div class="col-md-2">
-													<div class="fw-bold">
-														<label for="industry">Ngành công nghiệp</label>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="">
-														<input class="form-control" type="text"
-															placeholder="Ngành Công nghiệp"
-															aria-label="Ngành Công nghiệp"
-															style="border-radius: 10px;" name="industry" required>
-													</div>
-												</div>
-												
-											<div class="col-md-2">
-													<div class="fw-bold">
-														<label for="contactperson">Người liên hệ</label>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="">
-														<input class="form-control" type="text"
-															placeholder="Người liên hệ"
-															aria-label="Người liên hệ"
-															style="border-radius: 10px;" name="contactperson" required>
-													</div>
-												</div>
-										
-											
-											<div class="col-md-2">
-												<div class="fw-bold">
-													<label for="salary">Mức Lương:</label>
-												</div>
-											</div>
-											<div class="col-md-4">
-												<div class="">
-													<input class="form-control" type="text"
-														placeholder="Mức lương" aria-label="Mức lương"
-														style="border-radius: 10px;" name="salary" required>
-												</div>
-											</div>
-
-											<div class="col-md-2">
-												<div class="fw-bold">
-													<label for="jobtype">Loại Công việc:</label>
-												</div>
-											</div>
-											<div class="col-md-4">
-												<div class="fw-bold">
-													<select name="jobtype" class="form-select" required>
-														<option value="Full time">Full time</option>
-														<option value="Part time">Part time</option>
-													</select>
-												</div>
-											</div>
-
-											<div class="col-md-2">
-												<div class="fw-bold">
-													<label for="jobrequirements">Yêu Cầu công việc:</label>
-												</div>
-											</div>
-											<div class="col-md-4">
-												<textarea name="jobrequirements" rows="3" cols="32"
-													placeholder="Yêu cầu công việc" required></textarea>
-											</div>
-
-											<div class="col-md-2">
-												<div class="fw-bold">
-													<label for="file">Ảnh Bài Viết:</label>
-												</div>
-											</div>
-											<div class="col-md-4">
-												<div class="fw-bold">
-													<input type="file" id="file" name="file">
-												</div>
-											</div>
-										</div>
-										<hr>
-										<div class="row" style="margin-top: 10px;">
-										<div class="card-action">
-                    					<button class="btn btn-success">Submit</button>
-                    					<button class="btn btn-danger">Cancel</button>
-                  						</div>
+							<form class="p-4 border border-1" action="" method="post">
+								<div class="row p-2">
+									<div class="col-md-6">
+										<label for="jobtitle">Tiêu Đề:</label> <input
+											class="form-control" type="text"
+											placeholder="Tiêu đề bài viết" aria-label="Tiêu đề bài viết"
+											style="border-radius: 10px;" name="jobtitle" required>
 									</div>
-										<br>
+									<div class="col-md-6">
+										<label for="joblocation">Vị trí:</label> <input
+											class="form-control" type="text"
+											placeholder="Vị trí công việc" aria-label="Vị trí công việc"
+											style="border-radius: 10px;" name="joblocation" required>
+									</div>
+								</div>
+
+								<div class="row p-2">
+									<div class="col-md-6">
+										<label for="companyname">Công Ty</label> <input
+											class="form-control" type="text" placeholder="Tên Công Ty"
+											aria-label="Tên Công Ty" style="border-radius: 10px;"
+											name="companyname" required>
+									</div>
+									<div class="col-md-6">
+										<label for="companywebsite">Trang Web</label> <input
+											class="form-control" type="text"
+											placeholder="Trang web công ty"
+											aria-label="Trang web công ty" style="border-radius: 10px;"
+											name="companywebsite" required>
+									</div>
+								</div>
+
+								<div class="row p-2">
+									<div class="col-md-6">
+										<label for="address">Địa chỉ công ty</label> <input
+											class="form-control" type="text"
+											placeholder="Địa chỉ Công Ty" aria-label="Địa chỉ Công Ty"
+											style="border-radius: 10px;" name="address" required>
+									</div>
+									<div class="col-md-6">
+										<label for="industry">Ngành công nghiệp</label> <input
+											class="form-control" type="text"
+											placeholder="Ngành Công nghiệp"
+											aria-label="Ngành Công nghiệp" style="border-radius: 10px;"
+											name="industry" required>
+									</div>
+								</div>
+
+								<div class="row p-2">
+									<div class="col-md-6">
+										<label for="contactperson">Người liên hệ</label> <input
+											class="form-control" type="text" placeholder="Người liên hệ"
+											aria-label="Người liên hệ" style="border-radius: 10px;"
+											name="contactperson" required>
+									</div>
+									<div class="col-md-6">
+										<label for="salary">Mức Lương:</label> <input
+											class="form-control" type="text" placeholder="Mức lương"
+											aria-label="Mức lương" style="border-radius: 10px;"
+											name="salary" required>
+									</div>
+								</div>
+
+								<div class="row p-2">
+									<div class="col-md-6">
+										<label for="jobtype">Loại Công việc:</label> <select
+											name="jobtype" class="form-select" required>
+											<option value="Full time">Full time</option>
+											<option value="Part time">Part time</option>
+										</select>
+									</div>
+									<div class="col-md-6">
+										<label for="jobrequirements">Yêu Cầu công việc:</label>
+										<textarea name="jobrequirements" rows="3" cols="32"
+											placeholder="Yêu cầu công việc" required></textarea>
+									</div>
+								</div>
+
+								<hr>
+								<div class="row" style="margin-top: 10px;">
+									<div class="card-action">
+										<button class="btn btn-success">Submit</button>
+										<button class="btn btn-danger">Cancel</button>
 									</div>
 								</div>
 							</form>
-							</div>
+
 						</div>
+
 					</div>
 
 					<!-- CV Management table -->
