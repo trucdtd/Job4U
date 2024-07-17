@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>User Management</title>
+<title>Detail User</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -30,7 +30,7 @@
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-2" width="25" height="25">
                             <use xlink:href="#bootstrap"></use>
-                        </svg> <span class="card-title">Menu User
+                        </svg> <span class="card-title"> Menu User
 								Management</span>
 						</a>
 						<hr>
@@ -100,37 +100,99 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">UserID</th>
-											<th scope="col">Username</th>
-											<th scope="col">Fullname</th>
-											<th scope="col">Email</th>
-											<th scope="col">PhoneNumber</th>
-											<th scope="col">Role</th>
-											<th scope="col">Button</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>john_doe</td>
-											<td>John Doe</td>
-											<td>john@example.com</td>
-											<td>1234567890</td>
-											<td>Admin</td>
-											<td>
+								<form class=" p-4 border border-1" action="/user/" method="post"
+									style="border-radius: 15px;">
+									<div class="row g-3">
+										<!-- Thông báo lỗi -->
+										<c:if test="${not empty error}">
+											<div class="alert alert-danger" role="alert">${error}</div>
+										</c:if>
+										<!-- Dòng 1: Mã ND và Email -->
+										<div class="col-12">
+											<div class="row">
+												<div class="col-md-3">
+													<label for="userid" class="form-label">Mã ND:</label>
+												</div>
+												<div class="col-md-9">
+													<input type="text" class="form-control" id="userid"
+														name="userid" value="${nd.userid}" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="row">
+												<div class="col-md-3">
+													<label for="email" class="form-label">Email:</label>
+												</div>
+												<div class="col-md-9">
+													<input type="text" class="form-control" id="email"
+														name="email" value="${nd.email}">
+												</div>
+											</div>
+										</div>
+										<!-- Dòng 2: Tên ĐN và Mật Khẩu -->
+										<div class="col-12">
+											<div class="row">
+												<div class="col-md-3">
+													<label for="username" class="form-label">Tên ĐN:</label>
+												</div>
+												<div class="col-md-9">
+													<input type="text" class="form-control" id="username"
+														name="username" value="${nd.username}">
+												</div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="row">
+												<div class="col-md-3">
+													<label for="password" class="form-label">Mật Khẩu:</label>
+												</div>
+												<div class="col-md-9">
+													<input type="password" class="form-control" id="password"
+														name="password" value="${nd.password}">
+												</div>
+											</div>
+										</div>
+										<!-- Dòng 3: Vai Trò -->
+										<div class="col-12">
+											<div class="row">
+												<div class="col-md-3">
+													<label for="role" class="form-label">Vai Trò:</label>
+												</div>
+												<div class="col-md-9">
+													<input type="text" class="form-control" id="role"
+														name="role" value="${nd.role}">
+												</div>
+											</div>
+										</div>
+										<!-- Dòng 4: Số ĐT và Logo -->
+										<div class="col-12">
+											<div class="row">
+												<div class="col-md-3">
+													<label for="phonenumber" class="form-label">Số ĐT:</label>
+												</div>
+												<div class="col-md-5">
+													<input type="text" class="form-control" id="phonenumber"
+														name="phonenumber" value="${nd.phonenumber}">
+												</div>
+												<div class="col-md-4">
+													<img src="/img/logo.png" class="img-fluid" alt="Logo">
+												</div>
+											</div>
+										</div>
+									</div>
+									<hr>
+									<!-- <div class="d-grid gap-2 d-md-block">
+               						 <button class="btn btn-outline-success" type="button" style="margin-left: 45%;">Sửa</button>
+            						</div> -->
+									<div class="row" style="margin-top: 10px;">
+										<div class="card-action">
+                    					<button class="btn btn-success">Submit</button>
+                    					<button class="btn btn-danger">Cancel</button>
+                  						</div>
 
-                    					<button class="btn btn-success">Detail</button>
-                    					<button class="btn btn-danger">Delete</button>
-                  				
-											</td>
-											
-										</tr>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -151,7 +213,6 @@
 											<th scope="col">Job Location</th>
 											<th scope="col">Salary</th>
 											<th scope="col">Job Description</th>
-											<th scope="col">Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -162,9 +223,6 @@
 											<td>Ho Chi Minh City</td>
 											<td>Negotiable</td>
 											<td>Job description for Developer position</td>
-											<td><button class="btn btn-success">Detail</button>
-											<hr>
-                    					<button class="btn btn-danger">Delete</button> </td>
 										</tr>
 										<!-- Add more rows as needed -->
 									</tbody>
@@ -198,9 +256,7 @@
 											<td>Developer</td>
 											<td>2023-01-05</td>
 											<td>Reviewed</td>
-											<td>
-											<button class="btn btn-success">Detail</button>
-											</td>
+											<td><button>Edit</button></td>
 										</tr>
 										<!-- Add more rows as needed -->
 									</tbody>
@@ -219,29 +275,29 @@
 
 </body>
 <script>
-function showTable(event, tableId) {
-    event.preventDefault(); // Ngăn chặn hành vi mặc định
+	function showTable(event, tableId) {
+		event.preventDefault(); // Ngăn chặn hành vi mặc định
 
-    // Ẩn tất cả các bảng
-    var tables = document.querySelectorAll('.col-md-9 .card');
-    tables.forEach(function(table) {
-        table.style.display = 'none';
-    });
+		// Ẩn tất cả các bảng
+		var tables = document.querySelectorAll('.col-md-9 .card');
+		tables.forEach(function(table) {
+			table.style.display = 'none';
+		});
 
-    // Hiển thị bảng được chọn
-    document.getElementById(tableId).style.display = 'block';
+		// Hiển thị bảng được chọn
+		document.getElementById(tableId).style.display = 'block';
 
-    // Loại bỏ lớp active khỏi tất cả các liên kết
-    var links = document.querySelectorAll('.nav-link');
-    links.forEach(function(link) {
-        link.classList.remove('active');
-    });
+		// Loại bỏ lớp active khỏi tất cả các liên kết
+		var links = document.querySelectorAll('.nav-link');
+		links.forEach(function(link) {
+			link.classList.remove('active');
+		});
 
-    // Thêm lớp active vào liên kết được bấm
-    var activeLink = document.querySelector('.nav-link[onclick*="' + tableId + '"]');
-    activeLink.classList.add('active');
-}
+		// Thêm lớp active vào liên kết được bấm
+		var activeLink = document.querySelector('.nav-link[onclick*="'
+				+ tableId + '"]');
+		activeLink.classList.add('active');
+	}
 </script>
 
-</html>
 </html>
