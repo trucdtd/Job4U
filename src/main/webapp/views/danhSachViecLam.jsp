@@ -26,7 +26,8 @@
 								<div class="row">
 									<div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
 										<div class="bg-image hover-zoom ripple rounded ripple-surface">
-											<img src="${job.employer.logo}" class="w-100" /> <a href="#!">
+											<img src="${job.employer.logo}" class="w-100" /> <a
+												href="#!">
 												<div class="hover-overlay">
 													<div class="mask"
 														style="background-color: rgba(253, 253, 253, 0.15);"></div>
@@ -70,5 +71,28 @@
 			</div>
 		</div>
 	</section>
+	<div class="row col-12 justify-content-center">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<button type="button" class="btn m-4 text-light" style="background: #00688B" onclick="paging(0)">Đầu</button>
+			<button type="button" class="btn m-4 text-light" style="background: #00688B"
+				onclick="paging(${dsSP.pageable.pageNumber-1 >= 0 ? dsSP.pageable.pageNumber-1 : 0 })">Trước</button>
+			<button type="button" class="btn m-4 text-light" style="background: #00688B"
+				onclick="paging(${dsSP.pageable.pageNumber+1 < dsSP.totalPages ? dsSP.pageable.pageNumber+1 : dsSP.totalPages-1 })">Kế</button>
+			<button type="button" class="btn m-4 text-light" style="background: #00688B"
+				onclick="paging(${dsSP.totalPages-1 })">Cuối</button>
+		</div>
+	</div>
+	<script>
+        /* http://localhost:8080/sanpham?page=1 */
+        var url = new URL(window.location.href);
+        function paging(page){
+            if(url.toString().includes("page")){
+                url.searchParams.set('page', page);
+            } else {
+                url.searchParams.append('page', page);
+            }
+            window.location.href = url;
+        }
+    </script>
 </body>
 </html>
