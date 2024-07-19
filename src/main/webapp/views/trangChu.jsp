@@ -24,65 +24,85 @@
 			<aside class="col-md-3">
 				<h3>Bộ lộc</h3>
 				<div class="container mt-4">
-					<form>
-						<div class="row mb-3">
+					<form action="/findJob" method="GET">
+						<div class="row mt-3">
 							<div class="col-md-12">
-								<label class="form-label">Công việc</label>
+								<label class="form-label">Vị trí tuyển dụng</label>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" id="developer"
-										name="job" value="developer"> <label
-										class="form-check-label" for="developer"> Developer </label>
+										name="jobtitle" value="developer"> <label
+										class="form-check-label" for="developer">Developer</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" id="designer"
-										name="job" value="designer"> <label
-										class="form-check-label" for="designer"> Designer </label>
+										name="jobtitle" value="designer"> <label
+										class="form-check-label" for="designer">Designer</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" id="manager"
-										name="job" value="manager"> <label
-										class="form-check-label" for="manager"> Manager </label>
+										name="jobtitle" value="manager"> <label
+										class="form-check-label" for="manager">Manager</label>
 								</div>
+								<!-- Thêm các vị trí khác nếu cần -->
 							</div>
-							<div class="col-md-12">
-								<label class="form-label">Mức lương</label>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="salary1"
-										name="salary" value="500-1000"> <label
-										class="form-check-label" for="salary1"> 500-1000 USD </label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="salary2"
-										name="salary" value="1000-2000"> <label
-										class="form-check-label" for="salary2"> 1000-2000 USD
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="salary3"
-										name="salary" value="2000+"> <label
-										class="form-check-label" for="salary3"> 2000+ USD </label>
-								</div>
+							<div class="col-md-12 mt-3">
+								<label class="form-label">Tỉnh/Thành phố</label> <select
+									class="form-select" id="joblocation" name="joblocation">
+									<option value="All" selected>Tất cả</option>
+									<option value="Hà Nội">Hà Nội</option>
+									<option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+									<option value="Hải Phòng">Hải Phòng</option>
+									<option value="Đà Nẵng">Đà Nẵng</option>
+									<option value="An Giang">An Giang</option>
+									<option value="Bạc Liêu">Bạc Liêu</option>
+									<option value="Bắc Giang">Bắc Giang</option>
+									<option value="Bắc Kạn">Bắc Kạn</option>
+									<option value="Bắc Ninh">Bắc Ninh</option>
+									<option value="Bến Tre">Bến Tre</option>
+									<option value="Bình Định">Bình Định</option>
+									<option value="Bình Dương">Bình Dương</option>
+									<option value="Bình Phước">Bình Phước</option>
+									<option value="Bình Thuận">Bình Thuận</option>
+									<option value="Cao Bằng">Cao Bằng</option>
+									<option value="Cần Thơ">Cần Thơ</option>
+									<option value="Cà Mau">Cà Mau</option>
+									<option value="Kon Tum">Kon Tum</option>
+									<option value="Lào Cai">Lào Cai</option>
+									<option value="Lâm Đồng">Lâm Đồng</option>
+									<option value="Lạng Sơn">Lạng Sơn</option>
+									<option value="Long An">Long An</option>
+									<option value="Nam Định">Nam Định</option>
+									<option value="Nghệ An">Nghệ An</option>
+									<option value="Ninh Bình">Ninh Bình</option>
+									<option value="Ninh Thuận">Ninh Thuận</option>
+									<option value="Phú Thọ">Phú Thọ</option>
+									<option value="Phú Yên">Phú Yên</option>
+									<option value="Quảng Bình">Quảng Bình</option>
+									<option value="Quảng Nam">Quảng Nam</option>
+									<option value="Quảng Ngãi">Quảng Ngãi</option>
+									<option value="Quảng Ninh">Quảng Ninh</option>
+									<option value="Quảng Trị">Quảng Trị</option>
+									<option value="Sóc Trăng">Sóc Trăng</option>
+									<option value="Sơn La">Sơn La</option>
+									<option value="Tây Ninh">Tây Ninh</option>
+									<option value="Thái Bình">Thái Bình</option>
+									<option value="Thái Nguyên">Thái Nguyên</option>
+									<option value="Thanh Hóa">Thanh Hóa</option>
+									<option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+									<option value="Tiền Giang">Tiền Giang</option>
+									<option value="Trà Vinh">Trà Vinh</option>
+									<option value="Tuyên Quang">Tuyên Quang</option>
+									<option value="Vĩnh Long">Vĩnh Long</option>
+									<option value="Vĩnh Phúc">Vĩnh Phúc</option>
+									<option value="Yên Bái">Yên Bái</option>
+								</select>
 							</div>
-							<div class="col-md-12">
-								<label class="form-label">Kinh nghiệm</label>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="exp1"
-										name="experience" value="0-2"> <label
-										class="form-check-label" for="exp1"> 0-2 năm </label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="exp2"
-										name="experience" value="2-5"> <label
-										class="form-check-label" for="exp2"> 2-5 năm </label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="exp3"
-										name="experience" value="5+"> <label
-										class="form-check-label" for="exp3"> 5+ năm </label>
-								</div>
+							<div class="col-md-auto mt-3">
+								<button type="submit" class="btn btn-success">
+									<i class="bi bi-search"></i> Tìm kiếm
+								</button>
 							</div>
 						</div>
-						<button type="submit" class="btn btn-primary">Tìm kiếm</button>
 					</form>
 				</div>
 			</aside>
