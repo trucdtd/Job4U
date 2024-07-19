@@ -48,5 +48,5 @@ public class EmployersEntity implements Serializable {
     private UsersEntity user;
 
     @Column(name = "logo")
-    private byte[] logo;
+    private String logo;
 }
