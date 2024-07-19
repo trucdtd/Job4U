@@ -27,7 +27,7 @@
 					<form action="/findJob" method="GET">
 						<div class="row mt-3">
 							<div class="col-md-12">
-								<label class="form-label">Vị trí tuyển dụng</label>
+								<label class="form-label">Ngành nghề</label>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" id="developer"
 										name="jobtitle" value="developer"> <label
@@ -42,6 +42,26 @@
 									<input class="form-check-input" type="checkbox" id="manager"
 										name="jobtitle" value="manager"> <label
 										class="form-check-label" for="manager">Manager</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="IT"
+										name="jobtitle" value="IT"> <label
+										class="form-check-label" for="manager">Công Nghệ Thông Tin</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="oto"
+										name="jobtitle" value="Công Nghệ Ô Tô"> <label
+										class="form-check-label" for="manager">Công Nghệ Ô Tô</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="ketoan"
+										name="jobtitle" value="Kế Toán"> <label
+										class="form-check-label" for="manager">Kế Toán</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="dulich"
+										name="jobtitle" value="Du Lịch"> <label
+										class="form-check-label" for="manager">Du Lịch</label>
 								</div>
 								<!-- Thêm các vị trí khác nếu cần -->
 							</div>
