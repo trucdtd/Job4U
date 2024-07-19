@@ -17,10 +17,10 @@
 </head>
 <body>
 	<section style="background-color: #eee;">
-		<c:forEach var="job" items="${dsSP.content}">
-			<div class="container py-2">
-				<div class="row justify-content-center mb-3">
-					<div class="col-md-12 col-xl-10">
+		<div class="container py-4">
+			<div class="row justify-content-center">
+				<c:forEach var="job" items="${dsSP.content}">
+					<div class="col-md-12 col-xl-10 mb-4">
 						<div class="card shadow-0 border rounded-3">
 							<div class="card-body">
 								<div class="row">
@@ -44,10 +44,6 @@
 										</div>
 										<div class="mt-1 mb-0 text-muted small">
 											<span>${job.jobtitle}</span>
-											<!-- <span class="text-primary"> • </span> <span>Lập
-											trình viên</span> <span class="text-primary"> • </span> <span>Ngôn
-											ngữ lập trinh C#<br />
-										</span> -->
 										</div>
 										<p class="text-truncate mb-4 mb-md-0">Mô tả:
 											${job.jobdescription}</p>
@@ -70,9 +66,9 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</c:forEach>
 			</div>
-		</c:forEach>
+		</div>
 	</section>
 </body>
 </html>
