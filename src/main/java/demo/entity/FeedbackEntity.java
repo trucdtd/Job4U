@@ -21,8 +21,8 @@ public class FeedbackEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FeedbackAndRatingID")
-    private Integer feedbackAndRatingID;
+    @Column(name = "feedbackandratingid")
+    private Integer feedbackandratingid;
 
     @NotNull
     @ManyToOne
@@ -30,22 +30,22 @@ public class FeedbackEntity implements Serializable {
     private UsersEntity user;
 
     @NotNull
-    @Column(name = "FeedbackType", length = 50)
-    private String feedbackType;
+    @Column(name = "feedbacktype", length = 50)
+    private String feedbacktype;
 
     @NotNull
-    @Column(name = "TargetID")
-    private Integer targetID;
+    @Column(name = "targetid")
+    private Integer targetid;
 
-    @Column(name = "RatingValue")
-    private Integer ratingValue;
+    @Column(name = "ratingvalue")
+    private Integer ratingvalue;
 
     @NotNull
-    @Column(name = "Content", length = 1000)
+    @Column(name = "content", length = 1000)
     private String content;
 
     @NotNull
-    @Column(name = "CreatedDate")
-    private LocalDateTime createdDate;
+    @Column(name = "createddate")
+    private LocalDateTime createddate;
 
 }

@@ -22,47 +22,47 @@ public class UsersEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
+    @Column(name = "userid")
     private Integer userid;
 
     @NotBlank
     @Size(max = 30)
-    @Column(name = "Username", nullable = false)
+    @Column(name = "username", nullable = false)
     private String username;
 
     @NotBlank
     @Size(max = 50)
-    @Column(name = "Password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @NotBlank
     @Size(max = 30)
-    @Column(name = "FullName", nullable = false)
+    @Column(name = "fullname", nullable = false)
     private String fullname;
 
     @NotBlank
     @Email
     @Size(max = 50)
-    @Column(name = "Email", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @NotBlank
     @Size(max = 24)
-    @Column(name = "PhoneNumber", nullable = false)
+    @Column(name = "phonenumber", nullable = false)
     private String phonenumber;
 
-    @Column(name = "Token")
+    @Column(name = "token")
     private String token;
 
     @NotNull
-    @Column(name = "Role", nullable = false)
+    @Column(name = "role", nullable = false)
     private Integer role;
 
     @NotNull
-    @Column(name = "CreatedAt", nullable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "createdat", nullable = false)
+    private LocalDateTime createdat;
 
     @NotNull
-    @Column(name = "UpdatedAt", nullable = false)
-    private LocalDateTime updatedAt;
+    @Column(name = "updatedat", nullable = false)
+    private LocalDateTime updatedat;
 }

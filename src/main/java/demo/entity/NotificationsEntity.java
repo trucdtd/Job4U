@@ -20,20 +20,20 @@ public class NotificationsEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NotificationID")
+    @Column(name = "notificationid")
     private Integer notificationid;
 
     @ManyToOne
     @JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
     private UsersEntity user;
 
-    @Column(name = "Content", length = 1000, nullable = false)
+    @Column(name = "content", length = 1000, nullable = false)
     private String content;
 
-    @Column(name = "CreatedDate", nullable = false)
-    private LocalDateTime createdDate;
+    @Column(name = "createddate", nullable = false)
+    private LocalDateTime createddate;
 
-    @Column(name = "ReadDate")
-    private LocalDateTime readDate;
+    @Column(name = "readdate")
+    private LocalDateTime readdate;
 
 }

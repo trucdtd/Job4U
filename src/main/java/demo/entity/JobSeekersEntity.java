@@ -23,48 +23,48 @@ public class JobSeekersEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "JobSeekerID")
-    private Integer jobSeekerid;
+    @Column(name = "jobseekerid")
+    private Integer jobseekerid;
 
     @Lob
-    @Column(name = "Resume")
+    @Column(name = "resume")
     private String resume;
 
-    @Column(name = "ProfileSummary", length = 1000)
+    @Column(name = "profilesummary", length = 1000)
     private String profilesummary;
 
     @Lob
-    @Column(name = "Experience")
+    @Column(name = "experience")
     private String experience;
 
     @Lob
-    @Column(name = "Education")
+    @Column(name = "education")
     private String education;
 
     @Lob
-    @Column(name = "Skills")
+    @Column(name = "skills")
     private String skills;
 
     @Lob
-    @Column(name = "Certifications")
+    @Column(name = "certifications")
     private String certifications;
 
     @Lob
-    @Column(name = "Languages")
+    @Column(name = "languages")
     private String languages;
 
     @Lob
-    @Column(name = "Image")
+    @Column(name = "image")
     private byte[] image;
 
-    @Column(name = "DateOfBirth")
+    @Column(name = "dateOfbirth")
     private Date dateOfbirth;
 
-    @Column(name = "Gender", length = 10)
+    @Column(name = "gender", length = 10)
     private String gender;
 
     @Lob
-    @Column(name = "Interests")
+    @Column(name = "interests")
     private String interests;
 
     @NotNull
@@ -73,11 +73,11 @@ public class JobSeekersEntity implements Serializable {
     private UsersEntity user;
 
     @NotNull
-    @Column(name = "CreatedAt", nullable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "createdat", nullable = false)
+    private LocalDateTime createdat;
 
     @NotNull
-    @Column(name = "UpdatedAt", nullable = false)
-    private LocalDateTime updatedAt;
+    @Column(name = "updatedat", nullable = false)
+    private LocalDateTime updatedat;
 
 }

@@ -21,27 +21,27 @@ public class MessagesEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MessageID")
+    @Column(name = "messageid")
     private Integer messageid;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "SenderID", referencedColumnName = "UserID", nullable = false)
-    private UsersEntity sender;
+    @JoinColumn(name = "senderid", referencedColumnName = "UserID", nullable = false)
+    private UsersEntity senderid;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "ReceiverID", referencedColumnName = "UserID", nullable = false)
-    private UsersEntity receiver;
+    @JoinColumn(name = "receiverid", referencedColumnName = "UserID", nullable = false)
+    private UsersEntity receiverid;
 
     @NotNull
-    @Column(name = "Content", length = 2000, nullable = false)
+    @Column(name = "content", length = 2000, nullable = false)
     private String content;
 
     @NotNull
-    @Column(name = "SentDate", nullable = false)
+    @Column(name = "sentdate", nullable = false)
     private LocalDateTime sentdate;
 
-    @Column(name = "ReadDate")
+    @Column(name = "readdate")
     private LocalDateTime readdate;
 }

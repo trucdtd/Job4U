@@ -21,38 +21,38 @@ public class JoblistingsEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "JobID")
+    @Column(name = "jobid")
     private Integer jobid;
 
     @NotNull
-    @Column(name = "JobTitle", length = 100, nullable = false)
+    @Column(name = "jobtitle", length = 100, nullable = false)
     private String jobtitle;
 
     @NotNull
-    @Column(name = "JobDescription", length = 1000, nullable = false)
+    @Column(name = "jobdescription", length = 1000, nullable = false)
     private String jobdescription;
 
     @NotNull
-    @Column(name = "JobRequirements", length = 1000, nullable = false)
+    @Column(name = "jobrequirements", length = 1000, nullable = false)
     private String jobrequirements;
 
     @NotNull
-    @Column(name = "JobLocation", length = 100, nullable = false)
+    @Column(name = "joblocation", length = 100, nullable = false)
     private String joblocation;
 
-    @Column(name = "Salary", length = 50)
+    @Column(name = "salary", length = 50)
     private String salary;
 
     @NotNull
-    @Column(name = "JobType", length = 50, nullable = false)
+    @Column(name = "jobtype", length = 50, nullable = false)
     private String jobtype;
 
     @NotNull
-    @Column(name = "PostedDate", nullable = false)
+    @Column(name = "posteddate", nullable = false)
     private LocalDateTime posteddate;
 
     @NotNull
-    @Column(name = "ApplicationDeadline", nullable = false)
+    @Column(name = "applicationdeadline", nullable = false)
     private LocalDateTime applicationdeadline;
 
     @NotNull

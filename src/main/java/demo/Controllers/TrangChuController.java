@@ -38,32 +38,28 @@ public class TrangChuController {
 
 	@RequestMapping("")
 	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page) {
-		/*
-		 * // Phân trang Pageable pageable = PageRequest.of(page.orElse(0), 6);
-		 * Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
-		 * model.addAttribute("dsSP", dsSP);
-		 */
+		// Phân trang
+		Pageable pageable = PageRequest.of(page.orElse(0), 6);
+		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
+		model.addAttribute("dsSP", dsSP);
 		return "trangChu";
 	}
-	
+
 	@RequestMapping("/userManager")
-	public String quanlyUser(
-			) {
-		
+	public String quanlyUser() {
+
 		return "quanlyuser";
 	}
-	
+
 	@RequestMapping("/userManager/detailUser")
-	public String chiTietTaiKhoan(
-			) {
-		
+	public String chiTietTaiKhoan() {
+
 		return "chiTietTaiKhoan";
 	}
-	
+
 	@RequestMapping("/userManager/detailPost")
-	public String chiTietBaiViet(
-			) {
-		
+	public String chiTietBaiViet() {
+
 		return "chiTietBaiViet";
 	}
 }

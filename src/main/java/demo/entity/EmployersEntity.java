@@ -20,33 +20,33 @@ public class EmployersEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EmployerID")
+    @Column(name = "employerid")
     private Integer employerid;
 
     @NotNull
-    @Column(name = "CompanyName", length = 100, nullable = false)
-    private String companyName;
+    @Column(name = "companyname", length = 100, nullable = false)
+    private String companyname;
 
-    @Column(name = "CompanyWebsite", length = 100)
-    private String companyWebsite;
+    @Column(name = "companywebsite", length = 100)
+    private String companywebsite;
 
-    @Column(name = "CompanyDescription", length = 1000)
-    private String companyDescription;
+    @Column(name = "companydescription", length = 1000)
+    private String companydescription;
 
-    @Column(name = "Address", length = 100)
+    @Column(name = "address", length = 100)
     private String address;
 
-    @Column(name = "Industry", length = 100)
+    @Column(name = "industry", length = 100)
     private String industry;
 
-    @Column(name = "ContactPerson", length = 50)
-    private String contactPerson;
+    @Column(name = "contactperson", length = 50)
+    private String contactperson;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
     private UsersEntity user;
 
-    @Column(name = "Logo")
+    @Column(name = "logo")
     private byte[] logo;
 }

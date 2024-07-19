@@ -24,7 +24,7 @@ public class ApplicationsEntity implements Serializable {
     private Integer applicationid;
 
     @NotNull
-    @Column(name = "applicationDate")
+    @Column(name = "applicationdate")
     private LocalDateTime applicationdate;
 
     @Column(name = "status", length = 50)
@@ -38,11 +38,11 @@ public class ApplicationsEntity implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "JobID", nullable = false)  // Chỉ định tên cột trong bảng Applications và không cho phép null
+    @JoinColumn(name = "jobid", nullable = false)  // Chỉ định tên cột trong bảng Applications và không cho phép null
     private JoblistingsEntity job;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "JobSeekerID", nullable = false)  // Chỉ định tên cột trong bảng Applications và không cho phép null
+    @JoinColumn(name = "jobSeekerid", nullable = false)  // Chỉ định tên cột trong bảng Applications và không cho phép null
     private JobSeekersEntity jobseeker;
 }
