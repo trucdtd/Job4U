@@ -182,7 +182,7 @@
 									</div>
 									<div class="col-md-6">
 										<label for="jobrequirements">Yêu Cầu công việc:</label>
-										<textarea name="jobrequirements" rows="3" cols="32"
+										<textarea name="jobrequirements" rows="3" cols="46"
 											placeholder="Yêu cầu công việc" required></textarea>
 									</div>
 								</div>
