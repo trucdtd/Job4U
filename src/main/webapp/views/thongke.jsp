@@ -21,7 +21,7 @@
 			<h1>THONG KE</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="/job4u">Home</a></li>
+					<li class="breadcrumb-item"><a href="/job4u/userManager/detailPost">Home</a></li>
 					<li class="breadcrumb-item active">Thống kê chi tiết</li>
 				</ol>
 			</nav>
