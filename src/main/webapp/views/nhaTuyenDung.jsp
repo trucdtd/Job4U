@@ -77,12 +77,52 @@ body {
 				<!-- đăng bài tuyển dụng -->
 				<div class="content" id="page1">
 					<div class="container mt-5">
-						<h1>Đăng bài tuyển dụng</h1>
+						<h1 class="text-center mb-3">Đăng bài tuyển dụng</h1>
 						<form action="" method="post">
 							<div class="mb-3">
 								<label for="companyName" class="form-label">Tên công ty</label>
 								<input type="text" class="form-control" id="companyName"
 									name="companyName" required>
+							</div>
+
+							<div class="mb-3">
+								<label for="CompanyWebsite" class="form-label">Tên web
+									công ty</label> <input type="text" class="form-control"
+									id="CompanyWebsite" name="CompanyWebsite">
+							</div>
+
+							<div class="mb-3">
+								<label for="Address" class="form-label">Địa chỉ công ty
+								</label> <input type="text" class="form-control" id="Address"
+									name="Address">
+							</div>
+
+							<div class="mb-3">
+								<label for="Industry" class="form-label">Ngành nghề</label> <select
+									class="form-control" id="Industry" name="Industry" required>
+									<option value="" disabled selected>Chọn ngành nghề</option>
+									<option value="agriculture">Nông nghiệp</option>
+									<option value="industry">Công nghiệp</option>
+									<option value="services">Dịch vụ</option>
+									<option value="construction">Xây dựng</option>
+									<option value="transportation">Giao thông vận tải</option>
+									<option value="it">Công nghệ thông tin</option>
+									<option value="finance">Tài chính</option>
+									<option value="education">Giáo dục</option>
+									<option value="healthcare">Y tế</option>
+									<option value="media">Truyền thông</option>
+									<option value="automotive-technology">Công nghệ ô tô</option>
+									<option value="tourism">Du lịch</option>
+									<option value="office">Hành chính văn phòng</option>
+									<option value="other">Khác...</option>
+								</select>
+							</div>
+
+							<div class="mb-3">
+								<label for="CompanyDescription" class="form-label">Mô tả
+									công ty</label>
+								<textarea class="form-control" id="CompanyDescription"
+									name="CompanyDescription" rows="4"></textarea>
 							</div>
 
 							<div class="mb-3">
@@ -134,7 +174,8 @@ body {
 									id="applicationDeadline" name="applicationDeadline" required>
 							</div>
 
-							<button type="submit" class="btn text-light" style="background-color: #00688B">Đăng bài</button>
+							<button type="submit" class="btn text-light"
+								style="background-color: #00688B">Đăng bài</button>
 						</form>
 					</div>
 				</div>
