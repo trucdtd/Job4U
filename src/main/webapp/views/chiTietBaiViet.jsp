@@ -86,11 +86,22 @@
 					<!-- Home table -->
 					<div id="home" class="card">
 						<div class="card-header">
-							<div class="card-title">Home</div>
+							<h5 class="card-title">
+										Biều Đồ <span>
+									</h5>
 						</div>
 						<div class="card-body p-0">
-							<p>Welcome to the Home page!</p>
+							<div class="card-body">
+									<div class="panel panel-default">
+                                <!-- /.panel-heading -->
+                                
+                                <!-- /.panel-body -->
+                            		</div>
+							</div>
 						</div>
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  								<a href="/Thongke" class="btn btn-primary me-md-2" type="button">Xem chi tiết</a>
+							</div>
 					</div>
 
 					<!-- User Management table -->
