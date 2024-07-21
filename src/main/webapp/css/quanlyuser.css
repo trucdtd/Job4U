@@ -1,3 +1,9 @@
+/* Chỉ định màu chữ và màu nền cho nav-pills */
+.active  {
+    background-color: #00688B; /* Màu nền */
+}
+
+
 .gg-check {
   box-sizing: border-box;
   position: relative;
@@ -43,7 +49,7 @@
     position: absolute;
     width: 45px;
     height: 45px;
-    background: #5867dd;
+    background:#00688B;
     top: 50%;
     left: -45px;
     transform: translateY(-50%);
@@ -68,7 +74,7 @@
     color: #ffffff;
     border-top-left-radius: 5px;
     border-bottom: 1px solid #ebedf2;
-    background: #5867dd; }
+    background:#00688B; }
   .custom-template .custom-content {
     padding: 20px 15px;
     max-height: calc(100vh - 90px);
@@ -99,7 +105,7 @@
       position: relative;
       transition: all .2s; }
       .custom-template .btnSwitch button:hover {
-        border-color: #0bf; }
+        border-color:#00688B; }
       .custom-template .btnSwitch button.selected {
         border-color: #0bf;
         display: inline-flex;

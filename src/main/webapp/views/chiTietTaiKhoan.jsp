@@ -24,24 +24,18 @@
 				<!-- aside -->
 				<div class="col-md-3">
 					<div
-						class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
-						style="width: 260px;">
+						class="d-flex flex-column flex-shrink-0 p-3 text-white"
+						style="width: 260px; background: #00688B">
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-2" width="25" height="25">
                             <use xlink:href="#bootstrap"></use>
-                        </svg> <span class="card-title"> Menu User
+                        </svg> <span class="card-title">Menu User
 								Management</span>
 						</a>
 						<hr>
 						<ul class="nav nav-pills flex-column mb-auto">
-							<li class="nav-item"><a href="#" class="nav-link active"
-								aria-current="page" onclick="showTable(event, 'home')"> <svg
-										class="bi me-2" width="16" height="16">
-                                    <use xlink:href="#home"></use>
-                                </svg> Home
-							</a></li>
-							<li><a href="#" class="nav-link text-white"
+							<li><a href="#" class="nav-link text-white active"
 								onclick="showTable(event, 'userManagement')"> <svg
 										class="bi me-2" width="16" height="16">
                                     <use xlink:href="#speedometer2"></use>
@@ -58,6 +52,12 @@
 										class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
+							</a></li>
+							<li class="nav-item"><a href="#" class="nav-link text-white"
+								aria-current="page" onclick="showTable(event, 'home')"> <svg
+										class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#home"></use>
+                                </svg> Dịch Vụ Bài Đăng
 							</a></li>
 						</ul>
 						<hr>
@@ -100,97 +100,48 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<form class=" p-4 border border-1" action="/user/" method="post"
-									style="border-radius: 15px;">
-									<div class="row g-3">
-										<!-- Thông báo lỗi -->
-										<c:if test="${not empty error}">
-											<div class="alert alert-danger" role="alert">${error}</div>
-										</c:if>
-										<!-- Dòng 1: Mã ND và Email -->
-										<div class="col-12">
-											<div class="row">
-												<div class="col-md-3">
-													<label for="userid" class="form-label">Mã ND:</label>
-												</div>
-												<div class="col-md-9">
-													<input type="text" class="form-control" id="userid"
-														name="userid" value="${nd.userid}" readonly>
-												</div>
-											</div>
+								<form class="p-4 border" action="" method="post">
+									<div class="row p-2">
+										<div class="col-md-6">
+											<label for="username" class="form-label">Tên tài
+												khoản</label> <input type="text" class="form-control" id="username"
+												name="username" required>
 										</div>
-										<div class="col-12">
-											<div class="row">
-												<div class="col-md-3">
-													<label for="email" class="form-label">Email:</label>
-												</div>
-												<div class="col-md-9">
-													<input type="text" class="form-control" id="email"
-														name="email" value="${nd.email}">
-												</div>
-											</div>
+										<div class="col-md-6">
+											<label for="fullname" class="form-label">Họ và tên</label> <input
+												type="text" class="form-control" id="fullname"
+												name="fullname" required>
 										</div>
-										<!-- Dòng 2: Tên ĐN và Mật Khẩu -->
-										<div class="col-12">
-											<div class="row">
-												<div class="col-md-3">
-													<label for="username" class="form-label">Tên ĐN:</label>
-												</div>
-												<div class="col-md-9">
-													<input type="text" class="form-control" id="username"
-														name="username" value="${nd.username}">
-												</div>
-											</div>
+									</div>
+
+									<div class="row p-2">
+										<div class="col-md-6">
+											<label for="email" class="form-label">Email</label> <input
+												type="text" class="form-control" id="email" name="email"
+												required>
 										</div>
-										<div class="col-12">
-											<div class="row">
-												<div class="col-md-3">
-													<label for="password" class="form-label">Mật Khẩu:</label>
-												</div>
-												<div class="col-md-9">
-													<input type="password" class="form-control" id="password"
-														name="password" value="${nd.password}">
-												</div>
-											</div>
+										<div class="col-md-6">
+											<label for="phonenumber" class="form-label">Số điện
+												thoại</label> <input type="text" class="form-control"
+												id="phonenumber" name="phonenumber" required>
 										</div>
-										<!-- Dòng 3: Vai Trò -->
-										<div class="col-12">
-											<div class="row">
-												<div class="col-md-3">
-													<label for="role" class="form-label">Vai Trò:</label>
-												</div>
-												<div class="col-md-9">
-													<input type="text" class="form-control" id="role"
-														name="role" value="${nd.role}">
-												</div>
-											</div>
-										</div>
-										<!-- Dòng 4: Số ĐT và Logo -->
-										<div class="col-12">
-											<div class="row">
-												<div class="col-md-3">
-													<label for="phonenumber" class="form-label">Số ĐT:</label>
-												</div>
-												<div class="col-md-5">
-													<input type="text" class="form-control" id="phonenumber"
-														name="phonenumber" value="${nd.phonenumber}">
-												</div>
-												<div class="col-md-4">
-													<img src="/img/logo.png" class="img-fluid" alt="Logo">
-												</div>
-											</div>
+									</div>
+
+									<div class="row p-2">
+										<div class="col-md-6">
+											<label class="g-2" for="role">Vai Trò</label> <select  name="role"
+												class="form-select" required>
+												<option value="Ứng Viên">Ứng Viên</option>
+												<option value="Nhà Tuyển Dụng">Nhà Tuyển Dụng</option>
+											</select>
 										</div>
 									</div>
 									<hr>
-									<!-- <div class="d-grid gap-2 d-md-block">
-               						 <button class="btn btn-outline-success" type="button" style="margin-left: 45%;">Sửa</button>
-            						</div> -->
-									<div class="row" style="margin-top: 10px;">
+									<div class="row p-2" style="margin-top: 10px;">
 										<div class="card-action">
-                    					<button class="btn btn-success">Submit</button>
-                    					<button class="btn btn-danger">Cancel</button>
-                  						</div>
-
+											<button class="btn btn-success">Update</button>
+											<button class="btn btn-danger">Cancel</button>
+										</div>
 									</div>
 								</form>
 							</div>
