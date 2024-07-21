@@ -13,8 +13,30 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
+<style>
+.sidebar a {
+	color: white;
+	text-decoration: none;
+	padding: 10px 20px;
+	display: block;
+}
 
+.sidebar a:hover {
+	background-color: #0056b3; /* Màu xanh dương đậm hơn khi hover */
+}
 
+.content {
+	flex-grow: 1;
+	padding: 20px;
+	background-color: #f8f9fa; /* Màu nền cho khu vực nội dung */
+	display: none; /* Ẩn tất cả các phần nội dung */
+}
+
+.content.active {
+	display: block; /* Hiển thị phần nội dung được chọn */
+}
+</style>
+<link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
 	<div class="container">
