@@ -5,10 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/Thongke")
 public class ThongKeController {
-	@RequestMapping("")
+	@RequestMapping("/thongke")
 	public String thongKe() {
-		return "thongke";
+		return "header";
 	}
 }
