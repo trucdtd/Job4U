@@ -103,7 +103,7 @@
 
 			<!-- Copyright -->
 			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-				© 2024 Copyright: <a class="text-light" href="https://mdbootstrap.com/">Job4U</a>
+				© 2024 Copyright: <a class="text-light" href="/job4u">Job4U</a>
 			</div>
 			<!-- Copyright -->
 		</footer>
