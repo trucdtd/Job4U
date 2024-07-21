@@ -45,7 +45,7 @@
 									Đáp</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">Top
 									Công Việc</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">Nhà
+							<li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà
 									Tuyển Dụng</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">Ứng
 									Tuyển</a></li>
