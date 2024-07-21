@@ -42,7 +42,7 @@
 	<div class="container">
 		<!-- header -->
 		<%@ include file="/views/header.jsp"%>
-		
+
 		<!-- header -->
 		<div class="container">
 			<div class="row">
@@ -113,8 +113,7 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<!-- đăng bài tuyển dụng -->
-								<div class="content" id="page1">
+								<div class="card-body p-0">
 									<form class="p-4" action="" method="post">
 										<div class="row p-2">
 											<div class="col-md-6">
@@ -221,93 +220,90 @@
 									</form>
 								</div>
 							</div>
-							<!-- /đăng bài tuyển dụng -->
 						</div>
-					</div>
 
 
-					<!-- Post Management table -->
-					<div id="postManagement" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Quản Lý Bài Viết</div>
+						<!-- Post Management table -->
+						<div id="postManagement" class="card" style="display: none;">
+							<div class="card-header">
+								<div class="card-title">Quản Lý Bài Viết</div>
+							</div>
+							<div class="card-body p-0">
+								<div class="table-responsive">
+									<table class="table align-items-center mb-0">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Job Title</th>
+												<th scope="col">Company Name</th>
+												<th scope="col">Job Requirenments</th>
+												<th scope="col">Job Location</th>
+												<th scope="col">Salary</th>
+												<th scope="col">Job Description</th>
+												<th scope="col">Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th scope="row">Developer</th>
+												<td>Công ty F</td>
+												<td>Requirements for Developer position</td>
+												<td>Ho Chi Minh City</td>
+												<td>Negotiable</td>
+												<td>Job description for Developer position</td>
+												<td><button class="btn btn-success">Detail</button>
+													<hr>
+													<button class="btn btn-danger">Delete</button></td>
+											</tr>
+											<!-- Add more rows as needed -->
+										</tbody>
+									</table>
+								</div>
+							</div>
 						</div>
-						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">Job Title</th>
-											<th scope="col">Company Name</th>
-											<th scope="col">Job Requirenments</th>
-											<th scope="col">Job Location</th>
-											<th scope="col">Salary</th>
-											<th scope="col">Job Description</th>
-											<th scope="col">Action</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">Developer</th>
-											<td>Công ty F</td>
-											<td>Requirements for Developer position</td>
-											<td>Ho Chi Minh City</td>
-											<td>Negotiable</td>
-											<td>Job description for Developer position</td>
-											<td><button class="btn btn-success">Detail</button>
-												<hr>
-												<button class="btn btn-danger">Delete</button></td>
-										</tr>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
+
+						<!-- CV Management table -->
+						<div id="cvManagement" class="card" style="display: none;">
+							<div class="card-header">
+								<div class="card-title">Quản Lý CV</div>
+							</div>
+							<div class="card-body p-0">
+								<div class="table-responsive">
+									<table class="table align-items-center mb-0">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">CVID</th>
+												<th scope="col">Name</th>
+												<th scope="col">Position</th>
+												<th scope="col">Date Submitted</th>
+												<th scope="col">Status</th>
+												<th scope="col">Button</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th scope="row">1</th>
+												<td>Alex Smith</td>
+												<td>Developer</td>
+												<td>2023-01-05</td>
+												<td>Reviewed</td>
+												<td>
+													<button class="btn btn-success">Detail</button>
+												</td>
+											</tr>
+											<!-- Add more rows as needed -->
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
-
-					<!-- CV Management table -->
-					<div id="cvManagement" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Quản Lý CV</div>
-						</div>
-						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">CVID</th>
-											<th scope="col">Name</th>
-											<th scope="col">Position</th>
-											<th scope="col">Date Submitted</th>
-											<th scope="col">Status</th>
-											<th scope="col">Button</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>Alex Smith</td>
-											<td>Developer</td>
-											<td>2023-01-05</td>
-											<td>Reviewed</td>
-											<td>
-												<button class="btn btn-success">Detail</button>
-											</td>
-										</tr>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+					<!-- article -->
 				</div>
-				<!-- article -->
 			</div>
+			<!-- footer -->
+			<%@ include file="/views/footer.jsp"%>
+			<!-- footer -->
 		</div>
-		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
-		<!-- footer -->
-	</div>
-
 </body>
 <script>
 	function showTable(event, tableId) {
