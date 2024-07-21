@@ -51,6 +51,7 @@ body {
 	display: block; /* Hiển thị phần nội dung được chọn */
 }
 </style>
+<link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
 	<div class="container">
