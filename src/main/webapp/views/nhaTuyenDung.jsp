@@ -20,6 +20,7 @@
 	<div class="container">
 		<!-- header -->
 		<%@ include file="/views/header.jsp"%>
+		
 		<!-- header -->
 		<div class="container">
 			<div class="row">
