@@ -117,7 +117,7 @@
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
-									<form class="p-4" action="/job4u//employers/create" method="post">
+									<form class="p-4" action="/job4u/employers/create" method="post">
 										<div class="row p-2">
 											<div class="col-md-6">
 												<label for="companyname" class="form-label">Tên công
