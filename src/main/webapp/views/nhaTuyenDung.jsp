@@ -109,11 +109,9 @@
 
 					<!-- Bảng quản lý bài đăng-->
 					<div id="postEmployers" class="card" style="display: none;">
-
 						<div class="card-header">
 							<div class="card-title p-1">Đăng Bài Tuyển Dụng</div>
 						</div>
-
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
@@ -131,11 +129,10 @@
 													id="companywebsite" name="companywebsite">
 											</div>
 										</div>
-
 										<div class="row p-2">
 											<div class="col-md-6">
 												<label for="address" class="form-label">Địa chỉ công
-													ty </label> <input type="text" class="form-control" id="address"
+													ty</label> <input type="text" class="form-control" id="address"
 													name="address">
 											</div>
 											<div class="col-md-6">
@@ -161,10 +158,21 @@
 												</select>
 											</div>
 										</div>
-
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="jobTitle" class="form-label">Tiêu đề
+												<label for="contactperson" class="form-label">Người
+													liên hệ</label> <input type="text" class="form-control"
+													id="contactperson" name="contactperson">
+											</div>
+											<div class="col-md-6">
+												<label for="logo" class="form-label">Logo công ty</label> <input
+													type="file" class="form-control" id="logo" name="logo"
+													accept="image/*">
+											</div>
+										</div>
+										<div class="row p-2">
+											<div class="col-md-6">
+												<label for="jobtitle" class="form-label">Tiêu đề
 													công việc</label> <input type="text" class="form-control"
 													id="jobtitle" name="jobtitle" required>
 											</div>
@@ -174,22 +182,13 @@
 													name="salary" min="0">
 											</div>
 										</div>
-
 										<div class="row p-2">
-											<div class="col-md-6">
-												<label for="companydescription" class="form-label">Mô
-													tả công ty</label>
-												<textarea class="form-control" id="companydescription"
-													name="companydescription" rows="4"></textarea>
-											</div>
 											<div class="col-md-6">
 												<label for="jobrequirements" class="form-label">Yêu
 													cầu công việc</label>
 												<textarea class="form-control" id="jobrequirements"
 													name="jobrequirements" rows="4" required></textarea>
 											</div>
-										</div>
-										<div class="row p-2">
 											<div class="col-md-6">
 												<label for="joblocation" class="form-label">Địa điểm
 													làm việc</label>
@@ -264,6 +263,8 @@
 													<option value="Yên Bái">Yên Bái</option>
 												</select>
 											</div>
+										</div>
+										<div class="row p-2">
 											<div class="col-md-6">
 												<label for="jobtype" class="form-label">Loại công
 													việc</label> <select id="jobtype" name="jobtype"
@@ -278,14 +279,12 @@
 												</select>
 											</div>
 										</div>
-
 										<div class="row p-2">
 											<div class="col-md-6">
 												<label for="posteddate" class="form-label">Ngày đăng</label>
 												<input type="datetime-local" class="form-control"
 													id="posteddate" name="posteddate" required>
 											</div>
-
 											<div class="col-md-6">
 												<label for="applicationdeadline" class="form-label">Hạn
 													nộp hồ sơ</label> <input type="datetime-local" class="form-control"
@@ -294,7 +293,6 @@
 											</div>
 										</div>
 										<hr>
-
 										<button type="submit" class="btn text-light"
 											style="background-color: #00688B">Đăng bài</button>
 									</form>
