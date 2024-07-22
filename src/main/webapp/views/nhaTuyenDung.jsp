@@ -115,8 +115,8 @@
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
-									<form class="p-4" action="/job4u/employers/create"
-										method="post">
+									<form class="p-4" action="/job4u/employers/submit"
+										method="post" id="nhaTuyenDung">
 										<div class="row p-2">
 											<div class="col-md-6">
 												<label for="companyname" class="form-label">Tên công
@@ -177,9 +177,12 @@
 													id="jobtitle" name="jobtitle" required>
 											</div>
 											<div class="col-md-6">
-												<label for="salary" class="form-label">Lương</label> <input
-													type="number" class="form-control" id="salary"
-													name="salary" min="0">
+												<label for="salary" class="form-label">Lương</label>
+												<div class="input-group">
+													<span class="input-group-text">$</span> <input
+														type="number" class="form-control salary-input"
+														id="salary" name="salary" min="0">
+												</div>
 											</div>
 										</div>
 										<div class="row p-2">

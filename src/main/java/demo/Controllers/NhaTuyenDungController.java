@@ -38,7 +38,8 @@ public class NhaTuyenDungController {
     public String nhaTuyenDung() {
         return "nhaTuyenDung";
     }
-    @PostMapping("/employers/create")
+
+    @PostMapping("/employers/submit")
     public String themTuyenDung(
             @RequestParam("companyname") String companyname,
             @RequestParam("companywebsite") String companywebsite,
@@ -82,10 +83,13 @@ public class NhaTuyenDungController {
         // Xử lý file logo
         if (!logo.isEmpty()) {
             try {
-                byte[] bytes = logo.getBytes();
-                Path path = Paths.get("upload-dir/" + logo.getOriginalFilename());
-                Files.write(path, bytes);
-                employer.setLogo(path.toString());
+                Path uploadDir = Paths.get("upload-dir");
+                if (!Files.exists(uploadDir)) {
+                    Files.createDirectories(uploadDir);
+                }
+                Path filePath = uploadDir.resolve(logo.getOriginalFilename());
+                logo.transferTo(filePath.toFile());  // Thay vì dùng Files.write
+                employer.setLogo(filePath.toString());
             } catch (IOException e) {
                 e.printStackTrace();
                 model.addAttribute("error", "Lỗi khi tải lên logo.");
@@ -106,8 +110,14 @@ public class NhaTuyenDungController {
 
         // Định dạng ngày từ chuỗi sang LocalDateTime
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        joblisting.setPosteddate(LocalDateTime.parse(posteddate, formatter));
-        joblisting.setApplicationdeadline(LocalDateTime.parse(applicationdeadline, formatter));
+        try {
+            joblisting.setPosteddate(LocalDateTime.parse(posteddate, formatter));
+            joblisting.setApplicationdeadline(LocalDateTime.parse(applicationdeadline, formatter));
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Ngày không hợp lệ.");
+            return "nhaTuyenDung";
+        }
 
         joblisting.setEmployer(employer);
 
