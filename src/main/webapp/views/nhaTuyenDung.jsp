@@ -95,6 +95,7 @@
 				</div>
 				<!-- aside -->
 				<!-- article -->
+				<!-- Quản Lý Tuyển Dụng -->
 				<div class="col-md-9">
 					<!-- Home table -->
 					<div id="employersManagement" class="card">
@@ -106,7 +107,7 @@
 						</div>
 					</div>
 
-					<!-- User Management table -->
+					<!-- Bảng quản lý bài đăng-->
 					<div id="postEmployers" class="card" style="display: none;">
 					
 						<div class="card-header">
@@ -116,29 +117,29 @@
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
-									<form class="p-4" action="" method="post">
+									<form class="p-4" action="//job4u//employers/create" method="post">
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="companyName" class="form-label">Tên công
-													ty</label> <input type="text" class="form-control" id="companyName"
-													name="companyName" required>
+												<label for="companyname" class="form-label">Tên công
+													ty</label> <input type="text" class="form-control" id="companyname"
+													name="companyname" required>
 											</div>
 											<div class="col-md-6">
-												<label for="CompanyWebsite" class="form-label">Tên
+												<label for="companywebsite" class="form-label">Tên
 													web công ty</label> <input type="text" class="form-control"
-													id="CompanyWebsite" name="CompanyWebsite">
+													id="companywebsite" name="companywebsite">
 											</div>
 										</div>
 
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="Address" class="form-label">Địa chỉ công
-													ty </label> <input type="text" class="form-control" id="Address"
-													name="Address">
+												<label for="address" class="form-label">Địa chỉ công
+													ty </label> <input type="text" class="form-control" id="address"
+													name="address">
 											</div>
 											<div class="col-md-6">
-												<label for="Industry" class="form-label">Ngành nghề</label>
-												<select class="form-control" id="Industry" name="Industry"
+												<label for="industry" class="form-label">Ngành nghề</label>
+												<select class="form-control" id="industry" name="industry"
 													required>
 													<option value="" disabled selected>Chọn ngành nghề</option>
 													<option value="agriculture">Nông nghiệp</option>
@@ -164,7 +165,7 @@
 											<div class="col-md-6">
 												<label for="jobTitle" class="form-label">Tiêu đề
 													công việc</label> <input type="text" class="form-control"
-													id="jobTitle" name="jobTitle" required>
+													id="jobtitle" name="jobtitle" required>
 											</div>
 											<div class="col-md-6">
 												<label for="salary" class="form-label">Lương</label> <input
@@ -175,43 +176,43 @@
 
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="CompanyDescription" class="form-label">Mô
+												<label for="companydescription" class="form-label">Mô
 													tả công ty</label>
-												<textarea class="form-control" id="CompanyDescription"
-													name="CompanyDescription" rows="4"></textarea>
+												<textarea class="form-control" id="companydescription"
+													name="companydescription" rows="4"></textarea>
 											</div>
 											<div class="col-md-6">
-												<label for="jobRequirements" class="form-label">Yêu
+												<label for="jobrequirements" class="form-label">Yêu
 													cầu công việc</label>
-												<textarea class="form-control" id="jobRequirements"
-													name="jobRequirements" rows="4" required></textarea>
+												<textarea class="form-control" id="jobrequirements"
+													name="jobrequirements" rows="4" required></textarea>
 											</div>
 										</div>
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="jobLocation" class="form-label">Địa điểm
+												<label for="joblocation" class="form-label">Địa điểm
 													làm việc</label> <input type="text" class="form-control"
-													id="jobLocation" name="jobLocation" required>
+													id="joblocation" name="joblocation" required>
 											</div>
 											<div class="col-md-6">
-												<label for="jobType" class="form-label">Loại công
-													việc</label> <input type="text" class="form-control" id="jobType"
-													name="jobType" required>
+												<label for="jobtype" class="form-label">Loại công
+													việc</label> <input type="text" class="form-control" id="jobtype"
+													name="jobtype" required>
 											</div>
 										</div>
 
 
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="postedDate" class="form-label">Ngày đăng</label>
+												<label for="posteddate" class="form-label">Ngày đăng</label>
 												<input type="datetime-local" class="form-control"
-													id="postedDate" name="postedDate" required>
+													id="posteddate" name="posteddate" required>
 											</div>
 
 											<div class="col-md-6">
-												<label for="applicationDeadline" class="form-label">Hạn
+												<label for="applicationdeadline" class="form-label">Hạn
 													nộp hồ sơ</label> <input type="datetime-local" class="form-control"
-													id="applicationDeadline" name="applicationDeadline"
+													id="applicationdeadline" name="applicationdeadline"
 													required>
 											</div>
 										</div>
@@ -225,7 +226,7 @@
 						</div>
 					</div>
 
-					<!-- Post Management table -->
+					<!-- Quản lý cv -->
 					<div id="cvApply" class="card">
 						
 						<div class="card-header">
@@ -256,7 +257,7 @@
 						</div>
 					</div>
 
-					<!-- CV Management table -->
+					<!-- Quản lý bài đăng -->
 					<div id="listEmployers" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Bài tuyển dụng</div>
@@ -267,7 +268,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- CV Management table -->
+					<!-- Dịch vụ -->
 					<div id="postingServices" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Dịch vụ bài đăng</div>
