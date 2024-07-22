@@ -276,6 +276,14 @@
 										</div>
 										<div class="row p-2">
 											<div class="col-md-12">
+												<label for="companydescription" class="form-label">Mô tả về công ty</label>
+												<textarea class="form-control" id="companydescription"
+													name="companydescription" rows="4" required></textarea>
+											</div>
+
+										</div>
+										<div class="row p-2">
+											<div class="col-md-12">
 												<label for="jobrequirements" class="form-label">Yêu
 													cầu công việc</label>
 												<textarea class="form-control" id="jobrequirements"
