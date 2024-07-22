@@ -34,6 +34,10 @@ public class NhaTuyenDungController {
     @Autowired
     private JoblistingsDao danhSachViecLamDao;
 
+    @RequestMapping("/employers")
+    public String nhaTuyenDung() {
+        return "nhaTuyenDung";
+    }
     @PostMapping("/employers/create")
     public String themTuyenDung(
             @RequestParam("companyname") String companyname,
