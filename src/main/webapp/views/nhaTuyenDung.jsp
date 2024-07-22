@@ -80,7 +80,7 @@
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'listEmployers')"> <svg
 										class="bi me-2" width="16" height="16">
-                                <use xlink:href="#grid"></use>
+                                <use xlink:href="#low"></use>
                                 </svg> Bài Tuyển Dụng
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
@@ -102,15 +102,17 @@
 							<div class="card-title">Quản Lý Tuyển Dụng</div>
 						</div>
 						<div class="card-body p-0">
-							<p>Welcome to the Home page!</p>
+							<a>xem thêm</a>
 						</div>
 					</div>
 
 					<!-- User Management table -->
 					<div id="postEmployers" class="card" style="display: none;">
+					
 						<div class="card-header">
 							<div class="card-title p-1">Đăng Bài Tuyển Dụng</div>
 						</div>
+
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
@@ -221,89 +223,71 @@
 								</div>
 							</div>
 						</div>
+					</div>
 
-
-						<!-- Post Management table -->
-						<div id="postManagement" class="card" style="display: none;">
-							<div class="card-header">
-								<div class="card-title">Quản Lý Bài Viết</div>
-							</div>
-							<div class="card-body p-0">
-								<div class="table-responsive">
-									<table class="table align-items-center mb-0">
-										<thead class="thead-light">
-											<tr>
-												<th scope="col">Job Title</th>
-												<th scope="col">Company Name</th>
-												<th scope="col">Job Requirenments</th>
-												<th scope="col">Job Location</th>
-												<th scope="col">Salary</th>
-												<th scope="col">Job Description</th>
-												<th scope="col">Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">Developer</th>
-												<td>Công ty F</td>
-												<td>Requirements for Developer position</td>
-												<td>Ho Chi Minh City</td>
-												<td>Negotiable</td>
-												<td>Job description for Developer position</td>
-												<td><button class="btn btn-success">Detail</button>
-													<hr>
-													<button class="btn btn-danger">Delete</button></td>
-											</tr>
-											<!-- Add more rows as needed -->
-										</tbody>
-									</table>
-								</div>
-							</div>
+					<!-- Post Management table -->
+					<div id="cvApply" class="card">
+						
+						<div class="card-header">
+							<div class="card-title">CV Ứng tuyển</div>
 						</div>
+						<div class="card-body p-0">
+							<table class="table align-items-center mb-0">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col">Tiêu để bài viết</th>
+										<th scope="col">Thông tin ứng tuyển</th>
+										<th scope="col">CV ứng tuyển</th>
+										<th scope="col">Thời gian nộp hồ sơ</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>Tuyển dụng nhân viên IT Java</th>
+										<td>Trần Thảo Trinh
+											<button class="btn btn-success">Xem thêm</button>
+										</td>
+										<td>CV ứng tuyển</td>
 
-						<!-- CV Management table -->
-						<div id="cvManagement" class="card" style="display: none;">
-							<div class="card-header">
-								<div class="card-title">Quản Lý CV</div>
-							</div>
-							<div class="card-body p-0">
-								<div class="table-responsive">
-									<table class="table align-items-center mb-0">
-										<thead class="thead-light">
-											<tr>
-												<th scope="col">CVID</th>
-												<th scope="col">Name</th>
-												<th scope="col">Position</th>
-												<th scope="col">Date Submitted</th>
-												<th scope="col">Status</th>
-												<th scope="col">Button</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">1</th>
-												<td>Alex Smith</td>
-												<td>Developer</td>
-												<td>2023-01-05</td>
-												<td>Reviewed</td>
-												<td>
-													<button class="btn btn-success">Detail</button>
-												</td>
-											</tr>
-											<!-- Add more rows as needed -->
-										</tbody>
-									</table>
-								</div>
+									</tr>
+									<!-- Add more rows as needed -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- CV Management table -->
+					<div id="listEmployers" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Bài tuyển dụng</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<p>thêm thông tin</p>
 							</div>
 						</div>
 					</div>
-					<!-- article -->
+					<!-- CV Management table -->
+					<div id="postingServices" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Dịch vụ bài đăng</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<p>thêm thông tin</p>
+							</div>
+						</div>
+					</div>
 				</div>
+				<!-- article -->
 			</div>
-			<!-- footer -->
-			<%@ include file="/views/footer.jsp"%>
-			<!-- footer -->
 		</div>
+		<!-- footer -->
+		<%@ include file="/views/footer.jsp"%>
+		<!-- footer -->
+	</div>
+
+
 </body>
 <script>
 	function showTable(event, tableId) {
