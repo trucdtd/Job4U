@@ -106,7 +106,6 @@
 										name="jobtitle" value="other"> <label
 										class="form-check-label" for="other">Khác....</label>
 								</div>
-								<!-- Thêm các vị trí khác nếu cần -->
 							</div>
 							<div class="col-md-12 mt-3">
 								<label class="form-label">Tỉnh/Thành phố</label> <select
