@@ -102,16 +102,17 @@
 							<div class="card-title">Quản Lý Tuyển Dụng</div>
 						</div>
 						<div class="card-body p-0">
-							<p>Welcome to the Home page!</p>
+							<a>xem thêm</a>
 						</div>
 					</div>
 
 					<!-- User Management table -->
 					<div id="postEmployers" class="card" style="display: none;">
+					
 						<div class="card-header">
 							<div class="card-title p-1">Đăng Bài Tuyển Dụng</div>
 						</div>
-						
+
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
@@ -224,48 +225,69 @@
 						</div>
 					</div>
 
-				<!-- Post Management table -->
-				<div id="cvApply" class="card">
-					<div class="card-header">
-						<div class="card-title">CV Ứng tuyển</div>
-					</div>
-					<div class="card-body p-0">
-						<p>Welcome to the Home page!</p>
-					</div>
-				</div>
+					<!-- Post Management table -->
+					<div id="cvApply" class="card">
+						
+						<div class="card-header">
+							<div class="card-title">CV Ứng tuyển</div>
+						</div>
+						<div class="card-body p-0">
+							<table class="table align-items-center mb-0">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col">Tiêu để bài viết</th>
+										<th scope="col">Thông tin ứng tuyển</th>
+										<th scope="col">CV ứng tuyển</th>
+										<th scope="col">Thời gian nộp hồ sơ</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>Tuyển dụng nhân viên IT Java</th>
+										<td>Trần Thảo Trinh
+											<button class="btn btn-success">Xem thêm</button>
+										</td>
+										<td>CV ứng tuyển</td>
 
-				<!-- CV Management table -->
-				<div id="listEmployers" class="card" style="display: none;">
-					<div class="card-header">
-						<div class="card-title">Bài tuyển dụng</div>
+									</tr>
+									<!-- Add more rows as needed -->
+								</tbody>
+							</table>
+						</div>
 					</div>
-					<div class="card-body p-0">
-						<div class="table-responsive">
-							<p>thêm thông tin</p>
+
+					<!-- CV Management table -->
+					<div id="listEmployers" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Bài tuyển dụng</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<p>thêm thông tin</p>
+							</div>
+						</div>
+					</div>
+					<!-- CV Management table -->
+					<div id="postingServices" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Dịch vụ bài đăng</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<p>thêm thông tin</p>
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- CV Management table -->
-				<div id="postingServices" class="card" style="display: none;">
-					<div class="card-header">
-						<div class="card-title">Dịch vụ bài đăng</div>
-					</div>
-					<div class="card-body p-0">
-						<div class="table-responsive">
-							<p>thêm thông tin</p>
-						</div>
-					</div>
-				</div>
+				<!-- article -->
 			</div>
-			<!-- article -->
 		</div>
-	</div>
-	<!-- footer -->
-	<%@ include file="/views/footer.jsp"%>
-	<!-- footer -->
+		<!-- footer -->
+		<%@ include file="/views/footer.jsp"%>
+		<!-- footer -->
 	</div>
 
-	</div>
+
 </body>
 <script>
 	function showTable(event, tableId) {
