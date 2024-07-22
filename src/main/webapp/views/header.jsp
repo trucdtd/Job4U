@@ -33,11 +33,11 @@
 					<div class="offcanvas-header">
 						<h5 class="text-light">Job for you</h5>
 						<img src="/img/icons8-close-50.png"
-							data-bs-dismiss="offcanvas" height="30px" width="30px" alt>
+							data-bs-dismiss="offcanvas" height="30px" width="30px">
 					</div>
 					<div class="offcanvas-body">
 						<ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-							<li class="nav-item"><a class="nav-link" href="#"><img
+							<li class="nav-item"><a class="nav-link" href="/job4u"><img
 									src="/img/icons8-home-50.png"
 									style="padding-bottom: 7px;" width="25px" height="30px" alt>
 									Trang Chủ</a></li>
