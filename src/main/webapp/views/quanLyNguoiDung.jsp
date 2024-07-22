@@ -13,6 +13,8 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
+
+
 </head>
 <body>
 	<div class="container">
@@ -24,8 +26,8 @@
 				<!-- aside -->
 				<div class="col-md-3">
 					<div
-						class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
-						style="width: 260px;">
+						class="d-flex flex-column flex-shrink-0 p-3 text-white "
+						style="width: 260px;background: #00688B " >
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-2" width="25" height="25">
@@ -35,13 +37,7 @@
 						</a>
 						<hr>
 						<ul class="nav nav-pills flex-column mb-auto">
-							<li class="nav-item"><a href="#" class="nav-link active"
-								aria-current="page" onclick="showTable(event, 'home')"> <svg
-										class="bi me-2" width="16" height="16">
-                                    <use xlink:href="#home"></use>
-                                </svg> Home
-							</a></li>
-							<li><a href="#" class="nav-link text-white"
+							<li><a href="#" class="nav-link text-white active"
 								onclick="showTable(event, 'userManagement')"> <svg
 										class="bi me-2" width="16" height="16">
                                     <use xlink:href="#speedometer2"></use>
@@ -58,6 +54,12 @@
 										class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
+							</a></li>
+							<li class="nav-item"><a href="#" class="nav-link text-white"
+								aria-current="page" onclick="showTable(event, 'home')"> <svg
+										class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#home"></use>
+                                </svg> Dịch Vụ Bài Đăng
 							</a></li>
 						</ul>
 						<hr>
@@ -86,7 +88,7 @@
 					<!-- Home table -->
 					<div id="home" class="card">
 						<div class="card-header">
-							<div class="card-title">Home</div>
+							<div class="card-title">Dịch Vụ Bài Đăng</div>
 						</div>
 						<div class="card-body p-0">
 							<p>Welcome to the Home page!</p>
