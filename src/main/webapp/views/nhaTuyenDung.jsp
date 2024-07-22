@@ -177,22 +177,6 @@
 													id="jobtitle" name="jobtitle" required>
 											</div>
 											<div class="col-md-6">
-												<label for="salary" class="form-label">Lương</label>
-												<div class="input-group">
-													<span class="input-group-text">$</span> <input
-														type="number" class="form-control salary-input"
-														id="salary" name="salary" min="0">
-												</div>
-											</div>
-										</div>
-										<div class="row p-2">
-											<div class="col-md-6">
-												<label for="jobrequirements" class="form-label">Yêu
-													cầu công việc</label>
-												<textarea class="form-control" id="jobrequirements"
-													name="jobrequirements" rows="4" required></textarea>
-											</div>
-											<div class="col-md-6">
 												<label for="joblocation" class="form-label">Địa điểm
 													làm việc</label>
 												<!-- <input type="text" class="form-control"
@@ -281,6 +265,23 @@
 													<option value="freelance">Công việc tự do</option>
 												</select>
 											</div>
+											<div class="col-md-6">
+												<label for="salary" class="form-label">Lương</label>
+												<div class="input-group">
+													<span class="input-group-text">$</span> <input
+														type="number" class="form-control salary-input"
+														id="salary" name="salary" min="0">
+												</div>
+											</div>
+										</div>
+										<div class="row p-2">
+											<div class="col-md-12">
+												<label for="jobrequirements" class="form-label">Yêu
+													cầu công việc</label>
+												<textarea class="form-control" id="jobrequirements"
+													name="jobrequirements" rows="4" required></textarea>
+											</div>
+
 										</div>
 										<div class="row p-2">
 											<div class="col-md-6">
