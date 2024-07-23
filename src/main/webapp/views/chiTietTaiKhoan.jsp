@@ -24,8 +24,8 @@
 				<!-- aside -->
 				<div class="col-md-3">
 					<div
-						class="d-flex flex-column flex-shrink-0 p-3 text-white"
-						style="width: 260px; background: #00688B">
+						class="d-flex flex-column flex-shrink-0 p-3 text-white "
+						style="width: 260px;background: #00688B " >
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-2" width="25" height="25">
@@ -52,13 +52,21 @@
 										class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
+                                
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'home')"> <svg
+								aria-current="page" onclick="showTable(event, 'statisticalManagement')"> <svg
+										class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#home"></use>
+                                </svg> Quản Lý Thống Kê
+							</a></li>
+							<li class="nav-item"><a href="#" class="nav-link text-white"
+								aria-current="page" onclick="showTable(event, 'postService')"> <svg
 										class="bi me-2" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Dịch Vụ Bài Đăng
 							</a></li>
+							
 						</ul>
 						<hr>
 						<div class="dropdown">
@@ -69,14 +77,7 @@
 								alt="" width="30" height="30" class="rounded-circle me-2">
 								<strong>mdo</strong>
 							</a>
-							<ul class="dropdown-menu dropdown-menu-dark text-small shadow"
-								aria-labelledby="dropdownUser1" style="">
-								<li><a class="dropdown-item" href="#">New project...</a></li>
-								<li><a class="dropdown-item" href="#">Settings</a></li>
-								<li><a class="dropdown-item" href="#">Profile</a></li>
-								<li><hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item" href="#">Sign out</a></li>
-							</ul>
+							
 						</div>
 					</div>
 				</div>
@@ -86,7 +87,7 @@
 					<!-- Home table -->
 					<div id="home" class="card">
 						<div class="card-header">
-							<div class="card-title">Home</div>
+							<div class="card-title">Trang Quản Lý Admin</div>
 						</div>
 						<div class="card-body p-0">
 							<p>Welcome to the Home page!</p>
