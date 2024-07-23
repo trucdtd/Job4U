@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Detail User</title>
+<title>User Management</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -13,6 +13,8 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
+
+
 </head>
 <body>
 	<div class="container">
@@ -24,8 +26,8 @@
 				<!-- aside -->
 				<div class="col-md-3">
 					<div
-						class="d-flex flex-column flex-shrink-0 p-3 text-white"
-						style="width: 260px; background: #00688B">
+						class="d-flex flex-column flex-shrink-0 p-3 text-white "
+						style="width: 260px;background: #00688B " >
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-2" width="25" height="25">
@@ -86,7 +88,7 @@
 					<!-- Home table -->
 					<div id="home" class="card">
 						<div class="card-header">
-							<div class="card-title">Home</div>
+							<div class="card-title">Dịch Vụ Bài Đăng</div>
 						</div>
 						<div class="card-body p-0">
 							<p>Welcome to the Home page!</p>
@@ -100,50 +102,37 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<form class="p-4 border" action="" method="post">
-									<div class="row p-2">
-										<div class="col-md-6">
-											<label for="username" class="form-label">Tên tài
-												khoản</label> <input type="text" class="form-control" id="username"
-												name="username" required>
-										</div>
-										<div class="col-md-6">
-											<label for="fullname" class="form-label">Họ và tên</label> <input
-												type="text" class="form-control" id="fullname"
-												name="fullname" required>
-										</div>
-									</div>
+								<table class="table align-items-center mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">UserID</th>
+											<th scope="col">Username</th>
+											<th scope="col">Fullname</th>
+											<th scope="col">Email</th>
+											<th scope="col">PhoneNumber</th>
+											<th scope="col">Role</th>
+											<th scope="col">Button</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">1</th>
+											<td>john_doe</td>
+											<td>John Doe</td>
+											<td>john@example.com</td>
+											<td>1234567890</td>
+											<td>Admin</td>
+											<td>
 
-									<div class="row p-2">
-										<div class="col-md-6">
-											<label for="email" class="form-label">Email</label> <input
-												type="text" class="form-control" id="email" name="email"
-												required>
-										</div>
-										<div class="col-md-6">
-											<label for="phonenumber" class="form-label">Số điện
-												thoại</label> <input type="text" class="form-control"
-												id="phonenumber" name="phonenumber" required>
-										</div>
-									</div>
-
-									<div class="row p-2">
-										<div class="col-md-6">
-											<label class="g-2" for="role">Vai Trò</label> <select  name="role"
-												class="form-select" required>
-												<option value="Ứng Viên">Ứng Viên</option>
-												<option value="Nhà Tuyển Dụng">Nhà Tuyển Dụng</option>
-											</select>
-										</div>
-									</div>
-									<hr>
-									<div class="row p-2" style="margin-top: 10px;">
-										<div class="card-action">
-											<button class="btn btn-success">Update</button>
-											<button class="btn btn-danger">Cancel</button>
-										</div>
-									</div>
-								</form>
+                    					<button class="btn btn-success">Detail</button>
+                    					<button class="btn btn-danger">Delete</button>
+                  				
+											</td>
+											
+										</tr>
+										<!-- Add more rows as needed -->
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -164,6 +153,7 @@
 											<th scope="col">Job Location</th>
 											<th scope="col">Salary</th>
 											<th scope="col">Job Description</th>
+											<th scope="col">Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -174,6 +164,9 @@
 											<td>Ho Chi Minh City</td>
 											<td>Negotiable</td>
 											<td>Job description for Developer position</td>
+											<td><button class="btn btn-success">Detail</button>
+											<hr>
+                    					<button class="btn btn-danger">Delete</button> </td>
 										</tr>
 										<!-- Add more rows as needed -->
 									</tbody>
@@ -207,7 +200,9 @@
 											<td>Developer</td>
 											<td>2023-01-05</td>
 											<td>Reviewed</td>
-											<td><button>Edit</button></td>
+											<td>
+											<button class="btn btn-success">Detail</button>
+											</td>
 										</tr>
 										<!-- Add more rows as needed -->
 									</tbody>
@@ -226,29 +221,29 @@
 
 </body>
 <script>
-	function showTable(event, tableId) {
-		event.preventDefault(); // Ngăn chặn hành vi mặc định
+function showTable(event, tableId) {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định
 
-		// Ẩn tất cả các bảng
-		var tables = document.querySelectorAll('.col-md-9 .card');
-		tables.forEach(function(table) {
-			table.style.display = 'none';
-		});
+    // Ẩn tất cả các bảng
+    var tables = document.querySelectorAll('.col-md-9 .card');
+    tables.forEach(function(table) {
+        table.style.display = 'none';
+    });
 
-		// Hiển thị bảng được chọn
-		document.getElementById(tableId).style.display = 'block';
+    // Hiển thị bảng được chọn
+    document.getElementById(tableId).style.display = 'block';
 
-		// Loại bỏ lớp active khỏi tất cả các liên kết
-		var links = document.querySelectorAll('.nav-link');
-		links.forEach(function(link) {
-			link.classList.remove('active');
-		});
+    // Loại bỏ lớp active khỏi tất cả các liên kết
+    var links = document.querySelectorAll('.nav-link');
+    links.forEach(function(link) {
+        link.classList.remove('active');
+    });
 
-		// Thêm lớp active vào liên kết được bấm
-		var activeLink = document.querySelector('.nav-link[onclick*="'
-				+ tableId + '"]');
-		activeLink.classList.add('active');
-	}
+    // Thêm lớp active vào liên kết được bấm
+    var activeLink = document.querySelector('.nav-link[onclick*="' + tableId + '"]');
+    activeLink.classList.add('active');
+}
 </script>
 
+</html>
 </html>

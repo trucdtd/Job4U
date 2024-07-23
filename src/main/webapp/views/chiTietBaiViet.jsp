@@ -24,30 +24,24 @@
 				<!-- aside -->
 				<div class="col-md-3">
 					<div
-						class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
-						style="width: 260px;">
+						class="d-flex flex-column flex-shrink-0 p-3 text-white"
+						style="width: 260px; background: #00688B">
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-2" width="25" height="25">
                             <use xlink:href="#bootstrap"></use>
-                        </svg> <span class="card-title"> Menu User
+                        </svg> <span class="card-title">Menu User
 								Management</span>
 						</a>
 						<hr>
 						<ul class="nav nav-pills flex-column mb-auto">
-							<li class="nav-item"><a href="#" class="nav-link active"
-								aria-current="page" onclick="showTable(event, 'home')"> <svg
-										class="bi me-2" width="16" height="16">
-                                    <use xlink:href="#home"></use>
-                                </svg> Home
-							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'userManagement')"> <svg
 										class="bi me-2" width="16" height="16">
                                     <use xlink:href="#speedometer2"></use>
                                 </svg> Quản Lý Tài Khoản
 							</a></li>
-							<li><a href="#" class="nav-link text-white"
+							<li><a href="#" class="nav-link text-white active"
 								onclick="showTable(event, 'postManagement')"> <svg
 										class="bi me-2" width="16" height="16">
                                     <use xlink:href="#table"></use>
@@ -58,6 +52,12 @@
 										class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
+							</a></li>
+							<li class="nav-item"><a href="#" class="nav-link text-white"
+								aria-current="page" onclick="showTable(event, 'home')"> <svg
+										class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#home"></use>
+                                </svg> Dịch Vụ Bài Đăng
 							</a></li>
 						</ul>
 						<hr>
@@ -193,13 +193,13 @@
 									</div>
 									<div class="col-md-6">
 										<label for="jobrequirements">Yêu Cầu công việc:</label>
-										<textarea name="jobrequirements" rows="3" cols="32"
+										<textarea name="jobrequirements" rows="3" cols="46"
 											placeholder="Yêu cầu công việc" required></textarea>
 									</div>
 								</div>
 
 								<hr>
-								<div class="row" style="margin-top: 10px;">
+								<div class="row p-2" style="margin-top: 10px;">
 									<div class="card-action">
 										<button class="btn btn-success">Submit</button>
 										<button class="btn btn-danger">Cancel</button>
