@@ -14,6 +14,21 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style type="">
+/* Đảm bảo hình ảnh luôn có chiều cao và chiều rộng cố định */
+.card-body img {
+	max-width: 100%;
+	height: auto; /* Điều chỉnh chiều cao tự động để giữ nguyên tỷ lệ */
+	object-fit: cover; /* Đảm bảo ảnh bao phủ toàn bộ khung */
+}
+
+/* Nếu muốn chiều cao cố định */
+.card-body img {
+	height: 150px; /* hoặc giá trị bạn muốn */
+	width: 100%;
+	object-fit: cover;
+}
+</style>
 </head>
 <body>
 	<section style="background-color: #eee;">
