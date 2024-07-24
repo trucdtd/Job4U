@@ -219,34 +219,18 @@
 						<div class="card-header">
 							<div class="card-title">Quản Lý Thống Kê</div>
 						</div>
-						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">CVID</th>
-											<th scope="col">Name</th>
-											<th scope="col">Position</th>
-											<th scope="col">Date Submitted</th>
-											<th scope="col">Status</th>
-											<th scope="col">Button</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>Alex Smith</td>
-											<td>Developer</td>
-											<td>2023-01-05</td>
-											<td>Reviewed</td>
-											<td>
-											<button class="btn btn-success">Detail</button>
-											</td>
-										</tr>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
-							</div>
+						<div class="card-body">
+							<h5 class="card-title">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">Biểu Đồ</li>
+									<li class="breadcrumb-item"><a href="/Thongke">Thống kê chi tiết</a></li>
+								</ol>
+							</h5>
+							<div class="panel panel-default">
+                                <!-- /.panel-heading -->
+                                
+                                <!-- /.panel-body -->
+                            </div>		
 						</div>
 					</div>
 					
