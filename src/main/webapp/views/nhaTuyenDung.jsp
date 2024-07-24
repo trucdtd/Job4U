@@ -140,21 +140,20 @@
 												<select class="form-control" id="industry" name="industry"
 													required>
 													<option value="" disabled selected>Chọn ngành nghề</option>
-													<option value="agriculture">Nông nghiệp</option>
-													<option value="industry">Công nghiệp</option>
-													<option value="services">Dịch vụ</option>
+													<option value="Nông nghiệp">Nông nghiệp</option>
+													<option value="Công nghiệp">Công nghiệp</option>
+													<option value="Dịch vụ">Dịch vụ</option>
 													<option value="construction">Xây dựng</option>
-													<option value="transportation">Giao thông vận tải</option>
-													<option value="it">Công nghệ thông tin</option>
-													<option value="finance">Tài chính</option>
-													<option value="education">Giáo dục</option>
-													<option value="healthcare">Y tế</option>
-													<option value="media">Truyền thông</option>
-													<option value="automotive-technology">Công nghệ ô
-														tô</option>
-													<option value="tourism">Du lịch</option>
-													<option value="office">Hành chính văn phòng</option>
-													<option value="other">Khác...</option>
+													<option value="Giao thông vận tải">Giao thông vận tải</option>
+													<option value="Công nghệ thông tin<">Công nghệ thông tin</option>
+													<option value="Tài chính">Tài chính</option>
+													<option value="Giáo dục">Giáo dục</option>
+													<option value="Y tế">Y tế</option>
+													<option value="Truyền thông">Truyền thông</option>
+													<option value="Công nghệ ô tô">Công nghệ ô tô</option>
+													<option value="Du lịch">Du lịch</option>
+													<option value="Hành chính văn phòng">Hành chính văn phòng</option>
+													<option value="Khác">Khác...</option>
 												</select>
 											</div>
 										</div>

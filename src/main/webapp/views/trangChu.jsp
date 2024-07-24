@@ -14,156 +14,156 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </head>
 <style>
-        #contact-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
+#contact-widget {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+}
 
-        .chat-button, .form-button {
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            position: absolute;
-        }
+.chat-button, .form-button {
+	border: none;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 24px;
+	cursor: pointer;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	position: absolute;
+}
 
-        #contact-button {
-            background-color: #007bff;
-            border-radius: 50%;
-            color: white;
-            bottom: 0;
-            right: 0;
-        }
+#contact-button {
+	background-color: #007bff;
+	border-radius: 50%;
+	color: white;
+	bottom: 0;
+	right: 0;
+}
 
-        #additional-button {
-            background-color: #6c757d;
-            border-radius: 50%;
-            color: white;
-            bottom: 70px; /* Đặt cách nút chat một khoảng */
-            right: 0;
-        }
+#additional-button {
+	background-color: #6c757d;
+	border-radius: 50%;
+	color: white;
+	bottom: 70px; /* Đặt cách nút chat một khoảng */
+	right: 0;
+}
 
-        #contact-button-container {
-            display: flex;
-            align-items: center;
-            position: relative;
-            width: 200px;
-        }
-        
-        .gy {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px; /* Khoảng cách giữa các phần tử */
-        }
+#contact-button-container {
+	display: flex;
+	align-items: center;
+	position: relative;
+	width: 200px;
+}
 
-        .gy label {
-            margin: 5px 0; /* Khoảng cách dọc giữa các nhãn */
-        }
+.gy {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px; /* Khoảng cách giữa các phần tử */
+}
 
-        .gy input {
-            margin-right: 5px; /* Khoảng cách ngang giữa checkbox và nhãn */
-        }
+.gy label {
+	margin: 5px 0; /* Khoảng cách dọc giữa các nhãn */
+}
 
-        .chat-content {
-            display: flex;
-            align-items: center;
-            color: white;
-            background-color: #007bff;
-            border-radius: 50px;
-            padding: 10px;
-            margin-left: 10px;
-        }
-        
-         #message {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 320px;
-            border-radius: 8px;
-        }
-        
-        #message .btn-close {
-            float: right;
-            margin-left: 10px;
-        }
+.gy input {
+	margin-right: 5px; /* Khoảng cách ngang giữa checkbox và nhãn */
+}
 
-        #popup-form {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 700px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            z-index: 2000;
-        }
+.chat-content {
+	display: flex;
+	align-items: center;
+	color: white;
+	background-color: #007bff;
+	border-radius: 50px;
+	padding: 10px;
+	margin-left: 10px;
+}
 
-        #popup-form .btn-close {
-            float: right;
-            margin-left: 10px;
-        }
-        
-        .rating {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
+#message {
+	position: absolute;
+	bottom: 80px;
+	right: 0;
+	width: 320px;
+	border-radius: 8px;
+}
 
-        .stars {
-            display: flex;
-            margin: 0 10px;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
+#message .btn-close {
+	float: right;
+	margin-left: 10px;
+}
 
-        .stars input {
-            display: none;
-        }
+#popup-form {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 700px;
+	background-color: white;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	padding: 20px;
+	z-index: 2000;
+}
 
-        .stars label {
-            font-size: 2rem;
-            cursor: pointer;
-            margin: 0 53px; /* Khoảng cách giữa các ngôi sao */
-        }
+#popup-form .btn-close {
+	float: right;
+	margin-left: 10px;
+}
 
-        .stars input:checked ~ label {
-            color: gold;
-        }
+.rating {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 20px;
+}
 
-        .stars label:hover,
-        .stars label:hover ~ label {
-            color: gold;
-        }
+.stars {
+	display: flex;
+	margin: 0 10px;
+	justify-content: center;
+	margin-bottom: 10px;
+}
 
-        .star-labels {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
+.stars input {
+	display: none;
+}
 
-        .star-labels div {
-            width: 20%;
-            text-align: center;
-            font-size: 1rem;
-            margin-top: -10px;
-        }
-    </style>
+.stars label {
+	font-size: 2rem;
+	cursor: pointer;
+	margin: 0 53px; /* Khoảng cách giữa các ngôi sao */
+}
+
+.stars input:checked ~ label {
+	color: gold;
+}
+
+.stars label:hover, .stars label:hover ~ label {
+	color: gold;
+}
+
+.star-labels {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.star-labels div {
+	width: 20%;
+	text-align: center;
+	font-size: 1rem;
+	margin-top: -10px;
+}
+</style>
 <body>
 	<div class="container">
 		<!-- header -->
@@ -176,81 +176,68 @@
 					<form action="/job4u/findJob" method="GET">
 						<div class="row mt-3">
 							<div class="col-md-12">
-								<label class="form-label">Ngành nghề</label>
+								<label class="form-label" id="industry" name="industry">Ngành
+									nghề</label>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox"
-										id="agriculture" name="jobtitle" value="agriculture">
-									<label class="form-check-label" for="agriculture">Nông
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Nông nghiệp"> <label class="form-check-label">Nông
 										nghiệp</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="industry"
-										name="jobtitle" value="industry"> <label
-										class="form-check-label" for="industry">Công nghiệp</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Công nghiệp"> <label class="form-check-label">Công nghiệp</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="services"
-										name="jobtitle" value="services"> <label
-										class="form-check-label" for="services">Dịch vụ</label>
+									<input class="form-check-input" type="checkbox" name="industry" value="Dịch vụ">
+									<label class="form-check-label">Dịch vụ</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="IT"
-										name="jobtitle" value="IT"> <label
-										class="form-check-label" for="manager">Công nghệ thông tin</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Công nghệ thông tin"> <label
+										class="form-check-label">Công nghệ thông tin</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox"
-										id="automotive-technology" name="jobtitle"
-										value="automotive-technology"> <label
-										class="form-check-label" for="automotive-technology">Công nghệ ô tô</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Công nghệ ô tô"> <label class="form-check-label">Công
+										nghệ ô tô</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox"
-										id="construction" name="jobtitle" value="construction">
-									<label class="form-check-label" for="construction">Xây
-										dựng</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Xây dựng"> <label class="form-check-label">Xây dựng</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox"
-										id="transportation" name="jobtitle" value="transportation">
-									<label class="form-check-label" for="transportation">Giao
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Giao thông vận tải"> <label
+										class="form-check-label">Giao
 										thông vận tải</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="finance"
-										name="jobtitle" value="finance"> <label
-										class="form-check-label" for="finance">Ngân hàng & Tài
-										chính</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Ngân hàng và Tài chính"> <label
+										class="form-check-label" for="finance">Ngân hàng và
+										Tài chính</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="education"
-										name="jobtitle" value="education"> <label
-										class="form-check-label" for="education">Giáo dục</label>
+									<input class="form-check-input" type="checkbox" name="industry" value="Giáo dục"> <label
+										class="form-check-label">Giáo dục</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="healthcare"
-										name="jobtitle" value="healthcare"> <label
+									<input class="form-check-input" type="checkbox" name="industry" value="Y tế"> <label
 										class="form-check-label" for="healthcare">Y tế</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="media"
-										name="jobtitle" value="media"> <label
+									<input class="form-check-input" type="checkbox" name="industry" value="Truyền thông"> <label
 										class="form-check-label" for="media">Truyền thông</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="tourism"
-										name="jobtitle" value="tourism"> <label
-										class="form-check-label" for="tourism">Du lịch</label>
+									<input class="form-check-input" type="checkbox" name="industry" value="Du lịch"> <label
+										class="form-check-label">Du lịch</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="office"
-										name="jobtitle" value="office"> <label
-										class="form-check-label" for="office">Hành chính văn
-										phòng</label>
+									<input class="form-check-input" type="checkbox" name="industry" value="Hành chính văn phòng"> <label class="form-check-label">Hành chính văn phòng</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="other"
-										name="jobtitle" value="other"> <label
+									<input class="form-check-input" type="checkbox" name="industry" value="Khác"> <label
 										class="form-check-label" for="other">Khác....</label>
 								</div>
 							</div>
@@ -340,113 +327,131 @@
 				<!-- /danh sách việc làm -->
 			</article>
 		</div>
-			<!-- Nút Chat và Nút Form -->
-    <div id="contact-widget">
-        <!-- Nút bổ sung nằm trên nút chat -->
-        <button id="additional-button" class="form-button btn btn-secondary">
-            <i class="fas fa-info"></i> <!-- Biểu tượng cho nút bổ sung -->
-        </button>
-        <button id="contact-button" class="chat-button btn btn-primary">
-            <i class="fas fa-comments"></i> <!-- Biểu tượng chat -->
-        </button>
-        <div id="message">
-            <button type="button" class="btn-close" aria-label="Close"></button>
-            <div class="list-group">
-                <a href="" class="list-group-item list-group-item-action active" aria-current="true">Trung tâm hỗ trợ</a>
-                <a href="#" class="list-group-item list-group-item-action">Hướng dẫn quản lý tài khoản</a>
-                <a href="#" class="list-group-item list-group-item-action">Yêu cầu hỗ trợ</a>
-                <a href="#" class="list-group-item list-group-item-action disabled" aria-disabled="true">Liên Hệ Job4u</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Form Popup -->
-    <div id="popup-form">
-        <button type="button" class="btn-close" aria-label="Close"></button>
-        <h4><b>Góp Ý và Phản Hồi</b></h4>
-        <form>
-            <a>Phản hồi của bạn rất quan trọng, Job4u mong nhận được nhiều góp ý từ bạn để cải thiện tốt hơn.</a>
-            <br>
-            <br>
-            <h6><b>Góp Ý</b></h6>
-            <div class="gy">
-            	<input type="checkbox" class="btn-check" id="btn-check-1" autocomplete="off">
-				<label class="btn btn-outline-success" for="btn-check-1" >Công cụ tạo CV</label>
-			<input type="checkbox" class="btn-check" id="btn-check-2" autocomplete="off">
-				<label class="btn btn-outline-success" for="btn-check-2" >Công Cụ tìm kiếm</label>
-			<input type="checkbox" class="btn-check" id="btn-check-3" autocomplete="off">
-				<label class="btn btn-outline-success" for="btn-check-3" >Tính năng/giao diện Web</label>
-			<input type="checkbox" class="btn-check" id="btn-check-4" autocomplete="off">
-				<label class="btn btn-outline-success" for="btn-check-4" >Thông tin công ty</label>
-			<input type="checkbox" class="btn-check" id="btn-check-5" autocomplete="off">
-				<label class="btn btn-outline-success" for="btn-check-5" >Khác</label>
-            </div>
-            <br>
-            <div class="mb-3">
-  				<h6 for="exampleFormControlTextarea1" class="form-label"><b>Mô tả Phản Hồi</b></h6>
-  				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+		<!-- Nút Chat và Nút Form -->
+		<div id="contact-widget">
+			<!-- Nút bổ sung nằm trên nút chat -->
+			<button id="additional-button" class="form-button btn btn-secondary">
+				<i class="fas fa-info"></i>
+				<!-- Biểu tượng cho nút bổ sung -->
+			</button>
+			<button id="contact-button" class="chat-button btn btn-primary">
+				<i class="fas fa-comments"></i>
+				<!-- Biểu tượng chat -->
+			</button>
+			<div id="message">
+				<button type="button" class="btn-close" aria-label="Close"></button>
+				<div class="list-group">
+					<a href="" class="list-group-item list-group-item-action active"
+						aria-current="true">Trung tâm hỗ trợ</a> <a href="#"
+						class="list-group-item list-group-item-action">Hướng dẫn quản
+						lý tài khoản</a> <a href="#"
+						class="list-group-item list-group-item-action">Yêu cầu hỗ trợ</a>
+					<a href="#" class="list-group-item list-group-item-action disabled"
+						aria-disabled="true">Liên Hệ Job4u</a>
+				</div>
 			</div>
-			<br>
-			<h6><b>Đánh giá sản phẩm</b></h6>
-        <div class="rating">
-            <div class="stars">
-                <input type="radio" id="star5" name="rating" value="5" />
-                <label for="star5" title="5 stars">★</label>
-                <input type="radio" id="star4" name="rating" value="4" />
-                <label for="star4" title="4 stars">★</label>
-                <input type="radio" id="star3" name="rating" value="3" />
-                <label for="star3" title="3 stars">★</label>
-                <input type="radio" id="star2" name="rating" value="2" />
-                <label for="star2" title="2 stars">★</label>
-                <input type="radio" id="star1" name="rating" value="1" />
-                <label for="star1" title="1 star">★</label>
-            </div>
-            <div class="star-labels">
-                <div>Tuyệt vời</div>
-                <div>Tốt</div>
-                <div>Bình thường</div>
-                <div>Tệ</div>
-                <div>Rất tệ</div>
-            </div>
-        </div>
-			<hr>
-			<button type="button" class="btn btn-secondary">Hủy</button>
-			<button type="button" class="btn btn-primary">Gửi Phản Hồi</button>
-        </form>
-    </div>
-    
-    
+		</div>
+
+		<!-- Form Popup -->
+		<div id="popup-form">
+			<button type="button" class="btn-close" aria-label="Close"></button>
+			<h4>
+				<b>Góp Ý và Phản Hồi</b>
+			</h4>
+			<form>
+				<a>Phản hồi của bạn rất quan trọng, Job4u mong nhận được nhiều
+					góp ý từ bạn để cải thiện tốt hơn.</a> <br> <br>
+				<h6>
+					<b>Góp Ý</b>
+				</h6>
+				<div class="gy">
+					<input type="checkbox" class="btn-check" id="btn-check-1"
+						autocomplete="off"> <label class="btn btn-outline-success"
+						for="btn-check-1">Công cụ tạo CV</label> <input type="checkbox"
+						class="btn-check" id="btn-check-2" autocomplete="off"> <label
+						class="btn btn-outline-success" for="btn-check-2">Công Cụ
+						tìm kiếm</label> <input type="checkbox" class="btn-check" id="btn-check-3"
+						autocomplete="off"> <label class="btn btn-outline-success"
+						for="btn-check-3">Tính năng/giao diện Web</label> <input
+						type="checkbox" class="btn-check" id="btn-check-4"
+						autocomplete="off"> <label class="btn btn-outline-success"
+						for="btn-check-4">Thông tin công ty</label> <input
+						type="checkbox" class="btn-check" id="btn-check-5"
+						autocomplete="off"> <label class="btn btn-outline-success"
+						for="btn-check-5">Khác</label>
+				</div>
+				<br>
+				<div class="mb-3">
+					<h6 for="exampleFormControlTextarea1" class="form-label">
+						<b>Mô tả Phản Hồi</b>
+					</h6>
+					<textarea class="form-control" id="exampleFormControlTextarea1"
+						rows="3"></textarea>
+				</div>
+				<br>
+				<h6>
+					<b>Đánh giá sản phẩm</b>
+				</h6>
+				<div class="rating">
+					<div class="stars">
+						<input type="radio" id="star5" name="rating" value="5" /> <label
+							for="star5" title="5 stars">★</label> <input type="radio"
+							id="star4" name="rating" value="4" /> <label for="star4"
+							title="4 stars">★</label> <input type="radio" id="star3"
+							name="rating" value="3" /> <label for="star3" title="3 stars">★</label>
+						<input type="radio" id="star2" name="rating" value="2" /> <label
+							for="star2" title="2 stars">★</label> <input type="radio"
+							id="star1" name="rating" value="1" /> <label for="star1"
+							title="1 star">★</label>
+					</div>
+					<div class="star-labels">
+						<div>Tuyệt vời</div>
+						<div>Tốt</div>
+						<div>Bình thường</div>
+						<div>Tệ</div>
+						<div>Rất tệ</div>
+					</div>
+				</div>
+				<hr>
+				<button type="button" class="btn btn-secondary">Hủy</button>
+				<button type="button" class="btn btn-primary">Gửi Phản Hồi</button>
+			</form>
+		</div>
+
+
 		<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
 		<!-- /footer -->
 	</div>
 	<!-- Thống kê -->
 	<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactButton = document.getElementById('contact-button');
-            const message = document.getElementById('message');
-            const closeButton = document.querySelector('#message .btn-close');
-            const additionalButton = document.getElementById('additional-button');
-            const popupForm = document.getElementById('popup-form');
-            const formCloseButton = popupForm.querySelector('.btn-close');
+		document.addEventListener('DOMContentLoaded', function() {
+			const contactButton = document.getElementById('contact-button');
+			const message = document.getElementById('message');
+			const closeButton = document.querySelector('#message .btn-close');
+			const additionalButton = document
+					.getElementById('additional-button');
+			const popupForm = document.getElementById('popup-form');
+			const formCloseButton = popupForm.querySelector('.btn-close');
 
-            contactButton.addEventListener('click', function() {
-                message.style.display = message.style.display === 'none' || message.style.display === '' ? 'block' : 'none';
-            });
+			contactButton.addEventListener('click', function() {
+				message.style.display = message.style.display === 'none'
+						|| message.style.display === '' ? 'block' : 'none';
+			});
 
-            closeButton.addEventListener('click', function() {
-                message.style.display = 'none';
-            });
+			closeButton.addEventListener('click', function() {
+				message.style.display = 'none';
+			});
 
-            additionalButton.addEventListener('click', function() {
-                popupForm.style.display = 'block';
-            });
+			additionalButton.addEventListener('click', function() {
+				popupForm.style.display = 'block';
+			});
 
-            formCloseButton.addEventListener('click', function() {
-                popupForm.style.display = 'none';
-            });
-        });
-    </script>
+			formCloseButton.addEventListener('click', function() {
+				popupForm.style.display = 'none';
+			});
+		});
+	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
