@@ -80,7 +80,7 @@
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'listEmployers')"> <svg
 										class="bi me-2" width="16" height="16">
-                                <use xlink:href="#grid"></use>
+                                <use xlink:href="#low"></use>
                                 </svg> Bài Tuyển Dụng
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
@@ -95,6 +95,7 @@
 				</div>
 				<!-- aside -->
 				<!-- article -->
+				<!-- Quản Lý Tuyển Dụng -->
 				<div class="col-md-9">
 					<!-- Home table -->
 					<div id="employersManagement" class="card">
@@ -102,11 +103,11 @@
 							<div class="card-title">Quản Lý Tuyển Dụng</div>
 						</div>
 						<div class="card-body p-0">
-							<p>Welcome to the Home page!</p>
+							<a>xem thêm</a>
 						</div>
 					</div>
 
-					<!-- User Management table -->
+					<!-- Bảng quản lý bài đăng-->
 					<div id="postEmployers" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title p-1">Đăng Bài Tuyển Dụng</div>
@@ -114,29 +115,29 @@
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
-									<form class="p-4" action="" method="post">
+									<form class="p-4" action="/job4u/employers/submit"
+										method="post" id="nhaTuyenDung">
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="companyName" class="form-label">Tên công
-													ty</label> <input type="text" class="form-control" id="companyName"
-													name="companyName" required>
+												<label for="companyname" class="form-label">Tên công
+													ty</label> <input type="text" class="form-control" id="companyname"
+													name="companyname" required>
 											</div>
 											<div class="col-md-6">
-												<label for="CompanyWebsite" class="form-label">Tên
+												<label for="companywebsite" class="form-label">Tên
 													web công ty</label> <input type="text" class="form-control"
-													id="CompanyWebsite" name="CompanyWebsite">
+													id="companywebsite" name="companywebsite">
 											</div>
 										</div>
-
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="Address" class="form-label">Địa chỉ công
-													ty </label> <input type="text" class="form-control" id="Address"
-													name="Address">
+												<label for="address" class="form-label">Địa chỉ công
+													ty</label> <input type="text" class="form-control" id="address"
+													name="address">
 											</div>
 											<div class="col-md-6">
-												<label for="Industry" class="form-label">Ngành nghề</label>
-												<select class="form-control" id="Industry" name="Industry"
+												<label for="industry" class="form-label">Ngành nghề</label>
+												<select class="form-control" id="industry" name="industry"
 													required>
 													<option value="" disabled selected>Chọn ngành nghề</option>
 													<option value="agriculture">Nông nghiệp</option>
@@ -157,153 +158,224 @@
 												</select>
 											</div>
 										</div>
-
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="jobTitle" class="form-label">Tiêu đề
+												<label for="contactperson" class="form-label">Người
+													liên hệ</label> <input type="text" class="form-control"
+													id="contactperson" name="contactperson">
+											</div>
+											<div class="col-md-6">
+												<label for="logo" class="form-label">Logo công ty</label> <input
+													type="file" class="form-control" id="logo" name="logo"
+													accept="image/*">
+											</div>
+										</div>
+										<div class="row p-2">
+											<div class="col-md-6">
+												<label for="jobtitle" class="form-label">Tiêu đề
 													công việc</label> <input type="text" class="form-control"
-													id="jobTitle" name="jobTitle" required>
+													id="jobtitle" name="jobtitle" required>
 											</div>
 											<div class="col-md-6">
-												<label for="salary" class="form-label">Lương</label> <input
-													type="number" class="form-control" id="salary"
-													name="salary">
+												<label for="joblocation" class="form-label">Địa điểm
+													làm việc</label>
+												<!-- <input type="text" class="form-control"
+													id="joblocation" name="joblocation" required> -->
+												<select class="form-select" id="joblocation"
+													name="joblocation">
+													<option value="All" selected>Tất cả</option>
+													<option value="An Giang">An Giang</option>
+													<option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng
+														Tàu</option>
+													<option value="Bạc Liêu">Bạc Liêu</option>
+													<option value="Bắc Giang">Bắc Giang</option>
+													<option value="Bắc Kạn">Bắc Kạn</option>
+													<option value="Bắc Ninh">Bắc Ninh</option>
+													<option value="Bến Tre">Bến Tre</option>
+													<option value="Bình Định">Bình Định</option>
+													<option value="Bình Dương">Bình Dương</option>
+													<option value="Bình Phước">Bình Phước</option>
+													<option value="Bình Thuận">Bình Thuận</option>
+													<option value="Cà Mau">Cà Mau</option>
+													<option value="Cao Bằng">Cao Bằng</option>
+													<option value="Cần Thơ">Cần Thơ</option>
+													<option value="Đà Nẵng">Đà Nẵng</option>
+													<option value="Đắk Lắk">Đắk Lắk</option>
+													<option value="Đắk Nông">Đắk Nông</option>
+													<option value="Điện Biên">Điện Biên</option>
+													<option value="Đồng Nai">Đồng Nai</option>
+													<option value="Đồng Tháp">Đồng Tháp</option>
+													<option value="Gia Lai">Gia Lai</option>
+													<option value="Hà Giang">Hà Giang</option>
+													<option value="Hà Nam">Hà Nam</option>
+													<option value="Hà Nội">Hà Nội</option>
+													<option value="Hà Tĩnh">Hà Tĩnh</option>
+													<option value="Hải Dương">Hải Dương</option>
+													<option value="Hải Phòng">Hải Phòng</option>
+													<option value="Hậu Giang">Hậu Giang</option>
+													<option value="Hòa Bình">Hòa Bình</option>
+													<option value="Hưng Yên">Hưng Yên</option>
+													<option value="Khánh Hòa">Khánh Hòa</option>
+													<option value="Kiên Giang">Kiên Giang</option>
+													<option value="Kon Tum">Kon Tum</option>
+													<option value="Lai Châu">Lai Châu</option>
+													<option value="Lâm Đồng">Lâm Đồng</option>
+													<option value="Lạng Sơn">Lạng Sơn</option>
+													<option value="Lào Cai">Lào Cai</option>
+													<option value="Long An">Long An</option>
+													<option value="Nam Định">Nam Định</option>
+													<option value="Nghệ An">Nghệ An</option>
+													<option value="Ninh Bình">Ninh Bình</option>
+													<option value="Ninh Thuận">Ninh Thuận</option>
+													<option value="Phú Thọ">Phú Thọ</option>
+													<option value="Phú Yên">Phú Yên</option>
+													<option value="Quảng Bình">Quảng Bình</option>
+													<option value="Quảng Nam">Quảng Nam</option>
+													<option value="Quảng Ngãi">Quảng Ngãi</option>
+													<option value="Quảng Ninh">Quảng Ninh</option>
+													<option value="Quảng Trị">Quảng Trị</option>
+													<option value="Sóc Trăng">Sóc Trăng</option>
+													<option value="Sơn La">Sơn La</option>
+													<option value="Tây Ninh">Tây Ninh</option>
+													<option value="Thái Bình">Thái Bình</option>
+													<option value="Thái Nguyên">Thái Nguyên</option>
+													<option value="Thanh Hóa">Thanh Hóa</option>
+													<option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+													<option value="Tiền Giang">Tiền Giang</option>
+													<option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+													<option value="Trà Vinh">Trà Vinh</option>
+													<option value="Tuyên Quang">Tuyên Quang</option>
+													<option value="Vĩnh Long">Vĩnh Long</option>
+													<option value="Vĩnh Phúc">Vĩnh Phúc</option>
+													<option value="Yên Bái">Yên Bái</option>
+												</select>
 											</div>
 										</div>
-
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="CompanyDescription" class="form-label">Mô
-													tả công ty</label>
-												<textarea class="form-control" id="CompanyDescription"
-													name="CompanyDescription" rows="4"></textarea>
+												<label for="jobtype" class="form-label">Loại công
+													việc</label> <select id="jobtype" name="jobtype"
+													class="form-select" required>
+													<option value="" disabled selected>Chọn 1 loại
+														công việc</option>
+													<option value="full-time">Công việc toàn thời gian</option>
+													<option value="part-time">Công việc bán thời gian</option>
+													<option value="temporary">Công việc thời vụ</option>
+													<option value="contract">Công việc theo hợp đồng</option>
+													<option value="freelance">Công việc tự do</option>
+												</select>
 											</div>
 											<div class="col-md-6">
-												<label for="jobRequirements" class="form-label">Yêu
+												<label for="salary" class="form-label">Lương</label>
+												<div class="input-group">
+													<span class="input-group-text">$</span> <input
+														type="number" class="form-control salary-input"
+														id="salary" name="salary" min="0">
+												</div>
+											</div>
+										</div>
+										<div class="row p-2">
+											<div class="col-md-12">
+												<label for="companydescription" class="form-label">Mô tả về công ty</label>
+												<textarea class="form-control" id="companydescription"
+													name="companydescription" rows="4" required></textarea>
+											</div>
+
+										</div>
+										<div class="row p-2">
+											<div class="col-md-12">
+												<label for="jobrequirements" class="form-label">Yêu
 													cầu công việc</label>
-												<textarea class="form-control" id="jobRequirements"
-													name="jobRequirements" rows="4" required></textarea>
+												<textarea class="form-control" id="jobrequirements"
+													name="jobrequirements" rows="4" required></textarea>
 											</div>
+
 										</div>
 										<div class="row p-2">
 											<div class="col-md-6">
-												<label for="jobLocation" class="form-label">Địa điểm
-													làm việc</label> <input type="text" class="form-control"
-													id="jobLocation" name="jobLocation" required>
-											</div>
-											<div class="col-md-6">
-												<label for="jobType" class="form-label">Loại công
-													việc</label> <input type="text" class="form-control" id="jobType"
-													name="jobType" required>
-											</div>
-										</div>
-
-
-										<div class="row p-2">
-											<div class="col-md-6">
-												<label for="postedDate" class="form-label">Ngày đăng</label>
+												<label for="posteddate" class="form-label">Ngày đăng</label>
 												<input type="datetime-local" class="form-control"
-													id="postedDate" name="postedDate" required>
+													id="posteddate" name="posteddate" required>
 											</div>
-
 											<div class="col-md-6">
-												<label for="applicationDeadline" class="form-label">Hạn
+												<label for="applicationdeadline" class="form-label">Hạn
 													nộp hồ sơ</label> <input type="datetime-local" class="form-control"
-													id="applicationDeadline" name="applicationDeadline"
+													id="applicationdeadline" name="applicationdeadline"
 													required>
 											</div>
 										</div>
 										<hr>
-
 										<button type="submit" class="btn text-light"
 											style="background-color: #00688B">Đăng bài</button>
 									</form>
 								</div>
 							</div>
 						</div>
+					</div>
 
+					<!-- Quản lý cv -->
+					<div id="cvApply" class="card">
 
-						<!-- Post Management table -->
-						<div id="postManagement" class="card" style="display: none;">
-							<div class="card-header">
-								<div class="card-title">Quản Lý Bài Viết</div>
-							</div>
-							<div class="card-body p-0">
-								<div class="table-responsive">
-									<table class="table align-items-center mb-0">
-										<thead class="thead-light">
-											<tr>
-												<th scope="col">Job Title</th>
-												<th scope="col">Company Name</th>
-												<th scope="col">Job Requirenments</th>
-												<th scope="col">Job Location</th>
-												<th scope="col">Salary</th>
-												<th scope="col">Job Description</th>
-												<th scope="col">Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">Developer</th>
-												<td>Công ty F</td>
-												<td>Requirements for Developer position</td>
-												<td>Ho Chi Minh City</td>
-												<td>Negotiable</td>
-												<td>Job description for Developer position</td>
-												<td><button class="btn btn-success">Detail</button>
-													<hr>
-													<button class="btn btn-danger">Delete</button></td>
-											</tr>
-											<!-- Add more rows as needed -->
-										</tbody>
-									</table>
-								</div>
-							</div>
+						<div class="card-header">
+							<div class="card-title">CV Ứng tuyển</div>
 						</div>
+						<div class="card-body p-0">
+							<table class="table align-items-center mb-0">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col">Tiêu để bài viết</th>
+										<th scope="col">Thông tin ứng tuyển</th>
+										<th scope="col">CV ứng tuyển</th>
+										<th scope="col">Thời gian nộp hồ sơ</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>Tuyển dụng nhân viên IT Java</th>
+										<td>Trần Thảo Trinh
+											<button class="btn btn-success">Xem thêm</button>
+										</td>
+										<td>CV ứng tuyển</td>
 
-						<!-- CV Management table -->
-						<div id="cvManagement" class="card" style="display: none;">
-							<div class="card-header">
-								<div class="card-title">Quản Lý CV</div>
-							</div>
-							<div class="card-body p-0">
-								<div class="table-responsive">
-									<table class="table align-items-center mb-0">
-										<thead class="thead-light">
-											<tr>
-												<th scope="col">CVID</th>
-												<th scope="col">Name</th>
-												<th scope="col">Position</th>
-												<th scope="col">Date Submitted</th>
-												<th scope="col">Status</th>
-												<th scope="col">Button</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">1</th>
-												<td>Alex Smith</td>
-												<td>Developer</td>
-												<td>2023-01-05</td>
-												<td>Reviewed</td>
-												<td>
-													<button class="btn btn-success">Detail</button>
-												</td>
-											</tr>
-											<!-- Add more rows as needed -->
-										</tbody>
-									</table>
-								</div>
+									</tr>
+									<!-- Add more rows as needed -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- Quản lý bài đăng -->
+					<div id="listEmployers" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Bài tuyển dụng</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<p>thêm thông tin</p>
 							</div>
 						</div>
 					</div>
-					<!-- article -->
+					<!-- Dịch vụ -->
+					<div id="postingServices" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Dịch vụ bài đăng</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<p>thêm thông tin</p>
+							</div>
+						</div>
+					</div>
 				</div>
+				<!-- article -->
 			</div>
-			<!-- footer -->
-			<%@ include file="/views/footer.jsp"%>
-			<!-- footer -->
 		</div>
+		<!-- footer -->
+		<%@ include file="/views/footer.jsp"%>
+		<!-- footer -->
+	</div>
+
+
 </body>
 <script>
 	function showTable(event, tableId) {

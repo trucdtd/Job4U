@@ -54,13 +54,21 @@
 										class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
+                                
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'home')"> <svg
+								aria-current="page" onclick="showTable(event, 'statisticalManagement')"> <svg
+										class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#home"></use>
+                                </svg> Quản Lý Thống Kê
+							</a></li>
+							<li class="nav-item"><a href="#" class="nav-link text-white"
+								aria-current="page" onclick="showTable(event, 'postService')"> <svg
 										class="bi me-2" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Dịch Vụ Bài Đăng
 							</a></li>
+							
 						</ul>
 						<hr>
 						<div class="dropdown">
@@ -71,14 +79,7 @@
 								alt="" width="30" height="30" class="rounded-circle me-2">
 								<strong>mdo</strong>
 							</a>
-							<ul class="dropdown-menu dropdown-menu-dark text-small shadow"
-								aria-labelledby="dropdownUser1" style="">
-								<li><a class="dropdown-item" href="#">New project...</a></li>
-								<li><a class="dropdown-item" href="#">Settings</a></li>
-								<li><a class="dropdown-item" href="#">Profile</a></li>
-								<li><hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item" href="#">Sign out</a></li>
-							</ul>
+							
 						</div>
 					</div>
 				</div>
@@ -88,7 +89,7 @@
 					<!-- Home table -->
 					<div id="home" class="card">
 						<div class="card-header">
-							<div class="card-title">Dịch Vụ Bài Đăng</div>
+							<div class="card-title">Trang Quản Lý Admin</div>
 						</div>
 						<div class="card-body p-0">
 							<p>Welcome to the Home page!</p>
@@ -124,7 +125,7 @@
 											<td>Admin</td>
 											<td>
 
-                    					<button class="btn btn-success">Detail</button>
+                    					<a href="/job4u/detailUser" class="btn btn-info" type="button">Chi tiết</a>
                     					<button class="btn btn-danger">Delete</button>
                   				
 											</td>
@@ -164,9 +165,12 @@
 											<td>Ho Chi Minh City</td>
 											<td>Negotiable</td>
 											<td>Job description for Developer position</td>
-											<td><button class="btn btn-success">Detail</button>
-											<hr>
-                    					<button class="btn btn-danger">Delete</button> </td>
+											<td>
+
+                    					<a href="/job4u/detailPost" class="btn btn-info" type="button">Chi tiết</a>
+                    					<button class="btn btn-danger">Delete</button>
+                  				
+											</td>
 										</tr>
 										<!-- Add more rows as needed -->
 									</tbody>
@@ -210,6 +214,42 @@
 							</div>
 						</div>
 					</div>
+					<!--statisticalManagement table -->
+					<div id="statisticalManagement" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Quản Lý Thống Kê</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<table class="table align-items-center mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">CVID</th>
+											<th scope="col">Name</th>
+											<th scope="col">Position</th>
+											<th scope="col">Date Submitted</th>
+											<th scope="col">Status</th>
+											<th scope="col">Button</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">1</th>
+											<td>Alex Smith</td>
+											<td>Developer</td>
+											<td>2023-01-05</td>
+											<td>Reviewed</td>
+											<td>
+											<button class="btn btn-success">Detail</button>
+											</td>
+										</tr>
+										<!-- Add more rows as needed -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 				<!-- article -->
 			</div>
