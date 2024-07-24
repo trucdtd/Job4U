@@ -9,8 +9,6 @@ import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
 
 public interface EmployersDao extends JpaRepository<EmployersEntity, Integer>{
-
-
 	
 	
 }
