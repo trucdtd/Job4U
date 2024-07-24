@@ -44,7 +44,8 @@
 											</div>
 										</div>
 										<div class="mt-1 mb-0 text-muted small">
-											<span>${job.jobtitle}</span>
+											<span><i class="bi bi-dot"></i> ${job.jobtitle}</span> <span><i
+												class="bi bi-dot"></i> ${job.employer.industry}</span>
 										</div>
 										<p class="text-truncate mb-4 mb-md-0">Mô tả:
 											${job.jobdescription}</p>
@@ -73,13 +74,16 @@
 	</section>
 	<div class="row col-12 justify-content-center">
 		<div class="btn-group" role="group" aria-label="Basic example">
-			<button type="button" class="btn m-4 text-light" style="background: #00688B" onclick="paging(0)">Đầu</button>
-			<button type="button" class="btn m-4 text-light" style="background: #00688B"
+			<button type="button" class="btn m-4 text-light"
+				style="background: #00688B" onclick="paging(0)">Đầu</button>
+			<button type="button" class="btn m-4 text-light"
+				style="background: #00688B"
 				onclick="paging(${dsSP.pageable.pageNumber-1 >= 0 ? dsSP.pageable.pageNumber-1 : 0 })">Trước</button>
-			<button type="button" class="btn m-4 text-light" style="background: #00688B"
+			<button type="button" class="btn m-4 text-light"
+				style="background: #00688B"
 				onclick="paging(${dsSP.pageable.pageNumber+1 < dsSP.totalPages ? dsSP.pageable.pageNumber+1 : dsSP.totalPages-1 })">Kế</button>
-			<button type="button" class="btn m-4 text-light" style="background: #00688B"
-				onclick="paging(${dsSP.totalPages-1 })">Cuối</button>
+			<button type="button" class="btn m-4 text-light"
+				style="background: #00688B" onclick="paging(${dsSP.totalPages-1 })">Cuối</button>
 		</div>
 	</div>
 	<script>

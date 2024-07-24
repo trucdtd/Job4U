@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import demo.dao.EmployersDao;
 import demo.dao.JoblistingsDao;
+import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
 import demo.services.SessionService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +32,7 @@ public class TrangChuController {
 	@Autowired
 	JoblistingsDao danhSachViecLamDao;
 	@Autowired
-	EmployersDao nhatuyendung;
+	EmployersDao nhatuyendungDao;
 
 	@Autowired
 	SessionService ss;
@@ -45,5 +46,4 @@ public class TrangChuController {
 		return "trangChu";
 	}
 
-	
 }

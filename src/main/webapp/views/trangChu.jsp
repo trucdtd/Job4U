@@ -24,7 +24,7 @@
 			<aside class="col-md-3">
 				<h3>Bộ lộc</h3>
 				<div class="container mt-4">
-					<form action="/findJob" method="GET">
+					<form action="/job4u/findJob" method="GET">
 						<div class="row mt-3">
 							<div class="col-md-12">
 								<label class="form-label">Ngành nghề</label>
@@ -47,15 +47,13 @@
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" id="IT"
 										name="jobtitle" value="IT"> <label
-										class="form-check-label" for="manager">Công Nghệ Thông
-										Tin</label>
+										class="form-check-label" for="manager">Công nghệ thông tin</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox"
 										id="automotive-technology" name="jobtitle"
 										value="automotive-technology"> <label
-										class="form-check-label" for="automotive-technology">Công
-										Nghệ Ô Tô</label>
+										class="form-check-label" for="automotive-technology">Công nghệ ô tô</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox"
