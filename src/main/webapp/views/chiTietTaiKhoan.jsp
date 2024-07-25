@@ -26,7 +26,7 @@
 				<!-- aside -->
 				<div class="col-lg-3 col-md-3 p-2 " >
 					<div
-						class="d-flex flex-column flex-shrink-0  text-white "
+						class="d-flex flex-column flex-shrink-0 p-3 text-white "
 						style="width: 100%;background: #00688B " >
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
