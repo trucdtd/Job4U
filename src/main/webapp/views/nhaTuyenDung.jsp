@@ -96,7 +96,7 @@
 				<!-- aside -->
 				<!-- article -->
 				<!-- Quản Lý Tuyển Dụng -->
-				<div class="col-lg-9 col-md-9">
+				<div class="col-lg-9 col-md-9 p-2">
 					<!-- Home table -->
 					<div id="employersManagement" class="card" style="display: none;">
 						<div class="card-header">
