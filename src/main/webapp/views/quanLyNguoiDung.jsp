@@ -25,7 +25,7 @@
 		<div class="container">
 			<div class="row">
 				<!-- aside -->
-				<div class="col-lg-3 col-md-3">
+				<div class="col-lg-3 col-md-3 p-2">
 					<div
 						class="d-flex flex-column flex-shrink-0  text-white "
 						style="width: 100%;background: #00688B " >
@@ -86,7 +86,7 @@
 				</div>
 				<!-- aside -->
 				<!-- article -->
-				<div class="col-lg-9 col-md-9 ">
+				<div class="col-lg-9 col-md-9 p-2 ">
 					<!-- Home table -->
 					<div id="home" class="card">
 						<div class="card-header">
