@@ -47,12 +47,12 @@
 		<div class="container">
 			<div class="row">
 				<!-- aside -->
-				<div class="col-md-3">
-					<div class="d-flex flex-column flex-shrink-0 p-3 text-white "
-						style="width: 260px; background: #00688B">
+				<div class="col-lg-3 col-md-3">
+					<div class="d-flex flex-column flex-shrink-0  text-white "
+						style="width: 100%px; background: #00688B">
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none text-center">
-							<svg class="bi me-2" width="25" height="25">
+							<svg class="bi me-1" width="25" height="25">
                             <use xlink:href="#bootstrap"></use>
                         </svg> <span class="card-title">Menu Employers</span>
 						</a>
@@ -61,13 +61,13 @@
 							<li><a href="#" class="nav-link text-white active"
 								aria-current="page"
 								onclick="showTable(event, 'employersManagement')"> <svg
-										class="bi me-2" width="16" height="16">
+										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#speedometer2"></use>
                                 </svg> Quản Lý Tuyển Dụng
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'postEmployers')"> <svg
-										class="bi me-2" width="16" height="16">
+										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#table"></use>
                                 </svg> Đăng Bài Tuyển Dụng
 							</a></li>
@@ -79,13 +79,13 @@
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'listEmployers')"> <svg
-										class="bi me-2" width="16" height="16">
+										class="bi me-1" width="16" height="16">
                                 <use xlink:href="#low"></use>
                                 </svg> Bài Tuyển Dụng
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'postingServices')"> <svg
-										class="bi me-2" width="16" height="16">
+										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Dịch Vụ Bài Đăng
 							</a></li>
@@ -96,7 +96,7 @@
 				<!-- aside -->
 				<!-- article -->
 				<!-- Quản Lý Tuyển Dụng -->
-				<div class="col-md-9">
+				<div class="col-lg-9 col-md-9">
 					<!-- Home table -->
 					<div id="employersManagement" class="card" style="display: none;">
 						<div class="card-header">

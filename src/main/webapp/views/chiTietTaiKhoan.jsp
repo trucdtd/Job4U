@@ -24,13 +24,13 @@
 		<div class="container">
 			<div class="row mt-3">
 				<!-- aside -->
-				<div class="col-md-3  " >
+				<div class="col-lg-3 col-md-3 " >
 					<div
-						class="d-flex flex-column flex-shrink-0 p-3 text-white "
-						style="width: 260px;background: #00688B " >
+						class="d-flex flex-column flex-shrink-0  text-white "
+						style="width: 100%;background: #00688B " >
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-							<svg class="bi me-2" width="25" height="25">
+							<svg class="bi me-1" width="25" height="25">
                             <use xlink:href="#bootstrap"></use>
                         </svg> <span class="card-title">Menu User
 								Management</span>
@@ -39,19 +39,19 @@
 						<ul class="nav nav-pills flex-column mb-auto">
 							<li><a href="#" class="nav-link text-white active"
 								onclick="showTable(event, 'userManagement')"> <svg
-										class="bi me-2" width="16" height="16">
+										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#speedometer2"></use>
                                 </svg> Quản Lý Tài Khoản
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'postManagement')"> <svg
-										class="bi me-2" width="16" height="16">
+										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#table"></use>
                                 </svg> Quản Lý Bài Viết
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'cvManagement')"> <svg
-										class="bi me-2" width="16" height="16">
+										class="bi me-1" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
                                 
@@ -85,7 +85,7 @@
 				</div>
 				<!-- aside -->
 				<!-- article -->
-				<div class="col-md-9  ">
+				<div class="col-lg-9 col-md-9 ">
 					<!-- Home table -->
 					<div id="home" class="card" style="display: none">
 						<div class="card-header">

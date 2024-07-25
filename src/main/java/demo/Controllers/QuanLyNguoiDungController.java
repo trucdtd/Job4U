@@ -18,13 +18,13 @@ public class QuanLyNguoiDungController {
 		return "quanLyNguoiDung";
 	}
 
-	@RequestMapping("/detailUser")
+	@RequestMapping("/userManager/detailUser")
 	public String chiTietTaiKhoan() {
 
 		return "chiTietTaiKhoan";
 	}
 
-	@RequestMapping("/detailPost")
+	@RequestMapping("/userManager/detailPost")
 	public String chiTietBaiViet() {
 
 		return "chiTietBaiViet";
