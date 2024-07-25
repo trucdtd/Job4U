@@ -85,7 +85,7 @@
 				<!-- article -->
 				<div class="col-md-9">
 					<!-- Home table -->
-					<div id="home" class="card">
+					<div id="home" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Trang Quản Lý Admin</div>
 						</div>

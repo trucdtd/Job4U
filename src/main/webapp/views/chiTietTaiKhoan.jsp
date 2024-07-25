@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
 <title>Detail User</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
@@ -13,6 +14,7 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
+
 </head>
 <body>
 	<div class="container">
@@ -20,9 +22,9 @@
 		<%@ include file="/views/header.jsp"%>
 		<!-- header -->
 		<div class="container">
-			<div class="row">
+			<div class="row mt-3">
 				<!-- aside -->
-				<div class="col-md-3">
+				<div class="col-md-3  " >
 					<div
 						class="d-flex flex-column flex-shrink-0 p-3 text-white "
 						style="width: 260px;background: #00688B " >
@@ -83,9 +85,9 @@
 				</div>
 				<!-- aside -->
 				<!-- article -->
-				<div class="col-md-9">
+				<div class="col-md-9  ">
 					<!-- Home table -->
-					<div id="home" class="card">
+					<div id="home" class="card" style="display: none">
 						<div class="card-header">
 							<div class="card-title">Trang Quản Lý Admin</div>
 						</div>

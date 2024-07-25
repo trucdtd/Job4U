@@ -98,12 +98,14 @@
 				<!-- Quản Lý Tuyển Dụng -->
 				<div class="col-md-9">
 					<!-- Home table -->
-					<div id="employersManagement" class="card">
+					<div id="employersManagement" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tuyển Dụng</div>
 						</div>
 						<div class="card-body p-0">
+						<div class="table-responsive">
 							<a>xem thêm</a>
+						</div>
 						</div>
 					</div>
 
@@ -313,12 +315,13 @@
 					</div>
 
 					<!-- Quản lý cv -->
-					<div id="cvApply" class="card">
+					<div id="cvApply" class="card" style="display: none;">
 
 						<div class="card-header">
 							<div class="card-title">CV Ứng tuyển</div>
 						</div>
 						<div class="card-body p-0">
+						<div class="table-responsive">
 							<table class="table align-items-center mb-0">
 								<thead class="thead-light">
 									<tr>
@@ -340,6 +343,7 @@
 									<!-- Add more rows as needed -->
 								</tbody>
 							</table>
+							</div>
 						</div>
 					</div>
 
