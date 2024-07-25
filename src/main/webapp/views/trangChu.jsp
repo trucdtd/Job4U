@@ -72,7 +72,6 @@
 	margin: 5px 0; /* Khoảng cách dọc giữa các nhãn */
 }
 
-<<<<<<< HEAD
 .gy input {
 	margin-right: 5px; /* Khoảng cách ngang giữa checkbox và nhãn */
 }
@@ -86,7 +85,6 @@
 	padding: 10px;
 	margin-left: 10px;
 }
-=======
         .chat-content {
             display: flex;
             align-items: center;
@@ -124,7 +122,6 @@
             padding: 20px;
             z-index: 2000;
         }
->>>>>>> lanhbv
 
 #message {
 	position: absolute;
@@ -159,12 +156,10 @@
 	float: right;
 	margin-left: 10px;
 }
-=======
         .stars label {
             font-size: 2rem;
             cursor: pointer;
         }
->>>>>>> lanhbv
 
 .rating {
 	display: flex;
@@ -374,7 +369,7 @@
 				<!-- /danh sách việc làm -->
 			</article>
 		</div>
-<<<<<<< HEAD
+
 		<!-- Nút Chat và Nút Form -->
 		<div id="contact-widget">
 			<!-- Nút bổ sung nằm trên nút chat -->
@@ -467,7 +462,6 @@
 		</div>
 
 
-=======
 			<!-- Nút Chat và Nút Form -->
     <div id="contact-widget">
         <!-- Nút bổ sung nằm trên nút chat -->
@@ -565,9 +559,6 @@
         <!-- </div> -->
     </div>
 </div>
-    
-    
->>>>>>> lanhbv
 		<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
 		<!-- /footer -->
