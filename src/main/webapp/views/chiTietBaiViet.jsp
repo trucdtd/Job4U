@@ -23,14 +23,13 @@
 			<div class="row">
 				<!-- aside -->
 				<div class="col-lg-3 col-md-3 p-2">
-					<div
-						class="d-flex flex-column flex-shrink-0 text-white "
-						style="width: 100%;background: #00688B " >
+					<div class="d-flex flex-column flex-shrink-0 p-3 text-white "
+						style="width: 100%; background: #00688B">
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-2" width="25" height="25">
                             <use xlink:href="#bootstrap"></use>
-                        </svg> <span class="card-title">Menu User
+                        </svg> <span class="card-title text-center">Menu User
 								Management</span>
 						</a>
 						<hr>
@@ -52,33 +51,25 @@
 										class="bi me-1" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
-                                
+
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'statisticalManagement')"> <svg
+								aria-current="page"
+								onclick="showTable(event, 'statisticalManagement')"> <svg
 										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Quản Lý Thống Kê
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'postService')"> <svg
-										class="bi me-1" width="16" height="16">
+								aria-current="page" onclick="showTable(event, 'postService')">
+									<svg class="bi me-1" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Dịch Vụ Bài Đăng
 							</a></li>
-							
+
 						</ul>
 						<hr>
-						<div class="dropdown">
-							<a href="#"
-								class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-								id="dropdownUser1" data-bs-toggle="dropdown"
-								aria-expanded="false"> <img src="https://github.com/mdo.png"
-								alt="" width="30" height="30" class="rounded-circle me-2">
-								<strong>mdo</strong>
-							</a>
-							
-						</div>
+						
 					</div>
 				</div>
 				<!-- aside -->
@@ -101,14 +92,14 @@
 						</div>
 						<div class="card-body p-0">
 							<form class="p-4 border border-1" action="" method="post">
-								<div class="row p-2">
-									<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-6 p-2">
 										<label for="jobtitle">Tiêu Đề:</label> <input
 											class="form-control" type="text"
 											placeholder="Tiêu đề bài viết" aria-label="Tiêu đề bài viết"
 											style="border-radius: 10px;" name="jobtitle" required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 p-2">
 										<label for="joblocation">Vị trí:</label> <input
 											class="form-control" type="text"
 											placeholder="Vị trí công việc" aria-label="Vị trí công việc"
@@ -116,14 +107,14 @@
 									</div>
 								</div>
 
-								<div class="row p-2">
-									<div class="col-md-6">
+								<div class="row ">
+									<div class="col-md-6 p-2">
 										<label for="companyname">Công Ty</label> <input
 											class="form-control" type="text" placeholder="Tên Công Ty"
 											aria-label="Tên Công Ty" style="border-radius: 10px;"
 											name="companyname" required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 p-2">
 										<label for="companywebsite">Trang Web</label> <input
 											class="form-control" type="text"
 											placeholder="Trang web công ty"
@@ -132,14 +123,14 @@
 									</div>
 								</div>
 
-								<div class="row p-2">
-									<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-6 p-2">
 										<label for="address">Địa chỉ công ty</label> <input
 											class="form-control" type="text"
 											placeholder="Địa chỉ Công Ty" aria-label="Địa chỉ Công Ty"
 											style="border-radius: 10px;" name="address" required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 p-2">
 										<label for="industry">Ngành công nghiệp</label> <input
 											class="form-control" type="text"
 											placeholder="Ngành Công nghiệp"
@@ -148,14 +139,14 @@
 									</div>
 								</div>
 
-								<div class="row p-2">
-									<div class="col-md-6">
+								<div class="row ">
+									<div class="col-md-6 p-2">
 										<label for="contactperson">Người liên hệ</label> <input
 											class="form-control" type="text" placeholder="Người liên hệ"
 											aria-label="Người liên hệ" style="border-radius: 10px;"
 											name="contactperson" required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 p-2">
 										<label for="salary">Mức Lương:</label> <input
 											class="form-control" type="text" placeholder="Mức lương"
 											aria-label="Mức lương" style="border-radius: 10px;"
@@ -163,25 +154,28 @@
 									</div>
 								</div>
 
-								<div class="row p-2">
-									<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-6 p-2">
 										<label for="jobtype">Loại Công việc:</label> <select
 											name="jobtype" class="form-select" required>
 											<option value="Full time">Full time</option>
 											<option value="Part time">Part time</option>
 										</select>
 									</div>
-									<div class="col-md-6">
-										<label for="jobrequirements">Yêu Cầu công việc:</label>
-										<textarea name="jobrequirements" rows="3" cols="40"
-											placeholder="Yêu cầu công việc" required></textarea>
+									<div class="col-md-6 p-2">
+										<label for="jobrequirements" class="form-label">Yêu
+											cầu công việc</label>
+										<textarea class="form-control" id="jobrequirements"
+											name="jobrequirements" rows="4" required></textarea>
 									</div>
 								</div>
 
 								<hr>
-								<div class="row p-2" style="margin-top: 10px;">
+								<div class="row" style="margin-top: 10px;">
 									<div class="card-action">
-										<button class="btn btn-success">Submit</button>
+										<a href=""
+												class="btn btn-info text-white" type="button"
+												style="background-color: #00688B">Update</a>
 										<button class="btn btn-danger">Cancel</button>
 									</div>
 								</div>
