@@ -104,34 +104,34 @@
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<form class="p-4 border" action="" method="post">
-									<div class="row p-2">
-										<div class="col-md-6">
+									<div class="row ">
+										<div class="col-md-6 p-2">
 											<label for="username" class="form-label">Tên tài
 												khoản</label> <input type="text" class="form-control" id="username"
 												name="username" required>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-6 p-2">
 											<label for="fullname" class="form-label">Họ và tên</label> <input
 												type="text" class="form-control" id="fullname"
 												name="fullname" required>
 										</div>
 									</div>
 
-									<div class="row p-2">
-										<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-6 p-2">
 											<label for="email" class="form-label">Email</label> <input
 												type="text" class="form-control" id="email" name="email"
 												required>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-6 p-2">
 											<label for="phonenumber" class="form-label">Số điện
 												thoại</label> <input type="text" class="form-control"
 												id="phonenumber" name="phonenumber" required>
 										</div>
 									</div>
 
-									<div class="row p-2">
-										<div class="col-md-6">
+									<div class="row ">
+										<div class="col-md-6 p-2">
 											<label class="g-2" for="role">Vai Trò</label> <select  name="role"
 												class="form-select" required>
 												<option value="Ứng Viên">Ứng Viên</option>
@@ -140,12 +140,15 @@
 										</div>
 									</div>
 									<hr>
-									<div class="row p-2" style="margin-top: 10px;">
+									<div class="row">
 										<div class="card-action">
-											<button class="btn btn-success">Update</button>
+											<a href=""
+												class="btn btn-info text-white" type="button"
+												style="background-color: #00688B">Update</a>
 											<button class="btn btn-danger">Cancel</button>
 										</div>
 									</div>
+									
 								</form>
 							</div>
 						</div>

@@ -26,11 +26,10 @@
 			<div class="row">
 				<!-- aside -->
 				<div class="col-lg-3 col-md-3 p-2">
-					<div
-						class="d-flex flex-column flex-shrink-0 p-3 text-white "
-						style="width: 100%;background: #00688B " >
+					<div class="d-flex flex-column flex-shrink-0 p-3 text-white  "
+						style="width: 100%; background: #00688B">
 						<a href="#"
-							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none text-center">
 							<svg class="bi me-2" width="25" height="25">
                             <use xlink:href="#bootstrap"></use>
                         </svg> <span class="card-title">Menu User
@@ -55,33 +54,25 @@
 										class="bi me-1" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
-                                
+
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'statisticalManagement')"> <svg
+								aria-current="page"
+								onclick="showTable(event, 'statisticalManagement')"> <svg
 										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Quản Lý Thống Kê
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'postService')"> <svg
-										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#home"></use>
+								aria-current="page" onclick="showTable(event, 'postService')">
+									<svg class="bi me-1" width="16" height="16">
+                                    <use xlink:href="#service"></use>
                                 </svg> Dịch Vụ Bài Đăng
 							</a></li>
-							
+
 						</ul>
 						<hr>
-						<div class="dropdown">
-							<a href="#"
-								class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-								id="dropdownUser1" data-bs-toggle="dropdown"
-								aria-expanded="false"> <img src="https://github.com/mdo.png"
-								alt="" width="30" height="30" class="rounded-circle me-2">
-								<strong>mdo</strong>
-							</a>
-							
-						</div>
+
 					</div>
 				</div>
 				<!-- aside -->
@@ -93,7 +84,41 @@
 							<div class="card-title">Trang Quản Lý Admin</div>
 						</div>
 						<div class="card-body p-0">
-							<p>Welcome to the Home page!</p>
+							<div class="table-responsive">
+								<table class="table align-items-center mb-0">
+									<thead class="thead-light text-center">
+										<tr>
+											<th>Stt</th>
+											<th>Tên Tài Khoản</th>
+											<th>Họ Và Tên</th>
+											<th>Email</th>
+											<th>Số điện thoại</th>
+											<th>Role</th>
+											<th></th>
+											
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">1</th>
+											<td>john_doe</td>
+											<td>John Doe</td>
+											<td>john@example.com</td>
+											<td>1234567890</td>
+											<td>Admin</td>
+											<td><a href=""
+												class="btn btn-info text-white" type="button"
+												style="background-color: #00688B">Chi tiết</a>
+												<hr>
+												<button class="btn btn-danger">Delete</button></td>
+
+										</tr>
+										
+									</tbody>
+									
+								</table>
+							</div>
+
 						</div>
 					</div>
 
@@ -124,13 +149,12 @@
 											<td>john@example.com</td>
 											<td>1234567890</td>
 											<td>Admin</td>
-											<td>
+											<td><a href="/job4u/detailUser"
+												class="btn btn-info text-white" type="button"
+												style="background-color: #00688B">Chi tiết</a>
+												<hr>
+												<button class="btn btn-danger">Delete</button></td>
 
-                    					<a href="/job4u/detailUser" class="btn btn-info" type="button">Chi tiết</a>
-                    					<button class="btn btn-danger">Delete</button>
-                  				
-											</td>
-											
 										</tr>
 										<!-- Add more rows as needed -->
 									</tbody>
@@ -166,12 +190,11 @@
 											<td>Ho Chi Minh City</td>
 											<td>Negotiable</td>
 											<td>Job description for Developer position</td>
-											<td>
-
-                    					<a href="/job4u/detailPost" class="btn btn-info" type="button">Chi tiết</a>
-                    					<button class="btn btn-danger">Delete</button>
-                  				
-											</td>
+											<td><a href="/job4u/detailPost"
+												class="btn btn-info text-white" type="button"
+												style="background-color: #00688B">Chi tiết</a>
+												<hr>
+												<button class="btn btn-danger">Delete</button></td>
 										</tr>
 										<!-- Add more rows as needed -->
 									</tbody>
@@ -206,7 +229,8 @@
 											<td>2023-01-05</td>
 											<td>Reviewed</td>
 											<td>
-											<button class="btn btn-success">Detail</button>
+												<button type="submit" class="btn text-light p-2"
+													style="background-color: #00688B">Detail</button>
 											</td>
 										</tr>
 										<!-- Add more rows as needed -->
@@ -224,17 +248,28 @@
 							<h5 class="card-title">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item">Biểu Đồ</li>
-									<li class="breadcrumb-item"><a href="/Thongke">Thống kê chi tiết</a></li>
+									<li class="breadcrumb-item"><a href="/Thongke">Thống
+											kê chi tiết</a></li>
 								</ol>
 							</h5>
 							<div class="panel panel-default">
-                                <!-- /.panel-heading -->
-                                
-                                <!-- /.panel-body -->
-                            </div>		
+								<!-- /.panel-heading -->
+
+								<!-- /.panel-body -->
+							</div>
 						</div>
 					</div>
-					
+
+					<!--statisticalManagement table -->
+					<div id="postService" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Dịch Vụ Bài Đăng</div>
+						</div>
+						<div class="card-body">
+							<span>now we dont have service</span>
+						</div>
+					</div>
+
 				</div>
 				<!-- article -->
 			</div>

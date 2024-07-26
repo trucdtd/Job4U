@@ -119,25 +119,25 @@
 								<div class="card-body p-0">
 									<form class="p-4" action="/job4u/employers/submit"
 										method="post" id="nhaTuyenDung">
-										<div class="row p-2">
-											<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-6 p-2">
 												<label for="companyname" class="form-label">Tên công
 													ty</label> <input type="text" class="form-control" id="companyname"
 													name="companyname" required>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6 p-2">
 												<label for="companywebsite" class="form-label">Tên
 													web công ty</label> <input type="text" class="form-control"
 													id="companywebsite" name="companywebsite">
 											</div>
 										</div>
-										<div class="row p-2">
-											<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-6 p-2">
 												<label for="address" class="form-label">Địa chỉ công
 													ty</label> <input type="text" class="form-control" id="address"
 													name="address">
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6 p-2">
 												<label for="industry" class="form-label">Ngành nghề</label>
 												<select class="form-control" id="industry" name="industry"
 													required>
@@ -159,25 +159,25 @@
 												</select>
 											</div>
 										</div>
-										<div class="row p-2">
-											<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-6 p-2">
 												<label for="contactperson" class="form-label">Người
 													liên hệ</label> <input type="text" class="form-control"
 													id="contactperson" name="contactperson">
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6 p-2">
 												<label for="logo" class="form-label">Logo công ty</label> <input
 													type="file" class="form-control" id="logo" name="logo"
 													accept="image/*">
 											</div>
 										</div>
-										<div class="row p-2">
-											<div class="col-md-6">
+										<div class="row ">
+											<div class="col-md-6 p-2">
 												<label for="jobtitle" class="form-label">Tiêu đề
 													công việc</label> <input type="text" class="form-control"
 													id="jobtitle" name="jobtitle" required>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6 p-2">
 												<label for="joblocation" class="form-label">Địa điểm
 													làm việc</label>
 												<!-- <input type="text" class="form-control"
@@ -252,8 +252,8 @@
 												</select>
 											</div>
 										</div>
-										<div class="row p-2">
-											<div class="col-md-6">
+										<div class="row ">
+											<div class="col-md-6 p-2">
 												<label for="jobtype" class="form-label">Loại công
 													việc</label> <select id="jobtype" name="jobtype"
 													class="form-select" required>
@@ -266,7 +266,7 @@
 													<option value="freelance">Công việc tự do</option>
 												</select>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6 p-2">
 												<label for="salary" class="form-label">Lương</label>
 												<div class="input-group">
 													<span class="input-group-text">$</span> <input
@@ -275,16 +275,16 @@
 												</div>
 											</div>
 										</div>
-										<div class="row p-2">
-											<div class="col-md-12">
+										<div class="row">
+											<div class="col-md-12 p-2">
 												<label for="companydescription" class="form-label">Mô tả về công ty</label>
 												<textarea class="form-control" id="companydescription"
 													name="companydescription" rows="4" required></textarea>
 											</div>
 
 										</div>
-										<div class="row p-2">
-											<div class="col-md-12">
+										<div class="row">
+											<div class="col-md-12 p-2">
 												<label for="jobrequirements" class="form-label">Yêu
 													cầu công việc</label>
 												<textarea class="form-control" id="jobrequirements"
@@ -292,13 +292,13 @@
 											</div>
 
 										</div>
-										<div class="row p-2">
-											<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-6 p-2">
 												<label for="posteddate" class="form-label">Ngày đăng</label>
 												<input type="datetime-local" class="form-control"
 													id="posteddate" name="posteddate" required>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6 p-2">
 												<label for="applicationdeadline" class="form-label">Hạn
 													nộp hồ sơ</label> <input type="datetime-local" class="form-control"
 													id="applicationdeadline" name="applicationdeadline"
@@ -306,7 +306,7 @@
 											</div>
 										</div>
 										<hr>
-										<button type="submit" class="btn text-light"
+										<button type="submit" class="btn text-light p-2"
 											style="background-color: #00688B">Đăng bài</button>
 									</form>
 								</div>
@@ -335,7 +335,8 @@
 									<tr>
 										<th>Tuyển dụng nhân viên IT Java</th>
 										<td>Trần Thảo Trinh
-											<button class="btn btn-success">Xem thêm</button>
+											<button type="submit" class="btn text-light text-white p-2"
+											style="background-color: #00688B">Xem Thêm</button>
 										</td>
 										<td>CV ứng tuyển</td>
 
