@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,14 +89,7 @@
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 ">
 					<!-- Home table -->
-					<div id="home" class="card">
-						<div class="card-header">
-							<div class="card-title">Trang Quản Lý Admin</div>
-						</div>
-						<div class="card-body p-0">
-							<p>Welcome to the Home page!</p>
-						</div>
-					</div>
+					
 
 					<!-- User Management table -->
 					<div id="userManagement" class="card" style="display: none;">
@@ -126,7 +120,7 @@
 											<td>Admin</td>
 											<td>
 
-                    					<a href="/job4u/detailUser" class="btn btn-info" type="button">Chi tiết</a>
+                    					<a href="/job4u/detailUser" class="btn btn-info" type="button" style="background-color: #00688B; color: white;">Chi tiết</a>
                     					<button class="btn btn-danger">Delete</button>
                   				
 											</td>
@@ -145,38 +139,41 @@
 							<div class="card-title">Quản Lý Bài Viết</div>
 						</div>
 						<div class="card-body p-0">
+						<form action="/job4u/detail" method="post">
 							<div class="table-responsive">
 								<table class="table align-items-center mb-0">
 									<thead class="thead-light">
 										<tr>
-											<th scope="col">Job Title</th>
+											<th scope="col">EmployerID</th>
 											<th scope="col">Company Name</th>
+											<th scope="col">JobTitle</th>
 											<th scope="col">Job Requirenments</th>
 											<th scope="col">Job Location</th>
+											<th scope="col">Industry</th>
 											<th scope="col">Salary</th>
-											<th scope="col">Job Description</th>
-											<th scope="col">Action</th>
 										</tr>
 									</thead>
 									<tbody>
+									<c:forEach items="${qlBV}" var="bv">
 										<tr>
-											<th scope="row">Developer</th>
-											<td>Công ty F</td>
-											<td>Requirements for Developer position</td>
-											<td>Ho Chi Minh City</td>
-											<td>Negotiable</td>
-											<td>Job description for Developer position</td>
+											<th scope="row">${bv.jobid}</th>
+											<td>${bv.employer.companyname}</td>
+											<td>${bv.jobtitle}</td>
+											<td>${bv.jobrequirements}</td>
+											<td>${bv.joblocation}</td>
+											<td>${bv.jobdescription}</td>
+											<td>${bv.salary}</td>
 											<td>
-
-                    					<a href="/job4u/detailPost" class="btn btn-info" type="button">Chi tiết</a>
+                    					<a href="/job4u/detail/${bv.jobid}" class="btn btn-info" type="button" style="background-color: #00688B; color: white;">Chi tiết</a>
                     					<button class="btn btn-danger">Delete</button>
-                  				
 											</td>
 										</tr>
 										<!-- Add more rows as needed -->
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
+							</form>
 						</div>
 					</div>
 

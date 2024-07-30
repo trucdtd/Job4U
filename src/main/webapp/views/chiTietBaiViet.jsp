@@ -23,9 +23,8 @@
 			<div class="row">
 				<!-- aside -->
 				<div class="col-lg-3 col-md-3">
-					<div
-						class="d-flex flex-column flex-shrink-0 text-white "
-						style="width: 100%;background: #00688B " >
+					<div class="d-flex flex-column flex-shrink-0 text-white "
+						style="width: 100%; background: #00688B">
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-2" width="25" height="25">
@@ -52,21 +51,22 @@
 										class="bi me-1" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
-                                
+
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'statisticalManagement')"> <svg
+								aria-current="page"
+								onclick="showTable(event, 'statisticalManagement')"> <svg
 										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Quản Lý Thống Kê
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'postService')"> <svg
-										class="bi me-1" width="16" height="16">
+								aria-current="page" onclick="showTable(event, 'postService')">
+									<svg class="bi me-1" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Dịch Vụ Bài Đăng
 							</a></li>
-							
+
 						</ul>
 						<hr>
 						<div class="dropdown">
@@ -77,7 +77,7 @@
 								alt="" width="30" height="30" class="rounded-circle me-2">
 								<strong>mdo</strong>
 							</a>
-							
+
 						</div>
 					</div>
 				</div>
@@ -85,14 +85,7 @@
 				<!-- article -->
 				<div class=" col-lg-9 col-md-9">
 					<!-- Home table -->
-					<div id="home" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Trang Quản Lý Admin</div>
-						</div>
-						<div class="card-body p-0">
-							<p>Welcome to the Home page!</p>
-						</div>
-					</div>
+					
 
 					<!-- Post Management table -->
 					<div id="postManagement" class="card" style="display: none;">
@@ -106,13 +99,13 @@
 										<label for="jobtitle">Tiêu Đề:</label> <input
 											class="form-control" type="text"
 											placeholder="Tiêu đề bài viết" aria-label="Tiêu đề bài viết"
-											style="border-radius: 10px;" name="jobtitle" required>
+											style="border-radius: 10px;" id="jobtitle" name="jobtitle" value="${bv.jobtitle}" required>
 									</div>
 									<div class="col-md-6">
 										<label for="joblocation">Vị trí:</label> <input
 											class="form-control" type="text"
 											placeholder="Vị trí công việc" aria-label="Vị trí công việc"
-											style="border-radius: 10px;" name="joblocation" required>
+											style="border-radius: 10px;" id="joblocation" name="joblocation" value="${bv.joblocation}" required>
 									</div>
 								</div>
 
@@ -121,14 +114,14 @@
 										<label for="companyname">Công Ty</label> <input
 											class="form-control" type="text" placeholder="Tên Công Ty"
 											aria-label="Tên Công Ty" style="border-radius: 10px;"
-											name="companyname" required>
+											id="companyname" name="companyname" value="${bv.employer.companyname}" required>
 									</div>
 									<div class="col-md-6">
 										<label for="companywebsite">Trang Web</label> <input
 											class="form-control" type="text"
 											placeholder="Trang web công ty"
 											aria-label="Trang web công ty" style="border-radius: 10px;"
-											name="companywebsite" required>
+											id="companywebsite" name="companywebsite" value="${bv.employer.companywebsite}" required>
 									</div>
 								</div>
 
@@ -137,14 +130,14 @@
 										<label for="address">Địa chỉ công ty</label> <input
 											class="form-control" type="text"
 											placeholder="Địa chỉ Công Ty" aria-label="Địa chỉ Công Ty"
-											style="border-radius: 10px;" name="address" required>
+											style="border-radius: 10px;" id="address" name="address" value="${bv.employer.address}" required>
 									</div>
 									<div class="col-md-6">
 										<label for="industry">Ngành công nghiệp</label> <input
 											class="form-control" type="text"
 											placeholder="Ngành Công nghiệp"
 											aria-label="Ngành Công nghiệp" style="border-radius: 10px;"
-											name="industry" required>
+											id="industry" name="industry" value="${bv.employer.industry}" required>
 									</div>
 								</div>
 
@@ -153,27 +146,27 @@
 										<label for="contactperson">Người liên hệ</label> <input
 											class="form-control" type="text" placeholder="Người liên hệ"
 											aria-label="Người liên hệ" style="border-radius: 10px;"
-											name="contactperson" required>
+											id="contactperson" name="contactperson" value="${bv.employer.contactperson}" required>
 									</div>
 									<div class="col-md-6">
 										<label for="salary">Mức Lương:</label> <input
 											class="form-control" type="text" placeholder="Mức lương"
 											aria-label="Mức lương" style="border-radius: 10px;"
-											name="salary" required>
+											id="salary" name="salary" value="${bv.salary}" required>
 									</div>
 								</div>
 
 								<div class="row p-2">
 									<div class="col-md-6">
 										<label for="jobtype">Loại Công việc:</label> <select
-											name="jobtype" class="form-select" required>
+											id="jobtype" name="jobtype" value="${bv.jobtype}" class="form-select" required>
 											<option value="Full time">Full time</option>
 											<option value="Part time">Part time</option>
 										</select>
 									</div>
 									<div class="col-md-6">
 										<label for="jobrequirements">Yêu Cầu công việc:</label>
-										<textarea name="jobrequirements" rows="3" cols="40"
+										<textarea id="jobrequirements" name="jobrequirements" value="${bv.jobrequirements}" rows="3" cols="40"
 											placeholder="Yêu cầu công việc" required></textarea>
 									</div>
 								</div>
@@ -181,7 +174,8 @@
 								<hr>
 								<div class="row p-2" style="margin-top: 10px;">
 									<div class="card-action">
-										<button class="btn btn-success">Submit</button>
+										<button class="btn btn-success"
+											style="background-color: #00688B">Submit</button>
 										<button class="btn btn-danger">Cancel</button>
 									</div>
 								</div>

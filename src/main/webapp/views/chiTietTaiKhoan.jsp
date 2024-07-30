@@ -142,7 +142,7 @@
 									<hr>
 									<div class="row p-2" style="margin-top: 10px;">
 										<div class="card-action">
-											<button class="btn btn-success">Update</button>
+											<button class="btn btn-success" style="background-color: #00688B">Update</button>
 											<button class="btn btn-danger">Cancel</button>
 										</div>
 									</div>
