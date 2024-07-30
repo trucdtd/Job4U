@@ -19,21 +19,43 @@
 	text-decoration: none;
 	padding: 10px 20px;
 	display: block;
+	border-radius: 4px;
 }
 
-.sidebar a:hover {
-	background-color: #0056b3; /* Màu xanh dương đậm hơn khi hover */
+.sidebar a:hover, .sidebar a.active {
+	background-color: #0056b3;
 }
 
 .content {
 	flex-grow: 1;
 	padding: 20px;
-	background-color: #f8f9fa; /* Màu nền cho khu vực nội dung */
-	display: none; /* Ẩn tất cả các phần nội dung */
+	background-color: #f8f9fa;
 }
 
-.content.active {
-	display: block; /* Hiển thị phần nội dung được chọn */
+.card {
+	margin-bottom: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+	background-color: #00688B;
+	color: white;
+	border-bottom: none;
+	border-radius: 8px 8px 0 0;
+}
+
+.table th, .table td {
+	vertical-align: middle;
+}
+
+.table thead th {
+	background-color: #00688B;
+	color: white;
+}
+
+.btn-primary, .btn-danger {
+	border-radius: 4px;
 }
 </style>
 <link rel="stylesheet" href="/css/header.css">
@@ -42,72 +64,80 @@
 	<div class="container">
 		<!-- header -->
 		<%@ include file="/views/header.jsp"%>
-
 		<!-- header -->
 		<div class="container">
 			<div class="row">
 				<!-- aside -->
-				<div class="col-lg-3 col-md-3 p-2">
-					<div class="d-flex flex-column flex-shrink-0 p-3 text-white "
-						style="width: 100%px; background: #00688B">
+				<div class="col-lg-3 col-md-3 p-2 d-flex">
+					<div class="d-flex flex-column flex-shrink-0 p-3 text-white"
+						style="width: 100%; background: #00688B;">
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none text-center">
-							<svg class="bi me-1" width="25" height="25">
-                            <use xlink:href="#bootstrap"></use>
-                        </svg> <span class="card-title">Menu Employers</span>
+							<i class="bi bi-bootstrap" style="font-size: 25px;"></i> <span
+							class="fs-4 ms-2">Menu Tuyển Dụng</span>
 						</a>
 						<hr>
 						<ul class="nav nav-pills flex-column mb-auto">
 							<li><a href="#" class="nav-link text-white active"
-								aria-current="page"
-								onclick="showTable(event, 'employersManagement')"> <svg
-										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#speedometer2"></use>
-                                </svg> Quản Lý Tuyển Dụng
+								onclick="showTable(event, 'employersManagement')"> <i
+									class="bi bi-speedometer2 me-2"></i> Quản Lý Tuyển Dụng
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
-								onclick="showTable(event, 'postEmployers')"> <svg
-										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#table"></use>
-                                </svg> Đăng Bài Tuyển Dụng
+								onclick="showTable(event, 'postEmployers')"> <i
+									class="bi bi-table me-2"></i> Đăng Bài Tuyển Dụng
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
-								onclick="showTable(event, 'cvApply')"> <svg class="bi me-2"
-										width="16" height="16">
-                                <use xlink:href="#grid"></use>
-                                </svg> CV Ứng Tuyển
+								onclick="showTable(event, 'cvApply')"> <i
+									class="bi bi-grid me-2"></i> CV Ứng Tuyển
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
-								onclick="showTable(event, 'listEmployers')"> <svg
-										class="bi me-1" width="16" height="16">
-                                <use xlink:href="#low"></use>
-                                </svg> Bài Tuyển Dụng
-							</a></li>
-							<li class="nav-item"><a href="#" class="nav-link text-white"
-								onclick="showTable(event, 'postingServices')"> <svg
-										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#home"></use>
-                                </svg> Dịch Vụ Bài Đăng
+								onclick="showTable(event, 'postingServices')"> <i
+									class="bi bi-house me-2"></i> Dịch Vụ Bài Đăng
 							</a></li>
 						</ul>
 						<hr>
 					</div>
 				</div>
 				<!-- aside -->
+
 				<!-- article -->
 				<!-- Quản Lý Tuyển Dụng -->
 				<div class="col-lg-9 col-md-9 p-2">
 					<!-- Home table -->
-					<div id="employersManagement" class="card" style="display: none;">
+					<div id="employersManagement" class="card">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tuyển Dụng</div>
 						</div>
 						<div class="card-body p-0">
-						<div class="table-responsive">
-							<a>xem thêm</a>
-						</div>
+							<div class="table-responsive">
+								<table class="table align-items-center mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">Tên Công Việc</th>
+											<th scope="col">Vị Trí</th>
+											<th scope="col">Ngày Đăng</th>
+											<th scope="col">Hạn Nộp Hồ Sơ</th>
+											<th scope="col">Hành Động</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Java Developer</td>
+											<td>Hà Nội</td>
+											<td>2023-07-30</td>
+											<td>2023-08-30</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-primary">Chỉnh
+													Sửa</button>
+												<button type="button" class="btn btn-sm btn-danger">Xóa</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
+
 
 					<!-- Bảng quản lý bài đăng-->
 					<div id="postEmployers" class="card" style="display: none;">
@@ -146,15 +176,18 @@
 													<option value="Công nghiệp">Công nghiệp</option>
 													<option value="Dịch vụ">Dịch vụ</option>
 													<option value="construction">Xây dựng</option>
-													<option value="Giao thông vận tải">Giao thông vận tải</option>
-													<option value="Công nghệ thông tin<">Công nghệ thông tin</option>
+													<option value="Giao thông vận tải">Giao thông vận
+														tải</option>
+													<option value="Công nghệ thông tin<">Công nghệ
+														thông tin</option>
 													<option value="Tài chính">Tài chính</option>
 													<option value="Giáo dục">Giáo dục</option>
 													<option value="Y tế">Y tế</option>
 													<option value="Truyền thông">Truyền thông</option>
 													<option value="Công nghệ ô tô">Công nghệ ô tô</option>
 													<option value="Du lịch">Du lịch</option>
-													<option value="Hành chính văn phòng">Hành chính văn phòng</option>
+													<option value="Hành chính văn phòng">Hành chính
+														văn phòng</option>
 													<option value="Khác">Khác...</option>
 												</select>
 											</div>
@@ -277,7 +310,8 @@
 										</div>
 										<div class="row">
 											<div class="col-md-12 p-2">
-												<label for="companydescription" class="form-label">Mô tả về công ty</label>
+												<label for="companydescription" class="form-label">Mô
+													tả về công ty</label>
 												<textarea class="form-control" id="companydescription"
 													name="companydescription" rows="4" required></textarea>
 											</div>
@@ -321,44 +355,33 @@
 							<div class="card-title">CV Ứng tuyển</div>
 						</div>
 						<div class="card-body p-0">
-						<div class="table-responsive">
-							<table class="table align-items-center mb-0">
-								<thead class="thead-light">
-									<tr>
-										<th scope="col">Tiêu để bài viết</th>
-										<th scope="col">Thông tin ứng tuyển</th>
-										<th scope="col">CV ứng tuyển</th>
-										<th scope="col">Thời gian nộp hồ sơ</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th>Tuyển dụng nhân viên IT Java</th>
-										<td>Trần Thảo Trinh
-											<button type="submit" class="btn text-light text-white p-2"
-											style="background-color: #00688B">Xem Thêm</button>
-										</td>
-										<td>CV ứng tuyển</td>
-
-									</tr>
-									<!-- Add more rows as needed -->
-								</tbody>
-							</table>
-							</div>
-						</div>
-					</div>
-
-					<!-- Quản lý bài đăng -->
-					<div id="listEmployers" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Bài tuyển dụng</div>
-						</div>
-						<div class="card-body p-0">
 							<div class="table-responsive">
-								<p>thêm thông tin</p>
+								<table class="table align-items-center mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">Tiêu để bài viết</th>
+											<th scope="col">Thông tin ứng tuyển</th>
+											<th scope="col">CV ứng tuyển</th>
+											<th scope="col">Thời gian nộp hồ sơ</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th>Tuyển dụng nhân viên IT Java</th>
+											<td>Trần Thảo Trinh
+												<button type="submit" class="btn text-light text-white p-2"
+													style="background-color: #00688B">Xem Thêm</button>
+											</td>
+											<td>CV ứng tuyển</td>
+
+										</tr>
+										<!-- Add more rows as needed -->
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
+
 					<!-- Dịch vụ -->
 					<div id="postingServices" class="card" style="display: none;">
 						<div class="card-header">
