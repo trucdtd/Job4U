@@ -69,7 +69,7 @@
 										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Dịch Vụ Bài Đăng
-							</a></li>
+</a></li>
 							
 						</ul>
 						<hr>
@@ -161,7 +161,7 @@
 											<td>${bv.jobtitle}</td>
 											<td>${bv.jobrequirements}</td>
 											<td>${bv.joblocation}</td>
-											<td>${bv.jobdescription}</td>
+<td>${bv.jobdescription}</td>
 											<td>${bv.salary}</td>
 											<td>
                     					<a href="/job4u/detail/${bv.jobid}" class="btn btn-info" type="button" style="background-color: #00688B; color: white;">Chi tiết</a>
@@ -258,7 +258,7 @@ function showTable(event, tableId) {
 
     // Loại bỏ lớp active khỏi tất cả các liên kết
     var links = document.querySelectorAll('.nav-link');
-    links.forEach(function(link) {
+links.forEach(function(link) {
         link.classList.remove('active');
     });
 

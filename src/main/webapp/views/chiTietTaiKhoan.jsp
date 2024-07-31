@@ -66,7 +66,7 @@
 								aria-current="page" onclick="showTable(event, 'postService')"> <svg
 										class="bi me-2" width="16" height="16">
                                     <use xlink:href="#home"></use>
-                                </svg> Dịch Vụ Bài Đăng
+</svg> Dịch Vụ Bài Đăng
 							</a></li>
 							
 						</ul>
@@ -152,7 +152,7 @@
 					</div>
 
 					<!-- Post Management table -->
-					<div id="postManagement" class="card" style="display: none;">
+<div id="postManagement" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Bài Viết</div>
 						</div>
@@ -252,6 +252,7 @@
 				+ tableId + '"]');
 		activeLink.classList.add('active');
 	}
+
 </script>
 
 </html>

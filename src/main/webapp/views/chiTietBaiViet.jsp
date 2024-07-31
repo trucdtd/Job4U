@@ -70,7 +70,7 @@
 						</ul>
 						<hr>
 						<div class="dropdown">
-							<a href="#"
+<a href="#"
 								class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
 								id="dropdownUser1" data-bs-toggle="dropdown"
 								aria-expanded="false"> <img src="https://github.com/mdo.png"
@@ -137,7 +137,7 @@
 											class="form-control" type="text"
 											placeholder="Ngành Công nghiệp"
 											aria-label="Ngành Công nghiệp" style="border-radius: 10px;"
-											id="industry" name="industry" value="${bv.employer.industry}" required>
+id="industry" name="industry" value="${bv.employer.industry}" required>
 									</div>
 								</div>
 
@@ -223,7 +223,7 @@
 			</div>
 		</div>
 		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
+<%@ include file="/views/footer.jsp"%>
 		<!-- footer -->
 	</div>
 
