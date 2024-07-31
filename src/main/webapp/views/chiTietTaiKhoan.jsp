@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+<meta name="viewport"
+	content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
 <title>Detail User</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
@@ -24,10 +25,9 @@
 		<div class="container">
 			<div class="row mt-3">
 				<!-- aside -->
-				<div class="col-lg-3 col-md-3 " >
-					<div
-						class="d-flex flex-column flex-shrink-0  text-white "
-						style="width: 100%;background: #00688B " >
+				<div class="col-lg-3 col-md-3 ">
+					<div class="d-flex flex-column flex-shrink-0  text-white "
+						style="width: 100%; background: #00688B">
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-1" width="25" height="25">
@@ -54,21 +54,22 @@
 										class="bi me-1" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                                 </svg> Quản Lý CV
-                                
+
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'statisticalManagement')"> <svg
+								aria-current="page"
+								onclick="showTable(event, 'statisticalManagement')"> <svg
 										class="bi me-2" width="16" height="16">
                                     <use xlink:href="#home"></use>
                                 </svg> Quản Lý Thống Kê
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'postService')"> <svg
-										class="bi me-2" width="16" height="16">
+								aria-current="page" onclick="showTable(event, 'postService')">
+									<svg class="bi me-2" width="16" height="16">
                                     <use xlink:href="#home"></use>
 </svg> Dịch Vụ Bài Đăng
 							</a></li>
-							
+
 						</ul>
 						<hr>
 						<div class="dropdown">
@@ -79,7 +80,7 @@
 								alt="" width="30" height="30" class="rounded-circle me-2">
 								<strong>mdo</strong>
 							</a>
-							
+
 						</div>
 					</div>
 				</div>
@@ -132,8 +133,8 @@
 
 									<div class="row p-2">
 										<div class="col-md-6">
-											<label class="g-2" for="role">Vai Trò</label> <select  name="role"
-												class="form-select" required>
+											<label class="g-2" for="role">Vai Trò</label> <select
+												name="role" class="form-select" required>
 												<option value="Ứng Viên">Ứng Viên</option>
 												<option value="Nhà Tuyển Dụng">Nhà Tuyển Dụng</option>
 											</select>
@@ -142,7 +143,8 @@
 									<hr>
 									<div class="row p-2" style="margin-top: 10px;">
 										<div class="card-action">
-											<button class="btn btn-success" style="background-color: #00688B">Update</button>
+											<button class="btn btn-success"
+												style="background-color: #00688B">Update</button>
 											<button class="btn btn-danger">Cancel</button>
 										</div>
 									</div>
@@ -152,7 +154,7 @@
 					</div>
 
 					<!-- Post Management table -->
-<div id="postManagement" class="card" style="display: none;">
+					<div id="postManagement" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Bài Viết</div>
 						</div>
@@ -252,7 +254,6 @@
 				+ tableId + '"]');
 		activeLink.classList.add('active');
 	}
-
 </script>
 
 </html>
