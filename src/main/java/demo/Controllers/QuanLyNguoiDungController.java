@@ -43,12 +43,6 @@ public class QuanLyNguoiDungController {
 
 		return "chiTietTaiKhoan";
 	}
-//
-//	@RequestMapping("/detailPost")
-//	public String chiTietBaiViet() {
-//
-//		return "chiTietBaiViet";
-//	}
 	
 	@RequestMapping("/quanLyBaiViet")
 	public String quanLyBaiViet(Model model) {
