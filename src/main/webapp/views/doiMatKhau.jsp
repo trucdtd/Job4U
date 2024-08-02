@@ -41,6 +41,7 @@
   </head>
 
   <body>
+  <%@ include file="/views/headerNoPanner.jsp"%>
     <header>
       <!-- place navbar here -->
     </header>
@@ -88,7 +89,7 @@
             </div>
           </div>
         </div>
-        <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+        <!-- <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
           <div class="text-white mb-3 mb-md-0">
             Copyright © 2020. All rights reserved.
           </div>
@@ -97,7 +98,8 @@
               <i class="fab fa-linkedin-in"></i>
             </a>
           </div>
-        </div>
+        </div> -->
+        <%@ include file="/views/footer.jsp"%>
       </section>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->

@@ -67,11 +67,11 @@
 			</div>
 		</nav>
 		<!-- end navbar -->
-		<section class="banner mb-4">
+		<!-- <section class="banner mb-4">
 			<img src="/img/poster2.png"
 				style="height: 350px; width: 100%; object-fit: cover;" alt
 				class="img-fluid">
-		</section>
+		</section> -->
 	</header>
 	<!-- navbar -->
 	<!-- Bootstrap JavaScript Libraries -->
