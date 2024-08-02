@@ -38,7 +38,7 @@
 						</a>
 						<hr>
 						<ul class="nav nav-pills flex-column mb-auto">
-							<li><a href="#" class="nav-link text-white active"
+							<li><a href="" class="nav-link text-white active"
 								onclick="showTable(event, 'userManagement')"> <svg
 										class="bi me-1" width="16" height="16">
                                     <use xlink:href="#speedometer2"></use>
@@ -138,7 +138,7 @@
 							<div class="card-title">Quản Lý Bài Viết</div>
 						</div>
 						<div class="card-body p-0">
-							<form action="/job4u/detail" method="post">
+							<form action="/user/detail" method="post">
 								<div class="table-responsive">
 									<table class="table align-items-center mb-0">
 										<thead class="thead-light">
@@ -162,11 +162,12 @@
 													<td>${bv.joblocation}</td>
 													<td>${bv.jobdescription}</td>
 													<td>${bv.salary}</td>
-													<td><a href="/job4u/detail/${bv.jobid}"
+													<td>
+													<a href="/user/detail/${bv.jobid}"
 														class="btn btn-info" type="button"
 														style="background-color: #00688B; color: white;">Chi
 															tiết</a>
-														<button class="btn btn-danger">Delete</button></td>
+														<button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(${bv.jobid})">Xóa</button>
 												</tr>
 												<!-- Add more rows as needed -->
 											</c:forEach>
@@ -269,6 +270,14 @@
 		activeLink.classList.add('active');
 	}
 </script>
+
+<script>
+        function confirmDelete(jobid) {
+            if (confirm("Bạn có chắc chắn muốn xóa người dùng này?")) {
+                window.location.href = '/user/delete/' + jobid;
+            }
+        }
+    </script>
 
 </html>
 </html>

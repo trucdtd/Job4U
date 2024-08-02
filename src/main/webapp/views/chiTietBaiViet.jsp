@@ -176,7 +176,7 @@ id="industry" name="industry" value="${bv.employer.industry}" required>
 									<div class="card-action">
 										<button class="btn btn-success"
 											style="background-color: #00688B">Submit</button>
-										<button class="btn btn-danger">Cancel</button>
+										<button href="/job4u/quanLyBaiViet" class="btn btn-danger">Cancel</button>
 									</div>
 								</div>
 							</form>
