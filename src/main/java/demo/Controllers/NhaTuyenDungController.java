@@ -30,7 +30,7 @@ public class NhaTuyenDungController {
 
     @Autowired
     private EmployersDao nhaTuyenDungDao;
-
+    
     @Autowired
     private JoblistingsDao danhSachViecLamDao;
 
