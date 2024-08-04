@@ -272,12 +272,27 @@
 </script>
 
 <script>
-        function confirmDelete(jobid) {
-            if (confirm("Bạn có chắc chắn muốn xóa người dùng này?")) {
-                window.location.href = '/user/delete/' + jobid;
+function confirmDelete(jobid) {
+    if (confirm('Bạn có chắc chắn muốn xóa bài đăng công việc này?')) {
+        fetch(`/jobs/${jobid}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
             }
-        }
-    </script>
+        }).then(response => {
+            if (response.ok) {
+                alert('Đã xóa bài đăng công việc thành công.');
+                location.reload();
+            } else {
+                alert('Không thể xóa bài đăng công việc.');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('Đã xảy ra lỗi.');
+        });
+    }
+}
+</script>
 
 </html>
 </html>
