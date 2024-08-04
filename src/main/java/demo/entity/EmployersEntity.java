@@ -49,4 +49,5 @@ public class EmployersEntity implements Serializable {
 
     @Column(name = "logo")
     private String logo;
+    
 }

@@ -26,7 +26,7 @@
 		<div class="container">
 			<div class="row">
 				<!-- aside -->
-				<div class="col-lg-3 col-md-3">
+				<div class="col-lg-3 col-md-4 col-12 mb-3">
 					<div class="d-flex flex-column flex-shrink-0  text-white "
 						style="width: 100%; background: #00688B">
 						<a href="#"
@@ -41,36 +41,34 @@
 							<li><a href="" class="nav-link text-white active"
 								onclick="showTable(event, 'userManagement')"> <svg
 										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#speedometer2"></use>
-                                </svg> Quản Lý Tài Khoản
+                                <use xlink:href="#speedometer2"></use>
+                            </svg> Quản Lý Tài Khoản
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'postManagement')"> <svg
 										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#table"></use>
-                                </svg> Quản Lý Bài Viết
+                                <use xlink:href="#table"></use>
+                            </svg> Quản Lý Bài Viết
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'cvManagement')"> <svg
 										class="bi me-1" width="16" height="16">
-                                <use xlink:href="#grid"></use>
-                                </svg> Quản Lý CV
-
+                            <use xlink:href="#grid"></use>
+                            </svg> Quản Lý CV
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
 								aria-current="page"
 								onclick="showTable(event, 'statisticalManagement')"> <svg
 										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#home"></use>
-                                </svg> Quản Lý Thống Kê
+                                <use xlink:href="#home"></use>
+                            </svg> Quản Lý Thống Kê
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
 								aria-current="page" onclick="showTable(event, 'postService')">
 									<svg class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#home"></use>
-                                </svg> Dịch Vụ Bài Đăng
+                                <use xlink:href="#home"></use>
+                            </svg> Dịch Vụ Bài Đăng
 							</a></li>
-
 						</ul>
 						<hr>
 						<div class="dropdown">
@@ -81,7 +79,6 @@
 								alt="" width="30" height="30" class="rounded-circle me-2">
 								<strong>mdo</strong>
 							</a>
-
 						</div>
 					</div>
 				</div>
@@ -162,12 +159,12 @@
 													<td>${bv.joblocation}</td>
 													<td>${bv.jobdescription}</td>
 													<td>${bv.salary}</td>
-													<td>
-													<a href="/user/detail/${bv.jobid}"
+													<td><a href="/user/detail/${bv.jobid}"
 														class="btn btn-info" type="button"
 														style="background-color: #00688B; color: white;">Chi
 															tiết</a>
-														<button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(${bv.jobid})">Xóa</button>
+														<button type="button" class="btn btn-danger btn-sm"
+															onclick="confirmDelete(${bv.jobid})">Xóa</button>
 												</tr>
 												<!-- Add more rows as needed -->
 											</c:forEach>

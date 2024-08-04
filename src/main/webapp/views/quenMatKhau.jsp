@@ -37,10 +37,7 @@
   </head>
 
   <body>
-    <header>
-      <!-- place navbar here -->
-    </header>
-    <main></main>
+  <%@ include file="/views/headerNoPanner.jsp"%>
     <footer>
       <section class="vh-100" style="background-color: #f8f9fa;">
         <div class="container-fluid h-custom">
@@ -72,6 +69,7 @@
             </div>
           </div>
         </div>
+        <%@ include file="/views/footer.jsp"%>
       </section>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
