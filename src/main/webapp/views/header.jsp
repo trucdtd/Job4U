@@ -50,9 +50,9 @@
 							<li class="nav-item"><a class="nav-link" href="#">Ứng
 									Tuyển</a></li>
 						</ul>
-						<a href="#" class="btn login-button text-center"><img
+						<a href="/login" class="btn login-button text-center"><img
 							src="/img/login-icon.png" height="25px" width="25px" alt>
-							Đăng nhập</a> <a href="/Login" class="btn login-button text-center"><img
+							Đăng nhập</a> <a href="/DangKy" class="btn login-button text-center"><img
 							src="/img/icons8-register-30.png" height="25px"
 							width="25px" alt> Đăng ký</a>
 					</div>
