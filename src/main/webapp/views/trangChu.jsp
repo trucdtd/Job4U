@@ -151,7 +151,6 @@
 	z-index: 2000;
 }
 
-<<<<<<< HEAD
 #popup-form .btn-close {
 	float: right;
 	margin-left: 10px;
@@ -563,7 +562,7 @@
 		<%@ include file="/views/footer.jsp"%>
 		<!-- /footer -->
 	</div>
-	<!-- Thống kê -->
+	<!-- Chat -->
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const contactButton = document.getElementById('contact-button');
