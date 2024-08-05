@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,6 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
-
 
 </head>
 <body>
@@ -68,7 +68,7 @@
 									<svg class="bi me-1" width="16" height="16">
                                     <use xlink:href="#service"></use>
                                 </svg> Dịch Vụ Bài Đăng
-							</a></li>
+</a></li>
 
 						</ul>
 						<hr>
@@ -79,43 +79,55 @@
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 p-2 ">
 					<!-- Home table -->
-					<div id="home" class="card">
+					<!-- Thông báo cập nhật thành công -->
+					
+
+					<!-- Thông báo cập nhật thất bại -->
+					<div th:if="${error}" class="alert alert-danger" role="alert"
+						th:text="${error}"></div>
+					<div th:if="${message}" class="alert alert-success" role="alert"
+						th:text="${message}"></div>
+					<div id="userManagement" class="card">
 						<div class="card-header">
-							<div class="card-title">Trang Quản Lý Admin</div>
+							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<table class="table align-items-center mb-0">
 									<thead class="thead-light text-center">
 										<tr>
-											<th>Stt</th>
+											<th>STT</th>
 											<th>Tên Tài Khoản</th>
 											<th>Họ Và Tên</th>
 											<th>Email</th>
 											<th>Số điện thoại</th>
 											<th>Role</th>
 											<th></th>
-											
+
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>john_doe</td>
-											<td>John Doe</td>
-											<td>john@example.com</td>
-											<td>1234567890</td>
-											<td>Admin</td>
-											<td><a href=""
-												class="btn btn-info text-white" type="button"
-												style="background-color: #00688B">Chi tiết</a>
-												<hr>
-												<button class="btn btn-danger">Delete</button></td>
-
-										</tr>
-										
+										<c:forEach items="${dsND}" var="nd">
+											<tr>
+												<th scope="row">${nd.userid}</th>
+												<td>${nd.username}</td>
+												<td>${nd.fullname}</td>
+												<td>${nd.email}</td>
+												<td>${nd.phonenumber}</td>
+												<td>${nd.role}</td>
+												<td>
+													<a
+													href="/job4u/userManager/detailUser/${nd.userid}"
+													class="btn btn-info text-white p-2 " type="button"
+													style="background-color: #00688B">Chi tiết</a> 
+													
+													<a href=""
+													class="btn btn-danger p-2" type="button">delete</a>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
-									
+
 								</table>
 							</div>
 
@@ -154,8 +166,7 @@
 												style="background-color: #00688B">Chi tiết</a>
 												<hr>
 												<button class="btn btn-danger">Delete</button></td>
-
-										</tr>
+</tr>
 										<!-- Add more rows as needed -->
 									</tbody>
 								</table>
@@ -247,7 +258,7 @@
 						<div class="card-body">
 							<h5 class="card-title">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item">Biểu Đồ</li>
+<li class="breadcrumb-item">Biểu Đồ</li>
 									<li class="breadcrumb-item"><a href="/Thongke">Thống
 											kê chi tiết</a></li>
 								</ol>
@@ -307,4 +318,4 @@ function showTable(event, tableId) {
 </script>
 
 </html>
-</html>
+</html> 
