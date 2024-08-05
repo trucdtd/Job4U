@@ -84,7 +84,7 @@ public class QuanLyNguoiDungController {
 	}
 
 	
-	@PostMapping("/updateUser/{id}")
+	@GetMapping("/updateUser/{id}")
 	 public String updateUser(
 		        @PathVariable("id") Integer userid,
 		        @RequestParam String username,
@@ -140,7 +140,7 @@ public class QuanLyNguoiDungController {
 		    }
 
 
-	@GetMapping("/detail/{id}")
+	@GetMapping("/detailPost/{id}")
 	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
 		JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
 		model.addAttribute("bv", bv);

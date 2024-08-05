@@ -25,63 +25,7 @@
 		<div class="container">
 			<div class="row">
 				<!-- aside -->
-				<div class="col-lg-3 col-md-4 col-12 mb-3">
-					<div class="d-flex flex-column flex-shrink-0  text-white "
-						style="width: 100%; background: #00688B">
-						<a href="#"
-							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-							<svg class="bi me-2" width="25" height="25">
-                            <use xlink:href="#bootstrap"></use>
-                        </svg> <span class="card-title">Menu User
-								Management</span>
-						</a>
-						<hr>
-						<ul class="nav nav-pills flex-column mb-auto">
-							<li><a href="" class="nav-link text-white active"
-								onclick="showTable(event, 'userManagement')"> <svg
-										class="bi me-1" width="16" height="16">
-                                <use xlink:href="#speedometer2"></use>
-                            </svg> Quản Lý Tài Khoản
-							</a></li>
-							<li><a href="#" class="nav-link text-white"
-								onclick="showTable(event, 'postManagement')"> <svg
-										class="bi me-1" width="16" height="16">
-                                <use xlink:href="#table"></use>
-                            </svg> Quản Lý Bài Viết
-							</a></li>
-							<li><a href="#" class="nav-link text-white"
-								onclick="showTable(event, 'cvManagement')"> <svg
-										class="bi me-1" width="16" height="16">
-                            <use xlink:href="#grid"></use>
-                            </svg> Quản Lý CV
-							</a></li>
-							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page"
-								onclick="showTable(event, 'statisticalManagement')"> <svg
-										class="bi me-1" width="16" height="16">
-                                <use xlink:href="#home"></use>
-                            </svg> Quản Lý Thống Kê
-							</a></li>
-							<li class="nav-item"><a href="#" class="nav-link text-white"
-								aria-current="page" onclick="showTable(event, 'postService')">
-									<svg class="bi me-1" width="16" height="16">
-
-                                    <use xlink:href="#service"></use>
-                                </svg> Dịch Vụ Bài Đăng
-							</a></li>
-						</ul>
-						<hr>
-						<div class="dropdown">
-							<a href="#"
-								class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-								id="dropdownUser1" data-bs-toggle="dropdown"
-								aria-expanded="false"> <img src="https://github.com/mdo.png"
-								alt="" width="30" height="30" class="rounded-circle me-2">
-								<strong>mdo</strong>
-							</a>
-						</div>
-					</div>
-				</div>
+				<%@ include file="/views/menuAdmin.jsp"%>
 				<!-- aside -->
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 ">
@@ -165,7 +109,7 @@
 													<td>${bv.joblocation}</td>
 													<td>${bv.jobdescription}</td>
 													<td>${bv.salary}</td>
-													<td><a href="/user/detail/${bv.jobid}"
+													<td><a href="/user/detailPost/${bv.jobid}"
 														class="btn btn-info" type="button"
 														style="background-color: #00688B; color: white;">Chi
 															tiết</a>
