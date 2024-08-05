@@ -65,16 +65,18 @@
 							<li class="nav-item"><a href="#" class="nav-link text-white"
 								aria-current="page" onclick="showTable(event, 'postService')">
 									<svg class="bi me-1" width="16" height="16">
-<<<<<<< HEAD
+
                                     <use xlink:href="#service"></use>
                                 </svg> Dịch Vụ Bài Đăng
-</a></li>
-
-=======
-                                <use xlink:href="#home"></use>
-                            </svg> Dịch Vụ Bài Đăng
 							</a></li>
->>>>>>> dev
+
+
+							<use xlink:href="#home"></use>
+							</svg>
+							Dịch Vụ Bài Đăng
+							</a>
+							</li>
+
 						</ul>
 						<hr>
 						<div class="dropdown">
@@ -92,9 +94,9 @@
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 ">
 					<!-- Home table -->
-<<<<<<< HEAD
+					<<<<<<< HEAD
 					<!-- Thông báo cập nhật thành công -->
-					
+
 
 					<!-- Thông báo cập nhật thất bại -->
 					<div th:if="${error}" class="alert alert-danger" role="alert"
@@ -129,15 +131,11 @@
 												<td>${nd.email}</td>
 												<td>${nd.phonenumber}</td>
 												<td>${nd.role}</td>
-												<td>
-													<a
+												<td><a
 													href="/job4u/userManager/detailUser/${nd.userid}"
 													class="btn btn-info text-white p-2 " type="button"
-													style="background-color: #00688B">Chi tiết</a> 
-													
-													<a href=""
-													class="btn btn-danger p-2" type="button">delete</a>
-												</td>
+													style="background-color: #00688B">Chi tiết</a> <a href=""
+													class="btn btn-danger p-2" type="button">delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -147,9 +145,7 @@
 
 						</div>
 					</div>
-=======
 
->>>>>>> dev
 
 					<!-- User Management table -->
 					<div id="userManagement" class="card" style="display: none;">
@@ -183,7 +179,7 @@
 												style="background-color: #00688B; color: white;">Chi
 													tiết</a>
 												<button class="btn btn-danger">Delete</button></td>
-</tr>
+										</tr>
 										<!-- Add more rows as needed -->
 									</tbody>
 								</table>
@@ -280,7 +276,7 @@
 						<div class="card-body">
 							<h5 class="card-title">
 								<ol class="breadcrumb">
-<li class="breadcrumb-item">Biểu Đồ</li>
+									<li class="breadcrumb-item">Biểu Đồ</li>
 									<li class="breadcrumb-item"><a href="/Thongke">Thống
 											kê chi tiết</a></li>
 								</ol>
@@ -354,4 +350,3 @@ function confirmDelete(jobid) {
 </script>
 
 </html>
-</html> 

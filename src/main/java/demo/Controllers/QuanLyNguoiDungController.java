@@ -1,7 +1,7 @@
 package demo.Controllers;
 
 import java.util.List;
-<<<<<<< HEAD
+
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-=======
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.dao.EmployersDao;
->>>>>>> dev
+
 import demo.dao.JoblistingsDao;
 import demo.dao.UsersDao;
 import demo.entity.JoblistingsEntity;
@@ -51,30 +49,26 @@ public class QuanLyNguoiDungController {
 
 	@Autowired
 	JoblistingsDao joblistingsDao;
-	
-	@Autowired
-<<<<<<< HEAD
-	JoblistingsDao joblistDao;
-	
 
-	
-	
-	@RequestMapping("/userManager")
-	 public String quanLyNguoiDung(Model model, @RequestParam(value = "page", required = false) String page) {
-        if (page == null || page.equals("quanLyTaiKhoan")) {
-            List<UsersEntity> dsND = userDao.findAll();
-            model.addAttribute("dsND", dsND);
-        }
-        return "quanLyNguoiDung"; 
-         // Trả về trang mặc định nếu không có page hoặc page không phải là quanLyUngTuyen
-    }
-	
-	
-=======
-	EmployersDao employersDao;
-	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+
+	JoblistingsDao joblistDao;
+
+	@RequestMapping("/userManager")
+	public String quanLyNguoiDung(Model model, @RequestParam(value = "page", required = false) String page) {
+		if (page == null || page.equals("quanLyTaiKhoan")) {
+			List<UsersEntity> dsND = userDao.findAll();
+			model.addAttribute("dsND", dsND);
+		}
+		return "quanLyNguoiDung";
+		// Trả về trang mặc định nếu không có page hoặc page không phải là
+		// quanLyUngTuyen
+	}
+
+	@Autowired
+	EmployersDao employersDao;
+
+	private JdbcTemplate jdbcTemplate;
 
 	@RequestMapping("")
 	public String quanlyUser() {
@@ -82,19 +76,14 @@ public class QuanLyNguoiDungController {
 		return "quanLyNguoiDung";
 	}
 
-	@RequestMapping("/detailUser")
-	public String chiTietTaiKhoan() {
->>>>>>> dev
-
 	@RequestMapping("/userManager/detailUser/{id}")
 	public String chiTietTaiKhoan(@PathVariable("id") Integer id, Model model) {
-		 UsersEntity nd = userDao.findById(id).orElse(null);
-	        model.addAttribute("nd", nd);
-	       
+		UsersEntity nd = userDao.findById(id).orElse(null);
+		model.addAttribute("nd", nd);
+
 		return "chiTietTaiKhoan";
 	}
-	
-<<<<<<< HEAD
+
 //	@Autowired
 //    private JdbcTemplate jdbcTemplate;
 //	
@@ -153,35 +142,26 @@ public class QuanLyNguoiDungController {
 //		        return "redirect:/job4u/userManager";
 //		    }
 
-	
-	
 	@RequestMapping("/detailPost")
 	public String chiTietBaiViet() {
 
 		return "chiTietBaiViet";
 	}
-	
-	
-	
-    
-}
-=======
-	////////
-	
+
 	@RequestMapping("/quanLyBaiViet")
 	public String quanLyBaiViet(Model model) {
 		List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
 		model.addAttribute("qlBV", qlBV);
 		return "quanLyNguoiDung";
 	}
-	
+
 	@GetMapping("/detail/{id}")
-    public String showPostDetail(@PathVariable("id") Integer id, Model model) {
-        JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
-        model.addAttribute("bv", bv);
-        return "chiTietBaiViet";
-    }
-	
+	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
+		JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
+		model.addAttribute("bv", bv);
+		return "chiTietBaiViet";
+	}
+
 	/*
 	 * @GetMapping("/delete/{id}") public String deleteUser(@PathVariable("id")
 	 * Integer id, RedirectAttributes redirectAttributes) { String sql =
@@ -195,13 +175,11 @@ public class QuanLyNguoiDungController {
 	 * "Xóa người dùng thất bại! Lỗi: " + e.getMessage()); } return
 	 * "redirect:/user/quanLyBaiViet"; }
 	 */
-	
-	@DeleteMapping("/delete/{jobid}")
-    public ResponseEntity<Void> deleteJob(@PathVariable Integer jobid) {
-        joblistingsDao.deleteById(jobid);
-        return ResponseEntity.noContent().build();
-    }
 
+	@DeleteMapping("/delete/{jobid}")
+	public ResponseEntity<Void> deleteJob(@PathVariable Integer jobid) {
+		joblistingsDao.deleteById(jobid);
+		return ResponseEntity.noContent().build();
+	}
 
 }
->>>>>>> dev
