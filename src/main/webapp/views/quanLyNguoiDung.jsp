@@ -69,14 +69,6 @@
                                     <use xlink:href="#service"></use>
                                 </svg> Dịch Vụ Bài Đăng
 							</a></li>
-
-
-							<use xlink:href="#home"></use>
-							</svg>
-							Dịch Vụ Bài Đăng
-							</a>
-							</li>
-
 						</ul>
 						<hr>
 						<div class="dropdown">
@@ -94,10 +86,7 @@
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 ">
 					<!-- Home table -->
-					<<<<<<< HEAD
-					<!-- Thông báo cập nhật thành công -->
-
-
+					
 					<!-- Thông báo cập nhật thất bại -->
 					<div th:if="${error}" class="alert alert-danger" role="alert"
 						th:text="${error}"></div>
@@ -132,7 +121,7 @@
 												<td>${nd.phonenumber}</td>
 												<td>${nd.role}</td>
 												<td><a
-													href="/job4u/userManager/detailUser/${nd.userid}"
+													href="/user/detailUser/${nd.userid}"
 													class="btn btn-info text-white p-2 " type="button"
 													style="background-color: #00688B">Chi tiết</a> <a href=""
 													class="btn btn-danger p-2" type="button">delete</a></td>
@@ -143,47 +132,6 @@
 								</table>
 							</div>
 
-						</div>
-					</div>
-
-
-					<!-- User Management table -->
-					<div id="userManagement" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Quản Lý Tài Khoản</div>
-						</div>
-						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">UserID</th>
-											<th scope="col">Username</th>
-											<th scope="col">Fullname</th>
-											<th scope="col">Email</th>
-											<th scope="col">PhoneNumber</th>
-											<th scope="col">Role</th>
-											<th scope="col">Button</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>john_doe</td>
-											<td>John Doe</td>
-											<td>john@example.com</td>
-											<td>1234567890</td>
-											<td>Admin</td>
-											<td><a href="/job4u/detailUser" class="btn btn-info"
-												type="button"
-												style="background-color: #00688B; color: white;">Chi
-													tiết</a>
-												<button class="btn btn-danger">Delete</button></td>
-										</tr>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
-							</div>
 						</div>
 					</div>
 

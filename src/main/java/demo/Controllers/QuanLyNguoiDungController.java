@@ -54,7 +54,7 @@ public class QuanLyNguoiDungController {
 
 	JoblistingsDao joblistDao;
 
-	@RequestMapping("/userManager")
+	@RequestMapping("")
 	public String quanLyNguoiDung(Model model, @RequestParam(value = "page", required = false) String page) {
 		if (page == null || page.equals("quanLyTaiKhoan")) {
 			List<UsersEntity> dsND = userDao.findAll();
@@ -70,13 +70,8 @@ public class QuanLyNguoiDungController {
 
 	private JdbcTemplate jdbcTemplate;
 
-	@RequestMapping("")
-	public String quanlyUser() {
 
-		return "quanLyNguoiDung";
-	}
-
-	@RequestMapping("/userManager/detailUser/{id}")
+	@RequestMapping("/detailUser/{id}")
 	public String chiTietTaiKhoan(@PathVariable("id") Integer id, Model model) {
 		UsersEntity nd = userDao.findById(id).orElse(null);
 		model.addAttribute("nd", nd);
@@ -141,12 +136,6 @@ public class QuanLyNguoiDungController {
 //		        
 //		        return "redirect:/job4u/userManager";
 //		    }
-
-	@RequestMapping("/detailPost")
-	public String chiTietBaiViet() {
-
-		return "chiTietBaiViet";
-	}
 
 	@RequestMapping("/quanLyBaiViet")
 	public String quanLyBaiViet(Model model) {
