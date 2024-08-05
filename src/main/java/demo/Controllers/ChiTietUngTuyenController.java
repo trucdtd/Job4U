@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import demo.dao.JoblistingsDao;
+import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
 import demo.services.JoblistingsService;
 import demo.services.SessionService;

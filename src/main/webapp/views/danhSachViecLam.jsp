@@ -67,10 +67,7 @@
 											<button data-mdb-button-init data-mdb-ripple-init
 												class="btn btn-primary btn-sm" type="button">Ứng
 												tuyển</button>
-											<a href="${pageContext.request.contextPath}/job4u/chiTiet/${job.jobid}" data-mdb-button-init data-mdb-ripple-init
-                                           class="btn btn-outline-primary btn-sm mt-2" type="button">
-                                            Thông tin chi tiết
-                                        </a>
+											<a href="/job4u/chiTiet/${job.jobid}" class="btn btn-outline-primary btn-sm mt-2">Thông tin chi tiết</a>
 										</div>
 									</div>
 								</div>

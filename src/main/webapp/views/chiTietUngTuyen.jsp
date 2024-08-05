@@ -22,6 +22,67 @@
 	width: 100%;
 	object-fit: cover; /* Đảm bảo ảnh bao phủ toàn bộ khung */
 }
+body {
+    margin: 0;
+    padding-top: 40px;
+    color: #2e323c;
+    background: #f5f6fa;
+    position: relative;
+    height: 100%;
+}
+.account-settings .user-profile {
+    margin: 0 0 1rem 0;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+.account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+}
+.account-settings .user-profile .user-avatar img {
+    width: 90px;
+    height: 90px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+.account-settings .user-profile h5.user-name {
+    margin: 0 0 0.5rem 0;
+}
+.account-settings .user-profile h6.user-email {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #9fa8b9;
+}
+.account-settings .about {
+    margin: 2rem 0 0 0;
+    text-align: center;
+}
+.account-settings .about h5 {
+    margin: 0 0 15px 0;
+    color: #007ae1;
+}
+.account-settings .about p {
+    font-size: 0.825rem;
+}
+.form-control {
+    border: 1px solid #cfd1d8;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: .825rem;
+    background: #ffffff;
+    color: #2e323c;
+}
+
+.card {
+    background: #ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 1rem;
+}
 </style>
 </head>
 
@@ -183,82 +244,112 @@
 			</aside>
 
 			<article class="col-md-9">
-			
-				<div class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Chi Tiết Tuyển Dụng</h3>
-        </div>
-        <div class="card-body">
-            <div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Tên công ty:</strong> <span th:text="${job.employer.companyname}"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Trang web công ty:</strong> <a th:href="${job.employer.companywebsite}" th:text="${job.employer.companywebsite}" target="_blank"></a>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Địa chỉ công ty:</strong> <span th:text="${job.employer.address}"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Ngành nghề:</strong> <span th:text="${job.employer.industry}"></span>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Người liên hệ:</strong> <span th:text="${job.employer.contactperson}"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Logo công ty:</strong> <img th:src="@{${job.employer.logo}}" class="img-fluid" style="max-width: 100px;" alt="Company Logo">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <strong>Mô tả về công ty:</strong>
-                        <p th:text="${job.employer.companydescription}"></p>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Tiêu đề công việc:</strong> <span th:text="${job.jobtitle}"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Địa điểm làm việc:</strong> <span th:text="${job.joblocation}"></span>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Loại công việc:</strong> <span th:text="${job.jobtype}"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Lương:</strong> <span th:text="${job.salary}"></span>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <strong>Yêu cầu công việc:</strong>
-                        <p th:text="${job.jobrequirements}"></p>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Ngày đăng:</strong> <span th:text="${job.posteddate}"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Hạn nộp hồ sơ:</strong> <span th:text="${job.applicationdeadline}"></span>
-                    </div>
-                </div>
-                <div class="text-end">
-                    <button type="button" class="btn btn-primary">Ứng tuyển</button>
-                </div>
-                <hr/>
-            </div>
-        </div>
-    </div>
+			<div class="container">
+<div class="row gutters">
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div class="card-body">
+		<div class="account-settings">
+			<div class="user-profile">
+				<div class="bg-image hover-zoom ripple rounded ripple-surface">
+					<img src="${job.employer.logo}" class="w-100" />
+				</div>
+				<br>
+				<h5 class="user-name">${job.employer.companyname}</h5>
+				<h6 class="user-email">${job.employer.companywebsite}</h6>
+			</div>
+			<div class="about">
+				<h5>Mô tả về Công Ty</h5>
+				<p>${job.employer.companydescription}</p>
+			</div>
+		</div>
+	</div>
 </div>
+</div>
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div class="card-body">
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h3 class="mb-2 text-primary">Chi Tiết Tuyển Dụng</h3>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="fullName">Ngành Nghề</h6>
+					<p>${job.employer.industry}
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="eMail">Địa Chỉ</h6>
+					<p>${job.employer.address}
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="phone">Người Liên Hệ</h6>
+					<p>${job.employer.contactperson}
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="phone">Vị trí</h6>
+					<p>${job.jobtitle}
+				</div>
+			</div>
+		</div>
+		<div class="row gutters">
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="Street">Loại Công Việc</h6>
+					<p>${job.jobtype}
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="ciTy">Lương</h6>
+					<p>${job.salary}</p>
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="sTate">Yêu Cầu Công Việc</h6>
+					<p>${job.jobrequirements}
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="zIp">Địa Điểm Làm Việc</h6>
+					<p>${job.joblocation}
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="ngaybd">Ngày Đăng</h6>
+					<p>${job.posteddate}
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<h6 for="ngaykt">Hạn Nộp Hồ Sơ</h6>
+					<p>${job.applicationdeadline}
+				</div>
+			</div>
+		</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="text-right">
+					<a href="/job4u" type="button" id="submit" name="submit" class="btn btn-secondary">Hủy</a>
+					<button type="button" id="submit" name="submit" class="btn btn-primary">Ứng Tuyển</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+			
 			</article>
 			<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
