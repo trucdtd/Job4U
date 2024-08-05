@@ -11,8 +11,6 @@ import org.springframework.data.repository.query.Param;
 import demo.entity.JoblistingsEntity;
 
 public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer> {
-	@Query("SELECT j FROM JoblistingsEntity j WHERE j.id = :jobid")
-    Optional<JoblistingsEntity> findById(@Param("jobid") Integer jobid);
 
     @Query("SELECT j FROM JoblistingsEntity j WHERE " +
            "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND " +
