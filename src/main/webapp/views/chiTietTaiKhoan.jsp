@@ -33,8 +33,13 @@
 		<div class="container">
 			<div class="row mt-3">
 				<!-- aside -->
+<<<<<<< HEAD
 				<div class="col-lg-3 col-md-3 p-2 ">
 					<div class="d-flex flex-column flex-shrink-0 p-3 text-white "
+=======
+				<div class="col-lg-3 col-md-3 ">
+					<div class="d-flex flex-column flex-shrink-0  text-white "
+>>>>>>> dev
 						style="width: 100%; background: #00688B">
 						<a href="#"
 							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -71,11 +76,15 @@
                                     <use xlink:href="#home"></use>
                                 </svg> Quản Lý Thống Kê
 							</a></li>
+<<<<<<< HEAD
 <li class="nav-item"><a href="#" class="nav-link text-white"
+=======
+							<li class="nav-item"><a href="#" class="nav-link text-white"
+>>>>>>> dev
 								aria-current="page" onclick="showTable(event, 'postService')">
 									<svg class="bi me-2" width="16" height="16">
                                     <use xlink:href="#home"></use>
-                                </svg> Dịch Vụ Bài Đăng
+</svg> Dịch Vụ Bài Đăng
 							</a></li>
 
 						</ul>
@@ -94,7 +103,21 @@
 				</div>
 				<!-- aside -->
 				<!-- article -->
+<<<<<<< HEAD
 				<div class="col-lg-9 col-md-9 p-2 ">
+=======
+				<div class="col-lg-9 col-md-9 ">
+					<!-- Home table -->
+					<div id="home" class="card" style="display: none">
+						<div class="card-header">
+							<div class="card-title">Trang Quản Lý Admin</div>
+						</div>
+						<div class="card-body p-0">
+							<p>Welcome to the Home page!</p>
+						</div>
+					</div>
+
+>>>>>>> dev
 					<!-- User Management table -->
 					<div id="userManagement" class="card"">
 						<div class="card-header">
@@ -102,6 +125,7 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
+<<<<<<< HEAD
 								<form class="p-4 border" action="/job4u/userManager"
 									method="post">
 									<div class="row ">
@@ -110,24 +134,29 @@
 											<div class="alert alert-danger" role="alert">${error}</div>
 										</c:if>
 										<div class="col-md-6 p-2">
+=======
+								<form class="p-4 border" action="" method="post">
+									<div class="row p-2">
+										<div class="col-md-6">
+>>>>>>> dev
 											<label for="username" class="form-label">Tên tài
 												khoản</label> <input type="text" class="form-control" id="username"
 												name="username" value="${nd.username}" required>
 										</div>
-										<div class="col-md-6 p-2">
+										<div class="col-md-6">
 											<label for="fullname" class="form-label">Họ và tên</label> <input
 												type="text" class="form-control" id="fullname"
 												name="fullname" value="${nd.fullname}" required>
 										</div>
 									</div>
 
-									<div class="row">
-										<div class="col-md-6 p-2">
+									<div class="row p-2">
+										<div class="col-md-6">
 											<label for="email" class="form-label">Email</label> <input
 												type="text" class="form-control" id="email" name="email"
 												value="${nd.email}" required>
 										</div>
-										<div class="col-md-6 p-2">
+										<div class="col-md-6">
 											<label for="phonenumber" class="form-label">Số điện
 												thoại</label> <input type="text" class="form-control"
 												id="phonenumber" name="phonenumber" value="${nd.phonenumber}"
@@ -135,6 +164,7 @@
 										</div>
 									</div>
 
+<<<<<<< HEAD
 									<div class="row ">
 										<div class="col-md-6 p-2">
 											<label class="g-2" for="role" >Vai Trò</label> 
@@ -142,18 +172,34 @@
 												 <option value="0" <c:if test="${user.role == 0}">selected</c:if>>Admin</option>
                                                 <option value="1" <c:if test="${user.role == 1}">selected</c:if>>Ứng Viên</option>
 <option value="2" <c:if test="${user.role == 2}">selected</c:if>>Nhà Tuyển Dụng</option>
+=======
+									<div class="row p-2">
+										<div class="col-md-6">
+											<label class="g-2" for="role">Vai Trò</label> <select
+												name="role" class="form-select" required>
+												<option value="Ứng Viên">Ứng Viên</option>
+												<option value="Nhà Tuyển Dụng">Nhà Tuyển Dụng</option>
+>>>>>>> dev
 											</select>
 										</div>
 									</div>
 									<hr>
-									<div class="row">
+									<div class="row p-2" style="margin-top: 10px;">
 										<div class="card-action">
+<<<<<<< HEAD
 											<a href="/job4u/userManager/updateUser/${nd.userid}" class="btn btn-info text-white" type="button"
 												style="background-color: #00688B" >Update</a>
 											<a href="/job4u/userManager" class="btn btn-danger">Cancel</a>
 										</div>
 									</div>
 
+=======
+											<button class="btn btn-success"
+												style="background-color: #00688B">Update</button>
+											<button class="btn btn-danger">Cancel</button>
+										</div>
+									</div>
+>>>>>>> dev
 								</form>
 							</div>
 						</div>

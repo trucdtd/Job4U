@@ -25,11 +25,11 @@
 		<div class="container">
 			<div class="row">
 				<!-- aside -->
-				<div class="col-lg-3 col-md-3 p-2">
-					<div class="d-flex flex-column flex-shrink-0 p-3 text-white  "
+				<div class="col-lg-3 col-md-4 col-12 mb-3">
+					<div class="d-flex flex-column flex-shrink-0  text-white "
 						style="width: 100%; background: #00688B">
 						<a href="#"
-							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none text-center">
+							class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 							<svg class="bi me-2" width="25" height="25">
                             <use xlink:href="#bootstrap"></use>
                         </svg> <span class="card-title">Menu User
@@ -37,48 +37,62 @@
 						</a>
 						<hr>
 						<ul class="nav nav-pills flex-column mb-auto">
-							<li><a href="#" class="nav-link text-white active"
+							<li><a href="" class="nav-link text-white active"
 								onclick="showTable(event, 'userManagement')"> <svg
 										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#speedometer2"></use>
-                                </svg> Quản Lý Tài Khoản
+                                <use xlink:href="#speedometer2"></use>
+                            </svg> Quản Lý Tài Khoản
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'postManagement')"> <svg
 										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#table"></use>
-                                </svg> Quản Lý Bài Viết
+                                <use xlink:href="#table"></use>
+                            </svg> Quản Lý Bài Viết
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'cvManagement')"> <svg
 										class="bi me-1" width="16" height="16">
-                                <use xlink:href="#grid"></use>
-                                </svg> Quản Lý CV
-
+                            <use xlink:href="#grid"></use>
+                            </svg> Quản Lý CV
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
 								aria-current="page"
 								onclick="showTable(event, 'statisticalManagement')"> <svg
 										class="bi me-1" width="16" height="16">
-                                    <use xlink:href="#home"></use>
-                                </svg> Quản Lý Thống Kê
+                                <use xlink:href="#home"></use>
+                            </svg> Quản Lý Thống Kê
 							</a></li>
 							<li class="nav-item"><a href="#" class="nav-link text-white"
 								aria-current="page" onclick="showTable(event, 'postService')">
 									<svg class="bi me-1" width="16" height="16">
+<<<<<<< HEAD
                                     <use xlink:href="#service"></use>
                                 </svg> Dịch Vụ Bài Đăng
 </a></li>
 
+=======
+                                <use xlink:href="#home"></use>
+                            </svg> Dịch Vụ Bài Đăng
+							</a></li>
+>>>>>>> dev
 						</ul>
 						<hr>
-
+						<div class="dropdown">
+							<a href="#"
+								class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+								id="dropdownUser1" data-bs-toggle="dropdown"
+								aria-expanded="false"> <img src="https://github.com/mdo.png"
+								alt="" width="30" height="30" class="rounded-circle me-2">
+								<strong>mdo</strong>
+							</a>
+						</div>
 					</div>
 				</div>
 				<!-- aside -->
 				<!-- article -->
-				<div class="col-lg-9 col-md-9 p-2 ">
+				<div class="col-lg-9 col-md-9 ">
 					<!-- Home table -->
+<<<<<<< HEAD
 					<!-- Thông báo cập nhật thành công -->
 					
 
@@ -133,6 +147,9 @@
 
 						</div>
 					</div>
+=======
+
+>>>>>>> dev
 
 					<!-- User Management table -->
 					<div id="userManagement" class="card" style="display: none;">
@@ -161,10 +178,10 @@
 											<td>john@example.com</td>
 											<td>1234567890</td>
 											<td>Admin</td>
-											<td><a href="/job4u/detailUser"
-												class="btn btn-info text-white" type="button"
-												style="background-color: #00688B">Chi tiết</a>
-												<hr>
+											<td><a href="/job4u/detailUser" class="btn btn-info"
+												type="button"
+												style="background-color: #00688B; color: white;">Chi
+													tiết</a>
 												<button class="btn btn-danger">Delete</button></td>
 </tr>
 										<!-- Add more rows as needed -->
@@ -180,37 +197,43 @@
 							<div class="card-title">Quản Lý Bài Viết</div>
 						</div>
 						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">Job Title</th>
-											<th scope="col">Company Name</th>
-											<th scope="col">Job Requirenments</th>
-											<th scope="col">Job Location</th>
-											<th scope="col">Salary</th>
-											<th scope="col">Job Description</th>
-											<th scope="col">Action</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">Developer</th>
-											<td>Công ty F</td>
-											<td>Requirements for Developer position</td>
-											<td>Ho Chi Minh City</td>
-											<td>Negotiable</td>
-											<td>Job description for Developer position</td>
-											<td><a href="/job4u/detailPost"
-												class="btn btn-info text-white" type="button"
-												style="background-color: #00688B">Chi tiết</a>
-												<hr>
-												<button class="btn btn-danger">Delete</button></td>
-										</tr>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
-							</div>
+							<form action="/user/detail" method="post">
+								<div class="table-responsive">
+									<table class="table align-items-center mb-0">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">EmployerID</th>
+												<th scope="col">Company Name</th>
+												<th scope="col">JobTitle</th>
+												<th scope="col">Job Requirenments</th>
+												<th scope="col">Job Location</th>
+												<th scope="col">Industry</th>
+												<th scope="col">Salary</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${qlBV}" var="bv">
+												<tr>
+													<th scope="row">${bv.jobid}</th>
+													<td>${bv.employer.companyname}</td>
+													<td>${bv.jobtitle}</td>
+													<td>${bv.jobrequirements}</td>
+													<td>${bv.joblocation}</td>
+													<td>${bv.jobdescription}</td>
+													<td>${bv.salary}</td>
+													<td><a href="/user/detail/${bv.jobid}"
+														class="btn btn-info" type="button"
+														style="background-color: #00688B; color: white;">Chi
+															tiết</a>
+														<button type="button" class="btn btn-danger btn-sm"
+															onclick="confirmDelete(${bv.jobid})">Xóa</button>
+												</tr>
+												<!-- Add more rows as needed -->
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</form>
 						</div>
 					</div>
 
@@ -240,8 +263,7 @@
 											<td>2023-01-05</td>
 											<td>Reviewed</td>
 											<td>
-												<button type="submit" class="btn text-light p-2"
-													style="background-color: #00688B">Detail</button>
+												<button class="btn btn-success">Detail</button>
 											</td>
 										</tr>
 										<!-- Add more rows as needed -->
@@ -271,16 +293,6 @@
 						</div>
 					</div>
 
-					<!--statisticalManagement table -->
-					<div id="postService" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Dịch Vụ Bài Đăng</div>
-						</div>
-						<div class="card-body">
-							<span>now we dont have service</span>
-						</div>
-					</div>
-
 				</div>
 				<!-- article -->
 			</div>
@@ -293,27 +305,51 @@
 
 </body>
 <script>
-function showTable(event, tableId) {
-    event.preventDefault(); // Ngăn chặn hành vi mặc định
+	function showTable(event, tableId) {
+		event.preventDefault(); // Ngăn chặn hành vi mặc định
 
-    // Ẩn tất cả các bảng
-    var tables = document.querySelectorAll('.col-md-9 .card');
-    tables.forEach(function(table) {
-        table.style.display = 'none';
-    });
+		// Ẩn tất cả các bảng
+		var tables = document.querySelectorAll('.col-md-9 .card');
+		tables.forEach(function(table) {
+			table.style.display = 'none';
+		});
 
-    // Hiển thị bảng được chọn
-    document.getElementById(tableId).style.display = 'block';
+		// Hiển thị bảng được chọn
+		document.getElementById(tableId).style.display = 'block';
 
-    // Loại bỏ lớp active khỏi tất cả các liên kết
-    var links = document.querySelectorAll('.nav-link');
-    links.forEach(function(link) {
-        link.classList.remove('active');
-    });
+		// Loại bỏ lớp active khỏi tất cả các liên kết
+		var links = document.querySelectorAll('.nav-link');
+		links.forEach(function(link) {
+			link.classList.remove('active');
+		});
 
-    // Thêm lớp active vào liên kết được bấm
-    var activeLink = document.querySelector('.nav-link[onclick*="' + tableId + '"]');
-    activeLink.classList.add('active');
+		// Thêm lớp active vào liên kết được bấm
+		var activeLink = document.querySelector('.nav-link[onclick*="'
+				+ tableId + '"]');
+		activeLink.classList.add('active');
+	}
+</script>
+
+<script>
+function confirmDelete(jobid) {
+    if (confirm('Bạn có chắc chắn muốn xóa bài đăng công việc này?')) {
+        fetch(`/jobs/${jobid}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                alert('Đã xóa bài đăng công việc thành công.');
+                location.reload();
+            } else {
+                alert('Không thể xóa bài đăng công việc.');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('Đã xảy ra lỗi.');
+        });
+    }
 }
 </script>
 
