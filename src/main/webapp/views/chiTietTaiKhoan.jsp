@@ -35,7 +35,7 @@
 				<!-- aside -->
 <<<<<<< HEAD
 				<div class="col-lg-3 col-md-3 p-2 ">
-					<div class="d-flex flex-column flex-shrink-0 p-3 text-white "
+					<div class="d-flex flex-column flex-shrink-0 p-3 text-white ">
 =======
 				<div class="col-lg-3 col-md-3 ">
 					<div class="d-flex flex-column flex-shrink-0  text-white "
@@ -77,7 +77,7 @@
                                 </svg> Quản Lý Thống Kê
 							</a></li>
 <<<<<<< HEAD
-<li class="nav-item"><a href="#" class="nav-link text-white"
+<li class="nav-item"><a href="#" class="nav-link text-white">
 =======
 							<li class="nav-item"><a href="#" class="nav-link text-white"
 >>>>>>> dev

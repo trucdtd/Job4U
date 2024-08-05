@@ -190,7 +190,7 @@
             <h3 class="card-title">Chi Tiết Tuyển Dụng</h3>
         </div>
         <div class="card-body">
-            <div th:each="job : ${jobs}">
+            <div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <strong>Tên công ty:</strong> <span th:text="${job.employer.companyname}"></span>
@@ -212,7 +212,7 @@
                         <strong>Người liên hệ:</strong> <span th:text="${job.employer.contactperson}"></span>
                     </div>
                     <div class="col-md-6">
-                        <strong>Logo công ty:</strong> <img th:src="${job.employer.logo}" class="img-fluid" style="max-width: 100px;" alt="Company Logo">
+                        <strong>Logo công ty:</strong> <img th:src="@{${job.employer.logo}}" class="img-fluid" style="max-width: 100px;" alt="Company Logo">
                     </div>
                 </div>
                 <div class="row mb-3">

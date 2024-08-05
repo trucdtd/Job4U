@@ -1,5 +1,7 @@
 package demo.dao;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +11,8 @@ import org.springframework.data.repository.query.Param;
 import demo.entity.JoblistingsEntity;
 
 public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer> {
+	@Query("SELECT j FROM JoblistingsEntity j WHERE j.id = :jobid")
+    Optional<JoblistingsEntity> findById(@Param("jobid") Integer jobid);
 
     @Query("SELECT j FROM JoblistingsEntity j WHERE " +
            "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND " +
@@ -24,4 +28,5 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     @Query("SELECT j FROM JoblistingsEntity j WHERE " +
            "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
     Page<JoblistingsEntity> findByIndustry(@Param("industry") String industry, Pageable pageable);
+    
 }
