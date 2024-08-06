@@ -36,7 +36,7 @@
 </head>
 <body>
 	<!-- Remove the container if you want to extend the Footer to full width. -->
-	<div class="container my-5">
+	<div class="container">
 		<!-- Footer -->
 		<footer class="text-center text-lg-start footer">
 			<!-- Section: Social media -->
