@@ -27,4 +27,7 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
            "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
     Page<JoblistingsEntity> findByIndustry(@Param("industry") String industry, Pageable pageable);
     
+    void deleteByJobid(Integer jobid);
+    
+    
 }

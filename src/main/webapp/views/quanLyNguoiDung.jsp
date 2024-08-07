@@ -14,7 +14,13 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
-
+<script>
+function confirmDelete(jobid) {
+    if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
+        window.location.href = `/admin/deletePost/${jobid}`;
+    }
+}
+</script>
 </head>
 <body>
 	<div class="container">
@@ -32,10 +38,10 @@
 					<!-- Home table -->
 					
 					<!-- Thông báo cập nhật thất bại -->
-					<div th:if="${error}" class="alert alert-danger" role="alert"
+					<%-- <div th:if="${error}" class="alert alert-danger" role="alert"
 						th:text="${error}"></div>
 					<div th:if="${message}" class="alert alert-success" role="alert"
-						th:text="${message}"></div>
+						th:text="${message}"></div> --%>
 					<div id="userManagement" class="card">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tài Khoản</div>
@@ -65,7 +71,7 @@
 												<td>${nd.phonenumber}</td>
 												<td>${nd.role}</td>
 												<td><a
-													href="/user/detailUser/${nd.userid}"
+													href="/admin/detailUser/${nd.userid}"
 													class="btn btn-info text-white p-2 " type="button"
 													style="background-color: #00688B">Chi tiết</a> <a href=""
 													class="btn btn-danger p-2" type="button">delete</a></td>
@@ -80,50 +86,7 @@
 					</div>
 
 					<!-- Post Management table -->
-					<div id="postManagement" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Quản Lý Bài Viết</div>
-						</div>
-						<div class="card-body p-0">
-							<form action="/user/detail" method="post">
-								<div class="table-responsive">
-									<table class="table align-items-center mb-0">
-										<thead class="thead-light">
-											<tr>
-												<th scope="col">EmployerID</th>
-												<th scope="col">Company Name</th>
-												<th scope="col">JobTitle</th>
-												<th scope="col">Job Requirenments</th>
-												<th scope="col">Job Location</th>
-												<th scope="col">Industry</th>
-												<th scope="col">Salary</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${qlBV}" var="bv">
-												<tr>
-													<th scope="row">${bv.jobid}</th>
-													<td>${bv.employer.companyname}</td>
-													<td>${bv.jobtitle}</td>
-													<td>${bv.jobrequirements}</td>
-													<td>${bv.joblocation}</td>
-													<td>${bv.jobdescription}</td>
-													<td>${bv.salary}</td>
-													<td><a href="/user/detailPost/${bv.jobid}"
-														class="btn btn-info" type="button"
-														style="background-color: #00688B; color: white;">Chi
-															tiết</a>
-														<button type="button" class="btn btn-danger btn-sm"
-															onclick="confirmDelete(${bv.jobid})">Xóa</button>
-												</tr>
-												<!-- Add more rows as needed -->
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-							</form>
-						</div>
-					</div>
+					
 
 					<!-- CV Management table -->
 					<div id="cvManagement" class="card" style="display: none;">
@@ -218,7 +181,7 @@
 	}
 </script>
 
-<script>
+<!-- <script>
 function confirmDelete(jobid) {
     if (confirm('Bạn có chắc chắn muốn xóa bài đăng công việc này?')) {
         fetch(`/jobs/${jobid}`, {
@@ -239,6 +202,7 @@ function confirmDelete(jobid) {
         });
     }
 }
-</script>
+</script> -->
 
+</body>
 </html>
