@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.dao.EmployersDao;
-
+import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
 import demo.dao.UsersDao;
 import demo.entity.JoblistingsEntity;
@@ -42,6 +42,7 @@ import demo.entity.UsersEntity;
 import demo.entity.JoblistingsEntity;
 import demo.entity.UsersEntity;
 import demo.entity.EmployersEntity;
+import demo.entity.JobSeekersEntity;
 
 @Controller
 @RequestMapping("/admin")
@@ -51,6 +52,9 @@ public class AdminController {
 
 	@Autowired
 	JoblistingsDao joblistingsDao;
+	
+	@Autowired
+	JobSeekersDao jobSeekersDao;
 
 	@RequestMapping("")
 	public String quanLyNguoiDung(Model model, @RequestParam(value = "page", required = false) String page) {
@@ -58,7 +62,7 @@ public class AdminController {
 			List<UsersEntity> dsND = userDao.findAll();
 			model.addAttribute("dsND", dsND);
 		}
-		if (page == null || page.equals("quanLyBaiViet")) {
+		if (page == null || page.equals("quanLyTaiKhoan")) {
 			List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
 			model.addAttribute("qlBV", qlBV);
 		}

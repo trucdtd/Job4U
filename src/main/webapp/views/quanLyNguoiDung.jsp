@@ -29,20 +29,15 @@ function confirmDelete(jobid) {
 		<!-- header -->
 
 		<div class="container">
-			<div class="row">
+		<div class="row mt-3">
+			
 				<!-- aside -->
 				<%@ include file="/views/menuAdmin.jsp"%>
 				<!-- aside -->
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 ">
-					<!-- Home table -->
 
-					<!-- Thông báo cập nhật thất bại -->
-					<%-- <div th:if="${error}" class="alert alert-danger" role="alert"
-						th:text="${error}"></div>
-					<div th:if="${message}" class="alert alert-success" role="alert"
-						th:text="${message}"></div> --%>
-					<div id="userManagement" class="card">
+					<div id="userManagement" class="card" >
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
@@ -142,31 +137,36 @@ function confirmDelete(jobid) {
 							<table class="table align-items-center mb-0">
 								<thead class="thead-light">
 									<tr>
-										<th scope="col">CVID</th>
-										<th scope="col">Name</th>
-										<th scope="col">Position</th>
-										<th scope="col">Date Submitted</th>
-										<th scope="col">Status</th>
-										<th scope="col">Button</th>
+										<th scope="col">Jobseekerid</th>
+										<th scope="col">Resume</th>
+										<th scope="col">Profilesummary</th>
+										<th scope="col">Experience</th>
+										<th scope="col">Education</th>
+										<th scope="col">Skills</th>
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach items="${qlCV}" var="cv">
 									<tr>
-										<th scope="row">1</th>
-										<td>Alex Smith</td>
-										<td>Developer</td>
-										<td>2023-01-05</td>
-										<td>Reviewed</td>
+										<td>${cv.jobseekerid}</td>
+										<td>${cv.resume}</td>
+										<td>${cv.profilesummary}</td>
+										<td>${cv.experience}</td>
+										<td>${cv.education}</td>
+										<td>${cv.skills}</td>
 										<td>
 											<button class="btn btn-success">Detail</button>
 										</td>
 									</tr>
 									<!-- Add more rows as needed -->
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
+				
+				
 				<!--statisticalManagement table -->
 				<div id="statisticalManagement" class="card" style="display: none;">
 					<div class="card-header">
