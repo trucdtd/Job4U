@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="dangky.css">
     <script src="https://kit.fontawesome.com/c5fd529f32.js" crossorigin="anonymous"></script>
     <style>
+    .text-danger {
+    color: red;
+    display: block;
+}
+
       .form-container {
         max-width: 500px;
         margin: auto;
@@ -55,23 +60,20 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
               <div class="form-container">
-                <form action="/DangKy/submit" method="post" enctype="multipart/form-data">
+                <form action="/DangKy/submit" method="post" enctype="multipart/form-data" id="registerForm">
     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
         <h1 class="lead fw-normal mb-0 me-3">Đăng Ký</h1>
     </div>
-    <div id="error-message" style="color: red;">
-        <!-- Thông báo lỗi sẽ được hiển thị ở đây -->
-        ${message}
-    </div>
-
     <div class="row">
         <div class="col">
             <label class="form-label" for="fullname">Họ và Tên</label>
             <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Nhập họ và tên" />
+            <span class="text-danger" id="fullnameError">${fullnameError}</span>
         </div>
         <div class="col">
             <label class="form-label" for="username">Tên Tài Khoản</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên tài khoản" />
+            <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên tài khoảng" />
+            <span class="text-danger" id="usernameError">${usernameError}</span>
         </div>
     </div>
 
@@ -79,16 +81,19 @@
         <div class="col">
             <label class="form-label" for="email">Email</label>
             <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email" />
+            <span class="text-danger" id="emailError">${emailError}</span>
         </div>
         <div class="col">
             <label class="form-label" for="numberphone">Số Điện Thoại</label>
             <input type="text" id="numberphone" name="numberphone" class="form-control" placeholder="Nhập số điện thoại" />
+            <span class="text-danger" id="numberphoneError">${numberphoneError}</span>
         </div>
     </div>
 
     <div class="mb-4">
         <label class="form-label" for="password">Mật Khẩu</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" />
+        <span class="text-danger" id="passwordError">${passwordError}</span>
     </div>
 
     <div class="mb-4">
@@ -103,6 +108,7 @@
                 <label class="form-check-label" for="employer">Nhà Tuyển Dụng</label>
             </div>
         </div>
+        <span class="text-danger" id="usertypeError">${usertypeError}</span>
     </div>
 
     <div id="employerDetails" style="display: none;">
@@ -110,26 +116,31 @@
             <div class="col">
                 <label for="companyName" class="form-label">Tên Công Ty</label>
                 <input type="text" class="form-control" id="companyName" name="companyName">
+                <span class="text-danger" id="companyNameError">${companyNameError}</span>
             </div>
             <div class="col">
                 <label for="companyWebsite" class="form-label">Website Công Ty</label>
                 <input type="text" class="form-control" id="companyWebsite" name="companyWebsite">
+                <span class="text-danger" id="companyWebsiteError">${companyWebsiteError}</span>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <label for="companyAddress" class="form-label">Địa Chỉ</label>
                 <input type="text" class="form-control" id="companyAddress" name="companyAddress">
+                <span class="text-danger" id="companyAddressError">${companyAddressError}</span>
             </div>
             <div class="col">
                 <label for="industry" class="form-label">Ngành Công Nghiệp</label>
                 <input type="text" class="form-control" id="industry" name="industry">
+                <span class="text-danger" id="industryError">${industryError}</span>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <label for="contactPerson" class="form-label">Người Liên Hệ</label>
                 <input type="text" class="form-control" id="contactPerson" name="contactPerson">
+                <span class="text-danger" id="contactPersonError">${contactPersonError}</span>
             </div>
             <div class="col">
                 <label for="companyLogo" class="form-label">Logo Công Ty</label>
@@ -157,17 +168,16 @@
     </footer>
     
      <script>
-        function toggleEmployerDetails() {
-            const employerDetails = document.getElementById('employerDetails');
-            const userType = document.querySelector('input[name="usertype"]:checked');
-
-            if (userType && userType.value === 'employer') {
-                employerDetails.style.display = 'block';
-            } else {
-                employerDetails.style.display = 'none';
-            }
-        }
-    </script>
+    	function toggleEmployerDetails() {
+    	    var employerDetails = document.getElementById("employerDetails");
+    	    var employerRadio = document.getElementById("employer");
+    	    if (employerRadio.checked) {
+    	        employerDetails.style.display = "block";
+    	    } else {
+    	        employerDetails.style.display = "none";
+    	    }
+    	}
+</script>
 
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

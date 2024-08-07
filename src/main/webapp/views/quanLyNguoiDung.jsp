@@ -85,44 +85,45 @@ function confirmDelete(jobid) {
 							<div class="card-title">Quản Lý Bài Viết</div>
 						</div>
 						<div class="card-body p-0">
-							<form action="/user/detail" method="POST">
-								<div class="table-responsive">
-									<table class="table align-items-center mb-0">
-										<thead class="thead-light">
-											<tr>
-												<th scope="col">ID</th>
-												<th scope="col">Tên Công Ty</th>
-												<th scope="col">Tiêu Đề</th>
-												<th scope="col">Yêu Cầu</th>
-												<th scope="col">Vị Trí Công Việc</th>
-												<th scope="col">Tên Ngành</th>
-												<th scope="col">Lương</th>
-												<th></th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${qlBV}" var="bv">
-												<tr>
-													<th scope="row">${bv.jobid}</th>
-													<td>${bv.employer.companyname}</td>
-													<td>${bv.jobtitle}</td>
-													<td>${bv.jobrequirements}</td>
-													<td>${bv.joblocation}</td>
-													<td>${bv.jobdescription}</td>
-													<td>${bv.salary}</td>
-													<td><a href="/admin/detailPost/${bv.jobid}"
-														class="btn btn-info" type="button"
-														style="background-color: #00688B; color: white;">Chi
-															tiết</a>
-														<button type="button" class="btn btn-danger btn-sm"
-															onclick="confirmDelete(${bv.jobid})">Xóa</button>
-												</tr>
-												<!-- Add more rows as needed -->
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
+							<form id="deleteForm" action="/admin/deletePost" method="POST"
+								style="display: none;">
+								<input type="hidden" name="id" id="deleteId">
 							</form>
+
+							<div class="table-responsive">
+								<table class="table align-items-center mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">ID</th>
+											<th scope="col">Tên Công Ty</th>
+											<th scope="col">Tiêu Đề</th>
+											<th scope="col">Yêu Cầu</th>
+											<th scope="col">Vị Trí Công Việc</th>
+											<th scope="col">Tên Ngành</th>
+											<th scope="col">Lương</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${qlBV}" var="bv">
+											<tr>
+												<th scope="row">${bv.jobid}</th>
+												<td>${bv.employer.companyname}</td>
+												<td>${bv.jobtitle}</td>
+												<td>${bv.jobrequirements}</td>
+												<td>${bv.joblocation}</td>
+												<td>${bv.jobdescription}</td>
+												<td>${bv.salary}</td>
+												<td><a href="/admin/detailPost/${bv.jobid}"
+													class="btn btn-info" type="button"
+													style="background-color: #00688B; color: white;">Chi
+														tiết</a> <a href="#" class="btn btn-danger"
+													onclick="return confirmDelete(${bv.jobid});">Xóa</a></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -223,7 +224,22 @@ function confirmDelete(jobid) {
 				+ tableId + '"]');
 		activeLink.classList.add('active');
 	}
+	
 </script>
+
+<script>
+function confirmDelete(id) {
+    if (confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
+        // Cập nhật giá trị của input ẩn trong form xóa
+        document.getElementById('deleteId').value = id;
+        // Gửi form để thực hiện xóa
+        document.getElementById('deleteForm').submit();
+        return false; // Ngăn việc điều hướng đến URL
+    }
+    return false; // Ngăn việc thực hiện hành động nếu người dùng chọn hủy
+}
+</script>
+
 
 <!-- <script>
 function confirmDelete(jobid) {
