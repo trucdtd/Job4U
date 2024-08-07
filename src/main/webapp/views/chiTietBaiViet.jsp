@@ -100,7 +100,6 @@
 									</div>
 								</div>
 
-								
 
 								<hr>
 								<div class="row p-2" style="margin-top: 10px;">

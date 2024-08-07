@@ -36,7 +36,7 @@ function confirmDelete(jobid) {
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 ">
 					<!-- Home table -->
-					
+
 					<!-- Thông báo cập nhật thất bại -->
 					<%-- <div th:if="${error}" class="alert alert-danger" role="alert"
 						th:text="${error}"></div>
@@ -70,8 +70,7 @@ function confirmDelete(jobid) {
 												<td>${nd.email}</td>
 												<td>${nd.phonenumber}</td>
 												<td>${nd.role}</td>
-												<td><a
-													href="/admin/detailUser/${nd.userid}"
+												<td><a href="/admin/detailUser/${nd.userid}"
 													class="btn btn-info text-white p-2 " type="button"
 													style="background-color: #00688B">Chi tiết</a> <a href=""
 													class="btn btn-danger p-2" type="button">delete</a></td>
@@ -86,72 +85,117 @@ function confirmDelete(jobid) {
 					</div>
 
 					<!-- Post Management table -->
-					
-
-					<!-- CV Management table -->
-					<div id="cvManagement" class="card" style="display: none;">
+					<div id="postManagement" class="card" style="display: none;">
 						<div class="card-header">
-							<div class="card-title">Quản Lý CV</div>
+							<div class="card-title">Quản Lý Bài Viết</div>
 						</div>
 						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">CVID</th>
-											<th scope="col">Name</th>
-											<th scope="col">Position</th>
-											<th scope="col">Date Submitted</th>
-											<th scope="col">Status</th>
-											<th scope="col">Button</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>Alex Smith</td>
-											<td>Developer</td>
-											<td>2023-01-05</td>
-											<td>Reviewed</td>
-											<td>
-												<button class="btn btn-success">Detail</button>
-											</td>
-										</tr>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
-							</div>
+							<form action="/user/detail" method="POST">
+								<div class="table-responsive">
+									<table class="table align-items-center mb-0">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">ID</th>
+												<th scope="col">Tên Công Ty</th>
+												<th scope="col">Tiêu Đề</th>
+												<th scope="col">Yêu Cầu</th>
+												<th scope="col">Vị Trí Công Việc</th>
+												<th scope="col">Tên Ngành</th>
+												<th scope="col">Lương</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${qlBV}" var="bv">
+												<tr>
+													<th scope="row">${bv.jobid}</th>
+													<td>${bv.employer.companyname}</td>
+													<td>${bv.jobtitle}</td>
+													<td>${bv.jobrequirements}</td>
+													<td>${bv.joblocation}</td>
+													<td>${bv.jobdescription}</td>
+													<td>${bv.salary}</td>
+													<td><a href="/admin/detailPost/${bv.jobid}"
+														class="btn btn-info" type="button"
+														style="background-color: #00688B; color: white;">Chi
+															tiết</a>
+														<button type="button" class="btn btn-danger btn-sm"
+															onclick="confirmDelete(${bv.jobid})">Xóa</button>
+												</tr>
+												<!-- Add more rows as needed -->
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</form>
 						</div>
 					</div>
-					<!--statisticalManagement table -->
-					<div id="statisticalManagement" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Quản Lý Thống Kê</div>
-						</div>
-						<div class="card-body">
-							<h5 class="card-title">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item">Biểu Đồ</li>
-									<li class="breadcrumb-item"><a href="/Thongke">Thống
-											kê chi tiết</a></li>
-								</ol>
-							</h5>
-							<div class="panel panel-default">
-								<!-- /.panel-heading -->
-
-								<!-- /.panel-body -->
-							</div>
-						</div>
-					</div>
-
 				</div>
-				<!-- article -->
-			</div>
-		</div>
 
-		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
-		<!-- footer -->
+				<!-- CV Management table -->
+				<div id="cvManagement" class="card" style="display: none;">
+					<div class="card-header">
+						<div class="card-title">Quản Lý CV</div>
+					</div>
+					<div class="card-body p-0">
+						<div class="table-responsive">
+							<table class="table align-items-center mb-0">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col">CVID</th>
+										<th scope="col">Name</th>
+										<th scope="col">Position</th>
+										<th scope="col">Date Submitted</th>
+										<th scope="col">Status</th>
+										<th scope="col">Button</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td>Alex Smith</td>
+										<td>Developer</td>
+										<td>2023-01-05</td>
+										<td>Reviewed</td>
+										<td>
+											<button class="btn btn-success">Detail</button>
+										</td>
+									</tr>
+									<!-- Add more rows as needed -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!--statisticalManagement table -->
+				<div id="statisticalManagement" class="card" style="display: none;">
+					<div class="card-header">
+						<div class="card-title">Quản Lý Thống Kê</div>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">Biểu Đồ</li>
+								<li class="breadcrumb-item"><a href="/Thongke">Thống kê
+										chi tiết</a></li>
+							</ol>
+						</h5>
+						<div class="panel panel-default">
+							<!-- /.panel-heading -->
+
+							<!-- /.panel-body -->
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- article -->
+		</div>
+	</div>
+
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
 	</div>
 
 </body>
@@ -183,18 +227,18 @@ function confirmDelete(jobid) {
 
 <!-- <script>
 function confirmDelete(jobid) {
-    if (confirm('Bạn có chắc chắn muốn xóa bài đăng công việc này?')) {
-        fetch(`/jobs/${jobid}`, {
+    if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
+        fetch(`/admin/deletePost/${jobid}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(response => {
             if (response.ok) {
-                alert('Đã xóa bài đăng công việc thành công.');
+                alert('Xóa bài viết thành công.');
                 location.reload();
             } else {
-                alert('Không thể xóa bài đăng công việc.');
+                alert('Không thể xóa bài viết.');
             }
         }).catch(error => {
             console.error('Error:', error);
