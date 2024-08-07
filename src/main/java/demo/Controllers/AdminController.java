@@ -147,8 +147,9 @@ public class AdminController {
 	 * (Exception e) { return new ResponseEntity<>("Error deleting job",
 	 * HttpStatus.INTERNAL_SERVER_ERROR); } }
 	 */
-	@GetMapping("/deletePost/{id}")
-	public String deletePost(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+	
+	@PostMapping("/deletePost")
+	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
 	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
 	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
 	    String deletePostSql = "DELETE FROM Post WHERE JobID = ?";
