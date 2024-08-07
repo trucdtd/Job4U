@@ -54,86 +54,123 @@ public class dangkyController {
             @RequestParam(value = "usertype", required = false) String usertype,
             Model model
     ) {
-        // Kiểm tra thông tin cơ bản
-        if (username.isEmpty() || fullname.isEmpty() || password.isEmpty()
-                || email.isEmpty() || numberphone.isEmpty()) {
-            model.addAttribute("message", "Vui lòng nhập đầy đủ thông tin");
+        boolean hasErrors = false;
+
+        if (username.isEmpty()) {
+            model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
+            hasErrors = true;
+        }
+        if (fullname.isEmpty()) {
+            model.addAttribute("fullnameError", "Họ và tên không được để trống");
+            hasErrors = true;
+        }
+        if (password.isEmpty()) {
+            model.addAttribute("passwordError", "Mật khẩu không được để trống");
+            hasErrors = true;
+        }
+        if (email.isEmpty()) {
+            model.addAttribute("emailError", "Email không được để trống");
+            hasErrors = true;
+        }
+        if (numberphone.isEmpty()) {
+            model.addAttribute("numberphoneError", "Số điện thoại không được để trống");
+            hasErrors = true;
+        }
+        if (usertype == null || usertype.isEmpty()) {
+            model.addAttribute("usertypeError", "Vui lòng chọn loại tài khoản");
+            hasErrors = true;
+        }
+
+        // Validate fields based on their types
+        if (!isValidUsername(username)) {
+            model.addAttribute("usernameError", "Tên đăng nhập không hợp lệ");
+            hasErrors = true;
+        }
+        if (!isValidPhoneNumber(numberphone)) {
+            model.addAttribute("numberphoneError", "Số điện thoại không hợp lệ");
+            hasErrors = true;
+        }
+        if (!isValidPassword(password)) {
+            model.addAttribute("passwordError", "Mật khẩu không hợp lệ");
+            hasErrors = true;
+        }
+        if (!isValidEmail(email)) {
+            model.addAttribute("emailError", "Email không hợp lệ");
+            hasErrors = true;
+        }
+        if (userDao.existsByEmail(email)) {
+            model.addAttribute("emailError", "Email đã được sử dụng.");
+            hasErrors = true;
+        }
+        if (userDao.existsByPhonenumber(numberphone)) {
+            model.addAttribute("numberphoneError", "Số điện thoại đã được sử dụng.");
+            hasErrors = true;
+        }
+
+        if ("employer".equals(usertype)) {
+            if (companyName == null || companyName.isEmpty()) {
+                model.addAttribute("companyNameError", "Tên công ty không được để trống");
+                hasErrors = true;
+            }
+            if (companyWebsite == null || companyWebsite.isEmpty()) {
+                model.addAttribute("companyWebsiteError", "Website công ty không được để trống");
+                hasErrors = true;
+            }
+            if (companyAddress == null || companyAddress.isEmpty()) {
+                model.addAttribute("companyAddressError", "Địa chỉ công ty không được để trống");
+                hasErrors = true;
+            }
+            if (industry == null || industry.isEmpty()) {
+                model.addAttribute("industryError", "Ngành công nghiệp không được để trống");
+                hasErrors = true;
+            }
+            if (contactPerson == null || contactPerson.isEmpty()) {
+                model.addAttribute("contactPersonError", "Người liên hệ không được để trống");
+                hasErrors = true;
+            }
+        }
+
+        if (hasErrors) {
             return "dangky";
-        } else if (usertype == null || usertype.isEmpty()) {
-            model.addAttribute("message", "Vui lòng chọn loại tài khoản");
-            return "dangky";
-        } else if (!isValidUsername(username)) {
-            model.addAttribute("message", "Tên đăng nhập không được chỉ chứa số và kí tự đặc biệt");
-            return "dangky";
-        } else if (!isValidPhoneNumber(numberphone)) {
-            model.addAttribute("message", "Số điện thoại không hợp lệ");
-            return "dangky";
-        } else if (!isValidPassword(password)) {
-            model.addAttribute("message", "Mật khẩu phải có ít nhất 8 ký tự và chứa ít nhất một chữ số");
-            return "dangky";
-        } else if (!isValidEmail(email)) {
-            model.addAttribute("message", "Email không đúng định dạng");
-            return "dangky";
-        } else if (userDao.existsByEmail(email)) {
-            model.addAttribute("message", "Email đã được sử dụng. Vui lòng chọn email khác.");
-            return "dangky";
-        } else if (userDao.existsByPhonenumber(numberphone)) {
-            model.addAttribute("message", "Số điện thoại đã được sử dụng. Vui lòng chọn số điện thoại khác.");
-            return "dangky";
-        } else {
-            // Kiểm tra thông tin nhà tuyển dụng nếu là nhà tuyển dụng
+        }
+
+        try {
+            UsersEntity newUser = new UsersEntity();
+            Integer role = "employer".equals(usertype) ? 2 : 1;
+            newUser.setUsername(username);
+            newUser.setFullname(fullname);
+            newUser.setPassword(password);
+            newUser.setEmail(email);
+            newUser.setPhonenumber(numberphone);
+            newUser.setRole(role);
+            LocalDateTime now = LocalDateTime.now();
+            newUser.setCreatedat(now);
+            newUser.setUpdatedat(now);
+
+            userDao.save(newUser);
+
             if ("employer".equals(usertype)) {
-                if (companyName == null || companyName.isEmpty() ||
-                    companyWebsite == null || companyWebsite.isEmpty() ||
-                    companyAddress == null || companyAddress.isEmpty() ||
-                    industry == null || industry.isEmpty() ||
-                    contactPerson == null || contactPerson.isEmpty()) {
-                    model.addAttribute("message", "Vui lòng điền đầy đủ thông tin nhà tuyển dụng");
-                    return "dangky";
-                }
+                EmployersEntity employerDetails = new EmployersEntity();
+                employerDetails.setCompanyname(companyName);
+                employerDetails.setCompanywebsite(companyWebsite);
+                employerDetails.setAddress(companyAddress);
+                employerDetails.setIndustry(industry);
+                employerDetails.setContactperson(contactPerson);
+                employerDetails.setCompanydescription(companyDescription);
+                employerDetails.setLogo(null);
+
+                employerDetails.setUser(newUser);
+
+                employersDao.save(employerDetails);
             }
 
-            try {
-                // Tạo đối tượng UsersEntity với thông tin từ form
-                UsersEntity newUser = new UsersEntity();
-                Integer role = "employer".equals(usertype) ? 2 : 1;
-                newUser.setUsername(username);
-                newUser.setFullname(fullname);
-                newUser.setPassword(password); // Mã hóa mật khẩu trước khi lưu
-                newUser.setEmail(email);
-                newUser.setPhonenumber(numberphone);
-                newUser.setRole(role);
-                LocalDateTime now = LocalDateTime.now();
-                newUser.setCreatedat(now);
-                newUser.setUpdatedat(now);
+            model.addAttribute("successMessage", "Đăng ký thành công!");
+            return "redirect:/job4u/login";
 
-                // Lưu đối tượng vào cơ sở dữ liệu
-                userDao.save(newUser);
-
-                // Xử lý thông tin nhà tuyển dụng nếu là nhà tuyển dụng
-                if ("employer".equals(usertype)) {
-                    EmployersEntity employerDetails = new EmployersEntity();
-                    employerDetails.setCompanyname(companyName);
-                    employerDetails.setCompanywebsite(companyWebsite);
-                    employerDetails.setAddress(companyAddress);
-                    employerDetails.setIndustry(industry);
-                    employerDetails.setContactperson(contactPerson);
-                    employerDetails.setCompanydescription(companyDescription);
-                    employerDetails.setLogo(null); // Không lưu logo nếu không có
-
-                    employerDetails.setUser(newUser); // Liên kết với đối tượng UsersEntity
-
-                    employersDao.save(employerDetails);
-                }
-
-                model.addAttribute("successMessage", "Đăng ký thành công!");
-                return "redirect:/job4u/login";
-
-            } catch (Exception e) {
-                model.addAttribute("message", "Đã xảy ra lỗi, vui lòng thử lại");
-                e.printStackTrace();
-                return "dangky";
-            }
+        } catch (Exception e) {
+            model.addAttribute("message", "Đã xảy ra lỗi, vui lòng thử lại");
+            e.printStackTrace();
+            return "dangky";
         }
     }
 
