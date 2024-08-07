@@ -43,7 +43,7 @@
 									Trang Chủ</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">Hỏi
 									Đáp</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">Top
+							<li class="nav-item"><a class="nav-link" href="/job4u">Top
 									Công Việc</a></li>
 							<li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà
 									Tuyển Dụng</a></li>
