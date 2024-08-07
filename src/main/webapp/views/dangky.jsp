@@ -46,7 +46,7 @@
     <%@ include file="/views/headerNoPanner.jsp"%>
     <br>
     <footer>
-      <section class="vh-100" style="background-color: #f8f9fa;">
+      <section class="vh-100">
         <div class="container-fluid h-custom">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
@@ -55,102 +55,98 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
               <div class="form-container">
-                <form>
-                  <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
-                    <h1 class="lead fw-normal mb-0 me-3">Đăng Ký</h1>
-                  </div>
+                <form action="/DangKy/submit" method="post" enctype="multipart/form-data">
+    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
+        <h1 class="lead fw-normal mb-0 me-3">Đăng Ký</h1>
+    </div>
+    <div id="error-message" style="color: red;">
+        <!-- Thông báo lỗi sẽ được hiển thị ở đây -->
+        ${message}
+    </div>
 
-                  <!-- <!-- User ID input -->
-                  <!-- <div data-mdb-input-init class="">
-                    <label class="form-label" for="userID">User ID</label>
-                    <input type="text" id="userID" class="form-control" placeholder="Enter a valid user ID" />
-                  </div> -->
-                        
-                <div class="row">
-  					<div class="col">
-  					 <label class="form-label" for="fullName">Họ và Tên</label>
-    				<input type="text" id="fullName" class="form-control " placeholder="Nhập họ và tên" />
-  				</div>
-  				<div class="col">
-  					<label class="form-label" for="userName">Tên Tài Khoảng</label>
-                    <input type="text" id="userName" class="form-control " placeholder="Nhập tên tài khoảng" />
-  				</div>
-				</div>
-				
-				<div class="row">
-  					<div class="col">
-  					 <label class="form-label" for="email">Email</label>
-                    <input type="email" id="email" class="form-control " placeholder="Nhập email" />
-  				</div>
-  				<div class="col">
-  					<label class="form-label" for="numberPhone">Số Điện Thoại</label>
-                    <input type="text" id="numberPhone" class="form-control" placeholder="Nhập số điện thoại" />
-  				</div>
-				</div>
+    <div class="row">
+        <div class="col">
+            <label class="form-label" for="fullname">Họ và Tên</label>
+            <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Nhập họ và tên" />
+        </div>
+        <div class="col">
+            <label class="form-label" for="username">Tên Tài Khoản</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên tài khoản" />
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col">
+            <label class="form-label" for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email" />
+        </div>
+        <div class="col">
+            <label class="form-label" for="numberphone">Số Điện Thoại</label>
+            <input type="text" id="numberphone" name="numberphone" class="form-control" placeholder="Nhập số điện thoại" />
+        </div>
+    </div>
 
-                  <!-- Password input -->
-                  <div data-mdb-input-init class="">
-                    <label class="form-label" for="password">Password</label>
-                    <input type="password" id="password" class="form-control" placeholder="Nhập Password" />
-                  </div>
-                  <!-- User Type input -->
-                  <div data-mdb-input-init class="mb-4">
-                    <label class="form-label">Đăng ký tài khoảng</label>
-                    <div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="userType" id="applicant" value="applicant">
-                        <label class="form-check-label" for="applicant">Người Xin Việc</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="userType" id="employer" value="employer">
-                        <label class="form-check-label" for="employer">Nhà Tuyển Dụng</label>
-                      </div>
-                    </div>
-                  </div>
-				<div id="employerDetails" style="display: none;">
-					<div class="row">
-  						<div class="col">
-  					 		<label for="companyWebsite" class="form-label">Tên Công Ty</label> 
-							<input type="url" class="form-control" id="contactPerson" name=contactPerson>
-  						</div>
-  						<div class="col">
-  							<label for="contactPerson" class="form-label">WebsiteCông Ty</label> 
-							<input type="text" class="form-control" id="companyWebsite" name="companyWebsite">
-  						</div>
-					</div>
-					<div class="row">
-  						<div class="col">
-  					 		<label for="companyWebsite" class="form-label">Địa chỉ</label> 
-							<input type="url" class="form-control" id="contactPerson" name=contactPerson>
-  						</div>
-  						<div class="col">
-  							<label for="contactPerson" class="form-label">Ngành Công Nghiệp</label> 
-							<input type="text" class="form-control" id="companyWebsite" name="companyWebsite">
-  						</div>
-					</div>
-					<div class="row">
-  						<div class="col">
-  					 		<label for="companyWebsite" class="form-label">Người Liên Hệ</label> 
-							<input type="url" class="form-control" id="contactPerson" name=contactPerson>
-  						</div>
-  						<div class="col">
-  							<label for="contactPerson" class="form-label">Logo công ty</label> 
-  							<input type="file" class="form-control" id="inputGroupFile02">
-  						</div>
-					</div>
-					<div class="mb-3">
-  						<label for="exampleFormControlTextarea1" class="form-label">Mô tả về công ty</label>
-  						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-					</div>
-				</div>
+    <div class="mb-4">
+        <label class="form-label" for="password">Mật Khẩu</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" />
+    </div>
 
-				<div class="text-center text-lg-start mt-4 pt-2">
-                    <button type="submit" class="btn btn-primary btn-lg">Đăng Ký</button>
-                    <p class="small fw-bold mt-2 pt-1 mb-0">Bạn đã có tài khoản? <a href="#!" class="link-danger">Đăng Nhập</a></p>
-                 </div>
+    <div class="mb-4">
+        <label class="form-label">Đăng ký tài khoản</label>
+        <div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="usertype" id="applicant" value="applicant" onchange="toggleEmployerDetails()">
+                <label class="form-check-label" for="applicant">Người Xin Việc</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="usertype" id="employer" value="employer" onchange="toggleEmployerDetails()">
+                <label class="form-check-label" for="employer">Nhà Tuyển Dụng</label>
+            </div>
+        </div>
+    </div>
 
-                </form>
+    <div id="employerDetails" style="display: none;">
+        <div class="row">
+            <div class="col">
+                <label for="companyName" class="form-label">Tên Công Ty</label>
+                <input type="text" class="form-control" id="companyName" name="companyName">
+            </div>
+            <div class="col">
+                <label for="companyWebsite" class="form-label">Website Công Ty</label>
+                <input type="text" class="form-control" id="companyWebsite" name="companyWebsite">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="companyAddress" class="form-label">Địa Chỉ</label>
+                <input type="text" class="form-control" id="companyAddress" name="companyAddress">
+            </div>
+            <div class="col">
+                <label for="industry" class="form-label">Ngành Công Nghiệp</label>
+                <input type="text" class="form-control" id="industry" name="industry">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="contactPerson" class="form-label">Người Liên Hệ</label>
+                <input type="text" class="form-control" id="contactPerson" name="contactPerson">
+            </div>
+            <div class="col">
+                <label for="companyLogo" class="form-label">Logo Công Ty</label>
+                <input type="file" class="form-control" id="companyLogo" name="companyLogo">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="companyDescription" class="form-label">Mô Tả Về Công Ty</label>
+            <textarea class="form-control" id="companyDescription" name="companyDescription" rows="3"></textarea>
+        </div>
+    </div>
+
+    <div class="text-center text-lg-start mt-4 pt-2">
+        <button type="submit" class="btn btn-primary btn-lg">Đăng Ký</button>
+        <p class="small fw-bold mt-2 pt-1 mb-0">Bạn đã có tài khoản? <a href="/job4u/login" class="link-danger">Đăng Nhập</a></p>
+    </div>
+</form>
               </div>
             </div>
           </div>
@@ -160,25 +156,19 @@
       </section>
     </footer>
     
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    	  const applicantRadio = document.getElementById('applicant');
-    	  const employerRadio = document.getElementById('employer');
-    	  const employerDetails = document.getElementById('employerDetails');
+     <script>
+        function toggleEmployerDetails() {
+            const employerDetails = document.getElementById('employerDetails');
+            const userType = document.querySelector('input[name="usertype"]:checked');
 
-    	  employerRadio.addEventListener('change', function () {
-    	    if (this.checked) {
-    	      employerDetails.style.display = 'block';
-    	    }
-    	  });
-
-    	  applicantRadio.addEventListener('change', function () {
-    	    if (this.checked) {
-    	      employerDetails.style.display = 'none';
-    	    }
-    	  });
-    	});
+            if (userType && userType.value === 'employer') {
+                employerDetails.style.display = 'block';
+            } else {
+                employerDetails.style.display = 'none';
+            }
+        }
     </script>
+
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>

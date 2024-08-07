@@ -20,7 +20,8 @@ public interface UsersDao extends JpaRepository<UsersEntity, Integer> {
     @Query("SELECT u FROM UsersEntity u WHERE u.username = ?1")
     List<UsersEntity> findByUsername(String username);
   
-    
+    boolean existsByEmail(String email);
+    boolean existsByPhonenumber(String phonenumber);
     
     @Modifying
     @Transactional
