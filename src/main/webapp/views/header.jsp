@@ -52,7 +52,7 @@
 						</ul>
 						<a href="/job4u/login" class="btn login-button text-center"><img
 							src="/img/login-icon.png" height="25px" width="25px" alt>
-							Đăng nhập</a> <a href="/job4u/DangKy" class="btn login-button text-center"><img
+							Đăng nhập</a> <a href="/DangKy" class="btn login-button text-center"><img
 							src="/img/icons8-register-30.png" height="25px"
 							width="25px" alt> Đăng ký</a>
 					</div>
