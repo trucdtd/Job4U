@@ -15,6 +15,7 @@ import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,7 +49,7 @@ public class NhaTuyenDungController {
             @RequestParam("contactperson") String contactperson,
             @RequestParam("logo") MultipartFile logo,
             @RequestParam("jobtitle") String jobtitle,
-            @RequestParam("salary") Double salary,
+            @RequestParam("salary") String salary, // Đổi kiểu dữ liệu thành String
             @RequestParam("companydescription") String companydescription,
             @RequestParam("jobrequirements") String jobrequirements,
             @RequestParam("joblocation") String joblocation,
@@ -105,7 +106,16 @@ public class NhaTuyenDungController {
         joblisting.setJobdescription(companydescription);
         joblisting.setJobrequirements(jobrequirements);
         joblisting.setJoblocation(joblocation);
-        joblisting.setSalary(String.valueOf(salary));
+
+        // Chuyển đổi salary từ String sang BigDecimal
+        try {
+            joblisting.setSalary(new BigDecimal(salary));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Giá trị lương không hợp lệ.");
+            return "nhaTuyenDung";
+        }
+
         joblisting.setJobtype(jobtype);
 
         // Định dạng ngày từ chuỗi sang LocalDateTime
