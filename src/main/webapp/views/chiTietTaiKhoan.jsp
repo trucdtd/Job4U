@@ -1,5 +1,5 @@
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8">
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -20,10 +20,12 @@
 <script>
 	function confirmUpdate(userid) {
 		if (confirm("Bạn có muốn cập nhật không?")) {
-			window.location.href = '/job4u/userManager/' + userid;
+			window.location.href = '/user/' + userid;
 		}
 	}
 </script>
+
+<
 </head>
 <body>
 	<div class="container">
@@ -45,7 +47,7 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<form class="p-4 border" action="/job4u/userManager"
+								<form class="p-4 border" action="/user/updateUser"
 									method="post">
 									<div class="row ">
 										<!-- Thông báo lỗi -->
@@ -99,7 +101,7 @@
 											<a href="/user/updateUser/${nd.userid}"
 												class="btn btn-info text-white" type="button"
 												style="background-color: #00688B">Update</a> <a
-												href="/job4u/userManager" class="btn btn-danger">Cancel</a>
+												href="/user" class="btn btn-danger">Cancel</a>
 										</div>
 									</div>
 

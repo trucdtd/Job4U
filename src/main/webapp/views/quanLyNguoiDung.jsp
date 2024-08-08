@@ -14,6 +14,37 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
+<<<<<<< HEAD
+=======
+<script>
+        function confirmDeleteAccount(userid) {
+            // Hiển thị hộp thoại xác nhận
+            if (confirm("Bạn có chắc chắn muốn xóa tài khoản này?")) {
+                // Gửi yêu cầu xóa tài khoản
+                fetch(`/user/deleteUser/${userid}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())  // Parse JSON để nhận thông báo từ server
+                .then(data => {
+                    if (data.success) {
+                        alert("Tài khoản đã được xóa thành công.");
+                        window.location.href = '/user'; // Hoặc cập nhật giao diện
+                    } else {
+                        alert(data.message); // Hiển thị thông báo lỗi từ server
+                    }
+                })
+                .catch(error => {
+                    alert("Có lỗi xảy ra khi xóa tài khoản.");
+                });
+            } else {
+                alert("Tài khoản không bị xóa.");
+            }
+        }
+    </script>
+>>>>>>> trinhtt
 </head>
 <body>
 	<div class="container">
@@ -57,8 +88,9 @@
 												<td>${nd.role}</td>
 												<td><a href="/admin/detailUser/${nd.userid}"
 													class="btn btn-info text-white p-2 " type="button"
-													style="background-color: #00688B">Chi tiết</a> <a href=""
-													class="btn btn-danger p-2" type="button">delete</a></td>
+													style="background-color: #00688B">Chi tiết</a> 
+													<a href="/user/deleteUser/${nd.userid}"
+													onclick="confirmDeleteAccount(${nd.userid})" class="btn btn-danger p-2" type="button">delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -149,7 +181,7 @@
 											<button class="btn btn-success">Detail</button>
 										</td>
 									</tr>
-									<!-- Add more rows as needed -->
+
 									</c:forEach>
 								</tbody>
 							</table>

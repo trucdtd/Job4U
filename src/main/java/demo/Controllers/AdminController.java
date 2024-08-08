@@ -56,6 +56,12 @@ public class AdminController {
 	
 	@Autowired
 	JobSeekersDao jobSeekersDao;
+	
+	@Autowired
+	EmployersDao employersDao;
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@RequestMapping("")
 	public String quanLyNguoiDung(Model model, @RequestParam(value = "page", required = false) String page) {
@@ -71,12 +77,6 @@ public class AdminController {
 		// Trả về trang mặc định nếu không có page hoặc page không phải là
 		// quanLyUngTuyen
 	}
-
-	@Autowired
-	EmployersDao employersDao;
-
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
 
 	@RequestMapping("/detailUser/{id}")
 	public String chiTietTaiKhoan(@PathVariable("id") Integer id, Model model) {
@@ -169,41 +169,91 @@ public class AdminController {
 	    return "redirect:/admin";
 	}
 
-	@PostMapping("/updatePost/{jobid}")
-	public String updatePost(@RequestParam("jobid") Integer jobid, @RequestParam("jobtitle") String jobtitle,
-			@RequestParam("jobdescription") String jobdescription,
-			@RequestParam("jobrequirements") String jobrequirements, @RequestParam("joblocation") String joblocation,
-			@RequestParam("salary") BigDecimal salary, // Sử dụng BigDecimal ngay từ đầu 
-			@RequestParam("jobtype") String jobtype,
-			@RequestParam("posteddate") LocalDateTime posteddate,
-			@RequestParam("applicationdeadline") LocalDateTime applicationdeadline,
-			@RequestParam("employerId") Integer employerId) {
 
-		// Tìm bài viết hiện tại
-		JoblistingsEntity post = joblistingsDao.findById(jobid)
-				.orElseThrow(() -> new RuntimeException("Bài viết không tồn tại"));
+	/*
+	 * @PostMapping("/updatePost") public String updatePost(@RequestParam("jobid")
+	 * Integer jobid, @RequestParam("jobtitle") String jobtitle,
+	 * 
+	 * @RequestParam("jobdescription") String jobdescription,
+	 * 
+	 * @RequestParam("joblocation") String joblocation,
+	 * 
+	 * @RequestParam("salary") String salary,
+	 * 
+	 * @RequestParam("posteddate") LocalDateTime posteddate,
+	 * 
+	 * @RequestParam("applicationdeadline") LocalDateTime applicationdeadline,
+	 * 
+	 * @RequestParam("employerId") Integer employerId) {
+	 * 
+	 * // Tìm bài viết hiện tại JoblistingsEntity post =
+	 * joblistingsDao.findById(jobid) .orElseThrow(() -> new
+	 * RuntimeException("Bài viết không tồn tại"));
+	 * 
+	 * // Tìm nhà tuyển dụng EmployersEntity employer =
+	 * employersDao.findById(employerId) .orElseThrow(() -> new
+	 * RuntimeException("Nhà tuyển dụng không tồn tại"));
+	 * 
+	 * // Cập nhật các trường post.setJobtitle(jobtitle);
+	 * post.setJobdescription(jobdescription); post.setJoblocation(joblocation);
+	 * post.setSalary(salary); post.setPosteddate(posteddate);
+	 * post.setApplicationdeadline(applicationdeadline); post.setEmployer(employer);
+	 * 
+	 * // Lưu bài viết đã cập nhật joblistingsDao.save(post);
+	 * 
+	 * // Chuyển hướng hoặc trả về một view return "redirect:/admin"; }
+	 */
+	
+	@PostMapping("/updatePost")
+	public String updatePost(@PathVariable Integer jobid,
+	                         @RequestParam String jobtitle,
+	                         @RequestParam String joblocation,
+	                         @RequestParam String companyname,
+	                         @RequestParam String companywebsite,
+	                         @RequestParam String address,
+	                         @RequestParam String industry,
+	                         @RequestParam String contactperson,
+	                         @RequestParam String salary,
+	                         RedirectAttributes redirectAttributes) {
 
-		// Tìm nhà tuyển dụng
-		EmployersEntity employer = employersDao.findById(employerId)
-				.orElseThrow(() -> new RuntimeException("Nhà tuyển dụng không tồn tại"));
 
-		// Cập nhật các trường
-		post.setJobtitle(jobtitle);
-		post.setJobdescription(jobdescription);
-		post.setJobrequirements(jobrequirements);
-		post.setJoblocation(joblocation);
-		post.setSalary(salary);
-		post.setJobtype(jobtype);
-		post.setPosteddate(posteddate);
-		post.setApplicationdeadline(applicationdeadline);
-		post.setEmployer(employer);
+	    // Kiểm tra các trường không được bỏ trống
+	    if (jobtitle.isEmpty() || joblocation.isEmpty() || companyname.isEmpty() || companywebsite.isEmpty() || address.isEmpty() || industry.isEmpty() || contactperson.isEmpty() || salary.isEmpty()) {
+	        redirectAttributes.addFlashAttribute("error", "Tất cả các trường đều phải được điền!");
+	        return "redirect:/admin/post/detail/" + jobid;
+	    }
 
-		// Lưu bài viết đã cập nhật
-		joblistingsDao.save(post);
+	    // Kiểm tra định dạng email (nếu có)
+	    // String emailRegex = "^[A-Za-z0-9._%+-]+@(gmail\\.com|fpt\\.edu\\.vn)$";
+	    // Pattern emailPattern = Pattern.compile(emailRegex);
+	    // if (!emailPattern.matcher(email).matches()) {
+	    //     redirectAttributes.addFlashAttribute("error", "Định dạng email không hợp lệ!");
+	    //     return "redirect:/admin/post/detail/" + jobid;
+	    // }
 
-		// Chuyển hướng hoặc trả về một view
-		return "redirect:/admin";
+	    // Kiểm tra số điện thoại (nếu có)
+	    // String phoneRegex = "^\\d{10}$";
+	    // Pattern phonePattern = Pattern.compile(phoneRegex);
+	    // if (!phonePattern.matcher(phonenumber).matches()) {
+	    //     redirectAttributes.addFlashAttribute("error", "Số điện thoại phải đủ 10 số và không được nhập chữ!");
+	    //     return "redirect:/admin/post/detail/" + jobid;
+	    // }
+
+	    // Cập nhật thông tin bài viết
+	    String sql = "UPDATE posts SET jobtitle = ?, joblocation = ?, companyname = ?, companywebsite = ?, address = ?, industry = ?, contactperson = ?, salary = ? WHERE jobid = ?";
+	    try {
+	        int rows = jdbcTemplate.update(sql, jobtitle, joblocation, companyname, companywebsite, address, industry, contactperson, salary, jobid);
+	        if (rows > 0) {
+	            redirectAttributes.addFlashAttribute("message", "Cập nhật bài viết thành công!");
+	        } else {
+	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy bài viết cần cập nhật!");
+	        }
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("error", "Cập nhật bài viết thất bại! Lỗi: " + e.getMessage());
+	    }
+	    return "redirect:/admin";
 	}
+
 	
 	@RequestMapping("/quanLyCV")
 	public String quanLyCV(
