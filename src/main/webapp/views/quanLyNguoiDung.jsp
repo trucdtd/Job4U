@@ -14,30 +14,20 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
-<script>
-function confirmDelete(jobid) {
-    if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
-        window.location.href = `/admin/deletePost/${jobid}`;
-    }
-}
-</script>
 </head>
 <body>
 	<div class="container">
 		<!-- header -->
 		<%@ include file="/views/header.jsp"%>
 		<!-- header -->
-
 		<div class="container">
-		<div class="row mt-3">
-			
+			<div class="row">
 				<!-- aside -->
 				<%@ include file="/views/menuAdmin.jsp"%>
 				<!-- aside -->
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 ">
-
-					<div id="userManagement" class="card" >
+					<div id="userManagement" class="card">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
@@ -115,8 +105,7 @@ function confirmDelete(jobid) {
 												<td>${bv.jobdescription}</td>
 												<td>${bv.salary}</td>
 												<td><a href="/admin/detailPost/${bv.jobid}"
-													class="btn btn-info" type="button"
-													style="background-color: #00688B; color: white;">Chi
+													class="btn btn-info" type="button"style="background-color: #00688B; color: white;">Chi
 														tiết</a> <a href="#" class="btn btn-danger"
 													onclick="return confirmDelete(${bv.jobid});">Xóa</a></td>
 											</tr>
@@ -126,9 +115,10 @@ function confirmDelete(jobid) {
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<!-- CV Management table -->
+					<!--  -->
+
+					<!-- CV Management table -->
 				<div id="cvManagement" class="card" style="display: none;">
 					<div class="card-header">
 						<div class="card-title">Quản Lý CV</div>
@@ -190,10 +180,11 @@ function confirmDelete(jobid) {
 				</div>
 
 			</div>
-			<!-- article -->
+
+				<!--  -->
+			</div>
 		</div>
 	</div>
-
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
@@ -240,29 +231,6 @@ function confirmDelete(id) {
 }
 </script>
 
-
-<!-- <script>
-function confirmDelete(jobid) {
-    if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
-        fetch(`/admin/deletePost/${jobid}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
-            if (response.ok) {
-                alert('Xóa bài viết thành công.');
-                location.reload();
-            } else {
-                alert('Không thể xóa bài viết.');
-            }
-        }).catch(error => {
-            console.error('Error:', error);
-            alert('Đã xảy ra lỗi.');
-        });
-    }
-}
-</script> -->
 
 </body>
 </html>

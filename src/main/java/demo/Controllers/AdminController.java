@@ -142,16 +142,6 @@ public class AdminController {
 		return "chiTietBaiViet";
 	}
 
-	/*
-	 * @DeleteMapping("/delete/{id}") public ResponseEntity<String>
-	 * deleteJob(@PathVariable("id") Integer jobid) { try { if
-	 * (joblistingsDao.existsById(jobid)) { joblistingsDao.deleteById(jobid); return
-	 * new ResponseEntity<>("Job deleted successfully", HttpStatus.OK); } else {
-	 * return new ResponseEntity<>("Job not found", HttpStatus.NOT_FOUND); } } catch
-	 * (Exception e) { return new ResponseEntity<>("Error deleting job",
-	 * HttpStatus.INTERNAL_SERVER_ERROR); } }
-	 */
-	
 	@PostMapping("/deletePost")
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
 	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
@@ -211,6 +201,15 @@ public class AdminController {
 
 		// Chuyển hướng hoặc trả về một view
 		return "redirect:/admin";
+	}
+	
+	@RequestMapping("/quanLyCV")
+	public String quanLyCV(
+			Model model
+    		 ){
+        List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
+        model.addAttribute("qlCV", qlCV);
+		return "quanLyNguoiDung";
 	}
 
 }

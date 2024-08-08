@@ -83,7 +83,7 @@
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'cvManagement')"> <i
-									class="bi bi-table me-2"></i> Quản Lý CV
+									class="bi bi-grid me-2"></i> Quản Lý CV
 							</a></li>
 							<li><a href="#" class="nav-link text-white"
 								onclick="showTable(event, 'statisticalManagement')"> <i
