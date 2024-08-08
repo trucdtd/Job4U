@@ -1,6 +1,7 @@
 package demo.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -40,8 +41,8 @@ public class JoblistingsEntity implements Serializable {
     @Column(name = "joblocation", length = 100, nullable = false)
     private String joblocation;
 
-    @Column(name = "salary", length = 50)
-    private String salary;
+    @Column(name = "salary", precision = 18, scale = 3)
+    private BigDecimal salary;
 
     @NotNull
     @Column(name = "jobtype", length = 50, nullable = false)
@@ -59,5 +60,4 @@ public class JoblistingsEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "EmployerID", referencedColumnName = "EmployerID", nullable = false)
     private EmployersEntity employer;
-
 }
