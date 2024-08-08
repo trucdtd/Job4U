@@ -149,7 +149,7 @@
 											<button class="btn btn-success">Detail</button>
 										</td>
 									</tr>
-									<!-- Add more rows as needed -->
+
 									</c:forEach>
 								</tbody>
 							</table>
