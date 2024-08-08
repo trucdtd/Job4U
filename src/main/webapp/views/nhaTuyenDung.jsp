@@ -138,7 +138,6 @@
 						</div>
 					</div>
 
-
 					<!-- Bảng quản lý bài đăng-->
 					<div id="postEmployers" class="card" style="display: none;">
 						<div class="card-header">
@@ -147,7 +146,7 @@
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
-									<form class="p-4" action="/job4u/employers/submit" method="post" id="nhaTuyenDung">
+									<form class="p-4" action="/job4u/employers/submit" method="post" id="nhaTuyenDung" enctype="multipart/form-data">
 										<div class="row">
 											<div class="col-md-6 p-2">
 												<label for="companyname" class="form-label">Tên công
@@ -199,7 +198,7 @@
 											</div>
 											<div class="col-md-6 p-2">
 												<label for="logo" class="form-label">Logo công ty</label>
-												<input type="file" class="form-control" id="logo" name="logo" accept="image/*">
+												<input type="file" class="form-control" id="logo" name="logo">
 											</div>
 										</div>
 										<div class="row ">
