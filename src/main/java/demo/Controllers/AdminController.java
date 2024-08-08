@@ -1,5 +1,6 @@
 package demo.Controllers;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -168,6 +169,7 @@ public class AdminController {
 	    return "redirect:/admin";
 	}
 
+
 	/*
 	 * @PostMapping("/updatePost") public String updatePost(@RequestParam("jobid")
 	 * Integer jobid, @RequestParam("jobtitle") String jobtitle,
@@ -213,6 +215,7 @@ public class AdminController {
 	                         @RequestParam String contactperson,
 	                         @RequestParam String salary,
 	                         RedirectAttributes redirectAttributes) {
+
 
 	    // Kiểm tra các trường không được bỏ trống
 	    if (jobtitle.isEmpty() || joblocation.isEmpty() || companyname.isEmpty() || companywebsite.isEmpty() || address.isEmpty() || industry.isEmpty() || contactperson.isEmpty() || salary.isEmpty()) {

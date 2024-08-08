@@ -15,6 +15,7 @@ import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,7 +49,7 @@ public class NhaTuyenDungController {
             @RequestParam("contactperson") String contactperson,
             @RequestParam("logo") MultipartFile logo,
             @RequestParam("jobtitle") String jobtitle,
-            @RequestParam("salary") Double salary,
+            @RequestParam("salary") BigDecimal salary, // Sử dụng BigDecimal ngay từ đầu
             @RequestParam("companydescription") String companydescription,
             @RequestParam("jobrequirements") String jobrequirements,
             @RequestParam("joblocation") String joblocation,
@@ -88,7 +89,7 @@ public class NhaTuyenDungController {
                     Files.createDirectories(uploadDir);
                 }
                 Path filePath = uploadDir.resolve(logo.getOriginalFilename());
-                logo.transferTo(filePath.toFile());  // Thay vì dùng Files.write
+                logo.transferTo(filePath.toFile());
                 employer.setLogo(filePath.toString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -105,7 +106,9 @@ public class NhaTuyenDungController {
         joblisting.setJobdescription(companydescription);
         joblisting.setJobrequirements(jobrequirements);
         joblisting.setJoblocation(joblocation);
-        joblisting.setSalary(String.valueOf(salary));
+
+        joblisting.setSalary(salary); // Sử dụng giá trị BigDecimal trực tiếp
+
         joblisting.setJobtype(jobtype);
 
         // Định dạng ngày từ chuỗi sang LocalDateTime
