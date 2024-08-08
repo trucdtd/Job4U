@@ -49,7 +49,7 @@ public class NhaTuyenDungController {
             @RequestParam("contactperson") String contactperson,
             @RequestParam("logo") MultipartFile logo,
             @RequestParam("jobtitle") String jobtitle,
-            @RequestParam("salary") String salary, // Đổi kiểu dữ liệu thành String
+            @RequestParam("salary") BigDecimal salary, // Sử dụng BigDecimal ngay từ đầu
             @RequestParam("companydescription") String companydescription,
             @RequestParam("jobrequirements") String jobrequirements,
             @RequestParam("joblocation") String joblocation,
@@ -89,7 +89,7 @@ public class NhaTuyenDungController {
                     Files.createDirectories(uploadDir);
                 }
                 Path filePath = uploadDir.resolve(logo.getOriginalFilename());
-                logo.transferTo(filePath.toFile());  // Thay vì dùng Files.write
+                logo.transferTo(filePath.toFile());
                 employer.setLogo(filePath.toString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -107,14 +107,7 @@ public class NhaTuyenDungController {
         joblisting.setJobrequirements(jobrequirements);
         joblisting.setJoblocation(joblocation);
 
-        // Chuyển đổi salary từ String sang BigDecimal
-        try {
-            joblisting.setSalary(new BigDecimal(salary));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Giá trị lương không hợp lệ.");
-            return "nhaTuyenDung";
-        }
+        joblisting.setSalary(salary); // Sử dụng giá trị BigDecimal trực tiếp
 
         joblisting.setJobtype(jobtype);
 

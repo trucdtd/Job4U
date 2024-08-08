@@ -1,5 +1,6 @@
 package demo.Controllers;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -172,7 +173,8 @@ public class AdminController {
 	public String updatePost(@RequestParam("jobid") Integer jobid, @RequestParam("jobtitle") String jobtitle,
 			@RequestParam("jobdescription") String jobdescription,
 			@RequestParam("jobrequirements") String jobrequirements, @RequestParam("joblocation") String joblocation,
-			@RequestParam("salary") String salary, @RequestParam("jobtype") String jobtype,
+			@RequestParam("salary") BigDecimal salary, // Sử dụng BigDecimal ngay từ đầu 
+			@RequestParam("jobtype") String jobtype,
 			@RequestParam("posteddate") LocalDateTime posteddate,
 			@RequestParam("applicationdeadline") LocalDateTime applicationdeadline,
 			@RequestParam("employerId") Integer employerId) {
