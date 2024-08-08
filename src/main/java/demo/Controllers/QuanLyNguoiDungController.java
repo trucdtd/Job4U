@@ -1,7 +1,7 @@
 package demo.Controllers;
 
 import java.util.List;
-
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,24 +87,24 @@ public class QuanLyNguoiDungController {
 	@GetMapping("/updateUser/{id}")
 	 public String updateUser(
 		        @PathVariable("id") Integer userid,
-		        @RequestParam String username,
-		        @RequestParam String fullname,
-		        @RequestParam String email,
-		        @RequestParam String password,
-		        @RequestParam String phonenumber,
-		        @RequestParam String role,
+		        @RequestParam("username") String username,
+		        @RequestParam ("fullname") String fullname,
+		        @RequestParam ("email") String email,
+		        @RequestParam ("password") String password,
+		        @RequestParam ("phonenumber") String phonenumber,
+		        @RequestParam ("role") String role,
 		        RedirectAttributes redirectAttributes
 		    ) {
 		        // Kiểm tra các trường không được bỏ trống
 		        if (username.isEmpty() || fullname.isEmpty() || email.isEmpty() || password.isEmpty() || phonenumber.isEmpty() || role.isEmpty()) {
 		            redirectAttributes.addFlashAttribute("error", "Tất cả các trường đều phải được điền!");
-		            return "redirect:/userManager/detailUser/" + userid;
+		            return "redirect:/user/detailUser/" + userid;
 		        }
 
 		        // Kiểm tra độ dài mật khẩu
 		        if (password.length() < 8) {
 		            redirectAttributes.addFlashAttribute("error", "Mật khẩu phải có độ dài tối thiểu 8 ký tự!");
-		            return "redirect:/userManager/detailUser/" + userid;
+		            return "redirect:/user/detailUser/" + userid;
 		        }
 
 		        // Kiểm tra định dạng email
@@ -112,7 +112,7 @@ public class QuanLyNguoiDungController {
 		        Pattern emailPattern = Pattern.compile(emailRegex);
 		        if (!emailPattern.matcher(email).matches()) {
 		            redirectAttributes.addFlashAttribute("error", "Định dạng email không hợp lệ!");
-		            return "redirect:/userManager/detailUser/" + userid;
+		            return "redirect:/user/detailUser/" + userid;
 		        }
 
 		        // Kiểm tra số điện thoại phải đủ 10 số
@@ -120,7 +120,7 @@ public class QuanLyNguoiDungController {
 		        Pattern phonePattern = Pattern.compile(phoneRegex);
 		        if (!phonePattern.matcher(phonenumber).matches()) {
 		            redirectAttributes.addFlashAttribute("error", "Số điện thoại phải đủ 10 số và không được nhập chữ!");
-		            return "redirect:/userManager/detailUser/" + userid;
+		            return "redirect:/user/detailUser/" + userid;
 		        }
 
 		        // Cập nhật thông tin người dùng
@@ -136,10 +136,45 @@ public class QuanLyNguoiDungController {
 		            redirectAttributes.addFlashAttribute("error", "Cập nhật thông tin người dùng thất bại! Lỗi: " + e.getMessage());
 		        }
 		        
-		        return "redirect:/job4u/userManager";
+		        return "redirect:/user";
 		    }
 
+	 @GetMapping("/deleteUser/{id}")
+	    public String deleteUser(@PathVariable("id") Integer userid, RedirectAttributes redirectAttributes) {
+        String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
+        String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
+        String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
+        String deleteMessagesSql = "DELETE FROM Messages WHERE SenderID = ?";
+        String deleteUserSql = "DELETE FROM users WHERE userid = ?";
+        
+        
+        try {
+            // Xóa các bản ghi liên quan trong bảng Applications trước
+            jdbcTemplate.update(deleteApplicationsSql, userid);
 
+            // Xóa các bản ghi liên quan trong bảng Joblistings
+            jdbcTemplate.update(deleteJobListingsSql, userid);
+
+            // Xóa các bản ghi liên quan trong bảng Employers và Messages
+            jdbcTemplate.update(deleteEmployersSql, userid);
+            jdbcTemplate.update(deleteMessagesSql, userid);
+
+            // Sau đó xóa người dùng
+            int rows = jdbcTemplate.update(deleteUserSql, userid);
+            if (rows > 0) {
+                redirectAttributes.addFlashAttribute("message", "Xóa người dùng thành công!");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần xóa!");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Xóa người dùng thất bại do người dùng đang đăng kí ứng tuyển");
+        }
+        return "redirect:/user";
+    }
+	
+	
+	
+	
 	@GetMapping("/detailPost/{id}")
 	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
 		JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
