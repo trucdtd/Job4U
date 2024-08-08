@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Employes Page</title>
+<title>Nhà tuyển dụng</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -147,25 +147,24 @@
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
-									<form class="p-4" action="/job4u/employers/submit"
-										method="post" id="nhaTuyenDung">
+									<form class="p-4" action="/job4u/employers/submit" method="post" id="nhaTuyenDung">
 										<div class="row">
 											<div class="col-md-6 p-2">
 												<label for="companyname" class="form-label">Tên công
 													ty</label> <input type="text" class="form-control" id="companyname"
-													name="companyname" required>
+													name="companyname" value="${employer.companyname}">
 											</div>
 											<div class="col-md-6 p-2">
 												<label for="companywebsite" class="form-label">Tên
 													web công ty</label> <input type="text" class="form-control"
-													id="companywebsite" name="companywebsite">
+													id="companywebsite" name="companywebsite" value="${employer.companywebsite}">
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-6 p-2">
 												<label for="address" class="form-label">Địa chỉ công
 													ty</label> <input type="text" class="form-control" id="address"
-													name="address">
+													name="address" value="${employer.address}">
 											</div>
 											<div class="col-md-6 p-2">
 												<label for="industry" class="form-label">Ngành nghề</label>
@@ -199,9 +198,8 @@
 													id="contactperson" name="contactperson">
 											</div>
 											<div class="col-md-6 p-2">
-												<label for="logo" class="form-label">Logo công ty</label> <input
-													type="file" class="form-control" id="logo" name="logo"
-													accept="image/*">
+												<label for="logo" class="form-label">Logo công ty</label>
+												<input type="file" class="form-control" id="logo" name="logo" accept="image/*">
 											</div>
 										</div>
 										<div class="row ">
@@ -312,8 +310,7 @@
 											<div class="col-md-12 p-2">
 												<label for="companydescription" class="form-label">Mô
 													tả về công ty</label>
-												<textarea class="form-control" id="companydescription"
-													name="companydescription" rows="4" required></textarea>
+												<textarea class="form-control" id="companydescription" name="companydescription" rows="4" required>${employer.companydescription}</textarea>
 											</div>
 
 										</div>

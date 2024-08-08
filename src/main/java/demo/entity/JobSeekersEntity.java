@@ -57,7 +57,7 @@ public class JobSeekersEntity implements Serializable {
     @Column(name = "image")
     private byte[] image;
 
-    @Column(name = "dateOfbirth")
+    @Column(name = "dateofbirth")
     private Date dateOfbirth;
 
     @Column(name = "gender", length = 10)
