@@ -1,5 +1,5 @@
 
-<%@ page language="java" contentType="text/html; charset=UTF-8">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -98,10 +98,10 @@
 									<hr>
 									<div class="row">
 										<div class="card-action">
-											<a href="/user/updateUser/${nd.userid}"
+											<a href="/admin/updateUser/${nd.userid}"
 												class="btn btn-info text-white" type="button"
 												style="background-color: #00688B">Update</a> <a
-												href="/user" class="btn btn-danger">Cancel</a>
+												href="/admin" class="btn btn-danger">Cancel</a>
 										</div>
 									</div>
 

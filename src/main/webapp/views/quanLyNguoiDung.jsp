@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -13,34 +14,7 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
-<script>
-        function confirmDeleteAccount(userid) {
-            // Hiển thị hộp thoại xác nhận
-            if (confirm("Bạn có chắc chắn muốn xóa tài khoản này?")) {
-                // Gửi yêu cầu xóa tài khoản
-                fetch(`/user/deleteUser/${userid}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())  // Parse JSON để nhận thông báo từ server
-                .then(data => {
-                    if (data.success) {
-                        alert("Tài khoản đã được xóa thành công.");
-                        window.location.href = '/user'; // Hoặc cập nhật giao diện
-                    } else {
-                        alert(data.message); // Hiển thị thông báo lỗi từ server
-                    }
-                })
-                .catch(error => {
-                    alert("Có lỗi xảy ra khi xóa tài khoản.");
-                });
-            } else {
-                alert("Tài khoản không bị xóa.");
-            }
-        }
-    </script>
+
 </head>
 <body>
 	<div class="container">
@@ -59,6 +33,10 @@
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
 						<div class="card-body p-0">
+							<form id="deleteForm" action="/admin/deleteUser" method="POST"
+								style="display: none;">
+								<input type="hidden" name="id" id="deleteId">
+							</form>
 							<div class="table-responsive">
 								<table class="table align-items-center mb-0">
 									<thead class="thead-light text-center">
@@ -84,9 +62,9 @@
 												<td>${nd.role}</td>
 												<td><a href="/admin/detailUser/${nd.userid}"
 													class="btn btn-info text-white p-2 " type="button"
-													style="background-color: #00688B">Chi tiết</a> 
-													<a href="/user/deleteUser/${nd.userid}"
-													onclick="confirmDeleteAccount(${nd.userid})" class="btn btn-danger p-2" type="button">delete</a></td>
+													style="background-color: #00688B">Chi tiết</a> <a href="#"
+													onclick="return confirmDeleteAccount(${nd.userid});"
+													class="btn btn-danger p-2">delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -147,67 +125,67 @@
 					<!--  -->
 
 					<!-- CV Management table -->
-				<div id="cvManagement" class="card" style="display: none;">
-					<div class="card-header">
-						<div class="card-title">Quản Lý CV</div>
-					</div>
-					<div class="card-body p-0">
-						<div class="table-responsive">
-							<table class="table align-items-center mb-0">
-								<thead class="thead-light">
-									<tr>
-										<th scope="col">Jobseekerid</th>
-										<th scope="col">Resume</th>
-										<th scope="col">Profilesummary</th>
-										<th scope="col">Experience</th>
-										<th scope="col">Education</th>
-										<th scope="col">Skills</th>
-									</tr>
-								</thead>
-								<tbody>
-								<c:forEach items="${qlCV}" var="cv">
-									<tr>
-										<th scope="row">${cv.jobseekerid}</th>
-										<td>${cv.resume}</td>
-										<td>${cv.profilesummary}</td>
-										<td>${cv.experience}</td>
-										<td>${cv.education}</td>
-										<td>${cv.skills}</td>
-										<td>
-											<button class="btn btn-success">Detail</button>
-										</td>
-									</tr>
 
-									</c:forEach>
-								</tbody>
-							</table>
+					<div id="cvManagement" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Quản Lý CV</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<table class="table align-items-center mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">Jobseekerid</th>
+											<th scope="col">Resume</th>
+											<th scope="col">Profilesummary</th>
+											<th scope="col">Experience</th>
+											<th scope="col">Education</th>
+											<th scope="col">Skills</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${qlCV}" var="cv">
+											<tr>
+												<th scope="row">${cv.jobseekerid}</th>
+												<td>${cv.resume}</td>
+												<td>${cv.profilesummary}</td>
+												<td>${cv.experience}</td>
+												<td>${cv.education}</td>
+												<td>${cv.skills}</td>
+												<td>
+													<button class="btn btn-success">Detail</button>
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				
-				<!--statisticalManagement table -->
-				<div id="statisticalManagement" class="card" style="display: none;">
-					<div class="card-header">
-						<div class="card-title">Quản Lý Thống Kê</div>
-					</div>
-					<div class="card-body">
-						<h5 class="card-title">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item">Biểu Đồ</li>
-								<li class="breadcrumb-item"><a href="/Thongke">Thống kê
-										chi tiết</a></li>
-							</ol>
-						</h5>
-						<div class="panel panel-default">
-							<!-- /.panel-heading -->
 
-							<!-- /.panel-body -->
+
+					<!--statisticalManagement table -->
+					<div id="statisticalManagement" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Quản Lý Thống Kê</div>
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">Biểu Đồ</li>
+									<li class="breadcrumb-item"><a href="/Thongke">Thống
+											kê chi tiết</a></li>
+								</ol>
+							</h5>
+							<div class="panel panel-default">
+								<!-- /.panel-heading -->
+
+								<!-- /.panel-body -->
+							</div>
 						</div>
 					</div>
-				</div>
 
-			</div>
+				</div>
 
 				<!--  -->
 			</div>
@@ -258,7 +236,18 @@ function confirmDelete(id) {
     return false; // Ngăn việc thực hiện hành động nếu người dùng chọn hủy
 }
 </script>
-
+<script>
+        function confirmDeleteAccount(id) {
+        	if (confirm("Bạn có chắc chắn muốn xóa tài khoản này không?")) {
+                // Cập nhật giá trị của input ẩn trong form xóa
+                document.getElementById('deleteId').value = id;
+                // Gửi form để thực hiện xóa
+                document.getElementById('deleteForm').submit();
+                return false; // Ngăn việc điều hướng đến URL
+            }
+            return false; // Ngăn việc thực hiện hành động nếu người dùng chọn hủy
+        }
+    </script>
 
 </body>
 </html>

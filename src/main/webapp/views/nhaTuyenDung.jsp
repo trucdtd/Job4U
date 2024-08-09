@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,6 +127,18 @@
 											<td>Hà Nội</td>
 											<td>2023-07-30</td>
 											<td>2023-08-30</td>
+											<td>
+												<button type="button" class="btn btn-sm btn-primary">Chỉnh
+													Sửa</button>
+												<button type="button" class="btn btn-sm btn-danger">Xóa</button>
+											</td>
+										</tr>
+										
+										<tr>
+											<td>${job.jobtitle}</td>
+											<td>${job.joblocation}</td>
+											<td>${job.posteddate}</td>
+											<td>${job.applicationdeadline}</td>
 											<td>
 												<button type="button" class="btn btn-sm btn-primary">Chỉnh
 													Sửa</button>
@@ -425,5 +438,4 @@
 		activeLink.classList.add('active');
 	}
 </script>
-
 </html>

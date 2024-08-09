@@ -179,7 +179,39 @@ public class AdminController {
 	    return "redirect:/admin";
 	}
 
+	
+	@PostMapping("/deleteUser")
+    public String deleteUser(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
+    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
+    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
+    String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
+    String deleteMessagesSql = "DELETE FROM Messages WHERE SenderID = ?";
+    String deleteUserSql = "DELETE FROM users WHERE userid = ?";
+    
+    
+    try {
+        // Xóa các bản ghi liên quan trong bảng Applications trước
+        jdbcTemplate.update(deleteApplicationsSql, id);
 
+        // Xóa các bản ghi liên quan trong bảng Joblistings
+        jdbcTemplate.update(deleteJobListingsSql, id);
+
+        // Xóa các bản ghi liên quan trong bảng Employers và Messages
+        jdbcTemplate.update(deleteEmployersSql, id);
+        jdbcTemplate.update(deleteMessagesSql, id);
+
+        // Sau đó xóa người dùng
+        int rows = jdbcTemplate.update(deleteUserSql, id);
+        if (rows > 0) {
+            redirectAttributes.addFlashAttribute("message", "Xóa người dùng thành công!");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần xóa!");
+        }
+    } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("error", "Xóa người dùng thất bại do người dùng đang đăng kí ứng tuyển");
+    }
+    return "redirect:/admin";
+}
 	/*
 	 * @PostMapping("/updatePost") public String updatePost(@RequestParam("jobid")
 	 * Integer jobid, @RequestParam("jobtitle") String jobtitle,

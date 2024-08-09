@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -325,10 +325,10 @@ body {
 											</div>
 										</div>
 										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="ciTy">Lương</h6>
-												<p>${job.salary}</p>
-											</div>
+    										<div class="form-group">
+        										<h6 for="ciTy">Lương</h6>
+       											<p><i class="bi bi-currency-dollar"></i> ${job.salary}</p>
+   											</div>
 										</div>
 										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 											<div class="form-group">
