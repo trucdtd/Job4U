@@ -1,5 +1,6 @@
 package demo.Controllers;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +27,20 @@ public class ChiTietUngTuyenController {
     JoblistingsService joblistingsService;
 	
 	@RequestMapping("/chiTiet/{jobid}")
-    public String ChiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
-        JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
-        model.addAttribute("job", chiTietUngTuyen);
-        return "chiTietUngTuyen";
-    }
+	public String ChiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
+	    // Lấy thông tin chi tiết công việc
+	    JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
+	    
+	    // Định dạng ngày giờ
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	    String formattedPostedDate = chiTietUngTuyen.getPosteddate().format(formatter);
+	    String formattedApplicationDeadline = chiTietUngTuyen.getApplicationdeadline().format(formatter);
+	    
+	    // Thêm các thuộc tính vào mô hình
+	    model.addAttribute("formattedPostedDate", formattedPostedDate);
+	    model.addAttribute("formattedApplicationDeadline", formattedApplicationDeadline);
+	    model.addAttribute("job", chiTietUngTuyen);
+	    
+	    return "chiTietUngTuyen";
+	}
 }
