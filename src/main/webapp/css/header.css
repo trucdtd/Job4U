@@ -1,72 +1,76 @@
 @charset "UTF-8";
+.login-button {
+  background-color: #fff;
+  font-weight: 500;
+  color: #00688b;
+  font-size: 15px;
+  padding: 8px 20px;
+  margin: 5px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: 0.3s background-color;
+}
+.login-button:hover {
+  background-color: #c0c9c9;
+}
+.navbar-brand-custom{
+  height: 100px;
+  width: 100px;
+  border: 0.1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  box-shadow: 5px 3px rgba(0, 0, 0, 0.1); /* Hiệu ứng shadow */
 
-.offcanvas-body .login-button {
-	background-color: #fff;
-	font-weight: 500;
-	color: #00688b;
-	font-size: 15px;
-	padding: 8px 20px;
-	margin: 5px;
-	border-radius: 50px;
-	text-decoration: none;
-	transition: 0.3s background-color;
+}
+.navbar-toggler {
+  border: none;
+  font-size: 1.25rem;
+}
+.navbar-toggler:focus,
+.btn-close:focus {
+  box-shadow: none;
+  outline: none;
+}
+.nav-link {
+  color: #fff;
+  font-weight: 500;
+  position: relative;
+  left: 5px;
+  
+}
+.nav-link:hover,
+.nav-link.active {
+  color: #c0c9c9;
+}
+@media (min-width: 991px) {
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #c0c9c9;
+    visibility: hidden;
+    transition: 0.3s ease-in-out;
+  }
+  .nav-link:hover::before {
+    width: 100%;
+    visibility: visible;
+  }
 }
 
-.offcanvas-body .login-button:hover {
-	background-color: #c0c9c9;
-}
-
-.container-fluid .navbar-toggler {
-	border: none;
-	font-size: 1.25rem;
-}
-
-.container-fluid .navbar-toggler:focus,.offcanvas-header .btn-close:focus {
-	box-shadow: none;
-	outline: none;
-}
-
-nav .nav-link {
-	color: #fff;
-	font-weight: 500;
-	position: relative;
-	left: 5px;
-}
-
-nav .nav-link:hover,nav .nav-link.active {
-	color: #c0c9c9;
-}
-
-@media ( min-width : 991px) {
-	nav .nav-link::before {
-		content: "";
-		position: absolute;
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 0;
-		height: 2px;
-		background-color: #c0c9c9;
-		visibility: hidden;
-		transition: 0.3s ease-in-out;
-	}
-	nav .nav-link:hover::before {
-		width: 100%;
-		visibility: visible;
-	}
-}
-
-@media ( max-width : 990px) {
-	.offcanvas-body .login-button {
-		margin-top: 10px;
-		width: 100%;
-	}
-	nav .nav-link {
-		color: #fff;
-		line-height: 25px;
-		width: 100%;
-		margin: 1px;
-		padding-left: 5px;
-		border-bottom: #fff 1px dotted;
-	}
+@media(max-width: 990px){
+    .login-button{
+        margin-top: 10px;
+        width: 100%;
+    }
+    .nav-link{
+        color: #fff;
+        line-height: 25px;
+        width: 100%;
+        margin: 1px;
+        padding-left: 5px;
+        border-bottom: #fff 1px dotted;
+    }
 }
