@@ -165,7 +165,7 @@ public class dangkyController {
             }
 
             model.addAttribute("successMessage", "Đăng ký thành công!");
-            return "redirect:/job4u/Login";
+            return "redirect:/Login";
 
         } catch (Exception e) {
             model.addAttribute("message", "Đã xảy ra lỗi, vui lòng thử lại");
