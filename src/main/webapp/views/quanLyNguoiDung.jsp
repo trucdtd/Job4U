@@ -111,9 +111,8 @@
 												<td>${bv.jobdescription}</td>
 												<td>${bv.salary}</td>
 												<td><a href="/admin/detailPost/${bv.jobid}"
-													class="btn btn-info" type="button"
-													style="background-color: #00688B; color: white;">Chi
-													tiết</a> <a href="#" class="btn btn-danger"
+													class="btn btn-info" type="button" style="background-color: #00688B; color: white;">Chi
+														tiết</a> <a href="#" class="btn btn-danger"
 													onclick="return confirmDelete(${bv.jobid});">Xóa</a></td>
 											</tr>
 										</c:forEach>
@@ -126,6 +125,7 @@
 					<!--  -->
 
 					<!-- CV Management table -->
+
 					<div id="cvManagement" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý CV</div>
@@ -146,7 +146,7 @@
 									<tbody>
 										<c:forEach items="${qlCV}" var="cv">
 											<tr>
-												<td>${cv.jobseekerid}</td>
+												<th scope="row">${cv.jobseekerid}</th>
 												<td>${cv.resume}</td>
 												<td>${cv.profilesummary}</td>
 												<td>${cv.experience}</td>
@@ -156,7 +156,6 @@
 													<button class="btn btn-success">Detail</button>
 												</td>
 											</tr>
-
 										</c:forEach>
 									</tbody>
 								</table>
