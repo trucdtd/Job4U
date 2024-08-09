@@ -411,11 +411,8 @@
 						<div class="card-header">
 							<div class="card-title">Dịch vụ bài đăng</div>
 						</div>
-						<div class="card-body p-0">
-							<div class="table-responsive">
-								<p>thêm thông tin</p>
-							</div>
-						</div>
+						<%@ include file="/views/dichVu.jsp"%>
+						<br>
 					</div>
 				</div>
 				<!-- article -->

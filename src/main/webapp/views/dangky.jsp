@@ -138,11 +138,25 @@
             <div class="col">
                 <label for="industry" class="form-label">Ngành nghề</label>
                 <select class="form-control" id="industry" name="industry">
-                    <option value="" disabled ${industry == '' ? 'selected' : ''}>Chọn ngành nghề</option>
-                    <option value="Nông nghiệp" ${industry == 'Nông nghiệp' ? 'selected' : ''}>Nông nghiệp</option>
-                    <!-- Other options here -->
-                    <option value="Khác" ${industry == 'Khác' ? 'selected' : ''}>Khác...</option>
-                </select>
+													<option value="" disabled selected>Chọn ngành nghề</option>
+													<option value="Nông nghiệp">Nông nghiệp</option>
+													<option value="Công nghiệp">Công nghiệp</option>
+													<option value="Dịch vụ">Dịch vụ</option>
+													<option value="construction">Xây dựng</option>
+													<option value="Giao thông vận tải">Giao thông vận
+														tải</option>
+													<option value="Công nghệ thông tin<">Công nghệ
+														thông tin</option>
+													<option value="Tài chính">Tài chính</option>
+													<option value="Giáo dục">Giáo dục</option>
+													<option value="Y tế">Y tế</option>
+													<option value="Truyền thông">Truyền thông</option>
+													<option value="Công nghệ ô tô">Công nghệ ô tô</option>
+													<option value="Du lịch">Du lịch</option>
+													<option value="Hành chính văn phòng">Hành chính
+														văn phòng</option>
+													<option value="Khác">Khác...</option>
+												</select>
                 <span class="text-danger">${industryError}</span>
             </div>
         </div>
