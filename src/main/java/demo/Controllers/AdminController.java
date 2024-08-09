@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,6 +72,10 @@ public class AdminController {
 		if (page == null || page.equals("quanLyTaiKhoan")) {
 			List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
 			model.addAttribute("qlBV", qlBV);
+		}
+		if (page == null || page.equals("quanLyTaiKhoan")) {
+			List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
+			model.addAttribute("qlCV", qlCV);
 		}
 		return "quanLyNguoiDung";
 		// Trả về trang mặc định nếu không có page hoặc page không phải là
@@ -145,28 +148,19 @@ public class AdminController {
 	}
 
 	@PostMapping("/deletePost")
-	@Transactional
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
 		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
 		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
 		String deletePostSql = "DELETE FROM Post WHERE JobID = ?";
 
 		try {
-			// Xóa các bản ghi liên quan trong bảng Applications
-			int applicationsRows = jdbcTemplate.update(deleteApplicationsSql, id);
-			if (applicationsRows == 0) {
-				redirectAttributes.addFlashAttribute("error", "Không tìm thấy Applications liên quan để xóa!");
-				return "redirect:/admin";
-			}
+			// Xóa các bản ghi liên quan trong bảng Applications trước
+			jdbcTemplate.update(deleteApplicationsSql, id);
 
 			// Xóa các bản ghi liên quan trong bảng Joblistings
-			int jobListingsRows = jdbcTemplate.update(deleteJobListingsSql, id);
-			if (jobListingsRows == 0) {
-				redirectAttributes.addFlashAttribute("error", "Không tìm thấy Joblistings liên quan để xóa!");
-				return "redirect:/admin";
-			}
+			jdbcTemplate.update(deleteJobListingsSql, id);
 
-			// Xóa bài viết
+			// Sau đó xóa bài viết
 			int rows = jdbcTemplate.update(deletePostSql, id);
 			if (rows > 0) {
 				redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công!");
@@ -174,46 +168,15 @@ public class AdminController {
 				redirectAttributes.addFlashAttribute("error", "Không tìm thấy bài viết cần xóa!");
 			}
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại do có lỗi xảy ra: " + e.getMessage());
+
+			redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại do có lỗi xảy ra");
+
 		}
 		return "redirect:/admin";
 	}
 
-	/*
-	 * @PostMapping("/updatePost") public String updatePost(@RequestParam("jobid")
-	 * Integer jobid, @RequestParam("jobtitle") String jobtitle,
-	 * 
-	 * @RequestParam("jobdescription") String jobdescription,
-	 * 
-	 * @RequestParam("joblocation") String joblocation,
-	 * 
-	 * @RequestParam("salary") String salary,
-	 * 
-	 * @RequestParam("posteddate") LocalDateTime posteddate,
-	 * 
-	 * @RequestParam("applicationdeadline") LocalDateTime applicationdeadline,
-	 * 
-	 * @RequestParam("employerId") Integer employerId) {
-	 * 
-	 * // Tìm bài viết hiện tại JoblistingsEntity post =
-	 * joblistingsDao.findById(jobid) .orElseThrow(() -> new
-	 * RuntimeException("Bài viết không tồn tại"));
-	 * 
-	 * // Tìm nhà tuyển dụng EmployersEntity employer =
-	 * employersDao.findById(employerId) .orElseThrow(() -> new
-	 * RuntimeException("Nhà tuyển dụng không tồn tại"));
-	 * 
-	 * // Cập nhật các trường post.setJobtitle(jobtitle);
-	 * post.setJobdescription(jobdescription); post.setJoblocation(joblocation);
-	 * post.setSalary(salary); post.setPosteddate(posteddate);
-	 * post.setApplicationdeadline(applicationdeadline); post.setEmployer(employer);
-	 * 
-	 * // Lưu bài viết đã cập nhật joblistingsDao.save(post);
-	 * 
-	 * // Chuyển hướng hoặc trả về một view return "redirect:/admin"; }
-	 */
 
-	@PostMapping("/updatePost/{jobid}")
+	@PostMapping("/updatePost")
 	public String updatePost(@PathVariable Integer jobid, @RequestParam String jobtitle,
 			@RequestParam String joblocation, @RequestParam String companyname, @RequestParam String companywebsite,
 			@RequestParam String address, @RequestParam String industry, @RequestParam String contactperson,
@@ -258,6 +221,7 @@ public class AdminController {
 			redirectAttributes.addFlashAttribute("error", "Cập nhật bài viết thất bại! Lỗi: " + e.getMessage());
 		}
 		return "redirect:/admin";
+
 	}
 
 	@RequestMapping("/quanLyCV")
@@ -265,6 +229,7 @@ public class AdminController {
 		List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
 		model.addAttribute("qlCV", qlCV);
 		return "quanLyNguoiDung";
+
 	}
 
 }
