@@ -21,45 +21,76 @@ import org.slf4j.LoggerFactory;
 @Controller
 @RequestMapping("/Login")
 public class LoginController {
-    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    @Autowired
-    private SessionService sessionService;
+	@Autowired
+	SessionService sessionService;
 
-    @Autowired
-    private UsersDao userDao;
+	@Autowired
+	UsersDao userDao;
 
-    @GetMapping("")
-    public String showLoginPage() {
-        return "dangnhap"; // Trả về view đăng nhập
-    }
+	@GetMapping("")
+	public String showLoginPage() {
+		return "dangnhap"; // Trả về view đăng nhập
+	}
 
+	@PostMapping("/submit")
+	public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
+			Model model, HttpSession ss) {
+		// Tìm kiếm người dùng trong cơ sở dữ liệu dựa trên tên người dùng
+		List<UsersEntity> users = userDao.findByUsername(username);
+
+		// Kiểm tra xem danh sách người dùng có rỗng không
+		if (!users.isEmpty()) {
+			UsersEntity user = users.get(0); // Lấy người dùng đầu tiên từ danh sách
+			// Kiểm tra mật khẩu
+			if (user.getPassword().equals(password)) {
+				// Nếu đăng nhập thành công, lưu thông tin người dùng vào session
+				ss.setAttribute("userid", user.getUserid()); // Lưu userid vào session
+				ss.setAttribute("fullname", user.getFullname());
     @PostMapping("/submit")
     public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
                              Model model, HttpSession session) {
-        // Tìm kiếm người dùng trong cơ sở dữ liệu dựa trên tên người dùng
         List<UsersEntity> users = userDao.findByUsername(username);
 
-        // Kiểm tra xem danh sách người dùng có rỗng không
         if (!users.isEmpty()) {
-            UsersEntity user = users.get(0); // Lấy người dùng đầu tiên từ danh sách
-            // Kiểm tra mật khẩu
+            UsersEntity user = users.get(0);
             if (user.getPassword().equals(password)) {
-                // Nếu đăng nhập thành công, lưu thông tin người dùng vào session
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());
                 session.setAttribute("userid", user.getUserid());
 
-                logger.info("User '{}' logged in with role: {}", username, user.getRole());
+				logger.info("User '{}' logged in with role: {}", username, user.getRole());
 
+				if (user.isAdmin()) { // Sử dụng phương thức isAdmin()
+					// Nếu là admin, chuyển hướng đến trang quản lý admin
+					return "redirect:/user";
+				} else {
+					return "redirect:/job4u";
+				}
+			} else {
+				// Nếu mật khẩu không đúng, hiển thị thông báo lỗi
+				model.addAttribute("message", "Mật khẩu không đúng");
+				return "dangNhap";
+			}
+		} else {
+			model.addAttribute("message", "Tài khoản không tồn tại");
+		}
+		return "dangNhap";
+	}
                 // Chuyển hướng dựa trên vai trò của người dùng
-                if (user.isAdmin()) {
-                    return "redirect:/admin"; // Admin chuyển hướng đến trang quản lý admin
-                } else {
-                    return "redirect:/job4u"; // Người dùng thường chuyển hướng đến trang chính
+                switch (user.getRole()) {
+                    case 0:
+                        return "redirect:/admin";
+                    case 1:
+                        return "redirect:/job4u";
+                    case 2:
+                        return "redirect:/job4u/employers";
+                    default:
+                        model.addAttribute("message", "Vai trò không hợp lệ");
+                        return "dangnhap";
                 }
             } else {
-                // Nếu mật khẩu không đúng, hiển thị thông báo lỗi
                 model.addAttribute("message", "Mật khẩu không đúng");
             }
         } else {
