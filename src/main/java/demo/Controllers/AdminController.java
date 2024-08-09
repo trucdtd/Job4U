@@ -54,10 +54,10 @@ public class AdminController {
 
 	@Autowired
 	JoblistingsDao joblistingsDao;
-	
+
 	@Autowired
 	JobSeekersDao jobSeekersDao;
-	
+
 	@Autowired
 	EmployersDao employersDao;
 
@@ -147,71 +147,38 @@ public class AdminController {
 	@PostMapping("/deletePost")
 	@Transactional
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
-	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
-	    String deletePostSql = "DELETE FROM Post WHERE JobID = ?";
+		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
+		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
+		String deletePostSql = "DELETE FROM Post WHERE JobID = ?";
 
-	    try {
-	        // Xóa các bản ghi liên quan trong bảng Applications
-	        int applicationsRows = jdbcTemplate.update(deleteApplicationsSql, id);
-	        if (applicationsRows == 0) {
-	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy Applications liên quan để xóa!");
-	            return "redirect:/admin";
-	        }
+		try {
+			// Xóa các bản ghi liên quan trong bảng Applications
+			int applicationsRows = jdbcTemplate.update(deleteApplicationsSql, id);
+			if (applicationsRows == 0) {
+				redirectAttributes.addFlashAttribute("error", "Không tìm thấy Applications liên quan để xóa!");
+				return "redirect:/admin";
+			}
 
-	        // Xóa các bản ghi liên quan trong bảng Joblistings
-	        int jobListingsRows = jdbcTemplate.update(deleteJobListingsSql, id);
-	        if (jobListingsRows == 0) {
-	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy Joblistings liên quan để xóa!");
-	            return "redirect:/admin";
-	        }
+			// Xóa các bản ghi liên quan trong bảng Joblistings
+			int jobListingsRows = jdbcTemplate.update(deleteJobListingsSql, id);
+			if (jobListingsRows == 0) {
+				redirectAttributes.addFlashAttribute("error", "Không tìm thấy Joblistings liên quan để xóa!");
+				return "redirect:/admin";
+			}
 
-	        // Xóa bài viết
-	        int rows = jdbcTemplate.update(deletePostSql, id);
-	        if (rows > 0) {
-	            redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công!");
-	        } else {
-	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy bài viết cần xóa!");
-	        }
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại do có lỗi xảy ra: " + e.getMessage());
-	    }
-	    return "redirect:/admin";
+			// Xóa bài viết
+			int rows = jdbcTemplate.update(deletePostSql, id);
+			if (rows > 0) {
+				redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công!");
+			} else {
+				redirectAttributes.addFlashAttribute("error", "Không tìm thấy bài viết cần xóa!");
+			}
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại do có lỗi xảy ra: " + e.getMessage());
+		}
+		return "redirect:/admin";
 	}
 
-	
-	@PostMapping("/deleteUser")
-    public String deleteUser(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
-    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
-    String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
-    String deleteMessagesSql = "DELETE FROM Messages WHERE SenderID = ?";
-    String deleteUserSql = "DELETE FROM users WHERE userid = ?";
-    
-    
-    try {
-        // Xóa các bản ghi liên quan trong bảng Applications trước
-        jdbcTemplate.update(deleteApplicationsSql, id);
-
-        // Xóa các bản ghi liên quan trong bảng Joblistings
-        jdbcTemplate.update(deleteJobListingsSql, id);
-
-        // Xóa các bản ghi liên quan trong bảng Employers và Messages
-        jdbcTemplate.update(deleteEmployersSql, id);
-        jdbcTemplate.update(deleteMessagesSql, id);
-
-        // Sau đó xóa người dùng
-        int rows = jdbcTemplate.update(deleteUserSql, id);
-        if (rows > 0) {
-            redirectAttributes.addFlashAttribute("message", "Xóa người dùng thành công!");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần xóa!");
-        }
-    } catch (Exception e) {
-        redirectAttributes.addFlashAttribute("error", "Xóa người dùng thất bại do người dùng đang đăng kí ứng tuyển");
-    }
-    return "redirect:/admin";
-}
 	/*
 	 * @PostMapping("/updatePost") public String updatePost(@RequestParam("jobid")
 	 * Integer jobid, @RequestParam("jobtitle") String jobtitle,
@@ -245,64 +212,58 @@ public class AdminController {
 	 * 
 	 * // Chuyển hướng hoặc trả về một view return "redirect:/admin"; }
 	 */
-	
+
 	@PostMapping("/updatePost/{jobid}")
-	public String updatePost(@PathVariable Integer jobid,
-	                         @RequestParam String jobtitle,
-	                         @RequestParam String joblocation,
-	                         @RequestParam String companyname,
-	                         @RequestParam String companywebsite,
-	                         @RequestParam String address,
-	                         @RequestParam String industry,
-	                         @RequestParam String contactperson,
-	                         @RequestParam String salary,
-	                         RedirectAttributes redirectAttributes) {
+	public String updatePost(@PathVariable Integer jobid, @RequestParam String jobtitle,
+			@RequestParam String joblocation, @RequestParam String companyname, @RequestParam String companywebsite,
+			@RequestParam String address, @RequestParam String industry, @RequestParam String contactperson,
+			@RequestParam String salary, RedirectAttributes redirectAttributes) {
 
+		// Kiểm tra các trường không được bỏ trống
+		if (jobtitle.isEmpty() || joblocation.isEmpty() || companyname.isEmpty() || companywebsite.isEmpty()
+				|| address.isEmpty() || industry.isEmpty() || contactperson.isEmpty() || salary.isEmpty()) {
+			redirectAttributes.addFlashAttribute("error", "Tất cả các trường đều phải được điền!");
+			return "redirect:/admin/post/detail/" + jobid;
+		}
 
-	    // Kiểm tra các trường không được bỏ trống
-	    if (jobtitle.isEmpty() || joblocation.isEmpty() || companyname.isEmpty() || companywebsite.isEmpty() || address.isEmpty() || industry.isEmpty() || contactperson.isEmpty() || salary.isEmpty()) {
-	        redirectAttributes.addFlashAttribute("error", "Tất cả các trường đều phải được điền!");
-	        return "redirect:/admin/post/detail/" + jobid;
-	    }
+		// Kiểm tra định dạng email (nếu có)
+		// String emailRegex = "^[A-Za-z0-9._%+-]+@(gmail\\.com|fpt\\.edu\\.vn)$";
+		// Pattern emailPattern = Pattern.compile(emailRegex);
+		// if (!emailPattern.matcher(email).matches()) {
+		// redirectAttributes.addFlashAttribute("error", "Định dạng email không hợp
+		// lệ!");
+		// return "redirect:/admin/post/detail/" + jobid;
+		// }
 
-	    // Kiểm tra định dạng email (nếu có)
-	    // String emailRegex = "^[A-Za-z0-9._%+-]+@(gmail\\.com|fpt\\.edu\\.vn)$";
-	    // Pattern emailPattern = Pattern.compile(emailRegex);
-	    // if (!emailPattern.matcher(email).matches()) {
-	    //     redirectAttributes.addFlashAttribute("error", "Định dạng email không hợp lệ!");
-	    //     return "redirect:/admin/post/detail/" + jobid;
-	    // }
+		// Kiểm tra số điện thoại (nếu có)
+		// String phoneRegex = "^\\d{10}$";
+		// Pattern phonePattern = Pattern.compile(phoneRegex);
+		// if (!phonePattern.matcher(phonenumber).matches()) {
+		// redirectAttributes.addFlashAttribute("error", "Số điện thoại phải đủ 10 số và
+		// không được nhập chữ!");
+		// return "redirect:/admin/post/detail/" + jobid;
+		// }
 
-	    // Kiểm tra số điện thoại (nếu có)
-	    // String phoneRegex = "^\\d{10}$";
-	    // Pattern phonePattern = Pattern.compile(phoneRegex);
-	    // if (!phonePattern.matcher(phonenumber).matches()) {
-	    //     redirectAttributes.addFlashAttribute("error", "Số điện thoại phải đủ 10 số và không được nhập chữ!");
-	    //     return "redirect:/admin/post/detail/" + jobid;
-	    // }
-
-	    // Cập nhật thông tin bài viết
-	    String sql = "UPDATE posts SET jobtitle = ?, joblocation = ?, companyname = ?, companywebsite = ?, address = ?, industry = ?, contactperson = ?, salary = ? WHERE jobid = ?";
-	    try {
-	        int rows = jdbcTemplate.update(sql, jobtitle, joblocation, companyname, companywebsite, address, industry, contactperson, salary, jobid);
-	        if (rows > 0) {
-	            redirectAttributes.addFlashAttribute("message", "Cập nhật bài viết thành công!");
-	        } else {
-	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy bài viết cần cập nhật!");
-	        }
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("error", "Cập nhật bài viết thất bại! Lỗi: " + e.getMessage());
-	    }
-	    return "redirect:/admin";
+		// Cập nhật thông tin bài viết
+		String sql = "UPDATE posts SET jobtitle = ?, joblocation = ?, companyname = ?, companywebsite = ?, address = ?, industry = ?, contactperson = ?, salary = ? WHERE jobid = ?";
+		try {
+			int rows = jdbcTemplate.update(sql, jobtitle, joblocation, companyname, companywebsite, address, industry,
+					contactperson, salary, jobid);
+			if (rows > 0) {
+				redirectAttributes.addFlashAttribute("message", "Cập nhật bài viết thành công!");
+			} else {
+				redirectAttributes.addFlashAttribute("error", "Không tìm thấy bài viết cần cập nhật!");
+			}
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", "Cập nhật bài viết thất bại! Lỗi: " + e.getMessage());
+		}
+		return "redirect:/admin";
 	}
 
-	
 	@RequestMapping("/quanLyCV")
-	public String quanLyCV(
-			Model model
-    		 ){
-        List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
-        model.addAttribute("qlCV", qlCV);
+	public String quanLyCV(Model model) {
+		List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
+		model.addAttribute("qlCV", qlCV);
 		return "quanLyNguoiDung";
 	}
 

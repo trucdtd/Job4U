@@ -33,10 +33,7 @@
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
 						<div class="card-body p-0">
-							<form id="deleteForm" action="/admin/deleteUser" method="POST"
-								style="display: none;">
-								<input type="hidden" name="id" id="deleteId">
-							</form>
+							
 							<div class="table-responsive">
 								<table class="table align-items-center mb-0">
 									<thead class="thead-light text-center">
@@ -62,9 +59,8 @@
 												<td>${nd.role}</td>
 												<td><a href="/admin/detailUser/${nd.userid}"
 													class="btn btn-info text-white p-2 " type="button"
-													style="background-color: #00688B">Chi tiết</a> <a href="#"
-													onclick="return confirmDeleteAccount(${nd.userid});"
-													class="btn btn-danger p-2">delete</a></td>
+													style="background-color: #00688B">Chi tiết</a> <a href="#" class="btn btn-danger"
+													onclick="return confirmDelete(${bv.userid});">Xóa</a> </td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -236,18 +232,7 @@ function confirmDelete(id) {
     return false; // Ngăn việc thực hiện hành động nếu người dùng chọn hủy
 }
 </script>
-<script>
-        function confirmDeleteAccount(id) {
-        	if (confirm("Bạn có chắc chắn muốn xóa tài khoản này không?")) {
-                // Cập nhật giá trị của input ẩn trong form xóa
-                document.getElementById('deleteId').value = id;
-                // Gửi form để thực hiện xóa
-                document.getElementById('deleteForm').submit();
-                return false; // Ngăn việc điều hướng đến URL
-            }
-            return false; // Ngăn việc thực hiện hành động nếu người dùng chọn hủy
-        }
-    </script>
+
 
 </body>
 </html>
