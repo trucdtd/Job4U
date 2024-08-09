@@ -325,10 +325,10 @@ body {
 											</div>
 										</div>
 										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="ciTy">Lương</h6>
-												<p>${job.salary}</p>
-											</div>
+    										<div class="form-group">
+        										<h6 for="ciTy">Lương</h6>
+       											<p><i class="bi bi-currency-dollar"></i> ${job.salary}</p>
+   											</div>
 										</div>
 										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 											<div class="form-group">
@@ -343,17 +343,18 @@ body {
 											</div>
 										</div>
 										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="ngaybd">Ngày Đăng</h6>
-												<p>${job.posteddate}
-											</div>
-										</div>
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="ngaykt">Hạn Nộp Hồ Sơ</h6>
-												<p>${job.applicationdeadline}
-											</div>
-										</div>
+    <div class="form-group">
+        <h6 for="ngaybd">Ngày Đăng</h6>
+        <p>${formattedPostedDate}</p>
+    </div>
+</div>
+<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+    <div class="form-group">
+        <h6 for="ngaykt">Hạn Nộp Hồ Sơ</h6>
+        <p>${formattedApplicationDeadline}</p>
+    </div>
+</div>
+
 									</div>
 									<div class="row gutters">
 										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -377,5 +378,18 @@ body {
 		<%@ include file="/views/footer.jsp"%>
 		<!-- /footer -->
 	</div>
+	<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var postedDate = '${job.posteddate}';
+    var applicationDeadline = '${job.applicationdeadline}';
+
+    var formattedPostedDate = moment(postedDate).format('DD/MM/YYYY HH:mm');
+    var formattedApplicationDeadline = moment(applicationDeadline).format('DD/MM/YYYY HH:mm');
+
+    document.querySelector('.form-group #ngaybd + p').textContent = formattedPostedDate;
+    document.querySelector('.form-group #ngaykt + p').textContent = formattedApplicationDeadline;
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 </body>
 </html>

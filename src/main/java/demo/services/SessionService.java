@@ -7,21 +7,32 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class SessionService {
-	@Autowired
-	HttpSession session; //lưu bộ nhớ tạm
-	
-	public void luuDuLieu(String username, Object matkhau) {
-		session.setAttribute(username, matkhau);
-	}
-	
-	public <T> T docDuLieu(String name) {
-		return (T)session.getAttribute(name); //T kiểu dữ liệu tạm
-	}
-	
-	public void xoaDuLieu(String name) {
-		session.removeAttribute(name);
-	}
-	
-	
 
+    @Autowired
+    private HttpSession session; // lưu bộ nhớ tạm
+
+    // Lưu dữ liệu vào session
+    public void luuDuLieu(String key, Object value) {
+        session.setAttribute(key, value);
+    }
+    
+    // Đọc dữ liệu từ session
+    public <T> T docDuLieu(String key) {
+        return (T) session.getAttribute(key);
+    }
+    
+    // Xóa dữ liệu khỏi session
+    public void xoaDuLieu(String key) {
+        session.removeAttribute(key);
+    }
+
+    // Lấy ID của nhà tuyển dụng hiện tại từ session
+    public Integer getCurrentEmployerId() {
+        return (Integer) session.getAttribute("employerId");
+    }
+
+    // Lưu ID của nhà tuyển dụng vào session
+    public void setCurrentEmployerId(Integer employerId) {
+        session.setAttribute("employerId", employerId);
+    }
 }

@@ -15,8 +15,10 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import java.sql.Date;
+import lombok.Data;
 
+import java.sql.Date;
+@Data
 @Entity
 @Table(name = "Jobseekers")
 public class JobSeekersEntity implements Serializable {
@@ -57,7 +59,7 @@ public class JobSeekersEntity implements Serializable {
     @Column(name = "image")
     private byte[] image;
 
-    @Column(name = "dateOfbirth")
+    @Column(name = "dateofbirth")
     private Date dateOfbirth;
 
     @Column(name = "gender", length = 10)
@@ -80,4 +82,5 @@ public class JobSeekersEntity implements Serializable {
     @Column(name = "updatedat", nullable = false)
     private LocalDateTime updatedat;
 
+    
 }

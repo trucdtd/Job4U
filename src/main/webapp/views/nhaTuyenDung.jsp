@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Employes Page</title>
+<title>Nhà tuyển dụng</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -132,12 +133,24 @@
 												<button type="button" class="btn btn-sm btn-danger">Xóa</button>
 											</td>
 										</tr>
+										<c:forEach items="${dsTD}" var="job">
+											<tr>
+												<td>${job.jobtitle}</td>
+												<td>${job.joblocation}</td>
+												<td>${job.posteddate}</td>
+												<td>${job.applicationdeadline}</td>
+												<td>
+													<button type="button" class="btn btn-sm btn-primary">Chỉnh
+														Sửa</button>
+													<button type="button" class="btn btn-sm btn-danger">Xóa</button>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
-
 
 					<!-- Bảng quản lý bài đăng-->
 					<div id="postEmployers" class="card" style="display: none;">
@@ -148,24 +161,25 @@
 							<div class="table-responsive">
 								<div class="card-body p-0">
 									<form class="p-4" action="/job4u/employers/submit"
-										method="post" id="nhaTuyenDung">
+										method="post" id="nhaTuyenDung" enctype="multipart/form-data">
 										<div class="row">
 											<div class="col-md-6 p-2">
 												<label for="companyname" class="form-label">Tên công
 													ty</label> <input type="text" class="form-control" id="companyname"
-													name="companyname" required>
+													name="companyname" value="${employer.companyname}">
 											</div>
 											<div class="col-md-6 p-2">
 												<label for="companywebsite" class="form-label">Tên
 													web công ty</label> <input type="text" class="form-control"
-													id="companywebsite" name="companywebsite">
+													id="companywebsite" name="companywebsite"
+													value="${employer.companywebsite}">
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-6 p-2">
 												<label for="address" class="form-label">Địa chỉ công
 													ty</label> <input type="text" class="form-control" id="address"
-													name="address">
+													name="address" value="${employer.address}">
 											</div>
 											<div class="col-md-6 p-2">
 												<label for="industry" class="form-label">Ngành nghề</label>
@@ -200,8 +214,7 @@
 											</div>
 											<div class="col-md-6 p-2">
 												<label for="logo" class="form-label">Logo công ty</label> <input
-													type="file" class="form-control" id="logo" name="logo"
-													accept="image/*">
+													type="file" class="form-control" id="logo" name="logo">
 											</div>
 										</div>
 										<div class="row ">
@@ -313,7 +326,7 @@
 												<label for="companydescription" class="form-label">Mô
 													tả về công ty</label>
 												<textarea class="form-control" id="companydescription"
-													name="companydescription" rows="4" required></textarea>
+													name="companydescription" rows="4" required>${employer.companydescription}</textarea>
 											</div>
 
 										</div>
@@ -375,6 +388,17 @@
 											<td>CV ứng tuyển</td>
 
 										</tr>
+										<c:forEach items="${dsCV}" var="cv">
+											<tr>
+												<th>${cv.jobseeker.resume}</th>
+												<td>${cv.user.fullname}
+													<button type="submit" class="btn text-light text-white p-2"
+														style="background-color: #00688B">Xem Thêm</button>
+												</td>
+												<td>${cv.Resume}</td>
+												<td>${cv.jobseeker.createdat}</td>
+											</tr>
+										</c:forEach>
 										<!-- Add more rows as needed -->
 									</tbody>
 								</table>
@@ -429,5 +453,4 @@
 		activeLink.classList.add('active');
 	}
 </script>
-
 </html>

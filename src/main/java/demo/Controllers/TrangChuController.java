@@ -6,11 +6,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import demo.dao.JoblistingsDao;
 import demo.entity.JoblistingsEntity;
+import demo.services.SessionService;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.Optional;
 
@@ -20,6 +23,9 @@ public class TrangChuController {
     @Autowired
     JoblistingsDao danhSachViecLamDao;
 
+    @Autowired
+	SessionService ss;
+    
     @RequestMapping("")
     public String trangChu(Model model, @RequestParam("page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 6);
@@ -51,4 +57,9 @@ public class TrangChuController {
         model.addAttribute("dsSP", dsSP);
         return "trangChu";
     }
+    @GetMapping("/dangxuat")
+	public String dangxuat(HttpSession ss) {
+		ss.invalidate();
+		return "redirect:/job4u";
+	}
 }
