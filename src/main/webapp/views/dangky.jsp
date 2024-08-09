@@ -155,7 +155,7 @@
 
     <div class="text-center text-lg-start mt-4 pt-2">
         <button type="submit" class="btn btn-primary btn-lg">Đăng Ký</button>
-        <p class="small fw-bold mt-2 pt-1 mb-0">Bạn đã có tài khoản? <a href="/job4u/login" class="link-danger">Đăng Nhập</a></p>
+        <p class="small fw-bold mt-2 pt-1 mb-0">Bạn đã có tài khoản? <a href="/job4u/Login" class="link-danger">Đăng Nhập</a></p>
     </div>
 </form>
               </div>
