@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,37 +33,67 @@
 					style="background: #00688B;">
 					<div class="offcanvas-header">
 						<h5 class="text-light">Job for you</h5>
-						<img src="/img/icons8-close-50.png"
-							data-bs-dismiss="offcanvas" height="30px" width="30px">
+						<img src="/img/icons8-close-50.png" data-bs-dismiss="offcanvas"
+							height="30px" width="30px">
 					</div>
 					<div class="offcanvas-body">
 						<ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
 							<li class="nav-item"><a class="nav-link" href="/job4u"><img
-									src="/img/icons8-home-50.png"
-									style="padding-bottom: 7px;" width="25px" height="30px" alt>
-									Trang Chủ</a></li>
+									src="/img/icons8-home-50.png" style="padding-bottom: 7px;"
+									width="25px" height="30px" alt> Trang Chủ</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">Hỏi
 									Đáp</a></li>
 							<li class="nav-item"><a class="nav-link" href="/job4u">Top
 									Công Việc</a></li>
-							<li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà
-									Tuyển Dụng</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="/job4u/employers">Nhà Tuyển Dụng</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">Ứng
 									Tuyển</a></li>
 						</ul>
-						<a href="/Login" class="btn login-button text-center"><img
-							src="/img/login-icon.png" height="25px" width="25px" alt>
-							Đăng nhập</a> <a href="/DangKy" class="btn login-button text-center"><img
-							src="/img/icons8-register-30.png" height="25px"
-							width="25px" alt> Đăng ký</a>
+						<!-- Kiểm tra nếu người dùng chưa đăng nhập -->
+						<c:if test="${empty sessionScope.username}">
+							<a href="/Login" class="btn login-button text-center"><img
+								src="/img/login-icon.png" height="25px" width="25px" alt>
+								Đăng nhập</a>
+							<a href="/DangKy" class="btn login-button text-center"><img
+								src="/img/icons8-register-30.png" height="25px" width="25px" alt>
+								Đăng ký</a>
+						</c:if>
+						<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+							<!-- Kiểm tra nếu người dùng đã đăng nhập -->
+							<c:if test="${not empty sessionScope.username}">
+								<!-- Dropdown Menu -->
+								<li class="nav-item dropdown"><a
+									class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+									role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<i class="bi bi-person-circle"></i> Tài khoản <span>${sessionScope.username}</span>
+								</a>
+									<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+										<c:if test="${sessionScope.role == true}">
+											<!-- Hiển thị menu cho admin -->
+											<li><a class="dropdown-item" href="/admin">Quản lý
+													trang admin</a></li>
+										</c:if>
+										<c:if test="${sessionScope.role == false}">
+											<!-- Hiển thị menu cho người dùng không phải admin -->
+											<li><a class="dropdown-item" href="#">Quản
+													lý tài khoản</a></li>
+										</c:if>
+										<li><a class="dropdown-item" href="#">Thông báo</a></li>
+										<li><a class="dropdown-item" href="#">Đổi
+												mật khẩu</a></li>
+										<li><a class="dropdown-item" href="/job4u/dangxuat">Đăng
+												xuất</a></li>
+									</ul></li>
+							</c:if>
+						</ul>
 					</div>
 
 				</div>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
 					airia-controls="offcanvasNavbar" aria-label="Toggle navigation">
-					<img src="/img/icons8-menu-50.png" height="30px" width30px
-						alt>
+					<img src="/img/icons8-menu-50.png" height="30px" width30px alt>
 				</button>
 			</div>
 		</nav>
