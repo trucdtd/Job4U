@@ -13,7 +13,6 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
-
 <script>
         function confirmDeleteAccount(userid) {
             // Hiển thị hộp thoại xác nhận
@@ -42,7 +41,6 @@
             }
         }
     </script>
-
 </head>
 <body>
 	<div class="container">
