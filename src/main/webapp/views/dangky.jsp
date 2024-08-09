@@ -116,7 +116,7 @@
         <span class="text-danger">${usertypeError}</span>
     </div>
 
-    <div id="employerDetails" style="${'employer'.equals(usertype) ? '' : 'display: none;'}">
+    <div id="employerDetails" style="display: none;">
         <div class="row">
             <div class="col">
                 <label for="companyName" class="form-label">Tên Công Ty</label>
