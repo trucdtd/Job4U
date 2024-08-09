@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -144,19 +145,28 @@ public class AdminController {
 	}
 
 	@PostMapping("/deletePost")
+	@Transactional
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
 	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
 	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
 	    String deletePostSql = "DELETE FROM Post WHERE JobID = ?";
 
 	    try {
-	        // Xóa các bản ghi liên quan trong bảng Applications trước
-	        jdbcTemplate.update(deleteApplicationsSql, id);
+	        // Xóa các bản ghi liên quan trong bảng Applications
+	        int applicationsRows = jdbcTemplate.update(deleteApplicationsSql, id);
+	        if (applicationsRows == 0) {
+	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy Applications liên quan để xóa!");
+	            return "redirect:/admin";
+	        }
 
 	        // Xóa các bản ghi liên quan trong bảng Joblistings
-	        jdbcTemplate.update(deleteJobListingsSql, id);
+	        int jobListingsRows = jdbcTemplate.update(deleteJobListingsSql, id);
+	        if (jobListingsRows == 0) {
+	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy Joblistings liên quan để xóa!");
+	            return "redirect:/admin";
+	        }
 
-	        // Sau đó xóa bài viết
+	        // Xóa bài viết
 	        int rows = jdbcTemplate.update(deletePostSql, id);
 	        if (rows > 0) {
 	            redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công!");
@@ -164,7 +174,7 @@ public class AdminController {
 	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy bài viết cần xóa!");
 	        }
 	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại do có lỗi xảy ra");
+	        redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại do có lỗi xảy ra: " + e.getMessage());
 	    }
 	    return "redirect:/admin";
 	}
@@ -204,7 +214,7 @@ public class AdminController {
 	 * // Chuyển hướng hoặc trả về một view return "redirect:/admin"; }
 	 */
 	
-	@PostMapping("/updatePost")
+	@PostMapping("/updatePost/{jobid}")
 	public String updatePost(@PathVariable Integer jobid,
 	                         @RequestParam String jobtitle,
 	                         @RequestParam String joblocation,

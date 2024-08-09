@@ -30,10 +30,27 @@
 							<div class="card-title">Chi Tiết Bài Viết</div>
 						</div>
 						<div class="card-body p-0">
-							<form class="p-4 border border-1" action="/admin/" method="post">
+							<form class="p-4 border border-1" action="/admin/updatePost" method="post">
 							<c:if test="${not empty error}">
 								<div class="alert alert-danger" role="alert">${error}</div>
 							</c:if>
+								<div class="row p-2">
+									<div class="col-md-6">
+										<label for="jobtitle">ID:</label> <input
+											class="form-control" type="text"
+											placeholder="Tiêu đề bài viết" aria-label="Tiêu đề bài viết"
+											style="border-radius: 10px;" id="jobtitle" name="jobtitle"
+											value="${bv.jobid}" required>
+									</div>
+									<div class="col-md-6">
+										<label for="joblocation">Vị trí:</label> <input
+											class="form-control" type="text"
+											placeholder="Vị trí công việc" aria-label="Vị trí công việc"
+											style="border-radius: 10px;" id="joblocation"
+											name="joblocation" value="${bv.posteddate}" required>
+									</div>
+								</div>
+							
 								<div class="row p-2">
 									<div class="col-md-6">
 										<label for="jobtitle">Tiêu Đề:</label> <input
@@ -107,8 +124,8 @@
 								<hr>
 								<div class="row p-2" style="margin-top: 10px;">
 									<div class="card-action">
-										<button formaction="/admin/updatePost"
-									class="btn btn-outline-success" style="margin-left: 80%;">Cập
+										<button formaction="/admin/updatePost/${bv.jobid}"
+									class="btn btn-info" style="background-color: #00688B; color: white;">Cập
 									Nhật</button>
 										<a href="/admin" class="btn btn-danger">Hủy
 											bỏ</a>

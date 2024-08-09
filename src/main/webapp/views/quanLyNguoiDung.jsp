@@ -133,7 +133,7 @@
 												<td>${bv.jobdescription}</td>
 												<td>${bv.salary}</td>
 												<td><a href="/admin/detailPost/${bv.jobid}"
-													class="btn btn-info" type="button"style="background-color: #00688B; color: white;">Chi
+													class="btn btn-info" type="button" style="background-color: #00688B; color: white;">Chi
 														tiết</a> <a href="#" class="btn btn-danger"
 													onclick="return confirmDelete(${bv.jobid});">Xóa</a></td>
 											</tr>
@@ -167,7 +167,7 @@
 								<tbody>
 								<c:forEach items="${qlCV}" var="cv">
 									<tr>
-										<td>${cv.jobseekerid}</td>
+										<th scope="row">${cv.jobseekerid}</th>
 										<td>${cv.resume}</td>
 										<td>${cv.profilesummary}</td>
 										<td>${cv.experience}</td>
