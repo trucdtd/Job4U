@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!-- Prefix sử dụng JSTL -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -60,7 +61,8 @@
 									<div
 										class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
 										<div class="d-flex flex-row align-items-center mb-1">
-											<h4 class="mb-1 me-1"><i class="fas fa-dollar-sign"></i> ${job.salary}
+											<h4 class="mb-1 me-1">
+												<i class="fas fa-dollar-sign"></i> ${job.salary}
 											</h4>
 										</div>
 										<div class="d-flex flex-column mt-4">
