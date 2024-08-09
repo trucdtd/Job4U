@@ -20,6 +20,7 @@ import demo.dao.UsersDao;
 import demo.entity.EmployersEntity;
 import demo.entity.UsersEntity;
 import demo.services.SessionService;
+import demo.services.UserService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -28,6 +29,9 @@ public class dangkyController {
 	
 	@Autowired
     private UsersDao userDao;
+	
+	@Autowired
+    private UserService userService;
 
     @Autowired
     private EmployersDao employersDao;
@@ -64,12 +68,12 @@ public class dangkyController {
             model.addAttribute("usernameError", "Tên đăng nhập không hợp lệ");
             hasErrors = true;
         }
-        
+
         if (fullname.isEmpty()) {
             model.addAttribute("fullnameError", "Họ và tên không được để trống");
             hasErrors = true;
         }
-        
+
         if (password.isEmpty()) {
             model.addAttribute("passwordError", "Mật khẩu không được để trống");
             hasErrors = true;
@@ -77,23 +81,31 @@ public class dangkyController {
             model.addAttribute("passwordError", "Mật khẩu phải ít nhất 8 ký tự");
             hasErrors = true;
         }
-        
+
+        // Kiểm tra email
         if (email.isEmpty()) {
             model.addAttribute("emailError", "Email không được để trống");
             hasErrors = true;
         } else if (!isValidEmail(email)) {
             model.addAttribute("emailError", "Email không hợp lệ");
             hasErrors = true;
+        } else if (userService.isEmailExists(email)) {
+            model.addAttribute("emailError", "Email đã được sử dụng");
+            hasErrors = true;
         }
-        
+
+        // Kiểm tra số điện thoại
         if (numberphone.isEmpty()) {
             model.addAttribute("numberphoneError", "Số điện thoại không được để trống");
             hasErrors = true;
         } else if (!isValidPhoneNumber(numberphone)) {
             model.addAttribute("numberphoneError", "Số điện thoại không hợp lệ");
             hasErrors = true;
+        } else if (userService.isPhoneNumberExists(numberphone)) {
+            model.addAttribute("numberphoneError", "Số điện thoại đã được sử dụng");
+            hasErrors = true;
         }
-        
+
         if (usertype == null || usertype.isEmpty()) {
             model.addAttribute("usertypeError", "Vui lòng chọn loại tài khoản");
             hasErrors = true;
@@ -171,19 +183,19 @@ public class dangkyController {
             return "dangky";
         }
     }
-    
+
     private boolean isValidPassword(String password) {
         return password != null && password.length() >= 8 && password.matches(".*\\d.*");
     }
-    
+
     private boolean isValidEmail(String email) {
         return email != null && email.matches("^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)+$");
     }
-    
+
     private boolean isValidPhoneNumber(String numberphone) {
         return numberphone != null && numberphone.matches("^\\d{10}$");
     }
-    
+
     private boolean isValidUsername(String username) {
         return username != null && username.matches("^[a-zA-Z0-9_]{3,15}$");
     }
