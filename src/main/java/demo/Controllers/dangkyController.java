@@ -56,6 +56,7 @@ public class dangkyController {
     ) {
         boolean hasErrors = false;
 
+        // Validate fields
         if (username.isEmpty()) {
             model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
             hasErrors = true;
@@ -164,8 +165,7 @@ public class dangkyController {
                 employersDao.save(employerDetails);
             }
 
-            model.addAttribute("successMessage", "Đăng ký thành công!");
-            return "redirect:/job4u/Login";
+            return "redirect:/dangky?success=true"; // Redirect with success parameter
 
         } catch (Exception e) {
             model.addAttribute("message", "Đã xảy ra lỗi, vui lòng thử lại");
@@ -174,7 +174,6 @@ public class dangkyController {
         }
     }
 
-    // Các phương thức kiểm tra
     private boolean isValidUsername(String username) {
         return username.matches("^[a-zA-Z0-9_]+$");
     }
