@@ -60,7 +60,7 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
               <div class="form-container">
-                <form action="/DangKy/submit" method="post" enctype="multipart/form-data" id="registerForm">
+                <form action="/dangky/submit" method="post" enctype="multipart/form-data" id="registerForm">
     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
         <h1 class="lead fw-normal mb-0 me-3">Đăng Ký</h1>
     </div>
@@ -131,8 +131,24 @@
                 <span class="text-danger" id="companyAddressError">${companyAddressError}</span>
             </div>
             <div class="col">
-                <label for="industry" class="form-label">Ngành Công Nghiệp</label>
-                <input type="text" class="form-control" id="industry" name="industry">
+                <label for="industry" class="form-label">Ngành nghề</label>
+												<select class="form-control" id="industry" name="industry" required>
+    <option value="" disabled selected>Chọn ngành nghề</option>
+    <option value="Nông nghiệp">Nông nghiệp</option>
+    <option value="Công nghiệp">Công nghiệp</option>
+    <option value="Dịch vụ">Dịch vụ</option>
+    <option value="construction">Xây dựng</option>
+    <option value="Giao thông vận tải">Giao thông vận tải</option>
+    <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+    <option value="Tài chính">Tài chính</option>
+    <option value="Giáo dục">Giáo dục</option>
+    <option value="Y tế">Y tế</option>
+    <option value="Truyền thông">Truyền thông</option>
+    <option value="Công nghệ ô tô">Công nghệ ô tô</option>
+    <option value="Du lịch">Du lịch</option>
+    <option value="Hành chính văn phòng">Hành chính văn phòng</option>
+    <option value="Khác">Khác...</option>
+</select>
                 <span class="text-danger" id="industryError">${industryError}</span>
             </div>
         </div>
@@ -155,9 +171,26 @@
 
     <div class="text-center text-lg-start mt-4 pt-2">
         <button type="submit" class="btn btn-primary btn-lg">Đăng Ký</button>
-        <p class="small fw-bold mt-2 pt-1 mb-0">Bạn đã có tài khoản? <a href="/job4u/Login" class="link-danger">Đăng Nhập</a></p>
+        <p class="small fw-bold mt-2 pt-1 mb-0">Bạn đã có tài khoản? <a href="/Login" class="link-danger">Đăng Nhập</a></p>
     </div>
 </form>
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Đăng Ký Thành Công</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn đã đăng ký thành công! Nhấn OK để tiếp tục.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="okButton">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
               </div>
             </div>
           </div>
@@ -166,17 +199,32 @@
         <%@ include file="/views/footer.jsp"%>
       </section>
     </footer>
-    
-     <script>
-    	function toggleEmployerDetails() {
-    	    var employerDetails = document.getElementById("employerDetails");
-    	    var employerRadio = document.getElementById("employer");
-    	    if (employerRadio.checked) {
-    	        employerDetails.style.display = "block";
-    	    } else {
-    	        employerDetails.style.display = "none";
-    	    }
-    	}
+<!-- JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleEmployerDetails() {
+    var employerDetails = document.getElementById("employerDetails");
+    var employerRadio = document.getElementById("employer");
+    if (employerRadio.checked) {
+        employerDetails.style.display = "block";
+    } else {
+        employerDetails.style.display = "none";
+    }
+}</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const registrationSuccess = urlParams.get('success');
+
+    if (registrationSuccess === 'true') {
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+    }
+
+    document.getElementById('okButton').addEventListener('click', function () {
+        window.location.href = '/Login';
+    });
+});
 </script>
 
     <!-- Bootstrap JavaScript Libraries -->
