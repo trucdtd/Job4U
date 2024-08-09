@@ -133,18 +133,19 @@
 												<button type="button" class="btn btn-sm btn-danger">Xóa</button>
 											</td>
 										</tr>
-										
-										<tr>
-											<td>${job.jobtitle}</td>
-											<td>${job.joblocation}</td>
-											<td>${job.posteddate}</td>
-											<td>${job.applicationdeadline}</td>
-											<td>
-												<button type="button" class="btn btn-sm btn-primary">Chỉnh
-													Sửa</button>
-												<button type="button" class="btn btn-sm btn-danger">Xóa</button>
-											</td>
-										</tr>
+										<c:forEach items="${dsTD}" var="job">
+											<tr>
+												<td>${job.jobtitle}</td>
+												<td>${job.joblocation}</td>
+												<td>${job.posteddate}</td>
+												<td>${job.applicationdeadline}</td>
+												<td>
+													<button type="button" class="btn btn-sm btn-primary">Chỉnh
+														Sửa</button>
+													<button type="button" class="btn btn-sm btn-danger">Xóa</button>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -159,7 +160,8 @@
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<div class="card-body p-0">
-									<form class="p-4" action="/job4u/employers/submit" method="post" id="nhaTuyenDung" enctype="multipart/form-data">
+									<form class="p-4" action="/job4u/employers/submit"
+										method="post" id="nhaTuyenDung" enctype="multipart/form-data">
 										<div class="row">
 											<div class="col-md-6 p-2">
 												<label for="companyname" class="form-label">Tên công
@@ -169,7 +171,8 @@
 											<div class="col-md-6 p-2">
 												<label for="companywebsite" class="form-label">Tên
 													web công ty</label> <input type="text" class="form-control"
-													id="companywebsite" name="companywebsite" value="${employer.companywebsite}">
+													id="companywebsite" name="companywebsite"
+													value="${employer.companywebsite}">
 											</div>
 										</div>
 										<div class="row">
@@ -210,8 +213,8 @@
 													id="contactperson" name="contactperson">
 											</div>
 											<div class="col-md-6 p-2">
-												<label for="logo" class="form-label">Logo công ty</label>
-												<input type="file" class="form-control" id="logo" name="logo">
+												<label for="logo" class="form-label">Logo công ty</label> <input
+													type="file" class="form-control" id="logo" name="logo">
 											</div>
 										</div>
 										<div class="row ">
@@ -322,7 +325,8 @@
 											<div class="col-md-12 p-2">
 												<label for="companydescription" class="form-label">Mô
 													tả về công ty</label>
-												<textarea class="form-control" id="companydescription" name="companydescription" rows="4" required>${employer.companydescription}</textarea>
+												<textarea class="form-control" id="companydescription"
+													name="companydescription" rows="4" required>${employer.companydescription}</textarea>
 											</div>
 
 										</div>
@@ -384,6 +388,17 @@
 											<td>CV ứng tuyển</td>
 
 										</tr>
+										<c:forEach items="${dsCV}" var="cv">
+											<tr>
+												<th>${cv.jobseeker.resume}</th>
+												<td>${cv.user.fullname}
+													<button type="submit" class="btn text-light text-white p-2"
+														style="background-color: #00688B">Xem Thêm</button>
+												</td>
+												<td>${cv.Resume}</td>
+												<td>${cv.jobseeker.createdat}</td>
+											</tr>
+										</c:forEach>
 										<!-- Add more rows as needed -->
 									</tbody>
 								</table>
