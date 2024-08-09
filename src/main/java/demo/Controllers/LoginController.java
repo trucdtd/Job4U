@@ -21,71 +21,45 @@ import org.slf4j.LoggerFactory;
 @Controller
 @RequestMapping("/Login")
 public class LoginController {
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	@Autowired
-	SessionService sessionService;
+    @Autowired
+    private SessionService sessionService;
 
-	@Autowired
-	UsersDao userDao;
+    @Autowired
+    private UsersDao userDao;
 
-	@GetMapping("")
-	public String showLoginPage() {
-		return "dangnhap"; // Trả về view đăng nhập
-	}
+    @GetMapping("")
+    public String showLoginPage() {
+        return "dangnhap"; // Trả về view đăng nhập
+    }
 
-	@PostMapping("/submit")
-	public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
-			Model model, HttpSession ss) {
-		// Tìm kiếm người dùng trong cơ sở dữ liệu dựa trên tên người dùng
-		List<UsersEntity> users = userDao.findByUsername(username);
-
-		// Kiểm tra xem danh sách người dùng có rỗng không
-		if (!users.isEmpty()) {
-			UsersEntity user = users.get(0); // Lấy người dùng đầu tiên từ danh sách
-			// Kiểm tra mật khẩu
-			if (user.getPassword().equals(password)) {
-				// Nếu đăng nhập thành công, lưu thông tin người dùng vào session
-				ss.setAttribute("userid", user.getUserid()); // Lưu userid vào session
-				ss.setAttribute("fullname", user.getFullname());
     @PostMapping("/submit")
     public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
                              Model model, HttpSession session) {
+        // Tìm kiếm người dùng trong cơ sở dữ liệu dựa trên tên người dùng
         List<UsersEntity> users = userDao.findByUsername(username);
 
+        // Kiểm tra xem danh sách người dùng có rỗng không
         if (!users.isEmpty()) {
-            UsersEntity user = users.get(0);
+            UsersEntity user = users.get(0); // Lấy người dùng đầu tiên từ danh sách
+
+            // Kiểm tra mật khẩu
             if (user.getPassword().equals(password)) {
-                session.setAttribute("userIsLoggedIn", true);
-                session.setAttribute("userName", user.getFullname());
-                session.setAttribute("userid", user.getUserid());
+                // Nếu đăng nhập thành công, lưu thông tin người dùng vào session
+                session.setAttribute("userid", user.getUserid()); // Lưu userid vào session
+                session.setAttribute("fullname", user.getFullname());
 
-				logger.info("User '{}' logged in with role: {}", username, user.getRole());
+                logger.info("User '{}' logged in with role: {}", username, user.getRole());
 
-				if (user.isAdmin()) { // Sử dụng phương thức isAdmin()
-					// Nếu là admin, chuyển hướng đến trang quản lý admin
-					return "redirect:/user";
-				} else {
-					return "redirect:/job4u";
-				}
-			} else {
-				// Nếu mật khẩu không đúng, hiển thị thông báo lỗi
-				model.addAttribute("message", "Mật khẩu không đúng");
-				return "dangNhap";
-			}
-		} else {
-			model.addAttribute("message", "Tài khoản không tồn tại");
-		}
-		return "dangNhap";
-	}
                 // Chuyển hướng dựa trên vai trò của người dùng
                 switch (user.getRole()) {
                     case 0:
-                        return "redirect:/admin";
+                        return "redirect:/admin"; // Quản lý admin
                     case 1:
-                        return "redirect:/job4u";
+                        return "redirect:/job4u"; // Người dùng thường
                     case 2:
-                        return "redirect:/job4u/employers";
+                        return "redirect:/job4u/employers"; // Nhà tuyển dụng
                     default:
                         model.addAttribute("message", "Vai trò không hợp lệ");
                         return "dangnhap";
@@ -102,6 +76,6 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Xóa tất cả dữ liệu khỏi session
-        return "redirect:/Login"; // Chuyển hướng về trang chính hoặc trang đăng nhập
+        return "redirect:/Login"; // Chuyển hướng về trang đăng nhập
     }
 }
