@@ -56,7 +56,7 @@
 <body>
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<br>
-	<footer>
+	<main>
 		<section class="vh-90">
 			<div class="container h-custom">
 				<div
@@ -215,7 +215,7 @@
 			<br>
 			<%@ include file="/views/footer.jsp"%>
 		</section>
-	</footer>
+	</main>
 
 	<script>
 		function toggleEmployerDetails() {
