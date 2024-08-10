@@ -91,29 +91,30 @@ public class AdminController {
 		return "chiTietTaiKhoan";
 	}
 
-	@GetMapping("/updateUser/{id}")
-	public String updateUser(@PathVariable("id") Integer userid, @RequestParam String username,
-			@RequestParam String fullname, @RequestParam String email, @RequestParam String password,
-			@RequestParam String phonenumber, @RequestParam String role, RedirectAttributes redirectAttributes) {
+	@PostMapping("/updateUser/{id}")
+	public String updateUser(@PathVariable("id") Integer userid, 
+			@RequestParam("username") String username,
+			@RequestParam("fullname") String fullname, 
+			@RequestParam("email") String email, 
+			
+			@RequestParam("phonenumber") String phonenumber, 
+			@RequestParam("role") String role, 
+			RedirectAttributes redirectAttributes) {
 		// Kiểm tra các trường không được bỏ trống
-		if (username.isEmpty() || fullname.isEmpty() || email.isEmpty() || password.isEmpty() || phonenumber.isEmpty()
+		if (username.isEmpty() || fullname.isEmpty() || email.isEmpty() || phonenumber.isEmpty()
 				|| role.isEmpty()) {
 			redirectAttributes.addFlashAttribute("error", "Tất cả các trường đều phải được điền!");
-			return "redirect:/userManager/detailUser/" + userid;
+			return "redirect:/admin/detailUser/" + userid;
 		}
 
-		// Kiểm tra độ dài mật khẩu
-		if (password.length() < 8) {
-			redirectAttributes.addFlashAttribute("error", "Mật khẩu phải có độ dài tối thiểu 8 ký tự!");
-			return "redirect:/userManager/detailUser/" + userid;
-		}
+		
 
 		// Kiểm tra định dạng email
 		String emailRegex = "^[A-Za-z0-9._%+-]+@(gmail\\.com|fpt\\.edu\\.vn)$";
 		Pattern emailPattern = Pattern.compile(emailRegex);
 		if (!emailPattern.matcher(email).matches()) {
 			redirectAttributes.addFlashAttribute("error", "Định dạng email không hợp lệ!");
-			return "redirect:/userManager/detailUser/" + userid;
+			return "redirect:/admin/detailUser/" + userid;
 		}
 
 		// Kiểm tra số điện thoại phải đủ 10 số
@@ -121,13 +122,13 @@ public class AdminController {
 		Pattern phonePattern = Pattern.compile(phoneRegex);
 		if (!phonePattern.matcher(phonenumber).matches()) {
 			redirectAttributes.addFlashAttribute("error", "Số điện thoại phải đủ 10 số và không được nhập chữ!");
-			return "redirect:/userManager/detailUser/" + userid;
+			return "redirect:/admin/detailUser/" + userid;
 		}
 
 		// Cập nhật thông tin người dùng
-		String sql = "UPDATE Users SET username = ?, fullname = ?, email = ?, password = ?, phonenumber = ?, role = ? WHERE userid = ?";
+		String sql = "UPDATE Users SET username = ?, fullname = ?, email = ?, phonenumber = ?, role = ? WHERE userid = ?";
 		try {
-			int rows = jdbcTemplate.update(sql, username, fullname, email, password, phonenumber, role, userid);
+			int rows = jdbcTemplate.update(sql, username, fullname, email,  phonenumber, role, userid);
 			if (rows > 0) {
 				redirectAttributes.addFlashAttribute("message", "Cập nhật thông tin người dùng thành công!");
 			} else {
@@ -139,7 +140,7 @@ public class AdminController {
 				e.printStackTrace();
 		}
 
-		return "redirect:/job4u/userManager";
+		return "redirect:/admin";
 	}
 
 	@GetMapping("/detailPost/{id}")
