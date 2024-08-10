@@ -19,19 +19,19 @@
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h4 class="text-center">
-                        DEV PLAN</h4>
+                        3 NGÀY</h4>
                 </div>
                 <div class="panel-body text-center">
                     <p class="lead">
-                        <strong>$10 / month</strong></p>
+                        <strong>0 Đ / Tháng</strong></p>
                 </div>
                 <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Personal use</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Unlimited projects</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>27/7 support</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Top Bài Viết 1 Lần / Tuần</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>X</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i></li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-danger" href="#">BUY NOW!</a>
+                    <a class="btn btn-lg btn-block btn-danger" href="#">MUA</a>
                 </div>
             </div>
         </div>
@@ -40,19 +40,19 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h4 class="text-center">
-                        PRO PLAN</h4>
+                        7 NGÀY</h4>
                 </div>
                 <div class="panel-body text-center">
                     <p class="lead">
-                        <strong>$10 / month</strong></p>
+                        <strong>39.000 Đ / Tháng</strong></p>
                 </div>
                 <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Personal use</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Unlimited projects</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>27/7 support</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Top Bài Viết 2 Lần / Tuần</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>X</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i></li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-info" href="#">BUY NOW!</a>
+                    <a class="btn btn-lg btn-block btn-info" href="#">MUA!</a>
                 </div>
             </div>
         </div>
@@ -61,42 +61,42 @@
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h4 class="text-center">
-                        FREE PLAN</h4>
+                        1 THÁNG</h4>
                 </div>
                 <div class="panel-body text-center">
                     <p class="lead">
-                        <strong>$10 / month</strong></p>
+                        <strong>160.000 Đ / Tháng</strong></p>
                 </div>
                 <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Personal use</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Unlimited projects</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>27/7 support</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Top Bài Viết 5 Lần / Tuần</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Thêm 2 CV</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i></li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-success" href="#">BUY
-                        NOW!</a>
+                    <a class="btn btn-lg btn-block btn-success" href="#">MUA</a>
                 </div>
             </div>
+                    <br>
         </div>
+        <hr>
         <div class="col-md-4">
                 <br>
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4 class="text-center">
-                        SILVER PLAN</h4>
+                        3 THÁNG</h4>
                 </div>
                 <div class="panel-body text-center">
                     <p class="lead">
-                        <strong>$10 / month</strong></p>
+                        <strong>480.000 Đ / Tháng</strong></p>
                 </div>
                 <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Personal use</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Unlimited projects</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>27/7 support</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Top Bài Viết 1 Lần / Ngày</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Thêm 6 CV</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i></li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-primary" href="#">BUY
-                        NOW!</a>
+                    <a class="btn btn-lg btn-block btn-primary" href="#">MUA</a>
                 </div>
             </div>
         </div>
@@ -105,20 +105,19 @@
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h4 class="text-center">
-                        GOLD PLAN</h4>
+                        7 THÁNG</h4>
                 </div>
                 <div class="panel-body text-center">
                     <p class="lead">
-                        <strong>$10 / month</strong></p>
+                        <strong>1.120.000 Đ / Tháng</strong></p>
                 </div>
                 <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Personal use</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Unlimited projects</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>27/7 support</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Top Bài Viết 2 Lần / Ngày</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Thêm 14 CV</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i></li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-warning" href="#">BUY
-                        NOW!</a>
+                    <a class="btn btn-lg btn-block btn-warning" href="#">MUA</a>
                 </div>
             </div>
         </div>
@@ -127,20 +126,19 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="text-center">
-                        PLATINUM PLAN</h4>
+                        1 NĂM</h4>
                 </div>
                 <div class="panel-body text-center">
                     <p class="lead">
-                        <strong>$10 / month</strong></p>
+                        <strong>1.900.000 Đ / Tháng</strong></p>
                 </div>
                 <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Personal use</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Unlimited projects</li>
-                    <li class="list-group-item"><i class="icon-ok text-danger"></i>27/7 support</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>Top Bài Viết 1 Lần / Giờ</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i>CV Không Giới Hạn</li>
+                    <li class="list-group-item"><i class="icon-ok text-danger"></i></li>
                 </ul>
                 <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-secondary" href="#">BUY
-                        NOW!</a>
+                    <a class="btn btn-lg btn-block btn-secondary" href="#">MUA</a>
                 </div>
             </div>
         </div>
