@@ -23,9 +23,14 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Controller
 @RequestMapping("/job4u")
 public class NhaTuyenDungController {
+
+    private static final Logger logger = LoggerFactory.getLogger(NhaTuyenDungController.class);
 
     @Autowired
     private SessionService sessionService;
@@ -38,7 +43,6 @@ public class NhaTuyenDungController {
 
     @RequestMapping("/employers")
     public String nhaTuyenDung(Model model) {
-        // Lấy employerId từ session
         Integer employerId = sessionService.getCurrentEmployerId();
 
         if (employerId != null) {
@@ -67,19 +71,26 @@ public class NhaTuyenDungController {
         @RequestParam("companydescription") String companydescription,
         @RequestParam("jobrequirements") String jobrequirements,
         @RequestParam("posteddate") String posteddate,
-        @RequestParam("applicationdeadline") String applicationdeadline) {
+        @RequestParam("applicationdeadline") String applicationdeadline,
+        Model model) {
 
         Integer employerId = sessionService.getCurrentEmployerId();
+        if (employerId == null) {
+            model.addAttribute("message", "Bạn chưa đăng nhập");
+            return "nhaTuyenDung";
+        }
 
-        // Lấy hoặc tạo mới đối tượng EmployersEntity
-        EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
+        EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(null);
+        if (employer == null) {
+            model.addAttribute("message", "Nhà tuyển dụng không tồn tại");
+            return "nhaTuyenDung";
+        }
 
-        // Đường dẫn lưu trữ logo
+        // Xử lý logo
         String uploadDir = "D:" + File.separator + "DAX" + File.separator + "Job4U" + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "img" + File.separator;
         Path uploadPath = Paths.get(uploadDir);
 
         String logoFilename = null;
-
         try {
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
@@ -90,40 +101,55 @@ public class NhaTuyenDungController {
                 Path filePath = uploadPath.resolve(logoFilename);
                 logo.transferTo(filePath.toFile());
             }
-
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Lỗi khi lưu logo: ", e);
+            model.addAttribute("message", "Lỗi khi lưu logo");
             return "nhaTuyenDung";
         }
 
-        // Cập nhật thông tin của nhà tuyển dụng
+        // Cập nhật thông tin nhà tuyển dụng
         employer.setCompanyname(companyname);
         employer.setCompanywebsite(companywebsite);
         employer.setAddress(address);
         employer.setIndustry(industry);
         employer.setContactperson(contactperson);
-        employer.setLogo(logoFilename); // Lưu tên file thay vì đối tượng MultipartFile
+        employer.setLogo(logoFilename);
         employer.setCompanydescription(companydescription);
 
         nhaTuyenDungDao.save(employer);
 
-        // Tạo đối tượng JoblistingsEntity và lưu trữ
+        // Tạo đối tượng JoblistingsEntity và thiết lập các thuộc tính
         JoblistingsEntity jobListing = new JoblistingsEntity();
         jobListing.setJobtitle(jobtitle);
         jobListing.setJoblocation(joblocation);
         jobListing.setJobtype(jobtype);
         jobListing.setSalary(salary);
         jobListing.setJobrequirements(jobrequirements);
+        jobListing.setJobdescription(jobrequirements); // Thiết lập mô tả công việc
+        jobListing.setEmployer(employer); // Thiết lập nhà tuyển dụng
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        LocalDateTime postedDate = LocalDateTime.parse(posteddate, formatter);
-        LocalDateTime applicationDeadline = LocalDateTime.parse(applicationdeadline, formatter);
+        try {
+            LocalDateTime postedDate = LocalDateTime.parse(posteddate, formatter);
+            LocalDateTime applicationDeadline = LocalDateTime.parse(applicationdeadline, formatter);
 
-        jobListing.setPosteddate(postedDate);
-        jobListing.setApplicationdeadline(applicationDeadline);
+            jobListing.setPosteddate(postedDate);
+            jobListing.setApplicationdeadline(applicationDeadline);
+        } catch (Exception e) {
+            logger.error("Lỗi khi phân tích ngày: ", e);
+            model.addAttribute("message", "Lỗi khi phân tích ngày");
+            return "nhaTuyenDung";
+        }
 
-        danhSachViecLamDao.save(jobListing);
+        // Lưu thông tin việc làm
+        try {
+            danhSachViecLamDao.save(jobListing);
+        } catch (Exception e) {
+            logger.error("Lỗi khi lưu việc làm: ", e);
+            model.addAttribute("message", "Lỗi khi lưu việc làm");
+            return "nhaTuyenDung";
+        }
 
-        return "nhaTuyenDung";
+        return "redirect:/job4u/employers";
     }
 }
