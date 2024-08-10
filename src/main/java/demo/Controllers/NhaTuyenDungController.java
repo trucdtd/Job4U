@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.services.SessionService;
 import demo.dao.EmployersDao;
@@ -72,18 +73,18 @@ public class NhaTuyenDungController {
         @RequestParam("jobrequirements") String jobrequirements,
         @RequestParam("posteddate") String posteddate,
         @RequestParam("applicationdeadline") String applicationdeadline,
-        Model model) {
+        RedirectAttributes redirectAttributes) {
 
         Integer employerId = sessionService.getCurrentEmployerId();
         if (employerId == null) {
-            model.addAttribute("message", "Bạn chưa đăng nhập");
-            return "nhaTuyenDung";
+            redirectAttributes.addFlashAttribute("message", "Bạn chưa đăng nhập");
+            return "redirect:/job4u/employers";
         }
 
         EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(null);
         if (employer == null) {
-            model.addAttribute("message", "Nhà tuyển dụng không tồn tại");
-            return "nhaTuyenDung";
+            redirectAttributes.addFlashAttribute("message", "Nhà tuyển dụng không tồn tại");
+            return "redirect:/job4u/employers";
         }
 
         // Xử lý logo
@@ -103,8 +104,8 @@ public class NhaTuyenDungController {
             }
         } catch (IOException e) {
             logger.error("Lỗi khi lưu logo: ", e);
-            model.addAttribute("message", "Lỗi khi lưu logo");
-            return "nhaTuyenDung";
+            redirectAttributes.addFlashAttribute("message", "Lỗi khi lưu logo");
+            return "redirect:/job4u/employers";
         }
 
         // Cập nhật thông tin nhà tuyển dụng
@@ -137,8 +138,8 @@ public class NhaTuyenDungController {
             jobListing.setApplicationdeadline(applicationDeadline);
         } catch (Exception e) {
             logger.error("Lỗi khi phân tích ngày: ", e);
-            model.addAttribute("message", "Lỗi khi phân tích ngày");
-            return "nhaTuyenDung";
+            redirectAttributes.addFlashAttribute("message", "Lỗi khi phân tích ngày");
+            return "redirect:/job4u/employers";
         }
 
         // Lưu thông tin việc làm
@@ -146,10 +147,12 @@ public class NhaTuyenDungController {
             danhSachViecLamDao.save(jobListing);
         } catch (Exception e) {
             logger.error("Lỗi khi lưu việc làm: ", e);
-            model.addAttribute("message", "Lỗi khi lưu việc làm");
-            return "nhaTuyenDung";
+            redirectAttributes.addFlashAttribute("message", "Lỗi khi lưu việc làm");
+            return "redirect:/job4u/employers";
         }
 
+        redirectAttributes.addFlashAttribute("message", "Đã đăng bài thành công");
         return "redirect:/job4u/employers";
     }
+
 }
