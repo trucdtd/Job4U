@@ -100,9 +100,9 @@
 									</div>
 								</div>
 							</c:if>
-							<form id="deleteForm" action="/admin/deleteUser" method="POST"
+							<form id="deleteFormm" action="/admin/deleteUser" method="POST"
 								style="display: none;">
-								<input type="hidden" name="userid" id="deleteId">
+								<input type="hidden" name="userid" id="deleteIdd">
 							</form>
 
 							<div class="table-responsive">
@@ -310,9 +310,9 @@ function confirmDelete(id) {
     function confirmDeleteAccount(userid) {
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản này không?')) {
             // Cập nhật giá trị của trường ẩn trong biểu mẫu
-            document.getElementById('deleteId').value = userid;
+            document.getElementById('deleteIdd').value = userid;
             // Gửi biểu mẫu
-            document.getElementById('deleteForm').submit();
+            document.getElementById('deleteFormm').submit();
         }
         return false; // Ngăn chặn hành vi mặc định của liên kết
     }
