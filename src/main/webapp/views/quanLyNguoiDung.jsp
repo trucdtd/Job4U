@@ -137,6 +137,7 @@
 											<th scope="col">Experience</th>
 											<th scope="col">Education</th>
 											<th scope="col">Skills</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -148,9 +149,7 @@
 												<td>${cv.experience}</td>
 												<td>${cv.education}</td>
 												<td>${cv.skills}</td>
-												<td>
-													<button class="btn btn-success">Detail</button>
-												</td>
+												
 											</tr>
 										</c:forEach>
 									</tbody>
