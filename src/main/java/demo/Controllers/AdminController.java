@@ -143,6 +143,7 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 	
+	
 	@PostMapping("/deleteUser")
 	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes) {
 	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
