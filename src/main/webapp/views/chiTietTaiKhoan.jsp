@@ -17,13 +17,7 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
-<script>
-	function confirmUpdate(userid) {
-		if (confirm("Bạn có muốn cập nhật không?")) {
-			window.location.href = '/user/' + userid;
-		}
-	}
-</script>
+
 
 <
 </head>
@@ -47,20 +41,9 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<form class="p-4 border" action="/admin/updateUser/${nd.userid}" method="post">
-									<div class="row ">
-										<!-- Thông báo lỗi -->
-										<!-- Hiển thị thông báo thành công -->
-										<c:if test="${not empty param.successMessage}">
-											<div class="alert alert-success" role="alert">
-												${param.successMessage}</div>
-										</c:if>
-
-										<!-- Hiển thị thông báo lỗi -->
-										<c:if test="${not empty param.error}">
-											<div class="alert alert-danger" role="alert">
-												${param.error}</div>
-										</c:if>
+								<form class="p-4 border" action="/admin/updateUser/${nd.userid}"
+									method="post">
+									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="username" class="form-label">Tên tài
 												khoản</label> <input type="text" class="form-control" id="username"
@@ -87,36 +70,35 @@
 										</div>
 									</div>
 
-									<div class="row ">
+									<div class="row">
 										<div class="col-md-6 p-2">
-											<label class="g-2" for="role">Vai Trò</label> <select
+											<label for="role" class="form-label">Vai trò</label> <select
 												name="role" id="role" class="form-select" required>
-												<option value="0"
-													<c:if test="${nd.role == 0}">selected</c:if>>Admin</option>
-												<option value="1"
-													<c:if test="${nd.role == 1}">selected</c:if>>Ứng
-													Viên</option>
-												<option value="2"
-													<c:if test="${nd.role == 2}">selected</c:if>>Nhà
-													Tuyển Dụng</option>
+												<option value="0" ${nd.role == '0' ? 'selected' : ''}>Admin</option>
+												<option value="1" ${nd.role == '1' ? 'selected' : ''}>Ứng
+													viên</option>
+												<option value="2" ${nd.role == '2' ? 'selected' : ''}>Nhà
+													tuyển dụng</option>
 											</select>
 										</div>
 									</div>
 									<hr>
 									<div class="row">
 										<div class="card-action">
-											<button
-												class="btn btn-info text-white"
-												style="background-color: #00688B">Update</button> 
-												<a
-												href="/admin" class="btn btn-danger">Cancel</a>
+											<button class="btn btn-info text-white"
+												style="background-color: #00688B">Update</button>
+											<a href="/admin" class="btn btn-danger">Cancel</a>
 										</div>
 									</div>
-
 								</form>
+
+								
 							</div>
 						</div>
 					</div>
+
+
+
 
 					<!-- Post Management table -->
 					<div id="postManagement" class="card" style="display: none;">
