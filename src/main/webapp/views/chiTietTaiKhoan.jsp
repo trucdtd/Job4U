@@ -35,7 +35,7 @@
 		<div class="container">
 			<div class="row mt-3">
 				<!-- aside -->
-				
+
 				<%@ include file="/views/menuAdmin.jsp"%>
 				<!-- aside -->
 				<!-- article -->
@@ -47,12 +47,19 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<form class="p-4 border" action="/user/updateUser"
-									method="post">
+								<form class="p-4 border" action="/user/updateUser" method="post">
 									<div class="row ">
 										<!-- Thông báo lỗi -->
-										<c:if test="${not empty error}">
-											<div class="alert alert-danger" role="alert">${error}</div>
+										<!-- Hiển thị thông báo thành công -->
+										<c:if test="${not empty param.successMessage}">
+											<div class="alert alert-success" role="alert">
+												${param.successMessage}</div>
+										</c:if>
+
+										<!-- Hiển thị thông báo lỗi -->
+										<c:if test="${not empty param.error}">
+											<div class="alert alert-danger" role="alert">
+												${param.error}</div>
 										</c:if>
 										<div class="col-md-6 p-2">
 											<label for="username" class="form-label">Tên tài

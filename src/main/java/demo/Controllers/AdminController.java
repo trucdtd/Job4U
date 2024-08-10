@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,8 +134,9 @@ public class AdminController {
 				redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần cập nhật!");
 			}
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error",
+				redirectAttributes.addFlashAttribute("error",
 					"Cập nhật thông tin người dùng thất bại! Lỗi: " + e.getMessage());
+				e.printStackTrace();
 		}
 
 		return "redirect:/job4u/userManager";
@@ -181,8 +183,6 @@ public class AdminController {
 	
 	@PostMapping("/deleteUser")
 	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes) {
-	    String deleteFeedbackSql = "DELETE FROM FeedbackAndRatings WHERE UserID = ?";
-	    String deleteJobSeekersSql = "DELETE FROM Jobseekers WHERE UserID = ?";
 	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
 	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
 	    String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
@@ -190,26 +190,29 @@ public class AdminController {
 	    String deleteUserSql = "DELETE FROM users WHERE userid = ?";
 
 	    try {
-	        // Xóa các bản ghi liên quan trong bảng FeedbackAndRatings
-	        jdbcTemplate.update(deleteFeedbackSql, userid);
-
-	        // Xóa các bản ghi liên quan trong các bảng khác
-	        jdbcTemplate.update(deleteJobSeekersSql, userid);
+	        // Xóa các bản ghi liên quan trong bảng Applications trước
 	        jdbcTemplate.update(deleteApplicationsSql, userid);
+
+	        // Xóa các bản ghi liên quan trong bảng Joblistings
 	        jdbcTemplate.update(deleteJobListingsSql, userid);
+
+	        // Xóa các bản ghi liên quan trong bảng Employers và Messages
 	        jdbcTemplate.update(deleteEmployersSql, userid);
 	        jdbcTemplate.update(deleteMessagesSql, userid);
 
-	        // Xóa người dùng
+	        // Sau đó xóa người dùng
 	        int rows = jdbcTemplate.update(deleteUserSql, userid);
 	        if (rows > 0) {
-	            redirectAttributes.addFlashAttribute("message", "Xóa người dùng thành công!");
+	            redirectAttributes.addAttribute("successMessage", "Xóa người dùng thành công!");
 	        } else {
-	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần xóa!");
+	            redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần xóa!");
 	        }
+	    } catch (DataIntegrityViolationException e) {
+	        redirectAttributes.addAttribute("error", "Không thể xóa tài khoản vì có liên quan đến các dữ liệu khác.");
 	    } catch (Exception e) {
-	        e.printStackTrace(); // Hoặc ghi log chi tiết lỗi
-	        redirectAttributes.addFlashAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
+	    	
+	        redirectAttributes.addAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
+	        e.printStackTrace();
 	    }
 	    return "redirect:/admin";
 	}
