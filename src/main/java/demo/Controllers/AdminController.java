@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -90,56 +91,94 @@ public class AdminController {
 		return "chiTietTaiKhoan";
 	}
 
-	@GetMapping("/updateUser/{id}")
-	public String updateUser(@PathVariable("id") Integer userid, @RequestParam String username,
-			@RequestParam String fullname, @RequestParam String email, @RequestParam String password,
-			@RequestParam String phonenumber, @RequestParam String role, RedirectAttributes redirectAttributes) {
+	@PostMapping("/updateUser/{id}")
+	public String updateUser(@PathVariable("id") Integer userid, 
+			@RequestParam("username") String username,
+			@RequestParam("fullname") String fullname, 
+			@RequestParam("email") String email, 
+			
+			@RequestParam("phonenumber") String phonenumber, 
+			@RequestParam("role") String role, 
+			RedirectAttributes redirectAttributes) {
 		// Kiểm tra các trường không được bỏ trống
-		if (username.isEmpty() || fullname.isEmpty() || email.isEmpty() || password.isEmpty() || phonenumber.isEmpty()
+		if (username.isEmpty() || fullname.isEmpty() || email.isEmpty() || phonenumber.isEmpty()
 				|| role.isEmpty()) {
-			redirectAttributes.addFlashAttribute("error", "Tất cả các trường đều phải được điền!");
-			return "redirect:/userManager/detailUser/" + userid;
+			redirectAttributes.addAttribute("error", "Tất cả các trường đều phải được điền!");
+			return "redirect:/admin/detailUser/" + userid;
 		}
 
-		// Kiểm tra độ dài mật khẩu
-		if (password.length() < 8) {
-			redirectAttributes.addFlashAttribute("error", "Mật khẩu phải có độ dài tối thiểu 8 ký tự!");
-			return "redirect:/userManager/detailUser/" + userid;
-		}
+		
 
 		// Kiểm tra định dạng email
 		String emailRegex = "^[A-Za-z0-9._%+-]+@(gmail\\.com|fpt\\.edu\\.vn)$";
 		Pattern emailPattern = Pattern.compile(emailRegex);
 		if (!emailPattern.matcher(email).matches()) {
-			redirectAttributes.addFlashAttribute("error", "Định dạng email không hợp lệ!");
-			return "redirect:/userManager/detailUser/" + userid;
+			redirectAttributes.addAttribute("error", "Định dạng email không hợp lệ!");
+			return "redirect:/admin/detailUser/" + userid;
 		}
 
 		// Kiểm tra số điện thoại phải đủ 10 số
 		String phoneRegex = "^\\d{10}$";
 		Pattern phonePattern = Pattern.compile(phoneRegex);
 		if (!phonePattern.matcher(phonenumber).matches()) {
-			redirectAttributes.addFlashAttribute("error", "Số điện thoại phải đủ 10 số và không được nhập chữ!");
-			return "redirect:/userManager/detailUser/" + userid;
+			redirectAttributes.addAttribute("error", "Số điện thoại phải đủ 10 số và không được nhập chữ!");
+			return "redirect:/admin/detailUser/" + userid;
 		}
 
 		// Cập nhật thông tin người dùng
-		String sql = "UPDATE Users SET username = ?, fullname = ?, email = ?, password = ?, phonenumber = ?, role = ? WHERE userid = ?";
+		String sql = "UPDATE Users SET username = ?, fullname = ?, email = ?, phonenumber = ?, role = ? WHERE userid = ?";
 		try {
-			int rows = jdbcTemplate.update(sql, username, fullname, email, password, phonenumber, role, userid);
+			int rows = jdbcTemplate.update(sql, username, fullname, email,  phonenumber, role, userid);
 			if (rows > 0) {
-				redirectAttributes.addFlashAttribute("message", "Cập nhật thông tin người dùng thành công!");
+				redirectAttributes.addAttribute("successMessage", "Cập nhật thông tin người dùng thành công!");
 			} else {
-				redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần cập nhật!");
+				redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần cập nhật!");
 			}
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error",
+				redirectAttributes.addAttribute("error",
 					"Cập nhật thông tin người dùng thất bại! Lỗi: " + e.getMessage());
+				e.printStackTrace();
 		}
 
-		return "redirect:/job4u/userManager";
+		return "redirect:/admin";
 	}
+	
+	@PostMapping("/deleteUser")
+	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes) {
+	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
+	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
+	    String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
+	    String deleteMessagesSql = "DELETE FROM Messages WHERE SenderID = ?";
+	    String deleteUserSql = "DELETE FROM users WHERE userid = ?";
 
+	    try {
+	        // Xóa các bản ghi liên quan trong bảng Applications trước
+	        jdbcTemplate.update(deleteApplicationsSql, userid);
+
+	        // Xóa các bản ghi liên quan trong bảng Joblistings
+	        jdbcTemplate.update(deleteJobListingsSql, userid);
+
+	        // Xóa các bản ghi liên quan trong bảng Employers và Messages
+	        jdbcTemplate.update(deleteEmployersSql, userid);
+	        jdbcTemplate.update(deleteMessagesSql, userid);
+
+	        // Sau đó xóa người dùng
+	        int rows = jdbcTemplate.update(deleteUserSql, userid);
+	        if (rows > 0) {
+	            redirectAttributes.addAttribute("successMessage", "Xóa người dùng thành công!");
+	        } else {
+	            redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần xóa!");
+	        }
+	    } catch (DataIntegrityViolationException e) {
+	        redirectAttributes.addAttribute("error", "Không thể xóa tài khoản vì có liên quan đến các dữ liệu khác.");
+	    } catch (Exception e) {
+	    	
+	        redirectAttributes.addAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return "redirect:/admin";
+	}
+	
 	@GetMapping("/detailPost/{id}")
 	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
 		JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
@@ -175,6 +214,43 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
+
+	
+	
+	/*
+	 * @PostMapping("/updatePost") public String updatePost(@RequestParam("jobid")
+	 * Integer jobid, @RequestParam("jobtitle") String jobtitle,
+	 * 
+	 * @RequestParam("jobdescription") String jobdescription,
+	 * 
+	 * @RequestParam("joblocation") String joblocation,
+	 * 
+	 * @RequestParam("salary") String salary,
+	 * 
+	 * @RequestParam("posteddate") LocalDateTime posteddate,
+	 * 
+	 * @RequestParam("applicationdeadline") LocalDateTime applicationdeadline,
+	 * 
+	 * @RequestParam("employerId") Integer employerId) {
+	 * 
+	 * // Tìm bài viết hiện tại JoblistingsEntity post =
+	 * joblistingsDao.findById(jobid) .orElseThrow(() -> new
+	 * RuntimeException("Bài viết không tồn tại"));
+	 * 
+	 * // Tìm nhà tuyển dụng EmployersEntity employer =
+	 * employersDao.findById(employerId) .orElseThrow(() -> new
+	 * RuntimeException("Nhà tuyển dụng không tồn tại"));
+	 * 
+	 * // Cập nhật các trường post.setJobtitle(jobtitle);
+	 * post.setJobdescription(jobdescription); post.setJoblocation(joblocation);
+	 * post.setSalary(salary); post.setPosteddate(posteddate);
+	 * post.setApplicationdeadline(applicationdeadline); post.setEmployer(employer);
+	 * 
+	 * // Lưu bài viết đã cập nhật joblistingsDao.save(post);
+	 * 
+	 * // Chuyển hướng hoặc trả về một view return "redirect:/admin"; }
+	 */
+	
 
 	@PostMapping("/updatePost")
 	public String updatePost(@PathVariable Integer jobid, @RequestParam String jobtitle,
@@ -213,11 +289,13 @@ public class AdminController {
 			int rows = jdbcTemplate.update(sql, jobtitle, joblocation, companyname, companywebsite, address, industry,
 					contactperson, salary, jobid);
 			if (rows > 0) {
-				redirectAttributes.addFlashAttribute("message", "Cập nhật bài viết thành công!");
+				redirectAttributes.addFlashAttribute("successMessage", "Cập nhật bài viết thành công!");
+				
 			} else {
 				redirectAttributes.addFlashAttribute("error", "Không tìm thấy bài viết cần cập nhật!");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("error", "Cập nhật bài viết thất bại! Lỗi: " + e.getMessage());
 		}
 		return "redirect:/admin";

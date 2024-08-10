@@ -1,68 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Nhà tuyển dụng</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-<!-- Bootstrap Icons CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="/css/quanlyuser.css">
-<style>
-.sidebar a {
-	color: white;
-	text-decoration: none;
-	padding: 10px 20px;
-	display: block;
-	border-radius: 4px;
-}
-
-.sidebar a:hover, .sidebar a.active {
-	background-color: #0056b3;
-}
-
-.content {
-	flex-grow: 1;
-	padding: 20px;
-	background-color: #f8f9fa;
-}
-
-.card {
-	margin-bottom: 20px;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-	background-color: #00688B;
-	color: white;
-	border-bottom: none;
-	border-radius: 8px 8px 0 0;
-}
-
-.table th, .table td {
-	vertical-align: middle;
-}
-
-.table thead th {
-	background-color: #00688B;
-	color: white;
-}
-
-.btn-primary, .btn-danger {
-	border-radius: 4px;
-}
-</style>
-<link rel="stylesheet" href="/css/header.css">
+<title>Insert title here</title>
 </head>
 <body>
-	<div class="container">
+<div class="container">
 		<!-- header -->
 		<%@ include file="/views/header.jsp"%>
 		<!-- header -->
@@ -368,41 +313,7 @@
 							<div class="card-title">CV Ứng tuyển</div>
 						</div>
 						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">Tiêu để bài viết</th>
-											<th scope="col">Thông tin ứng tuyển</th>
-											<th scope="col">CV ứng tuyển</th>
-											<th scope="col">Thời gian nộp hồ sơ</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th>Tuyển dụng nhân viên IT Java</th>
-											<td>Trần Thảo Trinh
-												<button type="submit" class="btn text-light text-white p-2"
-													style="background-color: #00688B">Xem Thêm</button>
-											</td>
-											<td>CV ứng tuyển</td>
-
-										</tr>
-										<c:forEach items="${dsCV}" var="cv">
-											<tr>
-												<th>${cv.jobseeker.resume}</th>
-												<td>${cv.user.fullname}
-													<button type="submit" class="btn text-light text-white p-2"
-														style="background-color: #00688B">Xem Thêm</button>
-												</td>
-												<td>${cv.Resume}</td>
-												<td>${cv.jobseeker.createdat}</td>
-											</tr>
-										</c:forEach>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
-							</div>
+							
 						</div>
 					</div>
 
@@ -411,8 +322,11 @@
 						<div class="card-header">
 							<div class="card-title">Dịch vụ bài đăng</div>
 						</div>
-						<%@ include file="/views/dichVu.jsp"%>
-						<br>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<p>thêm thông tin</p>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- article -->
@@ -423,8 +337,7 @@
 		<!-- footer -->
 	</div>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 <script>
 	function showTable(event, tableId) {

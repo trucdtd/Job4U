@@ -20,6 +20,7 @@ import demo.dao.UsersDao;
 import demo.entity.EmployersEntity;
 import demo.entity.UsersEntity;
 import demo.services.SessionService;
+import demo.services.UserService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -28,6 +29,9 @@ public class dangkyController {
 	
 	@Autowired
     private UsersDao userDao;
+	
+	@Autowired
+    private UserService userService;
 
     @Autowired
     private EmployersDao employersDao;
@@ -56,57 +60,58 @@ public class dangkyController {
     ) {
         boolean hasErrors = false;
 
+        // Kiểm tra các trường thông tin
         if (username.isEmpty()) {
             model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
             hasErrors = true;
+        } else if (!isValidUsername(username)) {
+            model.addAttribute("usernameError", "Tên đăng nhập không hợp lệ");
+            hasErrors = true;
         }
+
         if (fullname.isEmpty()) {
             model.addAttribute("fullnameError", "Họ và tên không được để trống");
             hasErrors = true;
         }
+
         if (password.isEmpty()) {
             model.addAttribute("passwordError", "Mật khẩu không được để trống");
             hasErrors = true;
+        } else if (!isValidPassword(password)) {
+            model.addAttribute("passwordError", "Mật khẩu phải ít nhất 8 ký tự");
+            hasErrors = true;
         }
+
+        // Kiểm tra email
         if (email.isEmpty()) {
             model.addAttribute("emailError", "Email không được để trống");
             hasErrors = true;
+        } else if (!isValidEmail(email)) {
+            model.addAttribute("emailError", "Email không hợp lệ");
+            hasErrors = true;
+        } else if (userService.isEmailExists(email)) {
+            model.addAttribute("emailError", "Email đã được sử dụng");
+            hasErrors = true;
         }
+
+        // Kiểm tra số điện thoại
         if (numberphone.isEmpty()) {
             model.addAttribute("numberphoneError", "Số điện thoại không được để trống");
             hasErrors = true;
+        } else if (!isValidPhoneNumber(numberphone)) {
+            model.addAttribute("numberphoneError", "Số điện thoại không hợp lệ");
+            hasErrors = true;
+        } else if (userService.isPhoneNumberExists(numberphone)) {
+            model.addAttribute("numberphoneError", "Số điện thoại đã được sử dụng");
+            hasErrors = true;
         }
+
         if (usertype == null || usertype.isEmpty()) {
             model.addAttribute("usertypeError", "Vui lòng chọn loại tài khoản");
             hasErrors = true;
         }
 
-        // Validate fields based on their types
-        if (!isValidUsername(username)) {
-            model.addAttribute("usernameError", "Tên đăng nhập không hợp lệ");
-            hasErrors = true;
-        }
-        if (!isValidPhoneNumber(numberphone)) {
-            model.addAttribute("numberphoneError", "Số điện thoại không hợp lệ");
-            hasErrors = true;
-        }
-        if (!isValidPassword(password)) {
-            model.addAttribute("passwordError", "Mật khẩu không hợp lệ");
-            hasErrors = true;
-        }
-        if (!isValidEmail(email)) {
-            model.addAttribute("emailError", "Email không hợp lệ");
-            hasErrors = true;
-        }
-        if (userDao.existsByEmail(email)) {
-            model.addAttribute("emailError", "Email đã được sử dụng.");
-            hasErrors = true;
-        }
-        if (userDao.existsByPhonenumber(numberphone)) {
-            model.addAttribute("numberphoneError", "Số điện thoại đã được sử dụng.");
-            hasErrors = true;
-        }
-
+        // Kiểm tra thông tin nhà tuyển dụng nếu loại tài khoản là "employer"
         if ("employer".equals(usertype)) {
             if (companyName == null || companyName.isEmpty()) {
                 model.addAttribute("companyNameError", "Tên công ty không được để trống");
@@ -130,10 +135,12 @@ public class dangkyController {
             }
         }
 
+        // Nếu có lỗi, quay lại trang đăng ký với thông báo lỗi
         if (hasErrors) {
             return "dangky";
         }
 
+        // Nếu không có lỗi, tiến hành đăng ký
         try {
             UsersEntity newUser = new UsersEntity();
             Integer role = "employer".equals(usertype) ? 2 : 1;
@@ -149,6 +156,7 @@ public class dangkyController {
 
             userDao.save(newUser);
 
+            // Nếu loại tài khoản là "employer", lưu thông tin nhà tuyển dụng
             if ("employer".equals(usertype)) {
                 EmployersEntity employerDetails = new EmployersEntity();
                 employerDetails.setCompanyname(companyName);
@@ -164,8 +172,10 @@ public class dangkyController {
                 employersDao.save(employerDetails);
             }
 
+            // Thêm thông báo thành công và chuyển hướng đến trang đăng nhập
             model.addAttribute("successMessage", "Đăng ký thành công!");
-            return "redirect:/Login";
+            model.addAttribute("redirectToLogin", true);
+            return "dangky";
 
         } catch (Exception e) {
             model.addAttribute("message", "Đã xảy ra lỗi, vui lòng thử lại");
@@ -174,20 +184,19 @@ public class dangkyController {
         }
     }
 
-    // Các phương thức kiểm tra
-    private boolean isValidUsername(String username) {
-        return username.matches("^[a-zA-Z0-9_]+$");
-    }
-
-    private boolean isValidPhoneNumber(String numberphone) {
-        return numberphone.matches("^\\d{10}$");
-    }
-
     private boolean isValidPassword(String password) {
-        return password.length() >= 8 && password.matches(".*\\d.*");
+        return password != null && password.length() >= 8 && password.matches(".*\\d.*");
     }
 
     private boolean isValidEmail(String email) {
-        return email.matches("^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)+$");
+        return email != null && email.matches("^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)+$");
+    }
+
+    private boolean isValidPhoneNumber(String numberphone) {
+        return numberphone != null && numberphone.matches("^\\d{10}$");
+    }
+
+    private boolean isValidUsername(String username) {
+        return username != null && username.matches("^[a-zA-Z0-9_]{3,15}$");
     }
 }

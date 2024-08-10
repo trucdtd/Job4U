@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* Định dạng các nút đăng nhập và đăng ký trong offcanvas */
 .offcanvas-body .login-button {
 	background-color: #fff;
 	font-weight: 500;
@@ -14,16 +15,13 @@
 
 .offcanvas-body .login-button:hover {
 	background-color: #c0c9c9;
+	color: #00688b; /* Đảm bảo màu chữ khi hover */
 }
 
-.container-fluid .navbar-toggler {
-	border: none;
-	font-size: 1.25rem;
-}
-
-.container-fluid .navbar-toggler:focus,.offcanvas-header .btn-close:focus {
-	box-shadow: none;
-	outline: none;
+/* Định dạng hình ảnh của thương hiệu trong thanh điều hướng */
+.navbar-brand img {
+	height: 40px;
+	width: 40px;
 }
 
 nav .nav-link {
@@ -33,12 +31,13 @@ nav .nav-link {
 	left: 5px;
 }
 
-nav .nav-link:hover,nav .nav-link.active {
+.nav-link:hover, .nav-link.active {
 	color: #c0c9c9;
 }
 
+/* Hiệu ứng gạch dưới liên kết khi hover trên màn hình lớn */
 @media ( min-width : 991px) {
-	nav .nav-link::before {
+	.nav-link::before {
 		content: "";
 		position: absolute;
 		bottom: 0;
@@ -48,25 +47,37 @@ nav .nav-link:hover,nav .nav-link.active {
 		height: 2px;
 		background-color: #c0c9c9;
 		visibility: hidden;
-		transition: 0.3s ease-in-out;
+		transition: width 0.3s ease-in-out;
 	}
-	nav .nav-link:hover::before {
+	.nav-link:hover::before {
 		width: 100%;
 		visibility: visible;
 	}
 }
 
+/* Định dạng các liên kết trong thanh điều hướng cho màn hình nhỏ */
 @media ( max-width : 990px) {
-	.offcanvas-body .login-button {
+	.login-button {
 		margin-top: 10px;
 		width: 100%;
 	}
-	nav .nav-link {
+	.nav-link {
 		color: #fff;
 		line-height: 25px;
 		width: 100%;
-		margin: 1px;
+		margin: 1px 0;
 		padding-left: 5px;
-		border-bottom: #fff 1px dotted;
+		border-bottom: 1px dotted #fff;
 	}
+}
+
+/* Định dạng các thành phần navbar-toggler */
+.navbar-toggler {
+	border: none;
+	font-size: 1.25rem;
+}
+
+.navbar-toggler:focus, .btn-close:focus {
+	box-shadow: none;
+	outline: none;
 }
