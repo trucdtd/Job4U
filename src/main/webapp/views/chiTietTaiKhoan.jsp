@@ -30,10 +30,8 @@
 			<div class="row mt-3">
 				<!-- aside -->
 
-				<%@ include file="/views/menuAdmin.jsp"%>
-				<!-- aside -->
 				<!-- article -->
-				<div class="col-lg-9 col-md-9 p-2 ">
+				<div class="col-lg-12 col-md-12 p-2 ">
 					<!-- User Management table -->
 					<div id="userManagement" class="card"">
 						<div class="card-header">
