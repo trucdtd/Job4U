@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </head>
 <style>
-
 </style>
 <body>
 	<div class="container">
@@ -41,11 +40,13 @@
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
-										value="Công nghiệp"> <label class="form-check-label">Công nghiệp</label>
+										value="Công nghiệp"> <label class="form-check-label">Công
+										nghiệp</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="industry" value="Dịch vụ">
-									<label class="form-check-label">Dịch vụ</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Dịch vụ"> <label class="form-check-label">Dịch
+										vụ</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
@@ -54,18 +55,18 @@
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
-										value="Công nghệ ô tô"> <label class="form-check-label">Công
-										nghệ ô tô</label>
+										value="Công nghệ ô tô"> <label
+										class="form-check-label">Công nghệ ô tô</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
-										value="Xây dựng"> <label class="form-check-label">Xây dựng</label>
+										value="Xây dựng"> <label class="form-check-label">Xây
+										dựng</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
 										value="Giao thông vận tải"> <label
-										class="form-check-label">Giao
-										thông vận tải</label>
+										class="form-check-label">Giao thông vận tải</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
@@ -74,27 +75,34 @@
 										Tài chính</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="industry" value="Giáo dục"> <label
-										class="form-check-label">Giáo dục</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Giáo dục"> <label class="form-check-label">Giáo
+										dục</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="industry" value="Y tế"> <label
-										class="form-check-label" for="healthcare">Y tế</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Y tế"> <label class="form-check-label"
+										for="healthcare">Y tế</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="industry" value="Truyền thông"> <label
-										class="form-check-label" for="media">Truyền thông</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Truyền thông"> <label class="form-check-label"
+										for="media">Truyền thông</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="industry" value="Du lịch"> <label
-										class="form-check-label">Du lịch</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Du lịch"> <label class="form-check-label">Du
+										lịch</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="industry" value="Hành chính văn phòng"> <label class="form-check-label">Hành chính văn phòng</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Hành chính văn phòng"> <label
+										class="form-check-label">Hành chính văn phòng</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="industry" value="Khác"> <label
-										class="form-check-label" for="other">Khác....</label>
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Khác"> <label class="form-check-label"
+										for="other">Khác....</label>
 								</div>
 							</div>
 							<div class="col-md-12 mt-3">
@@ -186,9 +194,11 @@
 
 		<%@ include file="/views/chat.jsp"%>
 
-		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
-		<!-- /footer -->
+		<div class="mt-4">
+			<!-- footer -->
+			<%@ include file="/views/footer.jsp"%>
+			<!-- /footer -->
+		</div>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
