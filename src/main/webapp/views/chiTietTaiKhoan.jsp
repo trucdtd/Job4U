@@ -47,7 +47,7 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<form class="p-4 border" action="/user/updateUser" method="post">
+								<form class="p-4 border" action="/admin/updateUser/${nd.userid}" method="post">
 									<div class="row ">
 										<!-- Thông báo lỗi -->
 										<!-- Hiển thị thông báo thành công -->
@@ -92,12 +92,12 @@
 											<label class="g-2" for="role">Vai Trò</label> <select
 												name="role" id="role" class="form-select" required>
 												<option value="0"
-													<c:if test="${user.role == 0}">selected</c:if>>Admin</option>
+													<c:if test="${nd.role == 0}">selected</c:if>>Admin</option>
 												<option value="1"
-													<c:if test="${user.role == 1}">selected</c:if>>Ứng
+													<c:if test="${nd.role == 1}">selected</c:if>>Ứng
 													Viên</option>
 												<option value="2"
-													<c:if test="${user.role == 2}">selected</c:if>>Nhà
+													<c:if test="${nd.role == 2}">selected</c:if>>Nhà
 													Tuyển Dụng</option>
 											</select>
 										</div>
@@ -105,9 +105,10 @@
 									<hr>
 									<div class="row">
 										<div class="card-action">
-											<a href="/admin/updateUser/${nd.userid}"
-												class="btn btn-info text-white" type="button"
-												style="background-color: #00688B">Update</a> <a
+											<button
+												class="btn btn-info text-white"
+												style="background-color: #00688B">Update</button> 
+												<a
 												href="/admin" class="btn btn-danger">Cancel</a>
 										</div>
 									</div>
