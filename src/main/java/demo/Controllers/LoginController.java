@@ -46,7 +46,12 @@ public class LoginController {
                 session.setAttribute("userName", user.getFullname());
                 session.setAttribute("userid", user.getUserid());
 
-                logger.info("User '{}' logged in with role: {}", username, user.getRole());
+                // Thiết lập employerId vào session nếu người dùng là nhà tuyển dụng
+                if (user.getRole() == 2) {
+                    session.setAttribute("employerId", user.getUserid());
+                }
+
+                logger.info("Người dùng '{}' đã đăng nhập với vai trò: {}", username, user.getRole());
 
                 // Chuyển hướng dựa trên vai trò của người dùng
                 switch (user.getRole()) {
@@ -68,6 +73,7 @@ public class LoginController {
         }
         return "dangnhap";
     }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

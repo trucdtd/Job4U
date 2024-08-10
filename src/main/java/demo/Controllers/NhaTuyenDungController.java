@@ -38,12 +38,15 @@ public class NhaTuyenDungController {
 
     @RequestMapping("/employers")
     public String nhaTuyenDung(Model model) {
-        // Lấy ID của nhà tuyển dụng hiện tại từ session
+        // Lấy employerId từ session
         Integer employerId = sessionService.getCurrentEmployerId();
 
         if (employerId != null) {
             EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
             model.addAttribute("employer", employer);
+        } else {
+            model.addAttribute("message", "Bạn cần đăng nhập để truy cập trang này.");
+            return "dangnhap"; // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
         }
 
         return "nhaTuyenDung";
