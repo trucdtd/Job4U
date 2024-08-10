@@ -143,6 +143,41 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 	
+	@PostMapping("/deleteUser")
+	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes) {
+	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
+	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
+	    String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
+	    String deleteMessagesSql = "DELETE FROM Messages WHERE SenderID = ?";
+	    String deleteUserSql = "DELETE FROM users WHERE userid = ?";
+
+	    try {
+	        // Xóa các bản ghi liên quan trong bảng Applications trước
+	        jdbcTemplate.update(deleteApplicationsSql, userid);
+
+	        // Xóa các bản ghi liên quan trong bảng Joblistings
+	        jdbcTemplate.update(deleteJobListingsSql, userid);
+
+	        // Xóa các bản ghi liên quan trong bảng Employers và Messages
+	        jdbcTemplate.update(deleteEmployersSql, userid);
+	        jdbcTemplate.update(deleteMessagesSql, userid);
+
+	        // Sau đó xóa người dùng
+	        int rows = jdbcTemplate.update(deleteUserSql, userid);
+	        if (rows > 0) {
+	            redirectAttributes.addAttribute("successMessage", "Xóa người dùng thành công!");
+	        } else {
+	            redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần xóa!");
+	        }
+	    } catch (DataIntegrityViolationException e) {
+	        redirectAttributes.addAttribute("error", "Không thể xóa tài khoản vì có liên quan đến các dữ liệu khác.");
+	    } catch (Exception e) {
+	    	
+	        redirectAttributes.addAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return "redirect:/admin";
+	}
 	
 	
 	@GetMapping("/detailPost/{id}")
