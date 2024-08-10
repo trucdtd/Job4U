@@ -35,20 +35,19 @@
 						<div class="card-body p-0">
 							<form id="deleteForm" action="/admin/deleteUser" method="POST"
 								style="display: none;">
-								<input type="hidden" name="id" id="deleteId">
+								<input type="hidden" name="userid" id="deleteId">
 							</form>
 							<div class="table-responsive">
 								<table class="table align-items-center mb-0">
 									<thead class="thead-light text-center">
 										<tr>
-											<th>STT</th>
+											<th>ID</th>
 											<th>Tên Tài Khoản</th>
 											<th>Họ Và Tên</th>
 											<th>Email</th>
 											<th>Số điện thoại</th>
 											<th>Role</th>
 											<th></th>
-
 										</tr>
 									</thead>
 									<tbody>
@@ -61,17 +60,15 @@
 												<td>${nd.phonenumber}</td>
 												<td>${nd.role}</td>
 												<td><a href="/admin/detailUser/${nd.userid}"
-													class="btn btn-info text-white p-2 " type="button"
+													class="btn btn-info text-white p-2"
 													style="background-color: #00688B">Chi tiết</a> <a href="#"
 													onclick="return confirmDeleteAccount(${nd.userid});"
 													class="btn btn-danger p-2">delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
-
 								</table>
 							</div>
-
 						</div>
 					</div>
 
@@ -113,7 +110,7 @@
 												<td><a href="/admin/detailPost/${bv.jobid}"
 													class="btn btn-info" type="button"
 													style="background-color: #00688B; color: white;">Chi
-													tiết</a> <a href="#" class="btn btn-danger"
+														tiết</a> <a href="#" class="btn btn-danger"
 													onclick="return confirmDelete(${bv.jobid});">Xóa</a></td>
 											</tr>
 										</c:forEach>
@@ -226,10 +223,10 @@
 </script>
 
 <script>
-function confirmDelete(id) {
+function confirmDelete(userid) {
     if (confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
         // Cập nhật giá trị của input ẩn trong form xóa
-        document.getElementById('deleteId').value = id;
+        document.getElementById('deleteId').value = userid;
         // Gửi form để thực hiện xóa
         document.getElementById('deleteForm').submit();
         return false; // Ngăn việc điều hướng đến URL
@@ -238,17 +235,15 @@ function confirmDelete(id) {
 }
 </script>
 <script>
-        function confirmDeleteAccount(id) {
-        	if (confirm("Bạn có chắc chắn muốn xóa tài khoản này không?")) {
-                // Cập nhật giá trị của input ẩn trong form xóa
-                document.getElementById('deleteId').value = id;
-                // Gửi form để thực hiện xóa
-                document.getElementById('deleteForm').submit();
-                return false; // Ngăn việc điều hướng đến URL
-            }
-            return false; // Ngăn việc thực hiện hành động nếu người dùng chọn hủy
+    function confirmDeleteAccount(userid) {
+        if (confirm('Bạn có chắc chắn muốn xóa tài khoản này không?')) {
+            // Cập nhật giá trị của trường ẩn trong biểu mẫu
+            document.getElementById('deleteId').value = userid;
+            // Gửi biểu mẫu
+            document.getElementById('deleteForm').submit();
         }
-    </script>
-
+        return false; // Ngăn chặn hành vi mặc định của liên kết
+    }
+</script>
 </body>
 </html>

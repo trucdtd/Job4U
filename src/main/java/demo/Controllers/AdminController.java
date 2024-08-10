@@ -171,37 +171,39 @@ public class AdminController {
 
 	
 	@PostMapping("/deleteUser")
-    public String deleteUser(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
-    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
-    String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
-    String deleteMessagesSql = "DELETE FROM Messages WHERE SenderID = ?";
-    String deleteUserSql = "DELETE FROM users WHERE userid = ?";
-    
-    
-    try {
-        // Xóa các bản ghi liên quan trong bảng Applications trước
-        jdbcTemplate.update(deleteApplicationsSql, id);
+	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes) {
+	    String deleteFeedbackSql = "DELETE FROM FeedbackAndRatings WHERE UserID = ?";
+	    String deleteJobSeekersSql = "DELETE FROM Jobseekers WHERE UserID = ?";
+	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
+	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
+	    String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
+	    String deleteMessagesSql = "DELETE FROM Messages WHERE SenderID = ?";
+	    String deleteUserSql = "DELETE FROM users WHERE userid = ?";
 
-        // Xóa các bản ghi liên quan trong bảng Joblistings
-        jdbcTemplate.update(deleteJobListingsSql, id);
+	    try {
+	        // Xóa các bản ghi liên quan trong bảng FeedbackAndRatings
+	        jdbcTemplate.update(deleteFeedbackSql, userid);
 
-        // Xóa các bản ghi liên quan trong bảng Employers và Messages
-        jdbcTemplate.update(deleteEmployersSql, id);
-        jdbcTemplate.update(deleteMessagesSql, id);
+	        // Xóa các bản ghi liên quan trong các bảng khác
+	        jdbcTemplate.update(deleteJobSeekersSql, userid);
+	        jdbcTemplate.update(deleteApplicationsSql, userid);
+	        jdbcTemplate.update(deleteJobListingsSql, userid);
+	        jdbcTemplate.update(deleteEmployersSql, userid);
+	        jdbcTemplate.update(deleteMessagesSql, userid);
 
-        // Sau đó xóa người dùng
-        int rows = jdbcTemplate.update(deleteUserSql, id);
-        if (rows > 0) {
-            redirectAttributes.addFlashAttribute("message", "Xóa người dùng thành công!");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần xóa!");
-        }
-    } catch (Exception e) {
-        redirectAttributes.addFlashAttribute("error", "Xóa người dùng thất bại do người dùng đang đăng kí ứng tuyển");
-    }
-    return "redirect:/admin";
-}
+	        // Xóa người dùng
+	        int rows = jdbcTemplate.update(deleteUserSql, userid);
+	        if (rows > 0) {
+	            redirectAttributes.addFlashAttribute("message", "Xóa người dùng thành công!");
+	        } else {
+	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần xóa!");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(); // Hoặc ghi log chi tiết lỗi
+	        redirectAttributes.addFlashAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
+	    }
+	    return "redirect:/admin";
+	}
 	/*
 	 * @PostMapping("/updatePost") public String updatePost(@RequestParam("jobid")
 	 * Integer jobid, @RequestParam("jobtitle") String jobtitle,
