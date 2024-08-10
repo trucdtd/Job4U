@@ -32,78 +32,8 @@
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
-						<div class="card-body p-0">
-
-							<!-- Thông báo thành công -->
-							<c:if test="${not empty param.error}">
-								<script>
-										document
-												.addEventListener(
-														'DOMContentLoaded',
-														function() {
-															const successModal = new bootstrap.Modal(
-																	document
-																			.getElementById('successModal'));
-															successModal.show();
-														});
-									</script>
-
-								<div class="modal fade" id="successModal" tabindex="-1"
-									aria-labelledby="successModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="successModalLabel">Thông
-													báo</h5>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">${param.error}</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-primary"
-													onclick="window.location.href='/admin'">OK</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:if>
-							<!-- Thông báo thành công -->
-							<c:if test="${not empty param.successMessage}">
-								<script>
-										document
-												.addEventListener(
-														'DOMContentLoaded',
-														function() {
-															const successModal = new bootstrap.Modal(
-																	document
-																			.getElementById('successModal'));
-															successModal.show();
-														});
-									</script>
-
-								<div class="modal fade" id="successModal" tabindex="-1"
-									aria-labelledby="successModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="successModalLabel">Thông
-													báo</h5>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">${param.successMessage}</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-primary"
-													onclick="window.location.href='/admin'">OK</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:if>
-							<form id="deleteForm" action="/admin/deleteUser" method="POST"
-								style="display: none;">
-								<input type="hidden" name="userid" id="deleteId">
-							</form>
+						<div class="card-body p-0">						
+						
 
 							<div class="table-responsive">
 								<table class="table align-items-center mb-0">
@@ -143,6 +73,13 @@
 
 						</div>
 					</div>
+
+					<c:if test="${not empty message}">
+						<div class="alert alert-success">${message}</div>
+					</c:if>
+					<c:if test="${not empty error}">
+						<div class="alert alert-danger">${error}</div>
+					</c:if>
 
 					<!-- Post Management table -->
 					<div id="postManagement" class="card" style="display: none;">
@@ -223,7 +160,7 @@
 												<td>${cv.experience}</td>
 												<td>${cv.education}</td>
 												<td>${cv.skills}</td>
-												
+
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -305,17 +242,7 @@ function confirmDelete(id) {
     return false; // Ngăn việc thực hiện hành động nếu người dùng chọn hủy
 }
 </script>
-<script>
-    function confirmDeleteAccount(userid) {
-        if (confirm('Bạn có chắc chắn muốn xóa tài khoản này không?')) {
-            // Cập nhật giá trị của trường ẩn trong biểu mẫu
-            document.getElementById('deleteId').value = userid;
-            // Gửi biểu mẫu
-            document.getElementById('deleteForm').submit();
-        }
-        return false; // Ngăn chặn hành vi mặc định của liên kết
-    }
-</script>
+
 
 </body>
 </html>
