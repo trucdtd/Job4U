@@ -33,9 +33,21 @@
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
 						<div class="card-body p-0">
+							<!-- Hiển thị thông báo thành công -->
+							<c:if test="${not empty param.successMessage}">
+								<div class="alert alert-success" role="alert">
+									${param.successMessage}</div>
+							</c:if>
+
+							<!-- Hiển thị thông báo lỗi -->
+							<c:if test="${not empty param.error}">
+								<div class="alert alert-danger" role="alert">
+									${param.error}</div>
+							</c:if>
 							<form id="deleteForm" action="/admin/deleteUser" method="POST"
 								style="display: none;">
 								<input type="hidden" name="userid" id="deleteId">
+
 							</form>
 							<div class="table-responsive">
 								<table class="table align-items-center mb-0">
