@@ -59,7 +59,7 @@
 	border-radius: 4px;
 }
 </style>
-<link rel="stylesheet" href="/css/header.css">
+
 </head>
 <body>
 	<div class="container">
