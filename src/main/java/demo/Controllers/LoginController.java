@@ -78,6 +78,6 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Xóa tất cả dữ liệu khỏi session
-        return "redirect:/Login"; // Chuyển hướng về trang chính hoặc trang đăng nhập
+        return "redirect:/job4u"; // Chuyển hướng về trang chính hoặc trang đăng nhập
     }
 }
