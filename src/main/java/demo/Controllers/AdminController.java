@@ -175,7 +175,79 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
+<<<<<<< HEAD
 
+=======
+	
+	@PostMapping("/deleteUser")
+	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes) {
+	    String deleteFeedbackSql = "DELETE FROM FeedbackAndRatings WHERE UserID = ?";
+	    String deleteJobSeekersSql = "DELETE FROM Jobseekers WHERE UserID = ?";
+	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
+	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
+	    String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
+	    String deleteMessagesSql = "DELETE FROM Messages WHERE SenderID = ?";
+	    String deleteUserSql = "DELETE FROM users WHERE userid = ?";
+
+	    try {
+	        // Xóa các bản ghi liên quan trong bảng FeedbackAndRatings
+	        jdbcTemplate.update(deleteFeedbackSql, userid);
+
+	        // Xóa các bản ghi liên quan trong các bảng khác
+	        jdbcTemplate.update(deleteJobSeekersSql, userid);
+	        jdbcTemplate.update(deleteApplicationsSql, userid);
+	        jdbcTemplate.update(deleteJobListingsSql, userid);
+	        jdbcTemplate.update(deleteEmployersSql, userid);
+	        jdbcTemplate.update(deleteMessagesSql, userid);
+
+	        // Xóa người dùng
+	        int rows = jdbcTemplate.update(deleteUserSql, userid);
+	        if (rows > 0) {
+	            redirectAttributes.addFlashAttribute("message", "Xóa người dùng thành công!");
+	        } else {
+	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần xóa!");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(); // Hoặc ghi log chi tiết lỗi
+	        redirectAttributes.addFlashAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
+	    }
+	    return "redirect:/admin";
+	}
+	/*
+	 * @PostMapping("/updatePost") public String updatePost(@RequestParam("jobid")
+	 * Integer jobid, @RequestParam("jobtitle") String jobtitle,
+	 * 
+	 * @RequestParam("jobdescription") String jobdescription,
+	 * 
+	 * @RequestParam("joblocation") String joblocation,
+	 * 
+	 * @RequestParam("salary") String salary,
+	 * 
+	 * @RequestParam("posteddate") LocalDateTime posteddate,
+	 * 
+	 * @RequestParam("applicationdeadline") LocalDateTime applicationdeadline,
+	 * 
+	 * @RequestParam("employerId") Integer employerId) {
+	 * 
+	 * // Tìm bài viết hiện tại JoblistingsEntity post =
+	 * joblistingsDao.findById(jobid) .orElseThrow(() -> new
+	 * RuntimeException("Bài viết không tồn tại"));
+	 * 
+	 * // Tìm nhà tuyển dụng EmployersEntity employer =
+	 * employersDao.findById(employerId) .orElseThrow(() -> new
+	 * RuntimeException("Nhà tuyển dụng không tồn tại"));
+	 * 
+	 * // Cập nhật các trường post.setJobtitle(jobtitle);
+	 * post.setJobdescription(jobdescription); post.setJoblocation(joblocation);
+	 * post.setSalary(salary); post.setPosteddate(posteddate);
+	 * post.setApplicationdeadline(applicationdeadline); post.setEmployer(employer);
+	 * 
+	 * // Lưu bài viết đã cập nhật joblistingsDao.save(post);
+	 * 
+	 * // Chuyển hướng hoặc trả về một view return "redirect:/admin"; }
+	 */
+	
+>>>>>>> trinhtt
 	@PostMapping("/updatePost")
 	public String updatePost(@PathVariable Integer jobid, @RequestParam String jobtitle,
 			@RequestParam String joblocation, @RequestParam String companyname, @RequestParam String companywebsite,
