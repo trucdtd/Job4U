@@ -36,7 +36,7 @@ nav .nav-link {
 }
 
 /* Hiệu ứng gạch dưới liên kết khi hover trên màn hình lớn */
-@media ( min-width : 991px) {
+/* @media ( min-width : 991px) {
 	.nav-link::before {
 		content: "";
 		position: absolute;
@@ -53,10 +53,10 @@ nav .nav-link {
 		width: 100%;
 		visibility: visible;
 	}
-}
+} */
 
 /* Định dạng các liên kết trong thanh điều hướng cho màn hình nhỏ */
-/* @media ( max-width : 990px) {
+@media ( max-width : 990px) {
 	.login-button {
 		margin-top: 10px;
 		width: 100%;
@@ -69,7 +69,7 @@ nav .nav-link {
 		padding-left: 5px;
 		border-bottom: 1px dotted #fff;
 	}
-} */
+}
 
 /* Định dạng các thành phần navbar-toggler */
 .navbar-toggler {
