@@ -33,110 +33,101 @@
             </ul>
         </div>
         <div class="col-md-6">
-            <strong>THÔNG TIN CÁ NHÂN</strong><br>
-            <div class="table-responsive">
-            <table class="table table-user-information">
-                <tbody>
-                    <tr>        
-                        <td>
-                            <strong>
-                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
-                                Họ và Tên                                              
-                            </strong>
-                        </td>
-                        <td class="text-primary">
-                                ${sesionScope.userFullname}
-                        </td>
-                    </tr>
-                    <tr>    
-                        <td>
-                            <strong>
-                                <span class="glyphicon glyphicon-user  text-primary"></span>    
-                                Name                                                
-                            </strong>
-                        </td>
-                        <td class="text-primary">
-                            Bootdey     
-                        </td>
-                    </tr>
-                    <tr>        
-                        <td>
-                            <strong>
-                                <span class="glyphicon glyphicon-cloud text-primary"></span>  
-                                Lastname                                                
-                            </strong>
-                        </td>
-                        <td class="text-primary">
-                            Bootstrap  
-                        </td>
-                    </tr>
-
-                    <tr>        
-                        <td>
-                            <strong>
-                                <span class="glyphicon glyphicon-bookmark text-primary"></span> 
-                                Username                                                
-                            </strong>
-                        </td>
-                        <td class="text-primary">
-                            bootnipets 
-                        </td>
-                    </tr>
-
-
-                    <tr>        
-                        <td>
-                            <strong>
-                                <span class="glyphicon glyphicon-eye-open text-primary"></span> 
-                                Role                                                
-                            </strong>
-                        </td>
-                        <td class="text-primary">
-                            Admin
-                        </td>
-                    </tr>
-                    <tr>        
-                        <td>
-                            <strong>
-                                <span class="glyphicon glyphicon-envelope text-primary"></span> 
-                                Email                                                
-                            </strong>
-                        </td>
-                        <td class="text-primary">
-                            noreply@email.com  
-                        </td>
-                    </tr>
-                    <tr>        
-                        <td>
-                            <strong>
-                                <span class="glyphicon glyphicon-calendar text-primary"></span>
-                                created                                                
-                            </strong>
-                        </td>
-                        <td class="text-primary">
-                            20 jul 20014
-                        </td>
-                    </tr>
-                    <tr>        
-                        <td>
-                            <strong>
-                                <span class="glyphicon glyphicon-calendar text-primary"></span>
-                                Modified                                                
-                            </strong>
-                        </td>
-                        <td class="text-primary">
-                             20 jul 20014 20:00:00
-                        </td>
-                    </tr>                                    
-                </tbody>
-            </table>
-            </div>
-        </div>
+    <strong>THÔNG TIN CÁ NHÂN</strong><br>
+    <div class="table-responsive">
+        <table class="table table-user-information">
+            <tbody>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                            Họ và Tên
+                        </strong>
+                    </td>
+                    <td class="text-primary">
+                        ${user.fullname}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="glyphicon glyphicon-user text-primary"></span>
+                            Username
+                        </strong>
+                    </td>
+                    <td class="text-primary">
+                        ${user.username}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="glyphicon glyphicon-envelope text-primary"></span>
+                            Email
+                        </strong>
+                    </td>
+                    <td class="text-primary">
+                        ${user.email}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                            Role
+                        </strong>
+                    </td>
+                    <td class="text-primary">
+                        ${user.role}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="glyphicon glyphicon-calendar text-primary"></span>
+                            Created
+                        </strong>
+                    </td>
+                    <td class="text-primary">
+                        ${formattedCreatedAt}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="glyphicon glyphicon-calendar text-primary"></span>
+                            Modified
+                        </strong>
+                    </td>
+                    <td class="text-primary">
+                        ${formattedUpdatedAt}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
     </div>
 </div>
 </div>
 <br>
 <%@ include file="/views/footer.jsp"%>            
-</div>             
+</div>   
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Nếu bạn có dữ liệu ngày giờ trong biến JavaScript, sử dụng nó để định dạng.
+    // Ví dụ:
+    var postedDate = '${job.posteddate}';
+    var applicationDeadline = '${job.applicationdeadline}';
+
+    if (postedDate && applicationDeadline) {
+      var formattedPostedDate = moment(postedDate).format('DD/MM/YYYY HH:mm');
+      var formattedApplicationDeadline = moment(applicationDeadline).format('DD/MM/YYYY HH:mm');
+
+      document.querySelector('.form-group #ngaybd + p').textContent = formattedPostedDate;
+      document.querySelector('.form-group #ngaykt + p').textContent = formattedApplicationDeadline;
+    }
+  });
+</script>        
 </body>
 </html>

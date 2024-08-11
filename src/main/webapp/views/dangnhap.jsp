@@ -82,7 +82,7 @@
 										id="form2Example3" /> <label class="form-check-label"
 										for="form2Example3"> ghi nhớ </label>
 								</div>
-								<a href="#!" class="text-body">Quên mật khẩu</a>
+								<a href="job4u/QuenMatKhau" class="text-body">Quên mật khẩu</a>
 							</div>
 
 							<div class="text-center text-lg-start mt-4 pt-2">

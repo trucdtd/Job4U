@@ -65,7 +65,7 @@
 									aria-labelledby="dropdownMenu2">
 									<li><a
 										class="dropdown-item dropdown-item-custom d-flex justify-content-start"
-										href="/Job4U/thong_tin_ca_nhan.html"><img class="m-1"
+										href="/ThongTinCaNhan/user"><img class="m-1"
 											src="/img/icons8-user-50.png" height="25px" width="25px"
 											alt="">
 											<p class="m-1 text-dropdown-menu">Thông tin cá nhân</p></a></li>
@@ -119,7 +119,7 @@
 					<ul class="dropdown-menu dropdown-menu-custom"
 						aria-labelledby="dropdownMenuButton">
 						<li><a class="dropdown-item d-flex justify-content-start"
-							href="/Job4U/thong_tin_ca_nhan.html"><img class="m-1"
+							href="/ThongTinCaNhan/user"><img class="m-1"
 								src="/img/icons8-user-50.png" height="25px" width="25px" alt="">
 								<p class="m-1 text-dropdown-menu">Thông tin cá nhân</p></a></li>
 						<li><a
