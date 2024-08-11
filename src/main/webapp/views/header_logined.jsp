@@ -83,9 +83,9 @@
 
 									<li><a
 										class="dropdown-item dropdown-item-custom d-flex justify-content-start"
-										href="#"><img class="m-1" src="/img/icons8-setting-50.png"
+										href="/changePass"><img class="m-1" src="/img/icons8-setting-50.png"
 											height="25px" width="25px" alt="">
-											<p class="m-1 text-dropdown-menu">Cài đặt</p></a></li>
+											<p class="m-1 text-dropdown-menu">Cài Đặt</p></a></li>
 									<li><a
 										class="dropdown-item dropdown-item-custom d-flex justify-content-start"
 										href="#"><img class="m-1" src="/img/icons8-logout-52.png"
