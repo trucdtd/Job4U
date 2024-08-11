@@ -81,3 +81,8 @@ nav .nav-link {
 	box-shadow: none;
 	outline: none;
 }
+
+.disabled-link {
+    pointer-events: none; /* Vô hiệu hóa sự kiện chuột */
+    color: grey; /* Thay đổi màu sắc liên kết để báo hiệu không thể nhấp được */
+}
