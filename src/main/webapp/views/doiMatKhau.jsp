@@ -67,7 +67,7 @@
 									</div>
 								</div>
 							</c:if>
-							
+
 							<c:if test="${not empty message}">
 								<script>
 									document
@@ -100,7 +100,7 @@
 									</div>
 								</div>
 							</c:if>
-							
+
 							<form class="p-4 border border-1" action="/changePass/submit"
 								method="post">
 								<div
@@ -146,11 +146,13 @@
 						</div>
 					</div>
 				</div>
-				<!-- footer -->
-				<%@ include file="/views/footer.jsp"%>
-				<!-- /footer -->
 			</div>
 		</div>
+	</div>
+	<div class="mt-4">
+		<!-- footer -->
+		<%@ include file="/views/footer.jsp"%>
+		<!-- /footer -->
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -83,7 +83,8 @@ public class doimatkhauController {
 	        // Cập nhật mật khẩu mới
 	        user.setPassword(newPassword);
 	        userService.save(user);
-
+	        userDao.save(user);
+	        
 	        // Thêm thông báo thành công
 	        redirectAttributes.addFlashAttribute("message", "Mật khẩu đã được thay đổi thành công");
 
