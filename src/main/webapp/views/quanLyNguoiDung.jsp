@@ -187,7 +187,7 @@
 												<td>${bv.jobrequirements}</td>
 												<td>${bv.joblocation}</td>
 												<td>${bv.jobdescription}</td>
-												<td>${bv.salary}</td>
+												<td><span style="display: inline-flex; align-items: center;">${bv.salary}<i class="bi bi-currency-dollar" style="margin-left: 2px;"></i></span></td>
 												<td><a href="/admin/detailPost/${bv.jobid}"
 													class="btn btn-info" type="button"
 													style="background-color: #00688B; color: white;">Chi
