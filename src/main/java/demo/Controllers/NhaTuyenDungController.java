@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.services.SessionService;
 import demo.dao.EmployersDao;
 import demo.dao.JoblistingsDao;
 import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
-import demo.entity.UsersEntity;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,11 +23,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/job4u")
 public class NhaTuyenDungController {
+
+	private static final Logger logger = LoggerFactory.getLogger(NhaTuyenDungController.class);
 
 	@Autowired
 	private SessionService sessionService;
@@ -38,18 +42,19 @@ public class NhaTuyenDungController {
 	@Autowired
 	private JoblistingsDao danhSachViecLamDao;
 
-	@Autowired
-	JoblistingsDao joblistingsDao;
-	
 	@RequestMapping("/employers")
-	public String quanLyNguoiDung(Model model, @RequestParam(value = "page", required = false) String page) {
-		if (page == null || page.equals("quanLyTuyenDung")) {
-			List<JoblistingsEntity> dsTD = joblistingsDao.findAll();
-			model.addAttribute("dsTD", dsTD);
+	public String nhaTuyenDung(Model model) {
+		Integer employerId = sessionService.getCurrentEmployerId();
+
+		if (employerId != null) {
+			EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
+			model.addAttribute("employer", employer);
+		} else {
+			model.addAttribute("message", "Bạn cần đăng nhập để truy cập trang này.");
+			return "dangnhap"; // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
 		}
+
 		return "nhaTuyenDung";
-		// Trả về trang mặc định nếu không có page hoặc page không phải là
-		// quanLyUngTuyen
 	}
 
 	@PostMapping("/employers/submit")
@@ -60,20 +65,26 @@ public class NhaTuyenDungController {
 			@RequestParam("joblocation") String joblocation, @RequestParam("jobtype") String jobtype,
 			@RequestParam("salary") BigDecimal salary, @RequestParam("companydescription") String companydescription,
 			@RequestParam("jobrequirements") String jobrequirements, @RequestParam("posteddate") String posteddate,
-			@RequestParam("applicationdeadline") String applicationdeadline) {
+			@RequestParam("applicationdeadline") String applicationdeadline, RedirectAttributes redirectAttributes) {
 
 		Integer employerId = sessionService.getCurrentEmployerId();
+		if (employerId == null) {
+			redirectAttributes.addFlashAttribute("message", "Bạn chưa đăng nhập");
+			return "redirect:/job4u/employers";
+		}
 
-		// Lấy hoặc tạo mới đối tượng EmployersEntity
-		EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
+		EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(null);
+		if (employer == null) {
+			redirectAttributes.addFlashAttribute("message", "Nhà tuyển dụng không tồn tại");
+			return "redirect:/job4u/employers";
+		}
 
-		// Đường dẫn lưu trữ logo
+		// Xử lý logo
 		String uploadDir = "D:" + File.separator + "DAX" + File.separator + "Job4U" + File.separator + "src"
 				+ File.separator + "main" + File.separator + "webapp" + File.separator + "img" + File.separator;
 		Path uploadPath = Paths.get(uploadDir);
 
 		String logoFilename = null;
-
 		try {
 			if (!Files.exists(uploadPath)) {
 				Files.createDirectories(uploadPath);
@@ -84,40 +95,57 @@ public class NhaTuyenDungController {
 				Path filePath = uploadPath.resolve(logoFilename);
 				logo.transferTo(filePath.toFile());
 			}
-
 		} catch (IOException e) {
-			e.printStackTrace();
-			return "nhaTuyenDung";
+			logger.error("Lỗi khi lưu logo: ", e);
+			redirectAttributes.addFlashAttribute("message", "Lỗi khi lưu logo");
+			return "redirect:/job4u/employers";
 		}
 
-		// Cập nhật thông tin của nhà tuyển dụng
+		// Cập nhật thông tin nhà tuyển dụng
 		employer.setCompanyname(companyname);
 		employer.setCompanywebsite(companywebsite);
 		employer.setAddress(address);
 		employer.setIndustry(industry);
 		employer.setContactperson(contactperson);
-		employer.setLogo(logoFilename); // Lưu tên file thay vì đối tượng MultipartFile
+		employer.setLogo(logoFilename);
 		employer.setCompanydescription(companydescription);
 
 		nhaTuyenDungDao.save(employer);
 
-		// Tạo đối tượng JoblistingsEntity và lưu trữ
+		// Tạo đối tượng JoblistingsEntity và thiết lập các thuộc tính
 		JoblistingsEntity jobListing = new JoblistingsEntity();
 		jobListing.setJobtitle(jobtitle);
 		jobListing.setJoblocation(joblocation);
 		jobListing.setJobtype(jobtype);
 		jobListing.setSalary(salary);
 		jobListing.setJobrequirements(jobrequirements);
+		jobListing.setJobdescription(jobrequirements); // Thiết lập mô tả công việc
+		jobListing.setEmployer(employer); // Thiết lập nhà tuyển dụng
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-		LocalDateTime postedDate = LocalDateTime.parse(posteddate, formatter);
-		LocalDateTime applicationDeadline = LocalDateTime.parse(applicationdeadline, formatter);
+		try {
+			LocalDateTime postedDate = LocalDateTime.parse(posteddate, formatter);
+			LocalDateTime applicationDeadline = LocalDateTime.parse(applicationdeadline, formatter);
 
-		jobListing.setPosteddate(postedDate);
-		jobListing.setApplicationdeadline(applicationDeadline);
+			jobListing.setPosteddate(postedDate);
+			jobListing.setApplicationdeadline(applicationDeadline);
+		} catch (Exception e) {
+			logger.error("Lỗi khi phân tích ngày: ", e);
+			redirectAttributes.addFlashAttribute("message", "Lỗi khi phân tích ngày");
+			return "redirect:/job4u/employers";
+		}
 
-		danhSachViecLamDao.save(jobListing);
+		// Lưu thông tin việc làm
+		try {
+			danhSachViecLamDao.save(jobListing);
+		} catch (Exception e) {
+			logger.error("Lỗi khi lưu việc làm: ", e);
+			redirectAttributes.addFlashAttribute("message", "Lỗi khi lưu việc làm");
+			return "redirect:/job4u/employers";
+		}
 
-		return "nhaTuyenDung";
+		redirectAttributes.addFlashAttribute("message", "Đã đăng bài thành công");
+		return "redirect:/job4u/employers";
 	}
+
 }
