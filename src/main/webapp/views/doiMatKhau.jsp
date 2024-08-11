@@ -53,8 +53,7 @@
 									<div class="modal-dialog modal-dialog-centered">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="successModalLabel">Thông
-													báo</h5>
+												<h5 class="modal-title" id="successModalLabel">Thông báo</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -86,8 +85,7 @@
 									<div class="modal-dialog modal-dialog-centered">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="successModalLabel">Thông
-													báo</h5>
+												<h5 class="modal-title" id="successModalLabel">Thông báo</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -105,44 +103,40 @@
 								method="post">
 								<div
 									class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
-									<p class="lead fw-normal mb-0 me-3">Change Password</p>
+									<p class="lead fw-normal mb-0 me-3">Đổi Mật Khẩu</p>
 								</div>
 
-								<!-- Old Password input -->
+								<!-- Mật khẩu cũ -->
 								<div data-mdb-input-init class="form-outline">
-									<label class="form-label" for="oldPassword">Old
-										Password</label> <input type="password" id="oldPassword"
-										name="oldPassword" class="form-control form-control-lg"
-										placeholder="Enter old password" />
+									<label class="form-label" for="oldPassword">Mật Khẩu Cũ</label>
+									<input type="password" id="oldPassword" name="oldPassword"
+										class="form-control form-control-lg"
+										placeholder="Nhập mật khẩu cũ" />
 								</div>
 
-								<!-- New Password input -->
+								<!-- Mật khẩu mới -->
 								<div data-mdb-input-init class="form-outline">
-									<label class="form-label" for="newPassword">New
-										Password</label> <input type="password" id="newPassword"
-										name="newPassword" class="form-control form-control-lg"
-										placeholder="Enter new password" />
+									<label class="form-label" for="newPassword">Mật Khẩu Mới</label>
+									<input type="password" id="newPassword" name="newPassword"
+										class="form-control form-control-lg"
+										placeholder="Nhập mật khẩu mới" />
 								</div>
 
-								<!-- Confirm New Password input -->
+								<!-- Xác nhận mật khẩu mới -->
 								<div data-mdb-input-init class="form-outline">
-									<label class="form-label" for="confirmNewPassword">Confirm
-										New Password</label> <input type="password" id="confirmNewPassword"
+									<label class="form-label" for="confirmNewPassword">Xác Nhận Mật Khẩu Mới</label>
+									<input type="password" id="confirmNewPassword"
 										name="confirmNewPassword" class="form-control form-control-lg"
-										placeholder="Confirm new password" />
+										placeholder="Xác nhận mật khẩu mới" />
 								</div>
 
 								<div class="text-center text-lg-start mt-4 pt-2">
-									<button type="submit" class="btn btn-primary btn-lg">Change
-										Password</button>
+									<button type="submit" class="btn btn-primary btn-lg">Đổi Mật Khẩu</button>
 									<p class="small fw-bold mt-2 pt-1 mb-0">
-										Forgot your password? <a href="#!" class="link-danger">Reset</a>
+										Quên mật khẩu? <a href="#!" class="link-danger">Đặt Lại</a>
 									</p>
 								</div>
-
 							</form>
-
-
 						</div>
 					</div>
 				</div>
