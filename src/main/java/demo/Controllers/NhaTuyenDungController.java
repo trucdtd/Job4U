@@ -27,104 +27,99 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping("/job4u")
 public class NhaTuyenDungController {
 
-    @Autowired
-    private SessionService sessionService;
+	@Autowired
+	private SessionService sessionService;
 
-    @Autowired
-    private EmployersDao nhaTuyenDungDao;
+	@Autowired
+	private EmployersDao nhaTuyenDungDao;
 
-    @Autowired    private JoblistingsDao danhSachViecLamDao;
+	@Autowired
+	private JoblistingsDao danhSachViecLamDao;
 
-    @RequestMapping("/employers")
-    public String nhaTuyenDung(Model model) {
-        // Lấy ID của nhà tuyển dụng hiện tại từ session
-        Integer employerId = sessionService.getCurrentEmployerId();
+	@RequestMapping("/employers")
+	public String nhaTuyenDung(Model model) {
+		// Lấy ID của nhà tuyển dụng hiện tại từ session
+		Integer employerId = sessionService.getCurrentEmployerId();
 
-        if (employerId != null) {
-            EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
-            model.addAttribute("employer", employer);
-        }
+		if (employerId != null) {
+			EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
+			model.addAttribute("employer", employer);
+		}
 
-        return "nhaTuyenDung";
-    }
-    
-    @RequestMapping("/chitietCV")
+		return "nhaTuyenDung";
+	}
+
+	@RequestMapping("/chitietCV")
 	public String cvUngTuyen() {
 		return "cvUngTuyen";
 	}
 
-    @PostMapping("/employers/submit")
-    public String themTuyenDung(
-        @RequestParam("companyname") String companyname,
-        @RequestParam("companywebsite") String companywebsite,
-        @RequestParam("address") String address,
-        @RequestParam("industry") String industry,
-        @RequestParam("contactperson") String contactperson,
-        @RequestParam("logo") MultipartFile logo,
-        @RequestParam("jobtitle") String jobtitle,
-        @RequestParam("joblocation") String joblocation,
-        @RequestParam("jobtype") String jobtype,
-        @RequestParam("salary") BigDecimal salary,
-        @RequestParam("companydescription") String companydescription,
-        @RequestParam("jobrequirements") String jobrequirements,
-        @RequestParam("posteddate") String posteddate,
-        @RequestParam("applicationdeadline") String applicationdeadline) {
+	@PostMapping("/employers/submit")
+	public String themTuyenDung(@RequestParam("companyname") String companyname,
+			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
+			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
+			@RequestParam("logo") MultipartFile logo, @RequestParam("jobtitle") String jobtitle,
+			@RequestParam("joblocation") String joblocation, @RequestParam("jobtype") String jobtype,
+			@RequestParam("salary") BigDecimal salary, @RequestParam("companydescription") String companydescription,
+			@RequestParam("jobrequirements") String jobrequirements, @RequestParam("posteddate") String posteddate,
+			@RequestParam("applicationdeadline") String applicationdeadline) {
 
-        Integer employerId = sessionService.getCurrentEmployerId();
+		Integer employerId = sessionService.getCurrentEmployerId();
 
-        // Lấy hoặc tạo mới đối tượng EmployersEntity
-        EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
+		// Lấy hoặc tạo mới đối tượng EmployersEntity
+		EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
 
-        // Đường dẫn lưu trữ logo
-        String uploadDir = "D:" + File.separator + "DAX" + File.separator + "Job4U" + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "img" + File.separator;
-        Path uploadPath = Paths.get(uploadDir);
+		// Đường dẫn lưu trữ logo
+		String uploadDir = "D:" + File.separator + "DAX" + File.separator + "Job4U" + File.separator + "src"
+				+ File.separator + "main" + File.separator + "webapp" + File.separator + "img" + File.separator;
+		Path uploadPath = Paths.get(uploadDir);
 
-        String logoFilename = null;
+		String logoFilename = null;
 
-        try {
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
+		try {
+			if (!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+			}
 
-            if (!logo.isEmpty()) {
-                logoFilename = logo.getOriginalFilename();
-                Path filePath = uploadPath.resolve(logoFilename);
-                logo.transferTo(filePath.toFile());
-            }
+			if (!logo.isEmpty()) {
+				logoFilename = logo.getOriginalFilename();
+				Path filePath = uploadPath.resolve(logoFilename);
+				logo.transferTo(filePath.toFile());
+			}
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "nhaTuyenDung";
-        }
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "nhaTuyenDung";
+		}
 
-        // Cập nhật thông tin của nhà tuyển dụng
-        employer.setCompanyname(companyname);
-        employer.setCompanywebsite(companywebsite);
-        employer.setAddress(address);
-        employer.setIndustry(industry);
-        employer.setContactperson(contactperson);
-        employer.setLogo(logoFilename); // Lưu tên file thay vì đối tượng MultipartFile
-        employer.setCompanydescription(companydescription);
+		// Cập nhật thông tin của nhà tuyển dụng
+		employer.setCompanyname(companyname);
+		employer.setCompanywebsite(companywebsite);
+		employer.setAddress(address);
+		employer.setIndustry(industry);
+		employer.setContactperson(contactperson);
+		employer.setLogo(logoFilename); // Lưu tên file thay vì đối tượng MultipartFile
+		employer.setCompanydescription(companydescription);
 
-        nhaTuyenDungDao.save(employer);
+		nhaTuyenDungDao.save(employer);
 
-        // Tạo đối tượng JoblistingsEntity và lưu trữ
-        JoblistingsEntity jobListing = new JoblistingsEntity();
-        jobListing.setJobtitle(jobtitle);
-        jobListing.setJoblocation(joblocation);
-        jobListing.setJobtype(jobtype);
-        jobListing.setSalary(salary);
-        jobListing.setJobrequirements(jobrequirements);
+		// Tạo đối tượng JoblistingsEntity và lưu trữ
+		JoblistingsEntity jobListing = new JoblistingsEntity();
+		jobListing.setJobtitle(jobtitle);
+		jobListing.setJoblocation(joblocation);
+		jobListing.setJobtype(jobtype);
+		jobListing.setSalary(salary);
+		jobListing.setJobrequirements(jobrequirements);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        LocalDateTime postedDate = LocalDateTime.parse(posteddate, formatter);
-        LocalDateTime applicationDeadline = LocalDateTime.parse(applicationdeadline, formatter);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+		LocalDateTime postedDate = LocalDateTime.parse(posteddate, formatter);
+		LocalDateTime applicationDeadline = LocalDateTime.parse(applicationdeadline, formatter);
 
-        jobListing.setPosteddate(postedDate);
-        jobListing.setApplicationdeadline(applicationDeadline);
+		jobListing.setPosteddate(postedDate);
+		jobListing.setApplicationdeadline(applicationDeadline);
 
-        danhSachViecLamDao.save(jobListing);
+		danhSachViecLamDao.save(jobListing);
 
-        return "nhaTuyenDung";
-    }
+		return "nhaTuyenDung";
+	}
 }
