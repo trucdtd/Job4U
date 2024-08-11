@@ -85,7 +85,7 @@
 										<div class="card-action">
 											<button class="btn btn-info text-white"
 												style="background-color: #00688B">Update</button>
-											<a href="redirect:/admin" class="btn btn-danger">Cancel</a>
+											<a href="/admin" class="btn btn-danger">Cancel</a>
 										</div>
 									</div>
 								</form>
