@@ -33,8 +33,7 @@ public class NhaTuyenDungController {
     @Autowired
     private EmployersDao nhaTuyenDungDao;
 
-    @Autowired
-    private JoblistingsDao danhSachViecLamDao;
+    @Autowired    private JoblistingsDao danhSachViecLamDao;
 
     @RequestMapping("/employers")
     public String nhaTuyenDung(Model model) {
