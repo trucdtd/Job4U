@@ -34,6 +34,18 @@ public class LoginController {
         return "dangnhap"; // Trả về view đăng nhập
     }
 
+    @GetMapping("/admin")
+    public String adminPage(HttpSession session, Model model) {
+        Integer role = (Integer) session.getAttribute("role");
+
+        if (role != null && role == 0) { // Kiểm tra nếu là admin
+            return "adminPage"; // Trả về trang admin nếu người dùng là admin
+        } else {
+            model.addAttribute("message", "Bạn không có quyền truy cập vào trang này.");
+            return "dangnhap"; // Trả về trang đăng nhập nếu không phải admin
+        }
+    }
+
     @PostMapping("/submit")
     public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
                              Model model, HttpSession session) {
