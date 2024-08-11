@@ -36,7 +36,7 @@ nav .nav-link {
 }
 
 /* Hiệu ứng gạch dưới liên kết khi hover trên màn hình lớn */
-@media ( min-width : 991px) {
+/* @media ( min-width : 991px) {
 	.nav-link::before {
 		content: "";
 		position: absolute;
@@ -53,7 +53,7 @@ nav .nav-link {
 		width: 100%;
 		visibility: visible;
 	}
-}
+} */
 
 /* Định dạng các liên kết trong thanh điều hướng cho màn hình nhỏ */
 @media ( max-width : 990px) {
@@ -80,4 +80,9 @@ nav .nav-link {
 .navbar-toggler:focus, .btn-close:focus {
 	box-shadow: none;
 	outline: none;
+}
+
+.disabled-link {
+    pointer-events: none; /* Vô hiệu hóa sự kiện chuột */
+    color: grey; /* Thay đổi màu sắc liên kết để báo hiệu không thể nhấp được */
 }

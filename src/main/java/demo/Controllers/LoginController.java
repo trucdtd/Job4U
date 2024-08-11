@@ -24,8 +24,8 @@ public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    private SessionService sessionService;
-
+    SessionService sessionService;
+    
     @Autowired
     private UsersDao userDao;
 
@@ -37,29 +37,33 @@ public class LoginController {
     @PostMapping("/submit")
     public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
                              Model model, HttpSession session) {
-        // Tìm kiếm người dùng trong cơ sở dữ liệu dựa trên tên người dùng
         List<UsersEntity> users = userDao.findByUsername(username);
 
-        // Kiểm tra xem danh sách người dùng có rỗng không
         if (!users.isEmpty()) {
-            UsersEntity user = users.get(0); // Lấy người dùng đầu tiên từ danh sách
+            UsersEntity user = users.get(0);
+            logger.info("Đăng nhập với tài khoản: " + username + ", Vai trò: " + user.getRole());
+            if (user.getPassword().equals(password)) { // Nếu mật khẩu đã được mã hóa, bạn cần so sánh với mã hóa
+                session.setAttribute("userIsLoggedIn", true);
+                session.setAttribute("userName", user.getFullname());
+                session.setAttribute("userid", user.getUserid());
+                session.setAttribute("role", user.getRole()); // Thiết lập vai trò người dùng
 
-            // Kiểm tra mật khẩu
-            if (user.getPassword().equals(password)) {
-                // Nếu đăng nhập thành công, lưu thông tin người dùng vào session
-                session.setAttribute("userid", user.getUserid()); // Lưu userid vào session
-                session.setAttribute("fullname", user.getFullname());
+                // Lưu ID nhà tuyển dụng vào session nếu vai trò là 2
+                if (user.getRole() == 2) {
+                    sessionService.setCurrentEmployerId(user.getUserid());
+                }
 
-                logger.info("User '{}' logged in with role: {}", username, user.getRole());
+                // Log vai trò người dùng từ session
+                logger.info("Vai trò người dùng từ session: " + session.getAttribute("role"));
 
                 // Chuyển hướng dựa trên vai trò của người dùng
                 switch (user.getRole()) {
                     case 0:
-                        return "redirect:/admin"; // Quản lý admin
+                        return "redirect:/admin"; // Vai trò admin
                     case 1:
-                        return "redirect:/job4u"; // Người dùng thường
+                        return "redirect:/job4u"; // Vai trò người tìm việc
                     case 2:
-                        return "redirect:/job4u/employers"; // Nhà tuyển dụng
+                        return "redirect:/job4u/employers"; // Vai trò nhà tuyển dụng
                     default:
                         model.addAttribute("message", "Vai trò không hợp lệ");
                         return "dangnhap";
@@ -76,6 +80,6 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Xóa tất cả dữ liệu khỏi session
-        return "redirect:/Login"; // Chuyển hướng về trang đăng nhập
+        return "redirect:/job4u"; // Chuyển hướng về trang chính hoặc trang đăng nhập
     }
 }

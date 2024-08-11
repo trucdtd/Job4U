@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer{
 	@Autowired
-	AuthInterceptor auth;
+	AdminInterceptor auth;
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(auth)
