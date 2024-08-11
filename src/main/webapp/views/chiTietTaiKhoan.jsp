@@ -71,7 +71,7 @@
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="role" class="form-label">Vai trò</label> <select
-												name="role" id="role" class="form-select" required >
+												name="role" id="role" class="form-select" disabled >
 												<option value="0" ${nd.role == '0' ? 'selected' : ''}>Admin</option>
 												<option value="1" ${nd.role == '1' ? 'selected' : ''}>Ứng
 													viên</option>
@@ -85,7 +85,7 @@
 										<div class="card-action">
 											<button class="btn btn-info text-white"
 												style="background-color: #00688B">Update</button>
-											<a href="/admin" class="btn btn-danger">Cancel</a>
+											<a href="redirect:/admin" class="btn btn-danger">Cancel</a>
 										</div>
 									</div>
 								</form>

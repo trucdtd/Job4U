@@ -143,6 +143,21 @@
 					</div>
 
 					<!-- Bảng quản lý bài đăng-->
+					<!-- Thông báo thành công hoặc lỗi -->
+					<c:if test="${not empty message}">
+						<div id="notification" class="container">
+							<div class="row justify-content-center">
+								<div class="col-md-6">
+									<div class="alert alert-info d-flex align-items-center"
+										role="alert">
+										<i class="bi bi-info-circle me-2"></i>
+										<div>${message}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:if>
+					<!-- bài đăng -->
 					<div id="postEmployers" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title p-1">Đăng Bài Tuyển Dụng</div>
@@ -333,7 +348,7 @@
 											<div class="col-md-6 p-2">
 												<label for="posteddate" class="form-label">Ngày đăng</label>
 												<input type="datetime-local" class="form-control"
-													id="posteddate" name="posteddate" required>
+													id="posteddate" name="posteddate" required readonly>
 											</div>
 											<div class="col-md-6 p-2">
 												<label for="applicationdeadline" class="form-label">Hạn
@@ -440,5 +455,40 @@
 				+ tableId + '"]');
 		activeLink.classList.add('active');
 	}
+
+	//Thông báo lỗi
+	document.addEventListener("DOMContentLoaded", function() {
+		var notification = document.getElementById("notification");
+		if (notification) {
+			setTimeout(function() {
+				notification.classList.add("hide");
+				// Thực hiện ẩn thông báo hoàn toàn sau khi hiệu ứng hoàn tất
+				setTimeout(function() {
+					notification.style.display = "none";
+				}, 300); // Thời gian trễ phải bằng thời gian hiệu ứng CSS
+			}, 3000); // Hiển thị thông báo trong 3 giây
+		}
+	});
+	
+	document.addEventListener("DOMContentLoaded", function() {
+	    // Đặt ngày và giờ hiện tại cho trường "Ngày đăng"
+	    var now = new Date();
+	    var formattedDate = now.toISOString().slice(0, 16); // Định dạng theo kiểu yyyy-MM-ddTHH:mm
+
+	    var postedDateField = document.getElementById("posteddate");
+	    postedDateField.value = formattedDate;
+
+	    // Tạo sự kiện khi thay đổi hạn nộp hồ sơ
+	    var applicationDeadlineField = document.getElementById("applicationdeadline");
+	    applicationDeadlineField.addEventListener("change", function() {
+	        var postedDate = new Date(postedDateField.value);
+	        var applicationDeadline = new Date(applicationDeadlineField.value);
+
+	        if (applicationDeadline < postedDate) {
+	            alert("Hạn nộp hồ sơ không được chọn trước ngày đăng.");
+	            applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
+	        }
+	    });
+	});
 </script>
 </html>
