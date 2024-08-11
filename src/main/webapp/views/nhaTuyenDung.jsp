@@ -382,8 +382,8 @@
 										<tr>
 											<th>Tuyển dụng nhân viên IT Java</th>
 											<td>Trần Thảo Trinh
-												<button type="submit" class="btn text-light text-white p-2"
-													style="background-color: #00688B">Xem Thêm</button>
+												<a href="/job4u/chitietCV" type="submit" class="btn text-light text-white p-2"
+													style="background-color: #00688B">Xem Thêm</a>
 											</td>
 											<td>CV ứng tuyển</td>
 

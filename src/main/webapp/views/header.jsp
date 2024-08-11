@@ -52,10 +52,10 @@
                             <span id="user-name" class="span-name-user"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item d-flex justify-content-start" href="/Job4U/thong_tin_ca_nhan.html"><img class="m-1"
+                            <li><a class="dropdown-item d-flex justify-content-start" href="/ThongTinCaNhan"><img class="m-1"
                                                                                                                      src="/img/icons8-user-50.png" height="25px" width="25px" alt="">
                                 <p class="m-1 text-dropdown-menu">Thông tin cá nhân</p></a></li>
-                            <li><a class="dropdown-item d-flex justify-content-start" href="/Job4U/lien_he.html copy.html"><img class="m-1"
+                            <li><a class="dropdown-item d-flex justify-content-start" href="/ThongTinCaNhan/user"><img class="m-1"
                                                                                                                      src="/img/icons8-phone-50.png" height="25px" width="25px" alt="">
                                 <p class="m-1 text-dropdown-menu">Thông tin liên hệ</p></a></li>
                             <li><a class="dropdown-item d-flex justify-content-start" href="/Job4U/lien_he.html copy.html"><img class="m-1"

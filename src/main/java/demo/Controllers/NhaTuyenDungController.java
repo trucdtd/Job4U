@@ -47,6 +47,11 @@ public class NhaTuyenDungController {
 
         return "nhaTuyenDung";
     }
+    
+    @RequestMapping("/chitietCV")
+	public String cvUngTuyen() {
+		return "cvUngTuyen";
+	}
 
     @PostMapping("/employers/submit")
     public String themTuyenDung(

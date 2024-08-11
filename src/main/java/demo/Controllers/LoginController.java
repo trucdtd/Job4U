@@ -49,6 +49,8 @@ public class LoginController {
                 session.setAttribute("userEmail", user.getEmail());
                 session.setAttribute("userFullname", user.getFullname());
                 session.setAttribute("userPhonenumbeer", user.getPhonenumber());
+                session.setAttribute("userCreatedat", user.getCreatedat());
+                session.setAttribute("userUpdatedat", user.getUpdatedat());
                 session.setAttribute("role", user.getRole()); // Thiết lập vai trò người dùng
 
                 // Lưu ID nhà tuyển dụng vào session nếu vai trò là 2
