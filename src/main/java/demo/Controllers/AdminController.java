@@ -65,30 +65,23 @@ public class AdminController {
 	private JdbcTemplate jdbcTemplate;
 
 	@RequestMapping("")
-	public String quanLyNguoiDung(Model model, @RequestParam(value = "page", required = false) String page) {
-		if (page == null || page.equals("quanLyTaiKhoan")) {
-			List<UsersEntity> dsND = userDao.findAll();
-			model.addAttribute("dsND", dsND);
-		}
-		if (page == null || page.equals("quanLyTaiKhoan")) {
-			List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
-			model.addAttribute("qlBV", qlBV);
-		}
-		if (page == null || page.equals("quanLyTaiKhoan")) {
-			List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
-			model.addAttribute("qlCV", qlCV);
-		}
-		return "quanLyNguoiDung";
-		// Trả về trang mặc định nếu không có page hoặc page không phải là
-		// quanLyUngTuyen
-	}
-
-	@GetMapping("")
-	public String adminPage(HttpSession session, Model model) {
+	public String adminPage(HttpSession session, @RequestParam(value = "page", required = false) String page, Model model) {
 	    Integer role = (Integer) session.getAttribute("role");
 
 	    if (role != null && role == 0) { // Kiểm tra nếu là admin
-	        return "quanLyNguoiDung"; // Trả về trang admin nếu người dùng là admin
+	        // Nếu có trang cụ thể, xử lý theo trang đó
+	        if (page == null || page.equals("quanLyTaiKhoan")) {
+	            List<UsersEntity> dsND = userDao.findAll();
+	            model.addAttribute("dsND", dsND);
+
+	            List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
+	            model.addAttribute("qlBV", qlBV);
+
+	            List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
+	            model.addAttribute("qlCV", qlCV);
+	        }
+
+	        return "quanLyNguoiDung"; // Trả về trang admin
 	    } else {
 	        model.addAttribute("message", "Bạn không có quyền truy cập vào trang này.");
 	        return "dangnhap"; // Trả về trang đăng nhập nếu không phải admin
