@@ -46,6 +46,9 @@ public class LoginController {
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());
                 session.setAttribute("userid", user.getUserid());
+                session.setAttribute("userEmail", user.getEmail());
+                session.setAttribute("userFullname", user.getFullname());
+                session.setAttribute("userPhonenumbeer", user.getPhonenumber());
                 session.setAttribute("role", user.getRole()); // Thiết lập vai trò người dùng
 
                 // Lưu ID nhà tuyển dụng vào session nếu vai trò là 2
