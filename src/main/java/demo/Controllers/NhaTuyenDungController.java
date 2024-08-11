@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.services.SessionService;
+import jakarta.servlet.http.HttpSession;
 import demo.dao.EmployersDao;
 import demo.dao.JoblistingsDao;
 import demo.entity.EmployersEntity;
@@ -53,7 +54,6 @@ public class NhaTuyenDungController {
 			model.addAttribute("message", "Bạn cần đăng nhập để truy cập trang này.");
 			return "dangnhap"; // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
 		}
-
 		return "nhaTuyenDung";
 	}
 

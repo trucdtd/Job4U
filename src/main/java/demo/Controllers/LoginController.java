@@ -24,8 +24,8 @@ public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    private SessionService sessionService;
-
+    SessionService sessionService;
+    
     @Autowired
     private UsersDao userDao;
 
@@ -41,26 +41,29 @@ public class LoginController {
 
         if (!users.isEmpty()) {
             UsersEntity user = users.get(0);
-            if (user.getPassword().equals(password)) {
+            logger.info("Đăng nhập với tài khoản: " + username + ", Vai trò: " + user.getRole());
+            if (user.getPassword().equals(password)) { // Nếu mật khẩu đã được mã hóa, bạn cần so sánh với mã hóa
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());
                 session.setAttribute("userid", user.getUserid());
+                session.setAttribute("role", user.getRole()); // Thiết lập vai trò người dùng
 
-                // Thiết lập employerId vào session nếu người dùng là nhà tuyển dụng
+                // Lưu ID nhà tuyển dụng vào session nếu vai trò là 2
                 if (user.getRole() == 2) {
-                    session.setAttribute("employerId", user.getUserid());
+                    sessionService.setCurrentEmployerId(user.getUserid());
                 }
 
-                logger.info("Người dùng '{}' đã đăng nhập với vai trò: {}", username, user.getRole());
+                // Log vai trò người dùng từ session
+                logger.info("Vai trò người dùng từ session: " + session.getAttribute("role"));
 
                 // Chuyển hướng dựa trên vai trò của người dùng
                 switch (user.getRole()) {
                     case 0:
-                        return "redirect:/admin";
+                        return "redirect:/admin"; // Vai trò admin
                     case 1:
-                        return "redirect:/job4u";
+                        return "redirect:/job4u"; // Vai trò người tìm việc
                     case 2:
-                        return "redirect:/job4u/employers";
+                        return "redirect:/job4u/employers"; // Vai trò nhà tuyển dụng
                     default:
                         model.addAttribute("message", "Vai trò không hợp lệ");
                         return "dangnhap";
@@ -73,7 +76,6 @@ public class LoginController {
         }
         return "dangnhap";
     }
-
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
