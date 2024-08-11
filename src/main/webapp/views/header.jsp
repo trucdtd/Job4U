@@ -61,9 +61,10 @@
                             <li><a class="dropdown-item d-flex justify-content-start" href="/Job4U/lien_he.html copy.html"><img class="m-1"
                                                                                                                      src="/img/icons8-cv-80.png" height="25px" width="25px" alt="">
                                 <p class="m-1 text-dropdown-menu">Quản lý CV</p></a></li>
-                            <li><a class="dropdown-item d-flex justify-content-start" href="#"><img class="m-1"
+                                
+                            <li><a class="dropdown-item d-flex justify-content-start" href="/changePass"><img class="m-1"
                                                                                                   src="/img/icons8-setting-50.png" height="25px" width="25px" alt="">
-                                <p class="m-1 text-dropdown-menu">Cài đặt</p></a></li>
+                                <p class="m-1 text-dropdown-menu">Đổi mật khẩu</p></a></li>
                             <li><a class="dropdown-item d-flex justify-content-start" href="/Login/logout"><img class="m-1"
                                                                                                      src="/img/icons8-logout-52.png" height="25px" width="25px" alt="">
                                 <p class="m-1 text-dropdown-menu">Đăng xuất</p></a></li>
