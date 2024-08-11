@@ -39,7 +39,7 @@ public class LoginController {
         Integer role = (Integer) session.getAttribute("role");
 
         if (role != null && role == 0) { // Kiểm tra nếu là admin
-            return "adminPage"; // Trả về trang admin nếu người dùng là admin
+            return "/admin"; // Trả về trang admin nếu người dùng là admin
         } else {
             model.addAttribute("message", "Bạn không có quyền truy cập vào trang này.");
             return "dangnhap"; // Trả về trang đăng nhập nếu không phải admin
