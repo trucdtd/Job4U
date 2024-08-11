@@ -34,18 +34,6 @@ public class LoginController {
         return "dangnhap"; // Trả về view đăng nhập
     }
 
-    @GetMapping("/admin")
-    public String adminPage(HttpSession session, Model model) {
-        Integer role = (Integer) session.getAttribute("role");
-
-        if (role != null && role == 0) { // Kiểm tra nếu là admin
-            return "/admin"; // Trả về trang admin nếu người dùng là admin
-        } else {
-            model.addAttribute("message", "Bạn không có quyền truy cập vào trang này.");
-            return "dangnhap"; // Trả về trang đăng nhập nếu không phải admin
-        }
-    }
-
     @PostMapping("/submit")
     public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
                              Model model, HttpSession session) {
@@ -57,22 +45,16 @@ public class LoginController {
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());
                 session.setAttribute("userid", user.getUserid());
-
-                // Thiết lập employerId vào session nếu người dùng là nhà tuyển dụng
-                if (user.getRole() == 2) {
-                    session.setAttribute("employerId", user.getUserid());
-                }
-
-                logger.info("Người dùng '{}' đã đăng nhập với vai trò: {}", username, user.getRole());
+                session.setAttribute("role", user.getRole()); // Thiết lập vai trò người dùng
 
                 // Chuyển hướng dựa trên vai trò của người dùng
                 switch (user.getRole()) {
                     case 0:
-                        return "redirect:/admin";
+                        return "redirect:/admin"; // Vai trò admin
                     case 1:
-                        return "redirect:/job4u";
+                        return "redirect:/job4u"; // Vai trò người tìm việc
                     case 2:
-                        return "redirect:/job4u/employers";
+                        return "redirect:/job4u/employers"; // Vai trò nhà tuyển dụng
                     default:
                         model.addAttribute("message", "Vai trò không hợp lệ");
                         return "dangnhap";
