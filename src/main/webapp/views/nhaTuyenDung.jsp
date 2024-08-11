@@ -122,17 +122,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Java Developer</td>
-											<td>Hà Nội</td>
-											<td>2023-07-30</td>
-											<td>2023-08-30</td>
-											<td>
-												<button type="button" class="btn btn-sm btn-primary">Chỉnh
-													Sửa</button>
-												<button type="button" class="btn btn-sm btn-danger">Xóa</button>
-											</td>
-										</tr>
+										
 										<c:forEach items="${dsTD}" var="job">
 											<tr>
 												<td>${job.jobtitle}</td>
