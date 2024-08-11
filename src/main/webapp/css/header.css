@@ -56,7 +56,7 @@ nav .nav-link {
 }
 
 /* Định dạng các liên kết trong thanh điều hướng cho màn hình nhỏ */
-@media ( max-width : 990px) {
+/* @media ( max-width : 990px) {
 	.login-button {
 		margin-top: 10px;
 		width: 100%;
@@ -69,7 +69,7 @@ nav .nav-link {
 		padding-left: 5px;
 		border-bottom: 1px dotted #fff;
 	}
-}
+} */
 
 /* Định dạng các thành phần navbar-toggler */
 .navbar-toggler {
