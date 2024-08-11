@@ -98,11 +98,9 @@ public class AdminController {
 			@RequestParam("email") String email, 
 			
 			@RequestParam("phonenumber") String phonenumber, 
-			@RequestParam("role") String role, 
 			RedirectAttributes redirectAttributes) {
 		// Kiểm tra các trường không được bỏ trống
-		if (username.isEmpty() || fullname.isEmpty() || email.isEmpty() || phonenumber.isEmpty()
-				|| role.isEmpty()) {
+		if (username.isEmpty() || fullname.isEmpty() || email.isEmpty() || phonenumber.isEmpty()) {
 			redirectAttributes.addAttribute("error", "Tất cả các trường đều phải được điền!");
 			return "redirect:/admin/detailUser/" + userid;
 		}
@@ -126,9 +124,9 @@ public class AdminController {
 		}
 
 		// Cập nhật thông tin người dùng
-		String sql = "UPDATE Users SET username = ?, fullname = ?, email = ?, phonenumber = ?, role = ? WHERE userid = ?";
+		String sql = "UPDATE Users SET username = ?, fullname = ?, email = ?, phonenumber = ? WHERE userid = ?";
 		try {
-			int rows = jdbcTemplate.update(sql, username, fullname, email,  phonenumber, role, userid);
+			int rows = jdbcTemplate.update(sql, username, fullname, email,  phonenumber,  userid);
 			if (rows > 0) {
 				redirectAttributes.addAttribute("successMessage", "Cập nhật thông tin người dùng thành công!");
 			} else {
