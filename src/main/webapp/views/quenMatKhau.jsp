@@ -48,23 +48,22 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
               <div class="form-container">
-                <form>
-                  <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
-                    <p class="lead fw-normal mb-0 me-3">Forgot Password</p>
-                  </div>
+                <form method="POST" action="/QuenMatKhau/submit">
+    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
+        <h1 class="lead fw-normal mb-0 me-3">LẤY LẠI MẬT KHẨU</h1>
+    </div>
 
-                  <!-- Email input -->
-                  <div data-mdb-input-init class="form-outline">
-                    <label class="form-label" for="email">Email address</label>
-                    <input type="email" id="email" class="form-control form-control-lg" placeholder="Enter your email address" />
-                  </div>
+    <!-- Email input -->
+    <div class="form-outline">
+        <label class="form-label" for="email">Nhập email của bạn!</label>
+        <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Vui lòng nhập email của bạn!" required />
+    </div>
 
-                  <div class="text-center text-lg-start mt-4 pt-2">
-                    <button type="submit" class="btn btn-primary btn-lg">Reset Password</button>
-                    <p class="small fw-bold mt-2 pt-1 mb-0">Remember your password? <a href="#!" class="link-danger">Login</a></p>
-                  </div>
-
-                </form>
+    <div class="text-center text-lg-start mt-4 pt-2">
+        <button type="submit" class="btn btn-primary btn-lg">Xác Nhận</button>
+        <p class="small fw-bold mt-2 pt-1 mb-0">Bạn đã nhớ mật khẩu? <a href="/Login" class="link-danger">Đăng Nhập</a></p>
+    </div>
+</form>
               </div>
             </div>
           </div>
@@ -72,6 +71,15 @@
         <%@ include file="/views/footer.jsp"%>
       </section>
     </footer>
+    <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        var emailInput = document.getElementById('email').value;
+        if (!emailInput) {
+            alert('Vui lòng nhập địa chỉ email.');
+            e.preventDefault(); // Ngăn form không gửi nếu email trống
+        }
+    });
+    </script>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>

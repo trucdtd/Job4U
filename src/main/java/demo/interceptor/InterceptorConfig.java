@@ -6,15 +6,14 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class InterceptorConfig implements WebMvcConfigurer{
+public class InterceptorConfig implements WebMvcConfigurer {
+
 	@Autowired
 	AdminInterceptor auth;
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(auth)
-			.addPathPatterns("/user/")
-			.excludePathPatterns("/dangNhap/");
+		registry.addInterceptor(auth).addPathPatterns("/user/").excludePathPatterns("/dangNhap/");
 	}
-	
-}
 
+}
