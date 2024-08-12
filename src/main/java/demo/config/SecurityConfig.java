@@ -21,22 +21,13 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/admin/**").hasRole("ADMIN")
-				.requestMatchers("/job4u/employers/**").hasRole("EMPLOYER")
-				.anyRequest().permitAll())
-			.formLogin((form) -> form
-				.loginPage("/Login")
-				.defaultSuccessUrl("/default", true)
-				.permitAll())
-			.logout((logout) -> logout
-				.logoutUrl("/Logout")
-				.logoutSuccessUrl("/job4u")
-				.permitAll())
-			.exceptionHandling()
-				.accessDeniedPage("/403")
-			.and()
-				.userDetailsService(userDetailsService); // Đăng ký UserDetailsService
+		http.csrf().disable() // Tạm thời vô hiệu hóa CSRF để kiểm tra
+				.authorizeHttpRequests((requests) -> requests.requestMatchers("/admin/**").hasRole("ADMIN")
+						.requestMatchers("/job4u/employers/**").hasRole("EMPLOYER").anyRequest().permitAll())
+				.formLogin((form) -> form.loginPage("/Login").defaultSuccessUrl("/default", true).permitAll())
+				.logout((logout) -> logout.logoutUrl("/Logout").logoutSuccessUrl("/job4u").permitAll())
+				.exceptionHandling().accessDeniedPage("/403").and().userDetailsService(userDetailsService); // Đăng ký
+																											// UserDetailsService
 		return http.build();
 	}
 
@@ -45,4 +36,3 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder(); // Sử dụng BCrypt để mã hóa mật khẩu
 	}
 }
-
