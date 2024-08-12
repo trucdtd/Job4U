@@ -5,37 +5,44 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import demo.dao.UsersDao;
 import demo.entity.UsersEntity;
 
-import java.util.Collections;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-
     @Autowired
-    private UsersDao userDao;
+    private UsersDao usersDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UsersEntity user = userDao.findByUsername(username).stream()
-            .findFirst()
-            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        // Convert role to authority
-        String role = switch (user.getRole()) {
-            case 0 -> "ROLE_ADMIN";
-            case 2 -> "ROLE_EMPLOYER";
-            default -> "ROLE_USER";
-        };
-
-        return new org.springframework.security.core.userdetails.User(
-            user.getUsername(),
-            user.getPassword(),
-            Collections.singletonList(new SimpleGrantedAuthority(role))
-        );
+        UsersEntity user = usersDao.findByUsername(username)
+                                  .stream()
+                                  .findFirst()
+                                  .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        
+        // Chuyển đổi vai trò từ số nguyên thành chuỗi
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        switch (user.getRole()) {
+            case 0:
+                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                break;
+            case 1:
+                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                break;
+            case 2:
+                authorities.add(new SimpleGrantedAuthority("ROLE_EMPLOYER"));
+                break;
+            default:
+                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                break;
+        }
+        
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 }

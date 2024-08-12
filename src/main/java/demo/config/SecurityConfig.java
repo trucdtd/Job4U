@@ -59,23 +59,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        HttpSecurity userDetailsService2 = http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/admin/*").hasRole("ADMIN")
-                        .requestMatchers("/job4u/employers/**").hasRole("EMPLOYER")
-                        .anyRequest().permitAll())
-                .formLogin((form) -> form
-                        .loginPage("/Login")
-                        .successHandler(successHandler())
-                        .permitAll())
-                .logout((logout) -> logout
-                        .logoutUrl("/Logout")
-                        .logoutSuccessUrl("/job4u")
-                        .permitAll())
-                .exceptionHandling(handling -> handling
-                        .accessDeniedPage("/403"))
-                .userDetailsService(userDetailsService);
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests((requests) -> requests
+                .requestMatchers("/admin/*").hasRole("ADMIN")
+                .requestMatchers("/job4u/employers/*").hasRole("EMPLOYER")
+                .anyRequest().permitAll())
+            .formLogin((form) -> form
+                .loginPage("/Login")
+                .successHandler(successHandler())
+                .permitAll())
+            .logout((logout) -> logout
+                .logoutUrl("/Logout")
+                .logoutSuccessUrl("/job4u")
+                .permitAll())
+            .exceptionHandling(handling -> handling
+                .accessDeniedPage("/403"))
+            .userDetailsService(userDetailsService);
         return http.build();
     }
 
