@@ -12,9 +12,11 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Bean
 	public InternalResourceViewResolver jspViewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/views/");
-		resolver.setSuffix(".jsp");
-		return resolver;
+	    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+	    resolver.setPrefix("/views/");
+	    resolver.setSuffix(".jsp");
+	    resolver.setOrder(1); // Đảm bảo không có vấn đề với thứ tự
+	    return resolver;
 	}
+
 }
