@@ -86,25 +86,35 @@
 
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    $(document).ready(function() {
-        var userIsLoggedIn = "<%=session.getAttribute("userIsLoggedIn") != null ? session.getAttribute("userIsLoggedIn").toString() : "false" %>";
-        var userName = "<%=session.getAttribute("userName") != null ? session.getAttribute("userName").toString() : "" %>";
+		document.addEventListener('DOMContentLoaded', function() {
+			const contactButton = document.getElementById('contact-button');
+			const message = document.getElementById('message');
+			const closeButton = document.querySelector('#message .btn-close');
+			const additionalButton = document
+					.getElementById('additional-button');
+			const popupForm = document.getElementById('popup-form');
+			const formCloseButton = popupForm.querySelector('.btn-close');
 
-        console.log("User is logged in: " + userIsLoggedIn);
-        console.log("User name: " + userName);
+			contactButton.addEventListener('click', function() {
+				message.style.display = message.style.display === 'none'
+						|| message.style.display === '' ? 'block' : 'none';
+			});
 
-        if (userIsLoggedIn === "true") {
-            $('#login-btn').hide();
-            $('#register-btn').hide();
-            $('#account-info').removeClass('d-none');
-            $('#user-name').text(userName);
-        } else {
-            $('#login-btn').show();
-            $('#register-btn').show();
-            $('#account-info').addClass('d-none');
-        }
-    });
-</script>
+			closeButton.addEventListener('click', function() {
+				message.style.display = 'none';
+			});
+
+			additionalButton.addEventListener('click', function() {
+				popupForm.style.display = 'block';
+			});
+
+			formCloseButton.addEventListener('click', function() {
+				popupForm.style.display = 'none';
+			});
+		});
+	</script>
+
 </body>
 </html>
