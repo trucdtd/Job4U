@@ -1,16 +1,25 @@
 package demo.config;
 
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+
+import demo.services.CustomUserDetailsService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
-import demo.services.CustomUserDetailsService;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +27,35 @@ public class SecurityConfig {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new SimpleUrlAuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                                Authentication authentication) throws IOException, ServletException {
+                User user = (User) authentication.getPrincipal();
+                String role = user.getAuthorities().iterator().next().getAuthority();
+                String redirectUrl;
+
+                switch (role) {
+                    case "ROLE_ADMIN":
+                        redirectUrl = "/admin";
+                        break;
+                    case "ROLE_EMPLOYER":
+                        redirectUrl = "/job4u/employers";
+                        break;
+                    case "ROLE_USER":
+                        redirectUrl = "/job4u";
+                        break;
+                    default:
+                        redirectUrl = "/default";
+                }
+
+                getRedirectStrategy().sendRedirect(request, response, redirectUrl);
+            }
+        };
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,7 +67,7 @@ public class SecurityConfig {
                 .anyRequest().permitAll())
             .formLogin((form) -> form
                 .loginPage("/Login")
-                .defaultSuccessUrl("/default", true)
+                .successHandler(successHandler()) // Sử dụng bean successHandler
                 .permitAll())
             .logout((logout) -> logout
                 .logoutUrl("/Logout")
@@ -38,12 +76,12 @@ public class SecurityConfig {
             .exceptionHandling()
                 .accessDeniedPage("/403")
             .and()
-                .userDetailsService(userDetailsService); // Đăng ký UserDetailsService
+                .userDetailsService(userDetailsService);
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Sử dụng BCrypt để mã hóa mật khẩu
+        return new BCryptPasswordEncoder();
     }
 }

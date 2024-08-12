@@ -25,7 +25,7 @@ public class LoginController {
 
     @Autowired
     SessionService sessionService;
-    
+
     @Autowired
     private UsersDao userDao;
 
@@ -42,6 +42,7 @@ public class LoginController {
         if (!users.isEmpty()) {
             UsersEntity user = users.get(0);
             logger.info("Đăng nhập với tài khoản: " + username + ", Vai trò: " + user.getRole());
+
             if (user.getPassword().equals(password)) { // Nếu mật khẩu đã được mã hóa, bạn cần so sánh với mã hóa
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());
@@ -61,18 +62,7 @@ public class LoginController {
                 // Log vai trò người dùng từ session
                 logger.info("Vai trò người dùng từ session: " + session.getAttribute("role"));
 
-                // Chuyển hướng dựa trên vai trò của người dùng
-                switch (user.getRole()) {
-                    case 0:
-                        return "redirect:/admin"; // Vai trò admin
-                    case 1:
-                        return "redirect:/job4u"; // Vai trò người tìm việc
-                    case 2:
-                        return "redirect:/job4u/employers"; // Vai trò nhà tuyển dụng
-                    default:
-                        model.addAttribute("message", "Vai trò không hợp lệ");
-                        return "dangnhap";
-                }
+                return "dangnhap"; // Khi sử dụng AuthenticationSuccessHandler, không cần chuyển hướng ở đây
             } else {
                 model.addAttribute("message", "Mật khẩu không đúng");
             }
