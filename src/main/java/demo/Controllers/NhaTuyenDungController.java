@@ -14,7 +14,9 @@ import jakarta.servlet.http.HttpSession;
 import demo.dao.EmployersDao;
 import demo.dao.JoblistingsDao;
 import demo.entity.EmployersEntity;
+import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
+import demo.entity.UsersEntity;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +59,7 @@ public class NhaTuyenDungController {
 		}
 		return "nhaTuyenDung";
 	}
-
+	
 	@PostMapping("/employers/submit")
 	public String themTuyenDung(@RequestParam("companyname") String companyname,
 			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
@@ -146,6 +149,14 @@ public class NhaTuyenDungController {
 
 		redirectAttributes.addFlashAttribute("message", "Đã đăng bài thành công");
 		return "redirect:/job4u/employers";
+	}
+	
+	@RequestMapping("/quanLyTD")
+	public String quanLyTuyenDung(Model model) {
+		List<JoblistingsEntity> dsTD = danhSachViecLamDao.findAll();
+		model.addAttribute("dsTD", dsTD);
+		return "nhaTuyenDung";
+
 	}
 
 }

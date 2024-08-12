@@ -1,5 +1,6 @@
 package demo.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -28,6 +29,9 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     Page<JoblistingsEntity> findByIndustry(@Param("industry") String industry, Pageable pageable);
     
     void deleteByJobid(Integer jobid);
+	
+	 List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
+
     
     
 }

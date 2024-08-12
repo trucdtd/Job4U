@@ -469,26 +469,27 @@
 			}, 3000); // Hiển thị thông báo trong 3 giây
 		}
 	});
-	
+
 	document.addEventListener("DOMContentLoaded", function() {
-	    // Đặt ngày và giờ hiện tại cho trường "Ngày đăng"
-	    var now = new Date();
-	    var formattedDate = now.toISOString().slice(0, 16); // Định dạng theo kiểu yyyy-MM-ddTHH:mm
+		// Đặt ngày và giờ hiện tại cho trường "Ngày đăng"
+		var now = new Date();
+		var formattedDate = now.toISOString().slice(0, 16); // Định dạng theo kiểu yyyy-MM-ddTHH:mm
 
-	    var postedDateField = document.getElementById("posteddate");
-	    postedDateField.value = formattedDate;
+		var postedDateField = document.getElementById("posteddate");
+		postedDateField.value = formattedDate;
 
-	    // Tạo sự kiện khi thay đổi hạn nộp hồ sơ
-	    var applicationDeadlineField = document.getElementById("applicationdeadline");
-	    applicationDeadlineField.addEventListener("change", function() {
-	        var postedDate = new Date(postedDateField.value);
-	        var applicationDeadline = new Date(applicationDeadlineField.value);
+		// Tạo sự kiện khi thay đổi hạn nộp hồ sơ
+		var applicationDeadlineField = document
+				.getElementById("applicationdeadline");
+		applicationDeadlineField.addEventListener("change", function() {
+			var postedDate = new Date(postedDateField.value);
+			var applicationDeadline = new Date(applicationDeadlineField.value);
 
-	        if (applicationDeadline < postedDate) {
-	            alert("Hạn nộp hồ sơ không được chọn trước ngày đăng.");
-	            applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
-	        }
-	    });
+			if (applicationDeadline < postedDate) {
+				alert("Hạn nộp hồ sơ không được chọn trước ngày đăng.");
+				applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
+			}
+		});
 	});
 </script>
 </html>

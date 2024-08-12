@@ -214,12 +214,12 @@
 								<table class="table align-items-center mb-0">
 									<thead class="thead-light">
 										<tr>
-											<th scope="col">Jobseekerid</th>
-											<th scope="col">Resume</th>
-											<th scope="col">Profilesummary</th>
-											<th scope="col">Experience</th>
-											<th scope="col">Education</th>
-											<th scope="col">Skills</th>
+											<th scope="col">ID</th>
+											<th scope="col">Nội Dung HS</th>
+											<th scope="col">Tóm Tắt HS</th>
+											<th scope="col">Kinh Nghiệm</th>
+											<th scope="col">Học Vấn</th>
+											<th scope="col">Kỹ Năng</th>
 											<th></th>
 										</tr>
 									</thead>
