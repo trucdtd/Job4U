@@ -162,23 +162,20 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/webapp</directory>
-				<includes>
-					<include>**/*.jsp</include>
-				</includes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.3.1</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
