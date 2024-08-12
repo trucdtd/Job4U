@@ -43,7 +43,7 @@ public class LoginController {
             UsersEntity user = users.get(0);
             logger.info("Đăng nhập với tài khoản: " + username + ", Vai trò: " + user.getRole());
 
-            if (user.getPassword().equals(password)) {
+            if (user.getPassword().equals(password)) {  // So sánh trực tiếp mật khẩu
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());
                 session.setAttribute("userid", user.getUserid());
@@ -57,8 +57,6 @@ public class LoginController {
                 if (user.getRole() == 2) {
                     sessionService.setCurrentEmployerId(user.getUserid());
                 }
-
-                logger.info("Vai trò người dùng từ session: " + session.getAttribute("role"));
 
                 switch (user.getRole()) {
                     case 0:

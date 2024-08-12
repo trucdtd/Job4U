@@ -34,12 +34,10 @@ public class SecurityConfig {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
-                // Lấy thông tin người dùng đã đăng nhập
-                org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+                User user = (User) authentication.getPrincipal();
                 String role = user.getAuthorities().iterator().next().getAuthority();
                 String redirectUrl;
 
-                // Xác định URL chuyển hướng dựa trên vai trò
                 switch (role) {
                     case "ROLE_ADMIN":
                         redirectUrl = "/admin";
@@ -54,10 +52,6 @@ public class SecurityConfig {
                         redirectUrl = "/default";
                 }
 
-                // Log URL chuyển hướng để kiểm tra
-                System.out.println("Redirecting to: " + redirectUrl);
-
-                // Thực hiện chuyển hướng
                 getRedirectStrategy().sendRedirect(request, response, redirectUrl);
             }
         };
@@ -65,23 +59,22 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/job4u/employers/**").hasRole("EMPLOYER")
-                .anyRequest().permitAll())
-            .formLogin((form) -> form
-                .loginPage("/Login")
-                .successHandler(successHandler()) // Sử dụng bean successHandler
-                .permitAll())
-            .logout((logout) -> logout
-                .logoutUrl("/Logout")
-                .logoutSuccessUrl("/job4u")
-                .permitAll())
-            .exceptionHandling()
-                .accessDeniedPage("/403")
-            .and()
+        HttpSecurity userDetailsService2 = http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/admin/*").hasRole("ADMIN")
+                        .requestMatchers("/job4u/employers/**").hasRole("EMPLOYER")
+                        .anyRequest().permitAll())
+                .formLogin((form) -> form
+                        .loginPage("/Login")
+                        .successHandler(successHandler())
+                        .permitAll())
+                .logout((logout) -> logout
+                        .logoutUrl("/Logout")
+                        .logoutSuccessUrl("/job4u")
+                        .permitAll())
+                .exceptionHandling(handling -> handling
+                        .accessDeniedPage("/403"))
                 .userDetailsService(userDetailsService);
         return http.build();
     }
