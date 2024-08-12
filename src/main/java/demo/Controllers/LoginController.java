@@ -43,7 +43,7 @@ public class LoginController {
             UsersEntity user = users.get(0);
             logger.info("Đăng nhập với tài khoản: " + username + ", Vai trò: " + user.getRole());
 
-            if (user.getPassword().equals(password)) { // Nếu mật khẩu đã được mã hóa, bạn cần so sánh với mã hóa
+            if (user.getPassword().equals(password)) {
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());
                 session.setAttribute("userid", user.getUserid());
@@ -52,17 +52,24 @@ public class LoginController {
                 session.setAttribute("userPhonenumbeer", user.getPhonenumber());
                 session.setAttribute("userCreatedat", user.getCreatedat());
                 session.setAttribute("userUpdatedat", user.getUpdatedat());
-                session.setAttribute("role", user.getRole()); // Thiết lập vai trò người dùng
+                session.setAttribute("role", user.getRole());
 
-                // Lưu ID nhà tuyển dụng vào session nếu vai trò là 2
                 if (user.getRole() == 2) {
                     sessionService.setCurrentEmployerId(user.getUserid());
                 }
 
-                // Log vai trò người dùng từ session
                 logger.info("Vai trò người dùng từ session: " + session.getAttribute("role"));
 
-                return "dangnhap"; // Khi sử dụng AuthenticationSuccessHandler, không cần chuyển hướng ở đây
+                switch (user.getRole()) {
+                    case 0:
+                        return "redirect:/admin";
+                    case 1:
+                        return "redirect:/job4u";
+                    case 2:
+                        return "redirect:/job4u/employers";
+                    default:
+                        return "redirect:/default";
+                }
             } else {
                 model.addAttribute("message", "Mật khẩu không đúng");
             }
