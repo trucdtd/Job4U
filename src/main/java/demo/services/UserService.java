@@ -17,22 +17,45 @@
  */
 package demo.services;
 
+import java.security.SecureRandom;
+import java.util.Properties;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
+
+import com.mailjet.client.resource.User;
 
 import demo.dao.UsersDao;
 import demo.entity.UsersEntity;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class UserService {
+	@Value("${spring.mail.host}")
+    private String mailHost;
 
+    @Value("${spring.mail.port}")
+    private int mailPort;
+
+    @Value("${spring.mail.username}")
+    private String mailUsername;
+
+    @Value("${spring.mail.password}")
+    private String mailPassword;
+	
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private UsersDao usersDao;
+    
+    @Autowired
+    private JavaMailSender mailSender;
 
     /**
      * Tìm người dùng dựa trên tên đăng nhập.
@@ -42,8 +65,7 @@ public class UserService {
      */
     public UsersEntity findByUsername(String username) {
         return userRepository.findByUsername(username);
-    }
-
+    }	
     /**
      * Tìm người dùng dựa trên ID.
      *
@@ -81,23 +103,6 @@ public class UserService {
         userRepository.save(user);
     }
     
-    
-
-    /**
-     * Tạo mã thông báo đặt lại mật khẩu.
-     *
-     * @param email email của người dùng.
-     * @return mã thông báo (token) được tạo.
-     */
-    public String createPasswordResetToken(String email) {
-        // Tạo mã thông báo (token) ngẫu nhiên
-        String token = UUID.randomUUID().toString();
-
-        // Lưu token, email, và thời gian hết hạn vào cơ sở dữ liệu
-        // (bạn cần phải triển khai phần lưu trữ này)
-
-        return token;
-    }
 
     /**
      * Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không.
@@ -117,5 +122,75 @@ public class UserService {
      */
     public boolean isPhoneNumberExists(String numberphone) {
         return usersDao.existsByPhonenumber(numberphone);
+    }
+
+    public boolean isTokenValid(String token, String code) {
+        UsersEntity user = userRepository.findByToken(token);
+        if (user != null) {
+            System.out.println("Token from DB: " + user.getToken());
+            System.out.println("Code entered by user: " + code);
+            return code.equals(user.getToken());
+        }
+        return false;
+    }
+
+    public void updatePassword(String token, String newPassword) {
+        UsersEntity user = userRepository.findByToken(token);
+        if (user != null) {
+            user.setPassword(newPassword); // Nên mã hóa mật khẩu trước khi lưu
+            user.setToken(null); // Xóa token sau khi dùng
+            userRepository.save(user);
+        }
+    }
+
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final int TOKEN_LENGTH = 6;
+    private static final SecureRandom RANDOM = new SecureRandom();
+
+    private String generateToken() {
+        StringBuilder token = new StringBuilder(TOKEN_LENGTH);
+        for (int i = 0; i < TOKEN_LENGTH; i++) {
+            int index = RANDOM.nextInt(CHARACTERS.length());
+            token.append(CHARACTERS.charAt(index));
+        }
+        return token.toString();
+    }
+
+    public String createPasswordResetToken(String email) {
+        String token = generateToken(); 
+        UsersEntity user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setToken(token);
+            userRepository.save(user);
+
+            sendPasswordResetEmail(email, token);
+        }
+        return token;
+    }
+
+    @PostConstruct
+    private void initializeMailSender() {
+        JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
+        mailSenderImpl.setHost(mailHost);
+        mailSenderImpl.setPort(mailPort);
+        mailSenderImpl.setUsername(mailUsername);
+        mailSenderImpl.setPassword(mailPassword);
+
+        Properties props = mailSenderImpl.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        this.mailSender = mailSenderImpl;
+    }
+
+    public void sendPasswordResetEmail(String userEmail, String token) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(userEmail);
+        message.setSubject("Yêu cầu đặt lại mật khẩu");
+        message.setText("Mã token của bạn để đặt lại mật khẩu là: " + token);
+
+        mailSender.send(message);
     }
 }
