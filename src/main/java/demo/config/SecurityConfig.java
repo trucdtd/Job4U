@@ -34,10 +34,12 @@ public class SecurityConfig {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
+                // Lấy thông tin người dùng đã đăng nhập
                 org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
                 String role = user.getAuthorities().iterator().next().getAuthority();
                 String redirectUrl;
 
+                // Xác định URL chuyển hướng dựa trên vai trò
                 switch (role) {
                     case "ROLE_ADMIN":
                         redirectUrl = "/admin";
@@ -52,8 +54,10 @@ public class SecurityConfig {
                         redirectUrl = "/default";
                 }
 
+                // Log URL chuyển hướng để kiểm tra
                 System.out.println("Redirecting to: " + redirectUrl);
 
+                // Thực hiện chuyển hướng
                 getRedirectStrategy().sendRedirect(request, response, redirectUrl);
             }
         };
@@ -69,7 +73,7 @@ public class SecurityConfig {
                 .anyRequest().permitAll())
             .formLogin((form) -> form
                 .loginPage("/Login")
-                .successHandler(successHandler())
+                .successHandler(successHandler()) // Sử dụng bean successHandler
                 .permitAll())
             .logout((logout) -> logout
                 .logoutUrl("/Logout")
