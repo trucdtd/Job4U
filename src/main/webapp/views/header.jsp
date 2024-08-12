@@ -46,7 +46,7 @@
                     </div>
                     <!-- DROPDOWN MENU -->
                     <div id="account-info" class="dropdown d-flex justify-content-end d-none">
-                        <button class="btn btn-light btn-light-custom" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+<button class="btn btn-light btn-light-custom" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                             <img class="text-center" src="/img/icons8-bell-48.png" height="30px" alt=""> 
                             <span id="user-name" class="span-name-user"></span>
@@ -77,7 +77,7 @@
                     aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <img src="/img/icons8-menu-50.png" height="30px" width="30px" alt="">
             </button>
-        </div>
+</div>
     </nav>
     <section class="banner mb-4">
         <img src="/img/poster2.png" style="height: 350px; width: 100%; object-fit: cover;" alt class="img-fluid">
@@ -86,35 +86,25 @@
 
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const contactButton = document.getElementById('contact-button');
-			const message = document.getElementById('message');
-			const closeButton = document.querySelector('#message .btn-close');
-			const additionalButton = document
-					.getElementById('additional-button');
-			const popupForm = document.getElementById('popup-form');
-			const formCloseButton = popupForm.querySelector('.btn-close');
+    $(document).ready(function() {
+        var userIsLoggedIn = "<%=session.getAttribute("userIsLoggedIn") != null ? session.getAttribute("userIsLoggedIn").toString() : "false" %>";
+        var userName = "<%=session.getAttribute("userName") != null ? session.getAttribute("userName").toString() : "" %>";
 
-			contactButton.addEventListener('click', function() {
-				message.style.display = message.style.display === 'none'
-						|| message.style.display === '' ? 'block' : 'none';
-			});
+        console.log("User is logged in: " + userIsLoggedIn);
+        console.log("User name: " + userName);
 
-			closeButton.addEventListener('click', function() {
-				message.style.display = 'none';
-			});
-
-			additionalButton.addEventListener('click', function() {
-				popupForm.style.display = 'block';
-			});
-
-			formCloseButton.addEventListener('click', function() {
-				popupForm.style.display = 'none';
-			});
-		});
-	</script>
-
+        if (userIsLoggedIn === "true") {
+            $('#login-btn').hide();
+            $('#register-btn').hide();
+            $('#account-info').removeClass('d-none');
+            $('#user-name').text(userName);
+        } else {
+            $('#login-btn').show();
+            $('#register-btn').show();
+            $('#account-info').addClass('d-none');
+        }
+    });
+</script>
 </body>
 </html>
