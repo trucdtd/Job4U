@@ -34,7 +34,7 @@ public class SecurityConfig {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
-                User user = (User) authentication.getPrincipal();
+                org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
                 String role = user.getAuthorities().iterator().next().getAuthority();
                 String redirectUrl;
 
@@ -52,6 +52,8 @@ public class SecurityConfig {
                         redirectUrl = "/default";
                 }
 
+                System.out.println("Redirecting to: " + redirectUrl);
+
                 getRedirectStrategy().sendRedirect(request, response, redirectUrl);
             }
         };
@@ -67,7 +69,7 @@ public class SecurityConfig {
                 .anyRequest().permitAll())
             .formLogin((form) -> form
                 .loginPage("/Login")
-                .successHandler(successHandler()) // Sử dụng bean successHandler
+                .successHandler(successHandler())
                 .permitAll())
             .logout((logout) -> logout
                 .logoutUrl("/Logout")
