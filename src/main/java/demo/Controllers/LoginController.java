@@ -73,4 +73,5 @@ public class LoginController {
         session.invalidate(); // Xóa tất cả dữ liệu khỏi session
         return "redirect:/job4u"; // Chuyển hướng về trang chính hoặc trang đăng nhập
     }
+    
 }

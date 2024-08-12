@@ -110,7 +110,7 @@
 
 		<!-- JSON Web Token (JWT) -->
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
+<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.11.5</version>
 		</dependency>
