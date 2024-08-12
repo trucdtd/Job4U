@@ -52,7 +52,7 @@ public class doimatkhauController {
 	        Integer userId = sessionService.getCurrentUser();
 	        if (userId == null) {
 	            redirectAttributes.addFlashAttribute("error", "Người dùng chưa đăng nhập");
-	            return "redirect:/login";
+	            return "redirect:/Login";
 	        }
 
 	        // Lấy thông tin người dùng từ cơ sở dữ liệu dựa trên userId

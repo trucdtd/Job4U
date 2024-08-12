@@ -66,9 +66,9 @@
 											</h4>
 										</div>
 										<div class="d-flex flex-column mt-4">
-											<button data-mdb-button-init data-mdb-ripple-init
+											<a href="/applyCV" data-mdb-button-init data-mdb-ripple-init
 												class="btn btn-primary btn-sm" type="button">Ứng
-												tuyển</button>
+												tuyển</a>
 											<a href="/job4u/chiTiet/${job.jobid}"
 												class="btn btn-outline-primary btn-sm mt-2">Thông tin
 												chi tiết</a>
