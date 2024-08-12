@@ -48,16 +48,21 @@ public class NhaTuyenDungController {
 
 	@RequestMapping("/employers")
 	public String nhaTuyenDung(Model model) {
-		Integer employerId = sessionService.getCurrentEmployerId();
+	    Integer employerId = sessionService.getCurrentEmployerId();
 
-		if (employerId != null) {
-			EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
-			model.addAttribute("employer", employer);
-		} else {
-			model.addAttribute("message", "Bạn cần đăng nhập để truy cập trang này.");
-			return "dangnhap"; // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
-		}
-		return "nhaTuyenDung";
+	    if (employerId != null) {
+	        // Lấy thông tin nhà tuyển dụng
+	        EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
+	        model.addAttribute("employer", employer);
+
+	        // Lấy danh sách việc làm
+	        List<JoblistingsEntity> dsTD = danhSachViecLamDao.findAll();
+	        model.addAttribute("dsTD", dsTD);
+	    } else {
+	        model.addAttribute("message", "Bạn cần đăng nhập để truy cập trang này.");
+	        return "dangnhap"; // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+	    }
+	    return "nhaTuyenDung";
 	}
 	
 	@PostMapping("/employers/submit")
@@ -151,12 +156,12 @@ public class NhaTuyenDungController {
 		return "redirect:/job4u/employers";
 	}
 	
-	@RequestMapping("/quanLyTD")
-	public String quanLyTuyenDung(Model model) {
-		List<JoblistingsEntity> dsTD = danhSachViecLamDao.findAll();
-		model.addAttribute("dsTD", dsTD);
-		return "nhaTuyenDung";
-
-	}
+	/*
+	 * @RequestMapping("/quanLyTD") public String quanLyTuyenDung(Model model) {
+	 * List<JoblistingsEntity> dsTD = danhSachViecLamDao.findAll();
+	 * model.addAttribute("dsTD", dsTD); return "nhaTuyenDung";
+	 * 
+	 * }
+	 */
 
 }

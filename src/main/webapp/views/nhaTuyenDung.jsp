@@ -118,7 +118,7 @@
 											<th scope="col">Vị Trí</th>
 											<th scope="col">Ngày Đăng</th>
 											<th scope="col">Hạn Nộp Hồ Sơ</th>
-											<th scope="col">Hành Động</th>
+											<!-- <th scope="col">Hành Động</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -129,11 +129,11 @@
 												<td>${job.joblocation}</td>
 												<td>${job.posteddate}</td>
 												<td>${job.applicationdeadline}</td>
-												<td>
+												<!-- <td>
 													<button type="button" class="btn btn-sm btn-primary">Chỉnh
 														Sửa</button>
 													<button type="button" class="btn btn-sm btn-danger">Xóa</button>
-												</td>
+												</td> -->
 											</tr>
 										</c:forEach>
 									</tbody>
