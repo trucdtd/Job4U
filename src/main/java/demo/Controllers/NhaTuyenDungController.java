@@ -63,6 +63,20 @@ public class NhaTuyenDungController {
 	        return "dangnhap"; // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
 	    }
 	    return "nhaTuyenDung";
+	public String nhaTuyenDung(HttpSession session, Model model) {
+	    Integer employerId = sessionService.getCurrentEmployerId();
+	    Integer role = (Integer) session.getAttribute("role"); // Lấy vai trò từ session
+
+	    if (role != null && role == 2) { // Kiểm tra vai trò là nhà tuyển dụng
+	        if (employerId != null) {
+	            EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
+	            model.addAttribute("employer", employer);
+	        }
+	        return "nhaTuyenDung"; // Trả về trang nhà tuyển dụng
+	    } else {
+	        model.addAttribute("message", "Bạn không có quyền truy cập vào trang này.");
+	        return "dangnhap"; // Trả về trang đăng nhập nếu không phải nhà tuyển dụng
+	    }
 	}
 	
 	@PostMapping("/employers/submit")
