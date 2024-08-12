@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Title</title>
+<title>Thông Tin và Nộp Cv</title>
 <!-- Required meta tags -->
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -27,7 +27,7 @@
 </head>
 
 <body>
-	<form action="/job4u/submit" method=post>
+	<form action="/applyCV/submit" method=post>
 		<main class="container-fluid">
 			<hr />
 			<div class="d-flex justify-content-end">
@@ -66,27 +66,27 @@
 						<div>
 							<input type="text"
 								class="form-control text-warning bg-dark border-0 text-lg mb-1"
-								name="fullname" id="" aria-describedby="helpId" placeholder=""
-								value="LÊ VĂN ĐOÀN" />
+								name="fullname" id="fullname" aria-describedby="helpId" placeholder=""
+								value="${nd.fullname}" />
 						</div>
 						<div>
 							<input type="text"
 								class="form-control text-warning bg-dark border-0" name="major"
-								id="" aria-describedby="helpId" placeholder=""
+								id="major" aria-describedby="helpId" placeholder=""
 								value="JAVA BACKEND DEVELOPER" />
 						</div>
 						<hr />
 						<div class="mt-2 mb-1 ms-2">
 							<label for="" class="form-label">Thông tin cá nhân</label> <input
 								type="text" class="form-control text-warning bg-dark border-0"
-								name="phone" id="" aria-describedby="helpId" placeholder=""
-								value="0989403071" />
+								name="phonenumber" id="phonenumber" aria-describedby="helpId" placeholder=""
+								value="${nd.phonenumber}" />
 						</div>
 						<div class="mb-3 ms-2">
 							<input type="text"
 								class="form-control text-warning bg-dark border-0" name="email"
-								id="" aria-describedby="helpId" placeholder=""
-								value="levandoan2305@gmail.com" />
+								id="email" aria-describedby="helpId" placeholder=""
+								value="${nd.email}" />
 						</div>
 						<hr />
 						<div class="mb-3 ms-2">
@@ -99,8 +99,8 @@
 						<div class="mb-3 ms-2">
 							<label for="" class="form-label">Kỹ năng</label> <input
 								type="text" class="form-control text-warning bg-dark border-0"
-								name="skills" id="" aria-describedby="helpId" placeholder=""
-								value="Kỹ năng thuyết trình, làm việc nhóm" />
+								name="skills" id="skills" aria-describedby="helpId" placeholder=""
+								value="${jobSeekers.skills}" />
 						</div>
 					</div>
 					<div class="col-8 bg-light">
