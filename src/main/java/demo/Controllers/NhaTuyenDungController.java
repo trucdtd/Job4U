@@ -63,6 +63,7 @@ public class NhaTuyenDungController {
 	        return "dangnhap"; // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
 	    }
 	    return "nhaTuyenDung";
+	}
 	public String nhaTuyenDung(HttpSession session, Model model) {
 	    Integer employerId = sessionService.getCurrentEmployerId();
 	    Integer role = (Integer) session.getAttribute("role"); // Lấy vai trò từ session
