@@ -48,20 +48,14 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
               <div class="form-container">
-                <form method="POST" action="/QuenMatKhau/submit">
-    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
-        <h1 class="lead fw-normal mb-0 me-3">LẤY LẠI MẬT KHẨU</h1>
-    </div>
-
-    <!-- Email input -->
-    <div class="form-outline">
-        <label class="form-label" for="email">Nhập email của bạn!</label>
-        <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Vui lòng nhập email của bạn!" required />
+               <form method="POST" action="/QuenMatKhau/submit">
+    <div class="form-outline mb-4">
+        <label class="form-label" for="email">Nhập email của bạn</label>
+        <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Vui lòng nhập email" required />
     </div>
 
     <div class="text-center text-lg-start mt-4 pt-2">
-        <button type="submit" class="btn btn-primary btn-lg">Xác Nhận</button>
-        <p class="small fw-bold mt-2 pt-1 mb-0">Bạn đã nhớ mật khẩu? <a href="/Login" class="link-danger">Đăng Nhập</a></p>
+        <button type="submit" name="submit" class="btn btn-primary btn-lg">Gửi mã</button>
     </div>
 </form>
               </div>
