@@ -18,6 +18,7 @@
 package demo.services;
 
 import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -26,6 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mailjet.client.resource.User;
@@ -36,18 +38,21 @@ import jakarta.annotation.PostConstruct;
 
 @Service
 public class UserService {
-	/*
-	 * @Value("${spring.mail.host}") private String mailHost;
-	 * 
-	 * @Value("${spring.mail.port}") private int mailPort;
-	 * 
-	 * @Value("${spring.mail.username}") private String mailUsername;
-	 * 
-	 * @Value("${spring.mail.password}") private String mailPassword;
-	 */
+	
+	  @Value("${spring.mail.host}") private String mailHost;
+	  
+	  @Value("${spring.mail.port}") private int mailPort;
+	  
+	  @Value("${spring.mail.username}") private String mailUsername;
+	  
+	  @Value("${spring.mail.password}") private String mailPassword;
+	 
 	
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UsersDao usersDao;
@@ -109,7 +114,7 @@ public class UserService {
      * @return true nếu email tồn tại, false nếu không.
      */
     public boolean isEmailExists(String email) {
-        return usersDao.existsByEmail(email);
+        return userRepository.findByEmail(email) != null;
     }
 
     /**
@@ -122,54 +127,72 @@ public class UserService {
         return usersDao.existsByPhonenumber(numberphone);
     }
 
-	/*
-	 * public boolean isTokenValid(String token, String code) { UsersEntity user =
-	 * userRepository.findByToken(token); if (user != null) {
-	 * System.out.println("Token from DB: " + user.getToken());
-	 * System.out.println("Code entered by user: " + code); return
-	 * code.equals(user.getToken()); } return false; }
-	 * 
-	 * public void updatePassword(String token, String newPassword) { UsersEntity
-	 * user = userRepository.findByToken(token); if (user != null) {
-	 * user.setPassword(newPassword); // Nên mã hóa mật khẩu trước khi lưu
-	 * user.setToken(null); // Xóa token sau khi dùng userRepository.save(user); } }
-	 * 
-	 * private static final String CHARACTERS =
-	 * "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; private static final int TOKEN_LENGTH
-	 * = 6; private static final SecureRandom RANDOM = new SecureRandom();
-	 * 
-	 * private String generateToken() { StringBuilder token = new
-	 * StringBuilder(TOKEN_LENGTH); for (int i = 0; i < TOKEN_LENGTH; i++) { int
-	 * index = RANDOM.nextInt(CHARACTERS.length());
-	 * token.append(CHARACTERS.charAt(index)); } return token.toString(); }
-	 */
+	
+    public boolean isTokenValid(String token) {
+        UsersEntity user = userRepository.findByToken(token);
+        return user != null;
+    }
+    
+ // Tạo token và lưu vào cơ sở dữ liệu
+    public String createPasswordResetToken(String email) {
+        String token = generateToken();
+        UsersEntity user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setToken(token);
+            userRepository.save(user);
+        }
+        return token;
+    }
 
-	/*
-	 * public String createPasswordResetToken(String email) { String token =
-	 * generateToken(); UsersEntity user = userRepository.findByEmail(email); if
-	 * (user != null) { user.setToken(token); userRepository.save(user);
-	 * 
-	 * sendPasswordResetEmail(email, token); } return token; }
-	 */
+    public void updatePassword(String token, String newPassword) {
+        UsersEntity user = userRepository.findByToken(token);
+        if (user != null) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+            user.setToken(null); // Xóa token sau khi đặt lại mật khẩu
+            userRepository.save(user);
+        }
+    }
 
-	/*
-	 * @PostConstruct private void initializeMailSender() { JavaMailSenderImpl
-	 * mailSenderImpl = new JavaMailSenderImpl(); mailSenderImpl.setHost(mailHost);
-	 * mailSenderImpl.setPort(mailPort); mailSenderImpl.setUsername(mailUsername);
-	 * mailSenderImpl.setPassword(mailPassword);
-	 * 
-	 * Properties props = mailSenderImpl.getJavaMailProperties();
-	 * props.put("mail.transport.protocol", "smtp"); props.put("mail.smtp.auth",
-	 * "true"); props.put("mail.smtp.starttls.enable", "true");
-	 * props.put("mail.debug", "true");
-	 * 
-	 * this.mailSender = mailSenderImpl; }
-	 * 
-	 * public void sendPasswordResetEmail(String userEmail, String token) {
-	 * SimpleMailMessage message = new SimpleMailMessage();
-	 * message.setTo(userEmail); message.setSubject("Yêu cầu đặt lại mật khẩu");
-	 * message.setText("Mã token của bạn để đặt lại mật khẩu là: " + token);
-	 * 
-	 * mailSender.send(message); }
-	 */
+ // Tạo mã token ngẫu nhiên
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final int TOKEN_LENGTH = 6;
+    private static final SecureRandom RANDOM = new SecureRandom();
+
+    private String generateToken() {
+        StringBuilder token = new StringBuilder(TOKEN_LENGTH);
+        for (int i = 0; i < TOKEN_LENGTH; i++) {
+            int index = RANDOM.nextInt(CHARACTERS.length());
+            token.append(CHARACTERS.charAt(index));
+        }
+        return token.toString();
+    }
+
+    public void sendPasswordResetEmail(String userEmail, String token) {
+        // Logic gửi email chứa mã token
+        // Sử dụng SimpleMailMessage hoặc JavaMailSender
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(userEmail);
+        message.setSubject("Yêu cầu đặt lại mật khẩu");
+        message.setText("Mã token của bạn để đặt lại mật khẩu là: " + token);
+        mailSender.send(message);
+    }
+
+    
+    
+		@PostConstruct
+		private void initializeMailSender() {
+			JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
+			mailSenderImpl.setHost(mailHost);
+			mailSenderImpl.setPort(mailPort);
+			mailSenderImpl.setUsername(mailUsername);
+			mailSenderImpl.setPassword(mailPassword);
+
+			Properties props = mailSenderImpl.getJavaMailProperties();
+			props.put("mail.transport.protocol", "smtp");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.debug", "true");
+
+			this.mailSender = mailSenderImpl;
+		}
 }
