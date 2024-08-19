@@ -171,20 +171,20 @@
 											<div class="col-md-6 p-2">
 												<label for="companyname" class="form-label">Tên công
 													ty</label> <input type="text" class="form-control" id="companyname"
-													name="companyname" value="${employer.companyname}">
+													name="companyname" value="${employer.companyname}" disabled>
 											</div>
 											<div class="col-md-6 p-2">
 												<label for="companywebsite" class="form-label">Tên
 													web công ty</label> <input type="text" class="form-control"
 													id="companywebsite" name="companywebsite"
-													value="${employer.companywebsite}">
+													value="${employer.companywebsite}" disabled >
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-6 p-2">
 												<label for="address" class="form-label">Địa chỉ công
 													ty</label> <input type="text" class="form-control" id="address"
-													name="address" value="${employer.address}">
+													name="address" value="${employer.address}" disabled >
 											</div>
 											<div class="col-md-6 p-2">
 												<label for="industry" class="form-label">Ngành nghề</label>
