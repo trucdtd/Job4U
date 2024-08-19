@@ -387,7 +387,7 @@ ol.styled_list li {
 											<div class="col-lg-6 member_desc">
 												<h6 for="ciTy">
 													Lương :
-													<p>${job.salary}<i class="bi bi-currency-dollar"></i>
+													<p>${job.salary} VNĐ
 													</p>
 												</h6>
 												<h6 for="phone">
