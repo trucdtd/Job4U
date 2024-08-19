@@ -25,7 +25,7 @@ public class LoginController {
 
     @Autowired
     SessionService sessionService;
-
+    
     @Autowired
     private UsersDao userDao;
 
@@ -42,8 +42,7 @@ public class LoginController {
         if (!users.isEmpty()) {
             UsersEntity user = users.get(0);
             logger.info("Đăng nhập với tài khoản: " + username + ", Vai trò: " + user.getRole());
-
-            if (user.getPassword().equals(password)) {  // So sánh trực tiếp mật khẩu
+            if (user.getPassword().equals(password)) { // Nếu mật khẩu đã được mã hóa, bạn cần so sánh với mã hóa
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());
                 session.setAttribute("userid", user.getUserid());
@@ -52,21 +51,27 @@ public class LoginController {
                 session.setAttribute("userPhonenumbeer", user.getPhonenumber());
                 session.setAttribute("userCreatedat", user.getCreatedat());
                 session.setAttribute("userUpdatedat", user.getUpdatedat());
-                session.setAttribute("role", user.getRole());
+                session.setAttribute("role", user.getRole()); // Thiết lập vai trò người dùng
 
+                // Lưu ID nhà tuyển dụng vào session nếu vai trò là 2
                 if (user.getRole() == 2) {
                     sessionService.setCurrentEmployerId(user.getUserid());
                 }
 
+                // Log vai trò người dùng từ session
+                logger.info("Vai trò người dùng từ session: " + session.getAttribute("role"));
+
+                // Chuyển hướng dựa trên vai trò của người dùng
                 switch (user.getRole()) {
                     case 0:
-                        return "redirect:/admin";
+                        return "redirect:/admin"; // Vai trò admin
                     case 1:
-                        return "redirect:/job4u";
+                        return "redirect:/job4u"; // Vai trò người tìm việc
                     case 2:
-                        return "redirect:/job4u/employers";
+                        return "redirect:/job4u/employers"; // Vai trò nhà tuyển dụng
                     default:
-                        return "redirect:/default";
+                        model.addAttribute("message", "Vai trò không hợp lệ");
+                        return "dangnhap";
                 }
             } else {
                 model.addAttribute("message", "Mật khẩu không đúng");

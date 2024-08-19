@@ -24,16 +24,16 @@ public class TrangChuController {
     JoblistingsDao danhSachViecLamDao;
 
     @Autowired
-    SessionService ss;
-
+	SessionService ss;
+    
     @RequestMapping("")
     public String trangChu(Model model, @RequestParam("page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.orElse(0), 6);
         Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
         model.addAttribute("dsSP", dsSP);
-        return "trangChu"; // Đây là tên file JSP trong thư mục /views
+        return "trangChu";
     }
-
+    
     @RequestMapping("/findJob")
     public String findJob(Model model,
                           @RequestParam("page") Optional<Integer> page,
@@ -57,10 +57,9 @@ public class TrangChuController {
         model.addAttribute("dsSP", dsSP);
         return "trangChu";
     }
-
     @GetMapping("/dangxuat")
-    public String dangxuat(HttpSession ss) {
-        ss.invalidate();
-        return "redirect:/job4u";
-    }
+	public String dangxuat(HttpSession ss) {
+		ss.invalidate();
+		return "redirect:/job4u";
+	}
 }
