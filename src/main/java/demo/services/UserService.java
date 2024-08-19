@@ -116,6 +116,6 @@ public class UserService {
      * @return true nếu số điện thoại tồn tại, false nếu không.
      */
     public boolean isPhoneNumberExists(String numberphone) {
-        return usersDao.existsByPhonenumber(numberphone);
+        return usersDao.existsByPhoneNumber(numberphone);
     }
 }

@@ -1,22 +1,27 @@
 package demo.interceptor;
 
+import demo.interceptor.AdminInterceptor;
+/*import demo.interceptor.EmployerInterceptor;*/
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-	@Bean
-	public InternalResourceViewResolver jspViewResolver() {
-	    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-	    resolver.setPrefix("/views/");
-	    resolver.setSuffix(".jsp");
-	    resolver.setOrder(1); // Đảm bảo không có vấn đề với thứ tự
-	    return resolver;
-	}
+	@Autowired
+	private AdminInterceptor adminInterceptor;
 
+	@Autowired
+	private EmployerInterceptor employerInterceptor;
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // Áp dụng AdminInterceptor cho tất cả
+																				// các đường dẫn bắt đầu với /admin
+
+		registry.addInterceptor(employerInterceptor).addPathPatterns("/job4u/employers");
+		// Áp dụng EmployerInterceptor cho /job4u/employers
+	}
 }
