@@ -133,9 +133,9 @@
             value = value.slice(0, -3);
         }
 
-        // Định dạng giá trị với dấu chấm và thêm ký hiệu tiền tệ
+        // Định dạng giá trị với dấu phẩy và thêm ký hiệu tiền tệ
         if (value) {
-            value = parseInt(value).toLocaleString('vi-VN'); // Định dạng với dấu chấm
+            value = parseInt(value).toLocaleString('vi-VN').replace(/\./g, ','); // Đổi dấu chấm thành dấu phẩy
         }
         input.value = value + ' VND'; // Thêm ký hiệu VND
     }
@@ -148,5 +148,6 @@
         }
     });
 </script>
+
 </html>
 </html>
