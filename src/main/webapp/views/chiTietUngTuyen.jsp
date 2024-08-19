@@ -521,7 +521,7 @@ ol.styled_list li {
 								<div class="col-lg-9 col-md-8">
 									<div class="member_designation">
 										<h2>${job.employer.companyname}</h2>
-										<span>${job.employer.companywebsite}</span>
+										<span style="color: blue; text-decoration: underline;">${job.employer.companywebsite}</span>
 									</div>
 									<div class="member_desc">
 										<p>${job.employer.companydescription}</p>
