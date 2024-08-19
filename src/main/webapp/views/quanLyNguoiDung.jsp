@@ -17,7 +17,7 @@
 
 </head>
 <body>
-	
+
 	<div class="container">
 		<!-- header -->
 		<%@ include file="/views/header.jsp"%>
@@ -32,7 +32,7 @@
 					<div id="userManagement" class="card">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tài Khoản</div>
-						</div>				
+						</div>
 
 						<div class="card-body p-0">
 
@@ -187,12 +187,22 @@
 												<td>${bv.jobrequirements}</td>
 												<td>${bv.joblocation}</td>
 												<td>${bv.jobdescription}</td>
-												<td><span style="display: inline-flex; align-items: center;">${bv.salary}<i class="bi bi-currency-dollar" style="margin-left: 2px;"></i></span></td>
+												<td><span
+													style="display: inline-flex; align-items: center;">
+														<script>
+												            var salary = Number(${bv.salary});
+												            if (!isNaN(salary)) {
+												                document.write(salary.toLocaleString('vi-VN') + 'VND');
+												            } else {
+												                document.write('N/A');
+												            }
+												        </script>
+												</span></td>
 												<td><a href="/admin/detailPost/${bv.jobid}"
 													class="btn btn-info" type="button"
-													style="background-color: #00688B; color: white;">Chi
-														tiết</a> <a href="#" class="btn btn-danger"
-													onclick="return confirmDelete(${bv.jobid});">Xóa</a></td>
+													style="background-color: #00688B; color: white; display: inline-block;">Chi
+														tiết</a> <%-- <a href="#" class="btn btn-danger"
+													onclick="return confirmDelete(${bv.jobid});">Xóa</a> --%></td>
 											</tr>
 										</c:forEach>
 									</tbody>

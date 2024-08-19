@@ -62,14 +62,20 @@
 										class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
 										<div class="d-flex flex-row align-items-center mb-1">
 											<h4 class="mb-1 me-1">
-												<i class="fas fa-dollar-sign"></i> ${job.salary}
+												<script>
+            var salary = Number(${job.salary});
+            if (!isNaN(salary)) {
+                document.write(salary.toLocaleString('vi-VN') + ' VND');
+            } else {
+                document.write('N/A');
+            }
+        </script>
 											</h4>
 										</div>
 										<div class="d-flex flex-column mt-4">
 											<a href="/applyCV" data-mdb-button-init data-mdb-ripple-init
-												class="btn btn-primary btn-sm" type="button">Ứng
-												tuyển</a>
-											<a href="/job4u/chiTiet/${job.jobid}"
+												class="btn btn-primary btn-sm" type="button">Ứng tuyển</a> <a
+												href="/job4u/chiTiet/${job.jobid}"
 												class="btn btn-outline-primary btn-sm mt-2">Thông tin
 												chi tiết</a>
 										</div>

@@ -99,7 +99,7 @@
 							<div class="col-md-6">
 								<label for="salary">Mức Lương:</label> <input
 									class="form-control" type="text" id="salary" name="salary"
-									value="${bv.salary}" required>
+									value="${bv.salary}" required oninput="formatSalary(this)">
 							</div>
 						</div>
 
@@ -123,5 +123,30 @@
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+    function formatSalary(input) {
+        // Lấy giá trị từ ô input và loại bỏ ký tự không phải số
+        let value = input.value.replace(/\D/g, '');
+
+        // Nếu giá trị có ít nhất 4 ký tự, loại bỏ 3 ký tự cuối cùng
+        if (value.length > 3) {
+            value = value.slice(0, -3);
+        }
+
+        // Định dạng giá trị với dấu chấm và thêm ký hiệu tiền tệ
+        if (value) {
+            value = parseInt(value).toLocaleString('vi-VN'); // Định dạng với dấu chấm
+        }
+        input.value = value + ' VND'; // Thêm ký hiệu VND
+    }
+
+    // Định dạng giá trị ban đầu khi trang được tải
+    document.addEventListener('DOMContentLoaded', function() {
+        const salaryInput = document.getElementById('salary');
+        if (salaryInput) {
+            formatSalary(salaryInput);
+        }
+    });
+</script>
 </html>
 </html>
