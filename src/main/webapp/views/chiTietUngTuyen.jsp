@@ -16,11 +16,10 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 <style type="">
-/* Đảm bảo hình ảnh luôn có chiều cao và chiều rộng cố định */
-.card-body img {
+/* .card-body img {
 	height: 150px;
 	width: 100%;
-	object-fit: cover; /* Đảm bảo ảnh bao phủ toàn bộ khung */
+	object-fit: cover;
 }
 
 body {
@@ -91,6 +90,253 @@ body {
 	border-radius: 5px;
 	border: 0;
 	margin-bottom: 1rem;
+} */
+body{margin-top:20px;}
+
+.member-details {
+    padding-top: 80px;
+    padding-bottom: 80px
+}
+
+@media (min-width:992px) {
+    .member-details {
+        padding-top: 100px;
+        padding-bottom: 100px
+    }
+}
+
+.member-details .member_designation {
+    margin-bottom: 30px
+}
+
+.member-details .member_designation h2 {
+    margin-bottom: 5px;
+    margin-top: 25px
+}
+
+@media (min-width:768px) {
+    .member-details .member_designation h2 {
+        margin-top: 0
+    }
+}
+
+.member-details .member_designation span {
+    font-style: italic
+}
+
+.member-details .member_desc li {
+    display: block;
+    float: unset;
+    width: 100%
+}
+
+.member-details .member_desc li i {
+    color: #0cc652;
+    font-size: 14px
+}
+
+.member-details .member_desc h4 {
+    margin-top: 40px
+}
+
+.member-details .member_desc p {
+    margin-top: 10px
+}
+
+.member-details .member_desc .progress-holder {
+    margin-top: 30px
+}
+
+.member-details .media-box {
+    margin-bottom: 20px
+}
+
+@media (min-width:992px) {
+    .member-details .media-box {
+        margin-bottom: 0
+    }
+}
+
+.member-details .member_contact {
+    padding: 40px;
+    position: relative;
+    margin-top: 40px
+}
+
+.member-details .member_contact .media-icon {
+    font-size: 32px;
+    color: #dae0e6;
+    position: relative;
+    width: 30px;
+    text-align: center;
+    float: left;
+    margin-right: 15px
+}
+
+.member-details .member_contact .media-content {
+    padding-left: 0;
+    float: left
+}
+
+.member-details .member_contact .media-content h5 {
+    font-size: 15px
+}
+
+.member-details .member_contact .media-content h5,
+.member-details .member_contact .media-content a {
+    color: #dae0e6
+}
+
+@media (min-width:992px) {
+    .member-details .member_contact .social-icons {
+        text-align: right
+    }
+}
+
+.member-details .member_contact .social-icons .btn-social {
+    width: 40px;
+    height: 40px;
+    line-height: 40px
+}
+
+.member-details .member_contact .social-icons .btn {
+    background-color: transparent;
+    border: 1px solid;
+    border-color: #999;
+    color: #dae0e6
+}
+
+.member-details .member_contact .social-icons .btn:hover {
+    background-color: #0cc652;
+    border-color: #0cc652;
+    opacity: 1
+}
+
+.bg-image-holder,
+.bg-image {
+    background-size: cover!important;
+    background-position: 50% 0!important;
+    transition: all .3s linear;
+    background: #f5f5f6;
+    position: relative
+}
+
+.bg-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .7)
+}
+
+.bg-fixed {
+    background-attachment: fixed
+}
+
+.bg-image .overlay-content {
+    position: relative;
+    z-index: 5
+}
+
+
+.progress-holder {
+    margin-top: 50px
+}
+
+.progress-holder .barWrapper .progressText {
+    font-size: 15px;
+    color: #222
+}
+
+.progress-holder .progress {
+    margin-bottom: 25px;
+    margin-top: 10px;
+    overflow: visible;
+    background-color: #f5f5f6
+}
+
+.progress-holder .progress .progress-bar {
+    position: relative
+}
+
+.progress-holder .progress .progress-bar:after {
+    position: absolute;
+    content: '';
+    width: 1px;
+    height: 33px;
+    background-color: #0cc652;
+    top: -8px;
+    right: 0;
+    z-index: 55
+}
+
+.img-full {
+    width: 100%;
+}
+
+p {
+    color: #8b8e93;
+    font-weight: 300;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 26px;
+}
+
+
+.styled_list {
+    margin-top: 15px;
+    position: relative;
+    display: inline-block
+}
+
+@media (min-width:768px) {
+    .styled_list {
+        margin-top: 15px
+    }
+}
+
+.styled_list li {
+    font-size: 14px;
+    line-height: 30px
+}
+
+@media (min-width:768px) {
+    .styled_list li {
+        font-size: 14px;
+        float: left;
+        width: 50%
+    }
+}
+
+.styled_list li i {
+    margin-right: 10px;
+    font-size: 12px
+}
+
+.styled_list li a {
+    color: #8b8e93
+}
+
+@media (min-width:768px) {
+    .styled_list li a {
+        font-size: 12px
+    }
+}
+
+@media (min-width:992px) {
+    .styled_list li a {
+        font-size: 14px
+    }
+}
+
+ol.styled_list {
+    margin-left: 15px
+}
+
+ol.styled_list li {
+    padding-left: 10px
 }
 </style>
 </head>
@@ -263,99 +509,75 @@ body {
 
 			<article class="col-md-9">
 				<div class="container">
-					<div class="row gutters">
-						<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-							<div class="card h-100">
-								<div class="card-body">
-									<div class="account-settings">
-										<div class="user-profile">
-											<div
-												class="bg-image hover-zoom ripple rounded ripple-surface">
-												<img src="${job.employer.logo}" class="w-100" />
-											</div>
-											<br>
-											<h5 class="user-name">${job.employer.companyname}</h5>
-											<h6 class="user-email">${job.employer.companywebsite}</h6>
-										</div>
-										<div class="about">
-											<h5>Mô tả về Công Ty</h5>
-											<p>${job.employer.companydescription}</p>
-										</div>
+					<section class="member-details">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-3 col-md-4">
+									<div class="img-container">
+										<img src="https://bootdey.com/img/Content/avatar/avatar6.png"
+											alt="team member" class="img-full">
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-							<div class="card h-100">
-								<div class="card-body">
-									<div class="row gutters">
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<h3 class="mb-2 text-primary">Chi Tiết Tuyển Dụng</h3>
-										</div>
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="fullName">Ngành Nghề</h6>
-												<p>${job.employer.industry}
+								<div class="col-lg-9 col-md-8">
+									<div class="member_designation">
+										<h2>${job.employer.companyname}</h2>
+										<span>${job.employer.companywebsite}</span>
+									</div>
+									<div class="member_desc">
+										<p>${job.employer.companydescription}</p>
+										<div class="row">
+											<div class="col-lg-6 member_desc">
+												<h6>
+													Ngành Nghề :
+													<p>${job.employer.industry}</p>
+												</h6>
+												<h6 for="eMail">
+													Địa Chỉ :
+													<p>${job.employer.address}</p>
+												</h6>
+												<h6 for="phone">
+													Vị trí :
+													<p>${job.jobtitle}</p>
+												</h6>
+												<h6 for="zIp">
+													Địa Điểm Làm Việc :
+													<p>${job.joblocation}</p>
+												</h6>
 											</div>
-										</div>
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="eMail">Địa Chỉ</h6>
-												<p>${job.employer.address}
-											</div>
-										</div>
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="phone">Người Liên Hệ</h6>
-												<p>${job.employer.contactperson}
-											</div>
-										</div>
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="phone">Vị trí</h6>
-												<p>${job.jobtitle}
+											<div class="col-lg-6 member_desc">
+												<h6 for="ciTy">
+													Lương :
+													<p>${job.salary}<i class="bi bi-currency-dollar"></i>
+													</p>
+												</h6>
+												<h6 for="phone">
+													Người Liên Hệ:
+													<p>${job.employer.contactperson}</p>
+												</h6>
+												<h6 for="Street">
+													Loại Công Việc :
+													<p>${job.jobtype}</p>
+												</h6>
 											</div>
 										</div>
 									</div>
-									<div class="row gutters">
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="Street">Loại Công Việc</h6>
-												<p>${job.jobtype}
-											</div>
-										</div>
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-    										<div class="form-group">
-        										<h6 for="ciTy">Lương</h6>
-       											<p><i class="bi bi-currency-dollar"></i> ${job.salary}</p>
-   											</div>
-										</div>
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="sTate">Yêu Cầu Công Việc</h6>
-												<p>${job.jobrequirements}
-											</div>
-										</div>
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-											<div class="form-group">
-												<h6 for="zIp">Địa Điểm Làm Việc</h6>
-												<p>${job.joblocation}
-											</div>
-										</div>
-										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-    <div class="form-group">
-        <h6 for="ngaybd">Ngày Đăng</h6>
-        <p>${formattedPostedDate}</p>
-    </div>
-</div>
-<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-    <div class="form-group">
-        <h6 for="ngaykt">Hạn Nộp Hồ Sơ</h6>
-        <p>${formattedApplicationDeadline}</p>
-    </div>
-</div>
-
+									<div class="member_desc">
+										<h4>Yêu cầu công việc</h4>
+										<p>${job.jobrequirements}</p>
+										<h4>Mô tả về công việc</h4>
+										<p>${job.jobdescription}</p>
 									</div>
+									<div class="row ">
+										<div class="col-lg-6 member_desc">
+											<h4>Ngày Đăng</h4>
+											<p>${formattedPostedDate}</p>
+										</div>
+										<div class="col-lg-6 member_desc">
+											<h4>Hạn nộp</h4>
+											<p>${formattedApplicationDeadline}</p>
+										</div>
+									</div>
+									<br>
 									<div class="row gutters">
 										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											<div class="text-right">
@@ -369,27 +591,16 @@ body {
 								</div>
 							</div>
 						</div>
-					</div>
+					</section>
 				</div>
-
 			</article>
 		</div>
+		
+
 		<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
 		<!-- /footer -->
 	</div>
-	<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var postedDate = '${job.posteddate}';
-    var applicationDeadline = '${job.applicationdeadline}';
-
-    var formattedPostedDate = moment(postedDate).format('DD/MM/YYYY HH:mm');
-    var formattedApplicationDeadline = moment(applicationDeadline).format('DD/MM/YYYY HH:mm');
-
-    document.querySelector('.form-group #ngaybd + p').textContent = formattedPostedDate;
-    document.querySelector('.form-group #ngaykt + p').textContent = formattedApplicationDeadline;
-  });
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 </body>
 </html>
