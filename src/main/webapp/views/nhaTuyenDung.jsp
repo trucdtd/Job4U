@@ -340,37 +340,7 @@
     <button type="submit" class="btn text-light p-2" style="background-color: #00688B">Đăng bài</button>
 </form>
 
-<<<<<<< HEAD
-										</div>
-										<div class="row">
-											<div class="col-md-12 p-2">
-												<label for="jobrequirements" class="form-label">Yêu
-													cầu công việc</label>
-												<textarea class="form-control" id="jobrequirements"
-													name="jobrequirements" rows="4" required></textarea>
-											</div>
-
-										</div>
-										<div class="row">
-											<div class="col-md-6 p-2">
-												<label for="posteddate" class="form-label">Ngày đăng</label>
-												<input type="datetime-local" class="form-control"
-													id="posteddate" name="posteddate" required readonly>
-											</div>
-											<div class="col-md-6 p-2">
-												<label for="applicationdeadline" class="form-label">Hạn
-													nộp hồ sơ</label> <input type="datetime-local" class="form-control"
-													id="applicationdeadline" name="applicationdeadline"
-													required>
-											</div>
-										</div>
-										<hr>
-										<button type="submit" class="btn text-light p-2"
-											style="background-color: #00688B">Đăng bài</button>
-									</form>
-=======
->>>>>>> trucdtd
-								</div>
+				</div>
 							</div>
 						</div>
 					</div>
