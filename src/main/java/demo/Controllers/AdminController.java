@@ -31,8 +31,8 @@ public class AdminController {
 	@Autowired
 	UsersDao userDao;
 
-//	@Autowired
-//	JoblistingsDao joblistingsDao;
+	@Autowired
+	JoblistingsDao joblistingsDao;
 
 	@Autowired
 	JobSeekersDao jobSeekersDao;
@@ -57,8 +57,8 @@ public class AdminController {
 	        List<UsersEntity> dsND = userDao.findAll();
 	        model.addAttribute("dsND", dsND);
 
-//	        List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
-//	        model.addAttribute("qlBV", qlBV);
+	        List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
+	        model.addAttribute("qlBV", qlBV);
 
 	        List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
 	        model.addAttribute("qlCV", qlCV);
@@ -155,8 +155,8 @@ public class AdminController {
 
 	@GetMapping("/detailPost/{id}")
 	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
-//		JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
-//		model.addAttribute("bv", bv);
+		JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
+		model.addAttribute("bv", bv);
 		return "chiTietBaiViet";
 	}
 

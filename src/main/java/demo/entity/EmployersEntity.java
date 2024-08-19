@@ -24,22 +24,22 @@ public class EmployersEntity implements Serializable {
     private Integer employerid;
 
     @NotNull
-    @Column(name = "companyname", length = 100, nullable = false)
+    @Column(name = "companyname",nullable = false)
     private String companyname;
 
-    @Column(name = "companywebsite", length = 100)
+    @Column(name = "companywebsite")
     private String companywebsite;
 
-    @Column(name = "companydescription", length = 1000)
+    @Column(name = "companydescription")
     private String companydescription;
 
-    @Column(name = "address", length = 100)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "industry", length = 100)
+    @Column(name = "industry")
     private String industry;
 
-    @Column(name = "contactperson", length = 50)
+    @Column(name = "contactperson")
     private String contactperson;
 
     @NotNull

@@ -30,22 +30,22 @@ public class JoblistingsEntity implements Serializable {
     private String jobtitle;
 
     @NotNull
-    @Column(name = "jobdescription", length = 1000, nullable = false)
+    @Column(name = "jobdescription", nullable = false)
     private String jobdescription;
 
     @NotNull
-    @Column(name = "jobrequirements", length = 1000, nullable = false)
+    @Column(name = "jobrequirements", nullable = false)
     private String jobrequirements;
 
     @NotNull
-    @Column(name = "joblocation", length = 100, nullable = false)
+    @Column(name = "joblocation",nullable = false)
     private String joblocation;
 
     @Column(name = "salary", precision = 18, scale = 3)
     private BigDecimal salary;
 
     @NotNull
-    @Column(name = "jobtype", length = 50, nullable = false)
+    @Column(name = "jobtype", nullable = false)
     private String jobtype;
 
     @NotNull
