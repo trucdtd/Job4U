@@ -387,7 +387,7 @@ ol.styled_list li {
 											<div class="col-lg-6 member_desc">
 												<h6 for="ciTy">
 													Lương :
-													<p>${job.salary} VNĐ
+													<p id="salary">${job.salary} VNĐ
 													</p>
 												</h6>
 												<h6 for="phone">
@@ -435,7 +435,19 @@ ol.styled_list li {
 				</div>
 			</article>
 		</div>
-		
+		<script>
+    // Lấy phần tử có id "salary"
+    var salaryElement = document.getElementById("salary");
+    
+    // Lấy nội dung văn bản của phần tử
+    var salaryText = salaryElement.textContent || salaryElement.innerText;
+
+    // Thay thế dấu chấm bằng dấu phẩy
+    var formattedSalary = salaryText.replace(/\./g, ',');
+
+    // Cập nhật nội dung của phần tử với giá trị đã thay đổi
+    salaryElement.innerHTML = formattedSalary;
+</script>
 
 		<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
