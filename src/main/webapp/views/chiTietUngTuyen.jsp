@@ -16,11 +16,10 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 <style type="">
-/* Đảm bảo hình ảnh luôn có chiều cao và chiều rộng cố định */
 .card-body img {
 	height: 150px;
 	width: 100%;
-	object-fit: cover; /* Đảm bảo ảnh bao phủ toàn bộ khung */
+	object-fit: cover;
 }
 
 body {
@@ -374,22 +373,13 @@ body {
 
 			</article>
 		</div>
+		<!-- / Content -->
+
+
 		<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
 		<!-- /footer -->
 	</div>
-	<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var postedDate = '${job.posteddate}';
-    var applicationDeadline = '${job.applicationdeadline}';
-
-    var formattedPostedDate = moment(postedDate).format('DD/MM/YYYY HH:mm');
-    var formattedApplicationDeadline = moment(applicationDeadline).format('DD/MM/YYYY HH:mm');
-
-    document.querySelector('.form-group #ngaybd + p').textContent = formattedPostedDate;
-    document.querySelector('.form-group #ngaykt + p').textContent = formattedApplicationDeadline;
-  });
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 </body>
 </html>
