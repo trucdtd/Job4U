@@ -63,13 +63,13 @@
 										<div class="d-flex flex-row align-items-center mb-1">
 											<h4 class="mb-1 me-1">
 												<script>
-											            var salary = Number(${job.salary});
-											            if (!isNaN(salary)) {
-											                document.write(salary.toLocaleString('vi-VN') + ' VND');
-											            } else {
-											                document.write('N/A');
-											            }
-											        </script>
+														var salary = Number(${job.salary});
+														if (!isNaN(salary)) {
+														document.write(salary.toLocaleString('vi-VN') + ' VND');
+														} else {
+														document.write('N/A');
+														}
+														</script>
 											</h4>
 										</div>
 										<div class="d-flex flex-column mt-4">
@@ -103,16 +103,16 @@
 		</div>
 	</div>
 	<script>
-        /* http://localhost:8080/sanpham?page=1 */
-        var url = new URL(window.location.href);
-        function paging(page){
-            if(url.toString().includes("page")){
-                url.searchParams.set('page', page);
-            } else {
-                url.searchParams.append('page', page);
-            }
-            window.location.href = url;
-        }
-    </script>
+/* http://localhost:8080/sanpham?page=1 */
+var url = new URL(window.location.href);
+function paging(page){
+if(url.toString().includes("page")){
+url.searchParams.set('page', page);
+} else {
+url.searchParams.append('page', page);
+}
+window.location.href = url;
+}
+</script>
 </body>
 </html>
