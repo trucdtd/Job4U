@@ -31,7 +31,7 @@ public class UsersEntity implements Serializable {
     private String username;
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 255)
     @Column(name = "password", nullable = false)
     private String password;
 
