@@ -32,7 +32,7 @@ public class JobSeekersEntity implements Serializable {
     @Column(name = "resume")
     private String resume;
 
-    @Column(name = "profilesummary", length = 1000)
+    @Column(name = "profilesummary")
     private String profilesummary;
 
     @Lob
