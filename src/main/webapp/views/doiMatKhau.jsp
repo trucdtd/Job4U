@@ -20,10 +20,10 @@
 <style>
 </style>
 <body>
+	<!-- header -->
+	<%@ include file="/views/header.jsp"%>
+	<!-- /header -->
 	<div class="container">
-		<!-- header -->
-		<%@ include file="/views/header.jsp"%>
-		<!-- /header -->
 		<div class="row">
 
 			<div class="container-fluid h-100">
@@ -53,7 +53,8 @@
 									<div class="modal-dialog modal-dialog-centered">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="successModalLabel">Thông báo</h5>
+												<h5 class="modal-title" id="successModalLabel">Thông
+													báo</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -85,7 +86,8 @@
 									<div class="modal-dialog modal-dialog-centered">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="successModalLabel">Thông báo</h5>
+												<h5 class="modal-title" id="successModalLabel">Thông
+													báo</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -116,24 +118,27 @@
 
 								<!-- Mật khẩu mới -->
 								<div data-mdb-input-init class="form-outline">
-									<label class="form-label" for="newPassword">Mật Khẩu Mới</label>
-									<input type="password" id="newPassword" name="newPassword"
+									<label class="form-label" for="newPassword">Mật Khẩu
+										Mới</label> <input type="password" id="newPassword" name="newPassword"
 										class="form-control form-control-lg"
 										placeholder="Nhập mật khẩu mới" />
 								</div>
 
 								<!-- Xác nhận mật khẩu mới -->
 								<div data-mdb-input-init class="form-outline">
-									<label class="form-label" for="confirmNewPassword">Xác Nhận Mật Khẩu Mới</label>
-									<input type="password" id="confirmNewPassword"
-										name="confirmNewPassword" class="form-control form-control-lg"
+									<label class="form-label" for="confirmNewPassword">Xác
+										Nhận Mật Khẩu Mới</label> <input type="password"
+										id="confirmNewPassword" name="confirmNewPassword"
+										class="form-control form-control-lg"
 										placeholder="Xác nhận mật khẩu mới" />
 								</div>
 
 								<div class="text-center text-lg-start mt-4 pt-2">
-									<button type="submit" class="btn btn-primary btn-lg">Đổi Mật Khẩu</button>
+									<button type="submit" class="btn btn-primary btn-lg">Đổi
+										Mật Khẩu</button>
 									<p class="small fw-bold mt-2 pt-1 mb-0">
-										Quên mật khẩu? <a href="/QuenMatKhau" class="link-danger">Đặt Lại</a>
+										Quên mật khẩu? <a href="/QuenMatKhau" class="link-danger">Đặt
+											Lại</a>
 									</p>
 								</div>
 							</form>
