@@ -7,157 +7,223 @@
 <title>Insert title here</title>
 </head>
 <style>
-.lead {
-	font-size: 33px;
-	margin-bottom: 0px;
+/* Container settings */
+.container.pricing {
+    margin-top: 30px;
 }
 
-.panel-footer {
-	text-align: center;
+/* Pricing card styles */
+.pricing-card {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Centering the last pricing card */
+.container.pricing .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the cards */
+}
+
+.pricing-card {
+    width: 100%; /* Ensure cards take full width in smaller viewports */
+    max-width: 350px; /* Set a max-width for responsiveness */
+}
+
+/* Pricing card individual styling */
+.pricing-header {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.pricing-body {
+    padding: 20px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+}
+
+.features li {
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Different card styles */
+.basic {
+    background-color: #f9f9f9;
+}
+
+.standard {
+    background-color: #e9ecef;
+}
+
+.premium {
+    background-color: #d4edda;
+}
+
+.special {
+    background-color: #fff3cd;
+}
+
+.candidate-basic {
+    background-color: #e7f0ff;
+}
+
+.candidate-standard {
+    background-color: #d1ecf1;
+}
+
+.candidate-premium {
+    background-color: #cce5ff;
+}
+
+/* Responsive settings */
+@media (max-width: 768px) {
+    .pricing-card {
+        margin-bottom: 15px;
+        max-width: 100%;
+    }
 }
 </style>
 <body>
-	<div class="container bootstrap snippets bootdey">
-		<div class="row">
-			<div class="col-md-4">
-				<br>
-				<div class="panel panel-danger">
-					<div class="panel-heading">
-						<h4 class="text-center">3 NGÀY</h4>
-					</div>
-					<div class="panel-body text-center">
-						<p class="lead">
-							<strong>0 Đ / Tháng</strong>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush text-center">
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>Top
-							Bài Viết 1 Lần / Tuần</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>X</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i></li>
-					</ul>
-					<div class="panel-footer">
-						<a class="btn btn-lg btn-block btn-danger" href="#">MUA</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<br>
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h4 class="text-center">7 NGÀY</h4>
-					</div>
-					<div class="panel-body text-center">
-						<p class="lead">
-							<strong>39.000 Đ / Tháng</strong>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush text-center">
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>Top
-							Bài Viết 2 Lần / Tuần</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>X</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i></li>
-					</ul>
-					<div class="panel-footer">
-						<a class="btn btn-lg btn-block btn-info" href="#">MUA!</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<br>
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<h4 class="text-center">1 THÁNG</h4>
-					</div>
-					<div class="panel-body text-center">
-						<p class="lead">
-							<strong>160.000 Đ / Tháng</strong>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush text-center">
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>Top
-							Bài Viết 5 Lần / Tuần</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>Thêm
-							2 CV</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i></li>
-					</ul>
-					<div class="panel-footer">
-						<a class="btn btn-lg btn-block btn-success" href="#">MUA</a>
-					</div>
-				</div>
-				<br>
-			</div>
-			<hr>
-			<div class="col-md-4">
-				<br>
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h4 class="text-center">3 THÁNG</h4>
-					</div>
-					<div class="panel-body text-center">
-						<p class="lead">
-							<strong>480.000 Đ / Tháng</strong>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush text-center">
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>Top
-							Bài Viết 1 Lần / Ngày</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>Thêm
-							6 CV</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i></li>
-					</ul>
-					<div class="panel-footer">
-						<a class="btn btn-lg btn-block btn-primary" href="#">MUA</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<br>
-				<div class="panel panel-warning">
-					<div class="panel-heading">
-						<h4 class="text-center">7 THÁNG</h4>
-					</div>
-					<div class="panel-body text-center">
-						<p class="lead">
-							<strong>1.120.000 Đ / Tháng</strong>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush text-center">
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>Top
-							Bài Viết 2 Lần / Ngày</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>Thêm
-							14 CV</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i></li>
-					</ul>
-					<div class="panel-footer">
-						<a class="btn btn-lg btn-block btn-warning" href="#">MUA</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<br>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="text-center">1 NĂM</h4>
-					</div>
-					<div class="panel-body text-center">
-						<p class="lead">
-							<strong>1.900.000 Đ / Tháng</strong>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush text-center">
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>Top
-							Bài Viết 1 Lần / Giờ</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i>CV
-							Không Giới Hạn</li>
-						<li class="list-group-item"><i class="icon-ok text-danger"></i></li>
-					</ul>
-					<div class="panel-footer">
-						<a class="btn btn-lg btn-block btn-secondary" href="#">MUA</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div class="container pricing">
+    <div class="row">
+        <!-- Package 1 -->
+        <div class="col-md-4">
+            <div class="pricing-card basic">
+                <div class="pricing-header">
+                    <h4 class="text-center">Gói Cho Nhà Tuyển Dụng 1 Tháng</h4>
+                </div>
+                <div class="pricing-body text-center">
+                    <p class="price"><strong>149.000 VNĐ / Tháng</strong></p>
+                    <ul class="features">
+                        <li>Đăng 10 bài / Tháng</li>
+                    </ul>
+                    <a class="btn btn-primary" href="#">MUA</a>
+                </div>
+            </div>
+        </div>
+        <!-- Package 2 -->
+        <div class="col-md-4">
+            <div class="pricing-card standard">
+                <div class="pricing-header">
+                    <h4 class="text-center">Gói Cho Nhà Tuyển Dụng 6 Tháng</h4>
+                </div>
+                <div class="pricing-body text-center">
+                    <p class="price"><strong>745.000 VNĐ / 6 Tháng</strong></p>
+                    <ul class="features">
+                        <li>Đăng 30 bài / Tháng</li>
+                    </ul>
+                    <a class="btn btn-primary" href="#">MUA</a>
+                </div>
+            </div>
+        </div>
+        <!-- Package 3 -->
+        <div class="col-md-4">
+            <div class="pricing-card premium">
+                <div class="pricing-header">
+                    <h4 class="text-center">Gói Cho Nhà Tuyển Dụng 12 Tháng</h4>
+                </div>
+                <div class="pricing-body text-center">
+                    <p class="price"><strong>1,490.000 VNĐ / 12 Tháng</strong></p>
+                    <ul class="features">
+                        <li>Đăng 50 bài / Tháng</li>
+                    </ul>
+                    <a class="btn btn-primary" href="#">MUA</a>
+                </div>
+            </div>
+        </div>
+        <!-- Special Package -->
+        <div class="col-md-4">
+            <div class="pricing-card special">
+                <div class="pricing-header">
+                    <h4 class="text-center">Gói Đặc Biệt Lên Top</h4>
+                </div>
+                <div class="pricing-body text-center">
+                    <p class="price"><strong>299.000 VNĐ / Tháng</strong></p>
+                    <ul class="features">
+                        <li>Lên Top những công tin hàng đầu</li>
+                    </ul>
+                    <a class="btn btn-primary" href="#">MUA</a>
+                </div>
+            </div>
+        </div>
+        <!-- Candidate Package 1 -->
+        <div class="col-md-4">
+            <div class="pricing-card candidate-basic">
+                <div class="pricing-header">
+                    <h4 class="text-center">Gói Ứng Viên 1 Tháng</h4>
+                </div>
+                <div class="pricing-body text-center">
+                    <p class="price"><strong>69.000 VNĐ / Tháng</strong></p>
+                    <ul class="features">
+                        <li>Tạo CV và nộp ứng tuyển 20 lần / Tháng</li>
+                    </ul>
+                    <a class="btn btn-primary" href="#">MUA</a>
+                </div>
+            </div>
+        </div>
+        <!-- Candidate Package 2 -->
+        <div class="col-md-4">
+            <div class="pricing-card candidate-standard">
+                <div class="pricing-header">
+                    <h4 class="text-center">Gói Ứng Viên 6 Tháng</h4>
+                </div>
+                <div class="pricing-body text-center">
+                    <p class="price"><strong>345.000 VNĐ / 6 Tháng</strong></p>
+                    <ul class="features">
+                        <li>Tạo CV và nộp ứng tuyển 30 lần / Tháng</li>
+                    </ul>
+                    <a class="btn btn-primary" href="#">MUA</a>
+                </div>
+            </div>
+        </div>
+        <!-- Candidate Package 3 -->
+        <div class="col-md-4">
+            <div class="pricing-card candidate-premium">
+                <div class="pricing-header">
+                    <h4 class="text-center">Gói Ứng Viên 12 Tháng</h4>
+                </div>
+                <div class="pricing-body text-center">
+                    <p class="price"><strong>690.000 VNĐ / 12 Tháng</strong></p>
+                    <ul class="features">
+                        <li>Tạo CV và nộp ứng tuyển 50 lần / Tháng</li>
+                    </ul>
+                    <a class="btn btn-primary" href="#">MUA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

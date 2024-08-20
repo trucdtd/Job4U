@@ -15,335 +15,145 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-<<<<<<< HEAD
-<style type="">
-/* .card-body img {
-	height: 150px;
-	width: 100%;
-	object-fit: cover;
-}
-
-body {
-	margin: 0;
-	color: #2e323c;
-	background: #f5f6fa;
-	position: relative;
-	height: 100%;
-}
-
-.account-settings .user-profile {
-	margin: 0 0 1rem 0;
-	padding-bottom: 1rem;
-	text-align: center;
-}
-
-.account-settings .user-profile .user-avatar {
-	margin: 0 0 1rem 0;
-}
-
-.account-settings .user-profile .user-avatar img {
-	width: 90px;
-	height: 90px;
-	-webkit-border-radius: 100px;
-	-moz-border-radius: 100px;
-	border-radius: 100px;
-}
-
-.account-settings .user-profile h5.user-name {
-	margin: 0 0 0.5rem 0;
-}
-
-.account-settings .user-profile h6.user-email {
-	margin: 0;
-	font-size: 0.8rem;
-	font-weight: 400;
-	color: #9fa8b9;
-}
-
-.account-settings .about {
-	margin: 2rem 0 0 0;
-	text-align: center;
-}
-
-.account-settings .about h5 {
-	margin: 0 0 15px 0;
-	color: #007ae1;
-}
-
-.account-settings .about p {
-	font-size: 0.825rem;
-}
-
-.form-control {
-	border: 1px solid #cfd1d8;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
-	font-size: .825rem;
-	background: #ffffff;
-	color: #2e323c;
-}
-
-.card {
-	background: #ffffff;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	border: 0;
-	margin-bottom: 1rem;
-} */
-body {
-	margin-top: 20px;
-=======
 <style>
-body{margin-top:20px;}
-
-.member-details {
-
-    padding-bottom: 80px
->>>>>>> lanhbv
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
-.member-details {
-	padding-bottom: 80px
+/* Wrapper để bao bọc toàn bộ nội dung và footer */
+.wrapper {
+    min-height: 100%; /* Chiều cao tối thiểu là 100% của trang */
+    display: flex;
+    flex-direction: column;
 }
 
-@media ( min-width :992px) {
-	.member-details {
-		padding-bottom: 100px
-	}
+/* Content chính sẽ chiếm hết không gian còn lại */
+.content {
+    flex: 1; /* Chiếm không gian còn lại phía trên footer */
 }
 
-.member-details .member_designation {
-	margin-bottom: 30px
+
+/* Hình ảnh thành viên */
+.img-container {
+    text-align: center;
+    margin-bottom: 15px;
 }
 
-.member-details .member_designation h2 {
-	margin-bottom: 5px;
-	margin-top: 25px
+.img-container img {
+    border-radius: 50%; /* Hình tròn */
+    width: 100%; /* Chiều rộng đầy đủ của container */
+    max-width: 150px; /* Giới hạn chiều rộng tối đa */
+    height: auto;
+    border: 3px solid #007bff; /* Đường viền xanh */
 }
 
-@media ( min-width :768px) {
-	.member-details .member_designation h2 {
-		margin-top: 0
-	}
+/* Phần mô tả thành viên */
+.member_designation h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.member-details .member_designation span {
-	font-style: italic
+.member_designation span {
+    font-size: 16px;
+    color: blue;
+    text-decoration: underline;
 }
 
-.member-details .member_desc li {
-	display: block;
-	float: unset;
-	width: 100%
+.member_desc h6 {
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
-.member-details .member_desc li i {
-	color: #0cc652;
-	font-size: 14px
+.member_desc p {
+    margin: 0;
+    padding: 0;
+    color: #555;
 }
 
-.member-details .member_desc h4 {
-	margin-top: 40px
+/* Định dạng lương */
+#salary {
+    color: #28a745; /* Màu xanh lá cho lương */
+    font-weight: bold;
 }
 
-.member-details .member_desc p {
-	margin-top: 10px
+/* Tiêu đề phần mô tả công việc và yêu cầu công việc */
+.member_desc h4 {
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #007bff;
 }
 
-.member-details .member_desc .progress-holder {
-	margin-top: 30px
+/* Định dạng các nút */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-left: 10px;
 }
 
-.member-details .media-box {
-	margin-bottom: 20px
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
 }
 
-@media ( min-width :992px) {
-	.member-details .media-box {
-		margin-bottom: 0
-	}
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    font-size: 16px;
+    padding: 10px 20px;
 }
 
-.member-details .member_contact {
-	padding: 40px;
-	position: relative;
-	margin-top: 40px
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
 }
 
-.member-details .member_contact .media-icon {
-	font-size: 32px;
-	color: #dae0e6;
-	position: relative;
-	width: 30px;
-	text-align: center;
-	float: left;
-	margin-right: 15px
+/* Căn chỉnh các phần tử trong row */
+.row {
+    margin-bottom: 15px;
 }
 
-.member-details .member_contact .media-content {
-	padding-left: 0;
-	float: left
+.member_desc {
+    margin-bottom: 15px;
 }
 
-.member-details .member_contact .media-content h5 {
-	font-size: 15px
+.member_desc p {
+    margin-left: 10px;
+    color: #555;
 }
 
-.member-details .member_contact .media-content h5, .member-details .member_contact .media-content a
-	{
-	color: #dae0e6
+/* Phần liên kết chân trang */
+.text-right {
+    text-align: right;
+    margin-top: 20px;
 }
 
-@media ( min-width :992px) {
-	.member-details .member_contact .social-icons {
-		text-align: right
-	}
-}
+/* Responsive */
+@media (max-width: 768px) {
+    .img-container img {
+        max-width: 120px;
+    }
 
-.member-details .member_contact .social-icons .btn-social {
-	width: 40px;
-	height: 40px;
-	line-height: 40px
-}
+    .member_designation h2 {
+        font-size: 20px;
+    }
 
-.member-details .member_contact .social-icons .btn {
-	background-color: transparent;
-	border: 1px solid;
-	border-color: #999;
-	color: #dae0e6
-}
+    .member_desc h6 {
+        font-size: 12px;
+    }
 
-.member-details .member_contact .social-icons .btn:hover {
-	background-color: #0cc652;
-	border-color: #0cc652;
-	opacity: 1
-}
+    .member_desc p {
+        font-size: 12px;
+    }
 
-.bg-image-holder, .bg-image {
-	background-size: cover !important;
-	background-position: 50% 0 !important;
-	transition: all .3s linear;
-	background: #f5f5f6;
-	position: relative
-}
-
-.bg-image:before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, .7)
-}
-
-.bg-fixed {
-	background-attachment: fixed
-}
-
-.bg-image .overlay-content {
-	position: relative;
-	z-index: 5
-}
-
-.progress-holder {
-	margin-top: 50px
-}
-
-.progress-holder .barWrapper .progressText {
-	font-size: 15px;
-	color: #222
-}
-
-.progress-holder .progress {
-	margin-bottom: 25px;
-	margin-top: 10px;
-	overflow: visible;
-	background-color: #f5f5f6
-}
-
-.progress-holder .progress .progress-bar {
-	position: relative
-}
-
-.progress-holder .progress .progress-bar:after {
-	position: absolute;
-	content: '';
-	width: 1px;
-	height: 33px;
-	background-color: #0cc652;
-	top: -8px;
-	right: 0;
-	z-index: 55
-}
-
-.img-full {
-	width: 100%;
-}
-
-p {
-	color: #8b8e93;
-	font-weight: 300;
-	margin-bottom: 0;
-	font-size: 14px;
-	line-height: 26px;
-}
-
-.styled_list {
-	margin-top: 15px;
-	position: relative;
-	display: inline-block
-}
-
-@media ( min-width :768px) {
-	.styled_list {
-		margin-top: 15px
-	}
-}
-
-.styled_list li {
-	font-size: 14px;
-	line-height: 30px
-}
-
-@media ( min-width :768px) {
-	.styled_list li {
-		font-size: 14px;
-		float: left;
-		width: 50%
-	}
-}
-
-.styled_list li i {
-	margin-right: 10px;
-	font-size: 12px
-}
-
-.styled_list li a {
-	color: #8b8e93
-}
-
-@media ( min-width :768px) {
-	.styled_list li a {
-		font-size: 12px
-	}
-}
-
-@media ( min-width :992px) {
-	.styled_list li a {
-		font-size: 14px
-	}
-}
-
-ol.styled_list {
-	margin-left: 15px
-}
-
-ol.styled_list li {
-	padding-left: 10px
-}
+    .btn-primary, .btn-secondary {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 </style>
 </head>
 
@@ -352,8 +162,8 @@ ol.styled_list li {
 	<%@ include file="/views/header.jsp"%>
 	<!-- /header -->
 	<div class="container">
-		<div class="row mb-4">
-			<article class="col-md-9">
+		<div class="row">
+			<article class="col-md">
 				<div class="container">
 					<section class="member-details">
 						<div class="container">
@@ -427,7 +237,7 @@ ol.styled_list li {
 										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											<div class="text-right">
 												<a href="/job4u" type="button" id="submit" name="submit"
-													class="btn btn-secondary">Hủy</a>
+													class="btn btn-secondary">Quay lại</a>
 												<button type="button" id="submit" name="submit"
 													class="btn btn-primary">Ứng Tuyển</button>
 											</div>
@@ -440,56 +250,43 @@ ol.styled_list li {
 				</div>
 			</article>
 		</div>
-		<script>
-<<<<<<< HEAD
-			// Lấy phần tử có id "salary"
-			var salaryElement = document.getElementById("salary");
-
-			// Lấy nội dung văn bản của phần tử
-			var salaryText = salaryElement.textContent
-					|| salaryElement.innerText;
-
-			// Thay thế dấu chấm bằng dấu phẩy
-			var formattedSalary = salaryText.replace(/\./g, ',');
-
-			// Cập nhật nội dung của phần tử với giá trị đã thay đổi
-			salaryElement.innerHTML = formattedSalary;
-		</script>
-=======
-    // Lấy phần tử có id "salary"
-    var salaryElement = document.getElementById("salary");
-
-    if (salaryElement) { // Kiểm tra xem phần tử có tồn tại không
-        // Lấy nội dung văn bản của phần tử
-        var salaryText = salaryElement.textContent || salaryElement.innerText;
-
-        // Xóa chữ VNĐ và khoảng trắng
-        salaryText = salaryText.replace(' VNĐ', '').replace(/\s/g, '');
-
-        // Chuyển đổi số tiền thành số nguyên
-        var salaryNumber = Number(salaryText);
-
-        // Định dạng số tiền
-        var formattedSalary = salaryNumber.toLocaleString('en-US', { minimumFractionDigits: 0 });
-
-        // Cập nhật nội dung của phần tử với giá trị đã thay đổi
-        salaryElement.innerHTML = formattedSalary + ' VNĐ';
-    } else {
-        console.warn('Element with id "salary" not found.');
-    }
-</script>
->>>>>>> lanhbv
-
-	</div>
+</div>
 	<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
-		<!-- /footer -->
-<<<<<<< HEAD
-	</div>
-	<script
+	<!-- /footer -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lấy phần tử có id "salary"
+            var salaryElement = document.getElementById("salary");
+
+            // Lấy nội dung văn bản của phần tử
+            var salaryText = salaryElement.textContent || salaryElement.innerText;
+
+            // Xóa chữ VNĐ và khoảng trắng
+            salaryText = salaryText.replace('VNĐ', '').trim();
+
+            // Chuyển đổi số tiền thành số nguyên
+            var salaryNumber = parseFloat(salaryText.replace(/\./g, '').replace(/,/g, ''));
+
+            // Định dạng số tiền với dấu phẩy và dấu chấm theo yêu cầu
+            var formattedSalary = salaryNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+            // Thay đổi định dạng từ dấu phẩy thành dấu chấm cho phân cách triệu
+            var parts = formattedSalary.split(',');
+            if (parts.length > 1) {
+                var integerPart = parts.slice(0, -1).join(','); // Phần nguyên
+                var decimalPart = parts[parts.length - 1]; // Phần thập phân
+                formattedSalary = integerPart + '.' + decimalPart;
+            }
+
+            // Cập nhật nội dung của phần tử với giá trị đã thay đổi
+            salaryElement.innerHTML = formattedSalary + ' VNĐ';
+        });
+    </script>
+<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-=======
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
->>>>>>> lanhbv
 </body>
 </html>
