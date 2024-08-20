@@ -22,10 +22,10 @@
 <
 </head>
 <body>
+	<!-- header -->
+	<%@ include file="/views/header.jsp"%>
+	<!-- header -->
 	<div class="container">
-		<!-- header -->
-		<%@ include file="/views/header.jsp"%>
-		<!-- header -->
 		<div class="container">
 			<div class="row mt-3">
 				<!-- aside -->
@@ -71,7 +71,7 @@
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="role" class="form-label">Vai trò</label> <select
-												name="role" id="role" class="form-select" disabled >
+												name="role" id="role" class="form-select" disabled>
 												<option value="0" ${nd.role == '0' ? 'selected' : ''}>Admin</option>
 												<option value="1" ${nd.role == '1' ? 'selected' : ''}>Ứng
 													viên</option>
@@ -90,7 +90,7 @@
 									</div>
 								</form>
 
-								
+
 							</div>
 						</div>
 					</div>

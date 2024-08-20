@@ -62,10 +62,10 @@
 
 </head>
 <body>
+	<!-- header -->
+	<%@ include file="/views/header.jsp"%>
+	<!-- header -->
 	<div class="container">
-		<!-- header -->
-		<%@ include file="/views/header.jsp"%>
-		<!-- header -->
 		<div class="container">
 			<div class="row">
 				<!-- aside -->
@@ -427,11 +427,10 @@
 				<!-- article -->
 			</div>
 		</div>
-		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
-		<!-- footer -->
 	</div>
-
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -17,11 +17,10 @@
 
 </head>
 <body>
-
+	<!-- header -->
+	<%@ include file="/views/header.jsp"%>
+	<!-- header -->
 	<div class="container">
-		<!-- header -->
-		<%@ include file="/views/header.jsp"%>
-		<!-- header -->
 		<div class="container">
 			<div class="row">
 				<!-- aside -->
@@ -283,7 +282,6 @@
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
 	</div>
-
 </body>
 <script>
 	function showTable(event, tableId) {

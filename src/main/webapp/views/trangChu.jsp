@@ -20,10 +20,10 @@
 <style>
 </style>
 <body>
+	<!-- header -->
+	<%@ include file="/views/header.jsp"%>
+	<!-- /header -->
 	<div class="container">
-		<!-- header -->
-		<%@ include file="/views/header.jsp"%>
-		<!-- /header -->
 		<!-- Thanh tìm kiếm chính -->
 		<nav class="col-md-12">
 			<div class="container mt-4">
@@ -314,12 +314,11 @@
 		</div>
 
 		<%@ include file="/views/chat.jsp"%>
-
-		<div class="mt-4">
-			<!-- footer -->
-			<%@ include file="/views/footer.jsp"%>
-			<!-- /footer -->
-		</div>
+	</div>
+	<div class="mt-4">
+		<!-- footer -->
+		<%@ include file="/views/footer.jsp"%>
+		<!-- /footer -->
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

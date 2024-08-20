@@ -13,12 +13,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-
+	<!-- header -->
+	<%@ include file="/views/header.jsp"%>
+	<!-- header -->
 	<div class="container">
-		<!-- header -->
-		<%@ include file="/views/header.jsp"%>
-		<!-- header -->
-
 		<div class="container">
 			<div class="row">
 				<%@ include file="/views/menuAdmin.jsp"%>

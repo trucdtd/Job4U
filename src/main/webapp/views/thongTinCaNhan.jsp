@@ -16,8 +16,8 @@
 }
 </style>
 <body>
+	<%@ include file="/views/header.jsp"%>
 	<div class="container">
-		<%@ include file="/views/header.jsp"%>
 		<br>
 		<div class="container bootstrap snippets bootdey">
 			<div class="panel-body inf-content">

@@ -16,10 +16,10 @@
 <link rel="stylesheet" href="/css/quanlyuser.css">
 </head>
 <body>
+	<!-- header -->
+	<%@ include file="/views/header.jsp"%>
+	<!-- /header -->
 	<div class="container">
-		<!-- header -->
-		<%@ include file="/views/header.jsp"%>
-		<!-- /header -->
 		<br>
 
 		<article>
@@ -124,30 +124,30 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-    function formatSalary(input) {
-        // Lấy giá trị từ ô input và loại bỏ ký tự không phải số
-        let value = input.value.replace(/\D/g, '');
+		function formatSalary(input) {
+			// Lấy giá trị từ ô input và loại bỏ ký tự không phải số
+			let value = input.value.replace(/\D/g, '');
 
-        // Nếu giá trị có ít nhất 4 ký tự, loại bỏ 3 ký tự cuối cùng
-        if (value.length > 3) {
-            value = value.slice(0, -3);
-        }
+			// Nếu giá trị có ít nhất 4 ký tự, loại bỏ 3 ký tự cuối cùng
+			if (value.length > 3) {
+				value = value.slice(0, -3);
+			}
 
-        // Định dạng giá trị với dấu phẩy và thêm ký hiệu tiền tệ
-        if (value) {
-            value = parseInt(value).toLocaleString('vi-VN').replace(/\./g, ','); // Đổi dấu chấm thành dấu phẩy
-        }
-        input.value = value + ' VND'; // Thêm ký hiệu VND
-    }
+			// Định dạng giá trị với dấu phẩy và thêm ký hiệu tiền tệ
+			if (value) {
+				value = parseInt(value).toLocaleString('vi-VN').replace(/\./g,
+						','); // Đổi dấu chấm thành dấu phẩy
+			}
+			input.value = value + ' VND'; // Thêm ký hiệu VND
+		}
 
-    // Định dạng giá trị ban đầu khi trang được tải
-    document.addEventListener('DOMContentLoaded', function() {
-        const salaryInput = document.getElementById('salary');
-        if (salaryInput) {
-            formatSalary(salaryInput);
-        }
-    });
-</script>
-
+		// Định dạng giá trị ban đầu khi trang được tải
+		document.addEventListener('DOMContentLoaded', function() {
+			const salaryInput = document.getElementById('salary');
+			if (salaryInput) {
+				formatSalary(salaryInput);
+			}
+		});
+	</script>
 </html>
 </html>
