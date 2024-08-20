@@ -15,6 +15,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+<<<<<<< HEAD
 <style type="">
 /* .card-body img {
 	height: 150px;
@@ -93,6 +94,14 @@ body {
 } */
 body {
 	margin-top: 20px;
+=======
+<style>
+body{margin-top:20px;}
+
+.member-details {
+
+    padding-bottom: 80px
+>>>>>>> lanhbv
 }
 
 .member-details {
@@ -432,6 +441,7 @@ ol.styled_list li {
 			</article>
 		</div>
 		<script>
+<<<<<<< HEAD
 			// Lấy phần tử có id "salary"
 			var salaryElement = document.getElementById("salary");
 
@@ -445,12 +455,41 @@ ol.styled_list li {
 			// Cập nhật nội dung của phần tử với giá trị đã thay đổi
 			salaryElement.innerHTML = formattedSalary;
 		</script>
+=======
+    // Lấy phần tử có id "salary"
+    var salaryElement = document.getElementById("salary");
 
-		<!-- footer -->
+    if (salaryElement) { // Kiểm tra xem phần tử có tồn tại không
+        // Lấy nội dung văn bản của phần tử
+        var salaryText = salaryElement.textContent || salaryElement.innerText;
+
+        // Xóa chữ VNĐ và khoảng trắng
+        salaryText = salaryText.replace(' VNĐ', '').replace(/\s/g, '');
+
+        // Chuyển đổi số tiền thành số nguyên
+        var salaryNumber = Number(salaryText);
+
+        // Định dạng số tiền
+        var formattedSalary = salaryNumber.toLocaleString('en-US', { minimumFractionDigits: 0 });
+
+        // Cập nhật nội dung của phần tử với giá trị đã thay đổi
+        salaryElement.innerHTML = formattedSalary + ' VNĐ';
+    } else {
+        console.warn('Element with id "salary" not found.');
+    }
+</script>
+>>>>>>> lanhbv
+
+	</div>
+	<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
 		<!-- /footer -->
+<<<<<<< HEAD
 	</div>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+=======
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+>>>>>>> lanhbv
 </body>
 </html>
