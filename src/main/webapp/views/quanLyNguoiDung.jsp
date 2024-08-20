@@ -131,10 +131,8 @@
 												<td>${nd.role}</td>
 												<td><a href="/admin/detailUser/${nd.userid}"
 													class="btn btn-info text-white p-2 " type="button"
-													style="background-color: #00688B">Chi tiết</a> <a href="#"
-													class="btn btn-danger"
-													onclick="return confirmDeleteAccount(${nd.userid});">Xóa</a>
-												</td>
+													style="background-color: #00688B">Chi tiết</a> 
+
 											</tr>
 										</c:forEach>
 									</tbody>
