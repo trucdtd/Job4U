@@ -45,12 +45,12 @@
 										<div class="col-md-6 p-2">
 											<label for="username" class="form-label">Tên tài
 												khoản</label> <input type="text" class="form-control" id="username"
-												name="username" value="${nd.username}" required>
+												name="username" value="${nd.username}" readonly required>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="fullname" class="form-label">Họ và tên</label> <input
 												type="text" class="form-control" id="fullname"
-												name="fullname" value="${nd.fullname}" required>
+												name="fullname" value="${nd.fullname}" readonly required>
 										</div>
 									</div>
 
@@ -58,13 +58,13 @@
 										<div class="col-md-6 p-2">
 											<label for="email" class="form-label">Email</label> <input
 												type="text" class="form-control" id="email" name="email"
-												value="${nd.email}" required>
+												value="${nd.email}" readonly required>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="phonenumber" class="form-label">Số điện
 												thoại</label> <input type="text" class="form-control"
 												id="phonenumber" name="phonenumber"
-												value="${nd.phonenumber}" required>
+												value="${nd.phonenumber}" readonly required>
 										</div>
 									</div>
 
@@ -81,13 +81,13 @@
 										</div>
 									</div>
 									<hr>
-									<div class="row">
+									<!-- <div class="row">
 										<div class="card-action">
 											<button class="btn btn-info text-white"
 												style="background-color: #00688B">Update</button>
 											<a href="/admin" class="btn btn-danger">Cancel</a>
 										</div>
-									</div>
+									</div> -->
 								</form>
 
 
