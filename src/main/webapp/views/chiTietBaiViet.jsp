@@ -34,14 +34,14 @@
 						<div class="row p-2">
 							<div class="col-md-6">
 								<label for="jobid">ID:</label> <input class="form-control"
-									type="text" id="jobid" name="jobid" disabled
-									value="${bv.jobid}" required>
+									type="text" id="jobid" name="jobid" 
+									value="${bv.jobid}" readonly required>
 							</div>
 							<div class="col-md-6">
 								<label for="applicationdeadline">Hạn nộp đơn:</label> <input
 									class="form-control" type="text" id="applicationdeadline"
-									disabled name="applicationdeadline"
-									value="${bv.applicationdeadline}" required>
+									 name="applicationdeadline"
+									value="${bv.applicationdeadline}" readonly required>
 							</div>
 						</div>
 
@@ -50,12 +50,12 @@
 							<div class="col-md-6">
 								<label for="jobtitle">Tiêu Đề:</label> <input
 									class="form-control" type="text" id="jobtitle" name="jobtitle"
-									value="${bv.jobtitle}" required>
+									value="${bv.jobtitle}" readonly required>
 							</div>
 							<div class="col-md-6">
 								<label for="joblocation">Vị trí:</label> <input
 									class="form-control" type="text" id="joblocation"
-									name="joblocation" value="${bv.joblocation}" required>
+									name="joblocation" value="${bv.joblocation}" readonly required>
 							</div>
 						</div>
 
@@ -64,12 +64,12 @@
 							<div class="col-md-6">
 								<label for="companyname">Công Ty:</label> <input
 									class="form-control" type="text" id="companyname"
-									name="companyname" value="${bv.employer.companyname}" required>
+									name="companyname" value="${bv.employer.companyname}" readonly required>
 							</div>
 							<div class="col-md-6">
 								<label for="companywebsite">Trang Web:</label> <input
 									class="form-control" type="text" id="companywebsite"
-									name="companywebsite" value="${bv.employer.companywebsite}"
+									name="companywebsite" value="${bv.employer.companywebsite}" readonly
 									required>
 							</div>
 						</div>
@@ -79,12 +79,12 @@
 							<div class="col-md-6">
 								<label for="address">Địa chỉ công ty:</label> <input
 									class="form-control" type="text" id="address" name="address"
-									value="${bv.employer.address}" required>
+									value="${bv.employer.address}" readonly required>
 							</div>
 							<div class="col-md-6">
 								<label for="industry">Ngành công nghiệp:</label> <input
 									class="form-control" type="text" id="industry" name="industry"
-									value="${bv.employer.industry}" required>
+									value="${bv.employer.industry}" readonly required>
 							</div>
 						</div>
 
@@ -94,21 +94,25 @@
 								<label for="contactperson">Người liên hệ:</label> <input
 									class="form-control" type="text" id="contactperson"
 									name="contactperson" value="${bv.employer.contactperson}"
-									required>
+									readonly required>
 							</div>
 							<div class="col-md-6">
 								<label for="salary">Mức Lương:</label> <input
 									class="form-control" type="text" id="salary" name="salary"
-									value="${bv.salary}" required oninput="formatSalary(this)">
+									value="${bv.salary}" required readonly oninput="formatSalary(this)">
 							</div>
 						</div>
 
 						<hr>
-						<div class="row p-2" style="margin-top: 10px;"></div>
+						<!-- <div class="row p-2" style="margin-top: 10px;"></div>
 						<button type="submit" class="btn btn-info"
 							style="background-color: #00688B; color: white;">Cập
 							Nhật</button>
-						<a href="/admin" class="btn btn-danger">Hủy bỏ</a>
+						<a href="/admin" class="btn btn-danger">Hủy bỏ</a> -->
+						<div class="row p-2" style="margin-top: 10px;"></div>
+						<button type="submit" class="btn btn-info"
+							style="background-color: #00688B; color: white;">Hiện Bài Viết</button>
+						<a href="/admin" class="btn btn-danger">Ẩn Bài Viết</a>
 					</form>
 				</div>
 			</div>
@@ -117,10 +121,11 @@
 		</article>
 		<br>
 		<hr>
-		<!-- footer-->
+		
+	</div>
+	<!-- footer-->
 		<%@ include file="/views/footer.jsp"%>
 		<!-- /footer -->
-	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
@@ -149,5 +154,4 @@
 			}
 		});
 	</script>
-</html>
 </html>

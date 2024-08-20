@@ -90,32 +90,28 @@
 			</div>
 		</div>
 		<br>
-		<%@ include file="/views/footer.jsp"%>
+		
 	</div>
+	<%@ include file="/views/footer.jsp"%>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 <script>
-	document
-			.addEventListener(
-					"DOMContentLoaded",
-					function() {
-						// Nếu bạn có dữ liệu ngày giờ trong biến JavaScript, sử dụng nó để định dạng.
-						// Ví dụ:
-						var postedDate = '${job.posteddate}';
-						var applicationDeadline = '${job.applicationdeadline}';
+	document.addEventListener("DOMContentLoaded", function() {
+		// Nếu bạn có dữ liệu ngày giờ trong biến JavaScript, sử dụng nó để định dạng.
+		// Ví dụ:
+		var postedDate = '${job.posteddate}';
+		var applicationDeadline = '${job.applicationdeadline}';
 
-						if (postedDate && applicationDeadline) {
-							var formattedPostedDate = moment(postedDate)
-									.format('DD/MM/YYYY HH:mm');
-							var formattedApplicationDeadline = moment(
-									applicationDeadline).format(
-									'DD/MM/YYYY HH:mm');
+		if (postedDate && applicationDeadline) {
+			var formattedPostedDate = moment(postedDate).format('DD/MM/YYYY');
+			var formattedApplicationDeadline = moment(applicationDeadline).format('DD/MM/YYYY');
 
-							document.querySelector('.form-group #ngaybd + p').textContent = formattedPostedDate;
-							document.querySelector('.form-group #ngaykt + p').textContent = formattedApplicationDeadline;
-						}
-					});
+			document.querySelector('.form-group #ngaybd + p').textContent = formattedPostedDate;
+			document.querySelector('.form-group #ngaykt + p').textContent = formattedApplicationDeadline;
+		}
+	});
 </script>
+
 </html>

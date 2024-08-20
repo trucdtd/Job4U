@@ -37,7 +37,7 @@ public class thongTinCaNhanController {
 	                                   .orElseThrow(() -> new RuntimeException("Người dùng không tồn tại."));
 
 	        // Định dạng ngày giờ
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	        String formattedCreatedAt = user.getCreatedat().format(formatter);
 	        String formattedUpdatedAt = user.getCreatedat().format(formatter);
 

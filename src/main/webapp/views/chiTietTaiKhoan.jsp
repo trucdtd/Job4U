@@ -168,11 +168,12 @@
 				</div>
 				<!-- article -->
 			</div>
-		</div>
+		
+	</div>
+	</div>
 		<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
 		<!-- footer -->
-	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
@@ -201,6 +202,5 @@
 		activeLink.classList.add('active');
 	}
 </script>
-
-
+</body>
 </html>
