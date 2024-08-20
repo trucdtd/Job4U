@@ -13,25 +13,50 @@ import demo.entity.JoblistingsEntity;
 
 public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer> {
 
-    @Query("SELECT j FROM JoblistingsEntity j WHERE " +
-           "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND " +
-           "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
-    Page<JoblistingsEntity> findByJobLocationAndIndustry(@Param("joblocation") String joblocation,
-                                                         @Param("industry") String industry,
-                                                         Pageable pageable);
-                                                         
-    @Query("SELECT j FROM JoblistingsEntity j WHERE " +
-           "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%')))")
-    Page<JoblistingsEntity> findByJobLocation(@Param("joblocation") String joblocation, Pageable pageable);
+	@Query("SELECT j FROM JoblistingsEntity j WHERE "
+			+ "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
+			+ "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
+	Page<JoblistingsEntity> findByJobLocationAndIndustry(@Param("joblocation") String joblocation,
+			@Param("industry") String industry, Pageable pageable);
 
-    @Query("SELECT j FROM JoblistingsEntity j WHERE " +
-           "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
-    Page<JoblistingsEntity> findByIndustry(@Param("industry") String industry, Pageable pageable);
-    
-    void deleteByJobid(Integer jobid);
+	@Query("SELECT j FROM JoblistingsEntity j WHERE "
+			+ "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%')))")
+	Page<JoblistingsEntity> findByJobLocation(@Param("joblocation") String joblocation, Pageable pageable);
+
+	@Query("SELECT j FROM JoblistingsEntity j WHERE "
+			+ "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
+	Page<JoblistingsEntity> findByIndustry(@Param("industry") String industry, Pageable pageable);
+
+	@Query("SELECT j FROM JoblistingsEntity j WHERE "
+			+ "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%')))")
+	Page<JoblistingsEntity> findByJobTitle(@Param("jobtitle") String jobtitle, Pageable pageable);
 	
-	 List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
+	@Query("SELECT j FROM JoblistingsEntity j WHERE " +
+		       "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND " +
+		       "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND " +
+		       "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
+		Page<JoblistingsEntity> findByJobTitleAndJobLocationAndIndustry(@Param("jobtitle") String jobtitle,
+		                                                                 @Param("joblocation") String joblocation,
+		                                                                 @Param("industry") String industry,
+		                                                                 Pageable pageable);
+	
+	@Query("SELECT j FROM JoblistingsEntity j WHERE " +
+		       "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND " +
+		       "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%')))")
+		Page<JoblistingsEntity> findByJobTitleAndJobLocation(@Param("jobtitle") String jobtitle,
+		                                                     @Param("joblocation") String joblocation,
+		                                                     Pageable pageable);
 
-    
-    
+	@Query("SELECT j FROM JoblistingsEntity j WHERE " +
+		       "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND " +
+		       "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
+		Page<JoblistingsEntity> findByJobTitleAndIndustry(@Param("jobtitle") String jobtitle,
+		                                                   @Param("industry") String industry,
+		                                                   Pageable pageable);
+
+
+	void deleteByJobid(Integer jobid);
+
+	List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
+
 }

@@ -38,11 +38,25 @@ public class TrangChuController {
     public String findJob(Model model,
                           @RequestParam("page") Optional<Integer> page,
                           @RequestParam("joblocation") Optional<String> joblocation,
-                          @RequestParam("industry") Optional<String> industry) {
+                          @RequestParam("industry") Optional<String> industry,
+                          @RequestParam("jobtitle") Optional<String> jobtitle) {
         Pageable pageable = PageRequest.of(page.orElse(0), 6);
         Page<JoblistingsEntity> dsSP;
 
-        if (industry.isPresent() && !industry.get().isEmpty()) {
+        // Thực hiện tìm kiếm dựa trên các tham số đầu vào
+        if (jobtitle.isPresent() && !jobtitle.get().isEmpty()) {
+            if (industry.isPresent() && !industry.get().isEmpty()) {
+                if (joblocation.isPresent() && !joblocation.get().isEmpty() && !"All".equalsIgnoreCase(joblocation.get())) {
+                    dsSP = danhSachViecLamDao.findByJobTitleAndJobLocationAndIndustry(jobtitle.get(), joblocation.get(), industry.get(), pageable);
+                } else {
+                    dsSP = danhSachViecLamDao.findByJobTitleAndIndustry(jobtitle.get(), industry.get(), pageable);
+                }
+            } else if (joblocation.isPresent() && !joblocation.get().isEmpty() && !"All".equalsIgnoreCase(joblocation.get())) {
+                dsSP = danhSachViecLamDao.findByJobTitleAndJobLocation(jobtitle.get(), joblocation.get(), pageable);
+            } else {
+                dsSP = danhSachViecLamDao.findByJobTitle(jobtitle.get(), pageable);
+            }
+        } else if (industry.isPresent() && !industry.get().isEmpty()) {
             if (joblocation.isPresent() && !joblocation.get().isEmpty() && !"All".equalsIgnoreCase(joblocation.get())) {
                 dsSP = danhSachViecLamDao.findByJobLocationAndIndustry(joblocation.get(), industry.get(), pageable);
             } else {
@@ -54,9 +68,19 @@ public class TrangChuController {
             dsSP = danhSachViecLamDao.findAll(pageable);
         }
 
+        // Kiểm tra nếu không có kết quả
+        if (dsSP.isEmpty()) {
+            // Thêm thông báo vào mô hình
+            model.addAttribute("message", "Nội dung tìm kiếm hiện không có.");
+            // Trả về trang chủ với thông báo
+            return "trangChu";
+        }
+
+        // Nếu có kết quả, thêm vào mô hình và trả về trang kết quả
         model.addAttribute("dsSP", dsSP);
         return "trangChu";
     }
+    
     @GetMapping("/dangxuat")
 	public String dangxuat(HttpSession ss) {
 		ss.invalidate();
