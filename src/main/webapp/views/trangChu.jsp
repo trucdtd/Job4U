@@ -24,6 +24,14 @@
 	<%@ include file="/views/header.jsp"%>
 	<!-- /header -->
 	<div class="container">
+<<<<<<< HEAD
+=======
+		<!-- header -->
+		<%@ include file="/views/header.jsp"%>
+		<!-- header -->
+		<%@ include file="/views/nhaTuyenDungHangDau.jsp"%>
+		<!-- /header -->
+>>>>>>> trinhtt
 		<!-- Thanh tìm kiếm chính -->
 		<nav class="col-md-12">
 			<div class="container mt-4">
