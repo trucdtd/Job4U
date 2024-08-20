@@ -124,7 +124,7 @@
 								<i class="bi bi-house-door-fill me-3"></i> Cần Thơ, CT 2024
 							</p>
 							<p>
-								<i class="bi bi-envelope-fill me-3"></i> job4u@gmail.com
+								<i class="bi bi-envelope-fill me-3"></i> job4ct@gmail.com
 							</p>
 							<p>
 								<i class="bi bi-telephone-fill me-3"></i> +01 234 567 89
