@@ -78,13 +78,13 @@
 										</div>
 									</div>
 									<hr>
-									<!-- <div class="row">
+									<div class="row">
 										<div class="card-action">
-											<button class="btn btn-info text-white"
-												style="background-color: #00688B">Update</button>
+											<!-- <button class="btn btn-info text-white"
+												style="background-color: #00688B">Update</button> -->
 											<a href="/admin" class="btn btn-danger">Cancel</a>
 										</div>
-									</div> -->
+									</div>
 								</form>
 
 

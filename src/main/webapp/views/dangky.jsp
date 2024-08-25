@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -208,16 +209,20 @@
 									</p>
 								</div>
 							</form>
-							<%-- Hiển thị modal khi có thông báo thành công --%>
-							<c:if test="${not empty successMessage}">
-		<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                if (${not empty successMessage}) {
-                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-                    successModal.show();
-                }
-            });
-        </script>
+														<!-- Thông báo thành công -->
+							<c:if test="${not empty param.successMessage}">
+								<script>
+										document
+												.addEventListener(
+														'DOMContentLoaded',
+														function() {
+															const successModal = new bootstrap.Modal(
+																	document
+																			.getElementById('successModal'));
+															successModal.show();
+														});
+									</script>
+
 								<div class="modal fade" id="successModal" tabindex="-1"
 									aria-labelledby="successModalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-dialog-centered">
@@ -228,10 +233,10 @@
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
-											<div class="modal-body">${successMessage}</div>
+											<div class="modal-body">${param.successMessage}</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-primary"
-													onclick="window.location.href='/Login'">OK</button>
+													onclick="window.location.href='/admin'">OK</button>
 											</div>
 										</div>
 									</div>
