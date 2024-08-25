@@ -10,14 +10,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
 <!-- Bootstrap CSS v5.3.2 -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-	crossorigin="anonymous" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 <link rel="stylesheet" href="dangky.css">
-<script src="https://kit.fontawesome.com/c5fd529f32.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/c5fd529f32.js"crossorigin="anonymous"></script>
 <style>
 .text-danger {
 	color: red;
@@ -208,16 +203,22 @@
 									</p>
 								</div>
 							</form>
-							<%-- Hiển thị modal khi có thông báo thành công --%>
+							<!-- Hiển thị modal khi có thông báo thành công -->
 							<c:if test="${not empty successMessage}">
-		<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                if (${not empty successMessage}) {
-                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-                    successModal.show();
-                }
-            });
-        </script>
+								<script>
+									document
+											.addEventListener(
+													'DOMContentLoaded',
+													function() {
+														const successModalElement = document
+																.getElementById('successModal');
+														if (successModalElement) {
+															const successModal = new bootstrap.Modal(
+																	successModalElement);
+															successModal.show();
+														}
+													});
+								</script>
 								<div class="modal fade" id="successModal" tabindex="-1"
 									aria-labelledby="successModalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-dialog-centered">
@@ -248,33 +249,22 @@
 	</footer>
 
 	<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const applicantRadio = document.getElementById("applicant");
-        const employerRadio = document.getElementById("employer");
-        const employerDetails = document.getElementById("employerDetails");
+		document.addEventListener("DOMContentLoaded", function() {
+			const applicantRadio = document.getElementById("applicant");
+			const employerRadio = document.getElementById("employer");
+			const employerDetails = document.getElementById("employerDetails");
 
-        function toggleEmployerDetails() {
-            if (employerRadio.checked) {
-                employerDetails.style.display = "block";
-            } else {
-                employerDetails.style.display = "none";
-            }
-        }
+			function toggleEmployerDetails() {
+				employerDetails.style.display = employerRadio.checked ? "block"
+						: "none";
+			}
 
-        applicantRadio.addEventListener("change", toggleEmployerDetails);
-        employerRadio.addEventListener("change", toggleEmployerDetails);
+			applicantRadio.addEventListener("change", toggleEmployerDetails);
+			employerRadio.addEventListener("change", toggleEmployerDetails);
 
-        // Initial check in case of pre-filled data
-        toggleEmployerDetails();
-    });
-</script>
-	<!-- JavaScript to toggle employer details -->
-	<script>
-        function toggleEmployerDetails() {
-            var employerDetails = document.getElementById('employerDetails');
-            var employerRadio = document.getElementById('employer');
-            employerDetails.style.display = employerRadio.checked ? 'block' : 'none';
-        }
-    </script>
+			// Initial check in case of pre-filled data
+			toggleEmployerDetails();
+		});
+	</script>
 </body>
 </html>
