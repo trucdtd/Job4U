@@ -173,7 +173,7 @@ public class dangkyController {
             }
 
             // Thêm thông báo thành công và chuyển hướng đến trang đăng nhập
-            model.addAttribute("successMessage", "Đăng ký thành công!");  // Thiết lập thông báo thành công
+            model.addAttribute("successMessage", "Đăng ký thành công!");
             return "dangky";
 
         } catch (Exception e) {
