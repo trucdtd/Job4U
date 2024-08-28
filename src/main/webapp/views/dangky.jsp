@@ -10,45 +10,39 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
 <!-- Bootstrap CSS v5.3.2 -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-	crossorigin="anonymous" />
-<link rel="stylesheet" href="dangky.css">
-<script src="https://kit.fontawesome.com/c5fd529f32.js"
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <style>
 .text-danger {
-	color: red;
-	display: block;
+    color: red;
+    display: block;
 }
 
 .form-container {
-	max-width: 500px;
-	margin: auto;
-	padding: 2rem;
-	background-color: #fff;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-container img {
-	max-width: 100%;
-	height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .form-container .form-label {
-	margin-top: 0.5rem;
-	margin-bottom: 0.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .form-form-outline {
-	margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .form-container .btn {
-	width: 100%;
+    width: 100%;
 }
 </style>
 </head>
@@ -57,19 +51,15 @@
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<br>
 	<footer>
-		<section class="vh-90">
-			<div class="container h-custom">
-				<div
-					class="row d-flex justify-content-center align-items-center h-100">
-					<div class="col-md-9 col-lg-6 col-xl-5">
-						<img
-							src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-							class="img-fluid" alt="Sample image">
-					</div>
-					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-						<div class="form-container">
-							<form action="/DangKy/submit" method="post"
-								enctype="multipart/form-data" id="registerForm">
+	<section class="vh-90">
+            <div class="container h-custom">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-md-9 col-lg-6 col-xl-5">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
+                    </div>
+                    <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                        <div class="form-container">
+                            <form action="/DangKy/submit" method="post" enctype="multipart/form-data" id="registerForm">
 								<div
 									class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
 									<h1 class="lead fw-normal mb-0 me-3">Đăng Ký</h1>
@@ -201,53 +191,47 @@
 								</div>
 
 								<div class="text-center text-lg-start mt-4 pt-2">
-									<button type="submit" class="btn btn-primary">Đăng Ký</button>
-									<p class="small fw-bold mt-2 pt-1 mb-0">
-										Bạn đã có tài khoản? <a href="/Login" class="link-danger">Đăng
-											Nhập</a>
-									</p>
-								</div>
-							</form>
-							<%-- Hiển thị modal khi có thông báo thành công --%>
-							<c:if test="${not empty successMessage}">
-		<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                if (${not empty successMessage}) {
-                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-                    successModal.show();
-                }
-            });
-        </script>
-								<div class="modal fade" id="successModal" tabindex="-1"
-									aria-labelledby="successModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="successModalLabel">Thông
-													báo</h5>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">${successMessage}</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-primary"
-													onclick="window.location.href='/Login'">OK</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:if>
-						</div>
-					</div>
-					<br>
-					<%@ include file="/views/footer.jsp"%>
-				</div>
+                                    <button type="submit" class="btn btn-primary">Đăng Ký</button>
+                                    <p class="small fw-bold mt-2 pt-1 mb-0">
+                                        Bạn đã có tài khoản? <a href="/Login" class="link-danger">Đăng Nhập</a>
+                                    </p>
+                                </div>
+                            </form>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="successModalLabel">Thông báo</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">${successMessage}</div>
+                                        <div class="modal-footer">
+                                            <a href="/Login" type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br>
 
-			</div>
-		</section>
+		<%@ include file="/views/footer.jsp"%>
 	</footer>
 
-	<script>
+	 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var successMessage = '${successMessage}';
+        if (successMessage) {
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        }
+    });
+
     document.addEventListener("DOMContentLoaded", function() {
         const applicantRadio = document.getElementById("applicant");
         const employerRadio = document.getElementById("employer");
@@ -267,14 +251,8 @@
         // Initial check in case of pre-filled data
         toggleEmployerDetails();
     });
-</script>
-	<!-- JavaScript to toggle employer details -->
-	<script>
-        function toggleEmployerDetails() {
-            var employerDetails = document.getElementById('employerDetails');
-            var employerRadio = document.getElementById('employer');
-            employerDetails.style.display = employerRadio.checked ? 'block' : 'none';
-        }
     </script>
+	<!-- JavaScript to toggle employer details -->
+
 </body>
 </html>
