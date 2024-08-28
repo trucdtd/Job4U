@@ -21,7 +21,7 @@ public interface UsersDao extends JpaRepository<UsersEntity, Integer> {
     List<UsersEntity> findByUsername(String username);
   
     boolean existsByEmail(String email);
-    boolean existsByPhonenumber(String phonenumber);
+    boolean existsByPhonenumber(String numberphone);
     
     @Modifying
     @Transactional

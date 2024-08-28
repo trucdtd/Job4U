@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<UsersEntity, Integer> {
     
     // Tìm người dùng dựa trên token
     UsersEntity findByToken(String token);
+    
+    UsersEntity findByPhonenumber(String numberphone);
 }
