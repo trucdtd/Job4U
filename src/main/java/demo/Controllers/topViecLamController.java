@@ -15,18 +15,13 @@ import demo.services.topJobService;  // Đổi tên lớp dịch vụ tại đâ
 
 @Controller
 @RequestMapping("/topvieclam")
-public class topViecLamController {
-
-    @Autowired
-    private topJobService jobService;
-
+public class topViecLamController {   
     @GetMapping("")
     public String vieclam(Model model) {
-        List<JoblistingsEntity> topJobs = jobService.getTopJobs();
-        model.addAttribute("topJobs", topJobs);
-
-        Page<JoblistingsEntity> dsSP = jobService.getJobList(PageRequest.of(0, 10));
-        model.addAttribute("dsSP", dsSP);
+//        List<JoblistingsEntity> topJobs = jobService.Query();
+//        model.addAttribute("topJobs", topJobs);
+//        Page<JoblistingsEntity> dsSP = jobService.getJobList(PageRequest.of(0, 10));
+//        model.addAttribute("dsSP", dsSP);
 
         return "topViecLam";
     }

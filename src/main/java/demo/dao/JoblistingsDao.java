@@ -60,5 +60,6 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	void deleteByJobid(Integer jobid);
 
 	List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
-
+	
+	List<JoblistingsEntity> findTop5ByOrderByPosteddateAsc();
 }

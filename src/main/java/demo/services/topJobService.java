@@ -17,7 +17,7 @@ public class topJobService {
     private JoblistingsDao joblistingsDao;
 
     public List<JoblistingsEntity> Query() {
-        return joblistingsDao.findTop5ByOrderByPosteddateDesc();
+        return joblistingsDao.findTop5ByOrderByPosteddateAsc();
     }
 
     public Page<JoblistingsEntity> getJobList(PageRequest pageRequest) {
