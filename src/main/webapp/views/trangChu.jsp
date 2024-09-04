@@ -24,6 +24,7 @@
 	<%@ include file="/views/header.jsp"%>
 	<!-- /header -->
 	<%@ include file="/views/nhaTuyenDungHangDau.jsp"%>
+	
 	<div class="container">
 
 		<!-- Thanh tìm kiếm chính -->

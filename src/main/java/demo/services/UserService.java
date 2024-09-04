@@ -1,4 +1,4 @@
-
+	
 /*
  * package demo.services;
  * 
@@ -21,6 +21,8 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mailjet.client.resource.User;
 
 import demo.dao.UsersDao;
 import demo.entity.UsersEntity;
@@ -80,33 +82,54 @@ public class UserService {
     public void save(UsersEntity user) {
         userRepository.save(user);
     }
-    
-    
 
-    /**
-     * Tạo mã thông báo đặt lại mật khẩu.
-     *
-     * @param email email của người dùng.
-     * @return mã thông báo (token) được tạo.
-     */
+    public UsersEntity findByToken(String token) {
+        return userRepository.findByToken(token);
+    }
+
+    // Tạo mã token đặt lại mật khẩu
     public String createPasswordResetToken(String email) {
-        // Tạo mã thông báo (token) ngẫu nhiên
+        // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
+        UsersEntity user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("Email không tồn tại trong hệ thống.");
+        }
+
+        // Tạo mã token ngẫu nhiên
         String token = UUID.randomUUID().toString();
 
-        // Lưu token, email, và thời gian hết hạn vào cơ sở dữ liệu
-        // (bạn cần phải triển khai phần lưu trữ này)
+        // Lưu token vào cơ sở dữ liệu
+        user.setToken(token);
+        userRepository.save(user);
 
         return token;
     }
 
-    /**
-     * Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không.
-     *
-     * @param email email cần kiểm tra.
-     * @return true nếu email tồn tại, false nếu không.
-     */
+    // Xác thực token
+    public boolean validatePasswordResetToken(String token, String code) {
+        // Kiểm tra mã token và code
+        UsersEntity user = userRepository.findByToken(token);
+        return user != null && user.getToken().equals(code);
+    }
+
+    // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
     public boolean isEmailExists(String email) {
-        return usersDao.existsByEmail(email);
+        return userRepository.findByEmail(email) != null;
+    }
+
+    // Đặt lại mật khẩu
+    public boolean resetPassword(String token, String newPassword) {
+        UsersEntity user = userRepository.findByToken(token);
+
+        if (user == null) {
+            return false; // Token không hợp lệ
+        }
+
+        user.setPassword(newPassword);
+        user.setToken(null);
+        userRepository.save(user);
+
+        return true;
     }
 
     /**

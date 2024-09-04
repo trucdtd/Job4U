@@ -112,7 +112,8 @@
 						<div class="row p-2" style="margin-top: 10px;"></div>
 						<button type="submit" class="btn btn-info"
 							style="background-color: #00688B; color: white;">Hiện Bài Viết</button>
-						<a href="/admin" class="btn btn-danger">Ẩn Bài Viết</a>
+						<a href="/admin" class="btn btn-info">Ẩn Bài Viết</a>
+						<a href="/admin" class="btn btn-danger">Hủy</a>
 					</form>
 				</div>
 			</div>

@@ -140,7 +140,6 @@ public class dangkyController {
             return "dangky";
         }
 
-        // Nếu không có lỗi, tiến hành đăng ký
         try {
             UsersEntity newUser = new UsersEntity();
             Integer role = "employer".equals(usertype) ? 2 : 1;
@@ -156,7 +155,6 @@ public class dangkyController {
 
             userDao.save(newUser);
 
-            // Nếu loại tài khoản là "employer", lưu thông tin nhà tuyển dụng
             if ("employer".equals(usertype)) {
                 EmployersEntity employerDetails = new EmployersEntity();
                 employerDetails.setCompanyname(companyName);
@@ -172,14 +170,11 @@ public class dangkyController {
                 employersDao.save(employerDetails);
             }
 
-            // Thêm thông báo thành công và chuyển hướng đến trang đăng nhập
-            model.addAttribute("successMessage", "Đăng ký thành công!");
-            model.addAttribute("redirectToLogin", true);
+            // Thêm thông báo thành công
+            model.addAttribute("successMessage", "Bạn đã đăng ký thành công!");
             return "dangky";
 
         } catch (Exception e) {
-            model.addAttribute("message", "Đã xảy ra lỗi, vui lòng thử lại");
-            e.printStackTrace();
             return "dangky";
         }
     }

@@ -33,8 +33,8 @@
                     <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
                         <li class="nav-item"><a class="nav-link" href="/job4u"><img
                                 src="/img/icons8-home-50.png" style="padding-bottom: 7px;" width="25px" height="30px" alt="Home"> Trang Chủ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Hỏi Đáp</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/job4u">Top Công Việc</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/lienhe">Liên Hệ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/topvieclam">Top Công Việc</a></li>
                         <li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà Tuyển Dụng</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Ứng Tuyển</a></li>
                     </ul>

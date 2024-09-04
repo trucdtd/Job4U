@@ -91,7 +91,7 @@
 									style="padding-left: 2.5rem; padding-right: 2.5rem;">Đăng
 									nhập</button>
 								<p class="small fw-bold mt-2 pt-1 mb-0">
-									Bạn chưa có tài khoản? <a href="#!" class="link-danger">Đăng
+									Bạn chưa có tài khoản? <a href="/DangKy" class="link-danger">Đăng
 										ký</a>
 								</p>
 							</div>

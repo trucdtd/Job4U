@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +66,7 @@
     transition: background-color 0.3s;
 }
 
-.a:hover {
+.btn:hover {
     background-color: #3b841d; /* Màu xanh khi hover */
     color: #fff; /* Đổi màu chữ thành trắng khi hover */
 }
@@ -89,7 +89,7 @@
 }
 </style>
 <body>
-	<div class="container pricing">
+<div class="container pricing">
     <div class="row justify-content-center">
         <!-- Special Package -->
         <div class="col-md-3">
@@ -106,51 +106,51 @@
                 </div>
             </div>
         </div>
+        <!-- Candidate Package 1 -->
         <div class="col-md-3">
-            <div class="pricing-card candidate-premium">
+            <div class="pricing-card candidate-basic">
                 <div class="pricing-header">
-                    <h4 class="text-center">Gói Cho Nhà Tuyển Dụng 1 Tháng</h4>
+                    <h4 class="text-center">Gói Ứng Viên 1 Tháng</h4>
                 </div>
                 <div class="pricing-body text-center">
-                    <p class="price"><strong>149.000 VNĐ / Tháng</strong></p>
+                    <p class="price"><strong>69.000 VNĐ / Tháng</strong></p>
                     <ul class="features">
-                        <li>Đăng 10 bài / Tháng</li>
+                        <li>Tạo CV và nộp ứng tuyển 20 lần / Tháng</li>
                     </ul>
                     <a class="btn btn-danger" href="#">MUA</a>
                 </div>
             </div>
         </div>
-        <!-- Package 2 -->
+        <!-- Candidate Package 2 -->
         <div class="col-md-3">
-            <div class="pricing-card candidate-premium">
+            <div class="pricing-card candidate-standard">
                 <div class="pricing-header">
-                    <h4 class="text-center">Gói Cho Nhà Tuyển Dụng 6 Tháng</h4>
+                    <h4 class="text-center">Gói Ứng Viên 6 Tháng</h4>
                 </div>
                 <div class="pricing-body text-center">
-                    <p class="price"><strong>745.000 VNĐ / 6 Tháng</strong></p>
+                    <p class="price"><strong>345.000 VNĐ / 6 Tháng</strong></p>
                     <ul class="features">
-                        <li>Đăng 30 bài / Tháng</li>
+                        <li>Tạo CV và nộp ứng tuyển 30 lần / Tháng</li>
                     </ul>
                     <a class="btn btn-danger" href="#">MUA</a>
                 </div>
             </div>
         </div>
-        <!-- Package 3 -->
+        <!-- Candidate Package 3 -->
         <div class="col-md-3">
             <div class="pricing-card candidate-premium">
                 <div class="pricing-header">
-                    <h4 class="text-center">Gói Cho Nhà Tuyển Dụng 12 Tháng</h4>
+                    <h4 class="text-center">Gói Ứng Viên 12 Tháng</h4>
                 </div>
                 <div class="pricing-body text-center">
-                    <p class="price"><strong>1,490.000 VNĐ / 12 Tháng</strong></p>
+                    <p class="price"><strong>690.000 VNĐ / 12 Tháng</strong></p>
                     <ul class="features">
-                        <li>Đăng 50 bài / Tháng</li>
+                        <li>Tạo CV và nộp ứng tuyển 50 lần / Tháng</li>
                     </ul>
                     <a class="btn btn-danger" href="#">MUA</a>
                 </div>
             </div>
         </div>
-        <!-- Special Package -->
     </div>
 </div>
 </body>

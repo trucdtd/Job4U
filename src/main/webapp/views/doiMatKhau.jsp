@@ -35,7 +35,7 @@
 							<!-- Thông báo thành công -->
 
 
-							<c:if test="${not empty error}">
+							<div>
 								<script>
 									document
 											.addEventListener(
@@ -66,7 +66,7 @@
 										</div>
 									</div>
 								</div>
-							</c:if>
+							</div>
 
 							<c:if test="${not empty message}">
 								<script>

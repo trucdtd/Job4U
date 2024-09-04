@@ -17,9 +17,6 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
-
-
-<
 </head>
 <body>
 	<!-- header -->
@@ -45,12 +42,12 @@
 										<div class="col-md-6 p-2">
 											<label for="username" class="form-label">Tên tài
 												khoản</label> <input type="text" class="form-control" id="username"
-												name="username" value="${nd.username}" disabled>
+												name="username" value="${nd.username}" readonly required>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="fullname" class="form-label">Họ và tên</label> <input
 												type="text" class="form-control" id="fullname"
-												name="fullname" value="${nd.fullname}" disabled>
+												name="fullname" value="${nd.fullname}" readonly required>
 										</div>
 									</div>
 
@@ -58,13 +55,13 @@
 										<div class="col-md-6 p-2">
 											<label for="email" class="form-label">Email</label> <input
 												type="text" class="form-control" id="email" name="email"
-												value="${nd.email}" disabled>
+												value="${nd.email}" readonly required>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="phonenumber" class="form-label">Số điện
 												thoại</label> <input type="text" class="form-control"
 												id="phonenumber" name="phonenumber"
-												value="${nd.phonenumber}" disabled>
+												value="${nd.phonenumber}" readonly required>
 										</div>
 									</div>
 
@@ -83,7 +80,9 @@
 									<hr>
 									<div class="row">
 										<div class="card-action">
-											<a href="/admin" class="btn btn-danger">Quay Về</a>
+											<!-- <button class="btn btn-info text-white"
+												style="background-color: #00688B">Update</button> -->
+											<a href="/admin" class="btn btn-danger">Cancel</a>
 										</div>
 									</div>
 								</form>
