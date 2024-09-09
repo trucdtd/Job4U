@@ -46,7 +46,7 @@
                     </div>
                     <!-- DROPDOWN MENU -->
                     <div id="account-info" class="dropdown d-flex justify-content-end d-none ps-4">
-                        <button class="btn btn-light btn-light-custom" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                        <button class="btn btn-light btn-light-custom pe-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                             <img class="text-center" src="/img/icons8-bell-48.png" height="30px" alt="Notifications"> 
                             <span id="user-name" class="span-name-user"></span>
