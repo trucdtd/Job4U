@@ -34,7 +34,7 @@
                         <li class="nav-item"><a class="nav-link" href="/job4u"><img
                                 src="/img/icons8-home-50.png" style="padding-bottom: 7px;" width="25px" height="30px" alt="Home"> Trang Chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="/lienhe">Liên Hệ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/topvieclam">Top Công Việc</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/job4u/topjob">Top Công Việc</a></li>
                         <li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà Tuyển Dụng</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Ứng Tuyển</a></li>
                     </ul>
@@ -45,7 +45,7 @@
                                 src="/img/icons8-register-30.png" height="25px" width="25px" alt="Register"> Đăng ký</a>
                     </div>
                     <!-- DROPDOWN MENU -->
-                    <div id="account-info" class="dropdown d-flex justify-content-end d-none">
+                    <div id="account-info" class="dropdown d-flex justify-content-end d-none ps-4">
                         <button class="btn btn-light btn-light-custom" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                             <img class="text-center" src="/img/icons8-bell-48.png" height="30px" alt="Notifications"> 
@@ -68,14 +68,14 @@
                                     (session.getAttribute("role").toString().equals("0") ? "/admin" : 
                                     (session.getAttribute("role").toString().equals("1") ? "/job4u" : 
                                     (session.getAttribute("role").toString().equals("2") ? "/job4u/employers" : "#"))) : "#" %>">
-                                    <img class="m-1" src="/img/icons8-phone-50.png" height="25px" width="25px" alt="Contact Info">
+                                    <img class="m-1" src="/img/icons8-cv-80.png" height="25px" width="25px" alt="Contact Info">
                                     <p class="m-1 text-dropdown-menu">Quản lý trang</p>
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item d-flex justify-content-start" href="/Job4U/lien_he.html copy.html">
-                                    <img class="m-1" src="/img/icons8-cv-80.png" height="25px" width="25px" alt="CV Management">
-                                    <p class="m-1 text-dropdown-menu">Quản lý CV</p>
+                                    <img class="m-1" src="/img/icons8-bell-48.png" height="25px" width="25px" alt="CV Management">
+                                    <p class="m-1 text-dropdown-menu">Thông báo</p>
                                 </a>
                             </li>
                             <li>

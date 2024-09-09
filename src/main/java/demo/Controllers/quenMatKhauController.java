@@ -1,5 +1,10 @@
 package demo.Controllers;
 
+import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import demo.entity.UsersEntity;
 import demo.services.UserRepository;
 import demo.services.UserService;
+import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 
@@ -21,130 +29,151 @@ public class quenMatKhauController {
 
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
 	private UserService userService; // Dịch vụ xử lý logic người dùng
-	
+
+	@Autowired
+	ServletRequest req;;
+
 	@GetMapping("")
 	public String hienThiQuenMatKhauForm() {
-	    return "quenMatKhau"; // Trả về trang form quên mật khẩu
+		return "quenMatKhau"; // Trả về trang form quên mật khẩu
+	}
+
+	@GetMapping("/NhapMa")
+	public String hienThiNhapMaMatKhauForm() {
+		return "nhapMa"; // Trả về trang form quên mật khẩu
+	}
+
+	@GetMapping("/Datlaimatkhau")
+	public String hienThiNhapLaiMatKhauForm() {
+		return "datLaiMatKhau"; // Trả về trang form quên mật khẩu
 	}
 
 	@PostMapping("/submit")
-    public String quenMatKhau(@RequestParam("email") String userEmail, Model model) {
-        if (!userService.isEmailExists(userEmail)) {
-            model.addAttribute("error", "Email này không tồn tại trong hệ thống.");
-            return "quenMatKhau";
-        }
+	public String quenMatKhau(@RequestParam("email") String userEmail, Model model, HttpSession session) {
+	    if (!isValidEmail(userEmail)) {
+	        model.addAttribute("error", "Email không đúng định dạng.");
+	        return "quenMatKhau"; // Trang nhập email
+	    }
 
-        String token = userService.createPasswordResetToken(userEmail);
-        String resetLink = "http://yourdomain.com/job4u/NhapMaDatLaiMatKhau?token=" + token;
-        sendEmail(userEmail, resetLink);
+	    if (!userService.isEmailExists(userEmail)) {
+	        model.addAttribute("error", "Email này không tồn tại trong hệ thống.");
+	        return "quenMatKhau"; // Trang nhập email
+	    }
 
-        return "redirect:/job4u/NhapMaDatLaiMatKhau?token=" + token;
-    }
+	    String token = generateAndEncodeToken();
+	    UsersEntity user = userRepository.findByEmail(userEmail);
+	    user.setToken(token); // Lưu token vào cơ sở dữ liệu
+	    userRepository.save(user);
 
-    private void sendEmail(String userEmail, String resetLink) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(userEmail);
-        message.setSubject("Yêu cầu đặt lại mật khẩu");
-        message.setText("Click vào liên kết dưới đây để đặt lại mật khẩu của bạn:\n" + resetLink + "\n\n" +
-                        "Nếu bạn không yêu cầu thay đổi mật khẩu, vui lòng bỏ qua email này.");
-        mailSender.send(message);
-    }
+	    // Lưu mã token vào session
+	    session.setAttribute("resetToken", token);
+	    sendEmail(userEmail, token);
 
-    private String generateToken() {
-        // Tạo mã token ngẫu nhiên hoặc sử dụng một thư viện để tạo token
-        return java.util.UUID.randomUUID().toString();
-    }
-    
-    @GetMapping("/NhapMa")
-    public String hienThiNhapMaForm(@RequestParam("token") String token, Model model) {
-        UsersEntity user = userRepository.findByToken(token);
-        
-        if (user == null) {
-            model.addAttribute("error", "Mã token không hợp lệ.");
-            return "quenMatKhauNhapMa"; // Trang nhập mã
-        }
+	    return "redirect:/QuenMatKhau/NhapMa";
+	}
 
-        model.addAttribute("token", token);
-        return "quenMatKhauNhapMa"; // Trang nhập mã
-    }
+	public boolean isValidEmail(String email) {
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+		Pattern pattern = Pattern.compile(emailRegex);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
 
-    @PostMapping("/validateToken")
-    public String validateToken(@RequestParam("token") String token, @RequestParam("code") String code, Model model) {
-        UsersEntity user = userRepository.findByToken(token);
+	private void sendEmail(String userEmail, String token) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(userEmail);
+		message.setSubject("Yêu cầu đặt lại mật khẩu");
+		message.setText(
+				"Mã của bạn là: " + token + "\nNếu bạn không yêu cầu thay đổi mật khẩu, vui lòng bỏ qua email này.");
+		mailSender.send(message);
+	}
 
-        if (user == null || !code.equals(token)) {
-            model.addAttribute("error", "Mã xác nhận không hợp lệ.");
-            return "quenMatKhauNhapMa";
-        }
+	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	private static final int TOKEN_LENGTH = 6;
 
-        return "redirect:/QuenMatKhau/DatLaiMatKhau?token=" + token;
-    }
+	// Sinh mã token và mã hóa nó
+	public static String generateAndEncodeToken() {
+		SecureRandom random = new SecureRandom();
+		StringBuilder token = new StringBuilder(TOKEN_LENGTH);
 
-    @GetMapping("/DatLaiMatKhau")
-    public String hienThiDatLaiMatKhauForm(@RequestParam("token") String token, Model model) {
-        UsersEntity user = userRepository.findByToken(token);
-        
-        if (user == null) {
-            model.addAttribute("error", "Token không hợp lệ.");
-            return "quenMatKhauDatLaiMatKhau"; // Trang đặt lại mật khẩu
-        }
+		for (int i = 0; i < TOKEN_LENGTH; i++) {
+			token.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
+		}
 
-        model.addAttribute("token", token);
-        return "quenMatKhauDatLaiMatKhau";
-    }
+		return encodeToken(token.toString());
+	}
 
-    @PostMapping("/DatLaiMatKhau")
-    public String datLaiMatKhau(@RequestParam("token") String token, @RequestParam("password") String password, Model model) {
-        UsersEntity user = userRepository.findByToken(token);
-        
-        if (user == null) {
-            model.addAttribute("error", "Token không hợp lệ.");
-            return "quenMatKhauDatLaiMatKhau";
-        }
+	// Mã hóa token thành chuỗi Base64
+	public static String encodeToken(String token) {
+		return Base64.getEncoder().encodeToString(token.getBytes());
+	}
 
-        user.setPassword(password); // Cập nhật mật khẩu
-        user.setToken(null); // Xóa token
-        userRepository.save(user);
+	// Giải mã chuỗi Base64 thành token gốc
+	public static String decodeToken(String encodedToken) {
+		byte[] decodedBytes = Base64.getDecoder().decode(encodedToken);
+		return new String(decodedBytes);
+	}
 
-        return "redirect:/Login";
-    }
-    
- // Tạo mã token đặt lại mật khẩu
-    public String createPasswordResetToken(String email) {
-        // Logic tạo token và lưu vào cơ sở dữ liệu
-        return "generated-token";
-    }
+	@PostMapping("/NhapMa")
+	public String hienThiNhapMaForm(@RequestParam("token") String token, Model model, HttpSession session) {
+		String giaoDien ="nhapMa";
+	    // Kiểm tra xem token có trống hay không
+	    if (token == null || token.isEmpty()) {
+	        model.addAttribute("error", "Mã token bị trống.");
+	        return "nhapMa"; // Trang nhập mã
+	    }
 
-    // Xác thực token
-    public boolean validatePasswordResetToken(String token, String code) {
-        // Kiểm tra mã token và code
-        UsersEntity user = userRepository.findByToken(token);
-        return user != null && user.getToken().equals(code);
-    }
+	    // Giải mã token
+	    String decodedToken = token;
 
-    // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
-    public boolean isEmailExists(String email) {
-        return userRepository.findByEmail(email) != null;
-    }
+	    // Lấy token đã gửi từ session
+	    String sentToken = session.getAttribute("resetToken").toString();
+	    
+	    // Kiểm tra mã token có khớp không
+	    if (sentToken == null || !sentToken.equals(decodedToken)) {
+	        model.addAttribute("error", "Mã token không hợp lệ.");
+	        return "nhapMa"; // Trang nhập mã
+	    }
+	    
+	    if(sentToken.equals(decodedToken)) {
+	    	 giaoDien = "datLaiMatKhau";
+	    }
+	    // Truyền token vào model nếu hợp lệ
+	    model.addAttribute("token", token);
+	    return giaoDien; // Trang nhập mã
+	}
 
-    // Đặt lại mật khẩu
-    public boolean resetPassword(String token, String newPassword) {
-        UsersEntity user = userRepository.findByToken(token);
-        
-        if (user == null) {
-            return false; // Token không hợp lệ
-        }
-        
-        user.setPassword(newPassword);
-        user.setToken(null);
-        userRepository.save(user);
-        
-        return true;
-    }
+	@PostMapping("/DatLaiMatKhau")
+	public String xuLyDatLaiMatKhau(@RequestParam("newPassword") String newPassword,
+	        @RequestParam("confirmPassword") String confirmPassword, Model model) {
+
+	    // Kiểm tra mật khẩu mới và xác nhận mật khẩu có khớp không
+	    if (!newPassword.equals(confirmPassword)) {
+	        model.addAttribute("error", "Mật khẩu và xác nhận mật khẩu không khớp.");
+	        return "datLaiMatKhau"; // Trả về trang đặt lại mật khẩu với thông báo lỗi
+	    }
+
+	    // Logic xử lý tiếp theo khi mật khẩu hợp lệ...
+	    return "datLaiMatKhau";
+	}
+
+	// Xác thực token
+	public boolean validatePasswordResetToken(String token, String code) {
+		// Giải mã token
+		String decodedToken = decodeToken(token);
+		UsersEntity user = userRepository.findByToken(decodedToken);
+		return user != null && user.getToken().equals(code);
+	}
+
+	// Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
+	public boolean isEmailExists(String email) {
+		return userRepository.findByEmail(email) != null;
+	}
+
 }

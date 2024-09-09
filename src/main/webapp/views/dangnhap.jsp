@@ -31,12 +31,10 @@
 	</header>
 	<main>
 		<!-- Thông báo -->
-		<c:if test="${not empty message}">
-			<div class="d-flex justify-content-center align-items-center mt-4">
-				<div class="alert alert-warning text-truncate"
-					style="max-width: 400px;">${message}</div>
-			</div>
-		</c:if>
+		<div class="d-flex justify-content-center align-items-center mt-4">
+			<div class="alert text-truncate"
+				style="max-width: 400px;">${message}</div>
+		</div>
 
 		<section class="vh-90">
 			<div class="container h-custom mt-4 mb-4">
