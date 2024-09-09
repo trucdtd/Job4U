@@ -42,9 +42,9 @@
                 <p><span><i class="fa-solid fa-mobile-screen-button"></i>Nhà tuyển dụng:</span>0949414109</p>
                 <p><span><i class="fa-solid fa-mobile-button"></i>Ứng viên:</span>0834341699</p>
                 <p><i class="fas fa-phone"></i><span>Phone:</span>0939826844</p>
-                <p><i class="fas fa-envelope"></i><span>Email:</span>job4yousine2024@gamil.com</p>
+                <p><i class="fas fa-envelope"></i><span>Email:</span>job4yousine2024@gmail.com</p>
                 <p><i class="fas fa-building"></i><span>Đơn vị chủ quản:</span>Công Ty job4u</p>
-                <p><i class="fas fa-id-card"></i><span>Giấy phép ĐKKD:</span>1801316399</p>
+                <p><i class="fas fa-id-card"></i><span>Giấy phép ĐKKD:</span>1801170680</p>
                 <p><i class="fas fa-map-marker-alt"></i><span>Địa chỉ:</span>Đ.Số 22, Thường Thạnh, Cái Răng, Cần Thơ 900000, Vietnam</p>
             </div>
             <div class="map">
