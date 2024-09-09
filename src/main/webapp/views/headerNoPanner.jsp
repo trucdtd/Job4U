@@ -34,7 +34,7 @@
                         <li class="nav-item"><a class="nav-link" href="/job4u"><img
                                 src="/img/icons8-home-50.png" style="padding-bottom: 7px;" width="25px" height="30px" alt="Home"> Trang Chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="/lienhe">Liên Hệ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/topvieclam">Top Công Việc</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/job4u/topjob">Top Công Việc</a></li>
                         <li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà Tuyển Dụng</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Ứng Tuyển</a></li>
                     </ul>
@@ -45,13 +45,13 @@
                                 src="/img/icons8-register-30.png" height="25px" width="25px" alt="Register"> Đăng ký</a>
                     </div>
                     <!-- DROPDOWN MENU -->
-                    <div id="account-info" class="dropdown d-flex justify-content-end d-none ps-4">
-                        <button class="btn btn-light btn-light-custom pe-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                    <div id="account-info" class="dropdown d-flex justify-content-end d-none">
+                        <button class="btn btn-light btn-light-custom" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                             <img class="text-center" src="/img/icons8-bell-48.png" height="30px" alt="Notifications"> 
                             <span id="user-name" class="span-name-user"></span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="dropdownMenuButton">
+                        <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li>
                                 <a class="dropdown-item d-flex justify-content-start" href="<%= 
                                     session.getAttribute("role") != null ? 
