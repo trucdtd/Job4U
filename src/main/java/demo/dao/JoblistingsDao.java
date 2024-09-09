@@ -54,9 +54,12 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 		                                                   @Param("industry") String industry,
 		                                                   Pageable pageable);
 
+	@Query("SELECT j FROM JoblistingsEntity j ORDER BY j.posteddate DESC")
+	List<JoblistingsEntity> findTop5ByOrderByPosteddateDesc();
 
 	void deleteByJobid(Integer jobid);
 
 	List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
-
+	
+	List<JoblistingsEntity> findTop5ByOrderByPosteddateAsc();
 }
