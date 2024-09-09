@@ -51,6 +51,7 @@
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<br>
 	<footer>
+	
 	<section class="vh-90">
             <div class="container h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
