@@ -129,11 +129,11 @@
 												<td>${job.joblocation}</td>
 												<td>${job.posteddate}</td>
 												<td>${job.applicationdeadline}</td>
-												<!-- <td>
+												<td>
 													<button type="button" class="btn btn-sm btn-primary">Chỉnh
 														Sửa</button>
 													<button type="button" class="btn btn-sm btn-danger">Xóa</button>
-												</td> -->
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
