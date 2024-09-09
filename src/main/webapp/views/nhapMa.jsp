@@ -29,9 +29,9 @@
 						<div class="form-container">
 							<form method="post" action="/QuenMatKhau/NhapMa">
 								<div class="form-outline mb-4">
-									<label class="form-label" >Nhập mã của bạn</label> <input
+									<label class="form-label">Nhập mã của bạn</label> <input
 										type="text" id="token" name="token" class="form-control"
-										placeholder="Nhập mã đã gửi"  />
+										placeholder="Nhập mã đã gửi" />
 								</div>
 								<div class="alert alert-danger"
 									style="display: ${error != null ? 'block' : 'none'};">
@@ -49,13 +49,13 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Kiểm tra xem có thông báo lỗi không
-            var errorDiv = document.querySelector(".alert");
-            if (errorDiv.textContent.trim() !== "") {
-                errorDiv.style.display = "block"; // Hiển thị thông báo lỗi nếu có
-            }
-        });
-    </script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Kiểm tra xem có thông báo lỗi không
+			var errorDiv = document.querySelector(".alert");
+			if (errorDiv.textContent.trim() !== "") {
+				errorDiv.style.display = "block"; // Hiển thị thông báo lỗi nếu có
+			}
+		});
+	</script>
 </body>
 </html>

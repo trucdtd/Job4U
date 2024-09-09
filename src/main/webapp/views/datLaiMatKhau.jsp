@@ -21,34 +21,42 @@
 					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 						<div class="form-container">
 							<div class="form-container">
+								<div class="alert alert-danger" 
+									style="display: ${error != null ? 'block' : 'none'};">
+									${error}</div>
 								<form method="POST" action="/QuenMatKhau/DatLaiMatKhau">
-    <!-- Trường nhập mật khẩu mới -->
+    <!-- Hidden field to include the token -->
+    <input type="hidden" name="token" value="${token}" />
+
     <div class="form-outline mb-4">
         <label class="form-label" for="newPassword">Mật khẩu mới</label>
-        <input type="password" id="newPassword" name="newPassword" class="form-control" required />
+        <input type="password" id="newPassword" name="newPassword" class="form-control" />
     </div>
 
-    <!-- Trường xác nhận mật khẩu mới -->
     <div class="form-outline mb-4">
         <label class="form-label" for="confirmPassword">Xác nhận mật khẩu</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required />
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" />
     </div>
 
-    <!-- Thông báo lỗi nếu có vấn đề với mật khẩu -->
-    <div class="alert alert-danger" style="display: ${error != null ? 'block' : 'none'};">
-        ${error}
-    </div>
-
-    <!-- Nút submit để gửi form đặt lại mật khẩu -->
     <button type="submit" class="btn btn-primary">Đặt lại mật khẩu</button>
 </form>
 							</div>
 						</div>
 					</div>
-					</div>
 				</div>
-				<%@ include file="/views/footer.jsp"%>
+			</div>
+			<%@ include file="/views/footer.jsp"%>
 		</section>
 	</footer>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var successMessage = '${successMessage}';
+			if (successMessage) {
+				const successModal = new bootstrap.Modal(document
+						.getElementById('successModal'));
+				successModal.show();
+			}
+		});
+	</script>
 </body>
 </html>
