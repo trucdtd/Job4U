@@ -70,14 +70,14 @@
 		</section>
 	</footer>
 	<script>
-    document.querySelector('form').addEventListener('submit', function(e) {
-        var emailInput = document.getElementById('email').value;
-        if (!emailInput) {
-            alert('Vui lòng nhập địa chỉ email.');
-            e.preventDefault(); // Ngăn form không gửi nếu email trống
-        }
-    });
-    </script>
+		document.querySelector('form').addEventListener('submit', function(e) {
+			var emailInput = document.getElementById('email').value;
+			if (!emailInput) {
+				alert('Vui lòng nhập địa chỉ email.');
+				e.preventDefault(); // Ngăn form không gửi nếu email trống
+			}
+		});
+	</script>
 	<!-- Bootstrap JavaScript Libraries -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
