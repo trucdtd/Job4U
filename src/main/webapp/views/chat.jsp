@@ -283,7 +283,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <button type="button" class="btn btn-secondary w-50">Hủy</button>
+                        <button type="button" class="btn btn-secondary w-50">Quay Lại</button>
                     </div>
                     <div class="col-6">
                         <button type="button" class="btn btn-primary w-100">Gửi Phản Hồi</button>
