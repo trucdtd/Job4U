@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 </head>
 <style>
         .alert {
@@ -25,25 +26,14 @@
               <div class="form-container">
              <form method="POST" action="/QuenMatKhau/validateToken">
     <input type="hidden" name="token" value="${token}" />
-
     <div class="form-outline mb-4">
-        <label class="form-label" for="code">Nhập mã của bạn!</label>
-        <input type="text" id="code" name="code" class="form-control form-control-lg" placeholder="Vui lòng nhập mã mà chúng tôi đã gửi" required />
+        <label class="form-label" for="code">Nhập mã của bạn</label>
+        <input type="text" id="code" name="code" class="form-control" placeholder="Nhập mã đã gửi" required />
     </div>
-
-    <!-- Error message -->
-    <c:if test="${not empty error && param.submit ne null}">
-        <div class="alert alert-danger" role="alert">
-            ${error}
-        </div>
-    </c:if>
-
-    <div class="text-center text-lg-start mt-4 pt-2">
-        <button type="submit" name="submit" class="btn btn-primary btn-lg">Xác Nhận</button>
-        <p class="small fw-bold mt-2 pt-1 mb-0">
-            <a href="/QuenMatKhau" class="link-danger">Bạn không nhận được mã?</a>
-        </p>
+    <div class="alert alert-danger" style="display: ${error != null ? 'block' : 'none'};">
+        ${error}
     </div>
+    <button type="submit" class="btn btn-primary">Xác nhận</button>
 </form>
               </div>
             </div>
@@ -52,6 +42,7 @@
         <%@ include file="/views/footer.jsp"%>
       </section>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Kiểm tra xem có thông báo lỗi không

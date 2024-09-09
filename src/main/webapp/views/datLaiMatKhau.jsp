@@ -19,35 +19,21 @@
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
               <div class="form-container">
             <div class="form-container">
-    <!-- Hiển thị thông báo lỗi nếu có -->
-    <c:if test="${not empty error}">
-        <div class="alert alert-danger" role="alert">
-            ${error}
-        </div>
-    </c:if>
-
-    <form method="POST" action="/QuenMatKhau/DatLaiMatKhau">
-        <!-- Token input -->
-        <input type="hidden" name="token" value="${token}" />
-
-        <!-- New Password input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="password">Nhập Mật Khẩu Mới</label>
-            <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Vui lòng nhập mật khẩu mới" required />
-        </div>
-
-        <!-- Confirm Password input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="confirmPassword">Nhập Lại Mật Khẩu Mới</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control form-control-lg" placeholder="Vui lòng nhập lại mật khẩu mới" required />
-        </div>
-
-        <!-- Submit button -->
-        <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="submit" class="btn btn-primary btn-lg">Xác Nhận</button>
-        </div>
-    </form>
-</div>
+     <form method="POST" action="/QuenMatKhau/DatLaiMatKhau">
+    <input type="hidden" name="token" value="${token}" />
+    <div class="form-outline mb-4">
+        <label class="form-label" for="password">Nhập mật khẩu mới</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu mới" required />
+    </div>
+    <div class="form-outline mb-4">
+        <label class="form-label" for="confirmPassword">Xác nhận mật khẩu mới</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Xác nhận mật khẩu mới" required />
+    </div>
+    <div class="alert alert-danger" style="display: ${error != null ? 'block' : 'none'};">
+        ${error}
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật mật khẩu</button>
+</form>
               </div>
             </div>
           </div>
