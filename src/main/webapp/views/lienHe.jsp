@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="/css/lienHe.css">
 </head>
 <body>
-	<%@ include file="/views/header.jsp"%>
+	<%@ include file="/views/headerNoPanner.jsp"%>
     <div class="contaiiner">
         <div class="contact-info">
             <h3>Thông tin liên hệ</h3>
