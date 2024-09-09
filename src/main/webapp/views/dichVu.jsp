@@ -100,7 +100,7 @@
                 <div class="pricing-body text-center">
                     <p class="price"><strong>299.000 VNĐ / Tháng</strong></p>
                     <ul class="features">
-                        <li>Lên Top những công tin hàng đầu</li>
+                        <li>Lên Top những thông tin hàng đầu</li>
                     </ul>
                     <a class="btn btn-danger" href="#">MUA</a>
                 </div>
