@@ -63,7 +63,7 @@
 </head>
 <body>
 	<!-- header -->
-	<%@ include file="/views/header.jsp"%>
+	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
 	<div class="container">
 		<div class="row">
@@ -141,19 +141,10 @@
 
 				<!-- Bảng quản lý bài đăng-->
 				<!-- Thông báo thành công hoặc lỗi -->
-				<c:if test="${not empty message}">
-					<div id="notification" class="container">
-						<div class="row justify-content-center">
-							<div class="col-md-6">
-								<div class="alert alert-info d-flex align-items-center"
-									role="alert">
-									<i class="bi bi-info-circle me-2"></i>
-									<div>${message}</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</c:if>
+				<div class="d-flex justify-content-center align-items-center mt-4">
+					<div class="alert text-truncate" style="max-width: 400px;">${message}</div>
+				</div>
+
 				<!-- bài đăng -->
 				<div id="postEmployers" class="card" style="display: none;">
 					<div class="card-header">
@@ -168,20 +159,20 @@
 										<div class="col-md-6 p-2">
 											<label for="companyname" class="form-label">Tên công
 												ty</label> <input type="text" class="form-control" id="companyname"
-												name="companyname" value="${employer.companyname}" disabled>
+												name="companyname" value="${employer.companyname}" readonly>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="companywebsite" class="form-label">Tên
 												web công ty</label> <input type="text" class="form-control"
 												id="companywebsite" name="companywebsite"
-												value="${employer.companywebsite}" disabled>
+												value="${employer.companywebsite}" readonly>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="address" class="form-label">Địa chỉ công
 												ty</label> <input type="text" class="form-control" id="address"
-												name="address" value="${employer.address}" disabled>
+												name="address" value="${employer.address}" readonly>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="industry" class="form-label">Ngành nghề</label> <select
@@ -312,9 +303,9 @@
 										<div class="col-md-6 p-2">
 											<label for="salary" class="form-label">Lương</label>
 											<div class="input-group">
-												<span class="input-group-text">$</span> <input type="number"
-													class="form-control salary-input" id="salary" name="salary"
-													min="0">
+												<span class="input-group-text">VND</span> <input
+													type="number" class="form-control salary-input" id="salary"
+													name="salary" min="0">
 											</div>
 										</div>
 									</div>
@@ -323,7 +314,7 @@
 											<label for="companydescription" class="form-label">Mô
 												tả về công ty</label>
 											<textarea class="form-control" id="companydescription"
-												name="companydescription" rows="4" required>${employer.companydescription}</textarea>
+												name="companydescription" rows="4" readonly>${employer.companydescription}</textarea>
 										</div>
 									</div>
 									<div class="row">
@@ -345,12 +336,12 @@
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="posteddate" class="form-label">Ngày đăng</label>
-											<input type="datetime-local" class="form-control"
-												id="posteddate" name="posteddate" required>
+											<input type="date" class="form-control" id="posteddate"
+												name="posteddate" required>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="applicationdeadline" class="form-label">Hạn
-												nộp hồ sơ</label> <input type="datetime-local" class="form-control"
+												nộp hồ sơ</label> <input type="date" class="form-control"
 												id="applicationdeadline" name="applicationdeadline" required>
 										</div>
 									</div>
@@ -467,25 +458,26 @@
 	});
 
 	document.addEventListener("DOMContentLoaded", function() {
-		// Đặt ngày và giờ hiện tại cho trường "Ngày đăng"
-		var now = new Date();
-		var formattedDate = now.toISOString().slice(0, 16); // Định dạng theo kiểu yyyy-MM-ddTHH:mm
+	    // Đặt ngày hiện tại cho trường "Ngày đăng"
+	    var now = new Date();
+	    var formattedDate = now.toISOString().slice(0, 10); // Định dạng theo kiểu yyyy-MM-dd
 
-		var postedDateField = document.getElementById("posteddate");
-		postedDateField.value = formattedDate;
+	    var postedDateField = document.getElementById("posteddate");
+	    postedDateField.value = formattedDate;
 
-		// Tạo sự kiện khi thay đổi hạn nộp hồ sơ
-		var applicationDeadlineField = document
-				.getElementById("applicationdeadline");
-		applicationDeadlineField.addEventListener("change", function() {
-			var postedDate = new Date(postedDateField.value);
-			var applicationDeadline = new Date(applicationDeadlineField.value);
+	    // Tạo sự kiện khi thay đổi hạn nộp hồ sơ
+	    var applicationDeadlineField = document.getElementById("applicationdeadline");
+	    applicationDeadlineField.addEventListener("change", function() {
+	        var postedDate = new Date(postedDateField.value);
+	        var applicationDeadline = new Date(applicationDeadlineField.value);
 
-			if (applicationDeadline < postedDate) {
-				alert("Hạn nộp hồ sơ không được chọn trước ngày đăng.");
-				applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
-			}
-		});
+	        // So sánh ngày
+	        if (applicationDeadline < postedDate) {
+	            alert("Hạn nộp hồ sơ không được chọn trước ngày đăng.");
+	            applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
+	        }
+	    });
 	});
 </script>
+
 </html>

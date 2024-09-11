@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Controller
@@ -117,13 +117,14 @@ public class NhaTuyenDungController {
 	    jobListing.setJobdescription(jobdescription); // Gán giá trị cho jobdescription
 	    jobListing.setEmployer(employer); // Gán đối tượng employer
 
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-	    LocalDateTime postedDate = LocalDateTime.parse(posteddate, formatter);
-	    LocalDateTime applicationDeadline = LocalDateTime.parse(applicationdeadline, formatter);
+	    // Cập nhật định dạng ngày để chỉ lấy ngày mà không cần giờ
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    LocalDate postedDate = LocalDate.parse(posteddate, formatter);
+	    LocalDate applicationDeadline = LocalDate.parse(applicationdeadline, formatter);
 
-	    jobListing.setPosteddate(postedDate);
-	    jobListing.setApplicationdeadline(applicationDeadline);
-
+	    // Chuyển đổi LocalDate thành LocalDateTime với thời gian mặc định là 00:00
+	    jobListing.setPosteddate(postedDate.atStartOfDay());
+	    jobListing.setApplicationdeadline(applicationDeadline.atStartOfDay());
 	    danhSachViecLamDao.save(jobListing);
 
 	    return "nhaTuyenDung";
