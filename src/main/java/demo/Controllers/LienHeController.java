@@ -35,12 +35,15 @@ public class LienHeController {
             @RequestParam("email") String email,
             @RequestParam("message") String message,
             RedirectAttributes redirectAttributes) {
-        
+		
+		 	System.out.println("Request received for sending email with details:");
+		    System.out.println("Name: " + name + ", Phone: " + phone + ", Email: " + email + ", Message: " + message);
+
         try {
-            // Tạo email
+            // Tạo email với thông tin liên hệ
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setFrom("your-email@gmail.com"); // Email của bạn
-            mailMessage.setTo("job4yousine2024@gmail.com"); // Email nhận thông tin liên hệ
+            mailMessage.setTo("lanhbvpc07752@fpt.edu.vn"); // Email nhận thông tin liên hệ
             mailMessage.setSubject("Liên hệ từ: " + name);
             mailMessage.setText("Họ và tên: " + name + "\n"
                     + "Điện thoại: " + phone + "\n"
@@ -57,6 +60,6 @@ public class LienHeController {
             redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi gửi email. Vui lòng thử lại!");
         }
 
-        return "redirect:/"; // Redirect về trang chủ hoặc trang liên hệ
+        return "redirect:/lienHe"; // Redirect về trang liên hệ hoặc trang chủ sau khi gửi
     }
 }

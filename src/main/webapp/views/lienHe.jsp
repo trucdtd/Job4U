@@ -54,11 +54,11 @@
         </div>
         <div class="contact-form">
             <h3 style="color: #00688b;">Gửi yêu cầu liên hệ </h3>
-            <form>
-                <input type="text" placeholder="* Họ & tên" required>
-                <input type="text" placeholder="* Điện thoại" required>
-                <input type="email" placeholder="* Email" required>
-                <textarea placeholder="Nội dung liên hệ"></textarea>
+            <form id="contactForm" method="POST" action="/sendEmail">
+                <input type="text" name="name" placeholder="* Họ & tên" required>
+                <input type="text" name="phone" placeholder="* Điện thoại" required>
+                <input type="email" name="email" placeholder="* Email" required>
+                <textarea placeholder="Nội dung liên hệ" name="message" ></textarea>
                 <button style="background-color: #00688b;" type="submit">Liên hệ</button>
             </form>
         </div>
