@@ -32,74 +32,53 @@
 
 					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 						<div class="form-container">
-							<!-- Thông báo thành công -->
-
-
-							<div>
-								<script>
-									document
-											.addEventListener(
-													'DOMContentLoaded',
-													function() {
-														const successModal = new bootstrap.Modal(
-																document
-																		.getElementById('successModal'));
-														successModal.show();
-													});
-								</script>
-
-								<div class="modal fade" id="successModal" tabindex="-1"
-									aria-labelledby="successModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="successModalLabel">Thông
-													báo</h5>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">${error}</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-primary"
-													onclick="window.location.href='/changePass'">OK</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<c:if test="${not empty message}">
-								<script>
-									document
-											.addEventListener(
-													'DOMContentLoaded',
-													function() {
-														const successModal = new bootstrap.Modal(
-																document
-																		.getElementById('successModal'));
-														successModal.show();
-													});
-								</script>
-
-								<div class="modal fade" id="successModal" tabindex="-1"
-									aria-labelledby="successModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="successModalLabel">Thông
-													báo</h5>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">${message}</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-primary"
-													onclick="window.location.href='/Login'">OK</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:if>
+						                            <!-- Thông báo thành công hoặc lỗi -->
+                            <c:choose>
+                                <c:when test="${not empty error}">
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                                            errorModal.show();
+                                        });
+                                    </script>
+                                    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="errorModalLabel">Thông báo lỗi</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">${error}</div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" onclick="window.location.href='/changePass'">OK</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:when test="${not empty message}">
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                                            successModal.show();
+                                        });
+                                    </script>
+                                    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="successModalLabel">Thông báo</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">${message}</div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" onclick="window.location.href='/Login'">OK</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:when>
+                            </c:choose>
 
 							<form class="p-4 border border-1" action="/changePass/submit"
 								method="post">

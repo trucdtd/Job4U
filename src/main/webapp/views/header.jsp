@@ -53,11 +53,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <a class="dropdown-item d-flex justify-content-start" href="<%= 
-                                    session.getAttribute("role") != null ? 
-                                    (session.getAttribute("role").toString().equals("0") ? "/admin" : 
-                                    (session.getAttribute("role").toString().equals("1") ? "/job4u" : 
-                                    (session.getAttribute("role").toString().equals("2") ? "/job4u/employers" : "#"))) : "#" %>">
+                                <a class="dropdown-item d-flex justify-content-start" href="/ThongTinCaNhan">
                                     <img class="m-1" src="/img/icons8-user-50.png" height="25px" width="25px" alt="User Info">
                                     <p class="m-1 text-dropdown-menu">Thông tin cá nhân</p>
                                 </a>

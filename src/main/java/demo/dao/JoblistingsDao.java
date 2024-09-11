@@ -1,7 +1,6 @@
 package demo.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,53 +12,62 @@ import demo.entity.JoblistingsEntity;
 
 public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer> {
 
-	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
-			+ "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
-	Page<JoblistingsEntity> findByJobLocationAndIndustry(@Param("joblocation") String joblocation,
-			@Param("industry") String industry, Pageable pageable);
+    // Tìm kiếm theo job location và industry
+    @Query("SELECT j FROM JoblistingsEntity j WHERE "
+            + "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
+            + "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
+    Page<JoblistingsEntity> findByJobLocationAndIndustry(@Param("joblocation") String joblocation,
+                                                         @Param("industry") String industry, Pageable pageable);
 
-	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%')))")
-	Page<JoblistingsEntity> findByJobLocation(@Param("joblocation") String joblocation, Pageable pageable);
+    // Tìm kiếm theo job location
+    @Query("SELECT j FROM JoblistingsEntity j WHERE "
+            + "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%')))")
+    Page<JoblistingsEntity> findByJobLocation(@Param("joblocation") String joblocation, Pageable pageable);
 
-	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
-	Page<JoblistingsEntity> findByIndustry(@Param("industry") String industry, Pageable pageable);
+    // Tìm kiếm theo industry
+    @Query("SELECT j FROM JoblistingsEntity j WHERE "
+            + "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
+    Page<JoblistingsEntity> findByIndustry(@Param("industry") String industry, Pageable pageable);
 
-	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%')))")
-	Page<JoblistingsEntity> findByJobTitle(@Param("jobtitle") String jobtitle, Pageable pageable);
-	
-	@Query("SELECT j FROM JoblistingsEntity j WHERE " +
-		       "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND " +
-		       "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND " +
-		       "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
-		Page<JoblistingsEntity> findByJobTitleAndJobLocationAndIndustry(@Param("jobtitle") String jobtitle,
-		                                                                 @Param("joblocation") String joblocation,
-		                                                                 @Param("industry") String industry,
-		                                                                 Pageable pageable);
-	
-	@Query("SELECT j FROM JoblistingsEntity j WHERE " +
-		       "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND " +
-		       "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%')))")
-		Page<JoblistingsEntity> findByJobTitleAndJobLocation(@Param("jobtitle") String jobtitle,
-		                                                     @Param("joblocation") String joblocation,
-		                                                     Pageable pageable);
+    // Tìm kiếm theo job title
+    @Query("SELECT j FROM JoblistingsEntity j WHERE "
+            + "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%')))")
+    Page<JoblistingsEntity> findByJobTitle(@Param("jobtitle") String jobtitle, Pageable pageable);
 
-	@Query("SELECT j FROM JoblistingsEntity j WHERE " +
-		       "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND " +
-		       "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
-		Page<JoblistingsEntity> findByJobTitleAndIndustry(@Param("jobtitle") String jobtitle,
-		                                                   @Param("industry") String industry,
-		                                                   Pageable pageable);
+    // Tìm kiếm theo job title, location và industry
+    @Query("SELECT j FROM JoblistingsEntity j WHERE "
+            + "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
+            + "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
+            + "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
+    Page<JoblistingsEntity> findByJobTitleAndJobLocationAndIndustry(@Param("jobtitle") String jobtitle,
+                                                                    @Param("joblocation") String joblocation,
+                                                                    @Param("industry") String industry,
+                                                                    Pageable pageable);
 
-	@Query("SELECT j FROM JoblistingsEntity j ORDER BY j.posteddate DESC")
-	List<JoblistingsEntity> findTop5ByOrderByPosteddateDesc();
+    // Tìm kiếm theo job title và location
+    @Query("SELECT j FROM JoblistingsEntity j WHERE "
+            + "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
+            + "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%')))")
+    Page<JoblistingsEntity> findByJobTitleAndJobLocation(@Param("jobtitle") String jobtitle,
+                                                         @Param("joblocation") String joblocation, Pageable pageable);
 
-	void deleteByJobid(Integer jobid);
+    // Tìm kiếm theo job title và industry
+    @Query("SELECT j FROM JoblistingsEntity j WHERE "
+            + "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
+            + "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%')))")
+    Page<JoblistingsEntity> findByJobTitleAndIndustry(@Param("jobtitle") String jobtitle,
+                                                      @Param("industry") String industry, Pageable pageable);
 
-	List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
-	
-	List<JoblistingsEntity> findTop5ByOrderByPosteddateAsc();
+    // Lấy 5 công việc mới nhất
+    @Query("SELECT j FROM JoblistingsEntity j ORDER BY j.posteddate DESC")
+    List<JoblistingsEntity> findTop5ByOrderByPosteddateDesc();
+
+    // Xoá công việc theo jobid
+    void deleteByJobid(Integer jobid);
+
+    // Tìm công việc theo employer userid
+    List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
+    
+    // Lấy 5 công việc cũ nhất
+    List<JoblistingsEntity> findTop5ByOrderByPosteddateAsc();
 }
