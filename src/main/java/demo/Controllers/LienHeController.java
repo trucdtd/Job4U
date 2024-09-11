@@ -53,13 +53,13 @@ public class LienHeController {
             // Gửi email
             mailSender.send(mailMessage);
 
-            // Thông báo thành công
+            // Thêm Flash Attribute thông báo thành công
             redirectAttributes.addFlashAttribute("success", "Thông tin đã được gửi thành công!");
         } catch (Exception e) {
             e.printStackTrace();
+            // Thêm Flash Attribute thông báo lỗi
             redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi gửi email. Vui lòng thử lại!");
         }
-
-        return "redirect:/lienHe"; // Redirect về trang liên hệ hoặc trang chủ sau khi gửi
+        return "redirect:/lienhe"; // Redirect về trang liên hệ hoặc trang chủ sau khi gửi
     }
 }

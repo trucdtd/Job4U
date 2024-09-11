@@ -53,13 +53,19 @@
            
         </div>
         <div class="contact-form">
+            <c:if test="${not empty success}">
+        <p style="color: green;">${success}</p>
+    </c:if>
+    <c:if test="${not empty error}">
+        <p style="color: red;">${error}</p>
+    </c:if>
             <h3 style="color: #00688b;">Gửi yêu cầu liên hệ </h3>
-            <form id="contactForm" method="POST" action="/sendEmail">
+            <form id="contactForm" method="POST" action="/lienhe/sendEmail">
                 <input type="text" name="name" placeholder="* Họ & tên" required>
                 <input type="text" name="phone" placeholder="* Điện thoại" required>
                 <input type="email" name="email" placeholder="* Email" required>
                 <textarea placeholder="Nội dung liên hệ" name="message" ></textarea>
-                <button style="background-color: #00688b;" type="submit">Liên hệ</button>
+                <button style="background-color: #00688b; margin-left: 432px;" type="submit">Liên hệ</button>
             </form>
         </div>
     </div>
