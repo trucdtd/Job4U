@@ -3,16 +3,20 @@ package demo.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import demo.services.SessionService;
+import demo.services.UserRepository;
 import demo.dao.EmployersDao;
 import demo.dao.JoblistingsDao;
+import demo.dao.ServicesDao;
 import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
+import demo.entity.ServicesEntity;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +26,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/job4u")
@@ -35,6 +41,12 @@ public class NhaTuyenDungController {
 
 	@Autowired
 	private JoblistingsDao danhSachViecLamDao;
+	
+	@Autowired
+	private UserRepository serviceRepository;
+	
+	@Autowired
+    private ServicesDao servicesDao;
 
 	@RequestMapping("/employers")
 	public String nhaTuyenDung(Model model) {
@@ -128,4 +140,6 @@ public class NhaTuyenDungController {
 
 	    return "nhaTuyenDung";
 	}
+	//thanhtoan
+	
 }
