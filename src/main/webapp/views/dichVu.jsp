@@ -92,14 +92,13 @@
 .modal {
     display: none; /* Hidden by default */
     position: fixed;
-    z-index: 1000;
+    z-index: 1000; /* Ensure the modal is on top */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Dark background */
-    display: flex;
-    justify-content: center;
+    justify-content: center; /* Flexbox align center */
     align-items: center;
 }
 
@@ -375,49 +374,50 @@
         </div>
 
 <script>
-    // Get modal, close button, and buttons for showing QR codes
-    var modal = document.getElementById("paymentModal");
-    var closeModal = document.getElementsByClassName("close")[0];
-    var momo1Button = document.getElementById("momo1-button");
-    var momo2Button = document.getElementById("momo2-button");
-    var qrCodeMomo1 = document.getElementById("qr-code-momo1");
-    var qrCodeMomo2 = document.getElementById("qr-code-momo2");
+//Get modal, close button, and buttons for showing QR codes
+var modal = document.getElementById("paymentModal");
+var closeModal = document.getElementsByClassName("close")[0];
+var momo1Button = document.getElementById("momo1-button");
+var momo2Button = document.getElementById("momo2-button");
+var qrCodeMomo1 = document.getElementById("qr-code-momo1");
+var qrCodeMomo2 = document.getElementById("qr-code-momo2");
 
-    // Function to show QR code for Momo1
-    function showMomo1QR() {
-        qrCodeMomo1.style.display = "block";
-        qrCodeMomo2.style.display = "none";
-    }
+// Function to show QR code for Momo1
+function showMomo1QR() {
+    qrCodeMomo1.style.display = "block";
+    qrCodeMomo2.style.display = "none";
+}
 
-    // Function to show QR code for Momo2
-    function showMomo2QR() {
-        qrCodeMomo2.style.display = "block";
-        qrCodeMomo1.style.display = "none";
-    }
+// Function to show QR code for Momo2
+function showMomo2QR() {
+    qrCodeMomo2.style.display = "block";
+    qrCodeMomo1.style.display = "none";
+}
 
-    // Add event listeners to Momo buttons
-    momo1Button.addEventListener('click', showMomo1QR);
-    momo2Button.addEventListener('click', showMomo2QR);
+// Add event listeners to Momo buttons
+momo1Button.addEventListener('click', showMomo1QR);
+momo2Button.addEventListener('click', showMomo2QR);
 
-    // Add click event to open modal
-    var buyButtons = document.getElementsByClassName("openModalButton"); // Replace with your actual button class
-    for (let i = 0; i < buyButtons.length; i++) {
-        buyButtons[i].addEventListener('click', function() {
-            modal.style.display = "flex"; // Show modal
-        });
-    }
+// Add click event to open modal
+var buyButtons = document.getElementsByClassName("openModalButton"); // Button class
+for (let i = 0; i < buyButtons.length; i++) {
+    buyButtons[i].addEventListener('click', function() {
+        console.log("MUA button clicked"); // Debug log
+        modal.style.display = "flex"; // Show modal
+    });
+}
 
-    // Close modal when click on close button
-    closeModal.onclick = function() {
+// Close modal when click on close button
+closeModal.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Close modal when clicking outside the modal
+window.onclick = function(event) {
+    if (event.target == modal) {
         modal.style.display = "none";
     }
-
-    // Close modal when clicking outside the modal
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+}
 </script>
 </body>
 </html>
