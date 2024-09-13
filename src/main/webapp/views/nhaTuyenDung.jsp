@@ -408,7 +408,7 @@
 					<div class="card-header">
 						<div class="card-title">Dịch vụ bài đăng</div>
 					</div>
-					<%@ include file="/views/dichvu2.jsp"%>
+					<%@ include file="/views/dichVu.jsp"%>
 					<br>
 				</div>
 			</div>

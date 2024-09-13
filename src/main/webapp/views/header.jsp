@@ -53,9 +53,9 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <a class="dropdown-item d-flex justify-content-start" href="/ThongTinCaNhan">
+                                <a class="dropdown-item d-flex justify-content-start" href="/job4u/profile">
                                     <img class="m-1" src="/img/icons8-user-50.png" height="25px" width="25px" alt="User Info">
-                                    <p class="m-1 text-dropdown-menu">Thông tin cá nhân</p>
+                                    <p class="m-1 text-dropdown-menu">Quản lý trang cá nhân</p>
                                 </a>
                             </li>
                             <li>

@@ -41,5 +41,7 @@ public interface UsersDao extends JpaRepository<UsersEntity, Integer> {
     @Query(value = "UPDATE UsersEntity u SET u.password = :password WHERE u.email = :email")
     void updatePasswordByEmail(@Param("email") String email, @Param("password") String password);
     
+    @Query(name ="id")
+    UsersEntity findByUserid(Integer id);
       
 }
