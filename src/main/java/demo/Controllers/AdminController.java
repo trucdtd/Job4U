@@ -44,27 +44,28 @@ public class AdminController {
 	private JdbcTemplate jdbcTemplate;
 
 	@RequestMapping("")
-	public String adminPage(HttpSession session, @RequestParam(value = "page", required = false) String page, Model model) {
-	    Integer role = (Integer) session.getAttribute("role");
+	public String adminPage(HttpSession session, @RequestParam(value = "page", required = false) String page,
+			Model model) {
+		Integer role = (Integer) session.getAttribute("role");
 
-	    if (role == null || role != 0) { // Không phải admin
-	        model.addAttribute("message", "Bạn không có quyền truy cập vào trang này.");
-	        return "dangnhap";
-	    }
+		if (role == null || role != 0) { // Không phải admin
+			model.addAttribute("message", "Bạn không có quyền truy cập vào trang này.");
+			return "dangnhap";
+		}
 
-	    // Nếu có trang cụ thể, xử lý theo trang đó
-	    if (page == null || page.equals("quanLyTaiKhoan")) {
-	        List<UsersEntity> dsND = userDao.findAll();
-	        model.addAttribute("dsND", dsND);
+		// Nếu có trang cụ thể, xử lý theo trang đó
+		if (page == null || page.equals("quanLyTaiKhoan")) {
+			List<UsersEntity> dsND = userDao.findAll();
+			model.addAttribute("dsND", dsND);
 
-	        List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
-	        model.addAttribute("qlBV", qlBV);
+			List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
+			model.addAttribute("qlBV", qlBV);
 
-	        List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
-	        model.addAttribute("qlCV", qlCV);
-	    }
+			List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
+			model.addAttribute("qlCV", qlCV);
+		}
 
-	    return "quanLyNguoiDung"; // Trang admin
+		return "quanLyNguoiDung"; // Trang admin
 	}
 
 	@RequestMapping("/detailUser/{id}")
@@ -77,44 +78,44 @@ public class AdminController {
 
 	@PostMapping("/updateUser/{id}")
 	public String updateUser(@PathVariable("id") Integer userid, @RequestParam("username") String username,
-	        @RequestParam("fullname") String fullname, @RequestParam("email") String email,
-	        @RequestParam("phonenumber") String phonenumber, RedirectAttributes redirectAttributes) {
+			@RequestParam("fullname") String fullname, @RequestParam("email") String email,
+			@RequestParam("phonenumber") String phonenumber, RedirectAttributes redirectAttributes) {
 
-	    // Kiểm tra các trường không được bỏ trống
-	    if (username.isEmpty() || fullname.isEmpty() || email.isEmpty() || phonenumber.isEmpty()) {
-	        redirectAttributes.addAttribute("error", "Tất cả các trường đều phải được điền!");
-	        return "redirect:/admin/detailUser/" + userid;
-	    }
+		// Kiểm tra các trường không được bỏ trống
+		if (username.isEmpty() || fullname.isEmpty() || email.isEmpty() || phonenumber.isEmpty()) {
+			redirectAttributes.addAttribute("error", "Tất cả các trường đều phải được điền!");
+			return "redirect:/admin/detailUser/" + userid;
+		}
 
-	    // Kiểm tra định dạng email
-	    String emailRegex = "^[A-Za-z0-9._%+-]+@(gmail\\.com|fpt\\.edu\\.vn)$";
-	    if (!Pattern.matches(emailRegex, email)) {
-	        redirectAttributes.addAttribute("error", "Định dạng email không hợp lệ!");
-	        return "redirect:/admin/detailUser/" + userid;
-	    }
+		// Kiểm tra định dạng email
+		String emailRegex = "^[A-Za-z0-9._%+-]+@(gmail\\.com|fpt\\.edu\\.vn)$";
+		if (!Pattern.matches(emailRegex, email)) {
+			redirectAttributes.addAttribute("error", "Định dạng email không hợp lệ!");
+			return "redirect:/admin/detailUser/" + userid;
+		}
 
-	    // Kiểm tra số điện thoại phải đủ 10 số
-	    String phoneRegex = "^\\d{10}$";
-	    if (!Pattern.matches(phoneRegex, phonenumber)) {
-	        redirectAttributes.addAttribute("error", "Số điện thoại phải đủ 10 số và không được nhập chữ!");
-	        return "redirect:/admin/detailUser/" + userid;
-	    }
+		// Kiểm tra số điện thoại phải đủ 10 số
+		String phoneRegex = "^\\d{10}$";
+		if (!Pattern.matches(phoneRegex, phonenumber)) {
+			redirectAttributes.addAttribute("error", "Số điện thoại phải đủ 10 số và không được nhập chữ!");
+			return "redirect:/admin/detailUser/" + userid;
+		}
 
-	    // Cập nhật thông tin người dùng
-	    String sql = "UPDATE Users SET username = ?, fullname = ?, email = ?, phonenumber = ? WHERE userid = ?";
-	    try {
-	        int rows = jdbcTemplate.update(sql, username, fullname, email, phonenumber, userid);
-	        if (rows > 0) {
-	            redirectAttributes.addAttribute("successMessage", "Cập nhật thông tin người dùng thành công!");
-	        } else {
-	            redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần cập nhật!");
-	        }
-	    } catch (Exception e) {
-	        redirectAttributes.addAttribute("error", "Cập nhật thông tin người dùng thất bại! Lỗi: " + e.getMessage());
-	        e.printStackTrace();
-	    }
+		// Cập nhật thông tin người dùng
+		String sql = "UPDATE Users SET username = ?, fullname = ?, email = ?, phonenumber = ? WHERE userid = ?";
+		try {
+			int rows = jdbcTemplate.update(sql, username, fullname, email, phonenumber, userid);
+			if (rows > 0) {
+				redirectAttributes.addAttribute("successMessage", "Cập nhật thông tin người dùng thành công!");
+			} else {
+				redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần cập nhật!");
+			}
+		} catch (Exception e) {
+			redirectAttributes.addAttribute("error", "Cập nhật thông tin người dùng thất bại! Lỗi: " + e.getMessage());
+			e.printStackTrace();
+		}
 
-	    return "redirect:/admin";
+		return "redirect:/admin";
 	}
 
 	@PostMapping("/deleteUser")
@@ -153,12 +154,14 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
+	@GetMapping("/detailPost/{id}")
+	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
+		JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
+		model.addAttribute("bv", bv);
+		return "chiTietBaiViet";
+	}
+
 	/*
-	 * @GetMapping("/detailPost/{id}") public String
-	 * showPostDetail(@PathVariable("id") Integer id, Model model) {
-	 * JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
-	 * model.addAttribute("bv", bv); return "chiTietBaiViet"; }
-	 * 
 	 * @PostMapping("/deletePost") public String deletePost(@RequestParam("id")
 	 * Integer id, RedirectAttributes redirectAttributes) { String
 	 * deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?"; String
@@ -220,12 +223,11 @@ public class AdminController {
 	 * "Có lỗi xảy ra khi cập nhật bài viết."); }
 	 * 
 	 * return "redirect:/admin"; // Chuyển hướng về trang admin hoặc trang danh sách
-	 * bài viết }
+	 * 
+	 * }
 	 */
- 
-	
-	
-	
+
+
 	@RequestMapping("/quanLyCV")
 	public String quanLyCV(Model model) {
 		List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
@@ -233,7 +235,4 @@ public class AdminController {
 		return "quanLyNguoiDung";
 
 	}
-	
-	
-
 }
