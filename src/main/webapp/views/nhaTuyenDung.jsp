@@ -80,7 +80,7 @@
 					<ul class="nav nav-pills flex-column mb-auto">
 						<li><a href="#" class="nav-link text-white active"
 							onclick="showTable(event, 'employersManagement')"> <i
-								class="bi bi-speedometer2 me-2"></i> Quản Lý Tuyển Dụng
+								class="bi bi-speedometer2 me-2"></i> Quản Lý Bài Đăng
 						</a></li>
 						<li><a href="#" class="nav-link text-white"
 							onclick="showTable(event, 'postEmployers')"> <i
@@ -106,36 +106,39 @@
 				<!-- Home table -->
 				<div id="employersManagement" class="card">
 					<div class="card-header">
-						<div class="card-title">Quản Lý Tuyển Dụng</div>
+						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<div class="table-responsive">
-							<table class="table align-items-center mb-0">
-								<thead class="thead-light">
-									<tr>
-										<th scope="col">Tên Công Việc</th>
-										<th scope="col">Vị Trí</th>
-										<th scope="col">Ngày Đăng</th>
-										<th scope="col">Hạn Nộp Hồ Sơ</th>
-										<!-- <th scope="col">Hành Động</th> -->
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${jobPostings}" var="job">
+						<form class="p-4" action="/job4u/employers"
+							method="get" id="nhaTuyenDung">
+							<div class="table-responsive">
+								<table class="table align-items-center mb-0">
+									<thead class="thead-light">
 										<tr>
-											<td>${job.jobTitle}</td>
-											<td>${job.jobLocation}</td>
-											<td>${job.postedDate}</td>
-											<td>${job.applicationDeadline}</td>
-											<td><a href="editJob?jobId=${job.id}"
-												class="btn btn-sm btn-primary">Chỉnh Sửa</a> <a
-												href="deleteJob?jobId=${job.id}"
-												class="btn btn-sm btn-danger">Xóa</a></td>
+											<th scope="col">Tên Công Việc</th>
+											<th scope="col">Vị Trí</th>
+											<th scope="col">Ngày Đăng</th>
+											<th scope="col">Hạn Nộp Hồ Sơ</th>
+											<th scope="col">Hành Động</th>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
+									</thead>
+									<tbody>
+										<c:forEach items="${jobPostings}" var="job">
+											<tr>
+												<td>${job.jobtitle}</td>
+												<td>${job.joblocation}</td>
+												<td>${job.posteddate}</td>
+												<td>${job.applicationdeadline}</td>
+												<td>
+										            <a href="editJob?jobId=${job.jobid}" class="btn btn-sm btn-primary">Chỉnh Sửa</a>
+										            <a href="deleteJob?jobId=${job.jobid}" class="btn btn-sm btn-danger">Xóa</a>
+										        </td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</form>
 					</div>
 				</div>
 
@@ -458,25 +461,26 @@
 	});
 
 	document.addEventListener("DOMContentLoaded", function() {
-	    // Đặt ngày hiện tại cho trường "Ngày đăng"
-	    var now = new Date();
-	    var formattedDate = now.toISOString().slice(0, 10); // Định dạng theo kiểu yyyy-MM-dd
+		// Đặt ngày hiện tại cho trường "Ngày đăng"
+		var now = new Date();
+		var formattedDate = now.toISOString().slice(0, 10); // Định dạng theo kiểu yyyy-MM-dd
 
-	    var postedDateField = document.getElementById("posteddate");
-	    postedDateField.value = formattedDate;
+		var postedDateField = document.getElementById("posteddate");
+		postedDateField.value = formattedDate;
 
-	    // Tạo sự kiện khi thay đổi hạn nộp hồ sơ
-	    var applicationDeadlineField = document.getElementById("applicationdeadline");
-	    applicationDeadlineField.addEventListener("change", function() {
-	        var postedDate = new Date(postedDateField.value);
-	        var applicationDeadline = new Date(applicationDeadlineField.value);
+		// Tạo sự kiện khi thay đổi hạn nộp hồ sơ
+		var applicationDeadlineField = document
+				.getElementById("applicationdeadline");
+		applicationDeadlineField.addEventListener("change", function() {
+			var postedDate = new Date(postedDateField.value);
+			var applicationDeadline = new Date(applicationDeadlineField.value);
 
-	        // So sánh ngày
-	        if (applicationDeadline < postedDate) {
-	            alert("Hạn nộp hồ sơ không được chọn trước ngày đăng.");
-	            applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
-	        }
-	    });
+			// So sánh ngày
+			if (applicationDeadline < postedDate) {
+				alert("Hạn nộp hồ sơ không được chọn trước ngày đăng.");
+				applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
+			}
+		});
 	});
 </script>
 

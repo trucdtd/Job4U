@@ -28,7 +28,7 @@ public class TopJobController {
 		model.addAttribute("list", list);
 		return "topViecLam";
 	}
-	@RequestMapping("/findJob")
+	@RequestMapping("/job4u/topjob/findJob")
 	public String findJob(Model model,
 	                      @RequestParam("page") Optional<Integer> page,
 	                      @RequestParam("joblocation") Optional<String> joblocation,
@@ -70,5 +70,6 @@ public class TopJobController {
 	    model.addAttribute("dsSP", dsSP);
 	    return "topViecLam";
 	}
+
 
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.dao.JoblistingsDao;
-import demo.dao.NotificationsDao;
 import demo.entity.MessagesEntity;
 
 @Controller

@@ -116,7 +116,7 @@
 
 		<!-- Thư viện dùng để tạo và xử lý JSON Web Token (JWT) -->
 		<dependency>
-<groupId>io.jsonwebtoken</groupId>
+			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.11.5</version>
 		</dependency>
@@ -161,7 +161,11 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

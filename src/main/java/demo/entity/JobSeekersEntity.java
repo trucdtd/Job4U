@@ -1,6 +1,7 @@
 package demo.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -76,11 +77,11 @@ public class JobSeekersEntity implements Serializable {
 
     @NotNull
     @Column(name = "createdat", nullable = false)
-    private LocalDateTime createdat;
+    private LocalDate createdat;
 
     @NotNull
     @Column(name = "updatedat", nullable = false)
-    private LocalDateTime updatedat;
+    private LocalDate updatedat;
 
     
 }
