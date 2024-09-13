@@ -1,5 +1,9 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +59,7 @@
 				<div id="collapsePages" class="collapse"
 					aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="login.html">Thông tin CV</a> <a
+						<a class="collapse-item" href="/job4u/profile/cv">Thông tin CV</a> <a
 							class="collapse-item" href="register.html">Danh sách CV</a> <a
 							class="collapse-item" href="forgot-password.html">Mẫu CV</a>
 					</div>
@@ -81,7 +85,7 @@
 					<i class="fas fa-fw fa-user"></i> <span>Mua gói pro</span>
 			</a></li>
 			<!-- Divider -->
-			<hr class="sidebar-divider"/>
+			<hr class="sidebar-divider" />
 			<!-- Heading -->
 
 			<!-- Sidebar Toggler (Sidebar) -->
@@ -190,9 +194,11 @@
 					</ul>
 				</nav>
 				<!-- End of Topbar -->
-				
+
 				<!-- include Page Content -->
-				
+				<div class="container-fluid">
+				 <jsp:include page="/views/profile/${page}"></jsp:include>
+				</div>
 			</div>
 		</div>
 		<!-- Bootstrap core JavaScript-->
