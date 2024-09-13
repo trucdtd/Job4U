@@ -142,6 +142,17 @@ public class NhaTuyenDungController {
 		return "nhaTuyenDung";
 	}
 
+//	@RequestMapping("/employers/editJob")
+//	public String editJob(@RequestParam("jobId") Integer jobId, Model model) {
+//	    JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
+//
+//	    if (jobListing != null) {
+//	        model.addAttribute("jobListing", jobListing);
+//	    }
+//
+//	    return "editJobModal";
+//	}
+
 //	@RequestMapping("/deleteJob")
 //	public String deleteJob(@RequestParam("jobId") Integer jobId, Model model) {
 //	    // Lấy bài đăng tuyển dụng dựa trên jobId
