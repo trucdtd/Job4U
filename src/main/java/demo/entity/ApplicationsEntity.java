@@ -21,28 +21,30 @@ public class ApplicationsEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "applicationid")
     private Integer applicationid;
 
     @NotNull
     @Column(name = "applicationdate")
     private LocalDateTime applicationdate;
 
-    @Column(name = "status", length = 50)
-    private String status;
+    @Column(name = "status")
+    private Integer status;
 
-    @Column(name = "resume", length = 2000)
+    @Column(name = "resume")
     private String resume;
 
-    @Column(name = "coverletter", length = 2000)
-    private String coverletter;
+    @Column(name = "createdat")
+    @NotNull
+    private LocalDateTime createdat;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "jobid", nullable = false)  // Chỉ định tên cột trong bảng Applications và không cho phép null
+    @JoinColumn(name = "jobid", nullable = false)
     private JoblistingsEntity job;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "jobSeekerid", nullable = false)  // Chỉ định tên cột trong bảng Applications và không cho phép null
+    @JoinColumn(name = "JobSeekerID", nullable = false)
     private JobSeekersEntity jobseeker;
 }

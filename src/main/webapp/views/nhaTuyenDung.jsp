@@ -63,7 +63,7 @@
 </head>
 <body>
 	<!-- header -->
-	<%@ include file="/views/header.jsp"%>
+	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
 	<div class="container">
 		<div class="row">
@@ -80,7 +80,7 @@
 					<ul class="nav nav-pills flex-column mb-auto">
 						<li><a href="#" class="nav-link text-white active"
 							onclick="showTable(event, 'employersManagement')"> <i
-								class="bi bi-speedometer2 me-2"></i> Quản Lý Tuyển Dụng
+								class="bi bi-speedometer2 me-2"></i> Quản Lý Bài Đăng
 						</a></li>
 						<li><a href="#" class="nav-link text-white"
 							onclick="showTable(event, 'postEmployers')"> <i
@@ -106,54 +106,48 @@
 				<!-- Home table -->
 				<div id="employersManagement" class="card">
 					<div class="card-header">
-						<div class="card-title">Quản Lý Tuyển Dụng</div>
+						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<div class="table-responsive">
-							<table class="table align-items-center mb-0">
-								<thead class="thead-light">
-									<tr>
-										<th scope="col">Tên Công Việc</th>
-										<th scope="col">Vị Trí</th>
-										<th scope="col">Ngày Đăng</th>
-										<th scope="col">Hạn Nộp Hồ Sơ</th>
-										<!-- <th scope="col">Hành Động</th> -->
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${jobPostings}" var="job">
+						<form class="p-4" action="/job4u/employers"
+							method="get" id="nhaTuyenDung">
+							<div class="table-responsive">
+								<table class="table align-items-center mb-0">
+									<thead class="thead-light">
 										<tr>
-											<td>${job.jobTitle}</td>
-											<td>${job.jobLocation}</td>
-											<td>${job.postedDate}</td>
-											<td>${job.applicationDeadline}</td>
-											<td><a href="editJob?jobId=${job.id}"
-												class="btn btn-sm btn-primary">Chỉnh Sửa</a> <a
-												href="deleteJob?jobId=${job.id}"
-												class="btn btn-sm btn-danger">Xóa</a></td>
+											<th scope="col">Tên Công Việc</th>
+											<th scope="col">Vị Trí</th>
+											<th scope="col">Ngày Đăng</th>
+											<th scope="col">Hạn Nộp Hồ Sơ</th>
+											<th scope="col">Hành Động</th>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
+									</thead>
+									<tbody>
+										<c:forEach items="${jobPostings}" var="job">
+											<tr>
+												<td>${job.jobtitle}</td>
+												<td>${job.joblocation}</td>
+												<td>${job.posteddate}</td>
+												<td>${job.applicationdeadline}</td>
+												<td>
+										            <a href="editJob?jobId=${job.jobid}" class="btn btn-sm btn-primary">Chỉnh Sửa</a>
+										            <a href="deleteJob?jobId=${job.jobid}" class="btn btn-sm btn-danger">Xóa</a>
+										        </td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</form>
 					</div>
 				</div>
 
 				<!-- Bảng quản lý bài đăng-->
 				<!-- Thông báo thành công hoặc lỗi -->
-				<c:if test="${not empty message}">
-					<div id="notification" class="container">
-						<div class="row justify-content-center">
-							<div class="col-md-6">
-								<div class="alert alert-info d-flex align-items-center"
-									role="alert">
-									<i class="bi bi-info-circle me-2"></i>
-									<div>${message}</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</c:if>
+				<div class="d-flex justify-content-center align-items-center mt-4">
+					<div class="alert text-truncate" style="max-width: 400px;">${message}</div>
+				</div>
+
 				<!-- bài đăng -->
 				<div id="postEmployers" class="card" style="display: none;">
 					<div class="card-header">
@@ -168,20 +162,20 @@
 										<div class="col-md-6 p-2">
 											<label for="companyname" class="form-label">Tên công
 												ty</label> <input type="text" class="form-control" id="companyname"
-												name="companyname" value="${employer.companyname}" disabled>
+												name="companyname" value="${employer.companyname}" readonly>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="companywebsite" class="form-label">Tên
 												web công ty</label> <input type="text" class="form-control"
 												id="companywebsite" name="companywebsite"
-												value="${employer.companywebsite}" disabled>
+												value="${employer.companywebsite}" readonly>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="address" class="form-label">Địa chỉ công
 												ty</label> <input type="text" class="form-control" id="address"
-												name="address" value="${employer.address}" disabled>
+												name="address" value="${employer.address}" readonly>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="industry" class="form-label">Ngành nghề</label> <select
@@ -312,9 +306,9 @@
 										<div class="col-md-6 p-2">
 											<label for="salary" class="form-label">Lương</label>
 											<div class="input-group">
-												<span class="input-group-text">$</span> <input type="number"
-													class="form-control salary-input" id="salary" name="salary"
-													min="0">
+												<span class="input-group-text">VND</span> <input
+													type="number" class="form-control salary-input" id="salary"
+													name="salary" min="0">
 											</div>
 										</div>
 									</div>
@@ -323,7 +317,7 @@
 											<label for="companydescription" class="form-label">Mô
 												tả về công ty</label>
 											<textarea class="form-control" id="companydescription"
-												name="companydescription" rows="4" required>${employer.companydescription}</textarea>
+												name="companydescription" rows="4" readonly>${employer.companydescription}</textarea>
 										</div>
 									</div>
 									<div class="row">
@@ -345,12 +339,12 @@
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="posteddate" class="form-label">Ngày đăng</label>
-											<input type="datetime-local" class="form-control"
-												id="posteddate" name="posteddate" required>
+											<input type="date" class="form-control" id="posteddate"
+												name="posteddate" required>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="applicationdeadline" class="form-label">Hạn
-												nộp hồ sơ</label> <input type="datetime-local" class="form-control"
+												nộp hồ sơ</label> <input type="date" class="form-control"
 												id="applicationdeadline" name="applicationdeadline" required>
 										</div>
 									</div>
@@ -467,9 +461,9 @@
 	});
 
 	document.addEventListener("DOMContentLoaded", function() {
-		// Đặt ngày và giờ hiện tại cho trường "Ngày đăng"
+		// Đặt ngày hiện tại cho trường "Ngày đăng"
 		var now = new Date();
-		var formattedDate = now.toISOString().slice(0, 16); // Định dạng theo kiểu yyyy-MM-ddTHH:mm
+		var formattedDate = now.toISOString().slice(0, 10); // Định dạng theo kiểu yyyy-MM-dd
 
 		var postedDateField = document.getElementById("posteddate");
 		postedDateField.value = formattedDate;
@@ -481,6 +475,7 @@
 			var postedDate = new Date(postedDateField.value);
 			var applicationDeadline = new Date(applicationDeadlineField.value);
 
+			// So sánh ngày
 			if (applicationDeadline < postedDate) {
 				alert("Hạn nộp hồ sơ không được chọn trước ngày đăng.");
 				applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
@@ -488,4 +483,5 @@
 		});
 	});
 </script>
+
 </html>

@@ -189,7 +189,7 @@ public class quenMatKhauController {
 	    session.removeAttribute("resetToken");
 
 	    // Thêm thông báo thành công vào redirectAttributes
-	    redirectAttributes.addFlashAttribute("successMessage", "Mật khẩu đã được đặt lại thành công.");
+	    redirectAttributes.addFlashAttribute("message", "Mật khẩu đã được thay đổi thành công");
 
 	    // Chuyển hướng đến trang đăng nhập
 	    return "dangnhap";

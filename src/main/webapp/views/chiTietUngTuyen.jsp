@@ -4,289 +4,229 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<!--link icon gắn trực tiếp trên bootstrap-->
+<title>Thông tin chi tiết</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-<!--link css gắn trực tiếp trên bootstrap-->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-<!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 <style>
-html, body {
-    height: 100%;
-    margin: 0;
+body {
+	font-family: Arial, sans-serif;
 }
 
-/* Wrapper để bao bọc toàn bộ nội dung và footer */
-.wrapper {
-    min-height: 100%; /* Chiều cao tối thiểu là 100% của trang */
-    display: flex;
-    flex-direction: column;
+.container {
+	padding: 20px;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 
-/* Content chính sẽ chiếm hết không gian còn lại */
-.content {
-    flex: 1; /* Chiếm không gian còn lại phía trên footer */
+.card {
+	border: 1px solid #ccc;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px #888888;
+	margin-bottom: 20px;
 }
 
-
-/* Hình ảnh thành viên */
-.img-container {
-    text-align: center;
-    margin-bottom: 15px;
+.info-detail {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 5px;
 }
 
-.img-container img {
-    border-radius: 50%; /* Hình tròn */
-    width: 100%; /* Chiều rộng đầy đủ của container */
-    max-width: 150px; /* Giới hạn chiều rộng tối đa */
-    height: auto;
-    border: 3px solid #007bff; /* Đường viền xanh */
+.button {
+	background-color: #0275d8;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	font-size: 16px;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 20px;
 }
 
-/* Phần mô tả thành viên */
-.member_designation h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+.button:hover {
+	background-color: #025aa5;
 }
 
-.member_designation span {
-    font-size: 16px;
-    color: blue;
-    text-decoration: underline;
+.logo img {
+	width: 100px;
+	height: 100px;
 }
 
-.member_desc h6 {
-    margin-top: 10px;
-    margin-bottom: 5px;
+.company-name {
+	font-weight: bold;
+	color: #0275d8;
+	font-size: 1.5em;
 }
 
-.member_desc p {
-    margin: 0;
-    padding: 0;
-    color: #555;
-}
-
-/* Định dạng lương */
 #salary {
-    color: #28a745; /* Màu xanh lá cho lương */
-    font-weight: bold;
+	font-weight: bold;
+	color: #d9534f;
+	font-size: 1.2em;
 }
 
-/* Tiêu đề phần mô tả công việc và yêu cầu công việc */
-.member_desc h4 {
-    font-size: 18px;
-    margin-top: 20px;
-    font-weight: bold;
-    color: #007bff;
+.bi {
+	font-size: 1.2em;
+	color: #0275d8;
 }
-
-/* Định dạng các nút */
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    font-size: 16px;
-    padding: 10px 20px;
-    margin-left: 10px;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-    font-size: 16px;
-    padding: 10px 20px;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
-}
-
-/* Căn chỉnh các phần tử trong row */
-.row {
-    margin-bottom: 15px;
-}
-
-.member_desc {
-    margin-bottom: 15px;
-}
-
-.member_desc p {
-    margin-left: 10px;
-    color: #555;
-}
-
-/* Phần liên kết chân trang */
-.text-right {
-    text-align: right;
-    margin-top: 20px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .img-container img {
-        max-width: 120px;
-    }
-
-    .member_designation h2 {
-        font-size: 20px;
-    }
-
-    .member_desc h6 {
-        font-size: 12px;
-    }
-
-    .member_desc p {
-        font-size: 12px;
-    }
-
-    .btn-primary, .btn-secondary {
-        font-size: 14px;
-        padding: 8px 16px;
-    }
 </style>
 </head>
-
 <body>
-	<!-- header -->
-	<%@ include file="/views/header.jsp"%>
-	<!-- /header -->
-	<div class="container">
-		<div class="row">
-			<article class="col-md">
-				<div class="container">
-					<section class="member-details">
-						<div class="container">
+	<div class="wrapper">
+		<%@ include file="/views/header.jsp"%>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7">
+					<article>
+						<section class="member-details">
 							<div class="row">
-								<div class="col-lg-3 col-md-4">
+								<div class="col-lg-3 col-md-4 mb-4">
 									<div class="img-container">
 										<img src="https://bootdey.com/img/Content/avatar/avatar6.png"
-											alt="team member" class="img-full">
+											alt="team member" class="img-fluid">
 									</div>
 								</div>
 								<div class="col-lg-9 col-md-8">
-									<div class="member_designation">
-										<h2>${job.employer.companyname}</h2>
-										<span style="color: blue; text-decoration: underline;">${job.employer.companywebsite}</span>
-									</div>
-									<div class="member_desc">
-										<p>${job.employer.companydescription}</p>
-										<div class="row">
-											<div class="col-lg-6 member_desc">
-												<h6>
-													Ngành Nghề :
-													<p>${job.employer.industry}</p>
-												</h6>
-												<h6 for="eMail">
-													Địa Chỉ :
-													<p>${job.employer.address}</p>
-												</h6>
-												<h6 for="phone">
-													Vị trí :
-													<p>${job.jobtitle}</p>
-												</h6>
-												<h6 for="zIp">
-													Địa Điểm Làm Việc :
-													<p>${job.joblocation}</p>
-												</h6>
-											</div>
-											<div class="col-lg-6 member_desc">
-												<h6 for="ciTy">
-													Lương :
-													<p id="salary">${job.salary}VNĐ</p>
-												</h6>
-												<h6 for="phone">
-													Người Liên Hệ:
-													<p>${job.employer.contactperson}</p>
-												</h6>
-												<h6 for="Street">
-													Loại Công Việc :
-													<p>${job.jobtype}</p>
-												</h6>
-											</div>
+									<h2 class="company-name">${job.employer.companyname}</h2>
+									<%-- <span>${job.employer.companywebsite}</span> --%>
+									<p>${job.employer.companydescription}</p>
+									<div class="row">
+										<div class="col-lg-6">
+											<h6>
+												<i class="bi bi-briefcase"></i> Ngành Nghề:
+											</h6>
+											<p>${job.employer.industry}</p>
+											<h6>
+												<i class="bi bi-building"></i> Địa Chỉ:
+											</h6>
+											<p>${job.employer.address}</p>
+											<h6>
+												<i class="bi bi-briefcase-fill"></i> Vị Trí:
+											</h6>
+											<p>${job.jobtitle}</p>
+										</div>
+										<div class="col-lg-6">
+											<h6>
+												<i class="bi bi-geo-alt"></i> Địa Điểm Làm Việc:
+											</h6>
+											<p>${job.joblocation}</p>
+											<%-- <h6>
+												<i class="bi bi-currency-dollar"></i> Lương:
+											</h6>
+											<p id="salary">${job.salary}VNĐ</p> --%>
+											<h6>
+												<i class="bi bi-person"></i> Người Liên Hệ:
+											</h6>
+											<p>${job.employer.contactperson}</p>
 										</div>
 									</div>
-									<div class="member_desc">
-										<h4>Yêu cầu công việc</h4>
-										<p>${job.jobrequirements}</p>
-										<h4>Mô tả về công việc</h4>
-										<p>${job.jobdescription}</p>
-									</div>
-									<div class="row ">
-										<div class="col-lg-6 member_desc">
-											<h4>Ngày Đăng</h4>
+									<div class="row">
+										<div class="col-lg-6">
+											<h4>
+												<i class="bi bi-calendar"></i> Ngày Đăng:
+											</h4>
 											<p>${formattedPostedDate}</p>
 										</div>
-										<div class="col-lg-6 member_desc">
-											<h4>Hạn nộp</h4>
-											<p>${formattedApplicationDeadline}</p>
-										</div>
 									</div>
-									<br>
-									<div class="row gutters">
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<div class="text-right">
-												<a href="/job4u" type="button" id="submit" name="submit"
-													class="btn btn-secondary">Quay lại</a>
-												<button type="button" id="submit" name="submit"
-													class="btn btn-primary">Ứng Tuyển</button>
-											</div>
-										</div>
-									</div>
+									<h4>
+										<i class="bi bi-list-check"></i> Yêu cầu công việc
+									</h4>
+									<p>${job.jobrequirements}</p>
+									<h4>
+										<i class="bi bi-file-text"></i> Mô tả về công việc
+									</h4>
+									<p>${job.jobdescription}</p>
 								</div>
 							</div>
-						</div>
-					</section>
+						</section>
+					</article>
 				</div>
-			</article>
+
+				<!-- Sidebar với thông tin chi tiết -->
+				<div class="col-md-5">
+					<div class="card">
+						<div class="logo">
+							<img src="https://bootdey.com/img/Content/avatar/avatar6.png"
+								alt="Company Logo">
+						</div>
+						<div class="info-detail">
+							<span>Tên công ty:</span><span class="company-name">${job.employer.companyname}</span>
+						</div>
+						<div class="info-detail">
+							<span>Website công ty:</span><span>${job.employer.companywebsite}</span>
+						</div>
+						<div class="info-detail">
+							<span><i class="bi bi-briefcase"></i> Ngành nghề:</span><span>${job.employer.industry}</span>
+						</div>
+						<div class="info-detail">
+							<span><i class="bi bi-building"></i> Địa chỉ:</span><span>${job.employer.address}</span>
+						</div>
+					</div>
+					<div class="card">
+						<div class="info">
+							<h3>Thông tin công việc</h3>
+							<div class="info-detail">
+								<span><i class="bi bi-briefcase"></i> Vị trí:</span><span>${job.jobtitle}</span>
+							</div>
+							<div class="info-detail">
+								<span><i class="bi bi-geo-alt"></i> Địa điểm làm việc:</span><span>${job.joblocation}</span>
+							</div>
+							<div class="info-detail">
+								<span><i class="bi bi-currency-dollar"></i> Lương:</span><span
+									id="salary">${job.salary} VNĐ</span>
+							</div>
+							<div class="info-detail">
+								<span><i class="bi bi-calendar"></i> Ngày đăng:</span><span>${formattedPostedDate}</span>
+							</div>
+							<div class="info-detail">
+								<span><i class="bi bi-calendar-check"></i> Hạn nộp:</span><span>${job.applicationdeadline}</span>
+							</div>
+						</div>
+						<!-- Nút Quay lại và Ứng tuyển -->
+						<div class="button-group d-flex justify-content-between mt-3">
+							<a href="/job4u" class="btn btn-secondary w-50 me-2">Quay lại</a>
+							<button type="button" class="btn btn-primary w-50">Ứng
+								tuyển</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
 		</div>
-</div>
-	<!-- footer -->
+	</div>
+	<div>
 		<%@ include file="/views/footer.jsp"%>
-	<!-- /footer -->
+	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			function formatSalary(salaryText) {
+				salaryText = salaryText.replace('VNĐ', '').trim();
+				var salaryNumber = parseFloat(salaryText.replace(/\./g, '')
+						.replace(/,/g, ''));
+				var formattedSalary = salaryNumber.toString().replace(
+						/\B(?=(\d{3})+(?!\d))/g, '.');
+				return formattedSalary + ' VNĐ';
+			}
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Lấy phần tử có id "salary"
-            var salaryElement = document.getElementById("salary");
+			var salaryElement = document.getElementById("salary");
+			var salaryText = salaryElement.textContent
+					|| salaryElement.innerText;
+			salaryElement.innerHTML = formatSalary(salaryText);
 
-            // Lấy nội dung văn bản của phần tử
-            var salaryText = salaryElement.textContent || salaryElement.innerText;
-
-            // Xóa chữ VNĐ và khoảng trắng
-            salaryText = salaryText.replace('VNĐ', '').trim();
-
-            // Chuyển đổi số tiền thành số nguyên
-            var salaryNumber = parseFloat(salaryText.replace(/\./g, '').replace(/,/g, ''));
-
-            // Định dạng số tiền với dấu phẩy và dấu chấm theo yêu cầu
-            var formattedSalary = salaryNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-            // Thay đổi định dạng từ dấu phẩy thành dấu chấm cho phân cách triệu
-            var parts = formattedSalary.split(',');
-            if (parts.length > 1) {
-                var integerPart = parts.slice(0, -1).join(','); // Phần nguyên
-                var decimalPart = parts[parts.length - 1]; // Phần thập phân
-                formattedSalary = integerPart + '.' + decimalPart;
-            }
-
-            // Cập nhật nội dung của phần tử với giá trị đã thay đổi
-            salaryElement.innerHTML = formattedSalary + ' VNĐ';
-        });
-    </script>
-<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+			var salaryElements = document
+					.querySelectorAll(".info-detail span[id='salary']");
+			salaryElements.forEach(function(element) {
+				var salaryText = element.textContent || element.innerText;
+				element.innerHTML = formatSalary(salaryText);
+			});
+		});
+	</script>
 </body>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </html>
