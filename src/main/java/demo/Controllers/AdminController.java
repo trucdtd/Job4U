@@ -153,75 +153,79 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
-	@GetMapping("/detailPost/{id}")
-	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
-		JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
-		model.addAttribute("bv", bv);
-		return "chiTietBaiViet";
-	}
-
-	@PostMapping("/deletePost")
-	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
-	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
-	    String deletePostSql = "DELETE FROM Post WHERE JobID = ?";
-
-	    try {
-	        // Xóa các bản ghi liên quan trong bảng Applications trước
-	        jdbcTemplate.update(deleteApplicationsSql, id);
-
-	        // Xóa các bản ghi liên quan trong bảng Joblistings
-	        jdbcTemplate.update(deleteJobListingsSql, id);
-
-	        // Sau đó xóa bài viết
-	        jdbcTemplate.update(deletePostSql, id);
-
-	        redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
-	        e.printStackTrace();
-	    }
-
-	    return "redirect:/admin";
-	}
-
-	@PostMapping("/updatePost/{jobid}")
-	public String updatePost(@PathVariable("jobid") Integer jobid, @RequestParam("jobtitle") String jobtitle,
-			@RequestParam("joblocation") String joblocation, @RequestParam("companyname") String companyname,
-			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
-			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
-			@RequestParam("salary") String salary, RedirectAttributes redirectAttributes) {
-
-		// In ra các giá trị để kiểm tra
-		System.out.println("jobid: " + jobid);
-		System.out.println("jobtitle: " + jobtitle);
-		System.out.println("joblocation: " + joblocation);
-		System.out.println("companyname: " + companyname);
-		System.out.println("companywebsite: " + companywebsite);
-		System.out.println("address: " + address);
-		System.out.println("industry: " + industry);
-		System.out.println("contactperson: " + contactperson);
-		System.out.println("salary: " + salary);
-		// In các giá trị khác tương tự
-
-		try {
-			// Cập nhật cơ sở dữ liệu như trước
-			String sql = "UPDATE Joblistings SET jobtitle = ?, joblocation = ?, salary = ? WHERE jobid = ?";
-			jdbcTemplate.update(sql, jobtitle, joblocation, salary, jobid);
-
-			String sqlEmployer = "UPDATE Employers SET companyname = ?, companywebsite = ?, address = ?, industry = ?, contactperson = ? WHERE employerid = (SELECT employerid FROM Joblistings WHERE jobid = ?)";
-			jdbcTemplate.update(sqlEmployer, companyname, companywebsite, address, industry, contactperson, jobid);
-
-			redirectAttributes.addFlashAttribute("message", "Bài viết đã được cập nhật thành công.");
-		} catch (Exception e) {
-			// Thêm log để hiển thị lỗi
-			System.out.println("Lỗi khi cập nhật: " + e.getMessage());
-			redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi cập nhật bài viết.");
-		}
-
-		return "redirect:/admin"; // Chuyển hướng về trang admin hoặc trang danh sách bài viết
-	}
-
+	/*
+	 * @GetMapping("/detailPost/{id}") public String
+	 * showPostDetail(@PathVariable("id") Integer id, Model model) {
+	 * JoblistingsEntity bv = joblistingsDao.findById(id).orElse(null);
+	 * model.addAttribute("bv", bv); return "chiTietBaiViet"; }
+	 * 
+	 * @PostMapping("/deletePost") public String deletePost(@RequestParam("id")
+	 * Integer id, RedirectAttributes redirectAttributes) { String
+	 * deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?"; String
+	 * deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?"; String
+	 * deletePostSql = "DELETE FROM Post WHERE JobID = ?";
+	 * 
+	 * try { // Xóa các bản ghi liên quan trong bảng Applications trước
+	 * jdbcTemplate.update(deleteApplicationsSql, id);
+	 * 
+	 * // Xóa các bản ghi liên quan trong bảng Joblistings
+	 * jdbcTemplate.update(deleteJobListingsSql, id);
+	 * 
+	 * // Sau đó xóa bài viết jdbcTemplate.update(deletePostSql, id);
+	 * 
+	 * redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
+	 * } catch (Exception e) { redirectAttributes.addFlashAttribute("error",
+	 * "Xóa bài viết thất bại. Lỗi: " + e.getMessage()); e.printStackTrace(); }
+	 * 
+	 * return "redirect:/admin"; }
+	 * 
+	 * @PostMapping("/updatePost/{jobid}") public String
+	 * updatePost(@PathVariable("jobid") Integer jobid, @RequestParam("jobtitle")
+	 * String jobtitle,
+	 * 
+	 * @RequestParam("joblocation") String joblocation, @RequestParam("companyname")
+	 * String companyname,
+	 * 
+	 * @RequestParam("companywebsite") String
+	 * companywebsite, @RequestParam("address") String address,
+	 * 
+	 * @RequestParam("industry") String industry, @RequestParam("contactperson")
+	 * String contactperson,
+	 * 
+	 * @RequestParam("salary") String salary, RedirectAttributes redirectAttributes)
+	 * {
+	 * 
+	 * // In ra các giá trị để kiểm tra System.out.println("jobid: " + jobid);
+	 * System.out.println("jobtitle: " + jobtitle);
+	 * System.out.println("joblocation: " + joblocation);
+	 * System.out.println("companyname: " + companyname);
+	 * System.out.println("companywebsite: " + companywebsite);
+	 * System.out.println("address: " + address); System.out.println("industry: " +
+	 * industry); System.out.println("contactperson: " + contactperson);
+	 * System.out.println("salary: " + salary); // In các giá trị khác tương tự
+	 * 
+	 * try { // Cập nhật cơ sở dữ liệu như trước String sql =
+	 * "UPDATE Joblistings SET jobtitle = ?, joblocation = ?, salary = ? WHERE jobid = ?"
+	 * ; jdbcTemplate.update(sql, jobtitle, joblocation, salary, jobid);
+	 * 
+	 * String sqlEmployer =
+	 * "UPDATE Employers SET companyname = ?, companywebsite = ?, address = ?, industry = ?, contactperson = ? WHERE employerid = (SELECT employerid FROM Joblistings WHERE jobid = ?)"
+	 * ; jdbcTemplate.update(sqlEmployer, companyname, companywebsite, address,
+	 * industry, contactperson, jobid);
+	 * 
+	 * redirectAttributes.addFlashAttribute("message",
+	 * "Bài viết đã được cập nhật thành công."); } catch (Exception e) { // Thêm log
+	 * để hiển thị lỗi System.out.println("Lỗi khi cập nhật: " + e.getMessage());
+	 * redirectAttributes.addFlashAttribute("error",
+	 * "Có lỗi xảy ra khi cập nhật bài viết."); }
+	 * 
+	 * return "redirect:/admin"; // Chuyển hướng về trang admin hoặc trang danh sách
+	 * bài viết }
+	 */
+ 
+	
+	
+	
 	@RequestMapping("/quanLyCV")
 	public String quanLyCV(Model model) {
 		List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
@@ -229,5 +233,7 @@ public class AdminController {
 		return "quanLyNguoiDung";
 
 	}
+	
+	
 
 }
