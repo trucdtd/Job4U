@@ -88,7 +88,7 @@
 	<!-- Thanh tìm kiếm chính -->
 	<nav class="col-md-12">
 		<div class="container mt-4">
-			<form action="/job4u/findJob" method="GET" class="search-form">
+			<form action="/job4u/topjob/findJob" method="GET" class="search-form">
 				<div class="d-flex align-items-center gap-3">
 					<!-- Tiêu đề công việc -->
 					<div class="flex-fill mb-3">
@@ -227,14 +227,14 @@
 		<div class="container py-4">
 			<div class="row justify-content-center">
 				<h4 class="mb-4"></h4>
-				<c:forEach var="job" items="${list}">
+				<c:forEach var="job" items="${dsSP.content}">
 					<div class="col-md-12 col-xl-10 mb-4">
 						<div class="card shadow-0 border rounded-3">
 							<div class="card-body">
 								<div class="row">
 									<div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
 										<div class="bg-image hover-zoom ripple rounded ripple-surface">
-											<img src="${jobemployer.logo}" class="w-100"
+											<img src="${job.employer.logo}" class="w-100"
 												alt="${job.employer.companyname}" />
 										</div>
 									</div>
@@ -257,6 +257,7 @@
 						</div>
 					</div>
 				</c:forEach>
+
 			</div>
 		</div>
 	</section>
@@ -291,7 +292,7 @@
             window.location.href = url;
         }
     </script>
-    <script
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
