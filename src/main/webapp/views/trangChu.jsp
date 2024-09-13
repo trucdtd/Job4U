@@ -23,7 +23,7 @@
 	<!-- header -->
 	<%@ include file="/views/header.jsp"%>
 	<!-- /header -->
-	<%@ include file="/views/nhaTuyenDungHangDau.jsp"%>
+	<%@ include file="/views/top5baiviet.jsp"%>
 	
 	<div class="container">
 
