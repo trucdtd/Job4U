@@ -27,8 +27,8 @@ public class ApplicationsEntity implements Serializable {
     @Column(name = "applicationdate")
     private LocalDateTime applicationdate;
 
-    @Column(name = "status", length = 50)
-    private String status;
+    @Column(name = "status")
+    private Integer status;
 
     @Column(name = "resume", length = 2000)
     private String resume;

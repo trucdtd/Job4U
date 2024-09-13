@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
 
 public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer> {
@@ -70,4 +71,8 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     
     // Lấy 5 công việc cũ nhất
     List<JoblistingsEntity> findTop5ByOrderByPosteddateAsc();
+    
+ // Phương thức tìm kiếm bài đăng theo nhà tuyển dụng
+    @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer = :employer")
+    List<JoblistingsEntity> findByEmployer(@Param("employer") EmployersEntity employer);
 }
