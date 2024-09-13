@@ -59,13 +59,7 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     Page<JoblistingsEntity> findByJobTitleAndIndustry(@Param("jobtitle") String jobtitle,
                                                       @Param("industry") String industry, Pageable pageable);
 
-<<<<<<< HEAD
-	List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
-	
-	List<JoblistingsEntity> findTop5ByOrderByPosteddateAsc();
 
-}
-=======
     // Lấy 5 công việc mới nhất
     @Query("SELECT j FROM JoblistingsEntity j ORDER BY j.posteddate DESC")
     List<JoblistingsEntity> findTop5ByOrderByPosteddateDesc();
@@ -86,4 +80,4 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     //phương thức để lấy danh sách các bài đăng mà không bao gồm những bài đã bị ẩn
     List<JoblistingsEntity> findByEmployerAndActive(EmployersEntity employer, boolean active);
 }
->>>>>>> dev
+
