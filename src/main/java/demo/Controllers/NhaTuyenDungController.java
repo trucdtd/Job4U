@@ -131,8 +131,8 @@ public class NhaTuyenDungController {
 		LocalDate applicationDeadline = LocalDate.parse(applicationdeadline, formatter);
 
 		// Chuyển đổi LocalDate thành LocalDateTime với thời gian mặc định là 00:00
-		jobListing.setPosteddate(postedDate.atStartOfDay());
-		jobListing.setApplicationdeadline(applicationDeadline.atStartOfDay());
+//		jobListing.setPosteddate(postedDate.atStartOfDay());
+//		jobListing.setApplicationdeadline(applicationDeadline.atStartOfDay());
 		danhSachViecLamDao.save(jobListing);
 
 		return "nhaTuyenDung";
