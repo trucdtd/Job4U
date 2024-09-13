@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
 
 public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer> {
@@ -62,4 +63,5 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
 	
 	List<JoblistingsEntity> findTop5ByOrderByPosteddateAsc();
+
 }
