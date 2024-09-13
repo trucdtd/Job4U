@@ -62,4 +62,7 @@ public class JoblistingsEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "userserviceid")
     private UserServicesEntity userService;
+    
+    @Column(name = "active", nullable = false)
+    private boolean active = true; // Trạng thái bài đăng
 }

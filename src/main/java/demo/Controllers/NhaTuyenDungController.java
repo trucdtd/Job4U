@@ -47,12 +47,12 @@ public class NhaTuyenDungController {
 			EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
 			model.addAttribute("employer", employer);
 			if (employer != null) {
-	            // Lấy danh sách bài đăng tuyển dụng của nhà tuyển dụng
-	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployer(employer);
-	            model.addAttribute("jobPostings", jobPostings);
-	        }
+				// Lấy danh sách bài đăng tuyển dụng của nhà tuyển dụng
+				List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployer(employer);
+				model.addAttribute("jobPostings", jobPostings);
+			}
 		}
-		
+
 		return "nhaTuyenDung";
 	}
 
@@ -137,4 +137,28 @@ public class NhaTuyenDungController {
 
 		return "nhaTuyenDung";
 	}
+
+	@RequestMapping("/deleteJob")
+	public String deleteJob(@RequestParam("jobId") Integer jobId, Model model) {
+	    // Lấy bài đăng tuyển dụng dựa trên jobId
+	    JoblistingsEntity jobPosting = danhSachViecLamDao.findById(jobId).orElse(null);
+
+	    if (jobPosting != null) {
+	        // Đánh dấu bài đăng là không hoạt động
+	        jobPosting.setActive(false);
+	        danhSachViecLamDao.save(jobPosting);
+	    }
+
+	    // Lấy lại danh sách bài đăng để cập nhật giao diện
+	    Integer employerId = sessionService.getCurrentEmployerId();
+	    EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(null);
+
+	    if (employer != null) {
+	        List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployer(employer);
+	        model.addAttribute("jobPostings", jobPostings);
+	    }
+
+	    return "nhaTuyenDung"; // Trả về view cập nhật danh sách
+	}
+
 }
