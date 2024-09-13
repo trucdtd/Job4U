@@ -18,7 +18,8 @@
 </head>
 <body>
 	<!-- header -->
-	<%@ include file="/views/header.jsp"%>
+	<%@ include file="/views/headerNoPanner.jsp"%>
+	<br>
 	<!-- header -->
 	<div class="container">
 		<div class="container">

@@ -34,7 +34,7 @@
                         <li class="nav-item"><a class="nav-link" href="/job4u"><img
                                 src="/img/icons8-home-50.png" style="padding-bottom: 7px;" width="25px" height="30px" alt="Home"> Trang Chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="/lienhe">Liên Hệ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/topvieclam">Top Công Việc</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/job4u/topjob">Top Công Việc</a></li>
                         <li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà Tuyển Dụng</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Ứng Tuyển</a></li>
                     </ul>
@@ -51,23 +51,41 @@
                             <img class="text-center" src="/img/icons8-bell-48.png" height="30px" alt="Notifications"> 
                             <span id="user-name" class="span-name-user"></span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item d-flex justify-content-start" href="/ThongTinCaNhan"><img class="m-1"
-                                                                                                                     src="/img/icons8-user-50.png" height="25px" width="25px" alt="User Info">
-                                <p class="m-1 text-dropdown-menu">Thông tin cá nhân</p></a></li>
-                            <li><a class="dropdown-item d-flex justify-content-start" href="/ThongTinCaNhan/user"><img class="m-1"
-                                                                                                                     src="/img/icons8-phone-50.png" height="25px" width="25px" alt="Contact Info">
-                                <p class="m-1 text-dropdown-menu">Thông tin liên hệ</p></a></li>
-                            <li><a class="dropdown-item d-flex justify-content-start" href="/Job4U/lien_he.html copy.html"><img class="m-1"
-                                                                                                                     src="/img/icons8-cv-80.png" height="25px" width="25px" alt="CV Management">
-                                <p class="m-1 text-dropdown-menu">Quản lý CV</p></a></li>
-                                
-                            <li><a class="dropdown-item d-flex justify-content-start" href="/changePass"><img class="m-1"
-                                                                                                  src="/img/icons8-setting-50.png" height="25px" width="25px" alt="Change Password">
-                                <p class="m-1 text-dropdown-menu">Đổi mật khẩu</p></a></li>
-                            <li><a class="dropdown-item d-flex justify-content-start" href="/Login/logout"><img class="m-1"
-                                                                                                     src="/img/icons8-logout-52.png" height="25px" width="25px" alt="Logout">
-                                <p class="m-1 text-dropdown-menu">Đăng xuất</p></a></li>
+                        <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-start" href="/ThongTinCaNhan">
+                                    <img class="m-1" src="/img/icons8-user-50.png" height="25px" width="25px" alt="User Info">
+                                    <p class="m-1 text-dropdown-menu">Thông tin cá nhân</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-start" href="<%= 
+                                    session.getAttribute("role") != null ? 
+                                    (session.getAttribute("role").toString().equals("0") ? "/admin" : 
+                                    (session.getAttribute("role").toString().equals("1") ? "/job4u" : 
+                                    (session.getAttribute("role").toString().equals("2") ? "/job4u/employers" : "#"))) : "#" %>">
+                                    <img class="m-1" src="/img/icons8-cv-80.png" height="25px" width="25px" alt="Contact Info">
+                                    <p class="m-1 text-dropdown-menu">Quản lý trang</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-start" href="/Job4U/lien_he.html copy.html">
+                                    <img class="m-1" src="/img/icons8-bell-48.png" height="25px" width="25px" alt="CV Management">
+                                    <p class="m-1 text-dropdown-menu">Thông báo</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-start" href="/changePass">
+                                    <img class="m-1" src="/img/icons8-setting-50.png" height="25px" width="25px" alt="Change Password">
+                                    <p class="m-1 text-dropdown-menu">Đổi mật khẩu</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-start" href="/Login/logout">
+                                    <img class="m-1" src="/img/icons8-logout-52.png" height="25px" width="25px" alt="Logout">
+                                    <p class="m-1 text-dropdown-menu">Đăng xuất</p>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <!-- HẾT DROPDOWN MENU -->
