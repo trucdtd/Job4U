@@ -68,6 +68,7 @@
                     </div>
                 </div>
                 <!-- Slide 2 -->
+                <c:forEach var="job" items="${jobListings}">
                 <div class="carousel-item">
                     <div class="image-container">
                         <img src="/img/jobforyou.jpg" class="d-block w-100" alt="Slide 2">
@@ -76,7 +77,7 @@
                         <div class="card p-2">
                             <div class="row">
                                 <h4 class="m-t-0 m-b-0">
-                                    <strong>CÔNG TY ĐIỆN TỬ XYZ</strong>
+                                    <strong>${job.jobtitle}</strong>
                                 </h4>
                                 <span class="job_post">Software Engineer</span>
                                 <p>123 Tech Park, Silicon Valley, CA 94043</p>
@@ -87,67 +88,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Slide 3 -->
-                <div class="carousel-item">
-                    <div class="image-container">
-                        <img src="/img/jobforyou.jpg" class="d-block w-100" alt="Slide 3">
-                    </div>
-                    <div class="carousel-caption d-none d-md-block">
-                        <div class="card p-2">
-                            <div class="row">
-                                <h4 class="m-t-0 m-b-0">
-                                    <strong>CÔNG TY CÔNG NGHỆ ABC</strong>
-                                </h4>
-                                <span class="job_post">Data Scientist</span>
-                                <p>456 Data Ave, Boston, MA 02110</p>
-                                <div>
-                                    <a href="/job4u/chiTiet/3" class="btn btn-outline-primary btn-sm mt-2">Thông tin chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 4 -->
-                <div class="carousel-item">
-                    <div class="image-container">
-                        <img src="/img/jobforyou.jpg" class="d-block w-100" alt="Slide 4">
-                    </div>
-                    <div class="carousel-caption d-none d-md-block">
-                        <div class="card p-2">
-                            <div class="row">
-                                <h4 class="m-t-0 m-b-0">
-                                    <strong>CÔNG TY KỸ THUẬT DEF</strong>
-                                </h4>
-                                <span class="job_post">Systems Analyst</span>
-                                <p>789 Innovation Blvd, Seattle, WA 98101</p>
-                                <div>
-                                    <a href="/job4u/chiTiet/4" class="btn btn-outline-primary btn-sm mt-2">Thông tin chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 5 -->
-                <div class="carousel-item">
-                    <div class="image-container">
-                        <img src="/img/jobforyou.jpg" class="d-block w-100" alt="Slide 5">
-                    </div>
-                    <div class="carousel-caption d-none d-md-block">
-                        <div class="card p-2">
-                            <div class="row">
-                                <h4 class="m-t-0 m-b-0">
-                                    <strong>CÔNG TY MỚI THUÊ TÀI CHÍNH TRÁCH NHIỆM HỮU HẠN MỘT THÀNH VIÊN QUỐC TẾ EXAMPLE</strong>
-                                </h4>
-                                <span class="job_post">Graphic Designer</span>
-                                <p>123 Example St, Suite 100 New York, NY 10001</p>
-                                <div>
-                                    <a href="/job4u/chiTiet/5" class="btn btn-outline-primary btn-sm mt-2">Thông tin chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </c:forEach>
+               
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -158,7 +100,7 @@
             </button>
         </div>
     </div>
-    
+    </div>
     <!-- Bootstrap JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-sTzI3U4kso4ZzRDv0A0qYVkAAB0iOSc11vj8D7wJ9z8OmQW0KvU4y2F2IZ5jIV30" crossorigin="anonymous"></script>
 </body>

@@ -8,7 +8,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -21,8 +24,10 @@ public class UserServicesEntity implements Serializable {
     @Column(name = "userserviceid")
     private Integer userserviceid;
 
-    @Column(name = "userid")
-    private Integer userid;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
+    private UsersEntity user;
 
     @Column(name = "serviceid")
     private Integer serviceid;

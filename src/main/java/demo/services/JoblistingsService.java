@@ -40,9 +40,7 @@ public class JoblistingsService {
 //	        return employersDao.findAllById(topEmployerIds);
 //	    }
 	
-	public List<EmployersEntity> getTop3Employers() {
-        return employersDao.findTop3Employers();
-    }
-	
-	
+	 public List<JoblistingsEntity> getJobsByUserServiceId(Integer userServiceId) {
+	        return joblistingsDao.findJobsByUserServiceId(userServiceId);
+	    }
 }
