@@ -22,25 +22,25 @@ public class ServicesEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ServiceID")
-    private Integer serviceId;
+    @Column(name = "serviceid")
+    private Integer serviceid;
 
     @NotNull
-    @Column(name = "ServiceName", nullable = false)
-    private String serviceName;
+    @Column(name = "servicename", nullable = false)
+    private String servicename;
 
-    @Column(name = "Description")
+    @Column(name = "description")
     private String description;
 
     @NotNull
-    @Column(name = "Price", nullable = false)
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
     @NotNull
-    @Column(name = "CreatedAt", nullable = false)
-    private LocalDate createdAt;
+    @Column(name = "createdat", nullable = false)
+    private LocalDate createdat;
 
     @NotNull
-    @Column(name = "UpdatedAt", nullable = false)
-    private LocalDate updatedAt;
+    @Column(name = "updatedat", nullable = false)
+    private LocalDate updatedat;
 }
