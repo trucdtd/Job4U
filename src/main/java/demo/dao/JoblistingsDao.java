@@ -76,5 +76,18 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
  // Phương thức tìm kiếm bài đăng theo nhà tuyển dụng
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer = :employer")
     List<JoblistingsEntity> findByEmployer(@Param("employer") EmployersEntity employer);
+    
+//    @Query("SELECT j FROM JoblistingsEntity j " +
+//    	       "JOIN j.employer e " +
+//    	       "JOIN e.user u " +
+//    	       "WHERE (:userServiceId IS NULL OR u.userId IN (" +
+//    	       "    SELECT us.userid FROM UserServicesEntity us " +
+//    	       "    WHERE us.userServiceId = :userServiceId))")
+//    List<JoblistingsEntity> findJoblistingsByUserServiceId(@Param("userServiceId") Integer userServiceId);
+    
+    @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer IN " +
+    	       "(SELECT e FROM EmployersEntity e WHERE e.user.userid IN " +
+    	       "(SELECT us.user.userid FROM UserServicesEntity us WHERE us.userserviceid = :userServiceId))")
+    List<JoblistingsEntity> findJobsByUserServiceId(@Param("userServiceId") Integer userServiceId);
 }
 

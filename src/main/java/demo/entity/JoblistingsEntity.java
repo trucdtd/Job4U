@@ -2,7 +2,6 @@ package demo.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -13,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -25,41 +25,39 @@ public class JoblistingsEntity implements Serializable {
     @Column(name = "jobid")
     private Integer jobid;
 
+    @NotNull
     @Column(name = "jobtitle", length = 100, nullable = false)
     private String jobtitle;
 
+    @NotNull
     @Column(name = "jobdescription", nullable = false)
     private String jobdescription;
 
+    @NotNull
     @Column(name = "jobrequirements", nullable = false)
     private String jobrequirements;
 
-    @Column(name = "joblocation", nullable = false)
+    @NotNull
+    @Column(name = "joblocation",nullable = false)
     private String joblocation;
 
-    @Column(name = "salary")
+    @Column(name = "salary", precision = 18, scale = 3)
     private BigDecimal salary;
 
+    @NotNull
     @Column(name = "jobtype", nullable = false)
     private String jobtype;
 
+    @NotNull
     @Column(name = "posteddate", nullable = false)
     private LocalDateTime posteddate;
 
+    @NotNull
     @Column(name = "applicationdeadline", nullable = false)
     private LocalDateTime applicationdeadline;
 
-    @Column(name = "istop")
-    private Boolean isTop;
-
-    @Column(name = "topstartdate")
-    private LocalDateTime topStartDate;
-
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "employerid", nullable = false)
+    @JoinColumn(name = "EmployerID", referencedColumnName = "EmployerID", nullable = false)
     private EmployersEntity employer;
-
-    @ManyToOne
-    @JoinColumn(name = "userserviceid")
-    private UserServicesEntity userService;
 }
