@@ -2,11 +2,10 @@ package demo.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-<<<<<<< HEAD
+
 import java.time.LocalDateTime;
-=======
+
 import java.time.LocalDate;
->>>>>>> dev
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -60,21 +59,18 @@ public class JoblistingsEntity implements Serializable {
     @Column(name = "applicationdeadline", nullable = false)
     private LocalDate applicationdeadline;
 
-<<<<<<< HEAD
     @NotNull
-=======
     @Column(name = "istop")
     private Boolean isTop;
 
     @Column(name = "topstartdate")
     private LocalDate topStartDate;
 
->>>>>>> dev
+
     @ManyToOne
     @JoinColumn(name = "EmployerID", referencedColumnName = "EmployerID", nullable = false)
     private EmployersEntity employer;
-<<<<<<< HEAD
-=======
+
 
     @ManyToOne
     @JoinColumn(name = "userserviceid")
@@ -82,5 +78,4 @@ public class JoblistingsEntity implements Serializable {
     
     @Column(name = "active", nullable = false)
     private boolean active = true; // Trạng thái bài đăng
->>>>>>> dev
 }
