@@ -126,8 +126,8 @@
 				</div>
 				<div class="card-body p-0">
 					<form class="p-4 border border-1"
-						<%-- action="/admin/updatePost/${bv.jobid}" method="post"> --%>
-						action="/admin/updatePost/${bv.jobid}" method="post">
+						<%-- action="/admin/updatePost/${bv.jobid}" method="post"> --%>						
+						method="post">
 						<!-- Job ID (Disabled) -->
 						<div class="row p-2">
 							<div class="col-md-6">
@@ -201,25 +201,17 @@
 									value="${bv.salary}" required readonly
 									oninput="formatSalary(this)">
 							</div>
-						</div>
-
-						<hr>
-						<!-- <div class="row p-2" style="margin-top: 10px;"></div>
-						<button type="submit" class="btn btn-info"
-							style="background-color: #00688B; color: white;">Cập
-							Nhật</button>
-						<a href="/admin" class="btn btn-danger">Hủy bỏ</a> -->
-						<div class="row p-2" style="margin-top: 10px;"></div>
-						<button type="submit" class="btn btn-info"
-							style="background-color: #00688B; color: white;">Hiện
-							Bài Viết</button>
-						<a href="/admin" class="btn btn-info">Ẩn Bài Viết</a> <a
-							href="/admin" class="btn btn-danger">Hủy</a>
+						</div>			
+						<form action="/admin/hidePost/${bv.jobid}" method="post">
+							<button type="submit" class="btn btn-info">Ẩn Bài Viết</button>
+						</form>
+						<form action="/admin/showPost/${bv.jobid}" method="post">
+							<button type="submit" class="btn btn-info">Hiện Bài Viết</button>
+						</form>
+						<a href="/admin" class="btn btn-danger">Hủy</a>
 					</form>
 				</div>
 			</div>
-
-
 		</article>
 		<br>
 		<hr>
@@ -228,7 +220,7 @@
 	<!-- footer-->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- /footer -->
-<script
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <script>
