@@ -179,12 +179,14 @@ body {
 								<span><i class="bi bi-currency-dollar"></i> Lương:</span><span
 									id="salary">${job.salary} VNĐ</span>
 							</div>
-							<div class="info-detail">
+							<%-- <div class="info-detail">
 								<span><i class="bi bi-calendar"></i> Ngày đăng:</span><span>${formattedPostedDate}</span>
-							</div>
+							</div> --%>
 							<div class="info-detail">
-								<span><i class="bi bi-calendar-check"></i> Hạn nộp:</span><span>${job.applicationdeadline}</span>
+								<span><i class="bi bi-calendar-check"></i> Hạn nộp:</span> <span
+									id="deadline">${job.applicationdeadline}</span>
 							</div>
+
 						</div>
 						<!-- Nút Quay lại và Ứng tuyển -->
 						<div class="button-group d-flex justify-content-between mt-3">
@@ -204,6 +206,16 @@ body {
 	</div>
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
+			// Hàm định dạng ngày thành ngày/tháng/năm
+			function formatDate(dateString) {
+				var date = new Date(dateString);
+				var day = String(date.getDate()).padStart(2, '0');
+				var month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng trong JS bắt đầu từ 0
+				var year = date.getFullYear();
+				return day + '/' + month + '/' + year;
+			}
+
+			// Định dạng lương
 			function formatSalary(salaryText) {
 				salaryText = salaryText.replace('VNĐ', '').trim();
 				var salaryNumber = parseFloat(salaryText.replace(/\./g, '')
@@ -224,6 +236,15 @@ body {
 				var salaryText = element.textContent || element.innerText;
 				element.innerHTML = formatSalary(salaryText);
 			});
+
+			// Định dạng lại hạn nộp
+			var deadlineElement = document
+					.querySelector(".info-detail span[id='deadline']");
+			if (deadlineElement) {
+				var deadlineText = deadlineElement.textContent
+						|| deadlineElement.innerText;
+				deadlineElement.innerHTML = formatDate(deadlineText);
+			}
 		});
 	</script>
 </body>
