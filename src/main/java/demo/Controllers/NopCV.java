@@ -1,5 +1,6 @@
 package demo.Controllers;
 
+import java.time.LocalDate;
 /*import java.lang.foreign.Linker.Option;*/
 import java.time.LocalDateTime;
 import java.util.List;
@@ -90,7 +91,7 @@ public class NopCV {
 			entity.setCertifications(certifications);
 			entity.setLanguages(languages);
 //			entity.setUser()
-			entity.setCreatedat(LocalDateTime.now());
+			entity.setCreatedat(LocalDate.now());
 			jobSeekersDao.save(entity);
 			System.out.println("Insert thanh cong");
 		} catch (Exception e) {

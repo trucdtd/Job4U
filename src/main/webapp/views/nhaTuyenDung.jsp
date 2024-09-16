@@ -103,14 +103,13 @@
 			<!-- article -->
 			<!-- Quản Lý Tuyển Dụng -->
 			<div class="col-lg-9 col-md-9 p-2">
-				<!-- Home table -->
 				<div id="employersManagement" class="card">
 					<div class="card-header">
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<form class="p-4" action="/job4u/employers"
-							method="get" id="nhaTuyenDung">
+						<form class="p-4" action="/job4u/employers" method="get"
+							id="nhaTuyenDung">
 							<div class="table-responsive">
 								<table class="table align-items-center mb-0">
 									<thead class="thead-light">
@@ -130,9 +129,12 @@
 												<td>${job.posteddate}</td>
 												<td>${job.applicationdeadline}</td>
 												<td>
-										            <a href="editJob?jobId=${job.jobid}" class="btn btn-sm btn-primary">Chỉnh Sửa</a>
-										            <a href="deleteJob?jobId=${job.jobid}" class="btn btn-sm btn-danger">Xóa</a>
-										        </td>
+													<button type="button"
+														class="btn btn-sm btn-primary btn-edit"
+														data-jobid="${job.jobid}">Chỉnh Sửa</button> <a
+													href="deleteJob?jobId=${job.jobid}"
+													class="btn btn-sm btn-danger">Ẩn</a>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -414,6 +416,7 @@
 			</div>
 			<!-- article -->
 		</div>
+
 	</div>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
@@ -483,5 +486,7 @@
 		});
 	});
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

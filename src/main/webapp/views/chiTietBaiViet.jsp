@@ -126,6 +126,7 @@
 				</div>
 				<div class="card-body p-0">
 					<form class="p-4 border border-1"
+						<%-- action="/admin/updatePost/${bv.jobid}" method="post"> --%>
 						action="/admin/updatePost/${bv.jobid}" method="post">
 						<!-- Job ID (Disabled) -->
 						<div class="row p-2">

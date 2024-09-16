@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import demo.dao.EmployersDao;
 import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
+import demo.entity.EmployersEntity;
 import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
 
@@ -17,6 +19,10 @@ public class JoblistingsService {
 	
 	@Autowired
 	private JobSeekersDao jobSeekersDao;
+	
+	@Autowired
+	private EmployersDao employersDao;
+	
 
 	public List<JoblistingsEntity> getAllJoblistings() {
         return joblistingsDao.findAll();
@@ -25,4 +31,18 @@ public class JoblistingsService {
 	public JoblistingsEntity getJoblistingById(Integer jobid) {
         return joblistingsDao.findById(jobid).orElse(null);
     } 
+	
+//	 public List<EmployersEntity> getTop3Employers() {
+//	        // Lấy các EmployerID từ bài viết mới nhất
+//	        List<Integer> topEmployerIds = joblistingsDao.findTop3EmployerIds();
+//
+//	        // Tìm các nhà tuyển dụng bằng EmployerID
+//	        return employersDao.findAllById(topEmployerIds);
+//	    }
+	
+	public List<EmployersEntity> getTop3Employers() {
+        return employersDao.findTop3Employers();
+    }
+	
+	
 }
