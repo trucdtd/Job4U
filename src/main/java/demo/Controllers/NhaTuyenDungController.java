@@ -67,7 +67,7 @@ public class NhaTuyenDungController {
 	        EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(null);
 	        if (employer != null) {
 	            // Xem xét giá trị của employer
-	            System.out.println("Employer: " + employer);
+//	            System.out.println("Employer: " + employer);
 
 	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployer(employer);
 	            model.addAttribute("jobPostings", jobPostings);
