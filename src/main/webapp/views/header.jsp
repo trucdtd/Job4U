@@ -48,7 +48,7 @@
                     <div id="account-info" class="dropdown d-flex justify-content-end d-none">
                         <button class="btn btn-light btn-light-custom" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                            <img class="text-center" src="/img/icons8-user-50.png" height="30px" alt="Notifications"> 
+                            <img class="text-center" src="/img/icons8-bell-50.png" height="30px" alt="Notifications"> 
                             <span id="user-name" class="span-name-user"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="dropdownMenuButton">
@@ -70,7 +70,7 @@
                             </li>
                             <li>
                                 <a class="dropdown-item d-flex justify-content-start" href="/Job4U/lien_he.html copy.html">
-                                    <img class="m-1" src="/img/icons8-bell-48.png" height="25px" width="25px" alt="CV Management">
+                                    <img class="m-1" src="/img/icons8-bell-50.png" height="25px" width="25px" alt="CV Management">
                                     <p class="m-1 text-dropdown-menu">Thông báo</p>
                                 </a>
                             </li>
