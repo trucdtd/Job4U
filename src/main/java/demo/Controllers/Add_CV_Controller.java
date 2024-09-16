@@ -1,6 +1,6 @@
 package demo.Controllers;
 
-import java.lang.foreign.Linker.Option;
+
 import java.util.Date;
 import java.util.Optional;
 
@@ -52,7 +52,7 @@ public class Add_CV_Controller {
 	@PostMapping("/cv")
 	public String postUpdateCV(Model model, JobSeekersEntity entity) {
 		model.addAttribute("entity", entity);
-		Integer id =Integer.parseInt( ss.getAttribute("userid").toString());
+		Integer id = Integer.parseInt(ss.getAttribute("userid").toString());
 		UsersEntity user = userDao.findByUserid(id);
 		entity.setUser(user);
 		entity.setCreatedat(java.time.LocalDate.now());

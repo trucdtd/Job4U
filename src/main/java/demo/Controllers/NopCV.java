@@ -90,7 +90,7 @@ public class NopCV {
 			entity.setCertifications(certifications);
 			entity.setLanguages(languages);
 //			entity.setUser()
-			entity.setCreatedat(LocalDateTime.now());
+		//	entity.setCreatedat(LocalDateTime.now());
 			jobSeekersDao.save(entity);
 			System.out.println("Insert thanh cong");
 		} catch (Exception e) {
