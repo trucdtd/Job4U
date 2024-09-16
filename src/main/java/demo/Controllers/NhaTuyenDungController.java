@@ -1,19 +1,26 @@
 package demo.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import demo.services.SessionService;
 import demo.dao.EmployersDao;
 import demo.dao.JoblistingsDao;
+import demo.dao.ServicesDao;
 import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
+import demo.entity.ServicesEntity;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +30,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/job4u")
@@ -34,26 +43,42 @@ public class NhaTuyenDungController {
 
 	@Autowired
 	private EmployersDao nhaTuyenDungDao;
+	
+	@Autowired
+    private ServicesDao servicesDao;
 
 	@Autowired
 	private JoblistingsDao danhSachViecLamDao;
 
 	@RequestMapping("/employers")
-	public String nhaTuyenDung(Model model) {
-		// Lấy ID của nhà tuyển dụng hiện tại từ session
-		Integer employerId = sessionService.getCurrentEmployerId();
+	public String nhaTuyenDung(@RequestParam(value = "serviceId", required = false) Integer serviceId, Model model) {
+	    // Lấy ID của nhà tuyển dụng hiện tại từ session
+	    Integer employerId = sessionService.getCurrentEmployerId();
 
-		if (employerId != null) {
-			EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
-			model.addAttribute("employer", employer);
-			if (employer != null) {
+	    if (employerId != null) {
+	        EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(new EmployersEntity());
+	        model.addAttribute("employer", employer);
+	        if (employer != null) {
 	            // Lấy danh sách bài đăng tuyển dụng của nhà tuyển dụng
 	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployer(employer);
 	            model.addAttribute("jobPostings", jobPostings);
 	        }
-		}
-		
-		return "nhaTuyenDung";
+	    }
+
+	    // Kiểm tra nếu có serviceId
+	    if (serviceId != null) {
+	        // Lấy dữ liệu theo ID của dịch vụ (serviceId)
+	        ServicesEntity service = servicesDao.findById(serviceId).orElse(new ServicesEntity());
+
+	        // Lấy danh sách tất cả các dịch vụ
+	        List<ServicesEntity> servicesList = servicesDao.findAll();
+
+	        // Thêm danh sách dịch vụ vào model để đổ ra view
+	        model.addAttribute("servicesList", servicesList);
+
+	    }
+
+	    return "nhaTuyenDung";
 	}
 
 	@RequestMapping("/chitietCV")
@@ -137,4 +162,28 @@ public class NhaTuyenDungController {
 
 		return "nhaTuyenDung";
 	}
+	
+	@PostMapping("/employers/service")
+	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
+	    // Retrieve the service from the database using the serviceId
+	    ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
+
+	    // Check if the service exists
+	    if (service != null) {
+	        // Add service details to the model
+	        model.addAttribute("serviceName", service.getServiceName());
+	        model.addAttribute("servicePrice", service.getPrice() + " VNĐ");
+	        model.addAttribute("serviceDescription", service.getDescription());
+
+	        // Return the view displaying the service details
+	        return "nhaTuyenDung";
+	    } else {
+	        // Add an error message to the model if service does not exist
+	        model.addAttribute("errorMessage", "Gói dịch vụ không tồn tại");
+	        
+	        // Return the same view, but with the error message
+	        return "nhaTuyenDung";
+	    }
+	}
+	
 }
