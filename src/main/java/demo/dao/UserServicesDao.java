@@ -9,6 +9,5 @@ import demo.entity.UserServicesEntity;
 
 
 public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integer>{
-	
-	List<UserServicesEntity> findByUserId(Long userId);
+
 }
