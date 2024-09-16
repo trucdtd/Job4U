@@ -83,8 +83,8 @@
                         </div>
                         <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                             <div class="d-flex flex-column mt-4">
-                                <a href="/applyCV" class="btn btn-primary btn-sm" type="button">Ứng tuyển</a>
-                                <a href="/job4u/chiTiet/${job.jobid}" class="btn btn-outline-primary btn-sm mt-2">Thông tin chi tiết</a>
+                                <a href="/applyCV" class="btn btn-success btn-sm" type="button">Ứng tuyển</a>
+                                <a href="/job4u/chiTiet/${job.jobid}" class="btn btn-outline-success btn-sm mt-2">Thông tin chi tiết</a>
                             </div>
                         </div>
                     </div>

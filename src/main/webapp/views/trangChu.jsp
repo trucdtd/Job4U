@@ -139,7 +139,7 @@
 
 						<!-- Nút tìm kiếm -->
 						<div class="mt-3">
-							<button type="submit" class="btn btn-primary rounded-3">
+							<button type="submit" class="btn btn-success rounded-3">
 								<i class="bi bi-search"></i> Tìm kiếm
 							</button>
 						</div>
@@ -299,8 +299,7 @@
 								</select>
 							</div>
 							<div class="col-md-auto mt-3">
-								<button type="submit" class="btn text-light"
-									style="background: #00688B">
+								<button type="submit" class="btn btn-success text-light">
 									<i class="bi bi-search"></i> Tìm kiếm
 								</button>
 							</div>
