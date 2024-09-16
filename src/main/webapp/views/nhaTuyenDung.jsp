@@ -116,8 +116,14 @@
 										<tr>
 											<th scope="col">Tên Công Việc</th>
 											<th scope="col">Vị Trí</th>
+											<th scope="col">Mô Tả Công Việc</th>
+											<th scope="col">Yêu Cầu</th>
+											<th scope="col">Lương</th>
+											<th scope="col">Loại Công Việc</th>
 											<th scope="col">Ngày Đăng</th>
 											<th scope="col">Hạn Nộp Hồ Sơ</th>
+											<th scope="col">Trạng Thái</th>
+											<th scope="col">Ngày Bắt Đầu Top</th>
 											<th scope="col">Hành Động</th>
 										</tr>
 									</thead>
@@ -126,8 +132,14 @@
 											<tr>
 												<td>${job.jobtitle}</td>
 												<td>${job.joblocation}</td>
+												<td>${job.jobdescription}</td>
+												<td>${job.jobrequirements}</td>
+												<td>${job.salary}</td>
+												<td>${job.jobtype}</td>
 												<td>${job.posteddate}</td>
 												<td>${job.applicationdeadline}</td>
+												<td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td>
+												<td>${job.topStartDate}</td>
 												<td>
 													<button type="button"
 														class="btn btn-sm btn-primary btn-edit"
@@ -298,11 +310,11 @@
 												required>
 												<option value="" disabled selected>Chọn 1 loại công
 													việc</option>
-												<option value="full-time">Công việc toàn thời gian</option>
-												<option value="part-time">Công việc bán thời gian</option>
-												<option value="temporary">Công việc thời vụ</option>
-												<option value="contract">Công việc theo hợp đồng</option>
-												<option value="freelance">Công việc tự do</option>
+												<option value="Toàn thời gian">Công việc toàn thời gian</option>
+												<option value="Bán thời gian">Công việc bán thời gian</option>
+												<option value="Thời vụ">Công việc thời vụ</option>
+												<option value="Hợp đồng">Công việc theo hợp đồng</option>
+												<option value="Tự do">Công việc tự do</option>
 											</select>
 										</div>
 										<div class="col-md-6 p-2">

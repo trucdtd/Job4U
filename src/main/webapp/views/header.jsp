@@ -16,7 +16,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg" style="background: #00688B;">
+    <nav class="navbar navbar-expand-lg" style="background: #00cd66;">
         <div class="container-fluid">
             <a href="#" class="navbar-brand text-light me-auto text-center">
                 <img src="/img/logo_2.png" height="40px" width="40px" alt="Logo">
