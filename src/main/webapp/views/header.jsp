@@ -82,7 +82,7 @@
                             </li>
                             <li>
                                 <a class="dropdown-item d-flex justify-content-start" href="/Login/logout">
-                                    <img class="m-1" src="/img/icons8-logout-52.png" height="25px" width="25px" alt="Logout">
+                                    <img class="m-1" src="/img/icons8-logout-32.png" height="25px" width="25px" alt="Logout">
                                     <p class="m-1 text-dropdown-menu">Đăng xuất</p>
                                 </a>
                             </li>
