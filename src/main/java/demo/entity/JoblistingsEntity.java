@@ -3,7 +3,6 @@ package demo.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,16 +43,16 @@ public class JoblistingsEntity implements Serializable {
     private String jobtype;
 
     @Column(name = "posteddate", nullable = false)
-    private LocalDateTime posteddate;
+    private LocalDate posteddate;
 
     @Column(name = "applicationdeadline", nullable = false)
-    private LocalDateTime applicationdeadline;
+    private LocalDate applicationdeadline;
 
     @Column(name = "istop")
     private Boolean isTop;
 
     @Column(name = "topstartdate")
-    private LocalDateTime topStartDate;
+    private LocalDate topStartDate;
 
     @ManyToOne
     @JoinColumn(name = "employerid", nullable = false)
