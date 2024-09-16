@@ -103,22 +103,27 @@
 			<!-- article -->
 			<!-- Quản Lý Tuyển Dụng -->
 			<div class="col-lg-9 col-md-9 p-2">
-				<!-- Home table -->
 				<div id="employersManagement" class="card">
 					<div class="card-header">
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<form class="p-4" action="/job4u/employers"
-							method="get" id="nhaTuyenDung">
+						<form class="p-4" action="/job4u/employers" method="get"
+							id="nhaTuyenDung">
 							<div class="table-responsive">
 								<table class="table align-items-center mb-0">
 									<thead class="thead-light">
 										<tr>
 											<th scope="col">Tên Công Việc</th>
 											<th scope="col">Vị Trí</th>
+											<th scope="col">Mô Tả Công Việc</th>
+											<th scope="col">Yêu Cầu</th>
+											<th scope="col">Lương</th>
+											<th scope="col">Loại Công Việc</th>
 											<th scope="col">Ngày Đăng</th>
 											<th scope="col">Hạn Nộp Hồ Sơ</th>
+											<th scope="col">Trạng Thái</th>
+											<th scope="col">Ngày Bắt Đầu Top</th>
 											<th scope="col">Hành Động</th>
 										</tr>
 									</thead>
@@ -127,12 +132,21 @@
 											<tr>
 												<td>${job.jobtitle}</td>
 												<td>${job.joblocation}</td>
+												<td>${job.jobdescription}</td>
+												<td>${job.jobrequirements}</td>
+												<td>${job.salary}</td>
+												<td>${job.jobtype}</td>
 												<td>${job.posteddate}</td>
 												<td>${job.applicationdeadline}</td>
+												<td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td>
+												<td>${job.topStartDate}</td>
 												<td>
-										            <a href="editJob?jobId=${job.jobid}" class="btn btn-sm btn-primary">Chỉnh Sửa</a>
-										            <a href="deleteJob?jobId=${job.jobid}" class="btn btn-sm btn-danger">Xóa</a>
-										        </td>
+													<button type="button"
+														class="btn btn-sm btn-primary btn-edit"
+														data-jobid="${job.jobid}">Chỉnh Sửa</button> <a
+													href="deleteJob?jobId=${job.jobid}"
+													class="btn btn-sm btn-danger">Ẩn</a>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -296,11 +310,11 @@
 												required>
 												<option value="" disabled selected>Chọn 1 loại công
 													việc</option>
-												<option value="full-time">Công việc toàn thời gian</option>
-												<option value="part-time">Công việc bán thời gian</option>
-												<option value="temporary">Công việc thời vụ</option>
-												<option value="contract">Công việc theo hợp đồng</option>
-												<option value="freelance">Công việc tự do</option>
+												<option value="Toàn thời gian">Công việc toàn thời gian</option>
+												<option value="Bán thời gian">Công việc bán thời gian</option>
+												<option value="Thời vụ">Công việc thời vụ</option>
+												<option value="Hợp đồng">Công việc theo hợp đồng</option>
+												<option value="Tự do">Công việc tự do</option>
 											</select>
 										</div>
 										<div class="col-md-6 p-2">
@@ -414,6 +428,7 @@
 			</div>
 			<!-- article -->
 		</div>
+
 	</div>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
@@ -483,5 +498,7 @@
 		});
 	});
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

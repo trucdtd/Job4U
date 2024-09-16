@@ -34,7 +34,7 @@
                         <li class="nav-item"><a class="nav-link" href="/job4u"><img
                                 src="/img/icons8-home-50.png" style="padding-bottom: 7px;" width="25px" height="30px" alt="Home"> Trang Chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="/lienhe">Liên Hệ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/job4u/topjob">Top Công Việc</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công Việc mới nhất</a></li>
                         <li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà Tuyển Dụng</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Ứng Tuyển</a></li>
                     </ul>

@@ -21,8 +21,9 @@
 </style>
 <body>
 	<!-- header -->
-	<%@ include file="/views/header.jsp"%>
+	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- /header -->
+	<br>
 	<div class="container">
 		<div class="row">
 
