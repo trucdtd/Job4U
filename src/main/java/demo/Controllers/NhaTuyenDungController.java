@@ -61,26 +61,30 @@ public class NhaTuyenDungController {
 	
 	@RequestMapping("/employers")
 	public String nhaTuyenDung(Model model) {
-	    // Lấy ID của nhà tuyển dụng hiện tại từ session
 	    Integer employerId = sessionService.getCurrentEmployerId();
 
 	    if (employerId != null) {
 	        EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(null);
 	        if (employer != null) {
-	            // Lấy danh sách bài đăng tuyển dụng của nhà tuyển dụng
+	            // Xem xét giá trị của employer
+	            System.out.println("Employer: " + employer);
+
 	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployer(employer);
 	            model.addAttribute("jobPostings", jobPostings);
 
-	            // Lấy danh sách CV đã gửi đến từng bài đăng tuyển dụng
 	            for (JoblistingsEntity jobPosting : jobPostings) {
 	                List<ApplicationsEntity> applications = applicationsDao.findByJob(jobPosting);
 	                model.addAttribute("applications" + jobPosting.getJobid(), applications);
 	            }
+
+	            // Thêm employer vào model
+	            model.addAttribute("employer", employer);
 	        }
 	    }
 
 	    return "nhaTuyenDung";
 	}
+
 
 	@RequestMapping("/chitietCV")
 	public String cvUngTuyen() {
