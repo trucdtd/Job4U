@@ -12,7 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 .footer {
-	background-color: #00688B;
+	background-color: #009944;
 	color: #f8f9fa;
 	width: 100%; /* Đảm bảo footer chiếm toàn bộ chiều ngang */
 	position: relative;
