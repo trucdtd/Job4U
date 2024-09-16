@@ -16,7 +16,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg" style="background: #00688B;">
+    <nav class="navbar navbar-expand-lg" style="background: #009944">
         <div class="container-fluid">
             <a href="#" class="navbar-brand text-light me-auto text-center">
                 <img src="/img/logo_2.png" height="40px" width="40px" alt="Logo">
@@ -42,7 +42,7 @@
                         <a id="login-btn" href="/Login" class="btn login-button text-center"><img
                                 src="/img/login-icon.png" height="25px" width="25px" alt="Login"> Đăng nhập</a>
                         <a id="register-btn" href="/DangKy" class="btn login-button text-center"><img
-                                src="/img/icons8-register-30.png" height="25px" width="25px" alt="Register"> Đăng ký</a>
+                                src="/img/icons8-register-48.png" height="25px" width="25px" alt="Register"> Đăng ký</a>
                     </div>
                     <!-- DROPDOWN MENU -->
                     <div id="account-info" class="dropdown d-flex justify-content-end d-none">

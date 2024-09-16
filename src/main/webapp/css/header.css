@@ -20,7 +20,7 @@ header {
 .offcanvas-body .login-button {
 	background-color: #fff;
 	font-weight: 500;
-	color: #00688b;
+	color: #009944;
 	font-size: 15px;
 	padding: 8px 20px;
 	margin: 5px;
@@ -31,7 +31,7 @@ header {
 
 .offcanvas-body .login-button:hover {
 	background-color: #c0c9c9;
-	color: #00688b; /* Đảm bảo màu chữ khi hover */
+	color: #009944; /* Đảm bảo màu chữ khi hover */
 }
 
 /* Định dạng hình ảnh của thương hiệu trong thanh điều hướng */
