@@ -1,16 +1,12 @@
 package demo.Controllers;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import demo.services.JoblistingsService;
 import demo.entity.JoblistingsEntity;
 
@@ -26,19 +22,15 @@ public class ChiTietUngTuyenController {
         // Lấy thông tin chi tiết công việc
         JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
 
-     // Định dạng ngày với định dạng dd/MM/yyyy
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        // Định dạng ngày với định dạng dd/MM/yyyy
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        // Chuyển đổi LocalDateTime thành Date
-        LocalDateTime postedDateTime = chiTietUngTuyen.getPosteddate();
-        Date postedDate = postedDateTime != null ? Date.from(postedDateTime.atZone(ZoneId.systemDefault()).toInstant()) : null;
-
-        LocalDateTime applicationDeadlineTime = chiTietUngTuyen.getApplicationdeadline();
-        Date applicationDeadlineDate = applicationDeadlineTime != null ? Date.from(applicationDeadlineTime.atZone(ZoneId.systemDefault()).toInstant()) : null;
+        LocalDate postedDate = chiTietUngTuyen.getPosteddate();
+        LocalDate applicationDeadlineDate = chiTietUngTuyen.getApplicationdeadline();
 
         // Định dạng ngày
-        String formattedPostedDate = (postedDate != null) ? formatter.format(postedDate) : "N/A";
-        String formattedApplicationDeadline = (applicationDeadlineDate != null) ? formatter.format(applicationDeadlineDate) : "N/A";
+        String formattedPostedDate = (postedDate != null) ? postedDate.format(formatter) : "N/A";
+        String formattedApplicationDeadline = (applicationDeadlineDate != null) ? applicationDeadlineDate.format(formatter) : "N/A";
 
         // Thêm các thuộc tính vào model để truyền sang view
         model.addAttribute("formattedPostedDate", formattedPostedDate);
