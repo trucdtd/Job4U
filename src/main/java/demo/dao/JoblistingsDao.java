@@ -86,10 +86,10 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 //    	       "    WHERE us.userServiceId = :userServiceId))")
 //    List<JoblistingsEntity> findJoblistingsByUserServiceId(@Param("userServiceId") Integer userServiceId);
     
-    @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer IN " +
-    	       "(SELECT e FROM EmployersEntity e WHERE e.user.userid IN " +
-    	       "(SELECT us.user.userid FROM UserServicesEntity us WHERE us.userserviceid = :userServiceId))")
-    List<JoblistingsEntity> findJobsByUserServiceId(@Param("userServiceId") Integer userServiceId);
+//    @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer IN " +
+//    	       "(SELECT e FROM EmployersEntity e WHERE e.user.userid IN " +
+//    	       "(SELECT us.user.userid FROM UserServicesEntity us WHERE us.userserviceid = :userServiceId))")
+//    List<JoblistingsEntity> findJobsByUserServiceId(@Param("userServiceId") Integer userServiceId);
 
     //phương thức để lấy danh sách các bài đăng mà không bao gồm những bài đã bị ẩn
     List<JoblistingsEntity> findByEmployerAndActive(EmployersEntity employer, boolean active);

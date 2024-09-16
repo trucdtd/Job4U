@@ -33,8 +33,8 @@ public class TrangChuController {
 	private JoblistingsService jobListingService;
 
 	@RequestMapping("")
-	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page,
-			  @RequestParam(value = "userServiceId", required = false) Integer userServiceId) {
+	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page
+			 ) {
 		// Handle pagination
 		int pageNumber = page.orElse(0);
 		Pageable pageable = PageRequest.of(pageNumber, 6);
@@ -42,12 +42,12 @@ public class TrangChuController {
 		model.addAttribute("dsSP", dsSP);
 		
         // Lấy danh sách công việc theo userServiceId nếu nó không null
-        if (userServiceId != null) {
-            // Gọi dịch vụ để lấy danh sách công việc theo userServiceId
-            List<JoblistingsEntity> joblistings = jobListingService.getJobsByUserServiceId(userServiceId);
-            model.addAttribute("joblistings", joblistings); // Thêm danh sách công việc theo userServiceId vào mô hình để hiển thị
-        }
-        
+//        if (userServiceId != null) {
+//            // Gọi dịch vụ để lấy danh sách công việc theo userServiceId
+//            List<JoblistingsEntity> joblistings = jobListingService.getJobsByUserServiceId(userServiceId);
+//            model.addAttribute("joblistings", joblistings); // Thêm danh sách công việc theo userServiceId vào mô hình để hiển thị
+//        }
+//        
 		return "trangChu";
 	}
 
