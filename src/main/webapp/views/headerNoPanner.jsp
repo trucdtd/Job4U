@@ -16,7 +16,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg" style="background: #009944">
+    <nav class="navbar navbar-expand-lg" style="background: #009933">
         <div class="container-fluid">
             <a href="#" class="navbar-brand text-light me-auto text-center">
                 <img src="/img/logo_2.png" height="40px" width="40px" alt="Logo">
@@ -24,7 +24,7 @@
                 <p class="text-light" style="font-size: small;">Tìm việc online</p>
             </a>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel"
-                 style="background: #00688B;">
+                 style="background: #009933;">
                 <div class="offcanvas-header">
                     <h5 class="text-light">Job for you</h5>
                     <img src="/img/icons8-close-50.png" data-bs-dismiss="offcanvas" height="30px" width="30px" alt="Close">
