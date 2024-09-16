@@ -204,12 +204,13 @@ method="post">
 						</div>
 						<div class="row p-2">
 							<div class="col-md-12 d-flex justify-content-between">
-								<form action="/admin/hidePost/${bv.jobid}" method="post">
-									<button type="submit" class="btn btn-info">Ẩn Bài Viết</button>
-								</form>
+								
 								<form action="/admin/showPost/${bv.jobid}" method="post">
 									<button type="submit" class="btn btn-info">Hiện Bài
 										Viết</button>
+								</form>
+								<form action="/admin/hidePost/${bv.jobid}" method="post">
+									<button type="submit" class="btn btn-info">Ẩn Bài Viết</button>
 								</form>
 								<a href="/admin" class="btn btn-danger">Hủy</a>
 							</div>
