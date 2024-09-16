@@ -126,8 +126,8 @@
 				</div>
 				<div class="card-body p-0">
 					<form class="p-4 border border-1"
-						<%-- action="/admin/updatePost/${bv.jobid}" method="post"> --%>						
-						method="post">
+						<%-- action="/admin/updatePost/${bv.jobid}" method="post"> --%> 
+method="post">
 						<!-- Job ID (Disabled) -->
 						<div class="row p-2">
 							<div class="col-md-6">
@@ -201,14 +201,19 @@
 									value="${bv.salary}" required readonly
 									oninput="formatSalary(this)">
 							</div>
-						</div>			
-						<form action="/admin/hidePost/${bv.jobid}" method="post">
-							<button type="submit" class="btn btn-info">Ẩn Bài Viết</button>
-						</form>
-						<form action="/admin/showPost/${bv.jobid}" method="post">
-							<button type="submit" class="btn btn-info">Hiện Bài Viết</button>
-						</form>
-						<a href="/admin" class="btn btn-danger">Hủy</a>
+						</div>
+						<div class="row p-2">
+							<div class="col-md-12 d-flex justify-content-between">
+								<form action="/admin/hidePost/${bv.jobid}" method="post">
+									<button type="submit" class="btn btn-info">Ẩn Bài Viết</button>
+								</form>
+								<form action="/admin/showPost/${bv.jobid}" method="post">
+									<button type="submit" class="btn btn-info">Hiện Bài
+										Viết</button>
+								</form>
+								<a href="/admin" class="btn btn-danger">Hủy</a>
+							</div>
+						</div>
 					</form>
 				</div>
 			</div>
