@@ -226,7 +226,29 @@ public class AdminController {
 	 * 
 	 * }
 	 */
+	 @PostMapping("/hidePost/{jobid}")
+	    public String hidePost(@PathVariable Integer jobid) {
+	        // Lấy thông tin bài viết từ database
+	        JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
+	        
+	        // Cập nhật trạng thái ẩn bài viết
+	        job.setActive(false);
+	        joblistingsDao.save(job);
+	        
+	        return "redirect:/admin"; // Quay về trang admin sau khi ẩn bài viết
+	    }
 
+	    @PostMapping("/showPost/{jobid}")
+	    public String showPost(@PathVariable Integer jobid) {
+	        // Lấy thông tin bài viết từ database
+	    	JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
+	        
+	        // Cập nhật trạng thái hiện bài viết
+	        job.setActive(true);
+	        joblistingsDao.save(job);
+	        
+	        return "redirect:/admin"; // Quay về trang admin sau khi hiện bài viết
+	    }
 
 	@RequestMapping("/quanLyCV")
 	public String quanLyCV(Model model) {
