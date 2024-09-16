@@ -129,9 +129,15 @@
 												<td>${nd.fullname}</td>
 												<td>${nd.email}</td>
 												<td>${nd.phonenumber}</td>
-												<td>${nd.role}</td>
+												<td><c:choose>
+														<c:when test="${nd.role == 0}">Admin</c:when>
+														<c:when test="${nd.role == 1}">Ứng viên</c:when>
+														<c:when test="${nd.role == 2}">Nhà tuyển dụng</c:when>
+														<c:otherwise>Không xác định</c:otherwise>
+													</c:choose></td>
 												<td><a href="/admin/detailUser/${nd.userid}"
-													class="btn btn-info text-white p-2 " type="button" style="background-color: #00688B">Chi tiết</a> <%-- <a href="#"
+													class="btn btn-info text-white p-2 " type="button"
+													style="background-color: #00688B">Chi tiết</a> <%-- <a href="#"
 													class="btn btn-danger"
 													onclick="return confirmDeleteAccount(${nd.userid});">Xóa</a> --%>
 												</td>
