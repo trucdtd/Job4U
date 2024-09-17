@@ -137,7 +137,7 @@
 													</c:choose></td>
 												<td><a href="/admin/detailUser/${nd.userid}"
 													class="btn btn-info text-white p-2 " type="button"
-													style="background-color: #00688B">Chi tiết</a> <%-- <a href="#"
+													style="background-color: #198754">Chi tiết</a> <%-- <a href="#"
 													class="btn btn-danger"
 													onclick="return confirmDeleteAccount(${nd.userid});">Xóa</a> --%>
 												</td>

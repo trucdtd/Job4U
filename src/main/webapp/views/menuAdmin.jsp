@@ -17,16 +17,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-.sidebar a {
-	color: white;
-	text-decoration: none;
-	padding: 10px 20px;
-	display: block;
-	border-radius: 4px;
+/* Màu nền mặc định của các liên kết menu */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    border-radius: 4px;
 }
 
-.sidebar a:hover, .sidebar a.active {
-	background-color: #0056b3;
+.nav-link:hover, .nav-link.active {
+    background-color: #198754; /* Màu nền khi hover hoặc khi liên kết đang hoạt động */
+    
+}
+
+/* Đảm bảo rằng lớp active không ghi đè */
+.nav-link.active {
+    background-color: #198754!important; /* Màu nền khi mục menu được chọn */
 }
 
 .content {
@@ -42,7 +49,7 @@
 }
 
 .card-header {
-	background-color: #00688B;
+	background-color: #198754;
 	color: white;
 	border-bottom: none;
 	border-radius: 8px 8px 0 0;
@@ -53,7 +60,7 @@
 }
 
 .table thead th {
-	background-color: #00688B;
+	background-color: #198754;
 	color: white;
 }
 
@@ -65,10 +72,10 @@
 </head>
 <body>
 	<div class="col-lg-3 col-md-4 col-12 mb-3">
-		<div class="d-flex flex-column flex-shrink-0  text-white "
-			style="width: 100%; background: #00688B">
+		<div class="d-flex flex-column flex-shrink-0  text-dark "
+			style="width: 100%; background: #EEEEEE">
 			<a href="#"
-				class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+				class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
 				<svg class="bi me-2" width="25" height="25">
                             <use xlink:href="#bootstrap"></use>
                         </svg> <span class="card-title p-2">Menu Quản
@@ -76,19 +83,19 @@
 			</a>
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
-				<li><a href="#" class="nav-link text-white active"
+				<li><a href="#" class="nav-link text-dark active"
 					onclick="showTable(event, 'userManagement')"> <i
 						class="bi bi-people-fill"></i> Quản Lý Tài Khoản
 				</a></li>
-				<li><a href="#" class="nav-link text-white"
+				<li><a href="#" class="nav-link text-dark"
 					onclick="showTable(event, 'postManagement')"> <i
 						class="bi bi-table me-2"></i> Quản Lý Bài Viết
 				</a></li>
-				<li><a href="#" class="nav-link text-white"
+				<li><a href="#" class="nav-link text-dark"
 					onclick="showTable(event, 'cvManagement')"> <i
 						class="bi bi-grid me-2"></i> Quản Lý CV
 				</a></li>
-				<li><a href="#" class="nav-link text-white"
+				<li><a href="#" class="nav-link text-dark"
 					onclick="showTable(event, 'statisticalManagement')"> <i
 						class="bi bi-graph-up"></i> Quản Lý Thống Kê
 				</a></li>

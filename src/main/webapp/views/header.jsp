@@ -16,7 +16,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg" style="background: #009933">
+    <nav class="navbar navbar-expand-lg" style="background: #198754">
         <div class="container-fluid">
             <a href="#" class="navbar-brand text-light me-auto text-center">
                 <img src="/img/logo_2.png" height="40px" width="40px" alt="Logo">
@@ -54,8 +54,8 @@
                         <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li>
                                 <a class="dropdown-item d-flex justify-content-start" href="/job4u/profile">
-                                    <img class="m-1" src="/img/icons8-list-50.png" height="25px" width="25px" alt="User Info">
-                                    <p class="m-1 text-dropdown-menu">Quản lý trang cá nhân</p>
+                                    <img class="m-1" src="/img/icons8-user-50.png" height="25px" width="25px" alt="User Info">
+                                    <p class="m-1 text-dropdown-menu">Thông tin cá nhân</p>
                                 </a>
                             </li>
                             <li>

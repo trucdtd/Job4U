@@ -15,16 +15,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-.sidebar a {
-	color: white;
-	text-decoration: none;
-	padding: 10px 20px;
-	display: block;
-	border-radius: 4px;
+/* Màu nền mặc định của các liên kết menu */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    border-radius: 4px;
 }
 
-.sidebar a:hover, .sidebar a.active {
-	background-color: #0056b3;
+.nav-link:hover, .nav-link.active {
+    background-color: #198754; /* Màu nền khi hover hoặc khi liên kết đang hoạt động */
+    
+}
+
+/* Đảm bảo rằng lớp active không ghi đè */
+.nav-link.active {
+    background-color: #198754!important; /* Màu nền khi mục menu được chọn */
 }
 
 .content {
@@ -40,7 +47,7 @@
 }
 
 .card-header {
-	background-color: #00688B;
+	background-color: #198754;
 	color: white;
 	border-bottom: none;
 	border-radius: 8px 8px 0 0;
@@ -51,7 +58,7 @@
 }
 
 .table thead th {
-	background-color: #00688B;
+	background-color: #198754;
 	color: white;
 }
 
@@ -69,28 +76,28 @@
 		<div class="row">
 			<!-- aside -->
 			<div class="col-lg-3 col-md-3 p-2 d-flex">
-				<div class="d-flex flex-column flex-shrink-0 p-3 text-white"
-					style="width: 100%; background: #009933;">
+				<div class="d-flex flex-column flex-shrink-0 p-3 text-dark"
+					style="width: 100%; background: #EEEEEE;">
 					<a href="#"
-						class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none text-center">
+						class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none text-center">
 						<i class="bi bi-bootstrap" style="font-size: 25px;"></i> <span
 						class="fs-4 ms-2">Menu Tuyển Dụng</span>
 					</a>
 					<hr>
 					<ul class="nav nav-pills flex-column mb-auto">
-						<li><a href="#" class="nav-link text-white active"
+						<li><a href="#" class="nav-link text-dark active"
 							onclick="showTable(event, 'employersManagement')"> <i
 								class="bi bi-speedometer2 me-2"></i> Quản Lý Bài Đăng
 						</a></li>
-						<li><a href="#" class="nav-link text-white"
+						<li><a href="#" class="nav-link text-dark"
 							onclick="showTable(event, 'postEmployers')"> <i
 								class="bi bi-table me-2"></i> Đăng Bài Tuyển Dụng
 						</a></li>
-						<li><a href="#" class="nav-link text-white"
+						<li><a href="#" class="nav-link text-dark"
 							onclick="showTable(event, 'cvApply')"> <i
 								class="bi bi-grid me-2"></i> CV Ứng Tuyển
 						</a></li>
-						<li><a href="#" class="nav-link text-white"
+						<li><a href="#" class="nav-link text-dark"
 							onclick="showTable(event, 'postingServices')"> <i
 								class="bi bi-house me-2"></i> Dịch Vụ Bài Đăng
 						</a></li>
@@ -142,7 +149,7 @@
 												<td>${job.topStartDate}</td>
 												<td>
 													<button type="button"
-														class="btn btn-sm btn-primary btn-edit"
+														class="btn btn-sm btn-success btn-edit"
 														data-jobid="${job.jobid}">Chỉnh Sửa</button> <a
 													href="deleteJob?jobId=${job.jobid}"
 													class="btn btn-sm btn-danger">Ẩn</a>
@@ -364,7 +371,7 @@
 									</div>
 									<hr>
 									<button type="submit" class="btn text-light p-2"
-										style="background-color: #00688B">Đăng bài</button>
+										style="background-color: #198754">Đăng bài</button>
 								</form>
 
 							</div>
@@ -394,7 +401,7 @@
 										<th>Tuyển dụng nhân viên IT Java</th>
 										<td>Trần Thảo Trinh
 											<button type="submit" class="btn text-light text-white p-2"
-												style="background-color: #00688B">Xem Thêm</button>
+												style="background-color: #198754">Xem Thêm</button>
 										</td>
 										<td>CV ứng tuyển</td>
 

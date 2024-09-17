@@ -60,7 +60,7 @@
 								<div class="alert alert-danger"
 									style="display: ${error != null ? 'block' : 'none'};">
 									${error}</div>
-								<button type="submit" class="btn btn-primary">Gửi mã</button>
+								<button type="submit" class="btn btn-success">Gửi mã</button>
 							</form>
 						</div>
 					</div>

@@ -114,7 +114,7 @@
 								</div>
 
 								<div class="text-center text-lg-start mt-4 pt-2">
-									<button type="submit" class="btn btn-primary btn-lg">Đổi
+									<button type="submit" class="btn btn-success btn-lg">Đổi
 										Mật Khẩu</button>
 									<p class="small fw-bold mt-2 pt-1 mb-0">
 										Quên mật khẩu? <a href="/QuenMatKhau" class="link-danger">Đặt
