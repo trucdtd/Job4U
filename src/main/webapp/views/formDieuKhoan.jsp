@@ -37,8 +37,6 @@
     <div class="container">
         <div class="card">
             <h4 class="card-title" style="color: #198754;">JOB4U</h4>
-            <h5 style="color: #198754;">Đăng ký tài khoản Nhà tuyển dụng</h5>
-            <span>Cùng tạo dựng lợi thế cho doanh nghiệp bằng trải nghiệm công nghệ tuyển dụng ứng dụng sâu AI & Hiring Funnel.</span>
             <br>
             <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-muted">
