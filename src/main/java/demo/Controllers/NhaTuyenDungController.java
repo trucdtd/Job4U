@@ -61,26 +61,30 @@ public class NhaTuyenDungController {
 	
 	@RequestMapping("/employers")
 	public String nhaTuyenDung(Model model) {
-	    // Lấy ID của nhà tuyển dụng hiện tại từ session
 	    Integer employerId = sessionService.getCurrentEmployerId();
 
 	    if (employerId != null) {
 	        EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(null);
 	        if (employer != null) {
-	            // Lấy danh sách bài đăng tuyển dụng của nhà tuyển dụng
+	            // Xem xét giá trị của employer
+//	            System.out.println("Employer: " + employer);
+
 	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployer(employer);
 	            model.addAttribute("jobPostings", jobPostings);
 
-	            // Lấy danh sách CV đã gửi đến từng bài đăng tuyển dụng
 	            for (JoblistingsEntity jobPosting : jobPostings) {
 	                List<ApplicationsEntity> applications = applicationsDao.findByJob(jobPosting);
 	                model.addAttribute("applications" + jobPosting.getJobid(), applications);
 	            }
+
+	            // Thêm employer vào model
+	            model.addAttribute("employer", employer);
 	        }
 	    }
 
 	    return "nhaTuyenDung";
 	}
+
 
 	@RequestMapping("/chitietCV")
 	public String cvUngTuyen() {
@@ -167,27 +171,27 @@ public class NhaTuyenDungController {
 		return "nhaTuyenDung";
 	}
 	
-	@PostMapping("/employers/service")
-	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
-	    // Retrieve the service from the database using the serviceId
-	    ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
-
-	    // Check if the service exists
-	    if (service != null) {
-	        // Add service details to the model
-	        model.addAttribute("serviceName", service.getServicename());
-	        model.addAttribute("servicePrice", service.getPrice() + " VNĐ");
-	        model.addAttribute("serviceDescription", service.getDescription());
-
-	        // Return the view displaying the service details
-	        return "nhaTuyenDung";
-	    } else {
-	        // Add an error message to the model if service does not exist
-	        model.addAttribute("errorMessage", "Gói dịch vụ không tồn tại");
-	        
-	        // Return the same view, but with the error message
-	        return "nhaTuyenDung";
-	    }
-	}
+//	@PostMapping("/employers/service")
+//	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
+//	    // Retrieve the service from the database using the serviceId
+//	    ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
+//
+//	    // Check if the service exists
+//	    if (service != null) {
+//	        // Add service details to the model
+//	        model.addAttribute("serviceName", service.getServicename());
+//	        model.addAttribute("servicePrice", service.getPrice() + " VNĐ");
+//	        model.addAttribute("serviceDescription", service.getDescription());
+//
+//	        // Return the view displaying the service details
+//	        return "nhaTuyenDung";
+//	    } else {
+//	        // Add an error message to the model if service does not exist
+//	        model.addAttribute("errorMessage", "Gói dịch vụ không tồn tại");
+//	        
+//	        // Return the same view, but with the error message
+//	        return "nhaTuyenDung";
+//	    }
+//	}
 
 }

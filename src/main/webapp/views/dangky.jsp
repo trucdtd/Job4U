@@ -195,7 +195,7 @@
 								</div>
 
 								<div class="text-center text-lg-start mt-4 pt-2">
-                                    <button type="submit" class="btn btn-primary">Đăng Ký</button>
+                                    <button type="submit" class="btn btn-success">Đăng Ký</button>
                                     <p class="small fw-bold mt-2 pt-1 mb-0">
                                         Bạn đã có tài khoản? <a href="/Login" class="link-danger">Đăng Nhập</a>
                                     </p>
@@ -212,7 +212,7 @@
                                         </div>
                                         <div class="modal-body">${successMessage}</div>
                                         <div class="modal-footer">
-                                            <a href="/Login" type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</a>
+                                            <a href="/Login" type="button" class="btn btn-success" data-bs-dismiss="modal">OK</a>
                                         </div>
                                     </div>
                                 </div>

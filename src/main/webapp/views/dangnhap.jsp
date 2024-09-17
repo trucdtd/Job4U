@@ -75,7 +75,7 @@
                                                 </div>
                                                 <div class="modal-body">${message}</div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary" onclick="window.location.href='/Login'">OK</button>
+                                                    <button type="button" class="btn btn-success" onclick="window.location.href='/Login'">OK</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +132,7 @@
 
 							<div class="text-center text-lg-start mt-4 pt-2">
 								<button type="submit" data-mdb-button-init data-mdb-ripple-init
-									class="btn btn-primary btn-lg"
+									class="btn btn-success btn-lg"
 									style="padding-left: 2.5rem; padding-right: 2.5rem;">Đăng
 									nhập</button>
 								<p class="small fw-bold mt-2 pt-1 mb-0">
