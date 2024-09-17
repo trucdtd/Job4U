@@ -149,10 +149,13 @@
 												<td>${job.topStartDate}</td>
 												<td>
 													<button type="button"
-														class="btn btn-sm btn-success btn-edit"
-														data-jobid="${job.jobid}">Chỉnh Sửa</button> <a
-													href="deleteJob?jobId=${job.jobid}"
-													class="btn btn-sm btn-danger">Ẩn</a>
+														class="btn btn-sm btn-edit"
+														data-jobid="${job.jobid}">
+														<img src="/img/icons8-edit-50.png" height="25px" width="25px alt="Chỉnh sửa" />
+													</button> <a href="deleteJob?jobId=${job.jobid}"
+													class="btn btn-sm"> <img
+														src="/img/icons8-delete-50.png" height="25px" width="25px alt="Ẩn" />
+												</a>
 												</td>
 											</tr>
 										</c:forEach>
