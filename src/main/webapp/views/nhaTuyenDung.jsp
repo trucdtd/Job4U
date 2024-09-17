@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" content="${_csrf.token}" />
 <title>Nhà tuyển dụng</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
@@ -17,21 +18,22 @@
 <style>
 /* Màu nền mặc định của các liên kết menu */
 .nav-link {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    display: block;
-    border-radius: 4px;
+	color: white;
+	text-decoration: none;
+	padding: 10px 20px;
+	display: block;
+	border-radius: 4px;
 }
 
 .nav-link:hover, .nav-link.active {
-    background-color: #198754; /* Màu nền khi hover hoặc khi liên kết đang hoạt động */
-    
+	background-color: #198754;
+	/* Màu nền khi hover hoặc khi liên kết đang hoạt động */
 }
 
 /* Đảm bảo rằng lớp active không ghi đè */
 .nav-link.active {
-    background-color: #198754!important; /* Màu nền khi mục menu được chọn */
+	background-color: #198754 !important;
+	/* Màu nền khi mục menu được chọn */
 }
 
 .content {
@@ -80,7 +82,7 @@
 					style="width: 100%; background: #EEEEEE;">
 					<a href="#"
 						class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none text-center">
-						<i class="bi bi-bootstrap" style="font-size: 25px;"></i> <span
+						<i class="bi bi-bootstrap" style="font-size: 35px;"></i> <span
 						class="fs-4 ms-2">Menu Tuyển Dụng</span>
 					</a>
 					<hr>
@@ -148,13 +150,20 @@
 												<td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td>
 												<td>${job.topStartDate}</td>
 												<td>
-													<button type="button"
-														class="btn btn-sm btn-edit"
-														data-jobid="${job.jobid}">
-														<img src="/img/icons8-edit-50.png" height="25px" width="25px alt="Chỉnh sửa" />
-													</button> <a href="deleteJob?jobId=${job.jobid}"
-													class="btn btn-sm"> <img
-														src="/img/icons8-delete-50.png" height="25px" width="25px alt="Ẩn" />
+													<button type="button" class="btn btn-sm btn-edit"
+														data-jobid="${job.jobid}" data-jobtitle="${job.jobtitle}"
+														data-joblocation="${job.joblocation}"
+														data-jobdescription="${job.jobdescription}"
+														data-jobrequirements="${job.jobrequirements}"
+														data-salary="${job.salary}" data-jobtype="${job.jobtype}"
+														data-posteddate="${job.posteddate}"
+														data-applicationdeadline="${job.applicationdeadline}"
+														data-topstartdate="${job.topStartDate}">
+														<img src="/img/icons8-edit-50.png" height="25px"
+															width="25px" alt="Chỉnh sửa" />
+													</button> <a href="deleteJob?jobId=${job.jobid}" class="btn btn-sm">
+														<img src="/img/icons8-delete-50.png" height="25px"
+														width="25px" alt="Ẩn" />
 												</a>
 												</td>
 											</tr>
@@ -165,7 +174,6 @@
 						</form>
 					</div>
 				</div>
-
 				<!-- Bảng quản lý bài đăng-->
 				<!-- Thông báo thành công hoặc lỗi -->
 				<div class="d-flex justify-content-center align-items-center mt-4">
@@ -320,8 +328,10 @@
 												required>
 												<option value="" disabled selected>Chọn 1 loại công
 													việc</option>
-												<option value="Toàn thời gian">Công việc toàn thời gian</option>
-												<option value="Bán thời gian">Công việc bán thời gian</option>
+												<option value="Toàn thời gian">Công việc toàn thời
+													gian</option>
+												<option value="Bán thời gian">Công việc bán thời
+													gian</option>
 												<option value="Thời vụ">Công việc thời vụ</option>
 												<option value="Hợp đồng">Công việc theo hợp đồng</option>
 												<option value="Tự do">Công việc tự do</option>
@@ -439,6 +449,71 @@
 			<!-- article -->
 		</div>
 
+		<!-- Modal -->
+		<div class="modal fade" id="editJobModal" tabindex="-1"
+			aria-labelledby="editJobModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="editJobModalLabel">Chỉnh Sửa Bài
+							Đăng Tuyển Dụng</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="editJobForm">
+							<input type="hidden" id="jobId" name="jobId" />
+							<div class="mb-3">
+								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
+									type="text" class="form-control" id="jobTitle" name="jobTitle" />
+							</div>
+							<div class="mb-3">
+								<label for="jobLocation" class="form-label">Vị Trí</label> <input
+									type="text" class="form-control" id="jobLocation"
+									name="jobLocation" />
+							</div>
+							<div class="mb-3">
+								<label for="jobDescription" class="form-label">Mô Tả
+									Công Việc</label>
+								<textarea class="form-control" id="jobDescription"
+									name="jobDescription"></textarea>
+							</div>
+							<div class="mb-3">
+								<label for="jobRequirements" class="form-label">Yêu Cầu</label>
+								<textarea class="form-control" id="jobRequirements"
+									name="jobRequirements"></textarea>
+							</div>
+							<div class="mb-3">
+								<label for="salary" class="form-label">Lương</label> <input
+									type="text" class="form-control" id="salary" name="salary" />
+							</div>
+							<div class="mb-3">
+								<label for="jobType" class="form-label">Loại Công Việc</label> <input
+									type="text" class="form-control" id="jobType" name="jobType" />
+							</div>
+							<div class="mb-3">
+								<label for="postedDate" class="form-label">Ngày Đăng</label> <input
+									type="date" class="form-control" id="postedDate"
+									name="postedDate" />
+							</div>
+							<div class="mb-3">
+								<label for="applicationDeadline" class="form-label">Hạn
+									Nộp Hồ Sơ</label> <input type="date" class="form-control"
+									id="applicationDeadline" name="applicationDeadline" />
+							</div>
+							<div class="mb-3">
+								<label for="topStartDate" class="form-label">Ngày Bắt
+									Đầu Top</label> <input type="date" class="form-control"
+									id="topStartDate" name="topStartDate" />
+							</div>
+							<button type="submit" class="btn btn-primary">Lưu Thay
+								Đổi</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
@@ -508,6 +583,75 @@
 		});
 	});
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+	  const editButtons = document.querySelectorAll('.btn-edit');
+
+	  editButtons.forEach(button => {
+	    button.addEventListener('click', () => {
+	      // Lấy thông tin từ thuộc tính data của nút chỉnh sửa
+	      const jobId = button.getAttribute('data-jobid');
+	      const jobTitle = button.getAttribute('data-jobtitle');
+	      const jobLocation = button.getAttribute('data-joblocation');
+	      const jobDescription = button.getAttribute('data-jobdescription');
+	      const jobRequirements = button.getAttribute('data-jobrequirements');
+	      const salary = button.getAttribute('data-salary');
+	      const jobType = button.getAttribute('data-jobtype');
+	      const postedDate = button.getAttribute('data-posteddate');
+	      const applicationDeadline = button.getAttribute('data-applicationdeadline');
+	      const topStartDate = button.getAttribute('data-topstartdate');
+
+	      // Điền thông tin vào modal
+	      document.getElementById('jobId').value = jobId;
+	      document.getElementById('jobTitle').value = jobTitle;
+	      document.getElementById('jobLocation').value = jobLocation;
+	      document.getElementById('jobDescription').value = jobDescription;
+	      document.getElementById('jobRequirements').value = jobRequirements;
+	      document.getElementById('salary').value = salary;
+	      document.getElementById('jobType').value = jobType;
+	      document.getElementById('postedDate').value = postedDate;
+	      document.getElementById('applicationDeadline').value = applicationDeadline;
+	      document.getElementById('topStartDate').value = topStartDate;
+
+	      // Hiển thị modal
+	      const editJobModal = new bootstrap.Modal(document.getElementById('editJobModal'));
+	      editJobModal.show();
+	    });
+	  });
+
+	  // Xử lý form khi gửi
+	  document.getElementById('editJobForm').addEventListener('submit', (event) => {
+	    event.preventDefault();
+	    
+	    // Lấy dữ liệu từ form
+	    const formData = new FormData(event.target);
+	    const data = {};
+	    formData.forEach((value, key) => {
+	      data[key] = value;
+	    });
+
+	    // Gửi dữ liệu đến máy chủ
+	    fetch('/updateJob', {
+	      method: 'POST',
+	      headers: {
+	        'Content-Type': 'application/json'
+	      },
+	      body: JSON.stringify(data)
+	    })
+	    .then(response => response.json())
+	    .then(result => {
+	      if (result.success) {
+	        alert('Cập nhật thành công!');
+	        window.location.reload(); // Tải lại trang để thấy thay đổi
+	      } else {
+	        alert('Có lỗi xảy ra. Vui lòng thử lại.');
+	      }
+	    });
+	  });
+	});
+</script>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
