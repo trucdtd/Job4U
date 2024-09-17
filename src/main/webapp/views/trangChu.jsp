@@ -24,7 +24,7 @@
 	<%@ include file="/views/header.jsp"%>
 	<!-- /header -->
 	<%@ include file="/views/top5baiviet.jsp"%>
-	
+	<br>
 	<div class="container">
 
 		<!-- Thanh tìm kiếm chính -->
