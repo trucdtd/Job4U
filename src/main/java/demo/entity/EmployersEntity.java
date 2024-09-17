@@ -50,4 +50,6 @@ public class EmployersEntity implements Serializable {
     @Column(name = "logo")
     private String logo;
     
+    @Column(name = "taxid")
+    private String taxid;
 }

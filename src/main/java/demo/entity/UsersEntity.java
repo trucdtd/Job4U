@@ -66,8 +66,11 @@ public class UsersEntity implements Serializable {
     @Column(name = "updatedat", nullable = false)
     private LocalDateTime updatedat;
 
+    @Column(name = "status", nullable = false, length = 20)
+    private String status;
+    
     // Getter tùy chỉnh để trả về boolean cho role
     public boolean isAdmin() {
-        return this.role != null && this.role == 1;
+        return this.role != null && this.role == 0;
     }
 }
