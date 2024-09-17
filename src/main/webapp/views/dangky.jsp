@@ -50,6 +50,9 @@
 <body>
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<br>
+	<!-- /header -->
+	<%@ include file="/views/formDieuKhoan.jsp"%>
+	<br>
 	<footer>
 	
 	<section class="vh-90">
