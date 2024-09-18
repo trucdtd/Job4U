@@ -94,6 +94,10 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     //phương thức để lấy danh sách các bài đăng mà không bao gồm những bài đã bị ẩn
     List<JoblistingsEntity> findByEmployerAndActive(EmployersEntity employer, boolean active);
     
+    
+    //top5baivietmoinhat
+    @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.posteddate DESC")
+    List<JoblistingsEntity> findTop5LatestJobListings();
     //khoa
 	/*
 	 * @Modifying
