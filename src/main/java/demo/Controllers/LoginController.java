@@ -55,7 +55,7 @@ public class LoginController {
 
                 // Lưu ID nhà tuyển dụng vào session nếu vai trò là 2
                 if (user.getRole() == 2) {
-                    sessionService.setCurrentEmployerId(user.getUserid());
+                    sessionService.setCurrentUserId(user.getUserid());
                 }
 
                 // Log vai trò người dùng từ session

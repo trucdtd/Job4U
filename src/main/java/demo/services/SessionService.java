@@ -43,6 +43,17 @@ public class SessionService {
         session.setAttribute("employerId", employerId);
     }
     
+
+    // Lấy ID của user sdụng hiện tại từ session
+    public Integer getCurrentUserId() {
+        return (Integer) session.getAttribute("userId");
+    }
+
+    // Lưu ID của user sdụng hiện tại từ session
+    public void setCurrentUserId(Integer userId) {
+        session.setAttribute("userId", userId);
+    }
+    
  // Lưu ID tài khoản vào session
     public void setCurrentUser(Integer userId) {
         session.setAttribute("userid", userId);
