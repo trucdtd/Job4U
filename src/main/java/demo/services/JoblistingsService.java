@@ -32,6 +32,9 @@ public class JoblistingsService {
         return joblistingsDao.findById(jobid).orElse(null);
     } 
 	
+	 public List<JoblistingsEntity> getTop5LatestJobListings() {
+	        return joblistingsDao.findTop5LatestJobListings();
+	    }
 //	 public List<EmployersEntity> getTop3Employers() {
 //	        // Lấy các EmployerID từ bài viết mới nhất
 //	        List<Integer> topEmployerIds = joblistingsDao.findTop3EmployerIds();
