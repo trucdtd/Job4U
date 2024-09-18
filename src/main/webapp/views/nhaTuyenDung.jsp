@@ -137,7 +137,7 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${jobPostings}" var="job">
-											<tr>
+											<tr data-jobid="${job.jobid}">
 												<td>${job.jobtitle}</td>
 												<td>${job.joblocation}</td>
 												<td>${job.jobdescription}</td>
@@ -158,10 +158,12 @@
 														data-applicationdeadline="${job.applicationdeadline}">
 														<img src="/img/icons8-edit-50.png" height="25px"
 															width="25px" alt="Chỉnh sửa" />
-													</button> <a href="deleteJob?jobId=${job.jobid}" class="btn btn-sm">
+													</button>
+													<button type="button" class="btn btn-sm btn-hide"
+														onclick="hideJob(${job.jobid})">
 														<img src="/img/icons8-delete-50.png" height="25px"
-														width="25px" alt="Ẩn" />
-												</a>
+															width="25px" alt="xóa" />
+													</button>
 												</td>
 											</tr>
 										</c:forEach>
@@ -458,7 +460,8 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form id="editJobForm" action="/job4u/employers/edit" method="post">
+						<form id="editJobForm" action="/job4u/employers/edit"
+							method="post">
 							<input type="hidden" id="jobId" name="jobId" />
 							<div class="mb-3">
 								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
@@ -491,8 +494,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="postedDate" class="form-label">Ngày Đăng</label> <input
-									 class="form-control" id="postedDate"
-									name="postedDate" readonly/>
+									class="form-control" id="postedDate" name="postedDate" readonly />
 							</div>
 							<div class="mb-3">
 								<label for="applicationDeadline" class="form-label">Hạn
@@ -639,7 +641,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => {
             if (response.ok) {
-                // Xử lý thành công (ví dụ: tải lại trang)
                 window.location.reload(); // Tải lại trang để xem thay đổi
             } else {
                 // Xử lý lỗi
@@ -653,7 +654,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
