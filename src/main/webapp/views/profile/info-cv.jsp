@@ -18,7 +18,7 @@
 			<img alt="" src="/img/user-default.jpg" width=200px class="p-3">
 			<div class="p-3">
 				<input type="file" class="row mt-3 mb-4">
-				<button class="btn row" type="submit" style="background:#198754">Cập nhật</button>
+				<button class="btn row" type="submit" style="background:#198754; color:#fff"">Cập nhật</button>
 			</div>
 		</form:form>
 	</div>
@@ -31,7 +31,7 @@
 					<div class="">
 						<label for="" class="form-label">Tóm tắt hồ sơ</label>
 						<form:textarea path="profilesummary"
-							class="form-control border-bottom-primary" name="" id="" rows="4"></form:textarea>
+							class="form-control" name="" id="" rows="4"></form:textarea>
 					</div>
 
 				</div>
@@ -43,7 +43,7 @@
 							<div>
 								<label for="" class="form-label">Hồ sơ</label>
 								<form:input path="resume" type="text"
-									class="form-control border-left-primary" name="" id=""
+									class="form-control " name="" id=""
 									aria-describedby="helpId" placeholder="" />
 							</div>
 						</div>
@@ -53,7 +53,7 @@
 							<div>
 								<label for="" class="form-label">Kinh nghiệm</label>
 								<form:input path="jobseekerid" type="text"
-									class="form-control border-left-primary" name="" id=""
+									class="form-control " name="" id=""
 									aria-describedby="helpId" placeholder="" />
 							</div>
 						</div>
@@ -63,7 +63,7 @@
 							<div>
 								<label for="" class="form-label">Kinh nghiệm</label>
 								<form:input path="experience" type="text"
-									class="form-control border-left-primary" name="" id=""
+									class="form-control" name="" id=""
 									aria-describedby="helpId" placeholder="" />
 							</div>
 						</div>
@@ -74,7 +74,7 @@
 							<div>
 								<label for="" class="form-label">Học vấn</label>
 								<form:input path="education" type="text"
-									class="form-control border-left-primary" name="" id=""
+									class="form-control " name="" id=""
 									aria-describedby="helpId" placeholder="" />
 							</div>
 						</div>
@@ -84,7 +84,7 @@
 							<div>
 								<label for="" class="form-label">Kĩ năng</label>
 								<form:input path="skills" type="text"
-									class="form-control border-left-primary" name="" id=""
+									class="form-control" name="" id=""
 									aria-describedby="helpId" placeholder="" />
 							</div>
 						</div>
@@ -101,7 +101,7 @@
 							<div>
 								<label for="" class="form-label">Ngày sinh</label>
 								<form:input path="dateOfbirth" type="Date"
-									class="form-control border-left-primary" name="" id=""
+									class="form-control " name="" id=""
 									aria-describedby="helpId" placeholder="" />
 							</div>
 						</div>
@@ -128,7 +128,7 @@
 							<div>
 								<label for="" class="form-label">Ngôn ngữ</label>
 								<form:input path="languages" type="text"
-									class="form-control border-left-primary" name="" id=""
+									class="form-control " name="" id=""
 									aria-describedby="helpId" placeholder="" />
 							</div>
 						</div>
@@ -139,7 +139,7 @@
 								<div class="">
 									<label for="" class="form-label">Sở thích</label>
 									<form:textarea path="interests"
-										class="form-control border-left-primary" name="" id=""
+										class="form-control " name="" id=""
 										rows="3"></form:textarea>
 								</div>
 
@@ -147,9 +147,9 @@
 						</div>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-primary m-3">Cập nhật</button>
+				<button type="submit" class="btn m-3" style="background:#198754; color:#fff">Cập nhật</button>
 		</form:form>
 	</div>
-	</div>
+
 </body>
 </html>
