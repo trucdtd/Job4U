@@ -136,8 +136,9 @@
 														<c:otherwise>Không xác định</c:otherwise>
 													</c:choose></td>
 												<td><a href="/admin/detailUser/${nd.userid}"
-													class="btn btn-info text-white p-2 " type="button"
-													style="background-color: #198754">Chi tiết</a> <%-- <a href="#"
+													class="btn" type="button"><img
+														src="/img/detail-icon.png" style="padding-bottom: 7px;"
+														width="25px" height="30px" alt="Detail"></a> <%-- <a href="#"
 													class="btn btn-danger"
 													onclick="return confirmDeleteAccount(${nd.userid});">Xóa</a> --%>
 												</td>
@@ -202,10 +203,10 @@
 												            }
 												        </script>
 												</span></td>
-												<td><a href="/admin/detailPost/${bv.jobid}"
-													class="btn btn-info" type="button"
-													style="background-color: #00688B; color: white; display: inline-block;">Chi
-														tiết</a> <%-- <a href="#" class="btn btn-danger"
+												<td><a href="/admin/detailPost/${bv.jobid}" class="btn"
+													type="button"><img
+														src="/img/detail-icon.png" style="padding-bottom: 7px;"
+														width="25px" height="30px" alt="Detail"></a> <%-- <a href="#" class="btn btn-danger"
 													onclick="return confirmDelete(${bv.jobid});">Xóa</a> --%></td>
 											</tr>
 										</c:forEach>
