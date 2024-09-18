@@ -41,6 +41,8 @@ public class TrangChuController {
 		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
 		model.addAttribute("dsSP", dsSP);
 		
+		List<JoblistingsEntity> latestJobs = jobListingService.getTop5LatestJobListings();
+	    model.addAttribute("latestJobs", latestJobs);
         // Lấy danh sách công việc theo userServiceId nếu nó không null
 //        if (userServiceId != null) {
 //            // Gọi dịch vụ để lấy danh sách công việc theo userServiceId

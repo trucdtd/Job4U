@@ -30,6 +30,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/job4u")
@@ -161,44 +162,49 @@ public class NhaTuyenDungController {
 
 		return "nhaTuyenDung";
 	}
-	
-	@PostMapping("/employers/updateJob")
-	@ResponseBody
-	public ResponseEntity<?> updateJob(@RequestBody Map<String, String> jobData) {
+
+	@PostMapping("/employers/edit")
+	public String editJobPosting(@RequestParam("jobId") Integer jobId,
+	                              @RequestParam("jobTitle") String jobTitle,
+	                              @RequestParam("jobLocation") String jobLocation,
+	                              @RequestParam("jobDescription") String jobDescription,
+	                              @RequestParam("jobRequirements") String jobRequirements,
+	                              @RequestParam("salaryEdit") BigDecimal salary,
+	                              @RequestParam("jobType") String jobType,
+	                              @RequestParam("postedDate") String postedDate,
+	                              @RequestParam("applicationDeadline") String applicationDeadline) {
+	    // Tìm kiếm công việc theo jobId
+	    JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
+
+	    if (jobListing == null) {
+	        return "error"; // Xử lý trường hợp không tìm thấy công việc
+	    }
+
+	    // Cập nhật thông tin công việc
+	    jobListing.setJobtitle(jobTitle);
+	    jobListing.setJoblocation(jobLocation);
+	    jobListing.setJobdescription(jobDescription);
+	    jobListing.setJobrequirements(jobRequirements);
+	    jobListing.setSalary(salary);
+	    jobListing.setJobtype(jobType);
+
+	    // Xử lý ngày
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	    try {
-	        Integer jobId = Integer.parseInt(jobData.get("jobId"));
-	        JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
-
-	        if (jobListing == null) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bài đăng không tồn tại");
-	        }
-
-	        jobListing.setJobtitle(jobData.get("jobTitle"));
-	        jobListing.setJoblocation(jobData.get("jobLocation"));
-	        jobListing.setJobdescription(jobData.get("jobDescription"));
-	        jobListing.setJobrequirements(jobData.get("jobRequirements"));
-	        jobListing.setSalary(new BigDecimal(jobData.get("salary")));
-	        jobListing.setJobtype(jobData.get("jobType"));
-
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	        try {
-	            LocalDate postedDate = LocalDate.parse(jobData.get("postedDate"), formatter);
-	            LocalDate applicationDeadline = LocalDate.parse(jobData.get("applicationDeadline"), formatter);
-	            jobListing.setPosteddate(postedDate);
-	            jobListing.setApplicationdeadline(applicationDeadline);
-	            jobListing.setTopStartDate(LocalDate.parse(jobData.get("topStartDate"), formatter));
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Lỗi phân tích ngày");
-	        }
-
-	        danhSachViecLamDao.save(jobListing);
-	        return ResponseEntity.ok(Map.of("success", true));
+	        LocalDate postedDateParsed = LocalDate.parse(postedDate, formatter);
+	        LocalDate applicationDeadlineParsed = LocalDate.parse(applicationDeadline, formatter);
+	        jobListing.setPosteddate(postedDateParsed);
+	        jobListing.setApplicationdeadline(applicationDeadlineParsed);
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi hệ thống");
+	        return "error"; // Hoặc trang thông báo lỗi
 	    }
-	}
 
+	    // Lưu lại thông tin đã chỉnh sửa
+	    danhSachViecLamDao.save(jobListing);
+
+	    return "redirect:/job4u/employers"; // Chuyển hướng về trang nhà tuyển dụng
+	}
 
 //	@PostMapping("/employers/service")
 //	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {

@@ -132,7 +132,6 @@
 											<th scope="col">Ngày Đăng</th>
 											<th scope="col">Hạn Nộp Hồ Sơ</th>
 											<th scope="col">Trạng Thái</th>
-											<th scope="col">Ngày Bắt Đầu Top</th>
 											<th scope="col">Hành Động</th>
 										</tr>
 									</thead>
@@ -148,7 +147,6 @@
 												<td>${job.posteddate}</td>
 												<td>${job.applicationdeadline}</td>
 												<td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td>
-												<td>${job.topStartDate}</td>
 												<td>
 													<button type="button" class="btn btn-sm btn-edit"
 														data-jobid="${job.jobid}" data-jobtitle="${job.jobtitle}"
@@ -157,8 +155,7 @@
 														data-jobrequirements="${job.jobrequirements}"
 														data-salary="${job.salary}" data-jobtype="${job.jobtype}"
 														data-posteddate="${job.posteddate}"
-														data-applicationdeadline="${job.applicationdeadline}"
-														data-topstartdate="${job.topStartDate}">
+														data-applicationdeadline="${job.applicationdeadline}">
 														<img src="/img/icons8-edit-50.png" height="25px"
 															width="25px" alt="Chỉnh sửa" />
 													</button> <a href="deleteJob?jobId=${job.jobid}" class="btn btn-sm">
@@ -461,7 +458,7 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form id="editJobForm">
+						<form id="editJobForm" action="/job4u/employers/edit" method="post">
 							<input type="hidden" id="jobId" name="jobId" />
 							<div class="mb-3">
 								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
@@ -485,7 +482,8 @@
 							</div>
 							<div class="mb-3">
 								<label for="salary" class="form-label">Lương</label> <input
-									type="text" class="form-control" id="salary" name="salary" />
+									type="number" class="form-control" id="salaryEdit"
+									name="salaryEdit" />
 							</div>
 							<div class="mb-3">
 								<label for="jobType" class="form-label">Loại Công Việc</label> <input
@@ -493,20 +491,15 @@
 							</div>
 							<div class="mb-3">
 								<label for="postedDate" class="form-label">Ngày Đăng</label> <input
-									type="date" class="form-control" id="postedDate"
-									name="postedDate" />
+									 class="form-control" id="postedDate"
+									name="postedDate" readonly/>
 							</div>
 							<div class="mb-3">
 								<label for="applicationDeadline" class="form-label">Hạn
 									Nộp Hồ Sơ</label> <input type="date" class="form-control"
 									id="applicationDeadline" name="applicationDeadline" />
 							</div>
-							<div class="mb-3">
-								<label for="topStartDate" class="form-label">Ngày Bắt
-									Đầu Top</label> <input type="date" class="form-control"
-									id="topStartDate" name="topStartDate" />
-							</div>
-							<button type="submit" class="btn btn-primary">Lưu Thay
+							<button type="submit" class="btn btn-success">Lưu Thay
 								Đổi</button>
 						</form>
 					</div>
@@ -586,71 +579,79 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-	  const editButtons = document.querySelectorAll('.btn-edit');
+    const editButtons = document.querySelectorAll('.btn-edit');
 
-	  editButtons.forEach(button => {
-	    button.addEventListener('click', () => {
-	      // Lấy thông tin từ thuộc tính data của nút chỉnh sửa
-	      const jobId = button.getAttribute('data-jobid');
-	      const jobTitle = button.getAttribute('data-jobtitle');
-	      const jobLocation = button.getAttribute('data-joblocation');
-	      const jobDescription = button.getAttribute('data-jobdescription');
-	      const jobRequirements = button.getAttribute('data-jobrequirements');
-	      const salary = button.getAttribute('data-salary');
-	      const jobType = button.getAttribute('data-jobtype');
-	      const postedDate = button.getAttribute('data-posteddate');
-	      const applicationDeadline = button.getAttribute('data-applicationdeadline');
-	      const topStartDate = button.getAttribute('data-topstartdate');
+    editButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Lấy thông tin từ thuộc tính data của nút chỉnh sửa
+            const jobId = button.getAttribute('data-jobid');
+            const jobTitle = button.getAttribute('data-jobtitle');
+            const jobLocation = button.getAttribute('data-joblocation');
+            const jobDescription = button.getAttribute('data-jobdescription');
+            const jobRequirements = button.getAttribute('data-jobrequirements');
+            const salary = button.getAttribute('data-salary');
+            const jobType = button.getAttribute('data-jobtype');
+            const postedDate = button.getAttribute('data-posteddate');
+            const applicationDeadline = button.getAttribute('data-applicationdeadline');
 
-	      // Điền thông tin vào modal
-	      document.getElementById('jobId').value = jobId;
-	      document.getElementById('jobTitle').value = jobTitle;
-	      document.getElementById('jobLocation').value = jobLocation;
-	      document.getElementById('jobDescription').value = jobDescription;
-	      document.getElementById('jobRequirements').value = jobRequirements;
-	      document.getElementById('salary').value = salary;
-	      document.getElementById('jobType').value = jobType;
-	      document.getElementById('postedDate').value = postedDate;
-	      document.getElementById('applicationDeadline').value = applicationDeadline;
-	      document.getElementById('topStartDate').value = topStartDate;
+            // Điền thông tin vào modal
+            document.getElementById('jobId').value = jobId;
+            document.getElementById('jobTitle').value = jobTitle;
+            document.getElementById('jobLocation').value = jobLocation;
+            document.getElementById('jobDescription').value = jobDescription;
+            document.getElementById('jobRequirements').value = jobRequirements;
+            document.getElementById('salaryEdit').value = salary;
+            document.getElementById('jobType').value = jobType;
+            document.getElementById('postedDate').value = postedDate;
+            document.getElementById('applicationDeadline').value = applicationDeadline;
 
-	      // Hiển thị modal
-	      const editJobModal = new bootstrap.Modal(document.getElementById('editJobModal'));
-	      editJobModal.show();
-	    });
-	  });
+            // Hiển thị modal
+            const editJobModal = new bootstrap.Modal(document.getElementById('editJobModal'));
+            editJobModal.show();
+        });
+    });
 
-	  // Xử lý form khi gửi
-	  document.getElementById('editJobForm').addEventListener('submit', (event) => {
-	    event.preventDefault();
-	    
-	    // Lấy dữ liệu từ form
-	    const formData = new FormData(event.target);
-	    const data = {};
-	    formData.forEach((value, key) => {
-	      data[key] = value;
-	    });
+    // Xử lý form khi gửi
+    document.getElementById('editJobForm').addEventListener('submit', (event) => {
+        event.preventDefault();
 
-	    // Gửi dữ liệu đến máy chủ
-	    fetch('/updateJob', {
-	      method: 'POST',
-	      headers: {
-	        'Content-Type': 'application/json'
-	      },
-	      body: JSON.stringify(data)
-	    })
-	    .then(response => response.json())
-	    .then(result => {
-	      if (result.success) {
-	        alert('Cập nhật thành công!');
-	        window.location.reload(); // Tải lại trang để thấy thay đổi
-	      } else {
-	        alert('Có lỗi xảy ra. Vui lòng thử lại.');
-	      }
-	    });
-	  });
-	});
+        // Cập nhật ngày hiện tại cho ngày đăng
+        const currentDate = new Date().toISOString().split('T')[0]; // Lấy ngày hiện tại
+        document.getElementById('postedDate').value = currentDate; // Cập nhật vào trường ngày đăng
 
+        // Lấy giá trị ngày đăng và hạn nộp hồ sơ
+        const postedDate = new Date(document.getElementById('postedDate').value);
+        const applicationDeadline = new Date(document.getElementById('applicationDeadline').value);
+
+        // Kiểm tra hạn nộp hồ sơ không nhỏ hơn ngày đăng
+        if (applicationDeadline < postedDate) {
+            alert('Hạn nộp hồ sơ không được nhỏ hơn ngày đăng.');
+            return; // Dừng quá trình gửi form
+        }
+
+        // Lấy dữ liệu từ form
+        const formData = new FormData(event.target);
+
+        // Gửi dữ liệu đến server
+        fetch('/job4u/employers/edit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // Xử lý thành công (ví dụ: tải lại trang)
+                window.location.reload(); // Tải lại trang để xem thay đổi
+            } else {
+                // Xử lý lỗi
+                alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
+            }
+        })
+        .catch(error => {
+            console.error('Có lỗi xảy ra:', error);
+            alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
+        });
+    });
+});
 </script>
 
 
