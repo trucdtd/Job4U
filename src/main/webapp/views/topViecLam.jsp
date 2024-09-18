@@ -196,7 +196,7 @@
 
 					<!-- Nút tìm kiếm -->
 					<div class="mt-3">
-						<button type="submit" class="btn btn-primary rounded-3">
+						<button type="submit" class="btn btn-success rounded-3">
 							<i class="bi bi-search"></i> Tìm kiếm
 						</button>
 					</div>
@@ -246,9 +246,9 @@
 									<div
 										class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
 										<div class="d-flex flex-column mt-4">
-											<a href="/applyCV" class="btn btn-primary btn-sm">Ứng
+											<a href="/applyCV" class="btn btn-success btn-sm">Ứng
 												tuyển</a> <a href="/job4u/chiTiet/${job.jobid}"
-												class="btn btn-outline-primary btn-sm mt-2">Thông tin
+												class="btn btn-outline-success btn-sm mt-2">Thông tin
 												chi tiết</a>
 										</div>
 									</div>

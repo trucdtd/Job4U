@@ -5,11 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,15 +16,10 @@ import demo.services.SessionService;
 import demo.dao.ApplicationsDao;
 import demo.dao.EmployersDao;
 import demo.dao.JoblistingsDao;
-
 import demo.entity.ApplicationsEntity;
-
 import demo.dao.ServicesDao;
-
 import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
-import demo.entity.ServicesEntity;
-
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -34,9 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -171,6 +162,44 @@ public class NhaTuyenDungController {
 		return "nhaTuyenDung";
 	}
 	
+	@PostMapping("/employers/updateJob")
+	@ResponseBody
+	public ResponseEntity<?> updateJob(@RequestBody Map<String, String> jobData) {
+	    try {
+	        Integer jobId = Integer.parseInt(jobData.get("jobId"));
+	        JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
+
+	        if (jobListing == null) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bài đăng không tồn tại");
+	        }
+
+	        jobListing.setJobtitle(jobData.get("jobTitle"));
+	        jobListing.setJoblocation(jobData.get("jobLocation"));
+	        jobListing.setJobdescription(jobData.get("jobDescription"));
+	        jobListing.setJobrequirements(jobData.get("jobRequirements"));
+	        jobListing.setSalary(new BigDecimal(jobData.get("salary")));
+	        jobListing.setJobtype(jobData.get("jobType"));
+
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        try {
+	            LocalDate postedDate = LocalDate.parse(jobData.get("postedDate"), formatter);
+	            LocalDate applicationDeadline = LocalDate.parse(jobData.get("applicationDeadline"), formatter);
+	            jobListing.setPosteddate(postedDate);
+	            jobListing.setApplicationdeadline(applicationDeadline);
+	            jobListing.setTopStartDate(LocalDate.parse(jobData.get("topStartDate"), formatter));
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Lỗi phân tích ngày");
+	        }
+
+	        danhSachViecLamDao.save(jobListing);
+	        return ResponseEntity.ok(Map.of("success", true));
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi hệ thống");
+	    }
+	}
+
+
 //	@PostMapping("/employers/service")
 //	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
 //	    // Retrieve the service from the database using the serviceId

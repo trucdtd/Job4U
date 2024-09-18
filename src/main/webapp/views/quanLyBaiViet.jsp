@@ -52,7 +52,7 @@
 													<td>${bv.salary}</td>
 													<td><a href="/user/detailPost/${bv.jobid}"
 														class="btn btn-info" type="button"
-														style="background-color: #00688B; color: white;">Chi
+														style="background-color: #198754; color: white;">Chi
 															tiết</a>
 														<button type="button" class="btn btn-danger btn-sm"
 															onclick="deletePost(1)">Xóa</button>
