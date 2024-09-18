@@ -18,6 +18,7 @@ import com.mailjet.client.resource.User;
 import demo.dao.EmployersDao;
 import demo.dao.UsersDao;
 import demo.entity.EmployersEntity;
+import demo.entity.UserAgreementsEntity;
 import demo.entity.UsersEntity;
 import demo.services.SessionService;
 import demo.services.UserService;
@@ -56,11 +57,18 @@ public class dangkyController {
             @RequestParam(value = "contactPerson", required = false) String contactPerson,
             @RequestParam(value = "companyDescription", required = false) String companyDescription,
             @RequestParam(value = "usertype", required = false) String usertype,
+            @RequestParam(value = "termsAgreed", required = false) String termsAgreed, // Lấy giá trị từ checkbox
             Model model
     ) {
         boolean hasErrors = false;
 
-        // Kiểm tra các trường thông tin
+     // Kiểm tra người dùng đã đồng ý với điều khoản chưa
+        if (termsAgreed == null) {
+            model.addAttribute("termsError", "Bạn phải đồng ý với điều khoản để tiếp tục.");
+            hasErrors = true;
+        }
+
+        // Các kiểm tra khác (username, fullname, password, email, số điện thoại, loại tài khoản)
         if (username.isEmpty()) {
             model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
             hasErrors = true;
@@ -82,7 +90,6 @@ public class dangkyController {
             hasErrors = true;
         }
 
-        // Kiểm tra email
         if (email.isEmpty()) {
             model.addAttribute("emailError", "Email không được để trống");
             hasErrors = true;
@@ -94,7 +101,6 @@ public class dangkyController {
             hasErrors = true;
         }
 
-        // Kiểm tra số điện thoại
         if (numberphone.isEmpty()) {
             model.addAttribute("numberphoneError", "Số điện thoại không được để trống");
             hasErrors = true;
@@ -140,12 +146,12 @@ public class dangkyController {
             return "dangky";
         }
 
+     // Xử lý đăng ký thành công
         try {
             UsersEntity newUser = new UsersEntity();
             Integer role = "employer".equals(usertype) ? 2 : 1;
             newUser.setUsername(username);
             newUser.setFullname(fullname);
-            newUser.setPassword(password);
             newUser.setEmail(email);
             newUser.setPhonenumber(numberphone);
             newUser.setRole(role);
@@ -170,11 +176,22 @@ public class dangkyController {
                 employersDao.save(employerDetails);
             }
 
+			/*
+			 * // Lưu thông tin chính sách và điều khoản mà người dùng đã đồng ý
+			 * UserAgreementsEntity userAgreement = new UserAgreementsEntity();
+			 * userAgreement.setUserID(newUser.getUserId()); // Liên kết với người dùng vừa
+			 * đăng ký userAgreement.setAgreementDate(LocalDate.now()); // Ngày đồng ý
+			 * userAgreement.setAgreementContent("Nội dung chính sách và điều khoản..."); //
+			 * Nội dung điều khoản userAgreement.setStatus("Đồng ý"); // Trạng thái đồng ý
+			 * 
+			 * userAgreementsDao.save(userAgreement); // Lưu vào database
+			 */
             // Thêm thông báo thành công
             model.addAttribute("successMessage", "Bạn đã đăng ký thành công!");
             return "dangky";
 
         } catch (Exception e) {
+            model.addAttribute("errorMessage", "Đã xảy ra lỗi trong quá trình đăng ký, vui lòng thử lại.");
             return "dangky";
         }
     }

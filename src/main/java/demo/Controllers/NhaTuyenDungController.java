@@ -206,6 +206,7 @@ public class NhaTuyenDungController {
 	    return "redirect:/job4u/employers"; // Chuyển hướng về trang nhà tuyển dụng
 	}
 
+
 //	@PostMapping("/employers/service")
 //	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
 //	    // Retrieve the service from the database using the serviceId
