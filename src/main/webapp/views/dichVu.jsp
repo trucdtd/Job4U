@@ -62,7 +62,7 @@
 							<ul class="features">
 								<li>Đăng 10 bài / Tháng</li>
 							</ul>
-							<button type="button" class="btn btn-danger openModalButton" data-service-id="1" onclick="openPaymentModal(1)">MUA</button>
+							<button type="button" class="btn btn-danger openModalButton" onclick="openPaymentModal(1)">MUA</button>
 						</div>
 					</div>
 			</div>
@@ -108,42 +108,40 @@
 		</div>
 	</div>
 	<!-- Modal -->
-<div id="paymentModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="payment-container">
-            <div class="payment-summary">
-                <h3>Tóm tắt thanh toán</h3>
-                <ul>
-                    <li><span>Gói đã chọn:</span> <span id="serviceName"></span></li>
-                </ul>
-                <div class="total-price">
-                    <h2>Tổng Tiền</h2>
-                    <h1 id="servicePrice"></h1>
-                    <p id="serviceDescription"></p>
-                </div>
+    <div class="modal-content" style="display: none;">
+    <span class="close">&times;</span>
+    <div class="payment-container">
+        <div class="payment-summary">
+            <h3>Tóm tắt thanh toán</h3>
+            <ul>
+                <li><span>Gói đã chọn:</span> <span id="serviceName">${serviceName}</span></li>
+            </ul>
+            <div class="total-price">
+                <h2>Tổng Tiền</h2>
+                <h1 id="servicePrice">${servicePrice}</h1>
+                <p id="serviceDescription">${serviceDescription}</p>
             </div>
-            <div class="payment-form">
-                <h3>Thanh Toán</h3>
-                <div class="payment-methods">
-                    <button class="momo1-btn" id="momo1-button">
-                        <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo1">
-                    </button>
-                    <button class="momo2-btn" id="momo2-button">
-                        <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo2">
-                    </button>
-                </div>
-
-                <div class="qr-code" id="qr-code-momo1" style="display: none;">
-                    <img src="/img/QR.png" alt="QR Code Momo1">
-                </div>
-
-                <div class="qr-code" id="qr-code-momo2" style="display: none;">
-                    <img src="/img/QR.png" alt="QR Code Momo2">
-                </div>
-
-                <button class="submit-btn" type="button">Xác Nhận</button>
+        </div>
+        <div class="payment-form">
+            <h3>Thanh Toán</h3>
+            <div class="payment-methods">
+                <button class="momo1-btn" id="momo1-button">
+                    <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo1">
+                </button>
+                <button class="momo2-btn" id="momo2-button">
+                    <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo2">
+                </button>
             </div>
+
+            <div class="qr-code" id="qr-code-momo1" style="display: none;">
+                <img src="/img/QR.png" alt="QR Code Momo1">
+            </div>
+
+            <div class="qr-code" id="qr-code-momo2" style="display: none;">
+                <img src="/img/QR.png" alt="QR Code Momo2">
+            </div>
+
+            <button class="submit-btn" type="button">Xác Nhận</button>
         </div>
     </div>
 </div>
@@ -163,33 +161,19 @@
 
 
 	<script>
-	function openPaymentModal(serviceId) {
-	    // Fetch service data from the server using the serviceId
-	    fetch(`/service/${serviceId}`)
-	        .then(response => response.json())
-	        .then(data => {
-	            // Check if data is valid
-	            if (data) {
-	                // Populate the modal with the service data
-	                document.getElementById('serviceName').innerText = data.serviceName;
-	                document.getElementById('servicePrice').innerText = data.price.toLocaleString() + ' VND';
-	                document.getElementById('serviceDescription').innerText = data.description;
+    function openModal() {
+        modal.style.display = "block";
+    }
 
-	                // Show the modal
-	                document.getElementById('paymentModal').style.display = 'block';
-	            } else {
-	                alert('Service not found!');
-	            }
-	        })
-	        .catch(error => {
-	            console.error('Error fetching service data:', error);
-	        });
-	}
+    closeModal.onclick = function() {
+        modal.style.display = "none";
+    }
 
-	// Close the modal
-	document.querySelector('.close').onclick = function() {
-	    document.getElementById('paymentModal').style.display = 'none';
-	};
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
     </script>
 

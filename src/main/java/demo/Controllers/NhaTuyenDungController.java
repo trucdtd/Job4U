@@ -30,6 +30,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/job4u")
@@ -162,6 +163,7 @@ public class NhaTuyenDungController {
 		return "nhaTuyenDung";
 	}
 	
+
 	@PostMapping("/employers/updateJob")
 	@ResponseBody
 	public ResponseEntity<?> updateJob(@RequestBody Map<String, String> jobData) {
@@ -198,6 +200,23 @@ public class NhaTuyenDungController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi hệ thống");
 	    }
 	}
+
+//	@GetMapping("/employers/service/{id}")
+//	public String getServiceById(@PathVariable("id") int id, Model model) {
+//	    Optional<ServicesEntity> service = servicesDao.findById(id);
+//
+//	    if (service.isPresent()) {
+//	        ServicesEntity serviceEntity = service.get();
+//	        model.addAttribute("serviceName", serviceEntity.getServicename());
+//	        model.addAttribute("servicePrice", serviceEntity.getPrice() + " VNĐ");
+//	        model.addAttribute("serviceDescription", serviceEntity.getDescription());
+//	    } else {
+//	        model.addAttribute("errorMessage", "Dịch vụ không tồn tại!");
+//
+//	    }
+//
+//	    return "nhaTuyenDung";
+//	}
 
 
 //	@PostMapping("/employers/service")
