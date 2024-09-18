@@ -201,45 +201,4 @@ public class NhaTuyenDungController {
 	    }
 	}
 
-//	@GetMapping("/employers/service/{id}")
-//	public String getServiceById(@PathVariable("id") int id, Model model) {
-//	    Optional<ServicesEntity> service = servicesDao.findById(id);
-//
-//	    if (service.isPresent()) {
-//	        ServicesEntity serviceEntity = service.get();
-//	        model.addAttribute("serviceName", serviceEntity.getServicename());
-//	        model.addAttribute("servicePrice", serviceEntity.getPrice() + " VNĐ");
-//	        model.addAttribute("serviceDescription", serviceEntity.getDescription());
-//	    } else {
-//	        model.addAttribute("errorMessage", "Dịch vụ không tồn tại!");
-//
-//	    }
-//
-//	    return "nhaTuyenDung";
-//	}
-
-
-//	@PostMapping("/employers/service")
-//	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
-//	    // Retrieve the service from the database using the serviceId
-//	    ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
-//
-//	    // Check if the service exists
-//	    if (service != null) {
-//	        // Add service details to the model
-//	        model.addAttribute("serviceName", service.getServicename());
-//	        model.addAttribute("servicePrice", service.getPrice() + " VNĐ");
-//	        model.addAttribute("serviceDescription", service.getDescription());
-//
-//	        // Return the view displaying the service details
-//	        return "nhaTuyenDung";
-//	    } else {
-//	        // Add an error message to the model if service does not exist
-//	        model.addAttribute("errorMessage", "Gói dịch vụ không tồn tại");
-//	        
-//	        // Return the same view, but with the error message
-//	        return "nhaTuyenDung";
-//	    }
-//	}
-
 }

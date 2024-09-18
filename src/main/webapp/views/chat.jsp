@@ -28,7 +28,6 @@
 }
 
 #contact-button {
-	background-color: #007bff;
 	border-radius: 50%;
 	color: white;
 	bottom: 0;
@@ -202,13 +201,13 @@
         <button id="additional-button" class="form-button btn btn-secondary">
             <i class="fas fa-info"></i> <!-- Biểu tượng cho nút bổ sung -->
         </button>
-        <button id="contact-button" class="chat-button btn btn-primary">
+        <button id="contact-button" class="chat-button btn btn-success">
             <i class="fas fa-comments"></i> <!-- Biểu tượng chat -->
         </button>
         <div id="message">
             <button type="button" class="btn-close" aria-label="Close"></button>
             <div class="list-group">
-                <a href="" class="list-group-item list-group-item-action active" aria-current="true">Trung tâm hỗ trợ</a>
+                <a href="" class="list-group-item list-group-item-success" aria-current="true">Trung tâm hỗ trợ</a>
                 <a href="#" class="list-group-item list-group-item-action">Hướng dẫn quản lý tài khoản</a>
                 <a href="#" class="list-group-item list-group-item-action">Yêu cầu hỗ trợ</a>
                 <a href="#" class="list-group-item list-group-item-action disabled" aria-disabled="true">Liên Hệ Job4u</a>
