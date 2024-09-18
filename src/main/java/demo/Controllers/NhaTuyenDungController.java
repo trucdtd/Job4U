@@ -39,6 +39,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/job4u")
@@ -171,24 +172,20 @@ public class NhaTuyenDungController {
 		return "nhaTuyenDung";
 	}
 	
-	@PostMapping("/employers/service")
-	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
+	@GetMapping("/employers/service/{id}")
+	public String getServiceById(@PathVariable("id") int id, Model model) {
+	    Optional<ServicesEntity> service = servicesDao.findById(id);
 
-		ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
+	    if (service.isPresent()) {
+	        ServicesEntity serviceEntity = service.get();
+	        model.addAttribute("serviceName", serviceEntity.getServicename());
+	        model.addAttribute("servicePrice", serviceEntity.getPrice() + " VNĐ");
+	        model.addAttribute("serviceDescription", serviceEntity.getDescription());
+	    } else {
+	        model.addAttribute("errorMessage", "Dịch vụ không tồn tại!");
+	    }
 
-		if (service != null) {
-
-			model.addAttribute("serviceName", service.getServicename());
-			model.addAttribute("servicePrice", service.getPrice() + " VNĐ");
-			model.addAttribute("serviceDescription", service.getDescription());
-
-			return "nhaTuyenDung";
-		} else {
-
-			model.addAttribute("errorMessage", "Gói dịch vụ không tồn tại");
-
-			return "nhaTuyenDung";
-		}
+	    return "nhaTuyenDung";
 	}
 
 }
