@@ -6,24 +6,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Thông Tin CV</title>
 </head>
 <body>
 	<!-- Begin Page Content -->
 	<div class="container shadow bg-white mb-3">
-		<h4 class="m-0 font-weight-bold text-primary text-center pt-2">
+		<h4 class="m-0 font-weight-bold text-center pt-2" style="color:#198754">
 			HÌNH ẢNH</h4>
 		<form:form class="d-flex justify-content-center" metthod="post"
 			action="/job4u/profile/cv">
 			<img alt="" src="/img/user-default.jpg" width=200px class="p-3">
 			<div class="p-3">
 				<input type="file" class="row mt-3 mb-4">
-				<button class="btn btn-primary row" type="submit">Cập nhật</button>
+				<button class="btn row" type="submit" style="background:#198754">Cập nhật</button>
 			</div>
 		</form:form>
 	</div>
 	<div class="container shadow bg-white mb-3">
-		<h4 class="m-0 font-weight-bold text-primary text-center pt-2">
+		<h4 class="m-0 font-weight-bold text-center pt-2"  style="color:#198754">
 			THÔNG TIN CV</h4>
 		<form:form action="/job4u/profile/cv" modelAttribute="entity">
 			<div class="card border-0 row">
