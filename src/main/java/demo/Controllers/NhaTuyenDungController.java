@@ -55,7 +55,7 @@ public class NhaTuyenDungController {
 	@RequestMapping("/employers")
 	public String nhaTuyenDung(Model model) {
 		Integer userId = sessionService.getCurrentUserId();
-		System.out.println("Current User ID: " + userId);
+//		System.out.println("Current User ID: " + userId);
 
 	    if (userId != null) {
 	        // Tìm nhà tuyển dụng theo userId

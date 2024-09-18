@@ -232,22 +232,22 @@
 											</select>
 										</div>
 									</div>
+									<div class="row">										
+										<div class="col-md-12 p-2">
+											<label for="jobtitle" class="form-label">Tiêu đề công
+												việc</label> <input type="text" class="form-control" id="jobtitle"
+												name="jobtitle" required>
+										</div>
+										<!-- <div class="col-md-6 p-2">
+											<label for="logo" class="form-label">Logo công ty</label> <input
+												type="file" class="form-control" id="logo" name="logo">
+										</div> -->
+									</div>
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="contactperson" class="form-label">Người
 												liên hệ</label> <input type="text" class="form-control"
 												id="contactperson" name="contactperson">
-										</div>
-										<div class="col-md-6 p-2">
-											<label for="logo" class="form-label">Logo công ty</label> <input
-												type="file" class="form-control" id="logo" name="logo">
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 p-2">
-											<label for="jobtitle" class="form-label">Tiêu đề công
-												việc</label> <input type="text" class="form-control" id="jobtitle"
-												name="jobtitle" required>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="joblocation" class="form-label">Địa điểm
