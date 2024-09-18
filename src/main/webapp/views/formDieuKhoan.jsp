@@ -65,7 +65,7 @@
             <h5>Tài Khoản</h5>
             <div class="form-check">
                 <input type="checkbox" id="termsAgreed" name="termsAgreed">
-                <label class="form-check-label" for="termsAgreed"> Tôi đã đọc và đồng ý với các <span style="color: #198754;">Điều khoản dịch vụ</span> và <span style="color: #198754;">Chính sách bảo mật</span> của Job4U.</label>
+                <label for="termsAgreed"> Tôi đã đọc và đồng ý với các <span style="color: #198754;">Điều khoản dịch vụ</span> và <span style="color: #198754;">Chính sách bảo mật</span> của Job4U.</label>
             </div>
         </div>
     </div>
