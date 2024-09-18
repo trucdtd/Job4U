@@ -491,8 +491,8 @@
 							</div>
 							<div class="mb-3">
 								<label for="postedDate" class="form-label">Ngày Đăng</label> <input
-									type="date" class="form-control" id="postedDate"
-									name="postedDate" />
+									 class="form-control" id="postedDate"
+									name="postedDate" readonly/>
 							</div>
 							<div class="mb-3">
 								<label for="applicationDeadline" class="form-label">Hạn
