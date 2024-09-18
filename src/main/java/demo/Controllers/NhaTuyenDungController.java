@@ -93,13 +93,19 @@ public class NhaTuyenDungController {
 
 	@PostMapping("/employers/submit")
 	public String themTuyenDung(@RequestParam("companyname") String companyname,
-	        @RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
-	        @RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
-	        @RequestParam("logo") MultipartFile logo, @RequestParam("jobtitle") String jobtitle,
-	        @RequestParam("joblocation") String joblocation, @RequestParam("jobtype") String jobtype,
-	        @RequestParam("salary") BigDecimal salary, @RequestParam("companydescription") String companydescription,
+	        @RequestParam("companywebsite") String companywebsite, 
+	        @RequestParam("address") String address,
+	        @RequestParam("industry") String industry, 
+	        @RequestParam("contactperson") String contactperson,
+	        @RequestParam("logo") MultipartFile logo, 
+	        @RequestParam("jobtitle") String jobtitle,
+	        @RequestParam("joblocation") String joblocation, 
+	        @RequestParam("jobtype") String jobtype,
+	        @RequestParam("salary") BigDecimal salary, 
+	        @RequestParam("companydescription") String companydescription,
 	        @RequestParam("jobrequirements") String jobrequirements,
-	        @RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
+	        @RequestParam("jobdescription") String jobdescription, 
+	        @RequestParam("posteddate") String posteddate,
 	        @RequestParam("applicationdeadline") String applicationdeadline) {
 
 	    // Kiểm tra dữ liệu đầu vào
@@ -114,10 +120,14 @@ public class NhaTuyenDungController {
 	        return "error"; // Nhà tuyển dụng không tồn tại
 	    }
 
-	    byte[] logoBytes = null;
+	    // Lưu tệp logo vào thư mục và lấy tên tệp
+	    String logoFilename = null;
 	    try {
 	        if (!logo.isEmpty()) {
-	            logoBytes = logo.getBytes(); // Chuyển đổi tệp hình ảnh thành byte[]
+	            logoFilename = logo.getOriginalFilename(); // Lấy tên tệp
+	            // Lưu tệp vào thư mục (thêm mã lưu tệp ở đây)
+	            File destinationFile = new File("/path/to/save/directory/" + logoFilename);
+	            logo.transferTo(destinationFile); // Lưu tệp vào thư mục
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
@@ -130,7 +140,7 @@ public class NhaTuyenDungController {
 	    employer.setAddress(address);
 	    employer.setIndustry(industry);
 	    employer.setContactperson(contactperson);
-	    employer.setLogo(logoBytes); // Lưu dữ liệu nhị phân vào cơ sở dữ liệu
+	    employer.setLogo(logoFilename); // Lưu tên tệp của logo
 	    employer.setCompanydescription(companydescription);
 
 	    nhaTuyenDungDao.save(employer);
@@ -160,6 +170,7 @@ public class NhaTuyenDungController {
 	    danhSachViecLamDao.save(jobListing);
 	    return "redirect:/nhaTuyenDung"; // Redirect đến trang nhà tuyển dụng
 	}
+
 	
 	@PostMapping("/employers/edit")
 	public String editJobPosting(@RequestParam("jobId") Integer jobId,
