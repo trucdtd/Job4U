@@ -46,7 +46,7 @@ public class EmployersEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
     private UsersEntity user;
-
+    
     @Column(name = "logo")
     private String logo;
     
