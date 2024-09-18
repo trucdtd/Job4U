@@ -121,13 +121,14 @@
 		</article> --%>
 		<article>
 			<div class="card">
-				<div class="card-header">
+				<div class="card-header d-flex justify-content-between">
 					<div class="card-title">Chi Tiết Bài Viết</div>
+					
 				</div>
 				<div class="card-body p-0">
 					<form class="p-4 border border-1"
 						<%-- action="/admin/updatePost/${bv.jobid}" method="post"> --%> 
-method="post">
+								method="post">
 						<!-- Job ID (Disabled) -->
 						<div class="row p-2">
 							<div class="col-md-6">
@@ -202,26 +203,30 @@ method="post">
 									oninput="formatSalary(this)">
 							</div>
 						</div>
-						
+
 					</form>
 					<div class="row p-2">
-							<div class="col-md-12 d-flex justify-content-between">
-								<form action="/admin/hidePost/${bv.jobid}" method="post">
-									<button type="submit" class="btn btn-info">Ẩn Bài Viết</button>
-								</form>
-								<form action="/admin/showPost/${bv.jobid}" method="post">
-									<button type="submit" class="btn btn-info">Hiện Bài
-										Viết</button>
-								</form>
-								
-								<a href="/admin" class="btn btn-danger">Hủy</a>
-							</div>
+						<div class="col-md-12 d-flex justify-content-start">
+							<form action="/admin/hidePost/${bv.jobid}" method="post"
+								class="me-2">
+								<button type="submit" class="btn"
+									style="background-color: #198754; color: white;">Ẩn
+									Bài Viết</button>
+							</form>
+							<form action="/admin/showPost/${bv.jobid}" method="post"
+								class="me-2">
+								<button type="submit" class="btn"
+									style="background-color: #198754; color: white;">Hiện
+									Bài Viết</button>
+							</form>
+							<a href="/admin" class="btn btn-danger">Hủy</a>
 						</div>
+					</div>
 				</div>
 			</div>
 		</article>
 		<br>
-		<hr>
+
 
 	</div>
 	<!-- footer-->
