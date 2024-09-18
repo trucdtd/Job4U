@@ -29,6 +29,7 @@ header {
 	transition: 0.3s background-color;
 }
 
+
 .offcanvas-body .login-button:hover {
 	background-color: #c0c9c9;
 	color: #009944; /* Đảm bảo màu chữ khi hover */
@@ -48,7 +49,7 @@ nav .nav-link {
 }
 
 .nav-link:hover, .nav-link.active {
-	color: #c0c9c9;
+	color: #198754;
 }
 
 /* Định dạng các liên kết trong thanh điều hướng cho màn hình nhỏ */

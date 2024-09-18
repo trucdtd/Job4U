@@ -1,18 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
 <head>
     <title>Title</title>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
           crossorigin="anonymous" />
     <link rel="stylesheet" href="/css/header.css">
+    <style>
+        .nav-link.active {
+            background-color: #198754; /* Màu xanh lá cây khi nhấn vào liên kết */
+            color: white; /* Màu chữ khi nhấn vào liên kết */
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -24,7 +27,7 @@
                 <p class="text-light" style="font-size: small;">Tìm việc online</p>
             </a>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel"
-                 style="background: #009933;">
+                 style="background: #198754;">
                 <div class="offcanvas-header">
                     <h5 class="text-light">Job for you</h5>
                     <img src="/img/icons8-close-50.png" data-bs-dismiss="offcanvas" height="30px" width="30px" alt="Close">
@@ -44,7 +47,6 @@
                         <a id="register-btn" href="/DangKy" class="btn login-button text-center"><img
                                 src="/img/icons8-register-48.png" height="25px" width="25px" alt="Register"> Đăng ký</a>
                     </div>
-                    <!-- DROPDOWN MENU -->
                     <div id="account-info" class="dropdown d-flex justify-content-end d-none">
                         <button class="btn btn-light btn-light-custom" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -88,7 +90,6 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- HẾT DROPDOWN MENU -->
                 </div>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -97,13 +98,17 @@
             </button>
         </div>
     </nav>
-
 </header>
 
-<!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        // Xử lý khi nhấn vào liên kết
+        $('.nav-link').click(function() {
+            $('.nav-link').removeClass('active'); // Xóa lớp active từ tất cả các liên kết
+            $(this).addClass('active'); // Thêm lớp active vào liên kết đang nhấn
+        });
+
         var userIsLoggedIn = "<%=session.getAttribute("userIsLoggedIn") != null ? session.getAttribute("userIsLoggedIn").toString() : "false" %>";
         var userName = "<%=session.getAttribute("userName") != null ? session.getAttribute("userName").toString() : "" %>";
 

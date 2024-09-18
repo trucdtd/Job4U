@@ -82,31 +82,6 @@ public class NhaTuyenDungController {
 	}
 
 
-//	@RequestMapping("/employers")
-//	public String nhaTuyenDung(Model model) {
-//	    Integer employerId = sessionService.getCurrentEmployerId();
-//
-//	    if (employerId != null) {
-//	        EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(null);
-//	        if (employer != null) {
-//	            // Xem xét giá trị của employer
-////	            System.out.println("Employer: " + employer);
-//
-//	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployer(employer);
-//	            model.addAttribute("jobPostings", jobPostings);
-//
-//	            for (JoblistingsEntity jobPosting : jobPostings) {
-//	                List<ApplicationsEntity> applications = applicationsDao.findByJob(jobPosting);
-//	                model.addAttribute("applications" + jobPosting.getJobid(), applications);
-//	            }
-//
-//	            // Thêm employer vào model
-//	            model.addAttribute("employer", employer);
-//	        }
-//	    }
-//
-//	    return "nhaTuyenDung";
-//	}
 	@RequestMapping("/chitietCV")
 	public String cvUngTuyen() {
 		return "cvUngTuyen";
@@ -234,6 +209,7 @@ public class NhaTuyenDungController {
 
 	    return "redirect:/job4u/employers"; // Chuyển hướng về trang nhà tuyển dụng
 	}
+
 
 //	@PostMapping("/employers/hide/{jobId}")
 //	public ResponseEntity<?> hideJobPosting(@PathVariable Integer jobId) {
