@@ -190,13 +190,21 @@ public class NhaTuyenDungController {
 
 	    // Xử lý ngày
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    try {
+	        LocalDate postedDateParsed = LocalDate.parse(postedDate, formatter);
+	        LocalDate applicationDeadlineParsed = LocalDate.parse(applicationDeadline, formatter);
+	        jobListing.setPosteddate(postedDateParsed);
+	        jobListing.setApplicationdeadline(applicationDeadlineParsed);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "error"; // Hoặc trang thông báo lỗi
+	    }
+
 	    // Lưu lại thông tin đã chỉnh sửa
 	    danhSachViecLamDao.save(jobListing);
 
 	    return "redirect:/job4u/employers"; // Chuyển hướng về trang nhà tuyển dụng
 	}
-
-	
 
 //	@PostMapping("/employers/service")
 //	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
