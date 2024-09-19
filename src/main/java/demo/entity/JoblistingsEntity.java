@@ -60,7 +60,7 @@ public class JoblistingsEntity implements Serializable {
     private LocalDate applicationdeadline;
 
     @Column(name = "istop")
-    private Boolean istop = false; // Giá trị mặc định, có thể thay đổi theo yêu cầu
+    private Boolean isTop;
 
     @Column(name = "topstartdate")
     private LocalDate topStartDate;

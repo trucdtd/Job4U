@@ -54,16 +54,15 @@ public class NhaTuyenDungController {
 
 	@RequestMapping("/employers")
 	public String nhaTuyenDung(Model model) {
-		Integer userId = sessionService.getCurrentUserId();
-//		System.out.println("Current User ID: " + userId);
+	    Integer userId = sessionService.getCurrentUserId();
+//	    System.out.println("Current User ID: " + userId);
 
 	    if (userId != null) {
-	        // Tìm nhà tuyển dụng theo userId
 	        EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 	        
 	        if (employer != null) {
-	            // Lấy danh sách bài đăng
-	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployer(employer);
+	            // Chỉ lấy những bài đăng có active = true
+	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
 	            model.addAttribute("jobPostings", jobPostings);
 
 	            for (JoblistingsEntity jobPosting : jobPostings) {
@@ -71,20 +70,16 @@ public class NhaTuyenDungController {
 	                model.addAttribute("applications" + jobPosting.getJobid(), applications);
 	            }
 
-	            // Thêm employer vào model
 	            model.addAttribute("employer", employer);
 	        } else {
-	            // Xử lý trường hợp không tìm thấy nhà tuyển dụng
 	            model.addAttribute("error", "Không tìm thấy nhà tuyển dụng.");
 	        }
 	    } else {
-	        // Xử lý trường hợp không có userId trong session
 	        model.addAttribute("error", "Vui lòng đăng nhập để tiếp tục.");
 	    }
 
 	    return "nhaTuyenDung";
 	}
-
 
 	@RequestMapping("/chitietCV")
 	public String cvUngTuyen() {
@@ -97,7 +92,7 @@ public class NhaTuyenDungController {
 	        @RequestParam("address") String address,
 	        @RequestParam("industry") String industry, 
 	        @RequestParam("contactperson") String contactperson,
-	        @RequestParam("logo") MultipartFile logo, 
+	        @RequestParam(value = "logo", required = false) MultipartFile logo, 
 	        @RequestParam("jobtitle") String jobtitle,
 	        @RequestParam("joblocation") String joblocation, 
 	        @RequestParam("jobtype") String jobtype,
@@ -113,25 +108,25 @@ public class NhaTuyenDungController {
 	        return "error"; // Trả về thông báo lỗi
 	    }
 
-	    Integer employerId = sessionService.getCurrentEmployerId();
-	    EmployersEntity employer = nhaTuyenDungDao.findById(employerId).orElse(null);
+	    // Lấy ID nhà tuyển dụng từ phiên đăng nhập của người dùng
+	    Integer userId = sessionService.getCurrentUserId();
+	    EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
 	    if (employer == null) {
 	        return "error"; // Nhà tuyển dụng không tồn tại
 	    }
 
-	    // Lưu tệp logo vào thư mục và lấy tên tệp
+	    // Xử lý tệp logo
 	    String logoFilename = null;
-	    try {
-	        if (!logo.isEmpty()) {
-	            logoFilename = logo.getOriginalFilename(); // Lấy tên tệp
-	            // Lưu tệp vào thư mục (thêm mã lưu tệp ở đây)
+	    if (logo != null && !logo.isEmpty()) {
+	        try {
+	            logoFilename = logo.getOriginalFilename();
 	            File destinationFile = new File("/path/to/save/directory/" + logoFilename);
-	            logo.transferTo(destinationFile); // Lưu tệp vào thư mục
+	            logo.transferTo(destinationFile);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return "error"; // Xử lý lỗi tải lên
 	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return "error"; // Xử lý lỗi tải lên
 	    }
 
 	    // Cập nhật thông tin nhà tuyển dụng
@@ -140,7 +135,9 @@ public class NhaTuyenDungController {
 	    employer.setAddress(address);
 	    employer.setIndustry(industry);
 	    employer.setContactperson(contactperson);
-	    employer.setLogo(logoFilename); // Lưu tên tệp của logo
+	    if (logoFilename != null) {
+	        employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
+	    }
 	    employer.setCompanydescription(companydescription);
 
 	    nhaTuyenDungDao.save(employer);
@@ -168,7 +165,7 @@ public class NhaTuyenDungController {
 	    }
 
 	    danhSachViecLamDao.save(jobListing);
-	    return "redirect:/nhaTuyenDung"; // Redirect đến trang nhà tuyển dụng
+	    return "redirect:/job/employers"; // Redirect đến trang nhà tuyển dụng
 	}
 
 	
@@ -216,18 +213,6 @@ public class NhaTuyenDungController {
 	}
 	
 
-//	@PostMapping("/employers/hide/{jobId}")
-//	public ResponseEntity<?> hideJobPosting(@PathVariable Integer jobId) {
-//	    JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
-//	    if (jobListing == null) {
-//	        return ResponseEntity.notFound().build(); // Nếu không tìm thấy công việc
-//	    }
-//	    jobListing.setActive(false); // Đánh dấu bài viết là không hoạt động
-//	    danhSachViecLamDao.save(jobListing); // Lưu lại thay đổi
-//	    return ResponseEntity.ok().build(); // Trả về phản hồi thành công
-//	}
-
-	
 //	@PostMapping("/employers/service")
 //	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
 //	    // Retrieve the service from the database using the serviceId
