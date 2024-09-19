@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.net.MediaType;
 
@@ -200,6 +201,29 @@ public class NhaTuyenDungController {
 
 		return "redirect:/job4u/employers"; // Chuyển hướng về trang nhà tuyển dụng
 	}
+
+	@PostMapping("/employers/delete")
+	public String deleteJob(@RequestParam("jobId") Integer jobId, RedirectAttributes redirectAttributes) {
+	    // Kiểm tra xem bài đăng có tồn tại không
+	    JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
+
+	    if (jobListing == null) {
+	        redirectAttributes.addFlashAttribute("error", "Bài đăng không tồn tại.");
+	        return "redirect:/job4u/employers"; // Hoặc trang thông báo lỗi
+	    }
+
+	    // Kiểm tra xem bài đăng có sử dụng dịch vụ nào không
+	    if (jobListing.getUserService() != null) {
+	        redirectAttributes.addFlashAttribute("error", "Không thể xóa bài đăng đã sử dụng dịch vụ.");
+	        return "redirect:/job4u/employers"; // Hoặc trang thông báo lỗi
+	    }
+
+	    // Xóa bài đăng
+	    danhSachViecLamDao.delete(jobListing);
+	    redirectAttributes.addFlashAttribute("success", "Xóa bài đăng thành công.");
+	    return "redirect:/job4u/employers";
+	}
+
 
 //	@PostMapping("/employers/service")
 //	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {

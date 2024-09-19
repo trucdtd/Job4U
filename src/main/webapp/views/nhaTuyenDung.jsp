@@ -169,11 +169,15 @@
 														<img src="/img/icons8-edit-50.png" height="25px"
 															width="25px" alt="Chỉnh sửa" />
 													</button>
-													<button type="button" class="btn btn-sm btn-hide"
-														onclick="hideJob(${job.jobid})">
-														<img src="/img/icons8-delete-50.png" height="25px"
-															width="25px" alt="xóa" />
-													</button>
+													<form action="/job4u/employers/delete" method="post"
+														style="display: inline;"
+														onsubmit="return confirmDelete();">
+														<input type="hidden" name="jobId" value="${job.jobid}">
+														<button type="submit" class="btn btn-sm">
+															<img src="/img/icons8-delete-50.png" height="25px"
+																width="25px" alt="Xóa" />
+														</button>
+													</form>
 												</td>
 											</tr>
 										</c:forEach>
@@ -242,7 +246,7 @@
 											</select>
 										</div>
 									</div>
-									<div class="row">										
+									<div class="row">
 										<div class="col-md-12 p-2">
 											<label for="jobtitle" class="form-label">Tiêu đề công
 												việc</label> <input type="text" class="form-control" id="jobtitle"
@@ -664,7 +668,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-
+<script>
+function confirmDelete() {
+    return confirm("Bạn có chắc chắn muốn xóa bài đăng này?");
+}
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>
