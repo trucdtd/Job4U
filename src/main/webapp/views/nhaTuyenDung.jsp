@@ -142,7 +142,17 @@
 												<td>${job.joblocation}</td>
 												<td>${job.jobdescription}</td>
 												<td>${job.jobrequirements}</td>
-												<td>${job.salary}</td>
+												<td><span
+													style="display: inline-flex; align-items: center;">
+														<script>
+												            var salary = Number(${job.salary});
+												            if (!isNaN(salary)) {
+												                document.write(salary.toLocaleString('vi-VN') + ' VND');
+												            } else {
+												                document.write('N/A');
+												            }
+												        </script>
+												</span></td>
 												<td>${job.jobtype}</td>
 												<td>${job.posteddate}</td>
 												<td>${job.applicationdeadline}</td>
