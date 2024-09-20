@@ -23,6 +23,8 @@ import demo.entity.ApplicationsEntity;
 import demo.dao.ServicesDao;
 import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
+import demo.entity.ServicesEntity;
+
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -55,8 +57,11 @@ public class NhaTuyenDungController {
 	@RequestMapping("/employers")
 	public String nhaTuyenDung(Model model) {
 		Integer userId = sessionService.getCurrentUserId();
+		
 //	    System.out.println("Current User ID: " + userId);
-
+		 List<ServicesEntity> service = servicesDao.findAll(); // Fetch all services
+	        model.addAttribute("service", service); // Add to model for the view
+	        
 		if (userId != null) {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 

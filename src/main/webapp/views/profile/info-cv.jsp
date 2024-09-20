@@ -147,7 +147,7 @@
 						</div>
 					</div>
 				</div>
-				<button type="submit" class="btn m-3" style="background:#198754; color:#fff">Cập nhật</button>
+				<button class="btn row" type="submit" style="background:#198754; color:#fff"">Cập nhật</button>
 		</form:form>
 	</div>
 
