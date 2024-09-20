@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "UserAgreements")
+@Table(name = "Useragreements")
 public class UserAgreementsEntity {
 
     @Id

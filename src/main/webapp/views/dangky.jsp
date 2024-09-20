@@ -217,7 +217,7 @@
 							</div>
 						</form>
 
-						<!-- Modal -->
+
 						<div class="modal fade" id="successModal" tabindex="-1"
 							aria-labelledby="successModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered">
@@ -227,14 +227,14 @@
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
-									<div class="modal-body">${successMessage}</div>
+									<div class="modal-body">Đăng Ký thành Công</div>
 									<div class="modal-footer">
-										<a href="/Login" type="button" class="btn btn-primary">Đăng
-											nhập</a>
+										<a href="/Login" class="btn btn-success">Đăng Nhập</a>
 									</div>
 								</div>
 							</div>
 						</div>
+
 						<!-- Modal thông báo điều khoản -->
 						<div class="modal fade" id="termsErrorModal" tabindex="-1"
 							aria-labelledby="termsErrorModalLabel" aria-hidden="true">
@@ -256,61 +256,92 @@
 							</div>
 						</div>
 
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-
-
-
 	<%@ include file="/views/footer.jsp"%>
+	<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('registerForm');
+    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    const termsAgreedCheckbox = document.getElementById('termsAgreed');
 
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Ngăn form submit mặc định
+
+        // Kiểm tra điều kiện trước khi gửi dữ liệu
+        if (termsAgreedCheckbox.checked) {
+            // Gửi dữ liệu form thông qua AJAX hoặc fetch API
+            // Ví dụ với fetch API:
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Nếu server phản hồi thành công, hiện modal
+                    successModal.show();
+                } else {
+                    // Xử lý lỗi nếu cần
+                    alert("Có lỗi xảy ra trong quá trình đăng ký.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        } else {
+            // Hiện modal thông báo điều khoản (cần định nghĩa modal này)
+            // termsErrorModal.show(); // Thay modal tương ứng
+        }
+    });
+});
+</script>
 
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			const applicantRadio = document.getElementById("applicant");
-			const employerRadio = document.getElementById("employer");
-			const employerDetails = document.getElementById("employerDetails");
+    document.addEventListener("DOMContentLoaded", function() {
+        const applicantRadio = document.getElementById("applicant");
+        const employerRadio = document.getElementById("employer");
+        const employerDetails = document.getElementById("employerDetails");
+        const form = document.getElementById('registerForm');
+        const termsAgreedCheckbox = document.getElementById('termsAgreed');
+        const termsErrorModal = new bootstrap.Modal(document.getElementById('termsErrorModal'));
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
 
-			function toggleEmployerDetails() {
-				if (employerRadio.checked) {
-					employerDetails.style.display = "block";
-				} else {
-					employerDetails.style.display = "none";
-					clearEmployerDetails(); // Xóa các giá trị không cần thiết khi chuyển về "Người Xin Việc"
-				}
-			}
+        function toggleEmployerDetails() {
+            if (employerRadio.checked) {
+                employerDetails.style.display = "block";
+            } else {
+                employerDetails.style.display = "none";
+                clearEmployerDetails(); // Xóa các giá trị không cần thiết khi chuyển về "Người Xin Việc"
+            }
+        }
 
-			function clearEmployerDetails() {
-				document.getElementById("companyName").value = "";
-				document.getElementById("companyWebsite").value = "";
-				document.getElementById("companyAddress").value = "";
-				document.getElementById("industry").value = "";
-				document.getElementById("contactPerson").value = "";
-				document.getElementById("companyDescription").value = "";
-			}
+        function clearEmployerDetails() {
+            document.getElementById("companyName").value = "";
+            document.getElementById("companyWebsite").value = "";
+            document.getElementById("companyAddress").value = "";
+            document.getElementById("industry").value = "";
+            document.getElementById("contactPerson").value = "";
+            document.getElementById("companyDescription").value = "";
+        }
 
-			applicantRadio.addEventListener("change", toggleEmployerDetails);
-			employerRadio.addEventListener("change", toggleEmployerDetails);
+        applicantRadio.addEventListener("change", toggleEmployerDetails);
+        employerRadio.addEventListener("change", toggleEmployerDetails);
+        toggleEmployerDetails(); // Gọi hàm ngay khi trang được load
 
-			toggleEmployerDetails(); // Gọi hàm ngay khi trang được load
-		});
-
-		document.addEventListener('DOMContentLoaded', function() {
-			var form = document.getElementById('registerForm');
-			var termsAgreedCheckbox = document.getElementById('termsAgreed');
-			var termsErrorModal = new bootstrap.Modal(document
-					.getElementById('termsErrorModal'));
-
-			form.addEventListener('submit', function(event) {
-				if (!termsAgreedCheckbox.checked) {
-					event.preventDefault(); // Ngăn form submit
-					termsErrorModal.show(); // Hiển thị modal lỗi điều khoản
-				}
-			});
-		});
-	</script>
+        form.addEventListener('submit', function(event) {
+            if (!termsAgreedCheckbox.checked) {
+                event.preventDefault(); // Ngăn form submit
+                termsErrorModal.show(); // Hiển thị modal lỗi điều khoản
+            } else {
+                successModal.show(); // Hiển thị modal thành công
+            }
+        });
+    });
+</script>
 </body>
 </html>
