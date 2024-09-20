@@ -1,234 +1,185 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Chọn Gói Dịch Vụ</title>
+    <link rel="stylesheet" type="text/css" href="/css/dichvu.css">
+    <style>
+        .modal-content {
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .btn-success {
+            width: 100%;
+        }
+    </style>
 </head>
-<link rel="stylesheet" type="text/css" href="/css/dichvu.css">
 <body>
-	<div class="container pricing">
-		<br>
-		<div class="row justify-content-center">
-			<!-- Row 1: Gói Đặc Biệt và Gói Bổ Sung -->
-			<div class="col-md-6">
-				<div class="pricing-card special">
-					<div class="pricing-header">
-						<h4 class="text-center">Gói Đặc Biệt Lên Top</h4>
-					</div>
-					<div class="pricing-body text-center">
-						<p class="price">
-							<strong>75.000 VNĐ</strong>
-						</p>
-						<p class="price">3 Ngày</p>
-						<ul class="features">
-							<li>Lên Top những công việc hàng đầu</li>
-						</ul>
-						<button class="btn btn-danger" onclick="showPaymentForm()">MUA</button>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-					<div class="pricing-card">
-						<div class="pricing-header">
-							<h1 class="text-center">Gói Bổ Sung</h1>
-						</div>
-						<div class="pricing-body text-center">
-							<p class="price">
-								<strong>75.000 VNĐ</strong>
-							</p>
-							<p class="price">Thêm 5 bài đăng</p>
-
-							<button type="button" class="btn btn-danger openModalButton" data-service-id="5" onclick="openPaymentModal(5)">MUA</button>
-
-						</div>
-					</div>
-			</div>
-		</div>
-
-		<!-- Row 2: Các Gói Cho Nhà Tuyển Dụng -->
-		<div class="row justify-content-center">
-			<div class="col-md-4">
-					<div class="pricing-card">
-						<div class="pricing-header">
-							<h4 class="text-center">Gói 1 Tháng</h4>
-						</div>
-						<div class="pricing-body text-center">
-							<p class="price">
-								<strong>149.000 VNĐ</strong>
-							</p>
-							<p class="price">1 Tháng</p>
-							<ul class="features">
-								<li>Đăng 10 bài / Tháng</li>
-							</ul>
-							<button type="button" class="btn btn-danger openModalButton" onclick="openPaymentModal(1)">MUA</button>
-						</div>
-					</div>
-			</div>
-
-			<div class="col-md-4">
-				
-					<div class="pricing-card">
-						<div class="pricing-header">
-							<h4 class="text-center">Gói 6 Tháng</h4>
-						</div>
-						<div class="pricing-body text-center">
-							<p class="price">
-								<strong>745.000 VNĐ</strong>
-							</p>
-							<p class="price">6 Tháng</p>
-							<ul class="features">
-								<li>Đăng 30 bài / Tháng</li>
-							</ul>
-							<button type="button" class="btn btn-danger openModalButton" data-service-id="2" onclick="openPaymentModal(2)">MUA</button>
-						</div>
-					</div>
-			</div>
-
-			<div class="col-md-4">
-				
-					<div class="pricing-card">
-						<div class="pricing-header">
-							<h4 class="text-center">Gói 12 Tháng</h4>
-						</div>
-						<div class="pricing-body text-center">
-							<p class="price">
-								<strong>1,490.000 VNĐ</strong>
-							</p>
-							<p class="price">12 Tháng</p>
-							<ul class="features">
-								<li>Đăng 50 bài / Tháng</li>
-							</ul>
-							<button type="button" class="btn btn-danger openModalButton" data-service-id="3" onclick="openPaymentModal(3)">MUA</button>
-						</div>
-					</div>
-
-			</div>
-		</div>
-	</div>
-	<!-- Modal -->
-    <div class="modal-content" style="display: none;">
-    <span class="close">&times;</span>
-    <div class="payment-container">
-        <div class="payment-summary">
-            <h3>Tóm tắt thanh toán</h3>
-            <ul>
-                <li><span>Gói đã chọn:</span> <span id="serviceName">${serviceName}</span></li>
-            </ul>
-            <div class="total-price">
-                <h2>Tổng Tiền</h2>
-                <h1 id="servicePrice">${servicePrice}</h1>
-                <p id="serviceDescription">${serviceDescription}</p>
-            </div>
-        </div>
-        <div class="payment-form">
-            <h3>Thanh Toán</h3>
-            <div class="payment-methods">
-                <button class="momo1-btn" id="momo1-button">
-                    <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo1">
-                </button>
-                <button class="momo2-btn" id="momo2-button">
-                    <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo2">
-                </button>
-            </div>
-
-            <div class="qr-code" id="qr-code-momo1" style="display: none;">
-                <img src="/img/QR.png" alt="QR Code Momo1">
-            </div>
-
-            <div class="qr-code" id="qr-code-momo2" style="display: none;">
-                <img src="/img/QR.png" alt="QR Code Momo2">
-            </div>
-
-            <button class="submit-btn" type="button">Xác Nhận</button>
+    <br>
+    <div class="container pricing">
+        <div class="row justify-content-center">
+            <!-- Row 1: Gói Đặc Biệt và Gói Bổ Sung -->
+            <c:forEach items="${service}" var="service">
+                <div class="col-md-4">
+                    <div class="pricing-card special">
+                        <div class="pricing-header">
+                            <h4 class="text-center">${service.servicename}</h4>
+                        </div>
+                        <div class="pricing-body text-center">
+                            <p class="price">
+                                <strong>
+                                    <fmt:formatNumber value="${service.price}" type="currency" currencySymbol="" maxFractionDigits="0" />
+                                </strong>
+                            </p>
+                            <ul class="features">
+                                <li>${service.description}</li>
+                            </ul>
+                            <button type="button" class="btn btn-danger"
+                                    onclick="openJobSelectionModal('${service.servicename}', ${service.price}, '${service.description}')">MUA</button>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
-</div>
-	<!-- Hidden form initially -->
-	<div id="paymentForm" class="col-md-6" style="display: none;">
-		<div class="pricing-card">
-			<div class="pricing-header">
-				<h4 class="text-center">Thanh Toán</h4>
-			</div>
-			<div class="pricing-body text-center">
-				<!-- Empty form content for payment -->
-				<p>Thanh toán gói Đặc Biệt Lên Top</p>
-				<button type="submit" class="btn btn-success openModalButton" data-service-id="4" onclick="openPaymentModal(4)">Thanh Toán</button>
-			</div>
-		</div>
-	</div>
 
+    <!-- Modal chọn công việc để thanh toán -->
+    <div id="jobSelectionModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeJobSelectionModal()">&times;</span>
+            <h3>Chọn Công Việc</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tên Công Việc</th>
+                        <th>Vị Trí</th>
+                        <th>Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${jobPostings}" var="job">
+                        <tr>
+                            <td>${job.jobtitle}</td>
+                            <td>${job.joblocation}</td>
+                            <td>
+                                <button type="button" class="btn btn-success"
+                                        onclick='selectJobPost({
+                                            jobtitle: "${job.jobtitle}",
+                                            joblocation: "${job.joblocation}",
+                                            jobdescription: "${job.jobdescription}",
+                                            jobrequirements: "${job.jobrequirements}",
+                                            salary: ${job.salary},
+                                            jobtype: "${job.jobtype}",
+                                            posteddate: "${job.posteddate}",
+                                            applicationdeadline: "${job.applicationdeadline}",
+                                            active: ${job.active}
+                                        })'>Chọn</button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-	<script>
-    function openModal() {
-        modal.style.display = "block";
-    }
+    <!-- Modal Thanh Toán -->
+    <div id="paymentModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closePaymentModal()">&times;</span>
+            <div class="payment-container">
+                <div class="payment-summary">
+                    <h3>Tóm tắt thanh toán</h3>
+                    <ul>
+                        <li><span>Gói đã chọn:</span> <span id="serviceName"></span></li>
+                    </ul>
+                    <div class="total-price">
+                        <h2>Tổng Tiền</h2>
+                        <h1 id="servicePrice"></h1>
+                        <p id="serviceDescription"></p>
+                    </div>
+                </div>
+                <div class="payment-form">
+                    <h3>Thanh Toán</h3>
+                    <div class="payment-methods">
+                        <button class="momo1-btn" id="momo1-button" onclick="showQRCode('momo1')">
+                            <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo1">
+                        </button>
+                        <button class="momo2-btn" id="momo2-button" onclick="showQRCode('momo2')">
+                            <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo2">
+                        </button>
+                    </div>
+                    <div class="qr-code" id="qr-code-momo1" style="display: none;">
+                        <img src="/img/QR.png" alt="QR Code Momo1">
+                    </div>
+                    <div class="qr-code" id="qr-code-momo2" style="display: none;">
+                        <img src="/img/QR.png" alt="QR Code Momo2">
+                    </div>
+                    <button class="submit-btn" type="button" onclick="confirmPayment()">Xác Nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    closeModal.onclick = function() {
-        modal.style.display = "none";
-    }
+    <script>
+        let selectedService = {};
 
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        function openJobSelectionModal(serviceName, servicePrice, serviceDescription) {
+            selectedService = { serviceName, servicePrice, serviceDescription }; // Lưu thông tin dịch vụ
+            document.getElementById('jobSelectionModal').style.display = 'flex';
         }
-    }
 
+        function closeJobSelectionModal() {
+            document.getElementById('jobSelectionModal').style.display = 'none';
+        }
+
+        function selectJobPost(job) {
+            closeJobSelectionModal(); // Đóng modal chọn công việc
+            document.getElementById('paymentModal').style.display = 'flex'; // Hiển thị modal thanh toán
+            
+            // Cập nhật thông tin dịch vụ
+            document.getElementById('serviceName').innerText = selectedService.serviceName; // Tên dịch vụ
+            document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(selectedService.servicePrice); // Giá dịch vụ
+            document.getElementById('serviceDescription').innerText = selectedService.serviceDescription; // Mô tả dịch vụ
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        function showQRCode(method) {
+            document.getElementById('qr-code-momo1').style.display = 'none';
+            document.getElementById('qr-code-momo2').style.display = 'none';
+
+            if (method === 'momo1') {
+                document.getElementById('qr-code-momo1').style.display = 'block';
+            } else if (method === 'momo2') {
+                document.getElementById('qr-code-momo2').style.display = 'block';
+            }
+        }
+
+        function confirmPayment() {
+            alert('Thanh toán thành công!');
+            closePaymentModal();
+        }
     </script>
-
-
-	<script>
-		function showPaymentForm() {
-			// Show the hidden payment form
-			document.getElementById('paymentForm').style.display = 'block';
-		}
-	</script>
-	<script>
-		//Get modal, close button, and buttons for showing QR codes
-		var modal = document.getElementById("paymentModal");
-		var closeModal = document.getElementsByClassName("close")[0];
-		var momo1Button = document.getElementById("momo1-button");
-		var momo2Button = document.getElementById("momo2-button");
-		var qrCodeMomo1 = document.getElementById("qr-code-momo1");
-		var qrCodeMomo2 = document.getElementById("qr-code-momo2");
-
-		// Function to show QR code for Momo1
-		function showMomo1QR() {
-			qrCodeMomo1.style.display = "block";
-			qrCodeMomo2.style.display = "none";
-		}
-
-		// Function to show QR code for Momo2
-		function showMomo2QR() {
-			qrCodeMomo2.style.display = "block";
-			qrCodeMomo1.style.display = "none";
-		}
-
-		// Add event listeners to Momo buttons
-		momo1Button.addEventListener('click', showMomo1QR);
-		momo2Button.addEventListener('click', showMomo2QR);
-
-		// Add click event to open modal
-		var buyButtons = document.getElementsByClassName("openModalButton"); // Button class
-		for (let i = 0; i < buyButtons.length; i++) {
-			buyButtons[i].addEventListener('click', function() {
-				console.log("MUA button clicked"); // Debug log
-				modal.style.display = "flex"; // Show modal
-			});
-		}
-
-		// Close modal when click on close button
-		closeModal.onclick = function() {
-			modal.style.display = "none";
-		}
-
-		// Close modal when clicking outside the modal
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-		}
-	</script>
 </body>
 </html>
