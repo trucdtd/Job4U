@@ -42,7 +42,7 @@ public class LoginController {
         if (!users.isEmpty()) {
             UsersEntity user = users.get(0);
             logger.info("Đăng nhập với tài khoản: " + username + ", Vai trò: " + user.getRole());
-            if (user.getPassword().equals(password)) { // Nếu mật khẩu đã được mã hóa, bạn cần so sánh với mã hóa
+            if (user.getPassword().equals(password)) {
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());
                 session.setAttribute("userid", user.getUserid());
