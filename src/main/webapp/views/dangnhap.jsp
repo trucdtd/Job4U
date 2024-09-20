@@ -155,6 +155,7 @@
 				</div>
 			</div>
 		</section>
+
 	</main>
 	<%@ include file="/views/footer.jsp"%>
 	<!-- Bootstrap JavaScript Libraries -->
