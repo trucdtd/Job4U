@@ -93,6 +93,10 @@ public class UserService {
     public boolean isEmailExists(String email) {
         return userRepository.findByEmail(email) != null;
     }
+    
+    public boolean isUsernameExists(String username) {
+        return userRepository.findByUsername(username) != null; // Giả sử bạn có phương thức này trong repository
+    }
 
     /**
      * Kiểm tra xem số điện thoại có tồn tại trong cơ sở dữ liệu không.

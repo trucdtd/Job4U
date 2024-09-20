@@ -217,74 +217,24 @@
 							</div>
 						</form>
 
-						<!-- Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Thông báo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">${successMessage}</div>
-            <div class="modal-footer">
-                <a href="/Login" type="button" class="btn btn-primary">Đăng nhập</a>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="errorModalLabel">Thông báo lỗi</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Hiển thị tất cả các lỗi ở đây -->
-                <c:if test="${not empty usernameError}">
-                    <p>${usernameError}</p>
-                </c:if>
-                <c:if test="${not empty fullnameError}">
-                    <p>${fullnameError}</p>
-                </c:if>
-                <c:if test="${not empty passwordError}">
-                    <p>${passwordError}</p>
-                </c:if>
-                <c:if test="${not empty emailError}">
-                    <p>${emailError}</p>
-                </c:if>
-                <c:if test="${not empty numberphoneError}">
-                    <p>${numberphoneError}</p>
-                </c:if>
-                <c:if test="${not empty usertypeError}">
-                    <p>${usertypeError}</p>
-                </c:if>
-                <c:if test="${not empty termsError}">
-                    <p>${termsError}</p>
-                </c:if>
-                <!-- Thêm các lỗi khác ở đây -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
+						<div class="modal fade" id="successModal" tabindex="-1"
+							aria-labelledby="successModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="successModalLabel">Thông báo</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">Đăng Ký thành Công</div>
+									<div class="modal-footer">
+										<a href="/Login" class="btn btn-success">Đăng Nhập</a>
+									</div>
+								</div>
+							</div>
+						</div>
 
-<script>
-    $(document).ready(function() {
-        // Kiểm tra nếu có thông báo thành công
-        if (${not empty successMessage}) {
-            $('#successModal').modal('show');
-        }
-        // Kiểm tra nếu có thông báo lỗi
-        if (${not empty usernameError} || ${not empty fullnameError} || ${not empty passwordError} || ${not empty emailError} || ${not empty numberphoneError} || ${not empty usertypeError} || ${not empty termsError}) {
-            $('#errorModal').modal('show');
-        }
-    });
-</script>
-						
 						<!-- Modal thông báo điều khoản -->
 						<div class="modal fade" id="termsErrorModal" tabindex="-1"
 							aria-labelledby="termsErrorModalLabel" aria-hidden="true">
@@ -306,60 +256,92 @@
 							</div>
 						</div>
 
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
-	
-	
-	
-		<%@ include file="/views/footer.jsp"%>
-		
-		
-<script>
+
+	<%@ include file="/views/footer.jsp"%>
+	<script>
 document.addEventListener("DOMContentLoaded", function() {
-    const applicantRadio = document.getElementById("applicant");
-    const employerRadio = document.getElementById("employer");
-    const employerDetails = document.getElementById("employerDetails");
-
-    function toggleEmployerDetails() {
-        if (employerRadio.checked) {
-            employerDetails.style.display = "block";
-        } else {
-            employerDetails.style.display = "none";
-            clearEmployerDetails(); // Xóa các giá trị không cần thiết khi chuyển về "Người Xin Việc"
-        }
-    }
-
-    function clearEmployerDetails() {
-        document.getElementById("companyName").value = "";
-        document.getElementById("companyWebsite").value = "";
-        document.getElementById("companyAddress").value = "";
-        document.getElementById("industry").value = "";
-        document.getElementById("contactPerson").value = "";
-        document.getElementById("companyDescription").value = "";
-    }
-
-    applicantRadio.addEventListener("change", toggleEmployerDetails);
-    employerRadio.addEventListener("change", toggleEmployerDetails);
-
-    toggleEmployerDetails(); // Gọi hàm ngay khi trang được load
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    var form = document.getElementById('registerForm');
-    var termsAgreedCheckbox = document.getElementById('termsAgreed');
-    var termsErrorModal = new bootstrap.Modal(document.getElementById('termsErrorModal'));
+    const form = document.getElementById('registerForm');
+    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    const termsAgreedCheckbox = document.getElementById('termsAgreed');
 
     form.addEventListener('submit', function(event) {
-        if (!termsAgreedCheckbox.checked) {
-            event.preventDefault(); // Ngăn form submit
-            termsErrorModal.show(); // Hiển thị modal lỗi điều khoản
+        event.preventDefault(); // Ngăn form submit mặc định
+
+        // Kiểm tra điều kiện trước khi gửi dữ liệu
+        if (termsAgreedCheckbox.checked) {
+            // Gửi dữ liệu form thông qua AJAX hoặc fetch API
+            // Ví dụ với fetch API:
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Nếu server phản hồi thành công, hiện modal
+                    successModal.show();
+                } else {
+                    // Xử lý lỗi nếu cần
+                    alert("Có lỗi xảy ra trong quá trình đăng ký.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        } else {
+            // Hiện modal thông báo điều khoản (cần định nghĩa modal này)
+            // termsErrorModal.show(); // Thay modal tương ứng
         }
     });
 });
+</script>
+
+	<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const applicantRadio = document.getElementById("applicant");
+        const employerRadio = document.getElementById("employer");
+        const employerDetails = document.getElementById("employerDetails");
+        const form = document.getElementById('registerForm');
+        const termsAgreedCheckbox = document.getElementById('termsAgreed');
+        const termsErrorModal = new bootstrap.Modal(document.getElementById('termsErrorModal'));
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+
+        function toggleEmployerDetails() {
+            if (employerRadio.checked) {
+                employerDetails.style.display = "block";
+            } else {
+                employerDetails.style.display = "none";
+                clearEmployerDetails(); // Xóa các giá trị không cần thiết khi chuyển về "Người Xin Việc"
+            }
+        }
+
+        function clearEmployerDetails() {
+            document.getElementById("companyName").value = "";
+            document.getElementById("companyWebsite").value = "";
+            document.getElementById("companyAddress").value = "";
+            document.getElementById("industry").value = "";
+            document.getElementById("contactPerson").value = "";
+            document.getElementById("companyDescription").value = "";
+        }
+
+        applicantRadio.addEventListener("change", toggleEmployerDetails);
+        employerRadio.addEventListener("change", toggleEmployerDetails);
+        toggleEmployerDetails(); // Gọi hàm ngay khi trang được load
+
+        form.addEventListener('submit', function(event) {
+            if (!termsAgreedCheckbox.checked) {
+                event.preventDefault(); // Ngăn form submit
+                termsErrorModal.show(); // Hiển thị modal lỗi điều khoản
+            } else {
+                successModal.show(); // Hiển thị modal thành công
+            }
+        });
+    });
 </script>
 </body>
 </html>
