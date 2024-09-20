@@ -207,10 +207,10 @@
         <div id="message">
             <button type="button" class="btn-close" aria-label="Close"></button>
             <div class="list-group">
-                <a href="" class="list-group-item list-group-item-success" aria-current="true">Trung tâm hỗ trợ</a>
-                <a href="#" class="list-group-item list-group-item-action">Hướng dẫn quản lý tài khoản</a>
-                <a href="#" class="list-group-item list-group-item-action">Yêu cầu hỗ trợ</a>
-                <a href="#" class="list-group-item list-group-item-action disabled" aria-disabled="true">Liên Hệ Job4u</a>
+                <a href="/lienhe" class="list-group-item list-group-item-success" aria-current="true">Trung tâm hỗ trợ</a>
+                <a href="/lienhe" class="list-group-item list-group-item-action">Hướng dẫn quản lý tài khoản</a>
+                <a href="/lienhe" class="list-group-item list-group-item-action">Yêu cầu hỗ trợ</a>
+                <a href="/lienhe" class="list-group-item list-group-item-action disabled" aria-disabled="true">Liên Hệ Job4u</a>
             </div>
         </div>
     </div>
