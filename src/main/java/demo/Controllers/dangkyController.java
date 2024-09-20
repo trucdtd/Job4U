@@ -49,8 +49,11 @@ public class dangkyController {
 	}
 
 	@PostMapping("/submit")
-	public String submitForm(@RequestParam("username") String username, @RequestParam("fullname") String fullname,
-	        @RequestParam("password") String password, @RequestParam("email") String email,
+	public String submitForm(
+	        @RequestParam("username") String username,
+	        @RequestParam("fullname") String fullname,
+	        @RequestParam("password") String password,
+	        @RequestParam("email") String email,
 	        @RequestParam("numberphone") String numberphone,
 	        @RequestParam(value = "companyName", required = false) String companyName,
 	        @RequestParam(value = "companyWebsite", required = false) String companyWebsite,
@@ -68,7 +71,8 @@ public class dangkyController {
 	        model.addAttribute("termsError", "Bạn phải đồng ý với điều khoản để tiếp tục.");
 	        hasErrors = true;
 	    }
-	    
+
+	    // Kiểm tra các thông tin bắt buộc
 	    if (username.isEmpty()) {
 	        model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
 	        hasErrors = true;
@@ -143,15 +147,18 @@ public class dangkyController {
 
 	    // Nếu có lỗi, quay lại trang đăng ký với thông báo lỗi
 	    if (hasErrors) {
+	    	System.out.println("Lỗi");
 	        return "dangky";
 	    }
 
-	    // Xử lý đăng ký thành công
 	    try {
+	        System.out.println("Bắt đầu xử lý đăng ký");
+
 	        UsersEntity newUser = new UsersEntity();
 	        Integer role = "employer".equals(usertype) ? 2 : 1;
 	        newUser.setUsername(username);
 	        newUser.setFullname(fullname);
+	        newUser.setPassword(password); // Đảm bảo rằng mật khẩu được mã hóa trước khi lưu
 	        newUser.setEmail(email);
 	        newUser.setPhonenumber(numberphone);
 	        newUser.setRole(role);
@@ -162,6 +169,8 @@ public class dangkyController {
 	        userDao.save(newUser);
 
 	        if ("employer".equals(usertype)) {
+	            System.out.println("Đang xử lý thông tin nhà tuyển dụng");
+
 	            EmployersEntity employerDetails = new EmployersEntity();
 	            employerDetails.setCompanyname(companyName);
 	            employerDetails.setCompanywebsite(companyWebsite);
@@ -176,24 +185,25 @@ public class dangkyController {
 	            employersDao.save(employerDetails);
 	        }
 
-	        // Lưu thông tin chính sách và điều khoản mà người dùng đã đồng ý
+	        System.out.println("Đang lưu thông tin chính sách và điều khoản");
+
 	        UserAgreementsEntity userAgreement = new UserAgreementsEntity();
-	        userAgreement.setUserid(newUser); // Liên kết với đối tượng UsersEntity
-	        userAgreement.setAgreementdate(LocalDate.now()); // Ngày đồng ý
-	        userAgreement.setAgreementcontent("Chính Sách: Để đảm bảo chất lượng dịch vụ, Job4U không cho phép một người dùng tạo nhiều tài khoản khác nhau. Job4U yêu cầu người dùng: 1. Tuân thủ quy tắc cộng đồng. Vi phạm có thể dẫn đến khóa tài khoản. 2. Không spam. Tài khoản có thể bị khóa nếu vi phạm. 3. Cung cấp thông tin tuyển dụng đúng sự thật. Nội dung không phù hợp sẽ bị xóa và tài khoản có thể bị khóa. 4. Cung cấp thông tin chính xác. Thông tin sai lệch sẽ dẫn đến việc khóa tài khoản. Quy Định: Đây là nội dung chính sách và điều khoản của chúng tôi. Bạn cần đồng ý với các điều khoản sau để tiếp tục sử dụng dịch vụ của chúng tôi: 1. Bạn đồng ý cung cấp thông tin chính xác và đầy đủ. 2. Bạn đồng ý không sử dụng dịch vụ của chúng tôi cho các mục đích trái pháp luật. 3. Chúng tôi có quyền thay đổi các điều khoản và chính sách này mà không cần thông báo trước. Mọi thắc mắc xin liên hệ với Hotline CSKH: 0949 414 109"); // Nội dung điều khoản
-	        userAgreement.setStatus("Đồng ý"); // Trạng thái đồng ý
+	        userAgreement.setUserid(newUser);
+	        userAgreement.setAgreementdate(LocalDate.now());
+	        userAgreement.setAgreementcontent("Chính Sách: Để đảm bảo chất lượng dịch vụ, Job4U không cho phép một người dùng tạo nhiều tài khoản khác nhau. Job4U yêu cầu người dùng: 1. Tuân thủ quy tắc cộng đồng. Vi phạm có thể dẫn đến khóa tài khoản. 2. Không spam. Tài khoản có thể bị khóa nếu vi phạm. 3. Cung cấp thông tin tuyển dụng đúng sự thật. Nội dung không phù hợp sẽ bị xóa và tài khoản có thể bị khóa. 4. Cung cấp thông tin chính xác. Thông tin sai lệch sẽ dẫn đến việc khóa tài khoản. Quy Định: Đây là nội dung chính sách và điều khoản của chúng tôi. Bạn cần đồng ý với các điều khoản sau để tiếp tục sử dụng dịch vụ của chúng tôi: 1. Bạn đồng ý cung cấp thông tin chính xác và đầy đủ. 2. Bạn đồng ý không sử dụng dịch vụ của chúng tôi cho các mục đích trái pháp luật. 3. Chúng tôi có quyền thay đổi các điều khoản và chính sách này mà không cần thông báo trước. Mọi thắc mắc xin liên hệ với Hotline CSKH: 0949 414 109");
+	        userAgreement.setStatus(true);
 
-	        userAgreementsDao.save(userAgreement); // Lưu vào database
+	        userAgreementsDao.save(userAgreement);
 
-	        // Thêm thông báo thành công
 	        model.addAttribute("successMessage", "Bạn đã đăng ký thành công!");
 	        return "dangky";
-	        
 	    } catch (Exception e) {
+	        e.printStackTrace(); // In ra thông tin lỗi
 	        model.addAttribute("errorMessage", "Đã xảy ra lỗi trong quá trình đăng ký, vui lòng thử lại.");
 	        return "dangky";
 	    }
 	}
+
 	
 	private boolean isValidPassword(String password) {
 		return password != null && password.length() >= 8 && password.matches(".*\\d.*");
