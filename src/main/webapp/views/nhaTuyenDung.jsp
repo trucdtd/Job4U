@@ -142,7 +142,17 @@
 												<td>${job.joblocation}</td>
 												<td>${job.jobdescription}</td>
 												<td>${job.jobrequirements}</td>
-												<td>${job.salary}</td>
+												<td><span
+													style="display: inline-flex; align-items: center;">
+														<script>
+												            var salary = Number(${job.salary});
+												            if (!isNaN(salary)) {
+												                document.write(salary.toLocaleString('vi-VN') + ' VND');
+												            } else {
+												                document.write('N/A');
+												            }
+												        </script>
+												</span></td>
 												<td>${job.jobtype}</td>
 												<td>${job.posteddate}</td>
 												<td>${job.applicationdeadline}</td>
@@ -159,11 +169,15 @@
 														<img src="/img/icons8-edit-50.png" height="25px"
 															width="25px" alt="Chỉnh sửa" />
 													</button>
-													<button type="button" class="btn btn-sm btn-hide"
-														onclick="hideJob(${job.jobid})">
-														<img src="/img/icons8-delete-50.png" height="25px"
-															width="25px" alt="xóa" />
-													</button>
+													<form action="/job4u/employers/delete" method="post"
+														style="display: inline;"
+														onsubmit="return confirmDelete();">
+														<input type="hidden" name="jobId" value="${job.jobid}">
+														<button type="submit" class="btn btn-sm">
+															<img src="/img/icons8-delete-50.png" height="25px"
+																width="25px" alt="Xóa" />
+														</button>
+													</form>
 												</td>
 											</tr>
 										</c:forEach>
@@ -233,21 +247,21 @@
 										</div>
 									</div>
 									<div class="row">
+										<div class="col-md-12 p-2">
+											<label for="jobtitle" class="form-label">Tiêu đề công
+												việc</label> <input type="text" class="form-control" id="jobtitle"
+												name="jobtitle" required>
+										</div>
+										<!-- <div class="col-md-6 p-2">
+											<label for="logo" class="form-label">Logo công ty</label> <input
+												type="file" class="form-control" id="logo" name="logo">
+										</div> -->
+									</div>
+									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="contactperson" class="form-label">Người
 												liên hệ</label> <input type="text" class="form-control"
 												id="contactperson" name="contactperson">
-										</div>
-										<div class="col-md-6 p-2">
-											<label for="logo" class="form-label">Logo công ty</label> <input
-												type="file" class="form-control" id="logo" name="logo">
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 p-2">
-											<label for="jobtitle" class="form-label">Tiêu đề công
-												việc</label> <input type="text" class="form-control" id="jobtitle"
-												name="jobtitle" required>
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="joblocation" class="form-label">Địa điểm
@@ -654,7 +668,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-
+<script>
+function confirmDelete() {
+    return confirm("Bạn có chắc chắn muốn xóa bài đăng này?");
+}
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

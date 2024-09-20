@@ -287,7 +287,7 @@
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-	</div>
+	
 </body>
 <script>
 	function showTable(event, tableId) {
