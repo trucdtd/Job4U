@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,6 +73,71 @@ body {
 .bi {
 	font-size: 1.2em;
 	color: #0275d8;
+}
+
+.modal-header {
+	background-color: #007bff;
+	color: white;
+}
+
+.btn-primary {
+	background-color: #007bff;
+	border-color: #007bff;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
+}
+
+.btn-outline-primary {
+	border-color: #007bff;
+}
+
+.file-upload {
+	border: 2px dashed #007bff;
+	padding: 20px;
+	text-align: center;
+	color: #007bff;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.file-upload:hover {
+	background-color: #e6f0ff;
+}
+
+.form-select {
+	border-color: #007bff;
+}
+
+.custom-card {
+	border: none;
+	background-color: #ffffff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cv-option {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+}
+
+.icon-container {
+	width: 40px;
+	height: 40px;
+	background-color: #007bff;
+	color: white;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+}
+
+.modal-footer {
+	border-top: none;
 }
 </style>
 </head>
@@ -191,8 +257,10 @@ body {
 						<!-- Nút Quay lại và Ứng tuyển -->
 						<div class="button-group d-flex justify-content-between mt-3">
 							<a href="/job4u" class="btn btn-secondary w-50 me-2">Quay lại</a>
-							<button type="button" class="btn btn-primary w-50">Ứng
-								tuyển</button>
+							<button type="button" class="btn btn-primary w-50"
+								data-bs-toggle="modal" data-bs-target="#uploadCvModal">
+								<i class="bi bi-upload text-light"></i> Ứng tuyển
+							</button>
 						</div>
 					</div>
 
@@ -200,10 +268,72 @@ body {
 
 			</div>
 		</div>
+		<div class="modal fade" id="uploadCvModal" tabindex="-1"
+			aria-labelledby="uploadCvModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<form id="cvUploadForm" action="/job4u/chiTiet/${job.jobid}" method="post"
+					enctype="multipart/form-data">
+					<div class="modal-content custom-card">
+						<div class="modal-header">
+							<h5 class="modal-title" id="uploadCvModalLabel">Nộp CV của
+								bạn</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+
+							<!-- Lựa chọn CV có sẵn hoặc tải file -->
+							<div class="form-group mb-4">
+								<label for="cvOptions" class="form-label">Lựa chọn:</label> <select
+									id="cvOptions" class="form-select" required>
+
+									<option value="null">Chọn một tùy chọn</option>
+									<option value="upload">Tải lên file CV mới</option>
+									<option value="choose">Chọn CV có sẵn</option>
+
+								</select>
+							</div>
+
+							<!-- Phần tải file CV -->
+							<div class="form-group mb-3" id="uploadFileDiv"
+								style="display: none;">
+								<label for="cvFile" class="form-label">Tải lên file CV:</label>
+								<div class="file-upload"
+									onclick="document.getElementById('cvFile').click();">
+									<i class="bi bi-cloud-arrow-up"></i>
+									<p>Kéo thả hoặc chọn file CV</p>
+								</div>
+								<input type="file" class="form-control d-none" id="cvFile"
+									name="cvFile">
+							</div>
+							<!-- Phần chọn CV có sẵn -->
+							<div class="form-group mb-3" id="existingCvDiv"
+								style="display: none;">
+								<label for="existingCv" class="form-label">Chọn CV có
+									sẵn:</label> <select id="existingCv" name="id"
+									class="form-select">
+									<option value="">Chọn CV</option>
+									<c:forEach var="list" items="${listCV}">
+										<option value="${list.jobseekerid}">${list.resume}</option>
+									</c:forEach>
+								</select>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Hủy</button>
+							<button type="submit" class="btn btn-primary">Nộp CV</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 	<div>
 		<%@ include file="/views/footer.jsp"%>
 	</div>
+	${script}
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			// Hàm định dạng ngày thành ngày/tháng/năm
@@ -247,7 +377,29 @@ body {
 			}
 		});
 	</script>
-<script
+	<script>
+		document.getElementById('cvOptions').addEventListener(
+				'change',
+				function() {
+					const option = this.value;
+					const uploadFileDiv = document
+							.getElementById('uploadFileDiv');
+					const existingCvDiv = document
+							.getElementById('existingCvDiv');
+
+					if (option === 'upload') {
+						uploadFileDiv.style.display = 'block';
+						existingCvDiv.style.display = 'none';
+					} else if (option === 'choose') {
+						uploadFileDiv.style.display = 'none';
+						existingCvDiv.style.display = 'block';
+					} else {
+						uploadFileDiv.style.display = 'none';
+						existingCvDiv.style.display = 'none';
+					}
+				});
+	</script>
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
