@@ -255,7 +255,15 @@
 												<td>${cv.experience}</td>
 												<td>${cv.education}</td>
 												<td>${cv.skills}</td>
-
+												<td>
+													<div style="display: flex; align-items: center; gap: 10px;">
+														<a href="/admin/detailCV/${cv.jobseekerid}" class="btn"
+															type="button"> <img src="/img/detail-icon.png"
+															style="padding-bottom: 7px;" width="25px" height="30px"
+															alt="Detail">
+														</a> 
+													</div>
+												</td>													
 											</tr>
 										</c:forEach>
 									</tbody>
