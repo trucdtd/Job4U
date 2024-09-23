@@ -423,27 +423,17 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th>Tuyển dụng nhân viên IT Java</th>
-										<td>Trần Thảo Trinh
-											<button type="submit" class="btn text-light text-white p-2"
-												style="background-color: #198754">Xem Thêm</button>
-										</td>
-										<td>CV ứng tuyển</td>
-
-									</tr>
 									<c:forEach items="${dsCV}" var="cv">
 										<tr>
-											<th>${cv.jobseeker.resume}</th>
-											<td>${cv.user.fullname}
+											<th>${cv.job.jobtitle}</th>
+											<td>${cv.jobseeker.user.fullname}
 												<button type="submit" class="btn text-light text-white p-2"
 													style="background-color: #00688B">Xem Thêm</button>
 											</td>
-											<td>${cv.Resume}</td>
+											<th>${cv.resume}</th>
 											<td>${cv.jobseeker.createdat}</td>
 										</tr>
 									</c:forEach>
-									<!-- Add more rows as needed -->
 								</tbody>
 							</table>
 						</div>
