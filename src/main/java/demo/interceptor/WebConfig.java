@@ -3,6 +3,7 @@ package demo.interceptor;
 import demo.interceptor.AdminInterceptor;
 /*import demo.interceptor.EmployerInterceptor;*/
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -16,12 +17,17 @@ public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	private EmployerInterceptor employerInterceptor;
 
+	@Autowired
+	private UserInterceptor userInterceptor;
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // Áp dụng AdminInterceptor cho tất cả
 																				// các đường dẫn bắt đầu với /admin
 
-		registry.addInterceptor(employerInterceptor).addPathPatterns("/job4u/employers");
+		registry.addInterceptor(employerInterceptor).addPathPatterns("/job4u/employers/**");
 		// Áp dụng EmployerInterceptor cho /job4u/employers
+		
+		registry.addInterceptor(userInterceptor).addPathPatterns("/job4u/profile/**");
+		// Áp dụng UserInterceptor cho /job4u/profile
 	}
 }

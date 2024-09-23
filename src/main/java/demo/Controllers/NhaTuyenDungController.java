@@ -59,8 +59,8 @@ public class NhaTuyenDungController {
 		Integer userId = sessionService.getCurrentUserId();
 		
 //	    System.out.println("Current User ID: " + userId);
-		 List<ServicesEntity> service = servicesDao.findAll(); // Fetch all services
-	        model.addAttribute("service", service); // Add to model for the view
+		 List<ServicesEntity> service = servicesDao.findAll();
+	        model.addAttribute("service", service);
 	        
 		if (userId != null) {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
@@ -70,6 +70,10 @@ public class NhaTuyenDungController {
 				List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
 				model.addAttribute("jobPostings", jobPostings);
 
+				 // Lấy danh sách CV ứng tuyển
+	            List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
+	            model.addAttribute("dsCV", cv); // Thêm danh sách CV vào model
+	            
 				for (JoblistingsEntity jobPosting : jobPostings) {
 					List<ApplicationsEntity> applications = applicationsDao.findByJob(jobPosting);
 					model.addAttribute("applications" + jobPosting.getJobid(), applications);

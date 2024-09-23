@@ -161,27 +161,30 @@ public class AdminController {
 		return "chiTietBaiViet";
 	}
 
+	@PostMapping("/deletePost")
+	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
+		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
+		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
+		String deletePostSql = "DELETE FROM Post WHERE JobID = ?";
+
+		try { // Xóa các bản ghi liên quan trong bảng Applications trước
+			jdbcTemplate.update(deleteApplicationsSql, id);
+
+			// Xóa các bản ghi liên quan trong bảng Joblistings
+			jdbcTemplate.update(deleteJobListingsSql, id);
+
+			// Sau đó xóa bài viết jdbcTemplate.update(deletePostSql, id);
+
+			redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "redirect:/admin";
+	}
+
 	/*
-	 * @PostMapping("/deletePost") public String deletePost(@RequestParam("id")
-	 * Integer id, RedirectAttributes redirectAttributes) { String
-	 * deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?"; String
-	 * deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?"; String
-	 * deletePostSql = "DELETE FROM Post WHERE JobID = ?";
-	 * 
-	 * try { // Xóa các bản ghi liên quan trong bảng Applications trước
-	 * jdbcTemplate.update(deleteApplicationsSql, id);
-	 * 
-	 * // Xóa các bản ghi liên quan trong bảng Joblistings
-	 * jdbcTemplate.update(deleteJobListingsSql, id);
-	 * 
-	 * // Sau đó xóa bài viết jdbcTemplate.update(deletePostSql, id);
-	 * 
-	 * redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
-	 * } catch (Exception e) { redirectAttributes.addFlashAttribute("error",
-	 * "Xóa bài viết thất bại. Lỗi: " + e.getMessage()); e.printStackTrace(); }
-	 * 
-	 * return "redirect:/admin"; }
-	 * 
 	 * @PostMapping("/updatePost/{jobid}") public String
 	 * updatePost(@PathVariable("jobid") Integer jobid, @RequestParam("jobtitle")
 	 * String jobtitle,
@@ -226,29 +229,30 @@ public class AdminController {
 	 * 
 	 * }
 	 */
-	 @PostMapping("/hidePost/{jobid}")
-	    public String hidePost(@PathVariable Integer jobid) {
-	        // Lấy thông tin bài viết từ database
-	        JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
-	        
-	        // Cập nhật trạng thái ẩn bài viết
-	        job.setActive(false);
-	        joblistingsDao.save(job);
-	        
-	        return "redirect:/admin"; // Quay về trang admin sau khi ẩn bài viết
-	    }
 
-	    @PostMapping("/showPost/{jobid}")
-	    public String showPost(@PathVariable Integer jobid) {
-	        // Lấy thông tin bài viết từ database
-	    	JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
-	        
-	        // Cập nhật trạng thái hiện bài viết
-	        job.setActive(true);
-	        joblistingsDao.save(job);
-	        
-	        return "redirect:/admin"; // Quay về trang admin sau khi hiện bài viết
-	    }
+	@PostMapping("/hidePost/{jobid}")
+	public String hidePost(@PathVariable Integer jobid) {
+		// Lấy thông tin bài viết từ database
+		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
+
+		// Cập nhật trạng thái ẩn bài viết
+		job.setActive(false);
+		joblistingsDao.save(job);
+
+		return "redirect:/admin"; // Quay về trang admin sau khi ẩn bài viết
+	}
+
+	@PostMapping("/showPost/{jobid}")
+	public String showPost(@PathVariable Integer jobid) {
+		// Lấy thông tin bài viết từ database
+		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
+
+		// Cập nhật trạng thái hiện bài viết
+		job.setActive(true);
+		joblistingsDao.save(job);
+
+		return "redirect:/admin"; // Quay về trang admin sau khi hiện bài viết
+	}
 
 	@RequestMapping("/quanLyCV")
 	public String quanLyCV(Model model) {

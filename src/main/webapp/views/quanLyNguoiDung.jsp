@@ -203,11 +203,19 @@
 												            }
 												        </script>
 												</span></td>
-												<td><a href="/admin/detailPost/${bv.jobid}" class="btn"
-													type="button"><img
-														src="/img/detail-icon.png" style="padding-bottom: 7px;"
-														width="25px" height="30px" alt="Detail"></a> <%-- <a href="#" class="btn btn-danger"
-													onclick="return confirmDelete(${bv.jobid});">Xóa</a> --%></td>
+												<td>
+													<div style="display: flex; align-items: center; gap: 10px;">
+														<a href="/admin/detailPost/${bv.jobid}" class="btn"
+															type="button"> <img src="/img/detail-icon.png"
+															style="padding-bottom: 7px;" width="25px" height="30px"
+															alt="Detail">
+														</a> <a href="#" onclick="return confirmDelete(${bv.jobid});">
+															<img src="/img/delete-icon.png"
+															style="padding-bottom: 7px;" width="25px" height="30px"
+															alt="Delete">
+														</a>
+													</div>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -287,7 +295,7 @@
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-	
+
 </body>
 <script>
 	function showTable(event, tableId) {
