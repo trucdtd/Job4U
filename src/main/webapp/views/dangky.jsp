@@ -105,10 +105,10 @@
 										class="text-danger">${emailError}</span>
 								</div>
 								<div class="col">
-									<label class="form-label" for="numberphone">Số Điện
-										Thoại</label> <input type="text" id="numberphone" name="numberphone"
+									<label class="form-label" for="phonenumber">Số Điện
+										Thoại</label> <input type="text" id="phonenumber" name="phonenumber"
 										class="form-control" placeholder="Nhập số điện thoại"
-										value="${numberphone}" /> <span class="text-danger">${numberphoneError}</span>
+										value="${phonenumber}" /> <span class="text-danger">${phonenumberError}</span>
 								</div>
 							</div>
 
@@ -141,6 +141,13 @@
 							</div>
 
 							<div id="employerDetails" style="display: none;">
+							<div class="row">
+							<div class="col">
+								<label for="taxid">Mã số thuế:</label>
+    <input type="text" id="taxid" name="taxid" value="${taxid}">
+   <span class="text-danger">${taxidError}</span>
+							</div>
+							</div>
 								<div class="row">
 									<div class="col">
 										<label for="companyName" class="form-label">Tên Công
@@ -264,41 +271,14 @@
 	</section>
 
 	<%@ include file="/views/footer.jsp"%>
+	
 	<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById('registerForm');
-    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    const termsAgreedCheckbox = document.getElementById('termsAgreed');
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Ngăn form submit mặc định
-
-        // Kiểm tra điều kiện trước khi gửi dữ liệu
-        if (termsAgreedCheckbox.checked) {
-            // Gửi dữ liệu form thông qua AJAX hoặc fetch API
-            // Ví dụ với fetch API:
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Nếu server phản hồi thành công, hiện modal
-                    successModal.show();
-                } else {
-                    // Xử lý lỗi nếu cần
-                    alert("Có lỗi xảy ra trong quá trình đăng ký.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
-        } else {
-            // Hiện modal thông báo điều khoản (cần định nghĩa modal này)
-            // termsErrorModal.show(); // Thay modal tương ứng
-        }
-    });
-});
+    window.onload = function() {
+        <% if (request.getAttribute("successMessage") != null) { %>
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        <% } %>
+    };
 </script>
 
 	<script>
@@ -307,7 +287,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const employerRadio = document.getElementById("employer");
         const employerDetails = document.getElementById("employerDetails");
         const form = document.getElementById('registerForm');
-        const termsAgreedCheckbox = document.getElementById('termsAgreed');
+        const termsAgreedCheckbox = document.getElementById('termsAgreed');  
         const termsErrorModal = new bootstrap.Modal(document.getElementById('termsErrorModal'));
         const successModal = new bootstrap.Modal(document.getElementById('successModal'));
 
@@ -337,8 +317,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!termsAgreedCheckbox.checked) {
                 event.preventDefault(); // Ngăn form submit
                 termsErrorModal.show(); // Hiển thị modal lỗi điều khoản
-            } else {
-                successModal.show(); // Hiển thị modal thành công
             }
         });
     });
