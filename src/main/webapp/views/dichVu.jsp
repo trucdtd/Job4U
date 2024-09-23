@@ -121,16 +121,16 @@
                             <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo1">
                         </button>
                         <button class="momo2-btn" id="momo2-button" onclick="showQRCode('momo2')">
-                            <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo2">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL9Cpp1nDLbzIrK_-ljQsqJOGbytIiiDAgmQ&s" alt="Momo2">
                         </button>
                     </div>
                     <div class="qr-code" id="qr-code-momo1" style="display: none;">
-                        <img src="/img/QR.png" alt="QR Code Momo1">
+                        <img src="/img/momo.jpg" alt="QR Code Momo1">
                     </div>
                     <div class="qr-code" id="qr-code-momo2" style="display: none;">
-                        <img src="/img/QR.png" alt="QR Code Momo2">
+                        <img src="/img/QR TP.jpg" alt="QR Code Momo2">
                     </div>
-                    <button class="submit-btn" type="button" onclick="confirmPayment()">Xác Nhận</button>
+                    <button class="submit-btn" style="background: #198754" type="button" onclick="confirmPayment()">Xác Nhận</button>
                 </div>
             </div>
         </div>

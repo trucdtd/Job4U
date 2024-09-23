@@ -66,7 +66,7 @@ public class LoginController {
                     case 0:
                         return "redirect:/admin"; // Vai trò admin
                     case 1:
-                        return "redirect:/job4u"; // Vai trò người tìm việc
+                        return "redirect:/job4u/profile"; // Vai trò người tìm việc
                     case 2:
                         return "redirect:/job4u/employers"; // Vai trò nhà tuyển dụng
                     default:

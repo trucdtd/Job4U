@@ -36,7 +36,7 @@
                         <li class="nav-item"><a class="nav-link" href="/lienhe">Liên Hệ</a></li>
                         <li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công Việc mới nhất</a></li>
                         <li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà Tuyển Dụng</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Ứng Tuyển</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/job4u/profile">Ứng Tuyển</a></li>
                     </ul>
                     <div id="login-register-buttons">
                         <a id="login-btn" href="/Login" class="btn login-button text-center"><img
@@ -53,7 +53,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <a class="dropdown-item d-flex justify-content-start" href="#">
+                                <a class="dropdown-item d-flex justify-content-start" href="/ThongTinCaNhan">
                                     <img class="m-1" src="/img/icons8-user-50.png" height="25px" width="25px" alt="User Info">
                                     <p class="m-1 text-dropdown-menu">Thông tin cá nhân</p>
                                 </a>
