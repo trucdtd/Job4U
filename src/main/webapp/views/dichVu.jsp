@@ -130,7 +130,7 @@
                     <div class="qr-code" id="qr-code-momo2" style="display: none;">
                         <img src="/img/QR.png" alt="QR Code Momo2">
                     </div>
-                    <button class="submit-btn" type="button" onclick="confirmPayment()">Xác Nhận</button>
+                    <button class="submit-btn" style="background: #198754" type="button" onclick="confirmPayment()">Xác Nhận</button>
                 </div>
             </div>
         </div>
