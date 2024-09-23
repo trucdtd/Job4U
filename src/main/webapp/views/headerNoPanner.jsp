@@ -36,7 +36,7 @@
                         <li class="nav-item"><a class="nav-link" href="/lienhe">Liên Hệ</a></li>
                         <li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công Việc mới nhất</a></li>
                         <li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà Tuyển Dụng</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Ứng Tuyển</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/job4u/profile">Ứng Tuyển</a></li>
                     </ul>
                     <div id="login-register-buttons">
                         <a id="login-btn" href="/Login" class="btn login-button text-center"><img
