@@ -93,42 +93,46 @@ color: #ffcccc; /* Màu đỏ nhạt */
 								class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
 								<h1 class="lead fw-normal mb-0 me-3">Đăng Ký</h1>
 							</div>
-							<div class="row">
-								<div class="col">
-									<label class="form-label" for="fullname">Họ và Tên</label> <input
-										type="text" id="fullname" name="fullname" class="form-control"
-										placeholder="Nhập họ và tên" value="${fullname}" /> <span
-										class="text-danger">${fullnameError}</span>
-								</div>
-								<div class="col">
-									<label class="form-label" for="username">Tên Tài Khoản</label>
-									<input type="text" id="username" name="username"
-										class="form-control" placeholder="Nhập tên tài khoản"
-										value="${username}" /> <span class="text-danger">${usernameError}</span>
-								</div>
-							</div>
+    <div class="row">
+    <div class="col">
+        <label class="form-label" for="fullname">Họ và Tên</label>
+        <input type="text" id="fullname" name="fullname" class="form-control"
+               placeholder="Nhập họ và tên" value="${fullname}" 
+               onkeypress="return isLetter(event)" />
+        <span class="text-danger">${fullnameError}</span>
+    </div>
+    <div class="col">
+        <label class="form-label" for="username">Tên Tài Khoản</label>
+        <input type="text" id="username" name="username"
+               class="form-control" placeholder="Nhập tên tài khoản"
+               value="${username}" />
+        <span class="text-danger">${usernameError}</span>
+    </div>
+</div>
 
-							<div class="row">
-								<div class="col">
-									<label class="form-label" for="email">Email</label> <input
-										type="email" id="email" name="email" class="form-control"
-										placeholder="Nhập email" value="${email}" /> <span
-										class="text-danger">${emailError}</span>
-								</div>
-								<div class="col">
-									<label class="form-label" for="phonenumber">Số Điện
-										Thoại</label> <input type="text" id="phonenumber" name="phonenumber"
-										class="form-control" placeholder="Nhập số điện thoại"
-										value="${phonenumber}" /> <span class="text-danger">${numberphoneError}</span>
-								</div>
-							</div>
+<div class="row">
+    <div class="col">
+        <label class="form-label" for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-control"
+               placeholder="Nhập email" value="${email}" />
+        <span class="text-danger">${emailError}</span>
+    </div>
+    <div class="col">
+        <label class="form-label" for="phonenumber">Số Điện Thoại</label>
+        <input type="text" id="phonenumber" name="phonenumber"
+               class="form-control" placeholder="Nhập số điện thoại"
+               value="${phonenumber}"  />
+        <span class="text-danger">${phonenumberError}</span>
+    </div>
+</div>
 
-							<div class="mb-4">
-								<label class="form-label" for="password">Mật Khẩu</label> <input
-									type="password" id="password" name="password"
-									class="form-control" placeholder="Nhập mật khẩu"
-									value="${password}" /> <span class="text-danger">${passwordError}</span>
-							</div>
+<div class="mb-4">
+    <label class="form-label" for="password">Mật Khẩu</label>
+    <input type="password" id="password" name="password"
+           class="form-control" placeholder="Nhập mật khẩu"
+           value="${password}" />
+    <span class="text-danger">${passwordError}</span>
+</div>
 
 							<div class="mb-4">
 								<label class="form-label">Đăng ký tài khoản</label>
@@ -253,7 +257,7 @@ color: #ffcccc; /* Màu đỏ nhạt */
 							</div>
 						</div>
 
-						<!-- Modal thông báo điều khoản -->
+
 						<!-- Modal thông báo điều khoản -->
 <div class="modal fade" id="termsErrorModal" tabindex="-1" aria-labelledby="termsErrorModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
