@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import demo.services.JoblistingsService;
 import jakarta.servlet.http.HttpSession;
 import demo.dao.ApplicationsDao;
@@ -16,8 +17,6 @@ import demo.dao.JobSeekersDao;
 import demo.dao.UsersDao;
 import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
-
-
 
 @Controller
 @RequestMapping("/job4u")
@@ -56,11 +55,14 @@ public class ChiTietUngTuyenController {
                 : "N/A";
 
         // Lấy ID người dùng đã đăng nhập
-        Integer userId = Integer.parseInt(ss.getAttribute("userid").toString());
+        Integer userId = (Integer) ss.getAttribute("userid");
+        if (userId == null) {
+            return "redirect:/Login"; // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+        }
 
         // Lấy danh sách CV của người dùng
         List<JobSeekersEntity> listCV = dao.findByUsername(userId);
-        
+
         // Thêm các thuộc tính vào model để truyền sang view
         model.addAttribute("formattedPostedDate", formattedPostedDate);
         model.addAttribute("formattedApplicationDeadline", formattedApplicationDeadline);
@@ -69,5 +71,6 @@ public class ChiTietUngTuyenController {
 
         return "chiTietUngTuyen";
     }
+
 
 }
