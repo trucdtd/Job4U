@@ -34,83 +34,78 @@
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<br>
 	<div class="container">
-	<!-- Page Wrapper -->
-	<div id="page-top">
-		<div id="wrapper">
-			<!-- Sidebar -->
-			<ul
-				class="navbar-nav sidebar sidebar-dark accordion"
-				id="accordionSidebar" style="background: #198754">
-				<!-- Sidebar - Brand -->
-				<a
-					class="sidebar-brand d-flex align-items-center justify-content-center"
-					href="index.html">
-					<div class="sidebar-brand-text mx-3">Trang cá nhân</div>
-				</a>
+		<!-- Page Wrapper -->
+		<div id="page-top">
+			<div id="wrapper">
+				<!-- Sidebar -->
+				<ul class="navbar-nav sidebar sidebar-dark accordion"
+					id="accordionSidebar" style="background: #198754">
+					<!-- Sidebar - Brand -->
+					<a
+						class="sidebar-brand d-flex align-items-center justify-content-center"
+						href="index.html">
+						<div class="sidebar-brand-text mx-3">Trang cá nhân</div>
+					</a>
 
-				<!-- Divider -->
-				<hr class="sidebar-divider my-0" />
+					<!-- Divider -->
+					<hr class="sidebar-divider my-0" />
 
-				<!-- Nav Item - Dashboard -->
-				<li class="nav-item active"><a class="nav-link"
-					href="index.html"> <i class="fas fa-fw fa-chart-area"></i> <span>Thống
-							kê</span></a></li>
-				<!-- Divider -->
-				<hr class="sidebar-divider d-none d-md-block" />
-				<li class="nav-item"><a class="nav-link collapsed" href="#"
-					data-toggle="collapse" data-target="#collapsePages"
-					aria-expanded="true" aria-controls="collapsePages"> <!-- <i class="fas fa-fw fa-folder"></i> -->
-						<i class="fas fa-fw fa-table"></i> <span>Quản lý CV</span>
-				</a>
-					<div id="collapsePages" class="collapse"
-						aria-labelledby="headingPages" data-parent="#accordionSidebar">
-						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="/job4u/profile/cv">Thông tin
-								CV</a> <a class="collapse-item" href="register.html">Danh sách
-								CV</a> <a class="collapse-item" href="forgot-password.html">Mẫu
-								CV</a>
-						</div>
-					</div></li>
+					<!-- Nav Item - Dashboard -->
+					<li class="nav-item active"><a class="nav-link"
+						href="index.html"> <i class="fas fa-fw fa-chart-area"></i> <span>Thống
+								kê</span></a></li>
+					<!-- Divider -->
+					<hr class="sidebar-divider d-none d-md-block" />
+					<li class="nav-item"><a class="nav-link collapsed" href="#"
+						data-toggle="collapse" data-target="#collapsePages"
+						aria-expanded="true" aria-controls="collapsePages"> <!-- <i class="fas fa-fw fa-folder"></i> -->
+							<i class="fas fa-fw fa-table"></i> <span>Quản lý CV</span>
+					</a>
+						<div id="collapsePages" class="collapse"
+							aria-labelledby="headingPages" data-parent="#accordionSidebar">
+							<div class="bg-white py-2 collapse-inner rounded">
+								<a class="collapse-item" href="/job4u/profile/cv">Thông tin
+									CV</a> <a class="collapse-item" href="register.html">Danh sách
+									CV</a> <a class="collapse-item" href="forgot-password.html">Mẫu
+									CV</a>
+							</div>
+						</div></li>
 
-				<!-- Nav Item - Charts -->
-				<li class="nav-item"><a class="nav-link" href="user-info.html">
-						<i class="fas fa-fw fa-info"></i> <span>Thông tin cá nhân</span>
-				</a></li>
-				<!-- Nav Item - Tables -->
-				<!-- Divider -->
-				<hr class="sidebar-divider" />
-				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item"><a class="nav-link" href="user-info.html">
-						<i class="fa fa-cog fa-spin fa-fw"></i> <span>Cài đặt</span>
-				</a></li>
-				<!-- Divider -->
-				<hr class="sidebar-divider" />
-				<li class="nav-item"><a class="nav-link" href="user-info.html">
-						<i class="fas fa-fw fa-user"></i> <span>Mua gói pro</span>
-				</a></li>
-				<!-- Divider -->
-				<hr class="sidebar-divider" />
-				<!-- Heading -->
+					<!-- Nav Item - Charts -->
+					<li class="nav-item"><a class="nav-link" href="user-info.html">
+							<i class="fas fa-fw fa-info"></i> <span>Thông tin cá nhân</span>
+					</a></li>
+					<!-- Nav Item - Tables -->
+					<!-- Divider -->
+					<hr class="sidebar-divider" />
+					<!-- Nav Item - Pages Collapse Menu -->
+					<li class="nav-item"><a class="nav-link" href="user-info.html">
+							<i class="fa fa-cog fa-spin fa-fw"></i> <span>Cài đặt</span>
+					</a></li>
+					<!-- Divider -->
+					<hr class="sidebar-divider" />
+					<li class="nav-item"><a class="nav-link" href="user-info.html">
+							<i class="fas fa-fw fa-user"></i> <span>Mua gói pro</span>
+					</a></li>
+					<!-- Divider -->
+					<hr class="sidebar-divider" />
+					<!-- Heading -->
 
-				<!-- Sidebar Toggler (Sidebar) -->
-				<div class="text-center d-none d-md-inline">
-					<button class="rounded-circle border-0" id="sidebarToggle"></button>
-				</div>
-			</ul>
-			<!-- End of Sidebar -->
-
-			<!-- Content Wrapper -->
-			<div id="content-wrapper" class="d-flex flex-column">
-				<!-- Main Content -->
-				<div id="content">
-					<!-- include Page Content -->
-					<div class="container-fluid">
-						<jsp:include page="/views/profile/${page}"></jsp:include>
+					<!-- Sidebar Toggler (Sidebar) -->
+					<div class="text-center d-none d-md-inline">
+						<button class="rounded-circle border-0" id="sidebarToggle"></button>
 					</div>
+				</ul>
+				<!-- End of Sidebar -->
+
+				<!-- Content Wrapper -->
+				<!-- Main Content -->
+				<!-- include Page Content -->
+				<div class="container-fluid">
+					<jsp:include page="/views/profile/${page}"></jsp:include>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 	<br>
 	<!-- footer -->
@@ -132,7 +127,7 @@
 	<!-- Page level custom scripts -->
 	<script src="/js/demo/chart-area-demo.js"></script>
 	<script src="/js/demo/chart-pie-demo.js"></script>
-<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> 
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
