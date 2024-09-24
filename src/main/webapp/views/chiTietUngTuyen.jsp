@@ -268,11 +268,12 @@ body {
 
 			</div>
 		</div>
+
 		<div class="modal fade" id="uploadCvModal" tabindex="-1"
 			aria-labelledby="uploadCvModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<form id="cvUploadForm" action="/job4u/chiTiet/${job.jobid}" method="post"
-					enctype="multipart/form-data">
+				<form id="cvUploadForm" action="/job4u/chiTiet/${jobid}"
+					method="post" enctype="multipart/form-data">
 					<div class="modal-content custom-card">
 						<div class="modal-header">
 							<h5 class="modal-title" id="uploadCvModalLabel">Nộp CV của
@@ -281,7 +282,7 @@ body {
 								aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-
+ 
 							<!-- Lựa chọn CV có sẵn hoặc tải file -->
 							<div class="form-group mb-4">
 								<label for="cvOptions" class="form-label">Lựa chọn:</label> <select
@@ -310,16 +311,15 @@ body {
 							<div class="form-group mb-3" id="existingCvDiv"
 								style="display: none;">
 								<label for="existingCv" class="form-label">Chọn CV có
-									sẵn:</label> <select id="existingCv" name="id"
-									class="form-select">
+									sẵn:</label> <select id="existingCv" name="id" class="form-select">
 									<option value="">Chọn CV</option>
-									<c:forEach var="list" items="${listCV}">
-										<option value="${list.jobseekerid}">${list.resume}</option>
+									<c:forEach var="cv" items="${listCV}">
+										<option value="${cv.jobseekerid}">${cv.resume}</option>
+										<!-- Sử dụng jobseekerid -->
 									</c:forEach>
 								</select>
 							</div>
 
-						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">Hủy</button>
@@ -334,6 +334,7 @@ body {
 		<%@ include file="/views/footer.jsp"%>
 	</div>
 	${script}
+
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			// Hàm định dạng ngày thành ngày/tháng/năm
