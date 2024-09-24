@@ -432,7 +432,13 @@
 											<td>${cv.jobseeker.user.fullname}</td>
 											<th>${cv.resume}</th>
 											<td>${cv.jobseeker.createdat}</td>
-											<td><button type="submit" class="btn btn-success text-light text-white p-2">Xem Thêm</button></td>
+											<td>
+												<form action="/job4u/cvDetails/${cv.applicationid}" method="get" style="display: inline;">
+													<button type="submit"
+														class="btn btn-success text-light text-white p-2">Xem
+														Thêm</button>
+												</form>
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
