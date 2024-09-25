@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.common.net.MediaType;
 
 import demo.services.SessionService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import demo.dao.ApplicationsDao;
 import demo.dao.EmployersDao;
 import demo.dao.JoblistingsDao;
@@ -54,14 +57,20 @@ public class NhaTuyenDungController {
 	@Autowired
 	private ApplicationsDao applicationsDao;
 
+	@Autowired
+	HttpServletRequest req;
+
+	@Autowired
+	HttpServletResponse resp;
+
 	@RequestMapping("/employers")
 	public String nhaTuyenDung(Model model) {
 		Integer userId = sessionService.getCurrentUserId();
-		
+
 //	    System.out.println("Current User ID: " + userId);
-		 List<ServicesEntity> service = servicesDao.findAll();
-	        model.addAttribute("service", service);
-	        
+		List<ServicesEntity> service = servicesDao.findAll();
+		model.addAttribute("service", service);
+
 		if (userId != null) {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
@@ -70,10 +79,10 @@ public class NhaTuyenDungController {
 				List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
 				model.addAttribute("jobPostings", jobPostings);
 
-				 // Lấy danh sách CV ứng tuyển
-	            List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
-	            model.addAttribute("dsCV", cv); // Thêm danh sách CV vào model
-	            
+				// Lấy danh sách CV ứng tuyển
+				List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
+				model.addAttribute("dsCV", cv); // Thêm danh sách CV vào model
+
 				for (JoblistingsEntity jobPosting : jobPostings) {
 					List<ApplicationsEntity> applications = applicationsDao.findByJob(jobPosting);
 					model.addAttribute("applications" + jobPosting.getJobid(), applications);
@@ -120,17 +129,21 @@ public class NhaTuyenDungController {
 			return "error"; // Nhà tuyển dụng không tồn tại
 		}
 
-		// Xử lý tệp logo
+		// Kiểm tra và lưu logo
 		String logoFilename = null;
 		if (logo != null && !logo.isEmpty()) {
-			try {
-				logoFilename = logo.getOriginalFilename();
-				File destinationFile = new File("/path/to/save/directory/" + logoFilename);
-				logo.transferTo(destinationFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-				return "error"; // Xử lý lỗi tải lên
-			}
+		    logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+		    try {
+		        File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+		        if (!uploadsDir.exists()) {
+		            uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+		        }
+		        Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+		        Files.write(path, logo.getBytes());
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		        return "error"; // Xử lý lỗi tải lên
+		    }
 		}
 
 		// Cập nhật thông tin nhà tuyển dụng
@@ -212,27 +225,27 @@ public class NhaTuyenDungController {
 	}
 
 	@PostMapping("/employers/delete")
-	public String deleteJob(@RequestParam("jobId") Integer jobId, RedirectAttributes redirectAttributes) {
-	    // Kiểm tra xem bài đăng có tồn tại không
-	    JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
+	public String deleteJob(@RequestParam("jobId") Integer jobId, Model model) {
+		// Kiểm tra xem bài đăng có tồn tại không
+		JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
 
-	    if (jobListing == null) {
-	        redirectAttributes.addFlashAttribute("error", "Bài đăng không tồn tại.");
-	        return "redirect:/job4u/employers"; // Hoặc trang thông báo lỗi
-	    }
+		if (jobListing == null) {
 
-	    // Kiểm tra xem bài đăng có sử dụng dịch vụ nào không
-	    if (jobListing.getUserService() != null) {
-	        redirectAttributes.addFlashAttribute("error", "Không thể xóa bài đăng đã sử dụng dịch vụ.");
-	        return "redirect:/job4u/employers"; // Hoặc trang thông báo lỗi
-	    }
+			model.addAttribute("error", "Bài đăng không tồn tại.");
+			return "redirect:/job4u/employers"; // Hoặc trang thông báo lỗi
+		}
 
-	    // Xóa bài đăng
-	    danhSachViecLamDao.delete(jobListing);
-	    redirectAttributes.addFlashAttribute("success", "Xóa bài đăng thành công.");
-	    return "redirect:/job4u/employers";
+		// Kiểm tra xem bài đăng có sử dụng dịch vụ nào không
+		if (jobListing.getUserService() != null) {
+			model.addAttribute("error", "Không thể xóa bài đăng đã sử dụng dịch vụ.");
+			return "redirect:/job4u/employers"; // Hoặc trang thông báo lỗi
+		}
+
+		// Xóa bài đăng
+		danhSachViecLamDao.delete(jobListing);
+		model.addAttribute("success", "Xóa bài đăng thành công.");
+		return "redirect:/job4u/employers";
 	}
-
 
 //	@PostMapping("/employers/service")
 //	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {

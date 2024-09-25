@@ -75,6 +75,17 @@
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
 	<div class="container">
+		<div class="container mt-4">
+			<!-- Thông báo thành công -->
+			<div id="success" class="alert alert-success" style="display: none;"
+				role="alert"></div>
+
+			<!-- Thông báo lỗi -->
+			<div id="error" class="alert alert-danger" style="display: none;"
+				role="alert"></div>
+
+			<!-- Nội dung trang -->
+		</div>
 		<div class="row">
 			<!-- aside -->
 			<div class="col-lg-3 col-md-3 p-2 d-flex">
@@ -254,10 +265,10 @@
 												việc</label> <input type="text" class="form-control" id="jobtitle"
 												name="jobtitle" required>
 										</div>
-										<!-- <div class="col-md-6 p-2">
+										<div class="col-md-12 p-2">
 											<label for="logo" class="form-label">Logo công ty</label> <input
 												type="file" class="form-control" id="logo" name="logo">
-										</div> -->
+										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-6 p-2">
@@ -433,7 +444,8 @@
 											<th>${cv.resume}</th>
 											<td>${cv.jobseeker.createdat}</td>
 											<td>
-												<form action="/job4u/cvDetails/${cv.applicationid}" method="get" style="display: inline;">
+												<form action="/job4u/cvDetails/${cv.applicationid}"
+													method="get" style="display: inline;">
 													<button type="submit"
 														class="btn btn-success text-light text-white p-2">Xem
 														Thêm</button>
