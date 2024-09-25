@@ -75,6 +75,17 @@
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
 	<div class="container">
+		<div class="container mt-4">
+			<!-- Thông báo thành công -->
+			<div id="success" class="alert alert-success" style="display: none;"
+				role="alert"></div>
+
+			<!-- Thông báo lỗi -->
+			<div id="error" class="alert alert-danger" style="display: none;"
+				role="alert"></div>
+
+			<!-- Nội dung trang -->
+		</div>
 		<div class="row">
 			<!-- aside -->
 			<div class="col-lg-3 col-md-3 p-2 d-flex">
@@ -158,26 +169,28 @@
 												<td>${job.applicationdeadline}</td>
 												<td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td>
 												<td>
-													<button type="button" class="btn btn-sm btn-edit"
-														data-jobid="${job.jobid}" data-jobtitle="${job.jobtitle}"
-														data-joblocation="${job.joblocation}"
-														data-jobdescription="${job.jobdescription}"
-														data-jobrequirements="${job.jobrequirements}"
-														data-salary="${job.salary}" data-jobtype="${job.jobtype}"
-														data-posteddate="${job.posteddate}"
-														data-applicationdeadline="${job.applicationdeadline}">
-														<img src="/img/icons8-edit-50.png" height="25px"
-															width="25px" alt="Chỉnh sửa" />
-													</button>
-													<form action="/job4u/employers/delete" method="post"
-														style="display: inline;"
-														onsubmit="return confirmDelete();">
-														<input type="hidden" name="jobId" value="${job.jobid}">
-														<button type="submit" class="btn btn-sm">
-															<img src="/img/icons8-delete-50.png" height="25px"
-																width="25px" alt="Xóa" />
+													<div class="d-flex align-items-center">
+														<button type="button" class="btn btn-sm btn-edit me-2"
+															data-jobid="${job.jobid}" data-jobtitle="${job.jobtitle}"
+															data-joblocation="${job.joblocation}"
+															data-jobdescription="${job.jobdescription}"
+															data-jobrequirements="${job.jobrequirements}"
+															data-salary="${job.salary}" data-jobtype="${job.jobtype}"
+															data-posteddate="${job.posteddate}"
+															data-applicationdeadline="${job.applicationdeadline}">
+															<img src="/img/icons8-edit-50.png" height="25px"
+																width="25px" alt="Chỉnh sửa" />
 														</button>
-													</form>
+														<form action="/job4u/employers/delete" method="post"
+															style="display: inline;"
+															onsubmit="return confirmDelete();">
+															<input type="hidden" name="jobId" value="${job.jobid}">
+															<button type="submit" class="btn btn-sm">
+																<img src="/img/icons8-delete-50.png" height="25px"
+																	width="25px" alt="Xóa" />
+															</button>
+														</form>
+													</div>
 												</td>
 											</tr>
 										</c:forEach>
@@ -252,10 +265,10 @@
 												việc</label> <input type="text" class="form-control" id="jobtitle"
 												name="jobtitle" required>
 										</div>
-										<!-- <div class="col-md-6 p-2">
+										<div class="col-md-12 p-2">
 											<label for="logo" class="form-label">Logo công ty</label> <input
 												type="file" class="form-control" id="logo" name="logo">
-										</div> -->
+										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-6 p-2">
@@ -417,21 +430,27 @@
 								<thead class="thead-light">
 									<tr>
 										<th scope="col">Tiêu để bài viết</th>
-										<th scope="col">Thông tin ứng tuyển</th>
-										<th scope="col">CV ứng tuyển</th>
+										<th scope="col">Thông tin người ứng tuyển</th>
+										<th scope="col">Tên CV ứng tuyển</th>
 										<th scope="col">Thời gian nộp hồ sơ</th>
+										<th scope="col">Chi tiết hồ sơ</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${dsCV}" var="cv">
 										<tr>
 											<th>${cv.job.jobtitle}</th>
-											<td>${cv.jobseeker.user.fullname}
-												<button type="submit" class="btn text-light text-white p-2"
-													style="background-color: #00688B">Xem Thêm</button>
-											</td>
+											<td>${cv.jobseeker.user.fullname}</td>
 											<th>${cv.resume}</th>
 											<td>${cv.jobseeker.createdat}</td>
+											<td>
+												<form action="/job4u/cvDetails/${cv.applicationid}"
+													method="get" style="display: inline;">
+													<button type="submit"
+														class="btn btn-success text-light text-white p-2">Xem
+														Thêm</button>
+												</form>
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
