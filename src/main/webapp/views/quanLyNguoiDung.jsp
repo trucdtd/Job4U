@@ -266,7 +266,7 @@
 							<h5 class="card-title">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item">Biểu Đồ</li>
-									<li class="breadcrumb-item"><a href="/Thongke">Thống
+									<li class="breadcrumb-item"><a href="/thongke">Thống
 											kê chi tiết</a></li>
 								</ol>
 							</h5>
