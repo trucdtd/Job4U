@@ -203,8 +203,57 @@
 	font-size: 1rem;
 	margin-top: -10px;
 }
+.container {
+            width: 60%;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        .stats-box {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .stats-box h3 {
+            margin-bottom: 10px;
+        }
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
 </style>
 <body>
+<div class="container">
+        <h2>Thống kê bài đăng và người dùng</h2>
+        
+        <div class="stats-box">
+            <h3>Thống kê bài đăng</h3>
+            <div class="stats-item">
+                <span>Số bài đăng hôm nay:</span>
+                <span>${postsToday}</span>
+            </div>
+            <div class="stats-item">
+                <span>Số bài đăng trong tháng:</span>
+                <span>${postsThisMonth}</span>
+            </div>
+        </div>
+
+        <div class="stats-box">
+            <h3>Thống kê người dùng đăng ký</h3>
+            <div class="stats-item">
+                <span>Số người dùng đăng ký hôm nay:</span>
+                <span>${usersToday}</span>
+            </div>
+            <div class="stats-item">
+                <span>Số người dùng đăng ký trong tháng:</span>
+                <span>${usersThisMonth}</span>
+            </div>
+        </div>
+    </div>
 	<div class="container">
 
 		<div class="pagetitle">

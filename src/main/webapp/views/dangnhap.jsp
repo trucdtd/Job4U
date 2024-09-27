@@ -27,14 +27,12 @@
 <body>
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<header>
-		<!-- place navbar here -->
-	</header>
-	<main>
 		<!-- Thông báo -->
 		<div class="d-flex justify-content-center align-items-center mt-4">
 			<div class="alert text-truncate" style="max-width: 400px;">${message}</div>
 		</div>
-
+	</header>
+	<main>
 		<c:choose>
 			<c:when test="${not empty error}">
 				<script>
@@ -54,10 +52,10 @@
 									aria-label="Close"></button>
 							</div>
 							<div class="modal-body">${error}</div>
-							<div class="modal-footer">
+							<!-- <div class="modal-footer">
 								<button type="button" class="btn btn-primary"
 									onclick="window.location.href='/changePass'">OK</button>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
