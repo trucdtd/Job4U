@@ -35,6 +35,10 @@ public class JoblistingsService {
 	 public List<JoblistingsEntity> getTop5LatestJobListings() {
 	        return joblistingsDao.findTop5LatestJobListings();
 	    }
+	 public interface jobListingsService {
+		    int countPostsToday();
+		    int countPostsThisMonth();
+		}
 //	 public List<EmployersEntity> getTop3Employers() {
 //	        // Lấy các EmployerID từ bài viết mới nhất
 //	        List<Integer> topEmployerIds = joblistingsDao.findTop3EmployerIds();

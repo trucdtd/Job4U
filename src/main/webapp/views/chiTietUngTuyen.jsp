@@ -70,7 +70,7 @@ body {
 	font-size: 1.2em;
 }
 
-.bi {
+.bii {
 	font-size: 1.2em;
 	color: #0275d8;
 }
@@ -163,21 +163,21 @@ body {
 									<div class="row">
 										<div class="col-lg-6">
 											<h6>
-												<i class="bi bi-briefcase"></i> Ngành Nghề:
+												<i class="bii bi-briefcase"></i> Ngành Nghề:
 											</h6>
 											<p>${job.employer.industry}</p>
 											<h6>
-												<i class="bi bi-building"></i> Địa Chỉ:
+												<i class="bii bi-building"></i> Địa Chỉ:
 											</h6>
 											<p>${job.employer.address}</p>
 											<h6>
-												<i class="bi bi-briefcase-fill"></i> Vị Trí:
+												<i class="bii bi-briefcase-fill"></i> Vị Trí:
 											</h6>
 											<p>${job.jobtitle}</p>
 										</div>
 										<div class="col-lg-6">
 											<h6>
-												<i class="bi bi-geo-alt"></i> Địa Điểm Làm Việc:
+												<i class="bii bi-geo-alt"></i> Địa Điểm Làm Việc:
 											</h6>
 											<p>${job.joblocation}</p>
 											<%-- <h6>
@@ -185,7 +185,7 @@ body {
 											</h6>
 											<p id="salary">${job.salary}VNĐ</p> --%>
 											<h6>
-												<i class="bi bi-person"></i> Người Liên Hệ:
+												<i class="bii bi-person"></i> Người Liên Hệ:
 											</h6>
 											<p>${job.employer.contactperson}</p>
 										</div>
@@ -193,17 +193,17 @@ body {
 									<div class="row">
 										<div class="col-lg-6">
 											<h4>
-												<i class="bi bi-calendar"></i> Ngày Đăng:
+												<i class="bii bi-calendar"></i> Ngày Đăng:
 											</h4>
 											<p>${formattedPostedDate}</p>
 										</div>
 									</div>
 									<h4>
-										<i class="bi bi-list-check"></i> Yêu cầu công việc
+										<i class="bii bi-list-check"></i> Yêu cầu công việc
 									</h4>
 									<p>${job.jobrequirements}</p>
 									<h4>
-										<i class="bi bi-file-text"></i> Mô tả về công việc
+										<i class="bii bi-file-text"></i> Mô tả về công việc
 									</h4>
 									<p>${job.jobdescription}</p>
 								</div>
@@ -226,30 +226,30 @@ body {
 							<span>Website công ty:</span><span>${job.employer.companywebsite}</span>
 						</div>
 						<div class="info-detail">
-							<span><i class="bi bi-briefcase"></i> Ngành nghề:</span><span>${job.employer.industry}</span>
+							<span><i class="bii bi-briefcase"></i> Ngành nghề:</span><span>${job.employer.industry}</span>
 						</div>
 						<div class="info-detail">
-							<span><i class="bi bi-building"></i> Địa chỉ:</span><span>${job.employer.address}</span>
+							<span><i class="bii bi-building"></i> Địa chỉ:</span><span>${job.employer.address}</span>
 						</div>
 					</div>
 					<div class="card">
 						<div class="info">
 							<h3>Thông tin công việc</h3>
 							<div class="info-detail">
-								<span><i class="bi bi-briefcase"></i> Vị trí:</span><span>${job.jobtitle}</span>
+								<span><i class="bii bi-briefcase"></i> Vị trí:</span><span>${job.jobtitle}</span>
 							</div>
 							<div class="info-detail">
-								<span><i class="bi bi-geo-alt"></i> Địa điểm làm việc:</span><span>${job.joblocation}</span>
+								<span><i class="bii bi-geo-alt"></i> Địa điểm làm việc:</span><span>${job.joblocation}</span>
 							</div>
 							<div class="info-detail">
-								<span><i class="bi bi-currency-dollar"></i> Lương:</span><span
+								<span><i class="bii bi-currency-dollar"></i> Lương:</span><span
 									id="salary">${job.salary} VNĐ</span>
 							</div>
 							<%-- <div class="info-detail">
 								<span><i class="bi bi-calendar"></i> Ngày đăng:</span><span>${formattedPostedDate}</span>
 							</div> --%>
 							<div class="info-detail">
-								<span><i class="bi bi-calendar-check"></i> Hạn nộp:</span> <span
+								<span><i class="bii bi-calendar-check"></i> Hạn nộp:</span> <span
 									id="deadline">${job.applicationdeadline}</span>
 							</div>
 
