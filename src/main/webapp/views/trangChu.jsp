@@ -34,10 +34,9 @@
 					<div class="d-flex align-items-center gap-3">
 						<!-- Tiêu đề công việc -->
 						<div class="flex-fill mb-3">
-							<label class="form-label" for="jobtitle">Tiêu đề công
-								việc</label> <input type="text" class="form-control rounded-3"
+							<label class="form-label" for="jobtitle">Vị trí tuyển dụng</label> <input type="text" class="form-control rounded-3"
 								id="jobtitle" name="jobtitle"
-								placeholder="Nhập tiêu đề công việc">
+								placeholder="Tất cả">
 						</div>
 
 						<!-- Ngành nghề -->

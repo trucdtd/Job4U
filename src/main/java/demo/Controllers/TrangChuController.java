@@ -56,7 +56,8 @@ public class TrangChuController {
 	@RequestMapping("/findJob")
 	public String findJob(Model model, @RequestParam("page") Optional<Integer> page,
 			@RequestParam("joblocation") Optional<String> joblocation,
-			@RequestParam("industry") Optional<String> industry, @RequestParam("jobtitle") Optional<String> jobtitle) {
+			@RequestParam("industry") Optional<String> industry, 
+			@RequestParam("jobtitle") Optional<String> jobtitle) {
 		Pageable pageable = PageRequest.of(page.orElse(0), 6);
 		Page<JoblistingsEntity> dsSP;
 
