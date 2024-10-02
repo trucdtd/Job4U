@@ -125,7 +125,6 @@ color: #ffcccc; /* Màu đỏ nhạt */
         <span class="text-danger">${phonenumberError}</span>
     </div>
 </div>
-
 <div class="mb-4">
     <label class="form-label" for="password">Mật Khẩu</label>
     <input type="password" id="password" name="password"
@@ -133,7 +132,6 @@ color: #ffcccc; /* Màu đỏ nhạt */
            value="${password}" />
     <span class="text-danger">${passwordError}</span>
 </div>
-
 							<div class="mb-4">
 								<label class="form-label">Đăng ký tài khoản</label>
 								<div>

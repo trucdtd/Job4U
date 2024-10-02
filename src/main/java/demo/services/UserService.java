@@ -107,4 +107,8 @@ public class UserService {
     public boolean isPhoneNumberExists(String numberphone) {
         return usersDao.existsByPhonenumber(numberphone);
     }
+    public interface userService {
+        int countUsersToday();
+        int countUsersThisMonth();
+    }
 }

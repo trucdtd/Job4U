@@ -253,12 +253,11 @@ public class AdminController {
 
 		return "redirect:/admin"; // Quay về trang admin sau khi hiện bài viết
 	}
-
-	@RequestMapping("/quanLyCV")
-	public String quanLyCV(Model model) {
-		List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
-		model.addAttribute("qlCV", qlCV);
-		return "quanLyNguoiDung";
-
+	
+	@GetMapping("/detailCV/{id}")
+	public String showCVDetail(@PathVariable("id") Integer id, Model model) {
+		JobSeekersEntity cv = jobSeekersDao.findById(id).orElse(null);
+		model.addAttribute("cv", cv);
+		return "chiTietCV";
 	}
 }
