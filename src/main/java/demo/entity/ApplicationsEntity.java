@@ -45,7 +45,7 @@ public class ApplicationsEntity implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "jobseekerid", nullable = false)
-    private JobSeekersEntity jobseeker;
+    @JoinColumn(name = "Curriculum_vitae_id", nullable = false)
+    private CurriculumVitaeEntity cv;
 }
 

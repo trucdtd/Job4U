@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import demo.dao.CurriculumVitaeDAO;
 import demo.dao.EmployersDao;
-import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
 import demo.dao.UsersDao;
 import demo.entity.JoblistingsEntity;
 import demo.entity.UsersEntity;
+import demo.entity.CurriculumVitaeEntity;
 import demo.entity.EmployersEntity;
-import demo.entity.JobSeekersEntity;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -35,7 +36,7 @@ public class AdminController {
 	JoblistingsDao joblistingsDao;
 
 	@Autowired
-	JobSeekersDao jobSeekersDao;
+	CurriculumVitaeDAO cvDAO;
 
 	@Autowired
 	EmployersDao employersDao;
@@ -61,7 +62,7 @@ public class AdminController {
 			List<JoblistingsEntity> qlBV = joblistingsDao.findAll();
 			model.addAttribute("qlBV", qlBV);
 
-			List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
+			List<CurriculumVitaeEntity> qlCV = cvDAO.findAll();
 			model.addAttribute("qlCV", qlCV);
 		}
 
@@ -256,7 +257,7 @@ public class AdminController {
 
 	@RequestMapping("/quanLyCV")
 	public String quanLyCV(Model model) {
-		List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
+		List<CurriculumVitaeEntity> qlCV = cvDAO.findAll();
 		model.addAttribute("qlCV", qlCV);
 		return "quanLyNguoiDung";
 

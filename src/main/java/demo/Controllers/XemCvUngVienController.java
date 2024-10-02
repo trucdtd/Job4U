@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import demo.dao.ApplicationsDao;
 import demo.entity.ApplicationsEntity;
-import demo.entity.JobSeekersEntity;
+import demo.entity.CurriculumVitaeEntity;
 
 @Controller
 @RequestMapping("/job4u")
@@ -28,7 +28,7 @@ public class XemCvUngVienController {
         }
 
         // Lấy thông tin CV của người ứng tuyển
-        JobSeekersEntity jobSeeker = applicationDetails.getJobseeker();
+        CurriculumVitaeEntity jobSeeker = applicationDetails.getCv();
         
         // Thêm thông tin vào model để truyền sang view
         model.addAttribute("cv", jobSeeker);

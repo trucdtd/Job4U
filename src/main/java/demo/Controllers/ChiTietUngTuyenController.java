@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import demo.services.JoblistingsService;
 import jakarta.servlet.http.HttpSession;
 import demo.dao.ApplicationsDao;
-import demo.dao.JobSeekersDao;
+import demo.dao.CurriculumVitaeDAO;
 import demo.dao.UsersDao;
 import demo.entity.ApplicationsEntity;
-import demo.entity.JobSeekersEntity;
+import demo.entity.CurriculumVitaeEntity;
 import demo.entity.JoblistingsEntity;
 import demo.entity.UsersEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,7 @@ public class ChiTietUngTuyenController {
     private JoblistingsService joblistingsService;
 
     @Autowired
-    JobSeekersDao dao;
+    CurriculumVitaeDAO dao;
 
     @Autowired
     UsersDao userDao;
@@ -68,7 +69,7 @@ public class ChiTietUngTuyenController {
         }
 
         // Lấy danh sách CV của người dùng
-        List<JobSeekersEntity> listCV = dao.findByUsername(userId);
+        List<CurriculumVitaeEntity> listCV = dao.findByUsername(userId);
 
         // Thêm các thuộc tính vào model để truyền sang view
         model.addAttribute("formattedPostedDate", formattedPostedDate);
@@ -99,26 +100,26 @@ public class ChiTietUngTuyenController {
 
         ApplicationsEntity app = new ApplicationsEntity();
         try {
-            JobSeekersEntity jSK = dao.findByJobseekerid(jSKID);
+           Optional<CurriculumVitaeEntity>  jSK = dao.findById(jSKID);
 
             // Kiểm tra tùy chọn CV
             if ("upload".equals(cvOption)) {
                 // Nếu người dùng chọn tải lên CV mới
                 byte[] resumeBytes = cvFile.getBytes(); // Lấy bytes từ file tải lên
-                jSK.setResume(new String(resumeBytes)); // Lưu CV vào đối tượng JobSeekers
-                dao.save(jSK); // Lưu lại CV mới vào cơ sở dữ liệu
+//                jSK.setResume(new String(resumeBytes)); // Lưu CV vào đối tượng JobSeekers
+//                dao.save(jSK); // Lưu lại CV mới vào cơ sở dữ liệu
             } else if ("choose".equals(cvOption)) {
                 // Nếu người dùng chọn CV có sẵn
                 // Không cần làm gì, đã có jSK
             }
 
-            app.setJob(chiTietUngTuyen);
-            app.setJobseeker(jSK);
-            app.setApplicationdate(LocalDateTime.now());
-            app.setStatus(1);
-            app.setResume(jSK.getResume());
-            app.setCreatedat(LocalDateTime.now());
-            appDao.save(app);
+//            app.setJob(chiTietUngTuyen);
+////            app.setJobseeker(jSK);
+//            app.setApplicationdate(LocalDateTime.now());
+//            app.setStatus(1);
+////            app.setResume(jSK.getResume());
+//            app.setCreatedat(LocalDateTime.now());
+//            appDao.save(app);
             model.addAttribute("script", "<script>alert('Ứng tuyển thành công')</script>");
         } catch (Exception e) {
             System.out.println(e);
