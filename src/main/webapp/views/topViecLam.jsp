@@ -234,7 +234,7 @@
 								<div class="row">
 									<div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
 										<div class="bg-image hover-zoom ripple rounded ripple-surface">
-											<img src="${job.employer.logo}" class="w-100"
+											<img src="${pageContext.request.contextPath}/uploads/${job.employer.logo}" class="w-100"
 												alt="${job.employer.companyname}" />
 										</div>
 									</div>
