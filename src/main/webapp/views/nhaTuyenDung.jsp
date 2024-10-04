@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<fmt:setLocale value="en_US" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,6 +85,10 @@
 			<!-- Thông báo lỗi -->
 			<div id="error" class="alert alert-danger" style="display: none;"
 				role="alert"></div>
+			<!-- Thông báo thành công hoặc lỗi -->
+			<div class="d-flex justify-content-center align-items-center mt-4">
+				<div class="alert text-truncate" style="max-width: 400px;">${message}</div>
+			</div>
 
 			<!-- Nội dung trang -->
 		</div>
@@ -153,16 +159,8 @@
 												<td>${job.joblocation}</td>
 												<td>${job.jobdescription}</td>
 												<td>${job.jobrequirements}</td>
-												<td><span
-													style="display: inline-flex; align-items: center;">
-														<script>
-												            var salary = Number(${job.salary});
-												            if (!isNaN(salary)) {
-												                document.write(salary.toLocaleString('vi-VN') + ' VND');
-												            } else {
-												                document.write('N/A');
-												            }
-												        </script>
+												<td><span> <fmt:formatNumber
+															value="${job.salary}" pattern="#,##0" /> VNĐ
 												</span></td>
 												<td>${job.jobtype}</td>
 												<td>${job.posteddate}</td>
@@ -201,10 +199,6 @@
 					</div>
 				</div>
 				<!-- Bảng quản lý bài đăng-->
-				<!-- Thông báo thành công hoặc lỗi -->
-				<div class="d-flex justify-content-center align-items-center mt-4">
-					<div class="alert text-truncate" style="max-width: 400px;">${message}</div>
-				</div>
 
 				<!-- bài đăng -->
 				<div id="postEmployers" class="card" style="display: none;">
