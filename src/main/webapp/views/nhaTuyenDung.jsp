@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<fmt:setLocale value="en_US" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +33,6 @@
 /* Đảm bảo rằng lớp active không ghi đè */
 .nav-link.active {
 	background-color: #198754 !important;
-	/* Màu nền khi mục menu được chọn */
 }
 
 .content {
@@ -85,10 +82,6 @@
 			<!-- Thông báo lỗi -->
 			<div id="error" class="alert alert-danger" style="display: none;"
 				role="alert"></div>
-			<!-- Thông báo thành công hoặc lỗi -->
-			<div class="d-flex justify-content-center align-items-center mt-4">
-				<div class="alert text-truncate" style="max-width: 400px;">${message}</div>
-			</div>
 
 			<!-- Nội dung trang -->
 		</div>
@@ -142,14 +135,15 @@
 										<tr>
 											<th scope="col">Tên Công Việc</th>
 											<th scope="col">Vị Trí</th>
-											<th scope="col">Mô Tả Công Việc</th>
-											<th scope="col">Yêu Cầu</th>
+											<!-- <th scope="col">Mô Tả Công Việc</th>
+											<th scope="col">Yêu Cầu</th> -->
 											<th scope="col">Lương</th>
 											<th scope="col">Loại Công Việc</th>
 											<th scope="col">Ngày Đăng</th>
-											<th scope="col">Hạn Nộp Hồ Sơ</th>
+											<!-- <th scope="col">Hạn Nộp Hồ Sơ</th> -->
 											<th scope="col">Trạng Thái</th>
 											<th scope="col">Hành Động</th>
+											<th scope="col">Xem CV</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -157,14 +151,22 @@
 											<tr data-jobid="${job.jobid}">
 												<td>${job.jobtitle}</td>
 												<td>${job.joblocation}</td>
-												<td>${job.jobdescription}</td>
-												<td>${job.jobrequirements}</td>
-												<td><span> <fmt:formatNumber
-															value="${job.salary}" pattern="#,##0" /> VNĐ
+												<%-- <td>${job.jobdescription}</td>
+												<td>${job.jobrequirements}</td> --%>
+												<td><span
+													style="display: inline-flex; align-items: center;">
+														<script>
+												            var salary = Number(${job.salary});
+												            if (!isNaN(salary)) {
+												                document.write(salary.toLocaleString('vi-VN') + ' VND');
+												            } else {
+												                document.write('N/A');
+												            }
+												        </script>
 												</span></td>
 												<td>${job.jobtype}</td>
 												<td>${job.posteddate}</td>
-												<td>${job.applicationdeadline}</td>
+												<%-- <td>${job.applicationdeadline}</td> --%>
 												<td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td>
 												<td>
 													<div class="d-flex align-items-center">
@@ -190,6 +192,13 @@
 														</form>
 													</div>
 												</td>
+												<!-- XEM CV -->
+												<td>
+													<button type="button" class="btn btn-sm btn-detail">
+														<img alt="" src="/img/icons8-eye-24.png" height="25px">
+													</button>
+												</td>
+												<!-- XEM CV -->
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -198,7 +207,7 @@
 						</form>
 					</div>
 				</div>
-				<!-- Bảng quản lý bài đăng-->
+				<!-- Bảng quản lý bài đăng-->				
 
 				<!-- bài đăng -->
 				<div id="postEmployers" class="card" style="display: none;">
