@@ -66,6 +66,10 @@
 .btn-primary, .btn-danger {
 	border-radius: 4px;
 }
+.dataTables_length, .dataTables_filter {
+        margin-top: 1rem; /* mt-3 */
+        margin-bottom: 1rem; /* mb-3 */
+    }
 </style>
 
 </head>
@@ -127,10 +131,10 @@
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<form class="p-4" action="/job4u/employers" method="get"
+						<form class="p-2" action="/job4u/employers" method="get"
 							id="nhaTuyenDung">
 							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
+								<table id="myTable" class="table align-items-center">
 									<thead class="thead-light">
 										<tr>
 											<th scope="col">Tên Công Việc</th>
@@ -207,8 +211,8 @@
 						</form>
 					</div>
 				</div>
-				<!-- Bảng quản lý bài đăng-->				
 
+				<!-- Bảng quản lý bài đăng-->
 				<!-- bài đăng -->
 				<div id="postEmployers" class="card" style="display: none;">
 					<div class="card-header">
@@ -423,13 +427,12 @@
 
 				<!-- Quản lý cv -->
 				<div id="cvApply" class="card" style="display: none;">
-
 					<div class="card-header">
 						<div class="card-title">CV Ứng tuyển</div>
 					</div>
-					<div class="card-body p-0">
+					<div class="card-body p-2">
 						<div class="table-responsive">
-							<table class="table align-items-center mb-0">
+							<table id="cvTable" class="table align-items-center">
 								<thead class="thead-light">
 									<tr>
 										<th scope="col">Tiêu để bài viết</th>
@@ -685,6 +688,47 @@ function confirmDelete() {
     return confirm("Bạn có chắc chắn muốn xóa bài đăng này?");
 }
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "language": {
+                "paginate": {
+                    "next": "Tiếp theo",
+                    "previous": "Trước đó"
+                },
+                "lengthMenu": "Hiển thị _MENU_ mục",
+                "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục"
+            }
+        });
+        
+        $('#cvTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "language": {
+                "paginate": {
+                    "next": "Tiếp theo",
+                    "previous": "Trước đó"
+                },
+                "lengthMenu": "Hiển thị _MENU_ mục",
+                "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục"
+            }
+        });
+    });
+</script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- JS for DataTables -->
+<script
+	src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<!-- CSS for DataTables -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
 </html>
