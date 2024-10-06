@@ -66,10 +66,11 @@
 .btn-primary, .btn-danger {
 	border-radius: 4px;
 }
+
 .dataTables_length, .dataTables_filter {
-        margin-top: 1rem; /* mt-3 */
-        margin-bottom: 1rem; /* mb-3 */
-    }
+	margin-top: 1rem; /* mt-3 */
+	margin-bottom: 1rem; /* mb-3 */
+}
 </style>
 
 </head>
@@ -683,6 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
+
 <script>
 function confirmDelete() {
     return confirm("Bạn có chắc chắn muốn xóa bài đăng này?");
@@ -690,37 +692,45 @@ function confirmDelete() {
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            "paging": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "language": {
-                "paginate": {
-                    "next": "Tiếp theo",
-                    "previous": "Trước đó"
-                },
-                "lengthMenu": "Hiển thị _MENU_ mục",
-                "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục"
-            }
-        });
-        
-        $('#cvTable').DataTable({
-            "paging": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "language": {
-                "paginate": {
-                    "next": "Tiếp theo",
-                    "previous": "Trước đó"
-                },
-                "lengthMenu": "Hiển thị _MENU_ mục",
-                "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục"
-            }
-        });
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
     });
+
+    $('#cvTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
+    });
+});
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
