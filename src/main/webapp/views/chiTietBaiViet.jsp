@@ -123,6 +123,12 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <div class="card-title">Chi Tiết Bài Viết</div>
+            <div class="text-end">
+                <span class="badge 
+                    ${bv.active ? 'bg-success' : 'bg-danger'}">
+                    ${bv.active ? 'Đang Hiện' : 'Đang Ẩn'}
+                </span>
+            </div>
         </div>
         <div class="card-body p-4">
             <form method="post">
