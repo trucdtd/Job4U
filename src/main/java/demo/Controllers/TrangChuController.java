@@ -37,9 +37,9 @@ public class TrangChuController {
 	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page
 			 ) {
 		int pageNumber = page.orElse(0);
-//		Pageable pageable = PageRequest.of(pageNumber, 6);
+//		Pageable pageable = PageRequest.of(pageNumber, 8);
 		// Sắp xếp giảm dần theo ngày và thời gian đăng (bao gồm giờ, phút, giây nếu có)
-        Pageable pageable = PageRequest.of(page.orElse(0), 6, Sort.by("posteddate").descending()); 
+        Pageable pageable = PageRequest.of(page.orElse(0), 8, Sort.by("posteddate").descending()); 
 		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
 		model.addAttribute("dsSP", dsSP);
 		
@@ -60,7 +60,7 @@ public class TrangChuController {
 			@RequestParam("joblocation") Optional<String> joblocation,
 			@RequestParam("industry") Optional<String> industry, 
 			@RequestParam("jobtitle") Optional<String> jobtitle) {
-		Pageable pageable = PageRequest.of(page.orElse(0), 6);
+		Pageable pageable = PageRequest.of(page.orElse(0), 8, Sort.by("posteddate").descending());
 		Page<JoblistingsEntity> dsSP;
 
 		// Thực hiện tìm kiếm dựa trên các tham số đầu vào
