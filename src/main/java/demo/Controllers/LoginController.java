@@ -66,9 +66,9 @@ public class LoginController {
                     case 0:
                         return "redirect:/admin"; // Vai trò admin
                     case 1:
-                        return "redirect:/job4u/profile"; // Vai trò người tìm việc
+                        return "redirect:/user"; // Vai trò người tìm việc
                     case 2:
-                        return "redirect:/job4u/employers"; // Vai trò nhà tuyển dụng
+                        return "redirect:/employers"; // Vai trò nhà tuyển dụng
                     default:
                         model.addAttribute("message", "Vai trò không hợp lệ");
                         return "dangnhap";
@@ -88,3 +88,4 @@ public class LoginController {
         return "redirect:/job4u"; // Chuyển hướng về trang chính hoặc trang đăng nhập
     }
 }
+
