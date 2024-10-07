@@ -132,7 +132,7 @@
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<form class="p-2" action="/job4u/employers" method="get"
+						<form class="p-2" action="/employers" method="get"
 							id="nhaTuyenDung">
 							<div class="table-responsive">
 								<table id="myTable" class="table align-items-center">
@@ -186,7 +186,7 @@
 															<img src="/img/icons8-edit-50.png" height="25px"
 																width="25px" alt="Chỉnh sửa" />
 														</button>
-														<form action="/job4u/employers/delete" method="post"
+														<form action="/employers/delete" method="post"
 															style="display: inline;"
 															onsubmit="return confirmDelete();">
 															<input type="hidden" name="jobId" value="${job.jobid}">
@@ -222,7 +222,7 @@
 					<div class="card-body p-0">
 						<div class="table-responsive">
 							<div class="card-body p-0">
-								<form class="p-4" action="/job4u/employers/submit" method="post"
+								<form class="p-4" action="/employers/submit" method="post"
 									id="nhaTuyenDung" enctype="multipart/form-data">
 									<div class="row">
 										<div class="col-md-6 p-2">
@@ -451,7 +451,7 @@
 											<th>${cv.resume}</th>
 											<td>${cv.jobseeker.createdat}</td>
 											<td>
-												<form action="/job4u/cvDetails/${cv.applicationid}"
+												<form action="/cvDetails/${cv.applicationid}"
 													method="get" style="display: inline;">
 													<button type="submit"
 														class="btn btn-success text-light text-white p-2">Xem
@@ -490,7 +490,7 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form id="editJobForm" action="/job4u/employers/edit"
+						<form id="editJobForm" action="/employers/edit"
 							method="post">
 							<input type="hidden" id="jobId" name="jobId" />
 							<div class="mb-3">
@@ -665,7 +665,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(event.target);
 
         // Gửi dữ liệu đến server
-        fetch('/job4u/employers/edit', {
+        fetch('/employers/edit', {
             method: 'POST',
             body: formData
         })

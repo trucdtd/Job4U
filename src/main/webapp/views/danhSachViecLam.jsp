@@ -59,19 +59,19 @@
 }
 
 .card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
 }
 
 .bg-image {
-    height: 150px; /* Đảm bảo chiều cao đủ lớn */
-    overflow: hidden; /* Ẩn phần ảnh bị cắt */
+	height: 150px; /* Đảm bảo chiều cao đủ lớn */
+	overflow: hidden; /* Ẩn phần ảnh bị cắt */
 }
 
 .card img {
-    width: 100%;
-    height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao */
-    object-fit: contain; /* Giữ nguyên tỷ lệ và không bị cắt */
+	width: 100%;
+	height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao */
+	object-fit: contain; /* Giữ nguyên tỷ lệ và không bị cắt */
 }
 </style>
 </head>
@@ -90,17 +90,22 @@
 								<div class="row">
 									<div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
 										<div class="bg-image hover-zoom ripple rounded ripple-surface">
-											<img src="${pageContext.request.contextPath}/uploads/${job.employer.logo}" alt="logo">
+											<img
+												src="${pageContext.request.contextPath}/uploads/${job.employer.logo}"
+												alt="logo">
 										</div>
 									</div>
 									<div class="col-md-6 col-lg-6 col-xl-6">
-										<h5>${job.employer.companyname}</h5>
-										<p class="text-truncate mb-4 mb-md-0">Mô tả: ${job.jobdescription}</p>
+										<h5>${job.jobtitle}</h5>
+										<p>${job.jobdescription}</p>
+										<p class="text-truncate mb-4 mb-md-0">${job.employer.companyname}</p>
 									</div>
 									<div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
 										<div class="d-flex flex-column mt-4">
-											<a href="/job4u/chiTiet/${job.jobid}" class="btn btn-success btn-sm">Ứng tuyển</a>
-											<a href="/job4u/chiTiet/${job.jobid}" class="btn btn-outline-success btn-sm mt-2">Thông tin chi tiết</a>
+											<a href="#" class="btn btn-success btn-sm">${job.salary} VNĐ</a>
+											<a href="/chiTiet/${job.jobid}"
+												class="btn btn-outline-success btn-sm mt-2">Thông tin
+												chi tiết</a>
 										</div>
 									</div>
 								</div>
@@ -115,13 +120,20 @@
 	<!-- Kiểm tra giá trị dsSP.totalPages -->
 	<c:if test="${dsSP.totalPages > 0}">
 		<div class="pagination-container">
-			<button class="pagination-btn" onclick="paging(${dsSP.pageable.pageNumber - 1})" ${dsSP.pageable.pageNumber == 0 ? 'disabled' : ''}>← Trước</button>
+			<button class="pagination-btn"
+				onclick="paging(${dsSP.pageable.pageNumber - 1})"
+				${dsSP.pageable.pageNumber == 0 ? 'disabled' : ''}>← Trước</button>
 			<div class="page-numbers">
 				<c:forEach begin="0" end="${dsSP.totalPages - 1}" var="i">
-					<button class="pagination-number ${i == dsSP.pageable.pageNumber ? 'active bg-success text-white' : ''}" onclick="paging(${i})">${i + 1}</button>
+					<button
+						class="pagination-number ${i == dsSP.pageable.pageNumber ? 'active bg-success text-white' : ''}"
+						onclick="paging(${i})">${i + 1}</button>
 				</c:forEach>
 			</div>
-			<button class="pagination-btn" onclick="paging(${dsSP.pageable.pageNumber + 1})" ${dsSP.pageable.pageNumber == dsSP.totalPages - 1 ? 'disabled' : ''}>Sau →</button>
+			<button class="pagination-btn"
+				onclick="paging(${dsSP.pageable.pageNumber + 1})"
+				${dsSP.pageable.pageNumber == dsSP.totalPages - 1 ? 'disabled' : ''}>Sau
+				→</button>
 		</div>
 	</c:if>
 

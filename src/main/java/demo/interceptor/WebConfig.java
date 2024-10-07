@@ -24,10 +24,10 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // Áp dụng AdminInterceptor cho tất cả
 																				// các đường dẫn bắt đầu với /admin
 
-		registry.addInterceptor(employerInterceptor).addPathPatterns("/job4u/employers/**");
+		registry.addInterceptor(employerInterceptor).addPathPatterns("/employers/**");
 		// Áp dụng EmployerInterceptor cho /job4u/employers
 		
-		registry.addInterceptor(userInterceptor).addPathPatterns("/job4u/profile/**");
+		registry.addInterceptor(userInterceptor).addPathPatterns("/user/**");
 		// Áp dụng UserInterceptor cho /job4u/profile
 	}
 }

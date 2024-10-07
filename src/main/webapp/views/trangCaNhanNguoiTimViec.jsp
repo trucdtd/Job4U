@@ -65,9 +65,9 @@
 					<div id="collapsePages" class="collapse"
 						aria-labelledby="headingPages" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="/job4u/profile/cv">Thông tin
-								CV</a> <a class="collapse-item" href="register.html">Danh sách
-								CV</a> <a class="collapse-item" href="forgot-password.html">Mẫu
+							<a class="collapse-item" href="/user/cv">Thông tin
+								CV</a> <a class="collapse-item" href="#">Danh sách
+								CV</a> <a class="collapse-item" href="#">Mẫu
 								CV</a>
 						</div>
 					</div></li>

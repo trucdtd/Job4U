@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
-@RequestMapping("/job4u")
+@RequestMapping("/chiTiet")
 public class ChiTietUngTuyenController {
 
     @Autowired
@@ -44,7 +44,7 @@ public class ChiTietUngTuyenController {
     @Autowired
     ApplicationsDao appDao;
 
-    @RequestMapping("/chiTiet/{jobid}")
+    @RequestMapping("/{jobid}")
     public String chiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
         // Lấy thông tin chi tiết công việc
         JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
@@ -79,7 +79,7 @@ public class ChiTietUngTuyenController {
         return "chiTietUngTuyen";
     }
 
-    @PostMapping("/chiTiet/{jobid}")
+    @PostMapping("/{jobid}")
     public String postSubmitCV(@PathVariable("jobid") Integer jobid, Model model,
                                 @RequestParam("id") Integer jSKID,
                                 @RequestParam("cvFile") MultipartFile cvFile,

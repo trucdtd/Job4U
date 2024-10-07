@@ -259,7 +259,7 @@ body {
 							<a href="/job4u" class="btn btn-secondary w-50 me-2">Quay lại</a>
 							<button type="button" class="btn btn-primary w-50"
 								data-bs-toggle="modal" data-bs-target="#uploadCvModal">
-								<i class="bi bi-upload text-light"></i> Ứng tuyển
+								<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
 							</button>
 						</div>
 					</div>
@@ -333,7 +333,6 @@ body {
 	<div>
 		<%@ include file="/views/footer.jsp"%>
 	</div>
-	${script}
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
