@@ -257,11 +257,47 @@ body {
 						<!-- Nút Quay lại và Ứng tuyển -->
 						<div class="button-group d-flex justify-content-between mt-3">
 							<a href="/job4u" class="btn btn-secondary w-50 me-2">Quay lại</a>
-							<button type="button" class="btn btn-primary w-50"
-								data-bs-toggle="modal" data-bs-target="#uploadCvModal">
-								<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
-							</button>
+							<c:choose>
+								<c:when test="${not empty userid}">
+									<!-- Kiểm tra nếu userid không rỗng -->
+									<button type="button" class="btn btn-primary w-50"
+										data-bs-toggle="modal" data-bs-target="#uploadCvModal">
+										<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
+									</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button" class="btn btn-primary w-50"
+										data-bs-toggle="modal" data-bs-target="#loginModal">
+										<i class="bi bi-lock text-light"></i> Đăng nhập để ứng tuyển
+									</button>
+								</c:otherwise>
+							</c:choose>
 						</div>
+
+						<!-- Modal đăng nhập (nếu cần) -->
+						<div class="modal fade" id="loginModal" tabindex="-1"
+							aria-labelledby="loginModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content custom-card">
+									<div class="modal-header">
+										<h5 class="modal-title" id="loginModalLabel">Đăng nhập để
+											tiếp tục</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>Vui lòng đăng nhập để có thể ứng tuyển cho công việc
+											này.</p>
+										<a href="/Login" class="btn btn-primary">Đăng nhập</a>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Hủy</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
 					</div>
 
 				</div>
@@ -272,8 +308,8 @@ body {
 		<div class="modal fade" id="uploadCvModal" tabindex="-1"
 			aria-labelledby="uploadCvModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<form id="cvUploadForm" action="/job4u/chiTiet/${job.jobid}"
-					method="post" enctype="multipart/form-data">
+				<form id="cvUploadForm" action="/chiTiet/${job.jobid}" method="post"
+					enctype="multipart/form-data">
 					<div class="modal-content custom-card">
 						<div class="modal-header">
 							<h5 class="modal-title" id="uploadCvModalLabel">Nộp CV của
@@ -333,7 +369,7 @@ body {
 	<div>
 		<%@ include file="/views/footer.jsp"%>
 	</div>
-
+	${script}
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			// Hàm định dạng ngày thành ngày/tháng/năm

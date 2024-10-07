@@ -135,7 +135,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <span class="text-success font-weight-bold">${job.salary}</span>
+                                <span class="text-success font-weight-bold">${job.joblocation}</span>
                                 <a href="/chiTiet/${job.jobid}" class="btn btn-outline-success btn-sm">Thông tin chi tiết</a>
                             </div>
                         </div>
