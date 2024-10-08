@@ -68,23 +68,39 @@ body {
 	align-items: center; /* Căn giữa theo chiều dọc */
 	gap: 20px; /* Khoảng cách giữa ảnh và thông tin */
 }
+
 .info-details {
-    margin-left: 70px; /* Nhích sang bên phải 20px */
-    
+	margin-left: 70px; /* Nhích sang bên phải 20px */
 }
 
 .photo-container {
-	flex: 0 0 auto; /* Không cho phép ảnh co lại */
+    position: relative;
 }
 
-/* Ảnh với kích thước cố định */
-/* Ảnh với kích thước 3x4 */
 .cv-photo {
-    width: 100px; /* Chiều rộng cố định cho khung vuông */
-    height: 133px; /* Chiều cao cố định để tạo tỷ lệ 3:4 */
-    border-radius: 5px; /* Đường viền bo tròn một chút */
+    width: 100px; /* Chiều rộng của ảnh */
+    height: 133px; /* Chiều cao của ảnh */
+    border-radius: 5px; /* Bo tròn góc */
     border: 2px solid #4CAF50; /* Đường viền màu xanh */
-    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng và cắt */
+    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
+}
+
+.placeholder-photo {
+    width: 100px; /* Chiều rộng của khung placeholder */
+    height: 133px; /* Chiều cao của khung placeholder */
+    border-radius: 5px; /* Bo tròn góc */
+    background-color: #f0f0f0; /* Màu nền cho khung */
+    display: flex; /* Để căn giữa hình ảnh trong khung */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    border: 2px solid #4CAF50; /* Đường viền màu xanh */
+}
+
+.placeholder {
+    width: 50px; /* Kích thước hình ảnh placeholder */
+    height: 50px; /* Kích thước hình ảnh placeholder */
+    border-radius: 50%; /* Để tạo hình tròn cho placeholder */
+    background-color: #a0a0a0; /* Màu nền cho placeholder */
 }
 
 
@@ -142,7 +158,12 @@ p {
 					<div class="info-grid">
 						<div class="photo-container">
 							<img src=""
-								alt="Ảnh ứng viên" class="cv-photo">
+								alt="Ảnh ứng viên" class="cv-photo"
+								onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
+							<div class="placeholder-photo" style="display: none;">
+								<img src="path/to/placeholder-image.png" alt="Khung ảnh"
+									class="placeholder">
+							</div>
 						</div>
 						<div class="info-details">
 							<%--  <div><strong>Tên:</strong> ${cv.user.fullname}</div> --%>
