@@ -117,24 +117,24 @@ body {
 							<h4>Chi tiết tuyển dụng</h4>
 							<div class="info">
 								<div class="info-detail">
-									<i class="bi bi-briefcase text-success"></i> <strong>Vị trí:</strong>
-									${job.jobtitle}
+									<i class="bi bi-briefcase text-success"></i> <strong>Vị
+										trí:</strong> ${job.jobtitle}
 								</div>
 								<div class="info-detail">
-									<i class="bi bi-geo-alt text-success"></i> <strong>Địa điểm làm
-										việc:</strong> ${job.joblocation}
+									<i class="bi bi-geo-alt text-success"></i> <strong>Địa
+										điểm làm việc:</strong> ${job.joblocation}
 								</div>
 								<div class="info-detail">
-									<i class="bi bi-currency-dollar text-success"></i> <strong>Lương:</strong> <span
-										id="salary">${job.salary} VNĐ</span>
+									<i class="bi bi-currency-dollar text-success"></i> <strong>Lương:</strong>
+									<span id="salary">${job.salary} VNĐ</span>
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-calendar-check text-success"></i> <strong>Ngày
 										Đăng:</strong> <span id="postedDate">${formattedPostedDate}</span>
 								</div>
 								<div class="info-detail">
-									<i class="bi bi-calendar-check text-success"></i> <strong>Hạn nộp:</strong>
-									<span id="applicationDeadline">${job.applicationdeadline}</span>
+									<i class="bi bi-calendar-check text-success"></i> <strong>Hạn
+										nộp:</strong> <span id="applicationDeadline">${job.applicationdeadline}</span>
 								</div>
 							</div>
 							<hr>
@@ -248,7 +248,8 @@ body {
 								</div>
 								<input type="file" class="form-control d-none" id="cvFile"
 									name="cvFile" onchange="displayFileName()">
-								<p id="fileName" class="mt-2"></p>=
+								<p id="fileName" class="mt-2"></p>
+								=
 								<!-- Đây là nơi hiển thị tên file -->
 							</div>
 							<!-- Phần chọn CV có sẵn -->
@@ -437,6 +438,9 @@ body {
 	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
 
 </body>
 </html>
