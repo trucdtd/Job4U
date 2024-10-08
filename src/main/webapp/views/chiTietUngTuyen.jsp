@@ -303,7 +303,9 @@ body {
 									<p>Kéo thả hoặc chọn file CV</p>
 								</div>
 								<input type="file" class="form-control d-none" id="cvFile"
-									name="cvFile">
+									name="cvFile" onchange="displayFileName()">
+								<p id="fileName" class="mt-2"></p>=
+								<!-- Đây là nơi hiển thị tên file -->
 							</div>
 							<!-- Phần chọn CV có sẵn -->
 							<div class="form-group mb-3" id="existingCvDiv"
@@ -399,6 +401,19 @@ body {
 						existingCvDiv.style.display = 'none';
 					}
 				});
+	</script>
+	<script>
+		function displayFileName() {
+			var fileInput = document.getElementById('cvFile');
+			var fileName = document.getElementById('fileName');
+
+			if (fileInput.files.length > 0) {
+				fileName.textContent = "File đã chọn: "
+						+ fileInput.files[0].name;
+			} else {
+				fileName.textContent = ""; // Nếu không có file nào được chọn, để trống
+			}
+		}
 	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
