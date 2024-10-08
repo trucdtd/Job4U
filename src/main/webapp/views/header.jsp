@@ -32,11 +32,11 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
                         <li class="nav-item"><a class="nav-link" href="/job4u"><img
-                                src="/img/icons8-home-50.png" style="padding-bottom: 7px;" width="25px" height="30px" alt="Home"> Trang Chủ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/lienhe">Liên Hệ</a></li>
+                                src="/img/icons8-home-50.png" style="padding-bottom: 7px;" width="25px" height="30px" alt="Home"> Trang Chủ</a></li>                      
                         <li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công Việc mới nhất</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà Tuyển Dụng</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/job4u/profile">Ứng Tuyển</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/employers">Nhà Tuyển Dụng</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/user">Ứng Tuyển</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/lienhe">Liên Hệ</a></li>
                     </ul>
                     <div id="login-register-buttons">
                         <a id="login-btn" href="/Login" class="btn login-button text-center"><img
@@ -62,14 +62,14 @@
                                 <a class="dropdown-item d-flex justify-content-start" href="<%= 
                                     session.getAttribute("role") != null ? 
                                     (session.getAttribute("role").toString().equals("0") ? "/admin" : 
-                                    (session.getAttribute("role").toString().equals("1") ? "/job4u/profile" : 
-                                    (session.getAttribute("role").toString().equals("2") ? "/job4u/employers" : "#"))) : "#" %>">
+                                    (session.getAttribute("role").toString().equals("1") ? "/user" : 
+                                    (session.getAttribute("role").toString().equals("2") ? "/employers" : "#"))) : "#" %>">
                                     <img class="m-1" src="/img/icons8-cv-80.png" height="25px" width="25px" alt="Contact Info">
                                     <p class="m-1 text-dropdown-menu">Quản lý trang</p>
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item d-flex justify-content-start" href="/Job4U/lien_he.html copy.html">
+                                <a class="dropdown-item d-flex justify-content-start" href="#">
                                     <img class="m-1" src="/img/icons8-bell-50.png" height="25px" width="25px" alt="CV Management">
                                     <p class="m-1 text-dropdown-menu">Thông báo</p>
                                 </a>

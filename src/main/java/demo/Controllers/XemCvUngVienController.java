@@ -11,20 +11,21 @@ import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
 
 @Controller
-@RequestMapping("/job4u")
+@RequestMapping("/cvDetails")
 public class XemCvUngVienController {
 
     @Autowired
     private ApplicationsDao applicationsDao;
 
-    @RequestMapping("/cvDetails/{applicationId}")
+    @RequestMapping("/{applicationId}")
     public String cvDetails(@PathVariable("applicationId") Integer applicationId, Model model) {
         // Lấy thông tin ứng tuyển từ database
         ApplicationsEntity applicationDetails = applicationsDao.findById(applicationId).orElse(null);
         
         if (applicationDetails == null) {
-            // Xử lý khi không tìm thấy ứng tuyển
-            return "redirect:/error"; // hoặc trả về thông báo phù hợp
+        	// Thêm thông báo lỗi vào model
+            model.addAttribute("errorMessage", "Không tìm thấy thông tin ứng tuyển.");
+            return "nhaTuyenDung"; // Trả về view với thông báo lỗi
         }
 
         // Lấy thông tin CV của người ứng tuyển

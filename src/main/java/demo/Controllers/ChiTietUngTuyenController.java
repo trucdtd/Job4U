@@ -21,12 +21,11 @@ import demo.dao.UsersDao;
 import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
-import demo.entity.UsersEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
-@RequestMapping("/job4u")
+@RequestMapping("/chiTiet")
 public class ChiTietUngTuyenController {
 
     @Autowired
@@ -44,7 +43,7 @@ public class ChiTietUngTuyenController {
     @Autowired
     ApplicationsDao appDao;
 
-    @RequestMapping("/chiTiet/{jobid}")
+    @RequestMapping("/{jobid}")
     public String chiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
         // Lấy thông tin chi tiết công việc
         JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
@@ -63,9 +62,6 @@ public class ChiTietUngTuyenController {
 
         // Lấy ID người dùng đã đăng nhập
         Integer userId = (Integer) ss.getAttribute("userid");
-        if (userId == null) {
-            return "redirect:/Login"; // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
-        }
 
         // Lấy danh sách CV của người dùng
         List<JobSeekersEntity> listCV = dao.findByUsername(userId);
@@ -79,15 +75,12 @@ public class ChiTietUngTuyenController {
         return "chiTietUngTuyen";
     }
 
-    @PostMapping("/chiTiet/{jobid}")
+    @PostMapping("/{jobid}")
     public String postSubmitCV(@PathVariable("jobid") Integer jobid, Model model,
                                 @RequestParam("id") Integer jSKID,
                                 @RequestParam("cvFile") MultipartFile cvFile,
                                 @RequestParam("cvOptions") String cvOption) {
         Integer id = (Integer) ss.getAttribute("userid");
-        if (id == null) {
-            return "redirect:/login"; // Chuyển hướng nếu người dùng chưa đăng nhập
-        }
 
         // Lấy thông tin chi tiết công việc
         JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
@@ -100,15 +93,17 @@ public class ChiTietUngTuyenController {
         ApplicationsEntity app = new ApplicationsEntity();
         try {
             JobSeekersEntity jSK = dao.findByJobseekerid(jSKID);
+            if (jSK == null) {
+                model.addAttribute("message", "Ứng tuyển thất bại: Không tìm thấy thông tin người tìm việc.");
+                return "chiTietUngTuyen"; // Trả về view mà không tiếp tục xử lý
+            }
 
             // Kiểm tra tùy chọn CV
             if ("upload".equals(cvOption)) {
-                // Nếu người dùng chọn tải lên CV mới
-                byte[] resumeBytes = cvFile.getBytes(); // Lấy bytes từ file tải lên
-                jSK.setResume(new String(resumeBytes)); // Lưu CV vào đối tượng JobSeekers
-                dao.save(jSK); // Lưu lại CV mới vào cơ sở dữ liệu
+                byte[] resumeBytes = cvFile.getBytes();
+                jSK.setResume(new String(resumeBytes));
+                dao.save(jSK);
             } else if ("choose".equals(cvOption)) {
-                // Nếu người dùng chọn CV có sẵn
                 // Không cần làm gì, đã có jSK
             }
 
@@ -121,7 +116,7 @@ public class ChiTietUngTuyenController {
             appDao.save(app);
             model.addAttribute("script", "<script>alert('Ứng tuyển thành công')</script>");
         } catch (Exception e) {
-            System.out.println(e);
+            model.addAttribute("script", "<script>alert('Ứng tuyển thất bại')</script>");
         }
 
         // Thêm các thuộc tính vào model để truyền sang view

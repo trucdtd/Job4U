@@ -76,6 +76,16 @@
 .pagination-number:hover:not(.active) {
 	text-decoration: underline;
 }
+.bg-image {
+    height: 150px; /* Đảm bảo chiều cao đủ lớn */
+    overflow: hidden; /* Ẩn phần ảnh bị cắt */
+}
+
+.card img {
+    width: 100%;
+    height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao */
+    object-fit: contain; /* Giữ nguyên tỷ lệ và không bị cắt */
+}
 </style>
 </head>
 <body>

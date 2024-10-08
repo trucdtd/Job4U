@@ -99,7 +99,6 @@ body {
 			</div>
 		</div>
 		<div class="text-center mt-4 mb-4">
-			<a href="/job4u/employers" class="btn btn-success">Quay lại</a>
 			<button class="btn btn-primary" disabled>Chấp Nhận CV</button>
 			<button class="btn btn-danger" disabled>Từ Chối CV</button>
 		</div>
