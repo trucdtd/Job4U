@@ -36,18 +36,17 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<p class="mb-1 text-reponsive">Dành cho ứng viên</p>
 					<ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0 ">
-						<li class="nav-item"><a
-							class="nav-link fw-bold text-success" aria-current="page"
-							href="/job4u">Trang chủ</a></li>
+						<li class="nav-item"><a class="nav-link fw-bold text-success"
+							aria-current="page" href="/job4u">Trang chủ</a></li>
 
 						<li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công
 								việc mới</a></li>
-						<li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà
-								tuyển dụng</a></li>
-						<li class="nav-item"><a class="nav-link" href="/job4u/profile">Ứng
-								tuyển</a></li>
-						<li class="nav-item"><a class="nav-link" href="/lienhe">Liên hệ</a>
-						</li>
+						<li class="nav-item"><a class="nav-link"
+							href="/job4u/employers">Nhà tuyển dụng</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/job4u/profile">Ứng tuyển</a></li>
+						<li class="nav-item"><a class="nav-link" href="/lienhe">Liên
+								hệ</a></li>
 					</ul>
 					<div class="d-flex-custom no-login" id="no-login">
 						<a name="" id="" class="btn btn-outline-success me-2 mb-3"
@@ -73,8 +72,8 @@
 							</ul>
 						</div>
 						<a name="" id="" class="btn rounded-circle me-3 shadow" href="#"
-							role="button"><img
-							src="/img/icons8-chat-60.png" height="25" alt="" /></a>
+							role="button"><img src="/img/icons8-chat-60.png" height="25"
+							alt="" /></a>
 						<div class="btn-group me-3">
 							<button class="btn btn-white dropdown-toggle rounded-pill shadow"
 								type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
