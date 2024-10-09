@@ -220,8 +220,9 @@ p {
 
 		<!-- </div> -->
 		<div class="text-center mt-4 mb-4">
-			<button class="btn btn-primary" disabled>Chấp Nhận CV</button>
-			<button class="btn btn-danger" disabled>Từ Chối CV</button>
+		
+			<button class="btn btn-primary" onclick="updateStatus(1)">Chấp Nhận CV</button>
+			<button class="btn btn-danger" onclick="updateStatus(2)">Từ Chối CV</button>
 			<button class="btn btn-primary" onclick="downloadPDF()">Tải
 				CV Dưới Dạng PDF</button>
 		</div>
@@ -255,7 +256,12 @@ p {
 			};
 			html2pdf().set(opt).from(element).save();
 		}
+		
+		
 	</script>
+	
+	
+	
 
 </body>
 </html>
