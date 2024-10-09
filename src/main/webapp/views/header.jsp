@@ -42,9 +42,9 @@
 
 						<li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công
 								việc mới</a></li>
-						<li class="nav-item"><a class="nav-link" href="/job4u/employers">Nhà
+						<li class="nav-item"><a class="nav-link" href="#">Nhà
 								tuyển dụng</a></li>
-						<li class="nav-item"><a class="nav-link" href="/job4u/profile">Ứng
+						<li class="nav-item"><a class="nav-link" href="/user">Ứng
 								tuyển</a></li>
 						<li class="nav-item"><a class="nav-link" href="/lienhe">Liên hệ</a>
 						</li>
@@ -56,8 +56,7 @@
 							ký</a>
 						<div>
 							<p class="mb-1 text-reponsive">Dành cho nhà tuyển dụng</p>
-							<a name="" id="" class="btn btn-dark me-2" href="#" role="button">Đăng
-								tuyển & tìm hồ sơ</a>
+							<a name="" id="" class="btn btn-dark me-2" href="/employers" role="button">Dành cho nhà tuyển dụng</a>
 						</div>
 					</div>
 					<div class="logined" id="logined">
@@ -95,8 +94,8 @@
 									href="<%= 
                     session.getAttribute("role") != null ? 
                     (session.getAttribute("role").toString().equals("0") ? "/admin" : 
-                    (session.getAttribute("role").toString().equals("1") ? "/job4u/profile" : 
-                    (session.getAttribute("role").toString().equals("2") ? "/job4u/employers" : "#"))) : "#" %>">
+                    (session.getAttribute("role").toString().equals("1") ? "/user" : 
+                    (session.getAttribute("role").toString().equals("2") ? "/employers" : "#"))) : "#" %>">
 										<img class="m-1" src="/img/icons8-cv-80.png" height="25px"
 										width="25px" alt="Contact Info">
 										<p class="m-1 text-dropdown-menu">Quản lý trang</p>

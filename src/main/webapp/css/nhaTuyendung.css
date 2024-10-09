@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/* Màu nền mặc định của các liên kết menu */
+.navnhatuyendung {
+	color: white;
+	text-decoration: none;
+	padding: 10px 20px;
+	display: block;
+	border-radius: 4px;
+}
+
+.navnhatuyendung:hover, .navnhatuyendung.active {
+	background-color: #198754;
+	/* Màu nền khi hover hoặc khi liên kết đang hoạt động */
+}
+
+/* Đảm bảo rằng lớp active không ghi đè */
+.navnhatuyendung.active {
+	background-color: #198754 !important;
+}
+
+.content {
+	flex-grow: 1;
+	padding: 20px;
+	background-color: #f8f9fa;
+}
+
+.card {
+	margin-bottom: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+	background-color: #198754;
+	color: white;
+	border-bottom: none;
+	border-radius: 8px 8px 0 0;
+}
+
+.table th, .table td {
+	vertical-align: middle;
+}
+
+.table thead th {
+	background-color: #198754;
+	color: white;
+}
+
+.btn-primary, .btn-danger {
+	border-radius: 4px;
+}
+
+.dataTables_length, .dataTables_filter {
+	margin-top: 1rem; /* mt-3 */
+	margin-bottom: 1rem; /* mb-3 */
+}

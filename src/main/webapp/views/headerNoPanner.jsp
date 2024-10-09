@@ -36,17 +36,18 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<p class="mb-1 text-reponsive">Dành cho ứng viên</p>
 					<ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0 ">
-						<li class="nav-item"><a class="nav-link fw-bold text-success"
-							aria-current="page" href="/job4u">Trang chủ</a></li>
+						<li class="nav-item"><a
+							class="nav-link active fw-bold text-success" aria-current="page"
+							href="/job4u">Trang chủ</a></li>
 
 						<li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công
 								việc mới</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/job4u/employers">Nhà tuyển dụng</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/job4u/profile">Ứng tuyển</a></li>
-						<li class="nav-item"><a class="nav-link" href="/lienhe">Liên
-								hệ</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Nhà
+								tuyển dụng</a></li>
+						<li class="nav-item"><a class="nav-link" href="/user">Ứng
+								tuyển</a></li>
+						<li class="nav-item"><a class="nav-link" href="/lienhe">Liên hệ</a>
+						</li>
 					</ul>
 					<div class="d-flex-custom no-login" id="no-login">
 						<a name="" id="" class="btn btn-outline-success me-2 mb-3"
@@ -55,8 +56,7 @@
 							ký</a>
 						<div>
 							<p class="mb-1 text-reponsive">Dành cho nhà tuyển dụng</p>
-							<a name="" id="" class="btn btn-dark me-2" href="#" role="button">Đăng
-								tuyển & tìm hồ sơ</a>
+							<a name="" id="" class="btn btn-dark me-2" href="/employers" role="button">Dành cho nhà tuyển dụng</a>
 						</div>
 					</div>
 					<div class="logined" id="logined">
@@ -72,8 +72,8 @@
 							</ul>
 						</div>
 						<a name="" id="" class="btn rounded-circle me-3 shadow" href="#"
-							role="button"><img src="/img/icons8-chat-60.png" height="25"
-							alt="" /></a>
+							role="button"><img
+							src="/img/icons8-chat-60.png" height="25" alt="" /></a>
 						<div class="btn-group me-3">
 							<button class="btn btn-white dropdown-toggle rounded-pill shadow"
 								type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
@@ -94,8 +94,8 @@
 									href="<%= 
                     session.getAttribute("role") != null ? 
                     (session.getAttribute("role").toString().equals("0") ? "/admin" : 
-                    (session.getAttribute("role").toString().equals("1") ? "/job4u/profile" : 
-                    (session.getAttribute("role").toString().equals("2") ? "/job4u/employers" : "#"))) : "#" %>">
+                    (session.getAttribute("role").toString().equals("1") ? "/user" : 
+                    (session.getAttribute("role").toString().equals("2") ? "/employers" : "#"))) : "#" %>">
 										<img class="m-1" src="/img/icons8-cv-80.png" height="25px"
 										width="25px" alt="Contact Info">
 										<p class="m-1 text-dropdown-menu">Quản lý trang</p>
@@ -118,6 +118,7 @@
 				</div>
 			</div>
 		</nav>
+
 		<!-- end nav -->
 	</header>
 

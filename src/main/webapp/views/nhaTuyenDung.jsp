@@ -14,70 +14,13 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<style>
-/* Màu nền mặc định của các liên kết menu */
-.nav-link {
-	color: white;
-	text-decoration: none;
-	padding: 10px 20px;
-	display: block;
-	border-radius: 4px;
-}
-
-.nav-link:hover, .nav-link.active {
-	background-color: #198754;
-	/* Màu nền khi hover hoặc khi liên kết đang hoạt động */
-}
-
-/* Đảm bảo rằng lớp active không ghi đè */
-.nav-link.active {
-	background-color: #198754 !important;
-}
-
-.content {
-	flex-grow: 1;
-	padding: 20px;
-	background-color: #f8f9fa;
-}
-
-.card {
-	margin-bottom: 20px;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-	background-color: #198754;
-	color: white;
-	border-bottom: none;
-	border-radius: 8px 8px 0 0;
-}
-
-.table th, .table td {
-	vertical-align: middle;
-}
-
-.table thead th {
-	background-color: #198754;
-	color: white;
-}
-
-.btn-primary, .btn-danger {
-	border-radius: 4px;
-}
-
-.dataTables_length, .dataTables_filter {
-	margin-top: 1rem; /* mt-3 */
-	margin-bottom: 1rem; /* mb-3 */
-}
-</style>
-
+<link rel="stylesheet" href="/css/nhaTuyendung.css">
 </head>
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
+
 	<div class="container">
 		<div class="container mt-4">
 			<!-- Thông báo thành công -->
@@ -102,19 +45,19 @@
 					</a>
 					<hr>
 					<ul class="nav nav-pills flex-column mb-auto">
-						<li><a href="#" class="nav-link text-dark active"
+						<li><a href="#" class=" navnhatuyendung nav-link text-dark active"
 							onclick="showTable(event, 'employersManagement')"> <i
 								class="bi bi-speedometer2 me-2"></i> Quản Lý Bài Đăng
 						</a></li>
-						<li><a href="#" class="nav-link text-dark"
+						<li><a href="#" class="navnhatuyendung nav-link text-dark"
 							onclick="showTable(event, 'postEmployers')"> <i
 								class="bi bi-table me-2"></i> Đăng Bài Tuyển Dụng
 						</a></li>
-						<li><a href="#" class="nav-link text-dark"
+						<li><a href="#" class="navnhatuyendung nav-link text-dark"
 							onclick="showTable(event, 'cvApply')"> <i
 								class="bi bi-grid me-2"></i> CV Ứng Tuyển
 						</a></li>
-						<li><a href="#" class="nav-link text-dark"
+						<li><a href="#" class="navnhatuyendung nav-link text-dark"
 							onclick="showTable(event, 'postingServices')"> <i
 								class="bi bi-house me-2"></i> Dịch Vụ Bài Đăng
 						</a></li>
@@ -565,8 +508,9 @@
 									type="text" class="form-control" id="jobType" name="jobType" />
 							</div>
 							<div class="mb-3">
-								<label for="postedDate" class="form-label">Ngày Đăng</label> <input type="date" 
-									class="form-control" id="postedDate" name="postedDate" readonly />
+								<label for="postedDate" class="form-label">Ngày Đăng</label> <input
+									type="date" class="form-control" id="postedDate"
+									name="postedDate" readonly />
 							</div>
 							<div class="mb-3">
 								<label for="applicationDeadline" class="form-label">Hạn
