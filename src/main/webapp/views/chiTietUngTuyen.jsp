@@ -274,7 +274,6 @@ body {
 		</div>
 
 		<%@ include file="/views/footer.jsp"%>
-		${script}
 		<script>
 			document
 					.addEventListener(
@@ -436,11 +435,6 @@ body {
 			}
 		}
 	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-
 
 </body>
 </html>

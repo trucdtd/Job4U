@@ -170,7 +170,7 @@
 												        </script>
 												</span></td>
 												<td>${job.jobtype}</td>
-												<td>${job.posteddate}</td>
+												<td class="formatted-date" data-date="${job.posteddate}"></td>
 												<%-- <td>${job.applicationdeadline}</td> --%>
 												<td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td>
 												<td>
@@ -199,9 +199,15 @@
 												</td>
 												<!-- XEM CV -->
 												<td>
-													<button type="button" class="btn btn-sm btn-detail">
-														<img alt="" src="/img/icons8-eye-24.png" height="25px">
-													</button>
+													<form action="/job4u/employers/xemcv" method="post"
+														onsubmit="return false;">
+														<!-- Ngăn form gửi -->
+														<button type="button" class="btn btn-sm btn-detail"
+															data-bs-toggle="modal" data-bs-target="#detailModal"
+															onclick="fetchCV(${job.jobid})">
+															<img alt="" src="/img/icons8-eye-24.png" height="25px">
+														</button>
+													</form>
 												</td>
 												<!-- XEM CV -->
 											</tr>
@@ -210,6 +216,43 @@
 								</table>
 							</div>
 						</form>
+					</div>
+				</div>
+
+
+				<!-- Modal Xem CV -->
+				<div class="modal fade" id="detailModal" tabindex="-1"
+					aria-labelledby="detailModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="detailModalLabel">CV đã nộp</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Tên Ứng Viên</th>
+											<th>Ngày Nộp</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${dsCV}" var="application">
+											<tr>
+												<td>${application.jobseeker.user.fullname}</td>
+												<td>${application.jobseeker.createdat}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Đóng</button>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -449,10 +492,10 @@
 											<th>${cv.job.jobtitle}</th>
 											<td>${cv.jobseeker.user.fullname}</td>
 											<th>${cv.resume}</th>
-											<td>${cv.jobseeker.createdat}</td>
+											<td class="formatted-date" data-date="${cv.applicationdate}"></td>
 											<td>
-												<form action="/cvDetails/${cv.applicationid}"
-													method="get" style="display: inline;">
+												<form action="/cvDetails/${cv.applicationid}" method="get"
+													style="display: inline;">
 													<button type="submit"
 														class="btn btn-success text-light text-white p-2">Xem
 														Thêm</button>
@@ -478,7 +521,7 @@
 			<!-- article -->
 		</div>
 
-		<!-- Modal -->
+		<!-- Modal Chỉnh Sửa Bài Đăng Tuyển Dụng-->
 		<div class="modal fade" id="editJobModal" tabindex="-1"
 			aria-labelledby="editJobModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -490,8 +533,7 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form id="editJobForm" action="/employers/edit"
-							method="post">
+						<form id="editJobForm" action="/employers/edit" method="post">
 							<input type="hidden" id="jobId" name="jobId" />
 							<div class="mb-3">
 								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
@@ -523,7 +565,7 @@
 									type="text" class="form-control" id="jobType" name="jobType" />
 							</div>
 							<div class="mb-3">
-								<label for="postedDate" class="form-label">Ngày Đăng</label> <input
+								<label for="postedDate" class="form-label">Ngày Đăng</label> <input type="date" 
 									class="form-control" id="postedDate" name="postedDate" readonly />
 							</div>
 							<div class="mb-3">
@@ -733,6 +775,27 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dateCells = document.querySelectorAll('.formatted-date');
+
+        dateCells.forEach(cell => {
+            const dateString = cell.getAttribute('data-date'); // Lấy giá trị ngày từ thuộc tính data-date
+            const date = new Date(dateString); // Chuyển đổi chuỗi thành đối tượng Date
+
+            // Kiểm tra xem ngày hợp lệ hay không
+            if (!isNaN(date)) {
+                // Định dạng ngày theo dd/MM/yyyy
+                const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                const formattedDate = date.toLocaleDateString('vi-VN', options); // Định dạng theo ngôn ngữ Việt Nam
+
+                cell.textContent = formattedDate; // Cập nhật nội dung của ô
+            } else {
+                cell.textContent = 'Ngày không hợp lệ'; // Hiển thị thông báo nếu ngày không hợp lệ
+            }
+        });
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- JS for DataTables -->
 <script
