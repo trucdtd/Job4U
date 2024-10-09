@@ -149,12 +149,12 @@
 
 		<div class="row">
 			<aside class="col-md-3">
-				<h3>Bộ lộc</h3>
+				<!-- <h3>Bộ lộc</h3> -->
 				<div class="container mt-4">
 					<form action="/job4u/findJob" method="GET">
 						<div class="row mt-3">
 							<div class="col-md-12">
-								<label class="form-label" id="industry" name="industry">Ngành
+								<label class="form-label" id="industry" name="industry">Lộc theo ngành
 									nghề</label>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
