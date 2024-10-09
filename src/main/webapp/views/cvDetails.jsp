@@ -41,7 +41,7 @@ body {
 }
 
 .cv-header {
-	background-color: #66BB6A; /* Màu xanh lá nhạt hơn */
+	background-color: #1da868; /* Màu xanh lá nhạt hơn */
 	color: #ffffff; /* Màu chữ trắng */
 	padding: 20px 0; /* Khoảng cách bên trên và bên dưới */
 	margin-bottom: 30px; /* Khoảng cách dưới tiêu đề */
@@ -81,7 +81,7 @@ body {
     width: 100px; /* Chiều rộng của ảnh */
     height: 133px; /* Chiều cao của ảnh */
     border-radius: 5px; /* Bo tròn góc */
-    border: 2px solid #4CAF50; /* Đường viền màu xanh */
+    border: 2px solid #1da868; /* Đường viền màu xanh */
     object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
 }
 
@@ -111,7 +111,7 @@ body {
 
 .cv-section h3 {
 	font-size: 20px;
-	color: #4CAF50;
+	color: #1da868;
 	margin-bottom: 10px;
 	border-bottom: 1px solid #ccc;
 	padding-bottom: 5px;
