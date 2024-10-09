@@ -42,10 +42,8 @@
 
 						<li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công
 								việc mới</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Nhà
-								tuyển dụng</a></li>
-						<li class="nav-item"><a class="nav-link" href="/user">Ứng
-								tuyển</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Công ty</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Hồ sơ & CV</a></li>
 						<li class="nav-item"><a class="nav-link" href="/lienhe">Liên hệ</a>
 						</li>
 					</ul>
@@ -118,8 +116,6 @@
 				</div>
 			</div>
 		</nav>
-
-		<!-- end nav -->
 	</header>
 
 	<!-- Include jQuery -->
