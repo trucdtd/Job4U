@@ -116,7 +116,7 @@
 			</div>
 		</nav>
 		<section class="banner mb-4 shadow">
-			<img src="/img/poster2.png" class="img-fluid" alt="Banner Image">
+			<img src="/img/poster1.png" class="img-fluid" alt="Banner Image">
 		</section>
 		<!-- end nav -->
 	</header>
