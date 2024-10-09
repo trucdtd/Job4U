@@ -1,22 +1,22 @@
-/* Đảm bảo header chiếm toàn bộ chiều rộng màn hình */
+/* /* Đảm bảo header chiếm toàn bộ chiều rộng màn hình
 header {
 	width: 100%;
 	position: relative;
 }
 
-/* Đảm bảo nav cũng chiếm toàn bộ chiều rộng màn hình */
+Đảm bảo nav cũng chiếm toàn bộ chiều rộng màn hình
 .navbar {
 	width: 100%;
 }
 
-/* Đảm bảo phần banner cũng chiếm toàn bộ chiều rộng */
-.banner img {
+Đảm bảo phần banner cũng chiếm toàn bộ chiều rộng
+*/ .banner img {
 	width: 100%;
 	height: 370px;
-	object-fit: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ chiều rộng */
-}
-
-/* Định dạng các nút đăng nhập và đăng ký trong offcanvas */
+	object-fit: cover;} /* Đảm bảo hình ảnh bao phủ toàn bộ chiều rộng/*
+} 
+/*
+Định dạng các nút đăng nhập và đăng ký trong offcanvas
 .offcanvas-body .login-button {
 	background-color: #fff;
 	font-weight: 500;
@@ -32,10 +32,10 @@ header {
 
 .offcanvas-body .login-button:hover {
 	background-color: #c0c9c9;
-	color: #009944; /* Đảm bảo màu chữ khi hover */
+	color: #009944; Đảm bảo màu chữ khi hover
 }
 
-/* Định dạng hình ảnh của thương hiệu trong thanh điều hướng */
+Định dạng hình ảnh của thương hiệu trong thanh điều hướng
 .navbar-brand img {
 	height: 40px;
 	width: 40px;
@@ -52,7 +52,7 @@ nav .nav-link {
 	color: #198754;
 }
 
-/* Định dạng các liên kết trong thanh điều hướng cho màn hình nhỏ */
+Định dạng các liên kết trong thanh điều hướng cho màn hình nhỏ
 @media ( max-width : 990px) {
 	.login-button {
 		margin-top: 10px;
@@ -68,7 +68,7 @@ nav .nav-link {
 	}
 }
 
-/* Định dạng các thành phần navbar-toggler */
+Định dạng các thành phần navbar-toggler
 .navbar-toggler {
 	border: none;
 	font-size: 1.25rem;
@@ -80,17 +80,67 @@ nav .nav-link {
 }
 
 .disabled-link {
-	pointer-events: none; /* Vô hiệu hóa sự kiện chuột */
+	pointer-events: none; Vô hiệu hóa sự kiện chuột
 	color: grey;
-	/* Thay đổi màu sắc liên kết để báo hiệu không thể nhấp được */
+	Thay đổi màu sắc liên kết để báo hiệu không thể nhấp được
 }
-/* Lớp CSS tùy chỉnh cho dropdown menu */
+Lớp CSS tùy chỉnh cho dropdown menu
 .dropdown-menu-custom {
     padding: 0;
     margin: 0;
     position: absolute;
     top: 100%;
     right: 0;
-    width: max-content; /* Đảm bảo chiều rộng của menu phù hợp với nội dung */
-    transform: none; /* Loại bỏ transform nếu không cần thiết */
+    width: max-content; Đảm bảo chiều rộng của menu phù hợp với nội dung
+    transform: none; Loại bỏ transform nếu không cần thiết
+} */ 
+.bg-white {
+  background-color: #fff;
+}
+nav{
+    height: 70px;
+}
+header nav .navbar-link:hover {
+  color: #198754;
+}
+.navbar-toggler {
+  padding: 7px;
+  border: 0;
+  background-color: #ccffcc;
+  border-radius: 100px;
+}
+.navbar-toggler img {
+  width: 35px;
+  height: 35px;
+} 
+.text-reponsive{
+display: none;
+}
+.d-flex-custom{
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .navbar-brand-text-p {
+    display: none;
+  }
+  .navbar-collapse{
+    background-color: #f8f9fa;
+    padding: 10px;
+  }
+  nav div ul li {
+    background-color: #fff;
+    color: #198754;
+    font-weight: bold;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  .d-flex-custom{
+    display: block;
+  } 
+  .text-reponsive{
+    display: block;
+  }
 }
