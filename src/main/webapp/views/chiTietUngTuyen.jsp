@@ -266,7 +266,7 @@ body {
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">Hủy</button>
-							<button type="submit" class="btn btn-primary">Nộp CV</button>
+							<button type="submit" class="btn btn-success">Nộp CV</button>
 						</div>
 					</div>
 				</form>
@@ -274,6 +274,7 @@ body {
 		</div>
 
 		<%@ include file="/views/footer.jsp"%>
+		${script}
 		<script>
 			document
 					.addEventListener(
