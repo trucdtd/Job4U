@@ -50,6 +50,57 @@
 
 				<!-- Divider -->
 				<hr class="sidebar-divider my-0" />
+					<!-- Nav Item - Dashboard -->
+					<li class="nav-item active"><a class="nav-link" href="#">
+							<i class="fas fa-fw fa-chart-area"></i> <span>Thống kê</span>
+					</a></li>
+					<!-- Divider -->
+					<hr class="sidebar-divider d-none d-md-block" />
+					<li class="nav-item"><a class="nav-link collapsed" href="#"
+						data-toggle="collapse" data-target="#collapsePages"
+						aria-expanded="true" aria-controls="collapsePages"> <i
+							class="fas fa-fw fa-table"></i> <span>Quản lý CV</span>
+					</a>
+						<div id="collapsePages" class="collapse"
+							aria-labelledby="headingPages" data-parent="#accordionSidebar">
+							<div class="bg-white py-2 collapse-inner rounded">
+								<a class="collapse-item" href="/user/cv">Thông tin
+									CV</a> 
+									<a class="collapse-item" href="#">Danh
+									sách CV</a> <a class="collapse-item" href="#">Mẫu CV</a>
+							</div>
+						</div></li>
+
+					<!-- Nav Item - Charts -->
+					<li class="nav-item"><a class="nav-link"
+						href="/ThongTinCaNhan"> <i class="fas fa-fw fa-info"></i> <span>Thông
+								tin cá nhân</span>
+					</a></li>
+					<!-- Nav Item - Tables -->
+					<!-- Divider -->
+					<hr class="sidebar-divider" />
+					<!-- Nav Item - Pages Collapse Menu -->
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="fa fa-cog fa-spin fa-fw"></i> <span>Cài đặt</span>
+					</a></li>
+					<!-- Divider -->
+					<hr class="sidebar-divider" />
+					<!-- Heading -->
+
+					<!-- Sidebar Toggler (Sidebar) -->
+					<div class="text-center d-none d-md-inline">
+						<button class="rounded-circle border-0" id="sidebarToggle"></button>
+					</div>
+				</ul>
+				<!-- End of Sidebar -->
+
+				<!-- Content Wrapper -->
+				<div id="content-wrapper" class="d-flex flex-column">
+					<!-- Main Content -->
+					<div id="content">
+						<!-- include Page Content -->
+						<div class="container-fluid">
+							<jsp:include page="/views/profile/${page}"></jsp:include>
 
 				<!-- Nav Item - Dashboard -->
 				<li class="nav-item active"><a class="nav-link"
@@ -112,10 +163,12 @@
 		</div>
 	</div>
 	</div>
+</div>
 	<br>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
+
 	<!-- Bootstrap core JavaScript-->
 	<script src="/vendor/jquery/jquery.min.js"></script>
 	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
