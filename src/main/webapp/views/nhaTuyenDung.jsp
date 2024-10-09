@@ -33,7 +33,6 @@
 /* Đảm bảo rằng lớp active không ghi đè */
 .nav-link.active {
 	background-color: #198754 !important;
-	/* Màu nền khi mục menu được chọn */
 }
 
 .content {
@@ -66,6 +65,11 @@
 
 .btn-primary, .btn-danger {
 	border-radius: 4px;
+}
+
+.dataTables_length, .dataTables_filter {
+	margin-top: 1rem; /* mt-3 */
+	margin-bottom: 1rem; /* mb-3 */
 }
 </style>
 
@@ -128,22 +132,23 @@
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<form class="p-4" action="/job4u/employers" method="get"
+						<form class="p-2" action="/job4u/employers" method="get"
 							id="nhaTuyenDung">
 							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
+								<table id="myTable" class="table align-items-center">
 									<thead class="thead-light">
 										<tr>
 											<th scope="col">Tên Công Việc</th>
 											<th scope="col">Vị Trí</th>
-											<th scope="col">Mô Tả Công Việc</th>
-											<th scope="col">Yêu Cầu</th>
+											<!-- <th scope="col">Mô Tả Công Việc</th>
+											<th scope="col">Yêu Cầu</th> -->
 											<th scope="col">Lương</th>
 											<th scope="col">Loại Công Việc</th>
 											<th scope="col">Ngày Đăng</th>
-											<th scope="col">Hạn Nộp Hồ Sơ</th>
+											<!-- <th scope="col">Hạn Nộp Hồ Sơ</th> -->
 											<th scope="col">Trạng Thái</th>
 											<th scope="col">Hành Động</th>
+											<th scope="col">Xem CV</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -151,8 +156,8 @@
 											<tr data-jobid="${job.jobid}">
 												<td>${job.jobtitle}</td>
 												<td>${job.joblocation}</td>
-												<td>${job.jobdescription}</td>
-												<td>${job.jobrequirements}</td>
+												<%-- <td>${job.jobdescription}</td>
+												<td>${job.jobrequirements}</td> --%>
 												<td><span
 													style="display: inline-flex; align-items: center;">
 														<script>
@@ -166,7 +171,7 @@
 												</span></td>
 												<td>${job.jobtype}</td>
 												<td>${job.posteddate}</td>
-												<td>${job.applicationdeadline}</td>
+												<%-- <td>${job.applicationdeadline}</td> --%>
 												<td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td>
 												<td>
 													<div class="d-flex align-items-center">
@@ -192,6 +197,13 @@
 														</form>
 													</div>
 												</td>
+												<!-- XEM CV -->
+												<td>
+													<button type="button" class="btn btn-sm btn-detail">
+														<img alt="" src="/img/icons8-eye-24.png" height="25px">
+													</button>
+												</td>
+												<!-- XEM CV -->
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -200,12 +212,8 @@
 						</form>
 					</div>
 				</div>
-				<!-- Bảng quản lý bài đăng-->
-				<!-- Thông báo thành công hoặc lỗi -->
-				<div class="d-flex justify-content-center align-items-center mt-4">
-					<div class="alert text-truncate" style="max-width: 400px;">${message}</div>
-				</div>
 
+				<!-- Bảng quản lý bài đăng-->
 				<!-- bài đăng -->
 				<div id="postEmployers" class="card" style="display: none;">
 					<div class="card-header">
@@ -420,13 +428,12 @@
 
 				<!-- Quản lý cv -->
 				<div id="cvApply" class="card" style="display: none;">
-
 					<div class="card-header">
 						<div class="card-title">CV Ứng tuyển</div>
 					</div>
-					<div class="card-body p-0">
+					<div class="card-body p-2">
 						<div class="table-responsive">
-							<table class="table align-items-center mb-0">
+							<table id="cvTable" class="table align-items-center">
 								<thead class="thead-light">
 									<tr>
 										<th scope="col">Tiêu để bài viết</th>
@@ -677,11 +684,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
+
 <script>
 function confirmDelete() {
     return confirm("Bạn có chắc chắn muốn xóa bài đăng này?");
 }
 </script>
+
+<script>
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
+    });
+
+    $('#cvTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
+    });
+});
+</script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- JS for DataTables -->
+<script
+	src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<!-- CSS for DataTables -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
 </html>

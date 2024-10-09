@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/job4u/profile")
-public class Add_CV_Controller {
+public class UsersController {
 	@Autowired
 	JobSeekersDao dao;
 	@Autowired
