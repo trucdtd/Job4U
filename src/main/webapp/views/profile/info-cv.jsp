@@ -14,7 +14,7 @@
 		<h4 class="m-0 font-weight-bold text-center pt-2" style="color:#198754">
 			HÌNH ẢNH</h4>
 		<form:form class="d-flex justify-content-center" metthod="post"
-			action="/job4u/profile/cv">
+			action="/user">
 			<img alt="" src="/img/user-default.jpg" width=200px class="p-3">
 			<div class="p-3">
 				<input type="file" class="row mt-3 mb-4">
