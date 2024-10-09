@@ -31,18 +31,17 @@
 					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false"
 					aria-label="Toggle navigation">
-					<img src="/icon/icons8-menu-50 (1).png" alt="" />
+					<img src="img/icons8-menu.png" alt="" />
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<p class="mb-1 text-reponsive">Dành cho ứng viên</p>
 					<ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0 ">
 						<li class="nav-item"><a
-							class="nav-link active fw-bold text-success" aria-current="page"
+							class="nav-link" aria-current="page"
 							href="/job4u">Trang chủ</a></li>
 
 						<li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công
 								việc mới</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Công ty</a></li>
+						<li class="nav-item"><a class="nav-link" href="/ListEmployers">Công ty</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Hồ sơ & CV</a></li>
 						<li class="nav-item"><a class="nav-link" href="/lienhe">Liên hệ</a>
 						</li>
@@ -116,6 +115,7 @@
 				</div>
 			</div>
 		</nav>
+		<!-- end nav -->
 	</header>
 
 	<!-- Include jQuery -->

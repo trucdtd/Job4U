@@ -120,7 +120,18 @@ display: none;
     display: flex;
     justify-content: center;
 }
+.dropdown-item:hover {
+    background-color: #c0c0c0!important; /* Màu xanh khi hover */
+    color: white !important; /* Màu chữ khi hover */
+}
 
+.dropdown-menu {
+    background-color: #f8f9fa; /* Màu nền của menu dropdown */
+}
+
+.dropdown-item {
+    color: #198754; /* Màu chữ mặc định */
+}
 @media (max-width: 991px) {
   .navbar-brand-text-p {
     display: none;
