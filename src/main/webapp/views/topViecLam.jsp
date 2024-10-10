@@ -55,7 +55,7 @@
 .pagination-btn, .pagination-number {
 	background: none;
 	border: none;
-	color: #007bff;
+	color: #1ea264;
 	font-size: 16px;
 	margin: 0 5px;
 	cursor: pointer;
@@ -67,7 +67,7 @@
 }
 
 .pagination-number.active {
-	background-color: #007bff;
+	background-color: #1ea264;
 	color: white;
 	border-radius: 50%;
 	padding: 5px 10px;

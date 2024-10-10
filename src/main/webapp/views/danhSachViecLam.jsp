@@ -22,7 +22,7 @@
 .pagination-btn {
 	background: none;
 	border: none;
-	color: #007bff;
+	color: #1ea264;
 	font-size: 16px;
 	margin: 0 10px;
 	cursor: pointer;
@@ -40,7 +40,7 @@
 .pagination-number {
 	background: none;
 	border: none;
-	color: #007bff;
+	color: #1ea264;
 	font-size: 16px;
 	margin: 0 5px;
 	cursor: pointer;
