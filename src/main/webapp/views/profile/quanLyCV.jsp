@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div>
-		<h3>CV đã tạo</h3>
+		<h3 class="mb-3 mt-3">CV Đã Tạo</h3>
 		<table id="listCV" class="table table-striped">
 			<thead>
 				<tr>

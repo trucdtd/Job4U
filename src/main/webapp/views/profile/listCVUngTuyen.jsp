@@ -14,7 +14,7 @@
 </head>
 <body>
 <div>
-        <h3>Danh sách CV đã nộp</h3>
+        <h3 class="mt-3 mb-3">Danh Sách CV Đã Nộp</h3>
         <table id="listCV" class="table table-striped">
             <thead>
                 <tr>
