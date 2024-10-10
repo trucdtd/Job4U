@@ -1,155 +1,116 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Thông Tin CV</title>
+    <meta charset="UTF-8">
+    <title>Thông Tin CV</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        .image-upload {
+            border: 2px dashed #198754;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .image-upload img {
+            max-width: 100%;
+            max-height: 200px;
+        }
+    </style>
 </head>
 <body>
-	<!-- Begin Page Content -->
-	<div class="container shadow bg-white mb-3">
-		<h4 class="m-0 font-weight-bold text-center pt-2" style="color:#198754">
-			HÌNH ẢNH</h4>
-		<form:form class="d-flex justify-content-center" metthod="post"
-			action="/user">
-			<img alt="" src="/img/user-default.jpg" width=200px class="p-3">
-			<div class="p-3">
-				<input type="file" class="row mt-3 mb-4">
-				<button class="btn row" type="submit" style="background:#198754; color:#fff"">Cập nhật</button>
-			</div>
-		</form:form>
-	</div>
-	<div class="container shadow bg-white mb-3">
-		<h4 class="m-0 font-weight-bold text-center pt-2"  style="color:#198754">
-			THÔNG TIN CV</h4>
-		<form:form action="/job4u/profile/cv" modelAttribute="entity">
-			<div class="card border-0 row">
-				<div class="card-body">
-					<div class="">
-						<label for="" class="form-label">Tóm tắt hồ sơ</label>
-						<form:textarea path="profilesummary"
-							class="form-control" name="" id="" rows="4"></form:textarea>
-					</div>
+    <div class="container mt-5">
+        <h4 class="text-center text-success">CẬP NHẬT HÌNH ẢNH & THÔNG TIN CV</h4>
+        <form:form method="post" action="/user/cv" enctype="multipart/form-data">
+            <div class="text-center mb-4">
+                <div class="image-upload" onclick="document.getElementById('imageInput').click();">
+                    <img alt="Hình đại diện" src="/img/user-default.jpg" id="profileImage" class="p-3 rounded-circle">
+                    <p>Nhấn để chọn ảnh (không bắt buộc)</p>
+                    <input type="file" id="imageInput" name="image" accept="image/*" style="display:none;" onchange="previewImage(event);">
+                </div>
+            </div>
 
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="card border-0 mb-0">
-						<div class="card-body">
-							<div>
-								<label for="" class="form-label">Hồ sơ</label>
-								<form:input path="resume" type="text"
-									class="form-control " name="" id=""
-									aria-describedby="helpId" placeholder="" />
-							</div>
-						</div>
-					</div>
-					<div class="card border-0">
-						<div class="card-body">
-							<div>
-								<label for="" class="form-label">Kinh nghiệm</label>
-								<form:input path="jobseekerid" type="text"
-									class="form-control " name="" id=""
-									aria-describedby="helpId" placeholder="" />
-							</div>
-						</div>
-					</div>
-					<div class="card border-0">
-						<div class="card-body">
-							<div>
-								<label for="" class="form-label">Kinh nghiệm</label>
-								<form:input path="experience" type="text"
-									class="form-control" name="" id=""
-									aria-describedby="helpId" placeholder="" />
-							</div>
-						</div>
-					</div>
+            <div class="mb-3">
+                <label>Giới tính:</label>
+                <div class="d-flex justify-content-center">
+                    <div class="form-check me-3">
+                        <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Nam" required>
+                        <label class="form-check-label" for="genderMale">Nam</label>
+                    </div>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Nữ">
+                        <label class="form-check-label" for="genderFemale">Nữ</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="genderOther" value="Khác">
+                        <label class="form-check-label" for="genderOther">Khác</label>
+                    </div>
+                </div>
+            </div>
 
-					<div class="card border-0">
-						<div class="card-body">
-							<div>
-								<label for="" class="form-label">Học vấn</label>
-								<form:input path="education" type="text"
-									class="form-control " name="" id=""
-									aria-describedby="helpId" placeholder="" />
-							</div>
-						</div>
-					</div>
-					<div class="card border-0">
-						<div class="card-body">
-							<div>
-								<label for="" class="form-label">Kĩ năng</label>
-								<form:input path="skills" type="text"
-									class="form-control" name="" id=""
-									aria-describedby="helpId" placeholder="" />
-							</div>
-						</div>
-					</div>
+            <div class="mb-3">
+                <label for="dateOfbirth">Ngày sinh:</label>
+                <input type="date" class="form-control" id="dateOfbirth" name="dateOfbirth" required>
+            </div>
 
+            <div class="mb-3">
+                <label for="resume">Hồ sơ:</label>
+                <textarea class="form-control" id="resume" name="resume" rows="4" required></textarea>
+            </div>
 
-				</div>
+            <div class="mb-3">
+                <label for="profilesummary">Tóm tắt hồ sơ:</label>
+                <textarea class="form-control" id="profilesummary" name="profilesummary" rows="4"></textarea>
+            </div>
 
-				<!-- Border Bottom Utilities -->
-				<div class="col-lg-6">
+            <div class="mb-3">
+                <label for="experience">Kinh nghiệm:</label>
+                <textarea class="form-control" id="experience" name="experience" rows="4"></textarea>
+            </div>
 
-					<div class="card border-0">
-						<div class="card-body">
-							<div>
-								<label for="" class="form-label">Ngày sinh</label>
-								<form:input path="dateOfbirth" type="Date"
-									class="form-control " name="" id=""
-									aria-describedby="helpId" placeholder="" />
-							</div>
-						</div>
-					</div>
+            <div class="mb-3">
+                <label for="education">Giáo dục:</label>
+                <textarea class="form-control" id="education" name="education" rows="4"></textarea>
+            </div>
 
-					<div class="card border-0">
-						<div class="card-body">
-							<label for="" class="form-label pt-2">Giới tính</label>
-							<div class="d-flex">
-								<div class="form-check m-1">
-									<form:radiobutton path="gender" value="Nam" />
-									Nam
-								</div>
-								<div class="form-check m-1">
-									<form:radiobutton path="gender" value="Nữ" />
-									Nữ
+            <div class="mb-3">
+                <label for="skills">Kỹ năng:</label>
+                <textarea class="form-control" id="skills" name="skills" rows="5"></textarea>
+            </div>
 
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card border-0">
-						<div class="card-body">
-							<div>
-								<label for="" class="form-label">Ngôn ngữ</label>
-								<form:input path="languages" type="text"
-									class="form-control " name="" id=""
-									aria-describedby="helpId" placeholder="" />
-							</div>
-						</div>
-					</div>
-					<div class="card border-0">
-						<div class="card-body">
-							<div>
-								<div class="">
-									<label for="" class="form-label">Sở thích</label>
-									<form:textarea path="interests"
-										class="form-control " name="" id=""
-										rows="3"></form:textarea>
-								</div>
+            <div class="mb-3">
+                <label for="certifications">Chứng chỉ:</label>
+                <textarea class="form-control" id="certifications" name="certifications" rows="4"></textarea>
+            </div>
 
-							</div>
-						</div>
-					</div>
-				</div>
-				<button class="btn row" type="submit" style="background:#198754; color:#fff"">Cập nhật</button>
-		</form:form>
-	</div>
+            <div class="mb-3">
+                <label for="languages">Ngôn ngữ:</label>
+                <textarea class="form-control" id="languages" name="languages" rows="5"></textarea>
+            </div>
 
+            <div class="mb-3">
+                <label for="interests">Sở thích:</label>
+                <textarea class="form-control" id="interests" name="interests" rows="4"></textarea>
+            </div>
+
+            <input type="hidden" name="userId" value="1">
+            <button type="submit" class="btn btn-success mb-3">Tạo CV</button>
+        </form:form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const image = document.getElementById('profileImage');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>

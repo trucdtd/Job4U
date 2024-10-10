@@ -26,7 +26,6 @@
     <!-- Header -->
     <%@ include file="/views/headerNoPanner.jsp"%>
     <br>
-
     <div class="container">
         <!-- Page Wrapper -->
         <div id="page-top">
@@ -36,7 +35,6 @@
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                         <div class="sidebar-brand-text mx-3">Trang cá nhân</div>
                     </a>
-
                     <hr class="sidebar-divider my-0" />
 
                     <li class="nav-item active">
@@ -53,9 +51,9 @@
                         </a>
                         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="/user/cv">Thông tin CV</a>
-                                <a class="collapse-item" href="/user/cv/list">Danh sách CV</a>
-                                <a class="collapse-item" href="#">Mẫu CV</a>
+                                <a class="collapse-item" href="/user/cv">Tạo CV</a>
+                                <a class="collapse-item" href="/user/cv/list">Danh sách CV đã nộp</a>
+                                <a class="collapse-item" href="/user/cv/list2">Quản lý CV</a>
                             </div>
                         </div>
                     </li>
