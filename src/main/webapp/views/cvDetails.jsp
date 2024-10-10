@@ -74,35 +74,34 @@ body {
 }
 
 .photo-container {
-    position: relative;
+	position: relative;
 }
 
 .cv-photo {
-    width: 100px; /* Chiều rộng của ảnh */
-    height: 133px; /* Chiều cao của ảnh */
-    border-radius: 5px; /* Bo tròn góc */
-    border: 2px solid #4CAF50; /* Đường viền màu xanh */
-    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
+	width: 100px; /* Chiều rộng của ảnh */
+	height: 133px; /* Chiều cao của ảnh */
+	border-radius: 5px; /* Bo tròn góc */
+	border: 2px solid #4CAF50; /* Đường viền màu xanh */
+	object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
 }
 
 .placeholder-photo {
-    width: 100px; /* Chiều rộng của khung placeholder */
-    height: 133px; /* Chiều cao của khung placeholder */
-    border-radius: 5px; /* Bo tròn góc */
-    background-color: #f0f0f0; /* Màu nền cho khung */
-    display: flex; /* Để căn giữa hình ảnh trong khung */
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
-    border: 2px solid #4CAF50; /* Đường viền màu xanh */
+	width: 100px; /* Chiều rộng của khung placeholder */
+	height: 133px; /* Chiều cao của khung placeholder */
+	border-radius: 5px; /* Bo tròn góc */
+	background-color: #f0f0f0; /* Màu nền cho khung */
+	display: flex; /* Để căn giữa hình ảnh trong khung */
+	justify-content: center; /* Căn giữa theo chiều ngang */
+	align-items: center; /* Căn giữa theo chiều dọc */
+	border: 2px solid #4CAF50; /* Đường viền màu xanh */
 }
 
 .placeholder {
-    width: 50px; /* Kích thước hình ảnh placeholder */
-    height: 50px; /* Kích thước hình ảnh placeholder */
-    border-radius: 50%; /* Để tạo hình tròn cho placeholder */
-    background-color: #a0a0a0; /* Màu nền cho placeholder */
+	width: 50px; /* Kích thước hình ảnh placeholder */
+	height: 50px; /* Kích thước hình ảnh placeholder */
+	border-radius: 50%; /* Để tạo hình tròn cho placeholder */
+	background-color: #a0a0a0; /* Màu nền cho placeholder */
 }
-
 
 /* Các phần khác */
 .cv-section {
@@ -157,8 +156,7 @@ p {
 					<h3>Thông Tin Cá Nhân</h3>
 					<div class="info-grid">
 						<div class="photo-container">
-							<img src=""
-								alt="Ảnh ứng viên" class="cv-photo"
+							<img src="" alt="Ảnh ứng viên" class="cv-photo"
 								onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
 							<div class="placeholder-photo" style="display: none;">
 								<img src="path/to/placeholder-image.png" alt="Khung ảnh"
@@ -220,10 +218,9 @@ p {
 
 		<!-- </div> -->
 		<div class="text-center mt-4 mb-4">
-		<input type="hidden" id="applicationId" value="${applicationId}" />
-		<button type="button" class="btn btn-primary" onclick="updateStatus(1)">Chấp Nhận CV</button>
-    	<button type="button" class="btn btn-danger" onclick="updateStatus(2)">Từ Chối CV</button>
-			<button class="btn btn-primary" onclick="downloadPDF()">Tải
+		<button  class="btn btn-primary" onclick="acceptApplication(${application.applicationid})">Chấp nhận</button>
+    	<button class="btn btn-danger" onclick="rejectApplication(${application.applicationid})">Từ Chối</button>
+		<button class="btn btn-primary" onclick="downloadPDF()">Tải
 				CV Dưới Dạng PDF</button>
 		</div>
 
@@ -258,41 +255,52 @@ p {
 		}						
 	</script>
 	
-	<script>
-
-	function updateStatus(status) {
-	    // Lấy applicationId từ phần tử ẩn
-	    const applicationId = document.getElementById('applicationId').value;
-
-	    // Kiểm tra nếu applicationId có giá trị
-	    if (!applicationId) {
-	        alert("Không tìm thấy applicationId.");
-	        return;
-	    }
-
-	    // Gửi yêu cầu cập nhật status
-	    fetch(`/cvDetails/updateStatus?applicationid=${applicationId}&status=${status}`, {
+   <script>
+   function acceptApplication(applicationId) {
+	    fetch(`/cvDetails/${applicationId}/accept`, {
 	        method: 'POST',
 	        headers: {
-	            'Content-Type': 'application/json'
+	            'Content-Type': 'application/json',
+	            'X-Requested-With': 'XMLHttpRequest'
 	        }
 	    })
 	    .then(response => {
-	        if (!response.ok) {
-	            throw new Error('Phản hồi mạng không hợp lệ');
+	        if (response.ok) {
+	            alert('Chấp nhận đơn ứng tuyển thành công!');
+	            window.location.reload();
+	        } else {
+	            alert('Có lỗi xảy ra khi chấp nhận đơn ứng tuyển!');
 	        }
-	        return response.json();
-	    })
-	    .then(data => {
-	        alert(data.message); // Hiển thị thông báo từ server
-	        // Có thể làm gì đó khác nếu cần
 	    })
 	    .catch(error => {
-	        console.error('Lỗi:', error);
-	        alert('Đã xảy ra lỗi khi cập nhật trạng thái CV.');
+	        console.error('Error:', error);
+	        alert('Có lỗi xảy ra khi chấp nhận đơn ứng tuyển!');
 	    });
 	}
-</script>
+
+   function rejectApplication(applicationId) {
+	    fetch(`/cvDetails/${applicationId}/reject`, {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	            'X-Requested-With': 'XMLHttpRequest'
+	        }
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            alert('Đã từ chối đơn ứng tuyển!');
+	            window.location.reload();
+	        } else {
+	            alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
+	        }
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	        alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
+	    });
+	}
+    </script>
+
 
 </body>
 </html>

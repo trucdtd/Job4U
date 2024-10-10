@@ -21,4 +21,5 @@ public interface ApplicationsDao extends JpaRepository<ApplicationsEntity, Integ
     List<ApplicationsEntity> findApplicationsByUserId(@Param("userid") Integer userid);
 
 
+    
 }
