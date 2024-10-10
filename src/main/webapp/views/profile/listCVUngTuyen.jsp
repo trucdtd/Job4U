@@ -48,27 +48,6 @@
     <!-- JS scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#listCV').DataTable({
-                "paging": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "language": {
-                    "paginate": {
-                        "next": "Tiếp theo",
-                        "previous": "Trước đó"
-                    },
-                    "lengthMenu": "Hiển thị _MENU_ mục",
-                    "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
-                    "zeroRecords": "Không tìm thấy kết quả nào",
-                    "infoEmpty": "Không có dữ liệu",
-                    "infoFiltered": "(lọc từ _MAX_ mục)",
-                    "search": "Tìm kiếm:"
-                }
-            });
-        });
-    </script>
+    
 </body>
 </html>
