@@ -110,7 +110,7 @@ public class NhaTuyenDungController {
 			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
 			@RequestParam(value = "logo", required = false) MultipartFile logo,
 			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
-			@RequestParam("jobtype") String jobtype, @RequestParam("salary") BigDecimal salary,
+			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) BigDecimal salary,
 			@RequestParam("companydescription") String companydescription,
 			@RequestParam("jobrequirements") String jobrequirements,
 			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
@@ -188,7 +188,7 @@ public class NhaTuyenDungController {
 	@PostMapping("/edit")
 	public String editJobPosting(@RequestParam("jobId") Integer jobId, @RequestParam("jobTitle") String jobTitle,
 			@RequestParam("jobLocation") String jobLocation, @RequestParam("jobDescription") String jobDescription,
-			@RequestParam("jobRequirements") String jobRequirements, @RequestParam("salaryEdit") BigDecimal salary,
+			@RequestParam("jobRequirements") String jobRequirements, @RequestParam(value = "salaryEdit", required = false) BigDecimal salary,
 			@RequestParam("jobType") String jobType, @RequestParam("postedDate") String postedDate,
 			@RequestParam("applicationDeadline") String applicationDeadline) {
 		// Tìm kiếm công việc theo jobId

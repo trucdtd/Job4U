@@ -52,4 +52,6 @@ public class JoblistingsService {
 //	 public List<JoblistingsEntity> getJobsByUserServiceId(Integer userServiceId) {
 //	        return joblistingsDao.findJobsByUserServiceId(userServiceId);
 //	    }
+	 
+	 
 }

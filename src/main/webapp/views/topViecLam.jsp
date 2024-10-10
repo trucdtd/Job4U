@@ -55,7 +55,7 @@
 .pagination-btn, .pagination-number {
 	background: none;
 	border: none;
-	color: #007bff;
+	color: #1ea264;
 	font-size: 16px;
 	margin: 0 5px;
 	cursor: pointer;
@@ -67,7 +67,7 @@
 }
 
 .pagination-number.active {
-	background-color: #007bff;
+	background-color: #1ea264;
 	color: white;
 	border-radius: 50%;
 	padding: 5px 10px;
@@ -224,7 +224,7 @@
 						<h5>${job.title}</h5>
 						<p>Công ty: ${job.employer.companyname}</p>
 						<p>Địa điểm: ${job.location}</p>
-						<a href="/job4u/chiTiet/${job.jobid}"
+						<a href="/chiTiet/${job.jobid}"
 							class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
 					</div>
 				</c:forEach>
@@ -256,8 +256,8 @@
 									<div
 										class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
 										<div class="d-flex flex-column mt-4">
-											<a href="/applyCV" class="btn btn-success btn-sm">Ứng
-												tuyển</a> <a href="/job4u/chiTiet/${job.jobid}"
+											<a href="/applyCV/${job.jobid}" class="btn btn-success btn-sm">Ứng
+												tuyển</a> <a href="/chiTiet/${job.jobid}"
 												class="btn btn-outline-success btn-sm mt-2">Thông tin
 												chi tiết</a>
 										</div>

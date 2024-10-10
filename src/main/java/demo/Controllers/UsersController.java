@@ -1,6 +1,7 @@
 package demo.Controllers;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import demo.dao.ApplicationsDao;
 import demo.dao.JobSeekersDao;
 import demo.dao.UsersDao;
+import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
 import demo.entity.UsersEntity;
 import demo.services.SessionService;
@@ -34,12 +37,16 @@ public class UsersController {
 	@Autowired
 	UsersDao userDao;
 
+	@Autowired
+	ApplicationsDao applicationsDao;
+
 	@GetMapping("")
 	public String home(Model model) {
 		String giaoDien = "index.jsp";
 		model.addAttribute("page", giaoDien);
 		return "trangCaNhanNguoiTimViec";
 	}
+	
 
 	@GetMapping("/cv")
 	public String getUpdateCV(Model model, JobSeekersEntity entity) {
@@ -92,5 +99,21 @@ public class UsersController {
 	    model.addAttribute("page", giaoDien);
 	    return "trangCaNhanNguoiTimViec";
 	}
+	
+	@GetMapping("/cv/list")
+    public String viewCvList(Model model) {
+        // Lấy ID người dùng từ phiên làm việc
+        Integer userId = (Integer) ss.getAttribute("userid");
+        
+        // Lấy danh sách CV của người dùng từ cơ sở dữ liệu
+        List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByUserId(userId);
+        
+        // Thêm danh sách CV vào mô hình
+        model.addAttribute("cvList", cvList);
+        
+        // Trả về trang JSP cho danh sách CV
+        model.addAttribute("page", "quanLyCV.jsp");  // Đường dẫn đến trang JSP cụ thể
+        return "trangCaNhanNguoiTimViec";  // Tên view mà bạn đã sử dụng
+    }
 
 }

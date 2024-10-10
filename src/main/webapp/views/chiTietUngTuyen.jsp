@@ -126,7 +126,17 @@ body {
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-currency-dollar text-success"></i> <strong>Lương:</strong>
-									<span id="salary">${job.salary} VNĐ</span>
+									<%-- <span id="salary">${job.salary} VNĐ</span> --%>
+									<c:choose>
+										<c:when test="${job.salary != null}">
+											<span style="display: inline-flex; align-items: center;">
+												${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+												VND </span>
+										</c:when>
+										<c:otherwise>
+								            Thỏa Thuận
+								        </c:otherwise>
+									</c:choose>
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-calendar-check text-success"></i> <strong>Ngày
@@ -266,7 +276,7 @@ body {
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">Hủy</button>
-							<button type="submit" class="btn btn-primary">Nộp CV</button>
+							<button type="submit" class="btn btn-success">Nộp CV</button>
 						</div>
 					</div>
 				</form>
@@ -359,71 +369,6 @@ body {
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	</div>
 	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			// Hàm định dạng ngày thành ngày/tháng/năm
-			function formatDate(dateString) {
-				var date = new Date(dateString);
-				var day = String(date.getDate()).padStart(2, '0');
-				var month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng trong JS bắt đầu từ 0
-				var year = date.getFullYear();
-				return day + '/' + month + '/' + year;
-			}
-
-			// Định dạng lương
-			function formatSalary(salaryText) {
-				salaryText = salaryText.replace('VNĐ', '').trim();
-				var salaryNumber = parseFloat(salaryText.replace(/\./g, '')
-						.replace(/,/g, ''));
-				var formattedSalary = salaryNumber.toString().replace(
-						/\B(?=(\d{3})+(?!\d))/g, '.');
-				return formattedSalary + ' VNĐ';
-			}
-
-			var salaryElement = document.getElementById("salary");
-			var salaryText = salaryElement.textContent
-					|| salaryElement.innerText;
-			salaryElement.innerHTML = formatSalary(salaryText);
-
-			var salaryElements = document
-					.querySelectorAll(".info-detail span[id='salary']");
-			salaryElements.forEach(function(element) {
-				var salaryText = element.textContent || element.innerText;
-				element.innerHTML = formatSalary(salaryText);
-			});
-
-			// Định dạng lại hạn nộp
-			var deadlineElement = document
-					.querySelector(".info-detail span[id='deadline']");
-			if (deadlineElement) {
-				var deadlineText = deadlineElement.textContent
-						|| deadlineElement.innerText;
-				deadlineElement.innerHTML = formatDate(deadlineText);
-			}
-		});
-	</script>
-	<script>
-		document.getElementById('cvOptions').addEventListener(
-				'change',
-				function() {
-					const option = this.value;
-					const uploadFileDiv = document
-							.getElementById('uploadFileDiv');
-					const existingCvDiv = document
-							.getElementById('existingCvDiv');
-
-					if (option === 'upload') {
-						uploadFileDiv.style.display = 'block';
-						existingCvDiv.style.display = 'none';
-					} else if (option === 'choose') {
-						uploadFileDiv.style.display = 'none';
-						existingCvDiv.style.display = 'block';
-					} else {
-						uploadFileDiv.style.display = 'none';
-						existingCvDiv.style.display = 'none';
-					}
-				});
-	</script>
-	<script>
 		function displayFileName() {
 			var fileInput = document.getElementById('cvFile');
 			var fileName = document.getElementById('fileName');
@@ -436,11 +381,6 @@ body {
 			}
 		}
 	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-
 
 </body>
 </html>
