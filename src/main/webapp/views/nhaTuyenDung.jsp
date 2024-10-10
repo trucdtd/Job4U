@@ -244,7 +244,7 @@
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="industry" class="form-label">Ngành nghề</label> <select
-												class="form-control" id="industry" name="industry" required>
+												class="form-select" id="industry" name="industry" required>
 												<option value="" disabled selected>Chọn ngành nghề</option>
 												<option value="Nông nghiệp">Nông nghiệp</option>
 												<option value="Công nghiệp">Công nghiệp</option>
@@ -375,7 +375,7 @@
 											<div class="input-group">
 												<span class="input-group-text">VND</span> <input
 													type="number" class="form-control salary-input" id="salary"
-													name="salary" min="0" placeholder="">
+													name="salary" min="0" placeholder="Thỏa Thuận">
 											</div>
 										</div>
 									</div>
