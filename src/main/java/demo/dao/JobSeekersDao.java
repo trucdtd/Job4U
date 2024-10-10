@@ -16,4 +16,13 @@ public interface JobSeekersDao extends JpaRepository<JobSeekersEntity, Integer>{
 	 @Query("SELECT u FROM JobSeekersEntity u WHERE u.user.userid = ?1")
 	    List<JobSeekersEntity> findByUsername(Integer id);
 	 
+	//tìm kiếm cv theo user đã đăng nhập
+		
+		 @Query("SELECT js FROM JobSeekersEntity js WHERE js.user.userid = :userid")
+		    List<JobSeekersEntity> findByUserId(@Param("userid") Integer userid);
+		 
+		 @Query("SELECT js, a.status FROM JobSeekersEntity js " +
+			       "LEFT JOIN ApplicationsEntity a ON js.jobseekerid = a.jobseeker.jobseekerid " +
+			       "WHERE js.user.userid = :userid")
+			List<JobSeekersEntity> findByUserIdWithStatus(@Param("userid") Integer userid);
 }
