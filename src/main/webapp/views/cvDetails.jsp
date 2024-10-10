@@ -78,19 +78,16 @@ body {
 }
 
 .cv-photo {
-<<<<<<< HEAD
 	width: 100px; /* Chiều rộng của ảnh */
 	height: 133px; /* Chiều cao của ảnh */
 	border-radius: 5px; /* Bo tròn góc */
 	border: 2px solid #4CAF50; /* Đường viền màu xanh */
 	object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
-=======
     width: 100px; /* Chiều rộng của ảnh */
     height: 133px; /* Chiều cao của ảnh */
     border-radius: 5px; /* Bo tròn góc */
     border: 2px solid #1da868; /* Đường viền màu xanh */
     object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
->>>>>>> dev
 }
 
 .placeholder-photo {
