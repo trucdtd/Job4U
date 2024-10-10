@@ -45,7 +45,8 @@
 					</a>
 					<hr>
 					<ul class="nav nav-pills flex-column mb-auto">
-						<li><a href="#" class=" navnhatuyendung nav-link text-dark active"
+						<li><a href="#"
+							class=" navnhatuyendung nav-link text-dark active"
 							onclick="showTable(event, 'employersManagement')"> <i
 								class="bi bi-speedometer2 me-2"></i> Quản Lý Bài Đăng
 						</a></li>
@@ -426,6 +427,7 @@
 										<th scope="col">Thông tin người ứng tuyển</th>
 										<th scope="col">Tên CV ứng tuyển</th>
 										<th scope="col">Thời gian nộp hồ sơ</th>
+										<th scope="col">Trạng thái</th>
 										<th scope="col">Chi tiết hồ sơ</th>
 									</tr>
 								</thead>
@@ -436,6 +438,12 @@
 											<td>${cv.jobseeker.user.fullname}</td>
 											<th>${cv.resume}</th>
 											<td class="formatted-date" data-date="${cv.applicationdate}"></td>
+											<td><c:choose>
+													<c:when test="${cv.status == 0}">Đang chờ</c:when>
+													<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
+													<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+													<c:otherwise>Không xác định</c:otherwise>
+												</c:choose></td>
 											<td>
 												<form action="/cvDetails/${cv.applicationid}" method="get"
 													style="display: inline;">
