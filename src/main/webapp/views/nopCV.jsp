@@ -8,11 +8,25 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet" />
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+<style type="text/css">
+.file-upload {
+	border: 2px dashed #007bff;
+	padding: 15px;
+	text-align: center;
+	color: #007bff;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	border-radius: 5px;
+}
+
+.file-upload:hover {
+	background-color: #e6f0ff;
+}
+</style>
 </head>
 <body>
 	<%@ include file="/views/header.jsp"%>
@@ -86,15 +100,20 @@
 						existingCvDiv.style.display = 'none';
 					}
 				});
-
+	</script>
+	<script>
 		function displayFileName() {
-			const fileInput = document.getElementById('cvFile');
-			const fileNameDisplay = document.getElementById('fileName');
-			fileNameDisplay.textContent = fileInput.files[0] ? fileInput.files[0].name
-					: '';
+			var fileInput = document.getElementById('cvFile');
+			var fileName = document.getElementById('fileName');
+
+			if (fileInput.files.length > 0) {
+				fileName.textContent = "File đã chọn: "
+						+ fileInput.files[0].name;
+			} else {
+				fileName.textContent = ""; // Nếu không có file nào được chọn, để trống
+			}
 		}
 	</script>
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
