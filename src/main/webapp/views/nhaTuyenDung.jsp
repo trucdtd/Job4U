@@ -102,7 +102,7 @@
 												<td>${job.joblocation}</td>
 												<%-- <td>${job.jobdescription}</td>
 												<td>${job.jobrequirements}</td> --%>
-												<td><span
+												<!-- <td><span
 													style="display: inline-flex; align-items: center;">
 														<script>
 												            var salary = Number(${job.salary});
@@ -112,7 +112,19 @@
 												                document.write('N/A');
 												            }
 												        </script>
-												</span></td>
+												</span></td> -->
+												<td>
+												    <c:choose>
+												        <c:when test="${job.salary != null}">
+												            <span style="display: inline-flex; align-items: center;">
+												                ${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")} VND
+												            </span>
+												        </c:when>
+												        <c:otherwise>
+												            Thỏa Thuận
+												        </c:otherwise>
+												    </c:choose>
+												</td>												
 												<td>${job.jobtype}</td>
 												<td class="formatted-date" data-date="${job.posteddate}"></td>
 												<%-- <td>${job.applicationdeadline}</td> --%>
@@ -363,7 +375,7 @@
 											<div class="input-group">
 												<span class="input-group-text">VND</span> <input
 													type="number" class="form-control salary-input" id="salary"
-													name="salary" min="0">
+													name="salary" min="0" placeholder="">
 											</div>
 										</div>
 									</div>
@@ -509,7 +521,7 @@
 							<div class="mb-3">
 								<label for="salary" class="form-label">Lương</label> <input
 									type="number" class="form-control" id="salaryEdit"
-									name="salaryEdit" />
+									name="salaryEdit" placeholder="Thỏa Thuận"/>
 							</div>
 							<div class="mb-3">
 								<label for="jobType" class="form-label">Loại Công Việc</label> <input

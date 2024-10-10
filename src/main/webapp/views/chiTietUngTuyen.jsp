@@ -126,7 +126,17 @@ body {
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-currency-dollar text-success"></i> <strong>Lương:</strong>
-									<span id="salary">${job.salary} VNĐ</span>
+									<%-- <span id="salary">${job.salary} VNĐ</span> --%>
+									<c:choose>
+										<c:when test="${job.salary != null}">
+											<span style="display: inline-flex; align-items: center;">
+												${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+												VND </span>
+										</c:when>
+										<c:otherwise>
+								            Thỏa Thuận
+								        </c:otherwise>
+									</c:choose>
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-calendar-check text-success"></i> <strong>Ngày
@@ -355,7 +365,8 @@ body {
 						}
 					});
 		</script>
-
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	</div>
 	<script>
 		function displayFileName() {
@@ -370,7 +381,6 @@ body {
 			}
 		}
 	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
