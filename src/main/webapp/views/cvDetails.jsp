@@ -220,9 +220,9 @@ p {
 
 		<!-- </div> -->
 		<div class="text-center mt-4 mb-4">
-		
-			<button class="btn btn-primary" onclick="updateStatus(1)">Chấp Nhận CV</button>
-			<button class="btn btn-danger" onclick="updateStatus(2)">Từ Chối CV</button>
+		<input type="hidden" id="applicationId" value="${applicationId}" />
+		<button type="button" class="btn btn-primary" onclick="updateStatus(1)">Chấp Nhận CV</button>
+    	<button type="button" class="btn btn-danger" onclick="updateStatus(2)">Từ Chối CV</button>
 			<button class="btn btn-primary" onclick="downloadPDF()">Tải
 				CV Dưới Dạng PDF</button>
 		</div>
@@ -255,13 +255,44 @@ p {
 				}
 			};
 			html2pdf().set(opt).from(element).save();
-		}
-		
-		
+		}						
 	</script>
 	
-	
-	
+	<script>
+
+	function updateStatus(status) {
+	    // Lấy applicationId từ phần tử ẩn
+	    const applicationId = document.getElementById('applicationId').value;
+
+	    // Kiểm tra nếu applicationId có giá trị
+	    if (!applicationId) {
+	        alert("Không tìm thấy applicationId.");
+	        return;
+	    }
+
+	    // Gửi yêu cầu cập nhật status
+	    fetch(`/cvDetails/updateStatus?applicationid=${applicationId}&status=${status}`, {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json'
+	        }
+	    })
+	    .then(response => {
+	        if (!response.ok) {
+	            throw new Error('Phản hồi mạng không hợp lệ');
+	        }
+	        return response.json();
+	    })
+	    .then(data => {
+	        alert(data.message); // Hiển thị thông báo từ server
+	        // Có thể làm gì đó khác nếu cần
+	    })
+	    .catch(error => {
+	        console.error('Lỗi:', error);
+	        alert('Đã xảy ra lỗi khi cập nhật trạng thái CV.');
+	    });
+	}
+</script>
 
 </body>
 </html>

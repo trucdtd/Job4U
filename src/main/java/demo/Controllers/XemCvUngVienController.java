@@ -6,65 +6,64 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.dao.ApplicationsDao;
 import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
-import jakarta.servlet.annotation.WebServlet;
+import demo.services.ApplicationService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/cvDetails")
 public class XemCvUngVienController {
 
+    private static final Logger logger = LoggerFactory.getLogger(XemCvUngVienController.class);
+
     @Autowired
     private ApplicationsDao applicationsDao;
+    
+    @Autowired
+    private ApplicationService applicationService;
 
     @RequestMapping("/{applicationId}")
     public String cvDetails(@PathVariable("applicationId") Integer applicationId, Model model) {
-        // Lấy thông tin ứng tuyển từ database
         ApplicationsEntity applicationDetails = applicationsDao.findById(applicationId).orElse(null);
         
         if (applicationDetails == null) {
-        	// Thêm thông báo lỗi vào model
             model.addAttribute("errorMessage", "Không tìm thấy thông tin ứng tuyển.");
             return "nhaTuyenDung"; // Trả về view với thông báo lỗi
         }
 
-        // Lấy thông tin CV của người ứng tuyển
         JobSeekersEntity jobSeeker = applicationDetails.getJobseeker();
-        
-        // Thêm thông tin vào model để truyền sang view
         model.addAttribute("cv", jobSeeker);
-        
+        model.addAttribute("applicationId", applicationDetails.getApplicationid());
+
         return "cvDetails"; // Trả về view chi tiết CV
     }
-    
-    @PostMapping("/updateCvStatus")
-    public String updateCvStatus(Integer id, Integer status, Model model) {
-        boolean success = updateCvStatusInDatabase(id, status);
 
-        if (success) {
-            model.addAttribute("successMessage", "Cập nhật trạng thái CV thành công!");
+    @PostMapping("/updateStatus")
+    public String updateApplicationStatus(
+            @RequestParam Integer applicationid, 
+            @RequestParam Integer status,
+            RedirectAttributes redirectAttributes) {
+        
+        // In ra thông tin nhận được
+        System.out.println("Received applicationId: " + applicationid + ", status: " + status);
+
+        // Gọi dịch vụ để cập nhật trạng thái
+        boolean isUpdated = applicationService.updateStatus(applicationid, status);
+        if (isUpdated) {
+            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật trạng thái ứng tuyển thành công.");
         } else {
-            model.addAttribute("errorMessage", "Có lỗi xảy ra khi cập nhật trạng thái CV.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Không tìm thấy ứng tuyển hoặc trạng thái không hợp lệ.");
         }
 
-        return "redirect:/cvDetails/" + id;
+        // Chuyển hướng về trang chi tiết CV
+        return "redirect:/cvDetails/" + applicationid;
     }
 
-    private boolean updateCvStatusInDatabase(int cvId, int status) {
-        try {
-            ApplicationsEntity application = applicationsDao.findById(cvId).orElse(null);
-            if (application != null) {
-                application.setStatus(status); // Cập nhật trạng thái
-                applicationsDao.save(application); // Lưu lại thay đổi
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 }
-
-
