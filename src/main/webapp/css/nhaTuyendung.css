@@ -1,27 +1,26 @@
 @charset "UTF-8";
 /* Màu nền mặc định của các liên kết menu */
 .navnhatuyendung {
-	color: white;
 	text-decoration: none;
 	padding: 10px 20px;
 	display: block;
 	border-radius: 4px;
+	color: black; /* Đảm bảo màu chữ mặc định là đen */
 }
 
 .navnhatuyendung:hover, .navnhatuyendung.active {
-	background-color: #198754;
-	/* Màu nền khi hover hoặc khi liên kết đang hoạt động */
+	background-color: #ffffff; 
 }
 
 /* Đảm bảo rằng lớp active không ghi đè */
 .navnhatuyendung.active {
-	background-color: #198754 !important;
+	background-color: #ffffff!important;
 }
 
 .content {
 	flex-grow: 1;
 	padding: 20px;
-	background-color: #f8f9fa;
+	background-color: #c0c0c0;
 }
 
 .card {

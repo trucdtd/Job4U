@@ -37,7 +37,7 @@
 			<!-- aside -->
 			<div class="col-lg-3 col-md-3 p-2 d-flex">
 				<div class="d-flex flex-column flex-shrink-0 p-3 text-dark"
-					style="width: 100%; background: #EEEEEE;">
+					style="width: 100%; background: #198754;">
 					<a href="#"
 						class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none text-center">
 						<i class="bi bi-bootstrap" style="font-size: 35px;"></i> <span
