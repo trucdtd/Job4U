@@ -4,151 +4,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Thông Tin và Nộp Cv</title>
-<!-- Required meta tags -->
+<title>Thông Tin và Nộp CV</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+<style type="text/css">
+.file-upload {
+	border: 2px dashed #007bff;
+	padding: 15px;
+	text-align: center;
+	color: #007bff;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	border-radius: 5px;
+}
 
-<!-- Bootstrap CSS v5.2.1 -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-	crossorigin="anonymous" />
-<style>
-.img {
-	padding-top: 10px;
-	height: 300px;
-	width: 100%;
-	object-fit: cover;
+.file-upload:hover {
+	background-color: #e6f0ff;
 }
 </style>
 </head>
-
 <body>
-	<form action="/applyCV/submit" method=post>
-		<main class="container-fluid">
-			<hr />
-			<div class="d-flex justify-content-end">
-				<div class="justify-content-end p-1">
-					<button type="submit" class="btn btn-primary">Nộp CV</button>
-					<button type="button" class="btn btn-success">Tải xuống</button>
-				</div>
-				<div class="p-1">
-					<input type="text" class="form-control" name="" id=""
-						aria-describedby="helpId" placeholder="Tên Cv" />
-				</div>
+	<%@ include file="/views/header.jsp"%>
+	<div class="container mt-5">
+		<div class="card shadow">
+			<div class="card-header">
+				<h5 class="mb-0">Nộp CV của bạn</h5>
 			</div>
-			<hr />
-			<!-- <div class="d-flex">
-        <div class="justify-content-start p-1">
-          <button type="button" class="btn btn-primary">Lưu</button>
-          <button type="button" class="btn btn-success">Tải xuống</button>
-        </div>
-          <div class="p-1">
-            <input
-              type="text"
-              class="form-control"
-              name=""
-              id=""
-              aria-describedby="helpId"
-              placeholder="Tên Cv"
-            />
-          </div>
-      </div>
-      <hr /> -->
-			<div class="container col-12 col-sm-9 mb-3">
-				<div class="row bg-dark">
-					<div class="col-4 text-warning">
-						<img class="img" src="/img/le van doan.JPG"
-							class="w-100 h-100 mb-1 p-3" alt="" />
-						<div>
-							<input type="text"
-								class="form-control text-warning bg-dark border-0 text-lg mb-1"
-								name="fullname" id="fullname" aria-describedby="helpId" placeholder=""
-								value="${nd.fullname}" />
-						</div>
-						<div>
-							<input type="text"
-								class="form-control text-warning bg-dark border-0" name="major"
-								id="major" aria-describedby="helpId" placeholder=""
-								value="JAVA BACKEND DEVELOPER" />
-						</div>
-						<hr />
-						<div class="mt-2 mb-1 ms-2">
-							<label for="" class="form-label">Thông tin cá nhân</label> <input
-								type="text" class="form-control text-warning bg-dark border-0"
-								name="phonenumber" id="phonenumber" aria-describedby="helpId" placeholder=""
-								value="${nd.phonenumber}" />
-						</div>
-						<div class="mb-3 ms-2">
-							<input type="text"
-								class="form-control text-warning bg-dark border-0" name="email"
-								id="email" aria-describedby="helpId" placeholder=""
-								value="${nd.email}" />
-						</div>
-						<hr />
-						<div class="mb-3 ms-2">
-							<label for="" class="form-label">Ngôn Ngữ lập trình</label> <input
-								type="text" class="form-control text-warning bg-dark border-0"
-								name="languages" id="" aria-describedby="helpId" placeholder=""
-								value="Java, HTML, CSS, JavaScript" />
-						</div>
-						<hr />
-						<div class="mb-3 ms-2">
-							<label for="" class="form-label">Kỹ năng</label> <input
-								type="text" class="form-control text-warning bg-dark border-0"
-								name="skills" id="skills" aria-describedby="helpId" placeholder=""
-								value="${jobSeekers.skills}" />
-						</div>
+			<div class="card-body">
+				<form id="cvUploadForm" action="/applyCV/${job.jobid}" method="post"
+					enctype="multipart/form-data">
+					<div class="mb-3">
+						<label for="cvOptions" class="form-label">Lựa chọn:</label> <select
+							id="cvOptions" name="cvOptions" class="form-select" required>
+							<option value="null">Chọn một tùy chọn</option>
+							<option value="upload">Tải lên file CV mới</option>
+							<option value="choose">Chọn CV có sẵn</option>
+						</select>
 					</div>
-					<div class="col-8 bg-light">
-						<div class="mb-3">
-							<label for="" class="form-label form-control-lg text-warning">Học
-								vấn</label> <input type="text" class="form-control border-0"
-								name="education" id="" aria-describedby="helpId" placeholder=""
-								value="Từng học trường cao đăng FPT Polytechnic" />
-						</div>
-						<div class="mb-3">
-							<label for="" class="form-label form-control-lg text-warning">Mục
-								tiêu nghề nghiệp</label>
-							<textarea class="form-control" name="" id="" rows="5" value="">
-Được làm việc trong môi trường chuyên nghiệp, vận dụng tất cả những kĩ năng đã được học vào công việc góp sức giúp công ty đạt mục tiêu. Không ngừng trao dồi thêm những kĩ năng mềm và kiến thức cần thiết để hoàn thiện bản thân và có cơ hội thăng tiến trong công việc. Trở thành nhân viên cấp cao trong công ty.</textarea>
-						</div>
-						<div class="mb-3">
-							<label for="" class="form-label form-control-lg text-warning">Danh
-								hiệu và giải thưởng</label> <input type="text"
-								class="form-control border-0" name="" id=""
-								aria-describedby="helpId" placeholder=""
-								value="Học bổng Ong vàng" />
-						</div>
-						<div class="mb-3">
-							<label for="" class="form-label form-control-lg text-warning">Chứng
-								chỉ</label> <input type="text" class="form-control border-0" name="certifications"
-								id="" aria-describedby="helpId" placeholder=""
-								value="Chứng chỉ dự án xưởng" />
-						</div>
-						<div class="mb-3">
-							<label for="" class="form-label form-control-lg text-warning">Kinh
-								nghiệm làm việc</label> <input type="text" class="form-control border-0"
-								name="experience" id="" aria-describedby="helpId"
-								placeholder="" value="Từng làm ở công ty Google" />
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
-	</form>
-	<!-- Bootstrap JavaScript Libraries -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-		crossorigin="anonymous"></script>
 
+					<div class="mb-3" id="uploadFileDiv" style="display: none;">
+						<label for="cvFile" class="form-label">Tải lên file CV:</label>
+						<div class="file-upload mb-2"
+							onclick="document.getElementById('cvFile').click();">
+							<i class="bi bi-cloud-arrow-up"></i>
+							<p>Kéo thả hoặc chọn file CV</p>
+						</div>
+						<input type="file" class="form-control d-none" id="cvFile"
+							name="cvFile" onchange="displayFileName()">
+						<p id="fileName" class="mt-2"></p>
+					</div>
+
+					<div class="mb-3" id="existingCvDiv" style="display: none;">
+						<label for="existingCv" class="form-label">Chọn CV có sẵn:</label>
+						<select id="existingCv" name="id" class="form-select">
+							<option value="">Chọn CV</option>
+							<c:forEach var="list" items="${listCV}">
+								<option value="${list.jobseekerid}">${list.resume}</option>
+							</c:forEach>
+						</select>
+					</div>
+
+					<div class="d-flex justify-content-between">
+						<button type="button" class="btn btn-secondary"
+							onclick="window.history.back()">Hủy</button>
+						<button type="submit" class="btn btn-success">Nộp CV</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	${script}
+	<script>
+		document.getElementById('cvOptions').addEventListener(
+				'change',
+				function() {
+					const option = this.value;
+					const uploadFileDiv = document
+							.getElementById('uploadFileDiv');
+					const existingCvDiv = document
+							.getElementById('existingCvDiv');
+
+					if (option === 'upload') {
+						uploadFileDiv.style.display = 'block';
+						existingCvDiv.style.display = 'none';
+					} else if (option === 'choose') {
+						uploadFileDiv.style.display = 'none';
+						existingCvDiv.style.display = 'block';
+					} else {
+						uploadFileDiv.style.display = 'none';
+						existingCvDiv.style.display = 'none';
+					}
+				});
+	</script>
+	<script>
+		function displayFileName() {
+			var fileInput = document.getElementById('cvFile');
+			var fileName = document.getElementById('fileName');
+
+			if (fileInput.files.length > 0) {
+				fileName.textContent = "File đã chọn: "
+						+ fileInput.files[0].name;
+			} else {
+				fileName.textContent = ""; // Nếu không có file nào được chọn, để trống
+			}
+		}
+	</script>
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-		integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-		crossorigin="anonymous"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

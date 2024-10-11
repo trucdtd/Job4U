@@ -34,10 +34,9 @@
 					<div class="d-flex align-items-center gap-3">
 						<!-- Tiêu đề công việc -->
 						<div class="flex-fill mb-3">
-							<label class="form-label" for="jobtitle">Tiêu đề công
-								việc</label> <input type="text" class="form-control rounded-3"
+							<label class="form-label" for="jobtitle">Vị trí tuyển dụng</label> <input type="text" class="form-control rounded-3"
 								id="jobtitle" name="jobtitle"
-								placeholder="Nhập tiêu đề công việc">
+								placeholder="Tất cả">
 						</div>
 
 						<!-- Ngành nghề -->
@@ -150,12 +149,12 @@
 
 		<div class="row">
 			<aside class="col-md-3">
-				<h3>Bộ lộc</h3>
+				<!-- <h3>Bộ lộc</h3> -->
 				<div class="container mt-4">
 					<form action="/job4u/findJob" method="GET">
 						<div class="row mt-3">
 							<div class="col-md-12">
-								<label class="form-label" id="industry" name="industry">Ngành
+								<label class="form-label" id="industry" name="industry">Lộc theo ngành
 									nghề</label>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"

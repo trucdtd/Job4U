@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,9 +36,10 @@ public class TrangChuController {
 	@RequestMapping("")
 	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page
 			 ) {
-		// Handle pagination
 		int pageNumber = page.orElse(0);
-		Pageable pageable = PageRequest.of(pageNumber, 6);
+//		Pageable pageable = PageRequest.of(pageNumber, 8);
+		// Sắp xếp giảm dần theo ngày và thời gian đăng (bao gồm giờ, phút, giây nếu có)
+        Pageable pageable = PageRequest.of(page.orElse(0), 8, Sort.by("posteddate").descending()); 
 		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
 		model.addAttribute("dsSP", dsSP);
 		
@@ -56,8 +58,9 @@ public class TrangChuController {
 	@RequestMapping("/findJob")
 	public String findJob(Model model, @RequestParam("page") Optional<Integer> page,
 			@RequestParam("joblocation") Optional<String> joblocation,
-			@RequestParam("industry") Optional<String> industry, @RequestParam("jobtitle") Optional<String> jobtitle) {
-		Pageable pageable = PageRequest.of(page.orElse(0), 6);
+			@RequestParam("industry") Optional<String> industry, 
+			@RequestParam("jobtitle") Optional<String> jobtitle) {
+		Pageable pageable = PageRequest.of(page.orElse(0), 8, Sort.by("posteddate").descending());
 		Page<JoblistingsEntity> dsSP;
 
 		// Thực hiện tìm kiếm dựa trên các tham số đầu vào

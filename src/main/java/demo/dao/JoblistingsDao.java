@@ -101,6 +101,7 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     //top5baivietmoinhat
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.posteddate DESC")
     List<JoblistingsEntity> findTop5LatestJobListings();
+   
     //khoa
 	/*
 	 * @Modifying

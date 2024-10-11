@@ -39,7 +39,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
-@RequestMapping("/job4u")
+@RequestMapping("/employers")
 public class NhaTuyenDungController {
 
 	@Autowired
@@ -63,7 +63,7 @@ public class NhaTuyenDungController {
 	@Autowired
 	HttpServletResponse resp;
 
-	@RequestMapping("/employers")
+	@RequestMapping("")
 	public String nhaTuyenDung(Model model) {
 		Integer userId = sessionService.getCurrentUserId();
 
@@ -104,13 +104,13 @@ public class NhaTuyenDungController {
 		return "cvUngTuyen";
 	}
 
-	@PostMapping("/employers/submit")
+	@PostMapping("/submit")
 	public String themTuyenDung(@RequestParam("companyname") String companyname,
 			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
 			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
 			@RequestParam(value = "logo", required = false) MultipartFile logo,
 			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
-			@RequestParam("jobtype") String jobtype, @RequestParam("salary") BigDecimal salary,
+			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) BigDecimal salary,
 			@RequestParam("companydescription") String companydescription,
 			@RequestParam("jobrequirements") String jobrequirements,
 			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
@@ -182,13 +182,13 @@ public class NhaTuyenDungController {
 		}
 
 		danhSachViecLamDao.save(jobListing);
-		return "redirect:/job4u/employers";
+		return "redirect:/employers";
 	}
 
-	@PostMapping("/employers/edit")
+	@PostMapping("/edit")
 	public String editJobPosting(@RequestParam("jobId") Integer jobId, @RequestParam("jobTitle") String jobTitle,
 			@RequestParam("jobLocation") String jobLocation, @RequestParam("jobDescription") String jobDescription,
-			@RequestParam("jobRequirements") String jobRequirements, @RequestParam("salaryEdit") BigDecimal salary,
+			@RequestParam("jobRequirements") String jobRequirements, @RequestParam(value = "salaryEdit", required = false) BigDecimal salary,
 			@RequestParam("jobType") String jobType, @RequestParam("postedDate") String postedDate,
 			@RequestParam("applicationDeadline") String applicationDeadline) {
 		// Tìm kiếm công việc theo jobId
@@ -221,10 +221,10 @@ public class NhaTuyenDungController {
 		// Lưu lại thông tin đã chỉnh sửa
 		danhSachViecLamDao.save(jobListing);
 
-		return "redirect:/job4u/employers"; // Chuyển hướng về trang nhà tuyển dụng
+		return "redirect:/employers"; // Chuyển hướng về trang nhà tuyển dụng
 	}
 
-	@PostMapping("/employers/delete")
+	@PostMapping("/delete")
 	public String deleteJob(@RequestParam("jobId") Integer jobId, Model model) {
 		// Kiểm tra xem bài đăng có tồn tại không
 		JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
@@ -244,7 +244,7 @@ public class NhaTuyenDungController {
 		// Xóa bài đăng
 		danhSachViecLamDao.delete(jobListing);
 		model.addAttribute("success", "Xóa bài đăng thành công.");
-		return "redirect:/job4u/employers";
+		return "redirect:/employers";
 	}
 
 //	@PostMapping("/employers/service")

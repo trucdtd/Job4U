@@ -1,96 +1,75 @@
-/* Đảm bảo header chiếm toàn bộ chiều rộng màn hình */
-header {
-	width: 100%;
-	position: relative;
-}
 
-/* Đảm bảo nav cũng chiếm toàn bộ chiều rộng màn hình */
-.navbar {
-	width: 100%;
-}
-
-/* Đảm bảo phần banner cũng chiếm toàn bộ chiều rộng */
 .banner img {
 	width: 100%;
 	height: 370px;
-	object-fit: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ chiều rộng */
+	object-fit: cover;}
+.bg-white {
+  background-color: #fff;
+}
+nav{
+    height: 70px;
+}
+header nav .navbar-link:hover {
+  color: #198754;
+}
+.nav-link {
+    color: #000; /* Màu chữ mặc định */
+    font-weight: bold; /* Chữ đậm */
 }
 
-/* Định dạng các nút đăng nhập và đăng ký trong offcanvas */
-.offcanvas-body .login-button {
-	background-color: #fff;
-	font-weight: 500;
-	color: #198754;
-	font-size: 15px;
-	padding: 8px 20px;
-	margin: 5px;
-	border-radius: 50px;
-	text-decoration: none;
-	transition: 0.3s background-color;
+.nav-link:hover,
+.nav-link.active {
+    color: #28a745 !important; /* Màu xanh khi hover hoặc đang ở trang đó */
 }
-
-
-.offcanvas-body .login-button:hover {
-	background-color: #c0c9c9;
-	color: #009944; /* Đảm bảo màu chữ khi hover */
-}
-
-/* Định dạng hình ảnh của thương hiệu trong thanh điều hướng */
-.navbar-brand img {
-	height: 40px;
-	width: 40px;
-}
-
-nav .nav-link {
-	color: #fff;
-	font-weight: 500;
-	position: relative;
-	left: 5px;
-}
-
-.nav-link:hover, .nav-link.active {
-	color: #198754;
-}
-
-/* Định dạng các liên kết trong thanh điều hướng cho màn hình nhỏ */
-@media ( max-width : 990px) {
-	.login-button {
-		margin-top: 10px;
-		width: 100%;
-	}
-	.nav-link {
-		color: #fff;
-		line-height: 25px;
-		width: 100%;
-		margin: 1px 0;
-		padding-left: 5px;
-		border-bottom: 1px dotted #fff;
-	}
-}
-
-/* Định dạng các thành phần navbar-toggler */
 .navbar-toggler {
-	border: none;
-	font-size: 1.25rem;
+  padding: 7px;
+  border: 0;
+  background-color: #ccffcc;
+  border-radius: 100px;
+}
+.navbar-toggler img {
+  width: 35px;
+  height: 35px;
+} 
+.text-reponsive{
+display: none;
+}
+.d-flex-custom{
+    display: flex;
+    justify-content: center;
+}
+.dropdown-item:hover {
+    background-color: #c0c0c0!important; /* Màu xanh khi hover */
+    color: white !important; /* Màu chữ khi hover */
 }
 
-.navbar-toggler:focus, .btn-close:focus {
-	box-shadow: none;
-	outline: none;
+.dropdown-menu {
+    background-color: #f8f9fa; /* Màu nền của menu dropdown */
 }
 
-.disabled-link {
-	pointer-events: none; /* Vô hiệu hóa sự kiện chuột */
-	color: grey;
-	/* Thay đổi màu sắc liên kết để báo hiệu không thể nhấp được */
+.dropdown-item {
+    color: #198754; /* Màu chữ mặc định */
 }
-/* Lớp CSS tùy chỉnh cho dropdown menu */
-.dropdown-menu-custom {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: max-content; /* Đảm bảo chiều rộng của menu phù hợp với nội dung */
-    transform: none; /* Loại bỏ transform nếu không cần thiết */
+@media (max-width: 991px) {
+  .navbar-brand-text-p {
+    display: none;
+  }
+  .navbar-collapse{
+    background-color: #f8f9fa;
+    padding: 10px;
+  }
+  nav div ul li {
+    background-color: #fff;
+    color: #198754;
+    font-weight: bold;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  .d-flex-custom{
+    display: block;
+  } 
+  .text-reponsive{
+    display: block;
+  }
 }
