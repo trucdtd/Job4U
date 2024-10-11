@@ -36,7 +36,7 @@ public class UsersController {
 	HttpSession ss;
 	@Autowired
 	UsersDao userDao;
-
+	
 	@Autowired
 	ApplicationsDao applicationsDao;
 
@@ -46,7 +46,6 @@ public class UsersController {
 		model.addAttribute("page", giaoDien);
 		return "trangCaNhanNguoiTimViec";
 	}
-	
 
 	@GetMapping("/cv")
 	public String getUpdateCV(Model model, JobSeekersEntity entity) {
@@ -100,6 +99,7 @@ public class UsersController {
 	    return "trangCaNhanNguoiTimViec";
 	}
 	
+	
 	@GetMapping("/cv/list")
     public String viewCvList(Model model) {
         // Lấy ID người dùng từ phiên làm việc
@@ -112,8 +112,29 @@ public class UsersController {
         model.addAttribute("cvList", cvList);
         
         // Trả về trang JSP cho danh sách CV
-        model.addAttribute("page", "quanLyCV.jsp");  // Đường dẫn đến trang JSP cụ thể
+        model.addAttribute("page", "listCVUngTuyen.jsp");  // Đường dẫn đến trang JSP cụ thể
         return "trangCaNhanNguoiTimViec";  // Tên view mà bạn đã sử dụng
     }
+
+	//Trúc
+	@GetMapping("/cv/list2")
+	public String cvDaTao(Model model) {
+	    // Lấy ID người dùng từ phiên làm việc
+	    Integer userId = (Integer) ss.getAttribute("userid");
+	    if (userId == null) {
+	        // Xử lý nếu không có ID người dùng
+	        return "redirect:/Login"; // Hoặc trang khác
+	    }
+
+	    // Lấy danh sách CV của người dùng từ cơ sở dữ liệu
+	    List<JobSeekersEntity> List = dao.findByUserId(userId);
+	    
+	    // Thêm danh sách CV vào mô hình
+	    model.addAttribute("List", List);
+	    
+	    // Trả về trang JSP cho danh sách CV
+	    model.addAttribute("page", "quanLyCV.jsp");
+	    return "trangCaNhanNguoiTimViec"; 
+	}
 
 }
