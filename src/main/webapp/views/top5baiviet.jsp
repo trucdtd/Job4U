@@ -18,22 +18,24 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-.image-container {
-	width: 100%;
-	height: 50vh;
+.carousel-control-prev,
+.carousel-control-next,
+.carousel-indicators {
+	display: none; /* Ẩn các nút điều hướng và chỉ báo */
+}
+
+.card-title {
 	overflow: hidden;
-	position: relative;
 }
 
-.image-container img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	position: absolute;
-	top: 0;
-	left: 0;
+.card-body {
+	height: 100px; /* Đặt chiều cao cố định cho phần nội dung */
 }
 
+.card-footer {
+	display: flex;
+	justify-content: space-between; /* Căn giữa phần tử trong footer */
+}
 </style>
 
 </head>
@@ -41,36 +43,30 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<h2
-					class="h4 mb-4 mt-2 text-uppercase text-center font-weight-bold blue-hover">
+				<h2 class="h4 mb-4 mt-2 text-uppercase text-center font-weight-bold blue-hover">
 					Bài Tuyển Dụng Hàng Đầu</h2>
 			</div>
 		</div>
-		<div id="carouselExampleCaptions" class="carousel slide"
-			data-bs-ride="carousel">
-			<div class="carousel-indicators">
-				<c:forEach var="job" items="${latestJobs}" varStatus="status">
-					<button type="button" data-bs-target="#carouselExampleCaptions"
-						data-bs-slide-to="${status.index / 4}"
-						class="${status.index == 0 ? 'active' : ''}"
-						aria-current="${status.index == 0 ? 'true' : 'false'}"
-						aria-label="Slide ${status.index / 4 + 1}"></button>
-				</c:forEach>
-			</div>
+		<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000"> <!-- Chuyển đổi mỗi 5 giây -->
 			<div class="carousel-inner">
 				<c:forEach var="job" items="${latestJobs}" varStatus="status">
-					<c:if test="${status.index % 4 == 0}">
+					<c:if test="${status.index % 4 == 0}"> <!-- Mỗi slide có 4 thẻ card -->
 						<div class="carousel-item ${status.index == 0 ? 'active' : ''}">
 							<div class="row">
 					</c:if>
-					<div class="col-md-3">
+					<div class="col-md-3"> <!-- 4 card trong một slide -->
 						<div class="card shadow-sm rounded-3">
                             <div class="card-body d-flex align-items-start">
+                            <div class="bg-image me-3">
+									<img
+										src="${pageContext.request.contextPath}/uploads/${job.employer.logo}"
+										alt="logo" class="img-fluid"
+										style="object-fit: cover;">
+								</div>
+								
                                 <div class="flex-grow-1">
-
-                                    <h5 class="card-title text-center">${job.jobtitle}</h5>
+                                    <h6 class="card-title text-center">${job.jobtitle}</h6>
                                     <p class="text-muted text-center">${job.employer.companyname}</p>
-                                    
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -86,18 +82,8 @@
 		</c:if>
 		</c:forEach>
 	</div>
-	<button class="carousel-control-prev" type="button"
-		data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-			class="visually-hidden">Previous</span>
-	</button>
-	<button class="carousel-control-next" type="button"
-		data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-		<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
-			class="visually-hidden">Next</span>
-	</button>
 	</div>
-	</div>
+
 	<!-- Bootstrap JavaScript Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
