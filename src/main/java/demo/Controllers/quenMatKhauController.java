@@ -68,7 +68,7 @@ public class quenMatKhauController {
 			return "quenMatKhau"; // Trang nhập email
 		}
 
-		String token = generateAndEncodeToken();
+		String token = generateToken();
 		UsersEntity user = userRepository.findByEmail(userEmail);
 		user.setToken(token); // Lưu token vào cơ sở dữ liệu
 		userRepository.save(user);
@@ -96,19 +96,20 @@ public class quenMatKhauController {
 		mailSender.send(message);
 	}
 
-	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	private static final String NUMERIC_CHARACTERS = "0123456789";
 	private static final int TOKEN_LENGTH = 6;
 
-	// Sinh mã token và mã hóa nó
-	public static String generateAndEncodeToken() {
-		SecureRandom random = new SecureRandom();
-		StringBuilder token = new StringBuilder(TOKEN_LENGTH);
+	// Sinh mã token không mã hóa
+	public static String generateToken() {
+	    SecureRandom random = new SecureRandom();
+	    StringBuilder token = new StringBuilder(TOKEN_LENGTH);
 
-		for (int i = 0; i < TOKEN_LENGTH; i++) {
-			token.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
-		}
+	    // Sinh token chỉ gồm số
+	    for (int i = 0; i < TOKEN_LENGTH; i++) {
+	        token.append(NUMERIC_CHARACTERS.charAt(random.nextInt(NUMERIC_CHARACTERS.length())));
+	    }
 
-		return encodeToken(token.toString());
+	    return token.toString(); // Trả về token dạng chuỗi số
 	}
 
 	// Mã hóa token thành chuỗi Base64
