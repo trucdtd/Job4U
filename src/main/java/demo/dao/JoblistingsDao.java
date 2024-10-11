@@ -1,5 +1,7 @@
 package demo.dao;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 
 import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
+import jakarta.transaction.Transactional;
 
 public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer> {
 
@@ -107,5 +110,27 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	 * updatePostActiveStatus(@Param("jobid") Integer jobid, @Param("active")
 	 * boolean active);
 	 */
+ // Cập nhật trạng thái hoạt động của bài đăng
+    @Modifying
+    @Transactional
+    @Query("UPDATE JoblistingsEntity j SET j.active = :active WHERE j.jobid = :jobid")
+    void updatePostActiveStatus(@Param("jobid") Integer jobid, @Param("active") boolean active);
+
+    // Tìm bài đăng theo trạng thái hoạt động
+    @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = :active")
+    List<JoblistingsEntity> findByActiveStatus(@Param("active") boolean active);
+
+    // Tìm bài đăng theo nhà tuyển dụng và trạng thái hoạt động
+    @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer = :employer AND j.active = :active")
+    List<JoblistingsEntity> findByEmployerAndActiveStatus(@Param("employer") EmployersEntity employer,
+                                                          @Param("active") boolean active);
+
+    // Tìm bài đăng theo khoảng thời gian đăng
+    @Query("SELECT j FROM JoblistingsEntity j WHERE j.posteddate BETWEEN :startDate AND :endDate")
+    List<JoblistingsEntity> findByPostedDateBetween(@Param("startDate") LocalDate startDate,
+                                                    @Param("endDate") LocalDate endDate);
+    @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :since")
+    int countNewPostsSince(@Param("since") LocalDate since);
+
 }
 

@@ -17,6 +17,7 @@
  */
 package demo.services;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,5 +111,8 @@ public class UserService {
     public interface userService {
         int countUsersToday();
         int countUsersThisMonth();
+    }
+    public int getNewUsersCount(LocalDateTime since) {
+        return usersDao.countNewUsersSince(since);
     }
 }
