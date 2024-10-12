@@ -40,19 +40,10 @@ body {
 		<div class="inf-content">
 			<div class="row">
 				<div class="col-md-4 text-center">
-					<c:choose>
-						<c:when test="${user.role == 2}">
-							<img src="${pageContext.request.contextPath}/uploads/${logo}"
-								alt="Logo" class="img-fluid"
-								style="object-fit: cover; max-width: 100%; height: auto;">
-						</c:when>
-						<c:when test="${user.role == 1}">
-							<img src="${pageContext.request.contextPath}/uploads/${image}" alt="Profile Image"
-								class="img-fluid"
-								style="object-fit: cover; max-width: 100%; height: auto;">
-						</c:when>
-					</c:choose>
+					<img alt="logo" src="/img/logo.png"
+						style="object-fit: cover; width: 100%; height: 350px; max-width: 400px;">
 				</div>
+
 				<div class="col-md-8">
 					<form action="/ThongTinCaNhan/updateUser" method="post"
 						id="updateUserForm">
@@ -67,7 +58,7 @@ body {
 								</tr>
 								<tr>
 									<th><span class="glyphicon glyphicon-user text-primary"></span>
-										Username</th>
+										Tên đăng nhập</th>
 									<td><input type="text" class="form-control"
 										name="username" value="${user.username}" readonly></td>
 								</tr>

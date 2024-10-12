@@ -89,10 +89,10 @@
 								</a></li>
 								<li><a class="dropdown-item d-flex justify-content-start"
 									href="<%= 
-                    session.getAttribute("role") != null ? 
-                    (session.getAttribute("role").toString().equals("0") ? "/admin" : 
-                    (session.getAttribute("role").toString().equals("1") ? "/user" : 
-                    (session.getAttribute("role").toString().equals("2") ? "/employers" : "#"))) : "#" %>">
+					                    session.getAttribute("role") != null ? 
+					                    (session.getAttribute("role").toString().equals("0") ? "/admin" : 
+					                    (session.getAttribute("role").toString().equals("1") ? "/user" : 
+					                    (session.getAttribute("role").toString().equals("2") ? "/employers" : "#"))) : "#" %>">
 										<img class="m-1" src="/img/icons8-cv-80.png" height="25px"
 										width="25px" alt="Contact Info">
 										<p class="m-1 text-dropdown-menu">Quản lý trang</p>

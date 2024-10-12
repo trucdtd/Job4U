@@ -224,14 +224,20 @@
 									<div class="row mb-3 align-items-center">
 										<div class="col-md-4">
 											<div class="bg-image me-3">
-												<img
+												<img id="logoPreview"
 													src="${pageContext.request.contextPath}/uploads/${employer.logo}"
 													alt="Logo" class="img-fluid"
-													style="object-fit: cover; max-width: 100%; height: auto;">
+													style="object-fit: cover; max-width: 100%; height: 200px;">
+												<input type="file" class="form-control" id="logo"
+													name="logo" accept="image/*" style="display: none;">
+												<label for="logo" class="form-control text-center"
+													style="cursor: pointer; height: 30px; display: flex; align-items: center; justify-content: center;">
+													Cập nhật logo mới tại đây</label>
 											</div>
 										</div>
+
 										<div class="col-md-8">
-											<div>
+											<div class="mb-3">
 												<label for="companyname" class="form-label">Tên công
 													ty</label> <input type="text" class="form-control" id="companyname"
 													name="companyname" value="${employer.companyname}" readonly>
@@ -538,8 +544,8 @@
 	<!-- footer -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-<script>
+
+	<script>
 	function showTable(event, tableId) {
 		event.preventDefault(); // Ngăn chặn hành vi mặc định
 
@@ -613,7 +619,7 @@
 	});
 </script>
 
-<script>
+	<script>
 document.addEventListener('DOMContentLoaded', () => {
     const editButtons = document.querySelectorAll('.btn-edit');
 
@@ -689,13 +695,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script>
+	<script>
 function confirmDelete() {
     return confirm("Bạn có chắc chắn muốn xóa bài đăng này?");
 }
 </script>
 
-<script>
+	<script>
 $(document).ready(function() {
     $('#myTable').DataTable({
         "paging": true,
@@ -737,7 +743,7 @@ $(document).ready(function() {
 });
 </script>
 
-<script>
+	<script>
     document.addEventListener("DOMContentLoaded", function() {
         const dateCells = document.querySelectorAll('.formatted-date');
 
@@ -758,12 +764,26 @@ $(document).ready(function() {
         });
     });
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- JS for DataTables -->
-<script
-	src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<!-- CSS for DataTables -->
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+	<script>
+document.getElementById('logo').addEventListener('change', function(event) {
+    const file = event.target.files[0]; // Lấy tệp được chọn
+    if (file) {
+        const reader = new FileReader(); // Tạo đối tượng FileReader
+        reader.onload = function(e) {
+            // Cập nhật src của img với dữ liệu ảnh
+            document.getElementById('logoPreview').src = e.target.result;
+        }
+        reader.readAsDataURL(file); // Đọc tệp ảnh dưới dạng URL
+    }
+});
+</script>
 
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- JS for DataTables -->
+	<script
+		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+	<!-- CSS for DataTables -->
+	<link rel="stylesheet"
+		href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+</body>
 </html>
