@@ -16,7 +16,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/nhaTuyendung.css">
 <!-- CSS for DataTables -->
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 <body>
 	<!-- header -->
@@ -261,7 +262,7 @@
 										<div class="col-md-6 p-2">
 											<label for="industry" class="form-label">Ngành nghề</label> <input
 												type="text" class="form-control" id="industry"
-												name="industry" value="${employer.industry}" readonly>
+												name="industry" joblocation readonly>
 										</div>
 									</div>
 									<div class="row">
@@ -275,12 +276,14 @@
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="contactperson" class="form-label">Người
-												liên hệ</label> <input type="text" class="form-control"
+												liên hệ & số điện thoại</label> <input type="text" class="form-control"
 												id="contactperson" name="contactperson">
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="joblocation" class="form-label">Địa điểm
-												làm việc</label> <select class="form-select" id="joblocation"
+												làm việc</label> <input type="text" class="form-control"
+												id="joblocation" name="joblocation">
+												<!-- <select class="form-select" id="joblocation"
 												name="joblocation">
 												<option value="All" selected>Tất cả</option>
 												<option value="An Giang">An Giang</option>
@@ -346,7 +349,7 @@
 												<option value="Vĩnh Long">Vĩnh Long</option>
 												<option value="Vĩnh Phúc">Vĩnh Phúc</option>
 												<option value="Yên Bái">Yên Bái</option>
-											</select>
+											</select> -->
 										</div>
 									</div>
 									<div class="row">
@@ -776,12 +779,13 @@ document.getElementById('logo').addEventListener('change', function(event) {
     }
 });
 </script>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- JS for DataTables -->
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-	
+
 </body>
 </html>
