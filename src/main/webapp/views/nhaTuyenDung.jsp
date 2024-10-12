@@ -262,7 +262,7 @@
 										<div class="col-md-6 p-2">
 											<label for="industry" class="form-label">Ngành nghề</label> <input
 												type="text" class="form-control" id="industry"
-												name="industry" joblocation readonly>
+												name="industry" value="${employer.industry}" readonly>
 										</div>
 									</div>
 									<div class="row">
