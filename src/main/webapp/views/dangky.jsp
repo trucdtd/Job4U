@@ -183,27 +183,43 @@ color: #ffcccc; /* Màu đỏ nhạt */
 											class="text-danger">${companyAddressError}</span>
 									</div>
 									<div class="col">
-										<label for="industry" class="form-label">Ngành nghề</label> <select
-											class="form-control" id="industry" name="industry">
-											<option value="" disabled selected>Chọn ngành nghề</option>
-											<option value="Nông nghiệp">Nông nghiệp</option>
-											<option value="Công nghiệp">Công nghiệp</option>
-											<option value="Dịch vụ">Dịch vụ</option>
-											<option value="construction">Xây dựng</option>
-											<option value="Giao thông vận tải">Giao thông vận
-												tải</option>
-											<option value="Công nghệ thông tin">Công nghệ thông
-												tin</option>
-											<option value="Tài chính">Tài chính</option>
-											<option value="Giáo dục">Giáo dục</option>
-											<option value="Y tế">Y tế</option>
-											<option value="Truyền thông">Truyền thông</option>
-											<option value="Công nghệ ô tô">Công nghệ ô tô</option>
-											<option value="Du lịch">Du lịch</option>
-											<option value="Hành chính văn phòng">Hành chính văn
-												phòng</option>
-											<option value="Khác">Khác...</option>
-										</select> <span class="text-danger">${industryError}</span>
+										<label for="industry" class="form-label">Ngành nghề</label> 
+										 <select class="form-select" id="industry" name="industry"
+												required>
+												<option value="" disabled selected>Chọn ngành nghề</option>
+												<option value="Nông nghiệp">Nông nghiệp</option>
+												<option value="Công nghiệp">Công nghiệp</option>
+												<option value="Dịch vụ">Dịch vụ</option>
+												<option value="Xây dựng">Xây dựng</option>
+												<option value="Giao thông vận tải">Giao thông vận
+													tải</option>
+												<option value="Công nghệ thông tin">Công nghệ thông
+													tin</option>
+												<option value="Tài chính">Tài chính</option>
+												<option value="Giáo dục">Giáo dục</option>
+												<option value="Y tế">Y tế</option>
+												<option value="Truyền thông">Truyền thông</option>
+												<option value="Công nghệ ô tô">Công nghệ ô tô</option>
+												<option value="Du lịch">Du lịch</option>
+												<option value="Hành chính văn phòng">Hành chính văn
+													phòng</option>												
+												<option value="Năng lượng">Năng lượng</option>
+												<option value="Bán lẻ">Bán lẻ</option>
+												<option value="Dịch vụ khách hàng">Dịch vụ khách
+													hàng</option>
+												<option value="Quản trị kinh doanh">Quản trị kinh
+													doanh</option>
+												<option value="Xuất nhập khẩu">Xuất nhập khẩu</option>
+												<option value="Marketing">Marketing</option>
+												<option value="Khoa học dữ liệu">Khoa học dữ liệu</option>
+												<option value="Kỹ thuật điện">Kỹ thuật điện</option>
+												<option value="Môi trường">Môi trường</option>
+												<option value="Thương mại điện tử">Thương mại điện
+													tử</option>
+												<option value="Nghiên cứu và phát triển">Nghiên cứu
+													và phát triển</option>
+												<option value="Khác">Khác...</option>
+											</select> <span class="text-danger">${industryError}</span>
 									</div>
 								</div>
 								<div class="row">

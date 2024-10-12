@@ -113,18 +113,16 @@
 												            }
 												        </script>
 												</span></td> -->
-												<td>
-												    <c:choose>
-												        <c:when test="${job.salary != null}">
-												            <span style="display: inline-flex; align-items: center;">
-												                ${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")} VND
-												            </span>
-												        </c:when>
-												        <c:otherwise>
+												<td><c:choose>
+														<c:when test="${job.salary != null}">
+															<span style="display: inline-flex; align-items: center;">
+																${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+																VND </span>
+														</c:when>
+														<c:otherwise>
 												            Thỏa Thuận
 												        </c:otherwise>
-												    </c:choose>
-												</td>												
+													</c:choose></td>
 												<td>${job.jobtype}</td>
 												<td class="formatted-date" data-date="${job.posteddate}"></td>
 												<%-- <td>${job.applicationdeadline}</td> --%>
@@ -223,17 +221,27 @@
 							<div class="card-body p-0">
 								<form class="p-4" action="/employers/submit" method="post"
 									id="nhaTuyenDung" enctype="multipart/form-data">
-									<div class="row">
-										<div class="col-md-6 p-2">
-											<label for="companyname" class="form-label">Tên công
-												ty</label> <input type="text" class="form-control" id="companyname"
-												name="companyname" value="${employer.companyname}" readonly>
+									<div class="row mb-3 align-items-center">
+										<div class="col-md-4">
+											<div class="bg-image me-3">
+												<img
+													src="${pageContext.request.contextPath}/uploads/${employer.logo}"
+													alt="Logo" class="img-fluid"
+													style="object-fit: cover; max-width: 100%; height: auto;">
+											</div>
 										</div>
-										<div class="col-md-6 p-2">
-											<label for="companywebsite" class="form-label">Tên
-												web công ty</label> <input type="text" class="form-control"
-												id="companywebsite" name="companywebsite"
-												value="${employer.companywebsite}" readonly>
+										<div class="col-md-8">
+											<div>
+												<label for="companyname" class="form-label">Tên công
+													ty</label> <input type="text" class="form-control" id="companyname"
+													name="companyname" value="${employer.companyname}" readonly>
+											</div>
+											<div>
+												<label for="companywebsite" class="form-label">Tên
+													web công ty</label> <input type="text" class="form-control"
+													id="companywebsite" name="companywebsite"
+													value="${employer.companywebsite}" readonly>
+											</div>
 										</div>
 									</div>
 									<div class="row">
@@ -243,27 +251,9 @@
 												name="address" value="${employer.address}" readonly>
 										</div>
 										<div class="col-md-6 p-2">
-											<label for="industry" class="form-label">Ngành nghề</label> <select
-												class="form-select" id="industry" name="industry" required>
-												<option value="" disabled selected>Chọn ngành nghề</option>
-												<option value="Nông nghiệp">Nông nghiệp</option>
-												<option value="Công nghiệp">Công nghiệp</option>
-												<option value="Dịch vụ">Dịch vụ</option>
-												<option value="Xây dựng">Xây dựng</option>
-												<option value="Giao thông vận tải">Giao thông vận
-													tải</option>
-												<option value="Công nghệ thông tin">Công nghệ thông
-													tin</option>
-												<option value="Tài chính">Tài chính</option>
-												<option value="Giáo dục">Giáo dục</option>
-												<option value="Y tế">Y tế</option>
-												<option value="Truyền thông">Truyền thông</option>
-												<option value="Công nghệ ô tô">Công nghệ ô tô</option>
-												<option value="Du lịch">Du lịch</option>
-												<option value="Hành chính văn phòng">Hành chính văn
-													phòng</option>
-												<option value="Khác">Khác...</option>
-											</select>
+											<label for="industry" class="form-label">Ngành nghề</label> <input
+												type="text" class="form-control" id="industry"
+												name="industry" value="${employer.industry}" readonly>
 										</div>
 									</div>
 									<div class="row">
@@ -272,11 +262,8 @@
 												việc</label> <input type="text" class="form-control" id="jobtitle"
 												name="jobtitle" required>
 										</div>
-										<div class="col-md-12 p-2">
-											<label for="logo" class="form-label">Logo công ty</label> <input
-												type="file" class="form-control" id="logo" name="logo">
-										</div>
 									</div>
+
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="contactperson" class="form-label">Người
@@ -404,9 +391,9 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-6 p-2">
+										<div class="col-md-6 p-2" style="display: none;">
 											<label for="posteddate" class="form-label">Ngày đăng</label>
-											<input type="date" class="form-control" id="posteddate"
+											<input type="text" class="form-control" id="posteddate"
 												name="posteddate" required>
 										</div>
 										<div class="col-md-6 p-2">
@@ -521,7 +508,7 @@
 							<div class="mb-3">
 								<label for="salary" class="form-label">Lương</label> <input
 									type="number" class="form-control" id="salaryEdit"
-									name="salaryEdit" placeholder="Thỏa Thuận"/>
+									name="salaryEdit" placeholder="Thỏa Thuận" />
 							</div>
 							<div class="mb-3">
 								<label for="jobType" class="form-label">Loại Công Việc</label> <input
@@ -591,27 +578,38 @@
 		}
 	});
 
+	//Xử lý đăng bài
 	document.addEventListener("DOMContentLoaded", function() {
-		// Đặt ngày hiện tại cho trường "Ngày đăng"
-		var now = new Date();
-		var formattedDate = now.toISOString().slice(0, 10); // Định dạng theo kiểu yyyy-MM-dd
+	    // Lấy ngày hiện tại
+	    var now = new Date();
+	    var formattedDate = now.toISOString().slice(0, 10); // Định dạng theo kiểu yyyy-MM-dd
 
-		var postedDateField = document.getElementById("posteddate");
-		postedDateField.value = formattedDate;
+	    // Gán giá trị ngày hiện tại vào trường "posteddate"
+	    var postedDateField = document.getElementById("posteddate");
+	    postedDateField.value = formattedDate;
 
-		// Tạo sự kiện khi thay đổi hạn nộp hồ sơ
-		var applicationDeadlineField = document
-				.getElementById("applicationdeadline");
-		applicationDeadlineField.addEventListener("change", function() {
-			var postedDate = new Date(postedDateField.value);
-			var applicationDeadline = new Date(applicationDeadlineField.value);
+	    // Tạo sự kiện khi form được gửi
+	    var form = document.getElementById("nhaTuyenDung");
+	    form.addEventListener("submit", function(event) {
+	        // Ngăn chặn gửi form mặc định
+	        event.preventDefault();
 
-			// So sánh ngày
-			if (applicationDeadline < postedDate) {
-				alert("Hạn nộp hồ sơ không được chọn trước ngày đăng.");
-				applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
-			}
-		});
+	        // Gửi form
+	        form.submit();
+	    });
+
+	    // Tạo sự kiện khi thay đổi hạn nộp hồ sơ
+	    var applicationDeadlineField = document.getElementById("applicationdeadline");
+	    applicationDeadlineField.addEventListener("change", function() {
+	        var applicationDeadline = new Date(applicationDeadlineField.value); // Hạn nộp hồ sơ
+	        var postedDate = new Date(); // Ngày hiện tại
+
+	        // So sánh ngày
+	        if (applicationDeadline <= postedDate) {
+	            alert("Hạn nộp hồ sơ không được chọn trước hoặc bằng ngày đăng.");
+	            applicationDeadlineField.value = ""; // Xóa giá trị nếu không hợp lệ
+	        }
+	    });
 	});
 </script>
 
