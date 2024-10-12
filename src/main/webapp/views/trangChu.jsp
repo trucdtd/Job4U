@@ -34,31 +34,38 @@
 					<div class="d-flex align-items-center gap-3">
 						<!-- Tiêu đề công việc -->
 						<div class="flex-fill mb-3">
-							<label class="form-label" for="jobtitle">Vị trí tuyển dụng</label> <input type="text" class="form-control rounded-3"
-								id="jobtitle" name="jobtitle"
-								placeholder="Tất cả">
+							<label class="form-label" for="jobtitle">Vị trí tuyển
+								dụng</label> <input type="text" class="form-control rounded-3"
+								id="jobtitle" name="jobtitle" placeholder="Tất cả">
 						</div>
 
 						<!-- Ngành nghề -->
 						<div class="flex-fill mb-3">
-							<label class="form-label" for="industry">Ngành nghề</label> <select
+							<label for="industry" class="form-label">Ngành nghề</label> <select
 								class="form-select rounded-3" id="industry" name="industry">
-								<option value="" selected>Chọn ngành nghề</option>
+								<option value="" disabled selected>Chọn ngành nghề</option>
 								<option value="Nông nghiệp">Nông nghiệp</option>
 								<option value="Công nghiệp">Công nghiệp</option>
 								<option value="Dịch vụ">Dịch vụ</option>
-								<option value="Công nghệ thông tin">Công nghệ thông tin</option>
-								<option value="Công nghệ ô tô">Công nghệ ô tô</option>
 								<option value="Xây dựng">Xây dựng</option>
 								<option value="Giao thông vận tải">Giao thông vận tải</option>
-								<option value="Ngân hàng và Tài chính">Ngân hàng và Tài
-									chính</option>
-								<option value="Giáo dục">Giáo dục</option>
-								<option value="Y tế">Y tế</option>
+								<option value="Công nghệ thông tin">Công nghệ thông tin</option>
+								<option value="Tài chính">Tài chính</option>
+								<option value="Giáo dục Đào tạo">Giáo dục/Đào tạo</option>
+								<option value="Y tế Dược">Y tế/Dược</option>
 								<option value="Truyền thông">Truyền thông</option>
+								<option value="Công nghệ ô tô">Công nghệ ô tô</option>
 								<option value="Du lịch">Du lịch</option>
 								<option value="Hành chính văn phòng">Hành chính văn
 									phòng</option>
+								<option value="Bán lẻ">Bán lẻ</option>
+								<option value="Nhà hàng khách sạn">Nhà hàng khách sạn</option>
+								<option value="Quản trị kinh doanh">Quản trị kinh doanh</option>
+								<option value="Xuất nhập khẩu">Xuất nhập khẩu</option>
+								<option value="Marketing">Marketing</option>
+								<option value="Kỹ thuật điện">Kỹ thuật điện</option>
+								<option value="Môi trường">Môi trường</option>
+								<option value="Thương mại điện tử">Thương mại điện tử</option>
 								<option value="Khác">Khác...</option>
 							</select>
 						</div>
@@ -154,8 +161,8 @@
 					<form action="/job4u/findJob" method="GET">
 						<div class="row mt-3">
 							<div class="col-md-12">
-								<label class="form-label" id="industry" name="industry">Lộc theo ngành
-									nghề</label>
+								<label class="form-label" id="industry" name="industry">Lộc
+									theo ngành nghề</label>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
 										value="Nông nghiệp"> <label class="form-check-label">Nông

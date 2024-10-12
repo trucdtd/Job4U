@@ -123,7 +123,7 @@
 <body>
 	<!-- Kiểm tra và hiển thị thông báo -->
 	<c:if test="${not empty message}">
-		<div class="alert alert-info" role="alert">${message}</div>
+		<div class="mt-4 alert alert-info" role="alert">${message}</div>
 	</c:if>
 	<div class="container mt-4">
 		<div class="row">

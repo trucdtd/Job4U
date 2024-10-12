@@ -15,19 +15,19 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <style>
 .form-control {
-    padding: 1rem;
-    width: calc(100% - 1.5rem); /* Adjust width to make room for padding */
+	padding: 1rem;
+	width: calc(100% - 1.5rem); /* Adjust width to make room for padding */
 }
 
 .row .col {
-    flex: 1; /* Equal width for all columns */
+	flex: 1; /* Equal width for all columns */
 }
 
 .text-danger {
-color: #ffcccc; /* Màu đỏ nhạt */
-    font-style: italic; /* Chữ nghiêng */
-    display: block; /* Ensure spans take full width */
-    margin-top: 0.25rem; /* Space above the error messages */
+	color: #ffcccc; /* Màu đỏ nhạt */
+	font-style: italic; /* Chữ nghiêng */
+	display: block; /* Ensure spans take full width */
+	margin-top: 0.25rem; /* Space above the error messages */
 }
 
 .form-container {
@@ -93,45 +93,42 @@ color: #ffcccc; /* Màu đỏ nhạt */
 								class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start mb-4">
 								<h1 class="lead fw-normal mb-0 me-3">Đăng Ký</h1>
 							</div>
-    <div class="row">
-    <div class="col">
-        <label class="form-label" for="fullname">Họ và Tên</label>
-        <input type="text" id="fullname" name="fullname" class="form-control"
-               placeholder="Nhập họ và tên" value="${fullname}" 
-               onkeypress="return isLetter(event)" />
-        <span class="text-danger">${fullnameError}</span>
-    </div>
-    <div class="col">
-        <label class="form-label" for="username">Tên Tài Khoản</label>
-        <input type="text" id="username" name="username"
-               class="form-control" placeholder="Nhập tên tài khoản"
-               value="${username}" />
-        <span class="text-danger">${usernameError}</span>
-    </div>
-</div>
+							<div class="row">
+								<div class="col">
+									<label class="form-label" for="fullname">Họ và Tên</label> <input
+										type="text" id="fullname" name="fullname" class="form-control"
+										placeholder="Nhập họ và tên" value="${fullname}"
+										onkeypress="return isLetter(event)" /> <span
+										class="text-danger">${fullnameError}</span>
+								</div>
+								<div class="col">
+									<label class="form-label" for="username">Tên Tài Khoản</label>
+									<input type="text" id="username" name="username"
+										class="form-control" placeholder="Nhập tên tài khoản"
+										value="${username}" /> <span class="text-danger">${usernameError}</span>
+								</div>
+							</div>
 
-<div class="row">
-    <div class="col">
-        <label class="form-label" for="email">Email</label>
-        <input type="email" id="email" name="email" class="form-control"
-               placeholder="Nhập email" value="${email}" />
-        <span class="text-danger">${emailError}</span>
-    </div>
-    <div class="col">
-        <label class="form-label" for="phonenumber">Số Điện Thoại</label>
-        <input type="text" id="phonenumber" name="phonenumber"
-               class="form-control" placeholder="Nhập số điện thoại"
-               value="${phonenumber}"  />
-        <span class="text-danger">${phonenumberError}</span>
-    </div>
-</div>
-<div class="mb-4">
-    <label class="form-label" for="password">Mật Khẩu</label>
-    <input type="password" id="password" name="password"
-           class="form-control" placeholder="Nhập mật khẩu"
-           value="${password}" />
-    <span class="text-danger">${passwordError}</span>
-</div>
+							<div class="row">
+								<div class="col">
+									<label class="form-label" for="email">Email</label> <input
+										type="email" id="email" name="email" class="form-control"
+										placeholder="Nhập email" value="${email}" /> <span
+										class="text-danger">${emailError}</span>
+								</div>
+								<div class="col">
+									<label class="form-label" for="phonenumber">Số Điện
+										Thoại</label> <input type="text" id="phonenumber" name="phonenumber"
+										class="form-control" placeholder="Nhập số điện thoại"
+										value="${phonenumber}" /> <span class="text-danger">${phonenumberError}</span>
+								</div>
+							</div>
+							<div class="mb-4">
+								<label class="form-label" for="password">Mật Khẩu</label> <input
+									type="password" id="password" name="password"
+									class="form-control" placeholder="Nhập mật khẩu"
+									value="${password}" /> <span class="text-danger">${passwordError}</span>
+							</div>
 							<div class="mb-4">
 								<label class="form-label">Đăng ký tài khoản</label>
 								<div>
@@ -183,43 +180,38 @@ color: #ffcccc; /* Màu đỏ nhạt */
 											class="text-danger">${companyAddressError}</span>
 									</div>
 									<div class="col">
-										<label for="industry" class="form-label">Ngành nghề</label> 
-										 <select class="form-select" id="industry" name="industry"
-												required>
-												<option value="" disabled selected>Chọn ngành nghề</option>
-												<option value="Nông nghiệp">Nông nghiệp</option>
-												<option value="Công nghiệp">Công nghiệp</option>
-												<option value="Dịch vụ">Dịch vụ</option>
-												<option value="Xây dựng">Xây dựng</option>
-												<option value="Giao thông vận tải">Giao thông vận
-													tải</option>
-												<option value="Công nghệ thông tin">Công nghệ thông
-													tin</option>
-												<option value="Tài chính">Tài chính</option>
-												<option value="Giáo dục">Giáo dục</option>
-												<option value="Y tế">Y tế</option>
-												<option value="Truyền thông">Truyền thông</option>
-												<option value="Công nghệ ô tô">Công nghệ ô tô</option>
-												<option value="Du lịch">Du lịch</option>
-												<option value="Hành chính văn phòng">Hành chính văn
-													phòng</option>												
-												<option value="Năng lượng">Năng lượng</option>
-												<option value="Bán lẻ">Bán lẻ</option>
-												<option value="Dịch vụ khách hàng">Dịch vụ khách
-													hàng</option>
-												<option value="Quản trị kinh doanh">Quản trị kinh
-													doanh</option>
-												<option value="Xuất nhập khẩu">Xuất nhập khẩu</option>
-												<option value="Marketing">Marketing</option>
-												<option value="Khoa học dữ liệu">Khoa học dữ liệu</option>
-												<option value="Kỹ thuật điện">Kỹ thuật điện</option>
-												<option value="Môi trường">Môi trường</option>
-												<option value="Thương mại điện tử">Thương mại điện
-													tử</option>
-												<option value="Nghiên cứu và phát triển">Nghiên cứu
-													và phát triển</option>
-												<option value="Khác">Khác...</option>
-											</select> <span class="text-danger">${industryError}</span>
+										<label for="industry" class="form-label">Ngành nghề</label> <select
+											class="form-select" id="industry" name="industry" required>
+											<option value="" disabled selected>Chọn ngành nghề</option>
+											<option value="Nông nghiệp">Nông nghiệp</option>
+											<option value="Công nghiệp">Công nghiệp</option>
+											<option value="Dịch vụ">Dịch vụ</option>
+											<option value="Xây dựng">Xây dựng</option>
+											<option value="Giao thông vận tải">Giao thông vận
+												tải</option>
+											<option value="Công nghệ thông tin">Công nghệ thông
+												tin</option>
+											<option value="Tài chính">Tài chính</option>
+											<option value="Giáo dục Đào tạo">Giáo dục/Đào tạo</option>
+											<option value="Y tế Dược">Y tế/Dược</option>
+											<option value="Truyền thông">Truyền thông</option>
+											<option value="Công nghệ ô tô">Công nghệ ô tô</option>
+											<option value="Du lịch">Du lịch</option>
+											<option value="Hành chính văn phòng">Hành chính văn
+												phòng</option>
+											<option value="Bán lẻ">Bán lẻ</option>
+											<option value="Nhà hàng khách sạn">Nhà hàng khách
+												sạn</option>
+											<option value="Quản trị kinh doanh">Quản trị kinh
+												doanh</option>
+											<option value="Xuất nhập khẩu">Xuất nhập khẩu</option>
+											<option value="Marketing">Marketing</option>
+											<option value="Kỹ thuật điện">Kỹ thuật điện</option>
+											<option value="Môi trường">Môi trường</option>
+											<option value="Thương mại điện tử">Thương mại điện
+												tử</option>
+											<option value="Khác">Khác...</option>
+										</select> <span class="text-danger">${industryError}</span>
 									</div>
 								</div>
 								<div class="row">
@@ -273,20 +265,25 @@ color: #ffcccc; /* Màu đỏ nhạt */
 
 
 						<!-- Modal thông báo điều khoản -->
-<div class="modal fade" id="termsErrorModal" tabindex="-1" aria-labelledby="termsErrorModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="termsErrorModalLabel">Thông báo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">Bạn cần đồng ý với điều khoản để tiếp tục đăng ký.</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
+						<div class="modal fade" id="termsErrorModal" tabindex="-1"
+							aria-labelledby="termsErrorModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="termsErrorModalLabel">Thông
+											báo</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">Bạn cần đồng ý với điều khoản để
+										tiếp tục đăng ký.</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-success"
+											data-bs-dismiss="modal">OK</button>
+									</div>
+								</div>
+							</div>
+						</div>
 
 
 					</div>
@@ -308,74 +305,67 @@ color: #ffcccc; /* Màu đỏ nhạt */
 	</script>
 
 	<script>
-		document
-				.addEventListener(
-						"DOMContentLoaded",
-						function() {
-							const applicantRadio = document
-									.getElementById("applicant");
-							const employerRadio = document
-									.getElementById("employer");
-							const employerDetails = document
-									.getElementById("employerDetails");
-							const form = document
-									.getElementById('registerForm');
-							const termsAgreedCheckbox = document
-									.getElementById('termsAgreed');
-							const termsErrorModal = new bootstrap.Modal(
-									document.getElementById('termsErrorModal'));
-							const successModal = new bootstrap.Modal(document
-									.getElementById('successModal'));
+		document.addEventListener("DOMContentLoaded", function() {
+			const applicantRadio = document.getElementById("applicant");
+			const employerRadio = document.getElementById("employer");
+			const employerDetails = document.getElementById("employerDetails");
+			const form = document.getElementById('registerForm');
+			const termsAgreedCheckbox = document.getElementById('termsAgreed');
+			const termsErrorModal = new bootstrap.Modal(document
+					.getElementById('termsErrorModal'));
+			const successModal = new bootstrap.Modal(document
+					.getElementById('successModal'));
 
-							function toggleEmployerDetails() {
-								if (employerRadio.checked) {
-									employerDetails.style.display = "block";
-								} else {
-									employerDetails.style.display = "none";
-									clearEmployerDetails(); // Xóa các giá trị không cần thiết khi chuyển về "Người Xin Việc"
-								}
-							}
+			function toggleEmployerDetails() {
+				if (employerRadio.checked) {
+					employerDetails.style.display = "block";
+				} else {
+					employerDetails.style.display = "none";
+					clearEmployerDetails(); // Xóa các giá trị không cần thiết khi chuyển về "Người Xin Việc"
+				}
+			}
 
-							function clearEmployerDetails() {
-								document.getElementById("companyName").value = "";
-								document.getElementById("companyWebsite").value = "";
-								document.getElementById("companyAddress").value = "";
-								document.getElementById("industry").value = "";
-								document.getElementById("contactPerson").value = "";
-								document.getElementById("companyDescription").value = "";
-							}
+			function clearEmployerDetails() {
+				document.getElementById("companyName").value = "";
+				document.getElementById("companyWebsite").value = "";
+				document.getElementById("companyAddress").value = "";
+				document.getElementById("industry").value = "";
+				document.getElementById("contactPerson").value = "";
+				document.getElementById("companyDescription").value = "";
+			}
 
-							applicantRadio.addEventListener("change",
-									toggleEmployerDetails);
-							employerRadio.addEventListener("change",
-									toggleEmployerDetails);
-							toggleEmployerDetails(); // Gọi hàm ngay khi trang được load
-						});
+			applicantRadio.addEventListener("change", toggleEmployerDetails);
+			employerRadio.addEventListener("change", toggleEmployerDetails);
+			toggleEmployerDetails(); // Gọi hàm ngay khi trang được load
+		});
 	</script>
 	<script>
-	document.addEventListener("DOMContentLoaded", function() {
-	    const form = document.getElementById('registerForm');
-	    const termsAgreedCheckbox = document.getElementById('termsAgreed');
-	    const termsErrorModal = new bootstrap.Modal(document.getElementById('termsErrorModal'));
+		document.addEventListener("DOMContentLoaded", function() {
+			const form = document.getElementById('registerForm');
+			const termsAgreedCheckbox = document.getElementById('termsAgreed');
+			const termsErrorModal = new bootstrap.Modal(document
+					.getElementById('termsErrorModal'));
 
-	    // Kiểm tra điều khoản khi gửi form
-	    form.addEventListener('submit', function(event) {
-	        if (!termsAgreedCheckbox.checked) {
-	            event.preventDefault(); // Ngăn form submit
-	            termsErrorModal.show(); // Hiển thị modal lỗi điều khoản
-	        }
-	    });
+			// Kiểm tra điều khoản khi gửi form
+			form.addEventListener('submit', function(event) {
+				if (!termsAgreedCheckbox.checked) {
+					event.preventDefault(); // Ngăn form submit
+					termsErrorModal.show(); // Hiển thị modal lỗi điều khoản
+				}
+			});
 
-	    // Khi người dùng nhấn "OK", chỉ đóng modal
-	    document.querySelector('#termsErrorModal .btn-success').addEventListener('click', function() {
-	        termsErrorModal.hide(); // Đóng modal
-	    });
+			// Khi người dùng nhấn "OK", chỉ đóng modal
+			document.querySelector('#termsErrorModal .btn-success')
+					.addEventListener('click', function() {
+						termsErrorModal.hide(); // Đóng modal
+					});
 
-	    // Khi người dùng nhấn "X", chỉ đóng modal
-	    document.querySelector('#termsErrorModal .btn-close').addEventListener('click', function() {
-	        termsErrorModal.hide(); // Đóng modal
-	    });
-	});
+			// Khi người dùng nhấn "X", chỉ đóng modal
+			document.querySelector('#termsErrorModal .btn-close')
+					.addEventListener('click', function() {
+						termsErrorModal.hide(); // Đóng modal
+					});
+		});
 	</script>
 </body>
 </html>
