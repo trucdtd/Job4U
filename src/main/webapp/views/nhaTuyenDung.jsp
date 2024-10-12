@@ -15,6 +15,8 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/nhaTuyendung.css">
+<!-- CSS for DataTables -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 <body>
 	<!-- header -->
@@ -412,7 +414,6 @@
 									<button type="submit" class="btn text-light p-2"
 										style="background-color: #198754">Đăng bài</button>
 								</form>
-
 							</div>
 						</div>
 					</div>
@@ -542,8 +543,6 @@
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 	<script>
 	function showTable(event, tableId) {
@@ -777,13 +776,12 @@ document.getElementById('logo').addEventListener('change', function(event) {
     }
 });
 </script>
-
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- JS for DataTables -->
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-	<!-- CSS for DataTables -->
-	<link rel="stylesheet"
-		href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+	
 </body>
 </html>
