@@ -46,10 +46,11 @@ public class UsersController {
 		System.out.println(java.time.LocalDate.now());
 		return "trangCaNhanNguoiTimViec";
 	}
-
+	
 	@PostMapping("/cv")
 	public String postUpdateCV(Model model, @RequestParam("gender") String gender,
-			@RequestParam("fullnamecv") String fullnamecv, @RequestParam("dateOfbirth") String dateOfbirthStr,
+			@RequestParam("fullnamecv") String fullnamecv, @RequestParam("emailcv") String emailcv,
+			@RequestParam("dateOfbirth") String dateOfbirthStr,
 			@RequestParam("resume") String resume, @RequestParam("profilesummary") String profilesummary,
 			@RequestParam("experience") String experience, @RequestParam("education") String education,
 			@RequestParam("skills") String skills, @RequestParam("certifications") String certifications,
@@ -69,6 +70,7 @@ public class UsersController {
 
 		// Các thuộc tính khác
 		entity.setFullnamecv(fullnamecv);
+		entity.setEmailcv(emailcv);
 		entity.setResume(resume);
 		entity.setProfilesummary(profilesummary);
 		entity.setExperience(experience);
