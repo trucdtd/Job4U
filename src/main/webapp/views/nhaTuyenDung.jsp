@@ -33,8 +33,6 @@
 			<!-- Thông báo lỗi -->
 			<div id="error" class="alert alert-danger" style="display: none;"
 				role="alert"></div>
-
-			<!-- Nội dung trang -->
 		</div>
 		<div class="row">
 			<!-- aside -->

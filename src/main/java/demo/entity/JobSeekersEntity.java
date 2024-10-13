@@ -28,7 +28,10 @@ public class JobSeekersEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "jobseekerid")
     private Integer jobseekerid;
-
+    
+    @Column(name = "fullnamecv")
+    private String fullnamecv;
+    
     @Lob
     @Column(name = "resume")
     private String resume;
