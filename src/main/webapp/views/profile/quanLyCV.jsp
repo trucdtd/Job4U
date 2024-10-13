@@ -72,7 +72,7 @@
 						<td>${cv.gender}</td>
 						<td>${cv.createdat}</td>
 						<td class="text-center">
-							<form action="/user/cv/viewCV" method="get"
+							<form action="/user/chiTietCV/${cv.jobseekerid}" method="get"
 								style="display: inline;">
 								<button type="submit" title="Xem thêm"
 									style="border: none; background: none;">
@@ -83,7 +83,8 @@
 
 							<form action="/user/cv/list2/delete" method="post"
 								style="display: inline;">
-								<input type="hidden" name="jobseekerId" value="${cv.jobseekerid}" />
+								<input type="hidden" name="jobseekerId"
+									value="${cv.jobseekerid}" />
 								<button type="submit"
 									onclick="return confirm('Bạn có chắc chắn muốn xóa không?');"
 									title="Xóa" style="border: none; background: none;">

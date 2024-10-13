@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import demo.dao.ApplicationsDao;
 import demo.dao.JobSeekersDao;
@@ -135,6 +136,20 @@ public class UsersController {
 		dao.delete(jobseeker);
 		model.addAttribute("success", "Xóa bài đăng thành công.");
 		return "redirect:/user/cv/list2";
+	}
+	
+	//xem chi tiết cv
+	@GetMapping("/chiTietCV/{jobseekerId}")
+	public String cvDetails(@PathVariable("jobseekerId") Integer jobseekerId, Model model) {
+	    JobSeekersEntity jobseeker = dao.findById(jobseekerId).orElse(null);
+	    
+	    if (jobseeker == null) {
+	        model.addAttribute("errorMessage", "Không tìm thấy thông tin CV.");
+	        return "redirect:/user/cv/list2";
+	    }
+
+	    model.addAttribute("cv", jobseeker);
+	    return "xemCVCaNhan"; // Trả về view chi tiết CV
 	}
 
 }
