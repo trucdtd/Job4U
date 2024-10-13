@@ -95,7 +95,9 @@ public class TrangChuController {
 		// Kiểm tra nếu không có kết quả
 		if (dsSP.isEmpty()) {
 			// Thêm thông báo vào mô hình
-			model.addAttribute("message", "Nội dung tìm kiếm hiện không có.");
+			model.addAttribute("message", "Nội dung tìm kiếm hiện không có. Vui lòng tham khảo thêm công việc bên dưới.");
+			dsSP = danhSachViecLamDao.findAll(pageable);
+		    model.addAttribute("dsSP", dsSP);
 			// Trả về trang chủ với thông báo
 			return "trangChu";
 		}
