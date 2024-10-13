@@ -18,6 +18,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </head>
 <style>
+
 </style>
 <body>
 	<!-- header -->
@@ -154,14 +155,14 @@
 			</div>
 		</nav>
 
-		<div class="row">
+		<div class="row mt-4">
 			<aside class="col-md-3">
 				<!-- <h3>Bộ lộc</h3> -->
 				<div class="container mt-4">
 					<form action="/job4u/findJob" method="GET">
 						<div class="row mt-3">
 							<div class="col-md-12">
-								<label class="form-label" id="industry" name="industry">Lộc
+								<label class="form-label" id="industry" name="industry" style="color: #198754; font-weight: bold">Lộc
 									theo ngành nghề</label>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
