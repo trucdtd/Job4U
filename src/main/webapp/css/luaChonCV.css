@@ -1,0 +1,132 @@
+
+/* CSS cho toàn trang */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+}
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: center;
+	padding: 20px;
+}
+
+.cv-template {
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	width: 300px;
+	text-align: center;
+	position: relative;
+}
+
+.image-container {
+	position: relative;
+	overflow: hidden;
+}
+
+.cv-template img {
+	width: 100%;
+	height: auto;
+	border-radius: 5px;
+}
+
+.buttons {
+    position: absolute;
+    top: 60%; /* Điều chỉnh vị trí xuống thấp */
+    left: 0;
+    width: 100%;
+    height: auto; /* Không cần chiều cao cố định */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.preview-btn, .use-btn {
+    margin-top: 10px;
+    padding: 10px;
+    width: 80%;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    font-size: 16px;
+     font-size: 14px; /* Giảm kích thước chữ */
+}
+
+.preview-btn {
+	/* background-color: rgba(255, 255, 255, 0.2); Nền mờ
+	color: white;
+	border: 2px solid rgba(255, 255, 255, 0.6); Viền mờ trắng */
+	background-color: rgba(40, 167, 69, 0.2); /* Nền mờ màu xanh lá */
+	color: white;
+	border: 2px solid rgba(40, 167, 69, 0.6); /* Viền mờ xanh lá */
+	border-radius: 50px; /* Bo tròn nút */
+	padding: 10px 30px;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px; /* Khoảng cách giữa icon và chữ */
+	position: relative;
+	cursor: pointer;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.preview-btn:hover {
+	/* background-color: rgba(255, 255, 255, 0.4);
+	Tăng độ rõ nền khi hover
+	border-color: rgba(255, 255, 255, 1); Viền rõ hơn khi hover */
+	background-color: rgba(40, 167, 69, 0.4); /* Tăng độ rõ nền khi hover */
+	border-color: rgba(40, 167, 69, 1); /* Viền rõ hơn khi hover */
+}
+
+/* Icon mắt */
+.preview-btn::before {
+	content: "\1F441"; /* Mã Unicode cho biểu tượng mắt */
+	font-size: 18px;
+}
+
+.use-btn {
+	background-color: rgba(40, 167, 69, 0.2); /* Nền mờ màu xanh lá */
+	color: white;
+	border: 2px solid rgba(40, 167, 69, 0.6); /* Viền mờ xanh lá */
+	border-radius: 50px; /* Bo tròn nút */
+	padding: 10px 30px;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	cursor: pointer;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.use-btn:hover {
+	background-color: rgba(40, 167, 69, 0.4); /* Tăng độ rõ nền khi hover */
+	border-color: rgba(40, 167, 69, 1); /* Viền rõ hơn khi hover */
+}
+
+/* Khi di chuột vào ảnh, các nút sẽ hiện ra */
+.image-container:hover .buttons {
+	opacity: 1;
+}
+
+.info {
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.info p {
+	margin: 5px 0;
+}
+
+.info b {
+    margin: 5px 0;
+    margin-right: 200px;
+}

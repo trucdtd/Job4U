@@ -86,5 +86,9 @@ public class JobSeekersEntity implements Serializable {
     @Column(name = "updatedat", nullable = false)
     private LocalDate updatedat;
 
+	public static void deleteById(Integer jobseekerid2) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

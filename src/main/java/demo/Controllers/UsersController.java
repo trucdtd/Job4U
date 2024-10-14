@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import demo.dao.ApplicationsDao;
 import demo.dao.JobSeekersDao;
 import demo.dao.UsersDao;
@@ -30,6 +32,9 @@ public class UsersController {
 
 	@Autowired
 	ApplicationsDao applicationsDao;
+	
+	@Autowired
+	JobSeekersDao jobSeekersDao;
 
 	@GetMapping("")
 	public String home(Model model) {
@@ -137,19 +142,31 @@ public class UsersController {
 		model.addAttribute("success", "Xóa bài đăng thành công.");
 		return "redirect:/user/cv/list2";
 	}
-	
-	//xem chi tiết cv
+
+	// xem chi tiết cv
 	@GetMapping("/chiTietCV/{jobseekerId}")
 	public String cvDetails(@PathVariable("jobseekerId") Integer jobseekerId, Model model) {
-	    JobSeekersEntity jobseeker = dao.findById(jobseekerId).orElse(null);
-	    
-	    if (jobseeker == null) {
-	        model.addAttribute("errorMessage", "Không tìm thấy thông tin CV.");
-	        return "redirect:/user/cv/list2";
-	    }
+		JobSeekersEntity jobseeker = dao.findById(jobseekerId).orElse(null);
 
-	    model.addAttribute("cv", jobseeker);
-	    return "xemCVCaNhan"; // Trả về view chi tiết CV
+		if (jobseeker == null) {
+			model.addAttribute("errorMessage", "Không tìm thấy thông tin CV.");
+			return "redirect:/user/cv/list2";
+		}
+
+		model.addAttribute("cv", jobseeker);
+		return "xemCVCaNhan"; // Trả về view chi tiết CV
+	}
+
+	@PostMapping("/deleteCV")
+	public String deleteCV(@RequestParam("jobseekerId") Integer jobseekerId, RedirectAttributes redirectAttributes) {
+	    // Xóa các bản ghi trong bảng Applications trước
+	    applicationsDao.deleteAll();
+
+	    // Xóa JobSeeker sau khi đã xóa các bản ghi liên quan
+	    jobSeekersDao.deleteById(jobseekerId);
+	    
+	    redirectAttributes.addFlashAttribute("successMessage", "CV đã được xóa thành công.");
+	    return "quanLyCV";
 	}
 
 }
