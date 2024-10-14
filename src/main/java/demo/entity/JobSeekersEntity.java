@@ -32,6 +32,9 @@ public class JobSeekersEntity implements Serializable {
     @Column(name = "fullnamecv")
     private String fullnamecv;
     
+    @Column(name = "emailcv")
+    private String emailcv;
+    
     @Lob
     @Column(name = "resume")
     private String resume;

@@ -154,15 +154,16 @@
 			</div>
 		</nav>
 
-		<div class="row">
+		<div class="row mt-4">
 			<aside class="col-md-3">
 				<!-- <h3>Bộ lộc</h3> -->
 				<div class="container mt-4">
 					<form action="/job4u/findJob" method="GET">
 						<div class="row mt-3">
 							<div class="col-md-12">
-								<label class="form-label" id="industry" name="industry">Lộc
-									theo ngành nghề</label>
+								<label class="form-label"
+									style="color: #198754; font-weight: bold">Lọc theo
+									ngành nghề</label>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
 										value="Nông nghiệp"> <label class="form-check-label">Nông
@@ -180,16 +181,6 @@
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
-										value="Công nghệ thông tin"> <label
-										class="form-check-label">Công nghệ thông tin</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="industry"
-										value="Công nghệ ô tô"> <label
-										class="form-check-label">Công nghệ ô tô</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="industry"
 										value="Xây dựng"> <label class="form-check-label">Xây
 										dựng</label>
 								</div>
@@ -200,24 +191,33 @@
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
-										value="Ngân hàng và Tài chính"> <label
-										class="form-check-label" for="finance">Ngân hàng và
-										Tài chính</label>
+										value="Công nghệ thông tin"> <label
+										class="form-check-label">Công nghệ thông tin</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
-										value="Giáo dục"> <label class="form-check-label">Giáo
-										dục</label>
+										value="Tài chính"> <label class="form-check-label">Tài
+										chính</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
-										value="Y tế"> <label class="form-check-label"
-										for="healthcare">Y tế</label>
+										value="Giáo dục Đào tạo"> <label
+										class="form-check-label">Giáo dục/Đào tạo</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
-										value="Truyền thông"> <label class="form-check-label"
-										for="media">Truyền thông</label>
+										value="Y tế Dược"> <label class="form-check-label">Y
+										tế/Dược</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Truyền thông"> <label class="form-check-label">Truyền
+										thông</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Công nghệ ô tô"> <label
+										class="form-check-label">Công nghệ ô tô</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
@@ -231,10 +231,49 @@
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="industry"
-										value="Khác"> <label class="form-check-label"
-										for="other">Khác....</label>
+										value="Bán lẻ"> <label class="form-check-label">Bán
+										lẻ</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Nhà hàng khách sạn"> <label
+										class="form-check-label">Nhà hàng khách sạn</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Quản trị kinh doanh"> <label
+										class="form-check-label">Quản trị kinh doanh</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Xuất nhập khẩu"> <label
+										class="form-check-label">Xuất nhập khẩu</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Marketing"> <label class="form-check-label">Marketing</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Kỹ thuật điện"> <label class="form-check-label">Kỹ
+										thuật điện</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Môi trường"> <label class="form-check-label">Môi
+										trường</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Thương mại điện tử"> <label
+										class="form-check-label">Thương mại điện tử</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="industry"
+										value="Khác"> <label class="form-check-label">Khác...</label>
 								</div>
 							</div>
+
 							<div class="col-md-12 mt-3">
 								<label class="form-label">Tỉnh/Thành phố</label> <select
 									class="form-select" id="joblocation" name="joblocation">

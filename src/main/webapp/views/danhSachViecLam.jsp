@@ -87,6 +87,9 @@
 .card-title {
 	font-size: 1.25rem;
 	font-weight: bold;
+	white-space: nowrap; /* Ngăn tràn dòng */
+	overflow: hidden; /* Ẩn văn bản tràn */
+	text-overflow: ellipsis; /* Hiển thị dấu ... khi văn bản dài */
 }
 
 .card-body {
@@ -98,16 +101,25 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	max-width: calc(100% - 120px); /* Giới hạn chiều rộng cho nội dung */
+	max-width: calc(100% - 100px); /* Giới hạn chiều rộng cho nội dung */
 }
 
 .card-text {
 	overflow: hidden;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 1;
+	-webkit-line-clamp: 2; /* Giới hạn số dòng hiển thị */
 	text-overflow: ellipsis;
-	max-height: 60px;
+	max-height: 60px; /* Chiều cao tối đa */
+}
+
+.text-muted {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1; /* Giới hạn số dòng hiển thị */
+	text-overflow: ellipsis;
+	max-height: 60px; /* Chiều cao tối đa */
 }
 
 .card-footer {
@@ -117,6 +129,24 @@
 	padding: 0.75rem 1.25rem;
 	border-top: 1px solid #e9ecef;
 	background-color: transparent;
+}
+/* Responsive Design */
+@media ( max-width : 576px) {
+	.card-title {
+		font-size: 1.1rem; /* Kích thước tiêu đề nhỏ hơn trên màn hình nhỏ */
+	}
+	.bg-image {
+		width: 60px; /* Kích thước logo nhỏ hơn */
+		height: 60px;
+	}
+	.flex-grow-1 {
+		max-width: calc(100% - 80px); /* Căn chỉnh cho không gian */
+	}
+	.card-text {
+		overflow: hidden;
+		white-space: nowrap; /* Ngăn tràn dòng */
+		text-overflow: ellipsis; /* Hiển thị dấu ... khi văn bản dài */
+	}
 }
 </style>
 </head>
@@ -135,8 +165,7 @@
 								<div class="bg-image me-3">
 									<img
 										src="${pageContext.request.contextPath}/uploads/${job.employer.logo}"
-										alt="logo" class="img-fluid"
-										style="object-fit: cover;">
+										alt="logo" class="img-fluid" style="object-fit: cover;">
 								</div>
 								<div class="flex-grow-1">
 									<h5 class="card-title">${job.jobtitle}</h5>
@@ -146,7 +175,8 @@
 							</div>
 							<div class="card-footer">
 								<span class="text-success font-weight-bold">${job.joblocation}</span>
-								<a href="/chiTiet/${job.jobid}" class="btn btn-outline-success btn-sm">Thông tin chi tiết</a>
+								<a href="/chiTiet/${job.jobid}"
+									class="btn btn-outline-success btn-sm">Thông tin chi tiết</a>
 							</div>
 						</div>
 					</div>
