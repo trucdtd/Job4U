@@ -42,7 +42,7 @@
 						<li class="nav-item"><a class="nav-link" href="/job4u/topjob">Công
 								việc mới</a></li>
 						<li class="nav-item"><a class="nav-link" href="/ListEmployers">Công ty</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Hồ sơ & CV</a></li>
+						<li class="nav-item"><a class="nav-link" href="/luaCV">Hồ sơ & CV</a></li>
 						<li class="nav-item"><a class="nav-link" href="/lienhe">Liên hệ</a>
 						</li>
 					</ul>

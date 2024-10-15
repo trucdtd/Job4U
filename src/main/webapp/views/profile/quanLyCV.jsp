@@ -81,7 +81,7 @@
 								</button>
 							</form>
 
-							<form action="/user/cv/list2/delete" method="post"
+							<form action="/user/deleteCV" method="post"
 								style="display: inline;">
 								<input type="hidden" name="jobseekerId"
 									value="${cv.jobseekerid}" />
