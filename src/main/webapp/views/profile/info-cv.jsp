@@ -73,57 +73,68 @@
 				</div>
 			</div>
 
-			<div class="mb-3">
-				<label for="emailcv">Email cá nhân:</label>
-				<input class="form-control" id="emailcv" name="emailcv" placeholder="tencuaban@examole.com"
-					required></input>
+			<div class="mb-3 row">
+				<div class="col">
+					<label for="emailcv">Email cá nhân:</label> <input
+						class="form-control" id="emailcv" name="emailcv"
+						placeholder="tencuaban@examole.com" required></input>
+				</div>
+				<div class="col">
+					<label for="phonenumbercv">Phone cá nhân:</label> <input
+						class="form-control" id="phonenumbercv" name="phonenumbercv"
+						placeholder="số điện thoại" required></input>
+				</div>
 			</div>
-			
+
 			<div class="mb-3">
 				<label for="resume">Hồ sơ:</label>
-				<textarea class="form-control" id="resume" name="resume" rows="4" placeholder="Vị trí ứng tuyển, mục tiêu nghề nghiệp"
-					required></textarea>
+				<textarea class="form-control" id="resume" name="resume" rows="4"
+					placeholder="Vị trí ứng tuyển, mục tiêu nghề nghiệp" required></textarea>
 			</div>
 
 			<div class="mb-3">
 				<label for="profilesummary">Tóm tắt hồ sơ:</label>
 				<textarea class="form-control" id="profilesummary"
-					name="profilesummary" rows="4" placeholder="Nêu các hoạt động & dự án đã tham gia"></textarea>
+					name="profilesummary" rows="4"
+					placeholder="Nêu các hoạt động & dự án đã tham gia"></textarea>
 			</div>
 
 			<div class="mb-3">
 				<label for="experience">Kinh nghiệm:</label>
-				<textarea class="form-control" id="experience" name="experience" placeholder="Mô tả kinh nghiệm làm việc của bạn & Vị trí"
-					rows="4"></textarea>
+				<textarea class="form-control" id="experience" name="experience"
+					placeholder="Mô tả kinh nghiệm làm việc của bạn & Vị trí" rows="4"></textarea>
 			</div>
 
 			<div class="mb-3">
 				<label for="education">Học vấn:</label>
-				<textarea class="form-control" id="education" name="education" placeholder="Tên trường, ngành học & thời gian bắt đầu, kết thức"
+				<textarea class="form-control" id="education" name="education"
+					placeholder="Tên trường, ngành học & thời gian bắt đầu, kết thức"
 					rows="4"></textarea>
 			</div>
 
 			<div class="mb-3">
 				<label for="skills">Kỹ năng:</label>
-				<textarea class="form-control" id="skills" name="skills" rows="5" placeholder="Tên kỹ năng & mô tả kỹ năng"></textarea>
+				<textarea class="form-control" id="skills" name="skills" rows="5"
+					placeholder="Tên kỹ năng & mô tả kỹ năng"></textarea>
 			</div>
 
 			<div class="mb-3">
 				<label for="certifications">Chứng chỉ:</label>
 				<textarea class="form-control" id="certifications"
-					name="certifications" rows="4" placeholder="Tên chứng chỉ & thời gian"></textarea>
+					name="certifications" rows="4"
+					placeholder="Tên chứng chỉ & thời gian"></textarea>
 			</div>
 
 			<div class="mb-3">
 				<label for="languages">Ngôn ngữ:</label>
-				<textarea class="form-control" id="languages" name="languages" placeholder="Nêu trình độ ngôn ngữ của bạn"
-					rows="5"></textarea>
+				<textarea class="form-control" id="languages" name="languages"
+					placeholder="Nêu trình độ ngôn ngữ của bạn" rows="5"></textarea>
 			</div>
 
 			<div class="mb-3">
 				<label for="interests">Sở thích:</label>
-				<textarea class="form-control" id="interests" name="interests" placeholder="Điền các sở thích của bạn"
-					rows="4"></textarea>
+				<textarea class="form-control" id="interests" name="interests"
+					placeholder="Điền các sở thích của bạn" rows="4"></textarea>
 			</div>
 
 			<input type="hidden" name="userId" value="1">
