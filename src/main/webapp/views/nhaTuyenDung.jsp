@@ -154,17 +154,20 @@
 												</td>
 												<!-- XEM CV -->
 												<td>
-													<form action="/job4u/employers/xemcv" method="post"
-														onsubmit="return false;">
-														<!-- Ngăn form gửi -->
-														<button type="button" class="btn btn-sm btn-detail"
-															data-bs-toggle="modal" data-bs-target="#detailModal"
-															onclick="fetchCV(${job.jobid})">
-															<img alt="" src="/img/icons8-eye-24.png" height="25px">
+													<form action="/employers/xemcv" method="get">
+														<!-- Chuyển từ POST sang GET -->
+														<!-- Ẩn input để truyền jobId vào request -->
+														<input type="hidden" name="jobId" value="${job.jobid}">
+														<button type="submit" class="btn btn-sm btn-detail"
+															title="Xem CV">
+															<img alt="Xem CV" src="/img/icons8-eye-48.png"
+																height="25px">
 														</button>
 													</form>
 												</td>
 												<!-- XEM CV -->
+
+
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -175,7 +178,7 @@
 				</div>
 
 
-				<!-- Modal Xem CV -->
+				<%-- <!-- Modal Xem CV -->
 				<div class="modal fade" id="detailModal" tabindex="-1"
 					aria-labelledby="detailModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
@@ -209,7 +212,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> --%>
 
 				<!-- Bảng quản lý bài đăng-->
 				<!-- bài đăng -->
@@ -274,14 +277,14 @@
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="contactperson" class="form-label">Người
-												liên hệ & số điện thoại</label> <input type="text" class="form-control"
-												id="contactperson" name="contactperson">
+												liên hệ & số điện thoại</label> <input type="text"
+												class="form-control" id="contactperson" name="contactperson">
 										</div>
 										<div class="col-md-6 p-2">
 											<label for="joblocation" class="form-label">Địa điểm
 												làm việc</label> <input type="text" class="form-control"
 												id="joblocation" name="joblocation">
-												<!-- <select class="form-select" id="joblocation"
+											<!-- <select class="form-select" id="joblocation"
 												name="joblocation">
 												<option value="All" selected>Tất cả</option>
 												<option value="An Giang">An Giang</option>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -321,5 +321,131 @@
 			});
 		});
 	</script>
+</body>
+</html> --%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        #contact-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        #chat-container {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        #chat-box {
+            height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        #user-input {
+            border: none;
+            padding: 10px;
+            border-radius: 0;
+            width: calc(100% - 50px);
+            margin-right: 5px;
+        }
+        #send-button {
+            border-radius: 0;
+            background-color: #28a745;
+            border: none;
+            color: white;
+        }
+        .user-message {
+            text-align: right;
+            margin: 5px 0;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .ai-message {
+            text-align: left;
+            margin: 5px 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="contact-widget">
+    <button id="contact-button" class="btn btn-success">
+        <i class="fas fa-comments"></i> Chat
+    </button>
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <div class="input-group">
+            <input type="text" id="user-input" class="form-control" placeholder="Nhập tin nhắn...">
+            <button id="send-button" class="btn btn-success">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('contact-button').addEventListener('click', function() {
+    const chatContainer = document.getElementById('chat-container');
+    chatContainer.style.display = chatContainer.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById('send-button').addEventListener('click', function() {
+    const userInput = document.getElementById('user-input');
+    const message = userInput.value;
+    if (message.trim()) {
+        displayMessage(message, 'user');
+        userInput.value = '';
+        
+        // Gửi yêu cầu tới server
+        fetch('/chat/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: message }) // Gửi tin nhắn của người dùng
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.reply) {
+                displayMessage(data.reply, 'ai'); // Hiển thị phản hồi từ AI
+            } else {
+                displayMessage("Có lỗi xảy ra trong việc lấy phản hồi.", 'ai');
+            }
+        });
+    }
+});
+
+function displayMessage(message, sender) {
+    const chatBox = document.getElementById('chat-box');
+    const messageElement = document.createElement('div');
+    messageElement.className = sender === 'user' ? 'user-message' : 'ai-message';
+    messageElement.textContent = message;
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight; // Cuộn xuống cuối
+}
+</script>
 </body>
 </html>
