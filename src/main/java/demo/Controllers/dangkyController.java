@@ -6,22 +6,17 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import com.mailjet.client.resource.User;
 
 import demo.dao.EmployersDao;
 import demo.dao.UserAgreementsDao;
@@ -29,9 +24,7 @@ import demo.dao.UsersDao;
 import demo.entity.EmployersEntity;
 import demo.entity.UserAgreementsEntity;
 import demo.entity.UsersEntity;
-import demo.services.SessionService;
 import demo.services.UserService;
-import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/DangKy")
@@ -79,46 +72,47 @@ public class dangkyController {
 
 		// Kiểm tra các thông tin bắt buộc
 		if (username.isEmpty()) {
-		    model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
-		    hasErrors = true;
+			model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
+			hasErrors = true;
 		} else if (!isValidUsername(username)) {
-		    model.addAttribute("usernameError", "Tên đăng nhập phải có ít nhất một số, chỉ chứa chữ cái và số, và độ dài từ 3 đến 15 ký tự");
-		    hasErrors = true;
+			model.addAttribute("usernameError",
+					"Tên đăng nhập phải có ít nhất một số, chỉ chứa chữ cái và số, và độ dài từ 3 đến 15 ký tự");
+			hasErrors = true;
 		} else if (userService.isUsernameExists(username)) {
-		    model.addAttribute("usernameError", "Tên đăng nhập đã được sử dụng");
-		    hasErrors = true;
+			model.addAttribute("usernameError", "Tên đăng nhập đã được sử dụng");
+			hasErrors = true;
 		}
 
 		// Kiểm tra Họ và Tên
 		if (fullname.isEmpty()) {
-		    model.addAttribute("fullnameError", "Họ và tên không được để trống");
-		    hasErrors = true;
+			model.addAttribute("fullnameError", "Họ và tên không được để trống");
+			hasErrors = true;
 		} else if (!isValidFullname(fullname)) {
-		    model.addAttribute("fullnameError", "Họ và tên chỉ được chứa chữ cái");
-		    hasErrors = true;
+			model.addAttribute("fullnameError", "Họ và tên chỉ được chứa chữ cái");
+			hasErrors = true;
 		}
 
 		// Kiểm tra Mật khẩu
 		if (password.isEmpty() || !isValidPassword(password)) {
-		    model.addAttribute("passwordError",
-		            password.isEmpty() ? "Mật khẩu không được để trống" : "Mật khẩu phải ít nhất 8 ký tự");
-		    hasErrors = true;
+			model.addAttribute("passwordError",
+					password.isEmpty() ? "Mật khẩu không được để trống" : "Mật khẩu phải ít nhất 8 ký tự");
+			hasErrors = true;
 		}
 
 		// Kiểm tra Email
 		if (email.isEmpty() || !isValidEmail(email) || userService.isEmailExists(email)) {
-		    model.addAttribute("emailError", email.isEmpty() ? "Email không được để trống"
-		            : !isValidEmail(email) ? "Email không hợp lệ" : "Email đã được sử dụng");
-		    hasErrors = true;
+			model.addAttribute("emailError", email.isEmpty() ? "Email không được để trống"
+					: !isValidEmail(email) ? "Email không hợp lệ" : "Email đã được sử dụng");
+			hasErrors = true;
 		}
 
 		// Kiểm tra Số điện thoại
 		if (phonenumber.isEmpty() || !isValidPhoneNumber(phonenumber) || userService.isPhoneNumberExists(phonenumber)) {
-		    model.addAttribute("phonenumberError",
-		            phonenumber.isEmpty() ? "Số điện thoại không được để trống"
-		                    : !isValidPhoneNumber(phonenumber) ? "Số điện thoại không hợp lệ (chỉ cho phép số)"
-		                            : "Số điện thoại đã được sử dụng");
-		    hasErrors = true;
+			model.addAttribute("phonenumberError",
+					phonenumber.isEmpty() ? "Số điện thoại không được để trống"
+							: !isValidPhoneNumber(phonenumber) ? "Số điện thoại không hợp lệ (chỉ cho phép số)"
+									: "Số điện thoại đã được sử dụng");
+			hasErrors = true;
 		}
 
 		if (usertype == null || usertype.isEmpty()) {
@@ -216,32 +210,32 @@ public class dangkyController {
 		}
 	}
 
-
 	private boolean isValidPassword(String password) {
-	    // Kiểm tra mật khẩu có ít nhất 8 ký tự
-	    return password.length() >= 8;
+		// Kiểm tra mật khẩu có ít nhất 8 ký tự
+		return password.length() >= 8;
 	}
-	
+
 	private boolean isValidEmail(String email) {
-	    // Sử dụng regex đơn giản để kiểm tra email
-	    return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+		// Sử dụng regex đơn giản để kiểm tra email
+		return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
 	}
 
 	private boolean isValidUsername(String username) {
-	    // Kiểm tra tên đăng nhập có ít nhất một số, chỉ chứa chữ cái và số, và độ dài từ 3 đến 15 ký tự
-	    return username.matches("^(?=.*\\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{3,15}$");
+		// Kiểm tra tên đăng nhập có ít nhất một số, chỉ chứa chữ cái và số, và độ dài
+		// từ 3 đến 15 ký tự
+		return username.matches("^(?=.*\\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{3,15}$");
 	}
 
 	private boolean isValidFullname(String fullname) {
-	    // Kiểm tra xem họ và tên chỉ chứa chữ cái và khoảng trắng
-	    return fullname.matches("[a-zA-Z\\s]+");
+		// Kiểm tra xem họ và tên chỉ chứa chữ cái và khoảng trắng
+		return fullname.matches("[a-zA-Z\\s]+");
 	}
-	
+
 	private boolean isValidPhoneNumber(String phonenumber) {
-	    // Kiểm tra số điện thoại chỉ chứa số
-	    return phonenumber.matches("\\d+");
+		// Kiểm tra số điện thoại chỉ chứa số
+		return phonenumber.matches("\\d+");
 	}
-	
+
 	private boolean isValidTaxCodeFormat(String taxCode) {
 		// Mã số thuế có thể có 10 hoặc 13 chữ số
 		return taxCode != null && taxCode.matches("^\\d{10}(\\d{3})?$");

@@ -265,7 +265,7 @@
 
 
 						<!-- Modal thông báo điều khoản -->
-						<div class="modal fade" id="termsErrorModal" tabindex="-1"
+						<div class="modal fade" id=termsErrorModal tabindex="-1"
 							aria-labelledby="termsErrorModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content">
@@ -284,6 +284,7 @@
 								</div>
 							</div>
 						</div>
+
 
 
 					</div>

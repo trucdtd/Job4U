@@ -19,12 +19,15 @@ import com.google.common.net.MediaType;
 import demo.services.SessionService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import demo.dao.ApplicationsDao;
 import demo.dao.EmployersDao;
+import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
 import demo.entity.ApplicationsEntity;
 import demo.dao.ServicesDao;
 import demo.entity.EmployersEntity;
+import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
 import demo.entity.ServicesEntity;
 
@@ -34,8 +37,10 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -50,6 +55,9 @@ public class NhaTuyenDungController {
 
 	@Autowired
 	private ServicesDao servicesDao;
+
+	@Autowired
+	private JobSeekersDao dao;
 
 	@Autowired
 	private JoblistingsDao danhSachViecLamDao;
@@ -110,7 +118,8 @@ public class NhaTuyenDungController {
 			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
 			@RequestParam(value = "logo", required = false) MultipartFile logo,
 			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
-			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) BigDecimal salary,
+			@RequestParam("jobtype") String jobtype,
+			@RequestParam(value = "salary", required = false) BigDecimal salary,
 			@RequestParam("companydescription") String companydescription,
 			@RequestParam("jobrequirements") String jobrequirements,
 			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
@@ -132,18 +141,18 @@ public class NhaTuyenDungController {
 		// Kiểm tra và lưu logo
 		String logoFilename = null;
 		if (logo != null && !logo.isEmpty()) {
-		    logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
-		    try {
-		        File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
-		        if (!uploadsDir.exists()) {
-		            uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
-		        }
-		        Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
-		        Files.write(path, logo.getBytes());
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        return "error"; // Xử lý lỗi tải lên
-		    }
+			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+			try {
+				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+				if (!uploadsDir.exists()) {
+					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+				}
+				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+				Files.write(path, logo.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "error"; // Xử lý lỗi tải lên
+			}
 		}
 
 		// Cập nhật thông tin nhà tuyển dụng
@@ -188,7 +197,8 @@ public class NhaTuyenDungController {
 	@PostMapping("/edit")
 	public String editJobPosting(@RequestParam("jobId") Integer jobId, @RequestParam("jobTitle") String jobTitle,
 			@RequestParam("jobLocation") String jobLocation, @RequestParam("jobDescription") String jobDescription,
-			@RequestParam("jobRequirements") String jobRequirements, @RequestParam(value = "salaryEdit", required = false) BigDecimal salary,
+			@RequestParam("jobRequirements") String jobRequirements,
+			@RequestParam(value = "salaryEdit", required = false) BigDecimal salary,
 			@RequestParam("jobType") String jobType, @RequestParam("postedDate") String postedDate,
 			@RequestParam("applicationDeadline") String applicationDeadline) {
 		// Tìm kiếm công việc theo jobId
@@ -247,6 +257,49 @@ public class NhaTuyenDungController {
 		return "redirect:/employers";
 	}
 
+	@GetMapping("/xemcv")
+	public String xemCv(@RequestParam("jobId") Integer jobId, HttpSession session, Model model) {
+		// In ra jobId để kiểm tra giá trị nhận được
+		System.out.println("JobId: " + jobId);
+
+		// Kiểm tra giá trị jobId
+		if (jobId == null) {
+			model.addAttribute("message", "ID công việc không hợp lệ.");
+			return "xemcv"; // Trả về trang xem CV
+		}
+
+		// Lấy userId từ session
+		Integer userId = (Integer) session.getAttribute("userid");
+		System.out.println("UserId: " + userId);
+
+		// Kiểm tra giá trị userId
+		if (userId == null) {
+			return "redirect:/employers"; // Nếu không có userId, điều hướng về trang employers
+		}
+
+		// Lấy danh sách các ứng tuyển dựa trên jobId
+		List<ApplicationsEntity> jobApplicationsList = applicationsDao.findApplicationsByJoblistingId(jobId);
+
+		// In ra số lượng ứng tuyển tìm thấy
+		System.out.println("Số lượng CV được tìm thấy: " + jobApplicationsList.size());
+		// Kiểm tra xem có ứng tuyển nào không
+		if (!jobApplicationsList.isEmpty()) {
+			List<JobSeekersEntity> jobSeekersList = new ArrayList<>();
+
+			for (ApplicationsEntity application : jobApplicationsList) {
+				JobSeekersEntity jobSeeker = application.getJobseeker();
+				jobSeekersList.add(jobSeeker);
+			}
+
+			model.addAttribute("dsCV", jobSeekersList);
+		}
+
+		// Chuyển đến trang xemcv.jsp để hiển thị danh sách CV
+		return "xemcv";
+	}
+
+}
+
 //	@PostMapping("/employers/service")
 //	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
 //	    // Retrieve the service from the database using the serviceId
@@ -269,5 +322,3 @@ public class NhaTuyenDungController {
 //	        return "nhaTuyenDung";
 //	    }
 //	}
-
-}

@@ -25,4 +25,5 @@ public interface JobSeekersDao extends JpaRepository<JobSeekersEntity, Integer>{
 			       "LEFT JOIN ApplicationsEntity a ON js.jobseekerid = a.jobseeker.jobseekerid " +
 			       "WHERE js.user.userid = :userid")
 			List<JobSeekersEntity> findByUserIdWithStatus(@Param("userid") Integer userid);
+		 
 }
