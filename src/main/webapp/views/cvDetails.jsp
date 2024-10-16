@@ -179,6 +179,9 @@ p {
 							<div>
 								<strong>Email:</strong> ${cv.emailcv}
 							</div>
+							<div>
+								<strong>Số Điện Thoại:</strong> ${cv.phonenumbercv}
+							</div>
 						</div>
 					</div>
 				</div>
