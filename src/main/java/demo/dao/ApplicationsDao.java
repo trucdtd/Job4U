@@ -6,7 +6,6 @@ import org.springframework.data.repository.query.Param;
 
 import demo.entity.ApplicationsEntity;
 import demo.entity.EmployersEntity;
-import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
 import java.util.List;
 
@@ -26,5 +25,7 @@ public interface ApplicationsDao extends JpaRepository<ApplicationsEntity, Integ
 		       "JOIN a.job j " +
 		       "WHERE j.jobid = :joblistingId")
 		List<ApplicationsEntity> findApplicationsByJoblistingId(@Param("joblistingId") Integer joblistingId);
- 
+	
+    List<ApplicationsEntity> findByJobseeker_User_Userid(Integer userId);
+
 }

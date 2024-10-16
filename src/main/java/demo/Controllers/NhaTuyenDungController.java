@@ -57,7 +57,7 @@ public class NhaTuyenDungController {
 	private ServicesDao servicesDao;
 
 	@Autowired
-	private JobSeekersDao dao;
+	private JobSeekersDao jobSeekersDao;
 
 	@Autowired
 	private JoblistingsDao danhSachViecLamDao;
@@ -297,6 +297,20 @@ public class NhaTuyenDungController {
 		// Chuyển đến trang xemcv.jsp để hiển thị danh sách CV
 		return "xemcv";
 	}
+	
+	@GetMapping("/jobseekerDetails/{jobseekerid}")
+	public String viewJobseekerDetails(@PathVariable("jobseekerid") Integer jobseekerid, Model model) {
+	    // Tìm thông tin của ứng viên theo jobseekerid
+	    JobSeekersEntity jobseeker = jobSeekersDao.findById(jobseekerid).orElse(null);
+
+	    // Đưa thông tin ứng viên vào model để truyền sang view
+	    model.addAttribute("jobSeeker", jobseeker);
+
+	    // Điều hướng đến trang chi tiết ứng viên
+	    return "cvnop"; // Trả về trang JSP
+	}
+
+
 
 }
 

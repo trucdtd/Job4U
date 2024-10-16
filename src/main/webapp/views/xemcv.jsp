@@ -32,7 +32,7 @@
 				<tr>
 					<th>Tên ứng viên</th>
 					<th>Ngày Ứng Tuyển</th>
-					<!-- <th>Xem cv</th> -->
+					<th>Xem cv</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -41,11 +41,11 @@
 						<td>${application.fullnamecv}</td>
 						<!-- Định dạng ngày tháng từ trường createdat -->
 						<td class="formatted-date" data-date="${application.createdat}"></td>
-						<%-- <td>
-                <form action="/cvDetails/${application.applicationid}" method="get" style="display: inline;">
-                    <button type="submit" class="btn btn-success text-light text-white p-2">Xem Thêm</button>
-                </form>
-            </td> --%>
+						<td>
+							<form action="/employers/jobseekerDetails/${application.jobseekerid}" method="get" style="display: inline;">
+								<button type="submit" class="btn btn-success text-white p-2">Xem</button>
+							</form>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -91,5 +91,7 @@
         });
     });
 </script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

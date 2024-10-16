@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import demo.entity.JobSeekersEntity;
-import demo.entity.UsersEntity;
 
 public interface JobSeekersDao extends JpaRepository<JobSeekersEntity, Integer>{
 	JobSeekersEntity findByJobseekerid(Integer jobseekerid);
