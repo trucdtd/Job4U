@@ -323,16 +323,7 @@ body {
 													|| element.innerText;
 											element.innerHTML = formatSalary(salaryText);
 										});
-
-								// Định dạng ngày đăng
-								var postedDateElement = document
-										.querySelector(".info-detail span[id='postedDate']");
-								if (postedDateElement) {
-									var postedDateText = postedDateElement.textContent
-											|| postedDateElement.innerText;
-									postedDateElement.innerHTML = formatDate(postedDateText);
-								}
-
+								
 								// Định dạng hạn nộp
 								var deadlineElement = document
 										.querySelector(".info-detail span[id='applicationDeadline']");
