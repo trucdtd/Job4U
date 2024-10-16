@@ -35,6 +35,9 @@ public class JobSeekersEntity implements Serializable {
     @Column(name = "emailcv")
     private String emailcv;
     
+    @Column(name = "phonenumbercv")
+    private String phonenumbercv;
+    
     @Lob
     @Column(name = "resume")
     private String resume;
@@ -62,9 +65,8 @@ public class JobSeekersEntity implements Serializable {
     @Column(name = "languages")
     private String languages;
 
-    @Lob
     @Column(name = "image")
-    private byte[] image;
+    private String image;
 
     @Column(name = "dateofbirth")
     private Date dateOfbirth;

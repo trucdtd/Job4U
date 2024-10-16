@@ -152,7 +152,7 @@ p {
 
 		<div class="cv-container" id="cv-content">
 			<div class="cv-header text-center">
-				<h2>${cv.user.fullname}</h2>
+				<h2>${cv.fullnamecv}</h2>
 				<h4>Curriculum Vitae</h4>
 			</div>
 
@@ -161,7 +161,7 @@ p {
 					<h3>Thông Tin Cá Nhân</h3>
 					<div class="info-grid">
 						<div class="photo-container">
-							<img src="" alt="Ảnh ứng viên" class="cv-photo"
+							<img src="${pageContext.request.contextPath}/uploads/${cv.image}" alt="Ảnh ứng viên" class="cv-photo"
 								onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
 							<div class="placeholder-photo" style="display: none;">
 								<img src="path/to/placeholder-image.png" alt="Khung ảnh"
@@ -177,7 +177,7 @@ p {
 								<strong>Ngày Sinh:</strong> ${cv.dateOfbirth}
 							</div>
 							<div>
-								<strong>Email:</strong> ${cv.user.email}
+								<strong>Email:</strong> ${cv.emailcv}
 							</div>
 						</div>
 					</div>
