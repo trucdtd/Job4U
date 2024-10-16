@@ -27,4 +27,5 @@ public interface JobSeekersDao extends JpaRepository<JobSeekersEntity, Integer>{
 			List<JobSeekersEntity> findByUserIdWithStatus(@Param("userid") Integer userid);
 		 
 	void deleteById(Integer jobseekerId);
+	
 }

@@ -131,19 +131,19 @@ public class UsersController {
 		return "trangCaNhanNguoiTimViec";
 	}
 
-	// Xử lý yêu cầu xóa
-	@PostMapping("/cv/list2/delete")
-	public String deleteCV(@RequestParam("jobseekerId") int jobseekerId, Model model) {
-		JobSeekersEntity jobseeker = dao.findById(jobseekerId).orElse(null);
-		if (jobseeker == null) {
-
-			model.addAttribute("error", "cv không tồn tại.");
-			return "redirect:/user/cv/list2"; // Hoặc trang thông báo lỗi
-		}
-		dao.delete(jobseeker);
-		model.addAttribute("success", "Xóa bài đăng thành công.");
-		return "redirect:/user/cv/list2";
-	}
+//	// Xử lý yêu cầu xóa
+//	@PostMapping("/cv/list2/delete")
+//	public String deleteCV(@RequestParam("jobseekerId") int jobseekerId, Model model) {
+//		JobSeekersEntity jobseeker = dao.findById(jobseekerId).orElse(null);
+//		if (jobseeker == null) {
+//
+//			model.addAttribute("error", "cv không tồn tại.");
+//			return "redirect:/user/cv/list2"; // Hoặc trang thông báo lỗi
+//		}
+//		dao.delete(jobseeker);
+//		model.addAttribute("success", "Xóa bài đăng thành công.");
+//		return "redirect:/user/cv/list2";
+//	}
 
 	// xem chi tiết cv
 	@GetMapping("/chiTietCV/{jobseekerId}")
@@ -159,16 +159,35 @@ public class UsersController {
 		return "xemCVCaNhan"; // Trả về view chi tiết CV
 	}
 
+//	@PostMapping("/deleteCV")
+//	public String deleteCV(@RequestParam("jobseekerId") Integer jobseekerid, RedirectAttributes redirectAttributes) {
+//	    // Xóa các bản ghi trong bảng Applications trước
+//	    applicationsDao.deleteAll();
+//
+//	    // Xóa JobSeeker sau khi đã xóa các bản ghi liên quan
+//	    jobSeekersDao.deleteById(jobseekerid);
+//	    
+//	    redirectAttributes.addFlashAttribute("successMessage", "CV đã được xóa thành công.");
+//	    return "redirect:/user/cv/list2";
+//	}
+	
 	@PostMapping("/deleteCV")
-	public String deleteCV(@RequestParam("jobseekerId") Integer jobseekerId, RedirectAttributes redirectAttributes) {
-	    // Xóa các bản ghi trong bảng Applications trước
-	    applicationsDao.deleteAll();
-
-	    // Xóa JobSeeker sau khi đã xóa các bản ghi liên quan
-	    jobSeekersDao.deleteById(jobseekerId);
+	public String deleteCV(@RequestParam("jobseekerId") Integer jobseekerId, Model model) {
+	    // Kiểm tra xem JobSeeker có ứng dụng nào liên quan không
+	    if (applicationsDao.existsByJobseeker_Jobseekerid(jobseekerId)) {
+	        // Nếu có, trả về thông báo lỗi
+	        model.addAttribute("errorMessage", "Không thể xóa vì JobSeeker này đang có đơn ứng tuyển.");
+	        return "redirect:/user/cv/list2"; // Điều hướng lại view với thông báo
+	    }
 	    
-	    redirectAttributes.addFlashAttribute("successMessage", "CV đã được xóa thành công.");
-	    return "quanLyCV";
+	    // Nếu không có, tiến hành xóa
+	    try {
+	        dao.deleteById(jobseekerId);
+	        model.addAttribute("successMessage", "Xóa thành công!");
+	    } catch (Exception e) {
+	        model.addAttribute("errorMessage", "Xóa thất bại.");
+	    }	    
+	    return "redirect:/user/cv/list2";
 	}
 
 }

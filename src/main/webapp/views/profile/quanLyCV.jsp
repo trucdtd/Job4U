@@ -40,15 +40,14 @@
 </head>
 <body>
 	<div>
-		<div class="container mt-4">
-			<!-- Thông báo thành công -->
-			<div id="success" class="alert alert-success" style="display: none;"
-				role="alert"></div>
-
-			<!-- Thông báo lỗi -->
-			<div id="error" class="alert alert-danger" style="display: none;"
-				role="alert"></div>
-		</div>
+		<%-- <div>
+			<c:if test="${not empty errorMessage}">
+				<div class="alert alert-danger">${errorMessage}</div>
+			</c:if>
+			<c:if test="${not empty successMessage}">
+				<div class="alert alert-success">${successMessage}</div>
+			</c:if>
+		</div> --%>
 		<h3 class="mb-3 mt-3">CV Đã Tạo</h3>
 		<table id="listCV" class="table table-striped">
 			<thead>

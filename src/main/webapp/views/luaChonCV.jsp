@@ -24,7 +24,7 @@
 				<img src="/img/cv2.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
-					<button class="use-btn">Dùng mẫu</button>
+					<a href="/luaCV/mauCV1" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">
@@ -37,7 +37,7 @@
 				<img src="/img/cv3.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
-					<button class="use-btn">Dùng mẫu</button>
+					<a href="/luaCV/mauCV1" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">
@@ -76,7 +76,7 @@
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
 	
-	<script>
+	<!-- <script>
     // Add functionality to buttons if needed
 document.querySelectorAll('.use-btn').forEach(button => {
     button.addEventListener('click', () => {
@@ -90,6 +90,6 @@ document.querySelectorAll('.preview-btn').forEach(button => {
     });
 });
 
-</script>
+</script> -->
 </body>
 </html>

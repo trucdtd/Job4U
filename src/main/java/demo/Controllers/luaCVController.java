@@ -12,5 +12,25 @@ public class luaCVController {
 	public String luaChonCV() {
 		return "luaChonCV";
 	}
+	
+	@RequestMapping("/mauCV1")
+	public String luaChonCV1() {
+		return "mauCV1";
+	}
+	
+//	@RequestMapping("/mauCV2")
+//	public String luaChonCV2() {
+//		return "mauCV2";
+//	}
+//	
+//	@RequestMapping("/mauCV3")
+//	public String luaChonCV3() {
+//		return "mauCV3";
+//	}
+//	
+//	@RequestMapping("/mauCV4")
+//	public String luaChonCV4() {
+//		return "mauCV4";
+//	}
 
 }
