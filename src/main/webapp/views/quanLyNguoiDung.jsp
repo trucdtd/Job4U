@@ -176,7 +176,7 @@
 											<th scope="col">ID</th>
 											<th scope="col">Tên Công Ty</th>
 											<th scope="col">Tiêu Đề</th>
-											<!-- <th scope="col">Yêu Cầu</th> -->
+											<th scope="col">Yêu Cầu</th>
 											<!-- <th scope="col">Vị Trí Công Việc</th> -->
 											<th scope="col">Tên Ngành</th>
 											<th scope="col">Lương</th>
@@ -189,7 +189,7 @@
 												<th scope="row">${bv.jobid}</th>
 												<td>${bv.employer.companyname}</td>
 												<td>${bv.jobtitle}</td>
-												<%-- <td>${bv.jobrequirements}</td> --%>
+												<td>${bv.jobrequirements}</td>
 												<%-- <td>${bv.joblocation}</td> --%>
 												<td>${bv.jobdescription}</td>
 												<td><span

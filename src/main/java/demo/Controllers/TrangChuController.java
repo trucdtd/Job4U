@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import demo.dao.JoblistingsDao;
-import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
 import demo.services.JoblistingsService;
 import demo.services.SessionService;
 import jakarta.servlet.http.HttpSession;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +40,12 @@ public class TrangChuController {
 //		Pageable pageable = PageRequest.of(pageNumber, 8);
 		// Sắp xếp giảm dần theo ngày và thời gian đăng (bao gồm giờ, phút, giây nếu có)
         Pageable pageable = PageRequest.of(page.orElse(0), 8, Sort.by("posteddate").descending()); 
-		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
-		model.addAttribute("dsSP", dsSP);
+//		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
+//		model.addAttribute("dsSP", dsSP);
+        
+        // Lấy danh sách các bài viết chưa hết hạn
+        Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
+        model.addAttribute("dsSP", dsSP);
 		
 		List<JoblistingsEntity> latestJobs = jobListingService.getTop5LatestJobListings();
 	    model.addAttribute("latestJobs", latestJobs);

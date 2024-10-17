@@ -140,7 +140,7 @@ body {
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-calendar-check text-success"></i> <strong>Ngày
-										Đăng:</strong> <span id="postedDate">${formattedPostedDate}</span>
+										Đăng:</strong> <span id="postedDate">${job.posteddate}</span>
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-calendar-check text-success"></i> <strong>Hạn

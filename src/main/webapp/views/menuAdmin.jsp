@@ -18,27 +18,28 @@
 
 <style>
 /* Màu nền mặc định của các liên kết menu */
-.navnhatuyendung {
-	text-decoration: none;
-	padding: 10px 20px;
-	display: block;
-	border-radius: 4px;
-	color: black; /* Đảm bảo màu chữ mặc định là đen */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    border-radius: 4px;
 }
 
-.navnhatuyendung:hover, .navnhatuyendung.active {
-	background-color: #ffffff;
+.nav-link:hover, .nav-link.active {
+    background-color: #198754; /* Màu nền khi hover hoặc khi liên kết đang hoạt động */
+    
 }
 
 /* Đảm bảo rằng lớp active không ghi đè */
-.navnhatuyendung.active {
-	background-color: #ffffff !important;
+.nav-link.active {
+    background-color: #198754!important; /* Màu nền khi mục menu được chọn */
 }
 
 .content {
 	flex-grow: 1;
 	padding: 20px;
-	background-color: #c0c0c0;
+	background-color: #f8f9fa;
 }
 
 .card {
@@ -66,23 +67,13 @@
 .btn-primary, .btn-danger {
 	border-radius: 4px;
 }
-
-.dataTables_length, .dataTables_filter {
-	margin-top: 1rem; /* mt-3 */
-	margin-bottom: 1rem; /* mb-3 */
-}
-
-.form-label {
-	color: #198754;
-	font-weight: bold;
-}
 </style>
 
 </head>
 <body>
-	<div class="col-lg-3 col-md-3 p-2 d-flex">
-		<div class="d-flex flex-column flex-shrink-0 p-3 text-dark"
-			style="width: 100%; background: #198754;">
+	<div class="col-lg-3 col-md-4 col-12 mb-3">
+		<div class="d-flex flex-column flex-shrink-0  text-dark "
+			style="width: 100%; background: #EEEEEE">
 			<a href="#"
 				class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
 				<svg class="bi me-2" width="25" height="25">
@@ -92,29 +83,25 @@
 			</a>
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
-				<li><a href="#"
-					class=" navnhatuyendung nav-link text-dark active"
+				<li><a href="#" class="nav-link text-dark active"
 					onclick="showTable(event, 'userManagement')"> <i
 						class="bi bi-people-fill"></i> Quản Lý Tài Khoản
 				</a></li>
-				<li><a href="#" class="navnhatuyendung nav-link text-dark"
+				<li><a href="#" class="nav-link text-dark"
 					onclick="showTable(event, 'postManagement')"> <i
 						class="bi bi-table me-2"></i> Quản Lý Bài Viết
 				</a></li>
-				<li><a href="#" class="navnhatuyendung nav-link text-dark"
+				<li><a href="#" class="nav-link text-dark"
 					onclick="showTable(event, 'cvManagement')"> <i
 						class="bi bi-grid me-2"></i> Quản Lý CV
 				</a></li>
-				<li><a href="#" class="navnhatuyendung nav-link text-dark"
+				<li><a href="#" class="nav-link text-dark"
 					onclick="showTable(event, 'statisticalManagement')"> <i
 						class="bi bi-graph-up"></i> Quản Lý Thống Kê
 				</a></li>
 			</ul>
-			<hr>
 		</div>
 	</div>
-
-
 	<!-- Bootstrap JavaScript Libraries -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

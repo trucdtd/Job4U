@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* Màu nền mặc định của các liên kết menu */
-.navqlnguoidung {
+.navnhatuyendung {
 	text-decoration: none;
 	padding: 10px 20px;
 	display: block;
@@ -8,12 +8,12 @@
 	color: black; /* Đảm bảo màu chữ mặc định là đen */
 }
 
-.navqlnguoidung:hover, .navqlnguoidun.active {
+.navnhatuyendung:hover, .navnhatuyendung.active {
 	background-color: #ffffff;
 }
 
 /* Đảm bảo rằng lớp active không ghi đè */
-.navqlnguoidung.active {
+.navnhatuyendung.active {
 	background-color: #ffffff !important;
 }
 

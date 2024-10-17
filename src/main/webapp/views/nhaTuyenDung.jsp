@@ -445,7 +445,7 @@
 									<c:forEach items="${dsCV}" var="cv">
 										<tr>
 											<th>${cv.job.jobtitle}</th>
-											<td>${cv.jobseeker.user.fullname}</td>
+											<td>${cv.jobseeker.fullnamecv}</td>
 											<th>${cv.resume}</th>
 											<td class="formatted-date" data-date="${cv.applicationdate}"></td>
 											<td><c:choose>
