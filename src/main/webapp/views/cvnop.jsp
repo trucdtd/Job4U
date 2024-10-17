@@ -152,7 +152,7 @@ p {
 
 		<div class="cv-container" id="cv-content">
 			<div class="cv-header text-center">
-				<h2>${jobSeeker.user.fullname}</h2>
+				<h2>${jobSeeker.fullnamecv}</h2>
 				<h4>Curriculum Vitae</h4>
 			</div>
 
@@ -177,7 +177,7 @@ p {
 								<strong>Ngày Sinh:</strong> ${jobSeeker.dateOfbirth}
 							</div>
 							<div>
-								<strong>Email:</strong> ${jobSeeker.user.email}
+								<strong>Email:</strong> ${jobSeeker.emailcv}
 							</div>
 						</div>
 					</div>
