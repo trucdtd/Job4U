@@ -1,17 +1,24 @@
 package demo.Controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,6 +32,7 @@ import demo.entity.EmployersEntity;
 import demo.entity.UserAgreementsEntity;
 import demo.entity.UsersEntity;
 import demo.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/DangKy")
@@ -60,7 +68,8 @@ public class dangkyController {
 			@RequestParam(value = "companyDescription", required = false) String companyDescription,
 			@RequestParam(value = "usertype", required = false) String usertype,
 			@RequestParam(value = "taxid", required = false) String taxid,
-			@RequestParam(value = "termsAgreed", required = false) String termsAgreed, Model model) {
+			@RequestParam(value = "termsAgreed", required = false) String termsAgreed,
+			@RequestParam(value = "logo", required = false) MultipartFile logo, Model model, HttpServletRequest req) {
 
 		boolean hasErrors = false;
 
@@ -153,7 +162,9 @@ public class dangkyController {
 				model.addAttribute("taxidError", "Mã số thuế không tồn tại hoặc không hợp lệ");
 				hasErrors = true;
 			}
+			
 		}
+		
 
 		try {
 			// Tạo đối tượng người dùng mới
@@ -181,7 +192,22 @@ public class dangkyController {
 				employerDetails.setIndustry(industry);
 				employerDetails.setContactperson(contactPerson);
 				employerDetails.setCompanydescription(companyDescription);
-				employerDetails.setLogo(null); // Có thể bổ sung logic để upload logo
+				// Kiểm tra và lưu logo
+				String logoFilename = null;
+				if (logo != null && !logo.isEmpty()) {
+					logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+					try {
+						File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+						if (!uploadsDir.exists()) {
+							uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+						}
+						Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+						Files.write(path, logo.getBytes());
+					} catch (IOException e) {
+						e.printStackTrace();
+						return "error"; // Xử lý lỗi tải lên
+					}
+				} // Có thể bổ sung logic để upload logo
 				employerDetails.setTaxid(taxid);
 
 				employerDetails.setUser(newUser);
