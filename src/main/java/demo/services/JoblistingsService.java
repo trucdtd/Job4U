@@ -52,6 +52,18 @@ public class JoblistingsService {
 //	 public List<JoblistingsEntity> getJobsByUserServiceId(Integer userServiceId) {
 //	        return joblistingsDao.findJobsByUserServiceId(userServiceId);
 //	    }
+//	 public List<JoblistingsEntity> getTop5JobListingsWithService() {
+//		    return jobListingRepository.findTop5ByIsTopTrueOrderByTopStartDateDesc();
+//		}
 	 
+	 public List<JoblistingsEntity> getSortedJobListings() {
+		    // Lấy tất cả công việc từ DAO
+		    List<JoblistingsEntity> allJobs = joblistingsDao.findAll();
+		    
+		    // Sắp xếp danh sách sao cho các công việc có isTop=1 hiển thị trước
+		    allJobs.sort((job1, job2) -> Boolean.compare(job2.getIsTop(), job1.getIsTop()));
+		    
+		    return allJobs;
+		}
 	 
 }
