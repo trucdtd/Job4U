@@ -38,7 +38,7 @@
         <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Đặt lại mật khẩu</button>
+    <button type="submit" class="btn btn-success">Đặt lại mật khẩu</button>
 </form>
 							</div>
 						</div>
