@@ -181,7 +181,7 @@
 									</div>
 									<div class="col">
 										<label for="industry" class="form-label">Ngành nghề</label> <select
-											class="form-select" id="industry" name="industry" required>
+											class="form-select" id="industry" name="industry">
 											<option value="" disabled selected>Chọn ngành nghề</option>
 											<option value="Nông nghiệp">Nông nghiệp</option>
 											<option value="Công nghiệp">Công nghiệp</option>
@@ -222,9 +222,14 @@
 											value="${contactPerson}"> <span class="text-danger">${contactPersonError}</span>
 									</div>
 									<div class="col">
-										<label for="companyLogo" class="form-label">Logo Công
-											Ty</label> <input type="file" class="form-control" id="companyLogo"
-											name="companyLogo">
+										<img id="logoPreview" src="${pageContext.request.contextPath}/uploads/${logo}"
+     alt="Logo" class="img-fluid" style="object-fit: cover; max-width: 100%; height: 200px;">
+<input type="file" class="form-control" id="logo"
+       name="logo" accept="image/*" style="display: none;">
+<label for="logo" class="form-control text-center"
+       style="cursor: pointer; height: 30px; display: flex; align-items: center; justify-content: center;">
+    Logo công ty
+</label>
 									</div>
 								</div>
 								<div class="mb-3">
@@ -368,5 +373,7 @@
 					});
 		});
 	</script>
+		<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

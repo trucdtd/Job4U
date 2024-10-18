@@ -25,10 +25,29 @@ import java.sql.Date;
 @Table(name = "Jobseekers")
 public class JobSeekersEntity implements Serializable {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "jobseekerid")
 	private Integer jobseekerid;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "jobseekerid")
+    private Integer jobseekerid;
+    
+    @Column(name = "fullnamecv")
+    private String fullnamecv;
+    
+    @Column(name = "emailcv")
+    private String emailcv;
+    
+    @Column(name = "phonenumbercv")
+    private String phonenumbercv;
+    
+    @Lob
+    @Column(name = "resume")
+    private String resume;
 
 	@Column(name = "fullnamecv")
 	private String fullnamecv;
@@ -54,6 +73,9 @@ public class JobSeekersEntity implements Serializable {
 	@Lob
 	@Column(name = "skills")
 	private String skills;
+
+    @Column(name = "image")
+    private String image;
 
 	@Lob
 	@Column(name = "certifications")

@@ -36,7 +36,7 @@
 								<div class="alert alert-danger"
 									style="display: ${error != null ? 'block' : 'none'};">
 									${error}</div>
-								<button type="submit" class="btn btn-primary">Xác nhận</button>
+								<button type="submit" class="btn btn-success">Xác nhận</button>
 							</form>
 
 						</div>

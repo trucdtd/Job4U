@@ -32,7 +32,7 @@
 				<tr>
 					<th>Tên ứng viên</th>
 					<th>Ngày Ứng Tuyển</th>
-					<!-- <th>Xem cv</th> -->
+					<th>Xem cv</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -41,11 +41,11 @@
 						<td>${application.fullnamecv}</td>
 						<!-- Định dạng ngày tháng từ trường createdat -->
 						<td class="formatted-date" data-date="${application.createdat}"></td>
-						<%-- <td>
-                <form action="/cvDetails/${application.applicationid}" method="get" style="display: inline;">
-                    <button type="submit" class="btn btn-success text-light text-white p-2">Xem Thêm</button>
-                </form>
-            </td> --%>
+						<td>
+							<form action="/employers/jobseekerDetails/${application.jobseekerid}" method="get" style="display: inline;">
+								<button type="submit" class="btn btn-success text-white p-2">Xem</button>
+							</form>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -65,10 +65,46 @@
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 	<script>
-		$(document).ready(function() {
-			$('#myTable').DataTable();
-		});
-	</script>
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
+    });
+
+    $('#cvTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
+    });
+});
+</script>
 
 	<script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -91,5 +127,7 @@
         });
     });
 </script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

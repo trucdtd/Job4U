@@ -48,37 +48,32 @@ public class ChiTietUngTuyenController {
 	@Autowired
 	ServletContext sc;
 
-	@RequestMapping("/{jobid}")
-	public String chiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
-		// Lấy thông tin chi tiết công việc
-		JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
+//     @RequestMapping("/{jobid}")
+//     public String chiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
+//         // Lấy thông tin chi tiết công việc
+//         JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
+       
+//         // Lấy ID người dùng đã đăng nhập
+//         Integer userId = (Integer) ss.getAttribute("userid");
 
-		// Định dạng ngày với định dạng dd/MM/yyyy
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+// 		// Lấy danh sách CV của người dùng
+// 		List<JobSeekersEntity> listCV = dao.findByUsername(userId);
 
-		LocalDate postedDate = chiTietUngTuyen.getPosteddate();
-		LocalDate applicationDeadlineDate = chiTietUngTuyen.getApplicationdeadline();
+// // <<<<<<< HEAD
+// 		// Thêm các thuộc tính vào model để truyền sang view
+// 		model.addAttribute("formattedPostedDate", formattedPostedDate);
+// 		model.addAttribute("formattedApplicationDeadline", formattedApplicationDeadline);
+// 		model.addAttribute("job", chiTietUngTuyen);
+// 		model.addAttribute("listCV", listCV); // Thêm danh sách CV vào model
+// // =======
+//         // Thêm các thuộc tính vào model để truyền sang view
+       
+//         model.addAttribute("job", chiTietUngTuyen);
+//         model.addAttribute("listCV", listCV); // Thêm danh sách CV vào model
+// // >>>>>>> dev
 
-		// Định dạng ngày
-		String formattedPostedDate = (postedDate != null) ? postedDate.format(formatter) : "N/A";
-		String formattedApplicationDeadline = (applicationDeadlineDate != null)
-				? applicationDeadlineDate.format(formatter)
-				: "N/A";
-
-		// Lấy ID người dùng đã đăng nhập
-		Integer userId = (Integer) ss.getAttribute("userid");
-
-		// Lấy danh sách CV của người dùng
-		List<JobSeekersEntity> listCV = dao.findByUsername(userId);
-
-		// Thêm các thuộc tính vào model để truyền sang view
-		model.addAttribute("formattedPostedDate", formattedPostedDate);
-		model.addAttribute("formattedApplicationDeadline", formattedApplicationDeadline);
-		model.addAttribute("job", chiTietUngTuyen);
-		model.addAttribute("listCV", listCV); // Thêm danh sách CV vào model
-
-		return "chiTietUngTuyen";
-	}
+// 		return "chiTietUngTuyen";
+// 	}
 
 	@PostMapping("/{jobid}")
 	public String postSubmitCV(@PathVariable("jobid") Integer jobid, Model model,
@@ -140,11 +135,25 @@ public class ChiTietUngTuyenController {
 			model.addAttribute("script", "<script>alert('Ứng tuyển thất bại')</script>");
 		}
 
-		// Thêm các thuộc tính vào model để truyền sang view
-		model.addAttribute("formattedPostedDate", formattedPostedDate);
-		model.addAttribute("formattedApplicationDeadline", formattedApplicationDeadline);
-		model.addAttribute("job", chiTietUngTuyen);
-		model.addAttribute("listCV", dao.findByUsername(id));
+// <<<<<<< HEAD
+// 		// Thêm các thuộc tính vào model để truyền sang view
+// 		model.addAttribute("formattedPostedDate", formattedPostedDate);
+// 		model.addAttribute("formattedApplicationDeadline", formattedApplicationDeadline);
+// 		model.addAttribute("job", chiTietUngTuyen);
+// 		model.addAttribute("listCV", dao.findByUsername(id));
+// =======
+//             app.setJob(chiTietUngTuyen);
+//             app.setJobseeker(jSK);
+//             app.setApplicationdate(LocalDateTime.now());
+//             app.setStatus(0);
+//             app.setResume(jSK.getResume());
+//             app.setCreatedat(LocalDateTime.now());
+//             appDao.save(app);
+//             model.addAttribute("script", "<script>alert('Ứng tuyển thành công')</script>");
+//         } catch (Exception e) {
+//             model.addAttribute("script", "<script>alert('Ứng tuyển thất bại')</script>");
+//         }
+// >>>>>>> dev
 
 		return "chiTietUngTuyen";
 	}

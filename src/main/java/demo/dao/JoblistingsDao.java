@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.batch.BatchProperties.Job;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -131,6 +132,17 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
                                                     @Param("endDate") LocalDate endDate);
     @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :since")
     int countNewPostsSince(@Param("since") LocalDate since);
+    
+// <<<<<<< HEAD
+    //tìm kiếm bài viết chưa hết hạn
+     Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline, Pageable pageable);
+// =======\
+ // Lấy danh sách các bài tuyển dụng hàng đầu, sắp xếp theo IsTop và TopStartDate
+    @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.isTop DESC, j.topStartDate DESC")
+    List<JoblistingsEntity> findTopJobListingsByIsTopAndTopStartDate();
 
+    @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.isTop DESC, j.topStartDate DESC")
+    Page<JoblistingsEntity> findTopJobListingsByIsTopAndTopStartDate(Pageable pageable);
+// >>>>>>> origin/khoanm
 }
 

@@ -152,7 +152,7 @@ p {
 
 		<div class="cv-container" id="cv-content">
 			<div class="cv-header text-center">
-				<h2>${cv.fullnamecv}</h2>
+				<h2>${jobSeeker.fullnamecv}</h2>
 				<h4>Curriculum Vitae</h4>
 			</div>
 
@@ -161,7 +161,7 @@ p {
 					<h3>Thông Tin Cá Nhân</h3>
 					<div class="info-grid">
 						<div class="photo-container">
-							<img src="${pageContext.request.contextPath}/uploads/${cv.image}" alt="Ảnh ứng viên" class="cv-photo"
+							<img src="" alt="Ảnh ứng viên" class="cv-photo"
 								onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
 							<div class="placeholder-photo" style="display: none;">
 								<img src="path/to/placeholder-image.png" alt="Khung ảnh"
@@ -171,16 +171,13 @@ p {
 						<div class="info-details">
 							<%--  <div><strong>Tên:</strong> ${cv.user.fullname}</div> --%>
 							<div>
-								<strong>Giới Tính:</strong> ${cv.gender}
+								<strong>Giới Tính:</strong> ${jobSeeker.gender}
 							</div>
 							<div>
-								<strong>Ngày Sinh:</strong> ${cv.dateOfbirth}
+								<strong>Ngày Sinh:</strong> ${jobSeeker.dateOfbirth}
 							</div>
 							<div>
-								<strong>Email:</strong> ${cv.emailcv}
-							</div>
-							<div>
-								<strong>Số Điện Thoại:</strong> ${cv.phonenumbercv}
+								<strong>Email:</strong> ${jobSeeker.emailcv}
 							</div>
 						</div>
 					</div>
@@ -188,37 +185,37 @@ p {
 
 				<div class="cv-section">
 					<h3>Tóm Tắt Hồ Sơ</h3>
-					<p>${cv.profilesummary}</p>
+					<p>${jobSeeker.profilesummary}</p>
 				</div>
 
 				<div class="cv-section">
 					<h3>Kinh Nghiệm</h3>
-					<p>${cv.experience}</p>
+					<p>${jobSeeker.experience}</p>
 				</div>
 
 				<div class="cv-section">
 					<h3>Học Vấn</h3>
-					<p>${cv.education}</p>
+					<p>${jobSeeker.education}</p>
 				</div>
 
 				<div class="cv-section">
 					<h3>Kỹ Năng</h3>
-					<p>${cv.skills}</p>
+					<p>${jobSeeker.skills}</p>
 				</div>
 
 				<div class="cv-section">
 					<h3>Chứng Chỉ</h3>
-					<p>${cv.certifications}</p>
+					<p>${jobSeeker.certifications}</p>
 				</div>
 
 				<div class="cv-section">
 					<h3>Ngôn Ngữ</h3>
-					<p>${cv.languages}</p>
+					<p>${jobSeeker.languages}</p>
 				</div>
 
 				<div class="cv-section">
 					<h3>Sở Thích</h3>
-					<p>${cv.interests}</p>
+					<p>${jobSeeker.interests}</p>
 				</div>
 			</div>
 
