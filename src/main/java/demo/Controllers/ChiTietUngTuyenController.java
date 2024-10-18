@@ -122,7 +122,6 @@ public class ChiTietUngTuyenController {
 				app.setJobseeker(jSK);
 				app.setApplicationdate(LocalDateTime.now());
 				app.setStatus(1);
-				app.setResume(jSK.getResume());
 				app.setCreatedat(LocalDateTime.now());
 				app.setFilename(filename);
 				appDao.save(app);
