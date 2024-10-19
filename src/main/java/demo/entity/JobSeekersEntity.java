@@ -1,120 +1,85 @@
 package demo.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import java.sql.Date;
 
 @Data
 @Entity
 @Table(name = "Jobseekers")
 public class JobSeekersEntity implements Serializable {
 
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "jobseekerid")
-	private Integer jobseekerid;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "jobseekerid")
     private Integer jobseekerid;
-    
+
     @Column(name = "fullnamecv")
     private String fullnamecv;
-    
+
     @Column(name = "emailcv")
     private String emailcv;
-    
+
     @Column(name = "phonenumbercv")
     private String phonenumbercv;
-    
+
     @Lob
     @Column(name = "resume")
     private String resume;
 
-	@Column(name = "fullnamecv")
-	private String fullnamecv;
+    @Column(name = "profilesummary")
+    private String profilesummary;
 
-	@Column(name = "emailcv")
-	private String emailcv;
+    @Lob
+    @Column(name = "experience")
+    private String experience;
 
-	@Lob
-	@Column(name = "resume")
-	private String resume;
+    @Lob
+    @Column(name = "education")
+    private String education;
 
-	@Column(name = "profilesummary")
-	private String profilesummary;
+    @Lob
+    @Column(name = "skills")
+    private String skills;
 
-	@Lob
-	@Column(name = "experience")
-	private String experience;
+    @Lob
+    @Column(name = "certifications")
+    private String certifications;
 
-	@Lob
-	@Column(name = "education")
-	private String education;
+    @Lob
+    @Column(name = "languages")
+    private String languages;
 
-	@Lob
-	@Column(name = "skills")
-	private String skills;
+    @Lob
+    @Column(name = "interests")
+    private String interests;
 
     @Column(name = "image")
     private String image;
 
-	@Lob
-	@Column(name = "certifications")
-	private String certifications;
+    @Column(name = "dateofbirth")
+    private Date dateOfbirth;
 
-	@Lob
-	@Column(name = "languages")
-	private String languages;
+    @Column(name = "gender", length = 10)
+    private String gender;
 
-	@Lob
-	@Column(name = "image")
-	private byte[] image;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false, foreignKey = @ForeignKey(name = "FK_Jobseekers_Users"))
+    private UsersEntity user;
 
-	@Column(name = "dateofbirth")
-	private Date dateOfbirth;
+    @NotNull
+    @Column(name = "createdat", nullable = false)
+    private LocalDate createdat;
 
-	@Column(name = "gender", length = 10)
-	private String gender;
+    @NotNull
+    @Column(name = "updatedat", nullable = false)
+    private LocalDate updatedat;
 
-	@Lob
-	@Column(name = "interests")
-	private String interests;
-
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false, foreignKey = @ForeignKey(name = "FK_Jobseekers_Users"))
-	private UsersEntity user;
-
-	@NotNull
-	@Column(name = "createdat", nullable = false)
-	private LocalDate createdat;
-
-	@NotNull
-	@Column(name = "updatedat", nullable = false)
-	private LocalDate updatedat;
-
-	public static void deleteById(Integer jobseekerid2) {
-		// TODO Auto-generated method stub
-
-	}
-
+    public JobSeekersEntity() {
+        // Constructor mặc định
+    }
 }
