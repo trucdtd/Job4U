@@ -44,36 +44,31 @@ public class ChiTietUngTuyenController {
 
 	@Autowired
 	ApplicationsDao appDao;
-	
+
 	@Autowired
 	ServletContext sc;
 
-//     @RequestMapping("/{jobid}")
-//     public String chiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
+	@RequestMapping("/{jobid}")
+	public String chiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
 //         // Lấy thông tin chi tiết công việc
-//         JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
-       
-//         // Lấy ID người dùng đã đăng nhập
-//         Integer userId = (Integer) ss.getAttribute("userid");
+		JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
 
-// 		// Lấy danh sách CV của người dùng
-// 		List<JobSeekersEntity> listCV = dao.findByUsername(userId);
+// Lấy ID người dùng đã đăng nhập
+		Integer userId = (Integer) ss.getAttribute("userid");
 
-// // <<<<<<< HEAD
-// 		// Thêm các thuộc tính vào model để truyền sang view
-// 		model.addAttribute("formattedPostedDate", formattedPostedDate);
-// 		model.addAttribute("formattedApplicationDeadline", formattedApplicationDeadline);
-// 		model.addAttribute("job", chiTietUngTuyen);
-// 		model.addAttribute("listCV", listCV); // Thêm danh sách CV vào model
-// // =======
-//         // Thêm các thuộc tính vào model để truyền sang view
-       
-//         model.addAttribute("job", chiTietUngTuyen);
-//         model.addAttribute("listCV", listCV); // Thêm danh sách CV vào model
-// // >>>>>>> dev
+		// Lấy danh sách CV của người dùng
+		List<JobSeekersEntity> listCV = dao.findByUsername(userId);
 
-// 		return "chiTietUngTuyen";
-// 	}
+		// Thêm các thuộc tính vào model để truyền sang view
+		model.addAttribute("job", chiTietUngTuyen);
+		model.addAttribute("listCV", listCV); // Thêm danh sách CV vào model
+		// Thêm các thuộc tính vào model để truyền sang view
+
+		model.addAttribute("job", chiTietUngTuyen);
+		model.addAttribute("listCV", listCV); // Thêm danh sách CV vào model
+
+		return "chiTietUngTuyen";
+	}
 
 	@PostMapping("/{jobid}")
 	public String postSubmitCV(@PathVariable("jobid") Integer jobid, Model model,
@@ -111,7 +106,7 @@ public class ChiTietUngTuyenController {
 			if (cvOption.equalsIgnoreCase("upload")) {
 //				System.out.println(cvFile.getOriginalFilename()+"file name");
 				String filename = cvFile.getOriginalFilename();
-				File file = new File(sc.getRealPath("/uploads/"+filename));
+				File file = new File(sc.getRealPath("/uploads/" + filename));
 				cvFile.transferTo(file);
 				app.setJob(chiTietUngTuyen);
 				app.setJobseeker(jSK);
@@ -134,27 +129,6 @@ public class ChiTietUngTuyenController {
 		} catch (Exception e) {
 			model.addAttribute("script", "<script>alert('Ứng tuyển thất bại')</script>");
 		}
-
-// <<<<<<< HEAD
-// 		// Thêm các thuộc tính vào model để truyền sang view
-// 		model.addAttribute("formattedPostedDate", formattedPostedDate);
-// 		model.addAttribute("formattedApplicationDeadline", formattedApplicationDeadline);
-// 		model.addAttribute("job", chiTietUngTuyen);
-// 		model.addAttribute("listCV", dao.findByUsername(id));
-// =======
-//             app.setJob(chiTietUngTuyen);
-//             app.setJobseeker(jSK);
-//             app.setApplicationdate(LocalDateTime.now());
-//             app.setStatus(0);
-//             app.setResume(jSK.getResume());
-//             app.setCreatedat(LocalDateTime.now());
-//             appDao.save(app);
-//             model.addAttribute("script", "<script>alert('Ứng tuyển thành công')</script>");
-//         } catch (Exception e) {
-//             model.addAttribute("script", "<script>alert('Ứng tuyển thất bại')</script>");
-//         }
-// >>>>>>> dev
-
 		return "chiTietUngTuyen";
 	}
 
