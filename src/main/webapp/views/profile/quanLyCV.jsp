@@ -70,7 +70,7 @@
 						<td>${cv.resume}</td>
 						<td>${cv.profilesummary}</td>
 						<td>${cv.gender}</td>
-						<td>${cv.createdat}</td>
+						<td class="formatted-date" data-date="${cv.createdat}"></td>
 						<td class="text-center">
 							<form action="/user/chiTietCV/${cv.jobseekerid}" method="get"
 								style="display: inline;">
@@ -102,6 +102,26 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+	<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dateCells = document.querySelectorAll('.formatted-date');
 
+        dateCells.forEach(cell => {
+            const dateString = cell.getAttribute('data-date'); // Lấy giá trị ngày từ thuộc tính data-date
+            const date = new Date(dateString); // Chuyển đổi chuỗi thành đối tượng Date
+
+            // Kiểm tra xem ngày hợp lệ hay không
+            if (!isNaN(date)) {
+                // Định dạng ngày theo dd/MM/yyyy
+                const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                const formattedDate = date.toLocaleDateString('vi-VN', options); // Định dạng theo ngôn ngữ Việt Nam
+
+                cell.textContent = formattedDate; // Cập nhật nội dung của ô
+            } else {
+                cell.textContent = 'Ngày không hợp lệ'; // Hiển thị thông báo nếu ngày không hợp lệ
+            }
+        });
+    });
+</script>
 </body>
 </html>
