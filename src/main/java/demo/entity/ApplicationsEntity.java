@@ -19,33 +19,33 @@ import lombok.Data;
 @Table(name = "Applications")
 public class ApplicationsEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "applicationid")
-    private Integer applicationid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "applicationid")
+	private Integer applicationid;
 
-    @NotNull
-    @Column(name = "applicationdate")
-    private LocalDateTime applicationdate;
+	@NotNull
+	@Column(name = "applicationdate")
+	private LocalDateTime applicationdate;
 
-    @Column(name = "status")
-    private Integer status;
+	@Column(name = "status")
+	private Integer status;
 
-    @Column(name = "resume")
-    private String resume;
+	@Column(name = "resume")
+	private String resume;
+	@Column(name = "filename")
+	private String filename;
+	@Column(name = "createdat")
+	@NotNull
+	private LocalDateTime createdat;
 
-    @Column(name = "createdat")
-    @NotNull
-    private LocalDateTime createdat;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "jobid", nullable = false)
+	private JoblistingsEntity job;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "jobid", nullable = false)
-    private JoblistingsEntity job;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "jobseekerid", nullable = false)
-    private JobSeekersEntity jobseeker;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "jobseekerid", nullable = false)
+	private JobSeekersEntity jobseeker;
 }
-

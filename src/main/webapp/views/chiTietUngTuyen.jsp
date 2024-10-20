@@ -259,7 +259,7 @@ body {
 								<input type="file" class="form-control d-none" id="cvFile"
 									name="cvFile" onchange="displayFileName()">
 								<p id="fileName" class="mt-2"></p>
-								=
+								
 								<!-- Đây là nơi hiển thị tên file -->
 							</div>
 							<!-- Phần chọn CV có sẵn -->
