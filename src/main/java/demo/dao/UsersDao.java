@@ -54,4 +54,13 @@ public interface UsersDao extends JpaRepository<UsersEntity, Integer> {
     // Đếm số người dùng mới kể từ ngày startDate
     @Query("SELECT COUNT(u) FROM UsersEntity u WHERE u.createdat >= :since")
     int countNewUsersSince(@Param("since") LocalDateTime since);
+    
+    @Query("SELECT MONTH(u.createdat) AS month, COUNT(u) AS user_count " +
+    	       "FROM UsersEntity u " +
+    	       "WHERE u.createdat >= :startDate " +
+    	       "GROUP BY MONTH(u.createdat) " +
+    	       "ORDER BY MONTH(u.createdat)")
+    	List<Object[]> countUsersByMonth(@Param("startDate") LocalDateTime startDate);
+
+
    }

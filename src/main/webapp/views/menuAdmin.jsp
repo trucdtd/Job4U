@@ -15,91 +15,38 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<style>
-/* Màu nền mặc định của các liên kết menu */
-.nav-link {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    display: block;
-    border-radius: 4px;
-}
-
-.nav-link:hover, .nav-link.active {
-    background-color: #198754; /* Màu nền khi hover hoặc khi liên kết đang hoạt động */
-    
-}
-
-/* Đảm bảo rằng lớp active không ghi đè */
-.nav-link.active {
-    background-color: #198754!important; /* Màu nền khi mục menu được chọn */
-}
-
-.content {
-	flex-grow: 1;
-	padding: 20px;
-	background-color: #f8f9fa;
-}
-
-.card {
-	margin-bottom: 20px;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-	background-color: #198754;
-	color: white;
-	border-bottom: none;
-	border-radius: 8px 8px 0 0;
-}
-
-.table th, .table td {
-	vertical-align: middle;
-}
-
-.table thead th {
-	background-color: #198754;
-	color: white;
-}
-
-.btn-primary, .btn-danger {
-	border-radius: 4px;
-}
-</style>
-
+<link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-	<div class="col-lg-3 col-md-4 col-12 mb-3">
-		<div class="d-flex flex-column flex-shrink-0  text-dark "
-			style="width: 100%; background: #EEEEEE">
+	<div class="col-lg-3 col-md-3 p-2 d-flex">
+		<div class="d-flex flex-column flex-shrink-0 p-3 text-dark"
+			style="width: 100%; background: #198754;">
 			<a href="#"
-				class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+				class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none text-center">
 				<svg class="bi me-2" width="25" height="25">
-                            <use xlink:href="#bootstrap"></use>
-                        </svg> <span class="card-title p-2">Menu Quản
-					Lý Người Dùng</span>
+<use xlink:href="#bootstrap"></use>
+</svg> <span class="card-title p-2">Menu Quản Lý Người Dùng</span>
 			</a>
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
-				<li><a href="#" class="nav-link text-dark active"
+				<li><a href="#" class=" navqlndung nav-link text-dark active"
 					onclick="showTable(event, 'userManagement')"> <i
 						class="bi bi-people-fill"></i> Quản Lý Tài Khoản
 				</a></li>
-				<li><a href="#" class="nav-link text-dark"
+				<li><a href="#" class="navqlndung nav-link text-dark"
 					onclick="showTable(event, 'postManagement')"> <i
 						class="bi bi-table me-2"></i> Quản Lý Bài Viết
 				</a></li>
-				<li><a href="#" class="nav-link text-dark"
+				<li><a href="#" class="navqlndung nav-link text-dark"
 					onclick="showTable(event, 'cvManagement')"> <i
 						class="bi bi-grid me-2"></i> Quản Lý CV
 				</a></li>
-				<li><a href="#" class="nav-link text-dark"
+				<li><a href="#" class="navqlndung nav-link text-dark"
 					onclick="showTable(event, 'statisticalManagement')"> <i
 						class="bi bi-graph-up"></i> Quản Lý Thống Kê
 				</a></li>
 			</ul>
+			<hr>
 		</div>
 	</div>
 	<!-- Bootstrap JavaScript Libraries -->
