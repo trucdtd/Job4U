@@ -75,58 +75,65 @@ public class dangkyController {
 
 		// Kiểm tra điều khoản
 		if (termsAgreed == null) {
-			model.addAttribute("termsError", "Bạn phải đồng ý với điều khoản để tiếp tục.");
-			hasErrors = true;
+		    model.addAttribute("termsError", "Bạn phải đồng ý với điều khoản để tiếp tục.");
+		    hasErrors = true;
 		}
 
-		// Kiểm tra các thông tin bắt buộc
+		// Kiểm tra Tên đăng nhập (vừa có chữ, vừa có số, từ 3 đến 15 ký tự)
 		if (username.isEmpty()) {
-			model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
-			hasErrors = true;
+		    model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
+		    hasErrors = true;
 		} else if (!isValidUsername(username)) {
-			model.addAttribute("usernameError",
-					"Tên đăng nhập phải có ít nhất một số, chỉ chứa chữ cái và số, và độ dài từ 3 đến 15 ký tự");
-			hasErrors = true;
+		    model.addAttribute("usernameError", "Tên đăng nhập phải có ít nhất một chữ và một số, chỉ chứa chữ cái và số, độ dài từ 3 đến 15 ký tự");
+		    hasErrors = true;
 		} else if (userService.isUsernameExists(username)) {
-			model.addAttribute("usernameError", "Tên đăng nhập đã được sử dụng");
-			hasErrors = true;
+		    model.addAttribute("usernameError", "Tên đăng nhập đã được sử dụng");
+		    hasErrors = true;
 		}
 
-		// Kiểm tra Họ và Tên
+		// Kiểm tra Họ và Tên (chỉ chứa chữ cái, không chứa số, cho phép dấu tiếng Việt)
 		if (fullname.isEmpty()) {
-			model.addAttribute("fullnameError", "Họ và tên không được để trống");
-			hasErrors = true;
-		} else if (!isValidFullname(fullname)) {
-			model.addAttribute("fullnameError", "Họ và tên chỉ được chứa chữ cái");
-			hasErrors = true;
+		    model.addAttribute("fullnameError", "Họ và tên không được để trống");
+		    hasErrors = true;
+		} else if (!fullname.matches("[\\p{L}\\s]+")) { // \\p{L} đại diện cho tất cả các chữ cái Unicode
+		    model.addAttribute("fullnameError", "Họ và tên chỉ được chứa chữ cái");
+		    hasErrors = true;
 		}
 
-		// Kiểm tra Mật khẩu
+		// Kiểm tra Mật khẩu (phải ít nhất 8 ký tự)
 		if (password.isEmpty() || !isValidPassword(password)) {
-			model.addAttribute("passwordError",
-					password.isEmpty() ? "Mật khẩu không được để trống" : "Mật khẩu phải ít nhất 8 ký tự");
-			hasErrors = true;
+		    model.addAttribute("passwordError", password.isEmpty() ? "Mật khẩu không được để trống" : "Mật khẩu phải ít nhất 8 ký tự");
+		    hasErrors = true;
 		}
 
-		// Kiểm tra Email
-		if (email.isEmpty() || !isValidEmail(email) || userService.isEmailExists(email)) {
-			model.addAttribute("emailError", email.isEmpty() ? "Email không được để trống"
-					: !isValidEmail(email) ? "Email không hợp lệ" : "Email đã được sử dụng");
-			hasErrors = true;
+		// Kiểm tra Email (không được để trống, phải hợp lệ, không được trùng)
+		if (email.isEmpty()) {
+		    model.addAttribute("emailError", "Email không được để trống");
+		    hasErrors = true;
+		} else if (!isValidEmail(email)) {
+		    model.addAttribute("emailError", "Email không hợp lệ");
+		    hasErrors = true;
+		} else if (userService.isEmailExists(email)) {
+		    model.addAttribute("emailError", "Email đã tồn tại trong hệ thống");
+		    hasErrors = true;
 		}
 
-		// Kiểm tra Số điện thoại
-		if (phonenumber.isEmpty() || !isValidPhoneNumber(phonenumber) || userService.isPhoneNumberExists(phonenumber)) {
-			model.addAttribute("phonenumberError",
-					phonenumber.isEmpty() ? "Số điện thoại không được để trống"
-							: !isValidPhoneNumber(phonenumber) ? "Số điện thoại không hợp lệ (chỉ cho phép số)"
-									: "Số điện thoại đã được sử dụng");
-			hasErrors = true;
+		// Kiểm tra Số điện thoại (không được trống, chỉ cho phép số, không được trùng)
+		if (phonenumber.isEmpty()) {
+		    model.addAttribute("phonenumberError", "Số điện thoại không được để trống");
+		    hasErrors = true;
+		} else if (!phonenumber.matches("\\d+")) { // chỉ cho phép số
+		    model.addAttribute("phonenumberError", "Số điện thoại không hợp lệ (chỉ cho phép số)");
+		    hasErrors = true;
+		} else if (userService.isPhoneNumberExists(phonenumber)) {
+		    model.addAttribute("phonenumberError", "Số điện thoại đã được sử dụng");
+		    hasErrors = true;
 		}
 
+		// Kiểm tra loại tài khoản
 		if (usertype == null || usertype.isEmpty()) {
-			model.addAttribute("usertypeError", "Vui lòng chọn loại tài khoản");
-			hasErrors = true;
+		    model.addAttribute("usertypeError", "Vui lòng chọn loại tài khoản");
+		    hasErrors = true;
 		}
 
 		// Kiểm tra thông tin nhà tuyển dụng nếu loại tài khoản là "employer"
@@ -167,72 +174,80 @@ public class dangkyController {
 		
 
 		try {
-			// Tạo đối tượng người dùng mới
-			UsersEntity newUser = new UsersEntity();
-			Integer role = "employer".equals(usertype) ? 2 : 1;
-			newUser.setUsername(username);
-			newUser.setFullname(fullname);
-			newUser.setPassword(password); // Mã hóa mật khẩu
-			newUser.setEmail(email);
-			newUser.setPhonenumber(phonenumber);
-			newUser.setRole(role);
-			LocalDateTime now = LocalDateTime.now();
-			newUser.setCreatedat(now);
-			newUser.setUpdatedat(now);
-			newUser.setStatus("hoạt động"); // Thiết lập status
+		    // Tạo đối tượng người dùng mới
+		    UsersEntity newUser = new UsersEntity();
+		    Integer role = "employer".equals(usertype) ? 2 : 1;
+		    newUser.setUsername(username);
+		    newUser.setFullname(fullname);
+		    newUser.setPassword(password); // Mã hóa mật khẩu
+		    newUser.setEmail(email);
+		    newUser.setPhonenumber(phonenumber);
+		    newUser.setRole(role);
+		    LocalDateTime now = LocalDateTime.now();
+		    newUser.setCreatedat(now);
+		    newUser.setUpdatedat(now);
+		    newUser.setStatus("hoạt động"); // Thiết lập status
 
-			userDao.save(newUser);
+		    //System.out.println("Thông tin người dùng: " + newUser.toString());
+		    userDao.save(newUser);
 
-			// Nếu người dùng là nhà tuyển dụng, lưu thêm thông tin công ty
-			if ("employer".equals(usertype)) {
-				EmployersEntity employerDetails = new EmployersEntity();
-				employerDetails.setCompanyname(companyName);
-				employerDetails.setCompanywebsite(companyWebsite);
-				employerDetails.setAddress(companyAddress);
-				employerDetails.setIndustry(industry);
-				employerDetails.setContactperson(contactPerson);
-				employerDetails.setCompanydescription(companyDescription);
-				// Kiểm tra và lưu logo
-				String logoFilename = null;
-				if (logo != null && !logo.isEmpty()) {
-					logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
-					try {
-						File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
-						if (!uploadsDir.exists()) {
-							uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
-						}
-						Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
-						Files.write(path, logo.getBytes());
-					} catch (IOException e) {
-						e.printStackTrace();
-						return "error"; // Xử lý lỗi tải lên
-					}
-				} // Có thể bổ sung logic để upload logo
-				employerDetails.setTaxid(taxid);
+		    // Nếu người dùng là nhà tuyển dụng, lưu thêm thông tin công ty
+		    if ("employer".equals(usertype)) {
+		        EmployersEntity employerDetails = new EmployersEntity();
+		        employerDetails.setCompanyname(companyName);
+		        employerDetails.setCompanywebsite(companyWebsite);
+		        employerDetails.setAddress(companyAddress);
+		        employerDetails.setIndustry(industry);
+		        employerDetails.setContactperson(contactPerson);
+		        employerDetails.setCompanydescription(companyDescription);
+		        
+		        // Kiểm tra và lưu logo
+		        String logoFilename = null;
+		        if (logo != null && !logo.isEmpty()) {
+		            logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+		            //System.out.println("Tên tệp logo: " + logoFilename);
+		            try {
+		                File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+		                if (!uploadsDir.exists()) {
+		                    uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+		                    //System.out.println("Đã tạo thư mục uploads.");
+		                }
+		                Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+		                Files.write(path, logo.getBytes());
+		                //System.out.println("File logo đã được lưu thành công: " + path.toString());
+		            } catch (IOException e) {
+		                //System.out.println("Lỗi khi lưu file logo: " + e.getMessage());
+		                e.printStackTrace();
+		                return "error"; // Xử lý lỗi tải lên
+		            }
+		        } else {
+		            //System.out.println("Không có tệp logo được tải lên.");
+		        }
 
-				employerDetails.setUser(newUser);
-				employersDao.save(employerDetails);
-			}
+		        employerDetails.setTaxid(taxid);
+		        employerDetails.setUser(newUser);
+		        employerDetails.setLogo(logoFilename);  // Lưu tên file logo vào đối tượng Employer
+		        //System.out.println("Thông tin công ty: " + employerDetails.toString());
 
-			// Lưu thông tin điều khoản và chính sách
-			UserAgreementsEntity Useragreements = new UserAgreementsEntity();
-			Useragreements.setUserid(newUser);
-			Useragreements.setAgreementdate(LocalDate.now());
-			Useragreements.setAgreementcontent(
-					"Chính Sách: Để đảm bảo chất lượng dịch vụ, Job4U không cho phép một người dùng tạo nhiều tài khoản khác nhau..."); // Nội
-																																		// dung
-																																		// chính
-																																		// sách
-			Useragreements.setStatus(true); // Thiết lập giá trị cho cột status
+		        employersDao.save(employerDetails);
+		    }
 
-			userAgreementsDao.save(Useragreements); // Lưu vào cơ sở dữ liệu
+		    // Lưu thông tin điều khoản và chính sách
+		    UserAgreementsEntity Useragreements = new UserAgreementsEntity();
+		    Useragreements.setUserid(newUser);
+		    Useragreements.setAgreementdate(LocalDate.now());
+		    Useragreements.setAgreementcontent("Chính Sách: Để đảm bảo chất lượng dịch vụ...");
+		    Useragreements.setStatus(true); // Thiết lập giá trị cho cột status
 
-			model.addAttribute("successMessage", "Đăng ký thành công!");
-			return "dangky";
+		    userAgreementsDao.save(Useragreements); // Lưu vào cơ sở dữ liệu
+
+		    model.addAttribute("successMessage", "Đăng ký thành công!");
+		    return "dangky";
 		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("errorMessage", "Đã xảy ra lỗi trong quá trình đăng ký, vui lòng thử lại.");
-			return "dangky";
+		    //System.out.println("Lỗi xảy ra trong quá trình đăng ký: " + e.getMessage());
+		    e.printStackTrace();
+		    model.addAttribute("errorMessage", "Đã xảy ra lỗi trong quá trình đăng ký, vui lòng thử lại.");
+		    return "dangky";
 		}
 	}
 

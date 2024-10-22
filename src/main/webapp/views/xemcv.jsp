@@ -32,6 +32,7 @@
 				<tr>
 					<th>Tên ứng viên</th>
 					<th>Ngày Ứng Tuyển</th>
+					<th>Trạng thái</th>
 					<th>Xem cv</th>
 				</tr>
 			</thead>
@@ -41,6 +42,12 @@
 						<td>${application.fullnamecv}</td>
 						<!-- Định dạng ngày tháng từ trường createdat -->
 						<td class="formatted-date" data-date="${application.createdat}"></td>
+						<td><c:choose>
+													<c:when test="${cv.status == 0}">Đang chờ</c:when>
+													<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
+													<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+													<c:otherwise>Không xác định</c:otherwise>
+												</c:choose></td>
 						<td>
 							<form action="/employers/jobseekerDetails/${application.jobseekerid}" method="get" style="display: inline;">
 								<button type="submit" class="btn btn-success text-white p-2">Xem</button>
