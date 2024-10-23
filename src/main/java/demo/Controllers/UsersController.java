@@ -127,19 +127,20 @@ public class UsersController {
 
 	@GetMapping("/cv/list")
 	public String viewCvList(Model model) {
-		// Lấy ID người dùng từ phiên làm việc
-		Integer userId = (Integer) ss.getAttribute("userid");
+	    Integer userId = (Integer) ss.getAttribute("userid");
+	    List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByUserId(userId);
 
-		// Lấy danh sách CV của người dùng từ cơ sở dữ liệu
-		List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByUserId(userId);
+	    // In ra để kiểm tra
+	    System.out.println("Số lượng CV đã lấy: " + cvList.size());
+	    for (ApplicationsEntity cv : cvList) {
+	        System.out.println("CV ID: " + cv.getApplicationid() + ", Job Seeker ID: " + cv.getJobseeker().getJobseekerid());
+	    }
 
-		// Thêm danh sách CV vào mô hình
-		model.addAttribute("cvList", cvList);
-
-		// Trả về trang JSP cho danh sách CV
-		model.addAttribute("page", "listCVUngTuyen.jsp"); // Đường dẫn đến trang JSP cụ thể
-		return "trangCaNhanNguoiTimViec"; // Tên view mà bạn đã sử dụng
+	    model.addAttribute("cvList", cvList);
+	    model.addAttribute("page", "listCVUngTuyen.jsp");
+	    return "trangCaNhanNguoiTimViec";
 	}
+
 
 	// Trúc
 	@GetMapping("/cv/list2")

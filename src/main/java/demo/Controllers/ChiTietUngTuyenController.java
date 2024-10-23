@@ -72,64 +72,63 @@ public class ChiTietUngTuyenController {
 
 	@PostMapping("/{jobid}")
 	public String postSubmitCV(@PathVariable("jobid") Integer jobid, Model model,
-			@RequestParam("id") Optional<Integer> jSKID, @RequestParam("cvFile") MultipartFile cvFile,
-			@RequestParam("cvOptions") String cvOption) {
-		Integer id = (Integer) ss.getAttribute("userid");
+	        @RequestParam("cvFile") MultipartFile cvFile,
+	        @RequestParam("cvOptions") String cvOption,
+	        @RequestParam("id") Integer jSKID) { // Thêm dòng này để lấy ID CV
+	    Integer userId = (Integer) ss.getAttribute("userid"); // Lấy ID người dùng từ session
 
-		// Lấy thông tin chi tiết công việc
-		JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
-		LocalDate postedDate = chiTietUngTuyen.getPosteddate();
-		LocalDate applicationDeadlineDate = chiTietUngTuyen.getApplicationdeadline();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String formattedPostedDate = (postedDate != null) ? postedDate.format(formatter) : "N/A";
-		String formattedApplicationDeadline = (applicationDeadlineDate != null)
-				? applicationDeadlineDate.format(formatter)
-				: "N/A";
+	    // Lấy thông tin chi tiết công việc
+	    JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
+	    
+	    ApplicationsEntity app = new ApplicationsEntity();
+	    try {
+	        // Lấy danh sách CV của người dùng
+	        List<JobSeekersEntity> listCV = dao.findByUsername(userId);
+	        JobSeekersEntity jSK = null;
 
-		ApplicationsEntity app = new ApplicationsEntity();
-		try {
-			JobSeekersEntity jSK = dao.findByJobseekerid(id);
-			if (jSK == null) {
-				model.addAttribute("message", "Ứng tuyển thất bại: Không tìm thấy thông tin người tìm việc.");
-				return "chiTietUngTuyen"; // Trả về view mà không tiếp tục xử lý
-			}
-			if ("upload".equals(cvOption)) {
-				byte[] resumeBytes = cvFile.getBytes();
-				jSK.setResume(new String(resumeBytes));
-				dao.save(jSK);
-			} else if ("choose".equals(cvOption)) {
-				// Không cần làm gì, đã có jSK
-			}
+	        // Nếu danh sách CV không rỗng, lấy CV đầu tiên
+	        if (!listCV.isEmpty()) {
+	            jSK = listCV.get(0); // Hoặc bạn có thể thêm logic để chọn CV cụ thể
+	        }
 
-			// Kiểm tra tùy chọn CV
-//			System.out.println(cvOption + "12");
-			if (cvOption.equalsIgnoreCase("upload")) {
-//				System.out.println(cvFile.getOriginalFilename()+"file name");
-				String filename = cvFile.getOriginalFilename();
-				File file = new File(sc.getRealPath("/uploads/" + filename));
-				cvFile.transferTo(file);
-				app.setJob(chiTietUngTuyen);
-				app.setJobseeker(jSK);
-				app.setApplicationdate(LocalDateTime.now());
-				app.setStatus(0);
-				app.setCreatedat(LocalDateTime.now());
-				app.setFilename(filename);
-				appDao.save(app);
-				model.addAttribute("script", "<script>alert('Upload cv Ứng tuyển thành công')</script>");
-			} else if (cvOption.equalsIgnoreCase("choose")) {
-				app.setJob(chiTietUngTuyen);
-				app.setJobseeker(jSK);
-				app.setApplicationdate(LocalDateTime.now());
-				app.setStatus(0);
-				app.setResume(jSK.getResume());
-				app.setCreatedat(LocalDateTime.now());
-				appDao.save(app);
-				model.addAttribute("script", "<script>alert('Ứng tuyển thành công')</script>");
-			}
-		} catch (Exception e) {
-			model.addAttribute("script", "<script>alert('Ứng tuyển thất bại')</script>");
-		}
-		return "chiTietUngTuyen";
+	        if (jSK == null) {
+	            model.addAttribute("message", "Ứng tuyển thất bại: Không tìm thấy thông tin người tìm việc.");
+	            return "chiTietUngTuyen"; 
+	        }
+
+	        if ("upload".equals(cvOption)) {
+	            // Xử lý upload CV
+	            String filename = cvFile.getOriginalFilename();
+	            File file = new File(sc.getRealPath("/uploads/" + filename));
+	            cvFile.transferTo(file);
+	            app.setJob(chiTietUngTuyen);
+	            app.setJobseeker(jSK);
+	            app.setApplicationdate(LocalDateTime.now());
+	            app.setStatus(0);
+	            app.setCreatedat(LocalDateTime.now());
+	            app.setFilename(filename);
+	            appDao.save(app);
+	            model.addAttribute("script", "<script>alert('Upload CV ứng tuyển thành công')</script>");
+	        } else if ("choose".equals(cvOption)) {
+	            // Lấy CV có sẵn bằng ID
+	            JobSeekersEntity existingCV = dao.findByJobseekerid(jSKID);
+	            if (existingCV != null) {
+	                app.setJob(chiTietUngTuyen);
+	                app.setJobseeker(existingCV); // Gán CV đã chọn
+	                app.setApplicationdate(LocalDateTime.now());
+	                app.setStatus(0);
+	                app.setResume(existingCV.getResume()); // Lưu resume từ CV đã chọn
+	                app.setCreatedat(LocalDateTime.now());
+	                appDao.save(app);
+	                model.addAttribute("script", "<script>alert('Ứng tuyển thành công')</script>");
+	            } else {
+	                model.addAttribute("script", "<script>alert('Không tìm thấy CV đã chọn')</script>");
+	            }
+	        }
+	    } catch (Exception e) {
+	        model.addAttribute("script", "<script>alert('Ứng tuyển thất bại')</script>");
+	    }
+	    return "chiTietUngTuyen";
 	}
 
 }
