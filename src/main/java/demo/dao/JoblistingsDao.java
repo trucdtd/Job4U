@@ -133,16 +133,23 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :since")
     int countNewPostsSince(@Param("since") LocalDate since);
     
-// <<<<<<< HEAD
     //tìm kiếm bài viết chưa hết hạn
      Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline, Pageable pageable);
-// =======\
+
  // Lấy danh sách các bài tuyển dụng hàng đầu, sắp xếp theo IsTop và TopStartDate
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.isTop DESC, j.topStartDate DESC")
     List<JoblistingsEntity> findTopJobListingsByIsTopAndTopStartDate();
 
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.isTop DESC, j.topStartDate DESC")
     Page<JoblistingsEntity> findTopJobListingsByIsTopAndTopStartDate(Pageable pageable);
-// >>>>>>> origin/khoanm
+
+    @Query("SELECT MONTH(j.posteddate) AS month, COUNT(j) AS post_count " +
+    	       "FROM JoblistingsEntity j " +
+    	       "WHERE j.posteddate >= :startDate " +
+    	       "GROUP BY MONTH(j.posteddate) " +
+    	       "ORDER BY MONTH(j.posteddate)")
+    	List<Object[]> countPostsByMonth(@Param("startDate") LocalDate startDate);
+
+
 }
 

@@ -29,5 +29,6 @@ public interface ApplicationsDao extends JpaRepository<ApplicationsEntity, Integ
     List<ApplicationsEntity> findByJobseeker_User_Userid(Integer userId);
 
 	boolean existsByJobseeker_Jobseekerid(Integer jobseekerId);
- 
+	
+	
 }
