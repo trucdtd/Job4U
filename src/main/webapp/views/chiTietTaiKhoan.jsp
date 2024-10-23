@@ -36,8 +36,10 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<form class="p-4 border" action="/admin/updateUser/${nd.userid}"
-									method="post">
+								<form class="p-4 border" method="post"
+									action="/admin/deleteUser">
+									<input type="hidden" name="userid" value="${nd.userid}">
+									<!-- Thêm trường ẩn cho userid -->
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="username" class="form-label">Tên tài
@@ -80,9 +82,10 @@
 									<hr>
 									<div class="row">
 										<div class="card-action">
-											<!-- <button class="btn btn-info text-white"
-												style="background-color: #00688B">Update</button> -->
-											<a href="/admin" class="btn btn-danger">Quay lại</a>
+											<button type="submit" class="btn btn-danger text-white"
+												style="background-color: #00688B">Xóa</button>
+											<!-- Đổi thành submit -->
+											<a href="/admin" class="btn btn-secondary">Quay lại</a>
 										</div>
 									</div>
 								</form>
@@ -165,12 +168,12 @@
 				</div>
 				<!-- article -->
 			</div>
-		
+
+		</div>
 	</div>
-	</div>
-		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
-		<!-- footer -->
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
