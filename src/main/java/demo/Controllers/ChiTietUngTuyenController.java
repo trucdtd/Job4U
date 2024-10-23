@@ -111,7 +111,7 @@ public class ChiTietUngTuyenController {
 				app.setJob(chiTietUngTuyen);
 				app.setJobseeker(jSK);
 				app.setApplicationdate(LocalDateTime.now());
-				app.setStatus(1);
+				app.setStatus(0);
 				app.setCreatedat(LocalDateTime.now());
 				app.setFilename(filename);
 				appDao.save(app);
@@ -120,7 +120,7 @@ public class ChiTietUngTuyenController {
 				app.setJob(chiTietUngTuyen);
 				app.setJobseeker(jSK);
 				app.setApplicationdate(LocalDateTime.now());
-				app.setStatus(1);
+				app.setStatus(0);
 				app.setResume(jSK.getResume());
 				app.setCreatedat(LocalDateTime.now());
 				appDao.save(app);
