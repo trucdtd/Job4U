@@ -40,5 +40,7 @@ public class UserServicesEntity implements Serializable {
 
     @Column(name = "numberofjobsallowed")
     private Integer numberofjobsallowed;
-
+    
+    @Column(name = "Isactive")
+    private Boolean isactive = true;
 }

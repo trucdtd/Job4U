@@ -246,7 +246,7 @@ public class NhaTuyenDungController {
 		}
 
 		// Kiểm tra xem bài đăng có sử dụng dịch vụ nào không
-		if (jobListing.getUserService() != null) {
+		if (jobListing.getUserservice() != null) {
 			model.addAttribute("error", "Không thể xóa bài đăng đã sử dụng dịch vụ.");
 			return "redirect:/job4u/employers"; // Hoặc trang thông báo lỗi
 		}
@@ -313,26 +313,3 @@ public class NhaTuyenDungController {
 
 
 }
-
-//	@PostMapping("/employers/service")
-//	public String showService(@RequestParam("serviceId") Integer serviceId, Model model) {
-//	    // Retrieve the service from the database using the serviceId
-//	    ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
-//
-//	    // Check if the service exists
-//	    if (service != null) {
-//	        // Add service details to the model
-//	        model.addAttribute("serviceName", service.getServicename());
-//	        model.addAttribute("servicePrice", service.getPrice() + " VNĐ");
-//	        model.addAttribute("serviceDescription", service.getDescription());
-//
-//	        // Return the view displaying the service details
-//	        return "nhaTuyenDung";
-//	    } else {
-//	        // Add an error message to the model if service does not exist
-//	        model.addAttribute("errorMessage", "Gói dịch vụ không tồn tại");
-//	        
-//	        // Return the same view, but with the error message
-//	        return "nhaTuyenDung";
-//	    }
-//	}

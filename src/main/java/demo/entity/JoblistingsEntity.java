@@ -62,10 +62,6 @@ public class JoblistingsEntity implements Serializable {
     @Column(name = "istop")
     private Boolean isTop;
 
-    @Column(name = "topstartdate")
-    private LocalDate topStartDate;
-
-
     @ManyToOne
     @JoinColumn(name = "EmployerID", referencedColumnName = "EmployerID", nullable = false)
     private EmployersEntity employer;
@@ -73,7 +69,7 @@ public class JoblistingsEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "userserviceid")
-    private UserServicesEntity userService;
+    private UserServicesEntity userservice;
     
     @Column(name = "active", nullable = false)
     private boolean active = true; // Trạng thái bài đăng
