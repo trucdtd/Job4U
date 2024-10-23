@@ -161,6 +161,7 @@ public class AdminController {
 		return "chiTietBaiViet";
 	}
 
+//	ts
 	@PostMapping("/deletePost")
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
 		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
