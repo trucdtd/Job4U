@@ -13,7 +13,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-	
 <style>
 .form-control {
 	padding: 1rem;
@@ -119,9 +118,9 @@
 								</div>
 								<div class="col">
 									<label class="form-label" for="phonenumber">Số Điện
-										Thoại</label> <input type="tel" id="phonenumber" name="phonenumber"
+										Thoại</label> <input type="text" id="phonenumber" name="phonenumber"
 										class="form-control" placeholder="Nhập số điện thoại"
-										value="${phonenumber}"/> <span class="text-danger">${phonenumberError}</span>
+										value="${phonenumber}" /> <span class="text-danger">${phonenumberError}</span>
 								</div>
 							</div>
 							<div class="mb-4">
@@ -223,18 +222,15 @@
 											value="${contactPerson}"> <span class="text-danger">${contactPersonError}</span>
 									</div>
 									<div class="col">
-    <label for="logo" class="form-label">Logo công ty</label>
-    
-    <!-- Hiển thị logo đã tải lên nếu có -->
-    <img id="logoPreview" 
-         src="${logo != null ? pageContext.request.contextPath + '/uploads/' + logo : ''}" 
-         alt="Logo Preview" 
-         class="img-fluid" 
-         style="object-fit: cover; max-width: 100%; height: 200px; display: ${logo != null ? 'block' : 'none'};">
-
-    <!-- Input file để chọn logo -->
-    <input type="file" class="form-control" id="logo" name="logo" accept="image/*" onchange="previewLogo(this)">
-
+										<img id="logoPreview"
+											src="${pageContext.request.contextPath}/uploads/${logo}"
+											alt="Logo" class="img-fluid"
+											style="object-fit: cover; max-width: 100%; height: 200px;">
+										<input type="file" class="form-control" id="logo" name="logo"
+											accept="image/*" style="display: none;"> <label
+											for="logo" class="form-control text-center"
+											style="cursor: pointer; height: 30px; display: flex; align-items: center; justify-content: center;">
+											Logo công ty </label>
 									</div>
 								</div>
 								<div class="mb-3">
@@ -379,23 +375,100 @@
 		});
 	</script>
 	<script>
-        function previewLogo(input) {
-            var file = input.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    // Hiển thị hình ảnh preview
-                    document.getElementById('logoPreview').src = e.target.result;
-                    document.getElementById('logoPreview').style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                // Ẩn preview nếu không có tệp được chọn
-                document.getElementById('logoPreview').style.display = 'none';
-            }
-        }
-    </script>
-		<script
+	document.addEventListener('DOMContentLoaded', function () {
+	    const form = document.querySelector('form'); // Form cần submit
+	    const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], select, textarea, input[type="radio"]');
+	    const errorSpans = document.querySelectorAll('.text-danger');
+
+	    // Kiểm tra và hiển thị lỗi khi di chuột vào input
+	    inputs.forEach((input, index) => {
+	        input.addEventListener('mouseover', function () {
+	            if (input.type === 'radio') {
+	                const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
+	                let checked = false;
+	                radioGroup.forEach(radio => {
+	                    if (radio.checked) {
+	                        checked = true;
+	                    }
+	                });
+	                if (!checked) {
+	                    errorSpans[index].innerText = 'Vui lòng chọn một tùy chọn!';
+	                } else {
+	                    errorSpans[index].innerText = '';
+	                }
+	            } else {
+	                if (input.value.trim() === '') {
+	                    errorSpans[index].innerText = 'Trường này không được để trống!';
+	                } else {
+	                    errorSpans[index].innerText = ''; // Xóa thông báo lỗi nếu nhập đúng
+	                }
+	            }
+	        });
+
+	        input.addEventListener('mouseout', function () {
+	            errorSpans[index].innerText = ''; // Ẩn thông báo lỗi khi di chuột ra ngoài
+	        });
+
+	        input.addEventListener('blur', function () {
+	            if (input.type === 'radio') {
+	                const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
+	                let checked = false;
+	                radioGroup.forEach(radio => {
+	                    if (radio.checked) {
+	                        checked = true;
+	                    }
+	                });
+	                if (!checked) {
+	                    errorSpans[index].innerText = 'Vui lòng chọn một tùy chọn!';
+	                } else {
+	                    errorSpans[index].innerText = ''; // Xóa lỗi nếu chọn đúng
+	                }
+	            } else {
+	                if (input.value.trim() === '') {
+	                    errorSpans[index].innerText = 'Trường này không được để trống!';
+	                } else {
+	                    errorSpans[index].innerText = ''; // Xóa thông báo lỗi nếu nhập đúng
+	                }
+	            }
+	        });
+	    });
+
+	    // Kiểm tra lỗi khi submit form
+	    form.addEventListener('submit', function (event) {
+	        let hasErrors = false;
+
+	        inputs.forEach((input, index) => {
+	            if (input.type === 'radio') {
+	                const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
+	                let checked = false;
+	                radioGroup.forEach(radio => {
+	                    if (radio.checked) {
+	                        checked = true;
+	                    }
+	                });
+	                if (!checked) {
+	                    errorSpans[index].innerText = 'Vui lòng chọn một tùy chọn!';
+	                    hasErrors = true;
+	                } else {
+	                    errorSpans[index].innerText = ''; // Xóa lỗi nếu chọn đúng
+	                }
+	            } else {
+	                if (input.value.trim() === '') {
+	                    errorSpans[index].innerText = 'Trường này không được để trống!';
+	                    hasErrors = true;
+	                } else {
+	                    errorSpans[index].innerText = ''; // Xóa thông báo lỗi nếu nhập đúng
+	                }
+	            }
+	        });
+
+	        if (hasErrors) {
+	            event.preventDefault(); // Ngăn chặn submit nếu còn lỗi
+	        }
+	    });
+	});
+</script>
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
