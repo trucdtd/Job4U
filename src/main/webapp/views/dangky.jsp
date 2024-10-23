@@ -13,6 +13,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+	
 <style>
 .form-control {
 	padding: 1rem;
@@ -118,9 +119,9 @@
 								</div>
 								<div class="col">
 									<label class="form-label" for="phonenumber">Số Điện
-										Thoại</label> <input type="text" id="phonenumber" name="phonenumber"
+										Thoại</label> <input type="tel" id="phonenumber" name="phonenumber"
 										class="form-control" placeholder="Nhập số điện thoại"
-										value="${phonenumber}" /> <span class="text-danger">${phonenumberError}</span>
+										value="${phonenumber}"/> <span class="text-danger">${phonenumberError}</span>
 								</div>
 							</div>
 							<div class="mb-4">
@@ -222,14 +223,18 @@
 											value="${contactPerson}"> <span class="text-danger">${contactPersonError}</span>
 									</div>
 									<div class="col">
-										<img id="logoPreview" src="${pageContext.request.contextPath}/uploads/${logo}"
-     alt="Logo" class="img-fluid" style="object-fit: cover; max-width: 100%; height: 200px;">
-<input type="file" class="form-control" id="logo"
-       name="logo" accept="image/*" style="display: none;">
-<label for="logo" class="form-control text-center"
-       style="cursor: pointer; height: 30px; display: flex; align-items: center; justify-content: center;">
-    Logo công ty
-</label>
+    <label for="logo" class="form-label">Logo công ty</label>
+    
+    <!-- Hiển thị logo đã tải lên nếu có -->
+    <img id="logoPreview" 
+         src="${logo != null ? pageContext.request.contextPath + '/uploads/' + logo : ''}" 
+         alt="Logo Preview" 
+         class="img-fluid" 
+         style="object-fit: cover; max-width: 100%; height: 200px; display: ${logo != null ? 'block' : 'none'};">
+
+    <!-- Input file để chọn logo -->
+    <input type="file" class="form-control" id="logo" name="logo" accept="image/*" onchange="previewLogo(this)">
+
 									</div>
 								</div>
 								<div class="mb-3">
@@ -373,6 +378,23 @@
 					});
 		});
 	</script>
+	<script>
+        function previewLogo(input) {
+            var file = input.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Hiển thị hình ảnh preview
+                    document.getElementById('logoPreview').src = e.target.result;
+                    document.getElementById('logoPreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Ẩn preview nếu không có tệp được chọn
+                document.getElementById('logoPreview').style.display = 'none';
+            }
+        }
+    </script>
 		<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

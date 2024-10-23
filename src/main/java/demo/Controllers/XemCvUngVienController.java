@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ import demo.dao.ApplicationsDao;
 import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
 import demo.services.ApplicationService;
+import jakarta.servlet.http.HttpSession;
+
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,11 +33,20 @@ public class XemCvUngVienController {
     private ApplicationsDao applicationsDao;
     
     @Autowired
+	HttpSession ss;
+    
+    @Autowired
     private ApplicationService applicationService;
 
     @RequestMapping("/{applicationId}")
     public String cvDetails(@PathVariable("applicationId") Integer applicationId, Model model) {
         ApplicationsEntity applicationDetails = applicationsDao.findById(applicationId).orElse(null);
+        
+     // Lấy danh sách CV của ứng viên dựa trên jobListingId
+        List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByJoblistingId(applicationId);
+        
+        // Thêm danh sách CV vào mô hình
+        model.addAttribute("cvList", cvList);
         
         if (applicationDetails == null) {
             model.addAttribute("errorMessage", "Không tìm thấy thông tin ứng tuyển.");
@@ -71,5 +84,6 @@ public class XemCvUngVienController {
         }
     }
 
+  
 
 }

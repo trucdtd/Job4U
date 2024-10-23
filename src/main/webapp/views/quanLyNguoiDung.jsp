@@ -117,7 +117,7 @@
 											<th>Email</th>
 											<th>Số điện thoại</th>
 											<th>Role</th>
-											<th></th>
+											<th>Hành Động</th>
 
 										</tr>
 									</thead>
@@ -180,7 +180,7 @@
 											<!-- <th scope="col">Vị Trí Công Việc</th> -->
 											<th scope="col">Tên Ngành</th>
 											<th scope="col">Lương</th>
-											<th></th>
+											<th scope="col">Hành Động</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -192,17 +192,13 @@
 												<td>${bv.jobrequirements}</td>
 												<%-- <td>${bv.joblocation}</td> --%>
 												<td>${bv.jobdescription}</td>
-												<td><span
-													style="display: inline-flex; align-items: center;">
-														<script>
-												            var salary = Number(${bv.salary});
-												            if (!isNaN(salary)) {
-												                document.write(salary.toLocaleString('vi-VN') + 'VND');
-												            } else {
-												                document.write('N/A');
-												            }
-												        </script>
-												</span></td>
+												<td><c:choose>
+														<c:when test="${bv.salary != null}">
+															<span style="display: inline-flex; align-items: center;">
+																${bv.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+																VND </span>
+														</c:when>
+													</c:choose></td>
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
 														<a href="/admin/detailPost/${bv.jobid}" class="btn"
@@ -243,7 +239,7 @@
 											<th scope="col">Kinh Nghiệm</th>
 											<th scope="col">Học Vấn</th>
 											<th scope="col">Kỹ Năng</th>
-											<th></th>
+											<th scope="col">Hành Động</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -261,9 +257,9 @@
 															type="button"> <img src="/img/detail-icon.png"
 															style="padding-bottom: 7px;" width="25px" height="30px"
 															alt="Detail">
-														</a> 
+														</a>
 													</div>
-												</td>													
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -281,9 +277,9 @@
 						<div class="card-body">
 							<h5 class="card-title">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item">Biểu Đồ</li>
-									<li class="breadcrumb-item"><a href="/thongke">Thống
-											kê chi tiết</a></li>
+									<li class="breadcrumb-item"><a
+										style="text-decoration: none;" href="/thongke">Thống kê
+											chi tiết </a><i class="bi bi-graph-up"></i></li>
 								</ol>
 							</h5>
 							<div class="panel panel-default">
