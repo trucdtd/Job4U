@@ -28,18 +28,7 @@ public class ThongKeController {
 
 	@GetMapping("/thongke")
 	public String getStatistics(Model model) {
-	    // Đối với UserRepository - dùng LocalDateTime
-	    LocalDateTime startDateForUsers = LocalDateTime.now().minusMonths(12);
-	    List<Object[]> userStatistics = userDao.countUsersByMonth(startDateForUsers);
-
-	    // Đối với JobRepository - dùng LocalDate
-	    LocalDate startDateForJobs = LocalDate.now().minusMonths(12);
-	    List<Object[]> jobStatistics = joblistingsDao.countPostsByMonth(startDateForJobs);
-
-	    // Thêm dữ liệu vào model để truyền sang giao diện
-	    model.addAttribute("userStatistics", userStatistics);
-	    model.addAttribute("jobStatistics", jobStatistics);
-
+	
 	    return "thongKeMoi"; // Tên template HTML/JSP cho trang thống kê
 	}
 }
