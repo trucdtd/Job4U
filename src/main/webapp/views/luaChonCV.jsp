@@ -26,7 +26,7 @@
 				<img src="/img/cv2.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
-					<button class="use-btn">Dùng mẫu</button>
+					<a style="text-decoration: none;" href="/luaCV/mauCV1" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">
@@ -39,7 +39,7 @@
 				<img src="/img/cv3.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
-					<button class="use-btn">Dùng mẫu</button>
+					<a style="text-decoration: none;" href="/luaCV/mauCV2" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">
@@ -52,7 +52,7 @@
 				<img src="/img/cv4.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
-					<button class="use-btn">Dùng mẫu</button>
+					<a style="text-decoration: none;" href="/luaCV/mauCV1" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">
@@ -65,7 +65,7 @@
 				<img src="/img/cv5.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
-					<button class="use-btn">Dùng mẫu</button>
+					<a style="text-decoration: none;" href="/luaCV/mauCV" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">
@@ -78,20 +78,5 @@
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
 	
-	<script>
-    // Add functionality to buttons if needed
-document.querySelectorAll('.use-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        alert('Mẫu đã được chọn!');
-    });
-});
-
-document.querySelectorAll('.preview-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        alert('Xem trước mẫu này!');
-    });
-});
-
-</script>
 </body>
 </html>

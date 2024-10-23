@@ -224,6 +224,7 @@ p {
 			</div>
 		</div>
 	</div>
+	<br>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->

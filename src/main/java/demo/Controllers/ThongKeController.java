@@ -28,7 +28,11 @@ public class ThongKeController {
 
 	@GetMapping("/thongke")
 	public String getStatistics(Model model) {
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> dev
 	    return "thongKeMoi"; // Tên template HTML/JSP cho trang thống kê
 	}
 }
