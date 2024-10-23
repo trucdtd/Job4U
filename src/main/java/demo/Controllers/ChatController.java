@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/chat")
 public class ChatController {
@@ -22,7 +23,7 @@ public class ChatController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private final String apiUrl = "https://api-inference.huggingface.co/models/gpt2"; 
+    private final String apiUrl = "https://api-inference.huggingface.co/models/gpt2";
 
     @PostMapping("/send")
     public ResponseEntity<Map<String, String>> chat(@RequestBody Map<String, String> payload) {
@@ -46,14 +47,17 @@ public class ChatController {
 
         Map<String, Object> requestPayload = new HashMap<>();
         requestPayload.put("inputs", userMessage);
-        requestPayload.put("language", "vi"); // Thêm tham số ngôn ngữ
 
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestPayload, headers);
 
         for (int i = 0; i < 3; i++) { // Thử lại tối đa 3 lần
             try {
-                ResponseEntity<List<Map<String, Object>>> responseEntity = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<List<Map<String, Object>>>() {});
+                ResponseEntity<List<Map<String, Object>>> responseEntity = restTemplate.exchange(
+                        apiUrl, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<List<Map<String, Object>>>() {}
+                );
+
                 List<Map<String, Object>> responseBody = responseEntity.getBody();
+                System.out.println("Response body: " + responseBody); // Log toàn bộ phản hồi
 
                 if (responseEntity.getStatusCode() == HttpStatus.OK && responseBody != null && !responseBody.isEmpty()) {
                     Map<String, Object> generatedText = responseBody.get(0);
