@@ -32,6 +32,6 @@ public class UserAgreementsEntity {
     @Column(name = "agreementcontent", nullable = false, columnDefinition = "NVARCHAR(MAX)")
     private String agreementcontent;
 
-    @Column(name = "status", nullable = false)
-    private Boolean status;
+    @Column(name = "status")
+    private Integer status;
 }
