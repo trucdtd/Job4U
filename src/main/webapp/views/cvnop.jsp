@@ -83,11 +83,11 @@ body {
 	border-radius: 5px; /* Bo tròn góc */
 	border: 2px solid #4CAF50; /* Đường viền màu xanh */
 	object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
-    width: 100px; /* Chiều rộng của ảnh */
-    height: 133px; /* Chiều cao của ảnh */
-    border-radius: 5px; /* Bo tròn góc */
-    border: 2px solid #1da868; /* Đường viền màu xanh */
-    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
+	width: 100px; /* Chiều rộng của ảnh */
+	height: 133px; /* Chiều cao của ảnh */
+	border-radius: 5px; /* Bo tròn góc */
+	border: 2px solid #1da868; /* Đường viền màu xanh */
+	object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
 }
 
 .placeholder-photo {
@@ -161,7 +161,8 @@ p {
 					<h3>Thông Tin Cá Nhân</h3>
 					<div class="info-grid">
 						<div class="photo-container">
-							<img src="" alt="Ảnh ứng viên" class="cv-photo"
+							<img src="${pageContext.request.contextPath}/uploads/${jobSeeker.image}"
+								alt="Ảnh ứng viên" class="cv-photo"
 								onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
 							<div class="placeholder-photo" style="display: none;">
 								<img src="path/to/placeholder-image.png" alt="Khung ảnh"
@@ -220,16 +221,51 @@ p {
 			</div>
 
 		</div>
-
-		<!-- </div> -->
-		<div class="text-center mt-4 mb-4">
-		<button  class="btn btn-primary" onclick="acceptApplication(${application.applicationid})">Chấp nhận</button>
-    	<button class="btn btn-danger" onclick="rejectApplication(${application.applicationid})">Từ Chối</button>
-		<button class="btn btn-primary" onclick="downloadPDF()">Tải
-				CV Dưới Dạng PDF</button>
 		</div>
-
+<br>
+		<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-3">
+			<table id="listCV" class="table table-striped table-sm text-center">
+				<thead>
+					<tr>
+						<th>Trạng Thái</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="cv" items="${cvList}">
+						<tr>
+							<td>
+								<c:choose>
+									<c:when test="${cv.status == 0}">Đang chờ</c:when>
+									<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
+									<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+									<c:otherwise>Không xác định</c:otherwise>
+								</c:choose>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</div>
+</div>
+
+
+	<!-- </div> -->
+	<div class="text-center mt-4 mb-4">
+		<button class="btn btn-success"
+			onclick="acceptApplication(${application.applicationid})">Chấp
+			nhận</button>
+		<button class="btn btn-danger"
+			onclick="rejectApplication(${application.applicationid})">Từ
+			Chối</button>
+		<button class="btn btn-primary" onclick="downloadPDF()">Tải
+			CV Dưới Dạng PDF</button>
+	
+	</div>
+
+
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
@@ -259,8 +295,8 @@ p {
 			html2pdf().set(opt).from(element).save();
 		}						
 	</script>
-	
-   <script>
+
+	<script>
    function acceptApplication(applicationId) {
 	    fetch(`/cvDetails/${applicationId}/accept`, {
 	        method: 'POST',
