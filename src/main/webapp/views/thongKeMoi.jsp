@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +90,7 @@
 						<div class="card info-card sales-card shadow-sm">
 							<div class="card-body">
 								<h5 class="card-title">
-									Doanh số <span class="text-muted">| <select
+									Dịch Vụ <span class="text-muted">| <select
 										id="sales-timeframe" onchange="updateSalesData()">
 											<option value="today">Hôm nay</option>
 											<option value="6months">6 tháng</option>
@@ -118,20 +119,27 @@
 						<div class="card recent-sales shadow-sm">
 							<div class="card-body">
 								<h5 class="card-title">
-									Recent Sales <span class="text-muted">| Hôm nay</span>
+									Dịch Vụ Đã Bán <span class="text-muted">| Hôm nay</span>
 								</h5>
 								<table class="table table-borderless datatable">
 									<thead>
 										<tr>
-											<th>#</th>
-											<th>Customer</th>
-											<th>Product</th>
+											<th>Services Id</th>
+											<th>User Id</th>
+											<th>PurchaseDate</th>
 											<th>Price</th>
-											<th>Status</th>
+											
 										</tr>
 									</thead>
 									<tbody>
-										<!-- Add dynamic data rows here -->
+										<c:forEach items="${qlTK}" var="tk">
+											<tr>
+												<th scope="row">${tk.serviceid}</th>
+												<td>${tk.user.userid}</td>
+												<td>${tk.service.price}</td>
+												<td>${tk.purchasedate}</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -140,6 +148,10 @@
 				</div>
 		</section>
 	</div>
+		<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
+	
 	<!-- ChartJS and custom script -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>

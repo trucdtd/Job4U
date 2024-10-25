@@ -36,8 +36,10 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<form class="p-4 border" action="/admin/updateUser/${nd.userid}"
-									method="post">
+								<form class="p-4 border" method="post"
+									action="">
+									<input type="hidden" name="userid" value="${nd.userid}">
+									<!-- Thêm trường ẩn cho userid -->
 									<div class="row">
 										<div class="col-md-6 p-2">
 											<label for="username" class="form-label">Tên tài
@@ -66,6 +68,7 @@
 									</div>
 
 									<div class="row">
+
 										<div class="col-md-6 p-2">
 											<label for="role" class="form-label">Vai trò</label> <select
 												name="role" id="role" class="form-select" disabled>
@@ -76,13 +79,26 @@
 													tuyển dụng</option>
 											</select>
 										</div>
+										<div class="col-md-6 p-2">
+											<label for="status" class="form-label">Trạng Thái </label> 
+											<select
+												name="status" id="status" class="form-select" disabled>
+												<option value="0" ${nd.status == false ? 'selected' : ''}>Không
+													hoạt động</option>
+												<option value="1" ${nd.status == true ? 'selected' : ''}>Hoạt
+													động</option>
+											</select>
+										</div>
 									</div>
 									<hr>
 									<div class="row">
 										<div class="card-action">
-											<!-- <button class="btn btn-info text-white"
-												style="background-color: #00688B">Update</button> -->
-											<a href="/admin" class="btn btn-danger">Quay lại</a>
+											<a href="/admin/deleteUser" type="submit" class="btn btn-danger text-white">Xóa</a>
+											<button type="button" class="btn btn-warning" onclick="lockUserAccount(${nd.userid})">Khóa tài khoản</button>
+											<button type="button" class="btn btn-success" onclick="openUserAccount(${nd.userid})">Mở tài khoản</button>
+											
+											<!-- Đổi thành submit -->
+											<a href="/admin" class="btn btn-secondary">Quay lại</a>
 										</div>
 									</div>
 								</form>
@@ -94,83 +110,14 @@
 
 
 
-
-					<!-- Post Management table -->
-					<div id="postManagement" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Quản Lý Bài Viết</div>
-						</div>
-						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">Job Title</th>
-											<th scope="col">Company Name</th>
-											<th scope="col">Job Requirenments</th>
-											<th scope="col">Job Location</th>
-											<th scope="col">Salary</th>
-											<th scope="col">Job Description</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">Developer</th>
-											<td>Công ty F</td>
-											<td>Requirements for Developer position</td>
-											<td>Ho Chi Minh City</td>
-											<td>Negotiable</td>
-											<td>Job description for Developer position</td>
-										</tr>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-
-					<!-- CV Management table -->
-					<div id="cvManagement" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Quản Lý CV</div>
-						</div>
-						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table align-items-center mb-0">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">CVID</th>
-											<th scope="col">Name</th>
-											<th scope="col">Position</th>
-											<th scope="col">Date Submitted</th>
-											<th scope="col">Status</th>
-											<th scope="col">Button</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>Alex Smith</td>
-											<td>Developer</td>
-											<td>2023-01-05</td>
-											<td>Reviewed</td>
-											<td><button>Edit</button></td>
-										</tr>
-										<!-- Add more rows as needed -->
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
 				<!-- article -->
 			</div>
-		
+
+		</div>
 	</div>
-	</div>
-		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
-		<!-- footer -->
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
@@ -198,6 +145,55 @@
 				+ tableId + '"]');
 		activeLink.classList.add('active');
 	}
+	
+	function lockUserAccount(id) {
+	    if (confirm("Bạn có chắc chắn muốn khóa tài khoản này không?")) {
+	        fetch(`/admin/lock/${id}`, {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                'X-Requested-With': 'XMLHttpRequest'
+	            }
+	        })
+	        .then(response => {
+	            if (response.ok) {
+	                alert('Tài khoản đã được khóa!');
+	                window.location.reload(); // Tải lại trang
+	            } else {
+	                alert('Có lỗi xảy ra khi khóa tài khoản!');
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error:', error);
+	            alert('Có lỗi xảy ra khi khóa tài khoản!');
+	        });
+	    }
+	}
+	
+	function openUserAccount(id) {
+	    if (confirm("Bạn có chắc chắn muốn mở tài khoản này không?")) {
+	        fetch(`/admin/open/${id}`, {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                'X-Requested-With': 'XMLHttpRequest'
+	            }
+	        })
+	        .then(response => {
+	            if (response.ok) {
+	                alert('Tài khoản đã được mở!');
+	                window.location.reload(); // Tải lại trang
+	            } else {
+	                alert('Có lỗi xảy ra khi mở tài khoản!');
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error:', error);
+	            alert('Có lỗi xảy ra khi khóa tài khoản!');
+	        });
+	    }
+	}
+
 </script>
 </body>
 </html>

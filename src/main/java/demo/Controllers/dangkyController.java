@@ -175,7 +175,7 @@ public class dangkyController {
 			LocalDateTime now = LocalDateTime.now();
 			newUser.setCreatedat(now);
 			newUser.setUpdatedat(now);
-			newUser.setStatus("hoạt động"); // Thiết lập status
+			newUser.setStatus(true); // Thiết lập status
 
 			userDao.save(newUser);
 

@@ -29,8 +29,10 @@ public class UserServicesEntity implements Serializable {
     @JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
     private UsersEntity user;
 
-    @Column(name = "serviceid")
-    private Integer serviceid;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "ServiceID")
+    private ServicesEntity service;
 
     @Column(name = "purchasedate")
     private LocalDate purchasedate;
@@ -40,5 +42,7 @@ public class UserServicesEntity implements Serializable {
 
     @Column(name = "numberofjobsallowed")
     private Integer numberofjobsallowed;
-
+    
+    @Column(name = "Isactive")
+    private Boolean isactive = true;
 }

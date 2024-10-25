@@ -24,8 +24,8 @@ public class PaymentsEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PaymentID")
-    private Integer paymentId;
+    @Column(name = "paymentid")
+    private Integer paymentid;
 
     @NotNull
     @ManyToOne
@@ -42,10 +42,14 @@ public class PaymentsEntity implements Serializable {
     private BigDecimal amount;
 
     @NotNull
-    @Column(name = "PaymentDate", nullable = false)
-    private LocalDate paymentDate;
+    @Column(name = "Paymentdate", nullable = false)
+    private LocalDate Paymentdate;
 
     @NotNull
     @Column(name = "Status", nullable = false)
     private String status;
+    
+    @NotNull
+    @Column(name = "paymentmethod", nullable = false)
+    private String paymentmethod;
 }
