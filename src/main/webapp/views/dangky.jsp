@@ -95,14 +95,14 @@
 							</div>
 							<div class="row">
 								<div class="col">
-									<label class="form-label" for="fullname">Họ và Tên</label> <input
+									<label class="form-label" for="fullname">Họ và Tên <span style="color: red;">*</span></label> <input
 										type="text" id="fullname" name="fullname" class="form-control"
 										placeholder="Nhập họ và tên" value="${fullname}"
 										onkeypress="return isLetter(event)" /> <span
 										class="text-danger">${fullnameError}</span>
 								</div>
 								<div class="col">
-									<label class="form-label" for="username">Tên Tài Khoản</label>
+									<label class="form-label" for="username">Tên Tài Khoản <span style="color: red;">*</span></label>
 									<input type="text" id="username" name="username"
 										class="form-control" placeholder="Nhập tên tài khoản"
 										value="${username}" /> <span class="text-danger">${usernameError}</span>
@@ -111,26 +111,26 @@
 
 							<div class="row">
 								<div class="col">
-									<label class="form-label" for="email">Email</label> <input
+									<label class="form-label" for="email">Email <span style="color: red;">*</span></label> <input
 										type="email" id="email" name="email" class="form-control"
 										placeholder="Nhập email" value="${email}" /> <span
 										class="text-danger">${emailError}</span>
 								</div>
 								<div class="col">
 									<label class="form-label" for="phonenumber">Số Điện
-										Thoại</label> <input type="text" id="phonenumber" name="phonenumber"
+										Thoại <span style="color: red;">*</span></label> <input type="text" id="phonenumber" name="phonenumber"
 										class="form-control" placeholder="Nhập số điện thoại"
 										value="${phonenumber}" /> <span class="text-danger">${phonenumberError}</span>
 								</div>
 							</div>
 							<div class="mb-4">
-								<label class="form-label" for="password">Mật Khẩu</label> <input
+								<label class="form-label" for="password">Mật Khẩu <span style="color: red;">*</span></label> <input
 									type="password" id="password" name="password"
 									class="form-control" placeholder="Nhập mật khẩu"
 									value="${password}" /> <span class="text-danger">${passwordError}</span>
 							</div>
 							<div class="mb-4">
-								<label class="form-label">Đăng ký tài khoản</label>
+								<label class="form-label">Đăng ký tài khoản <span style="color: red;">*</span></label>
 								<div>
 									<div class="form-check form-check-inline">
 										<input class="form-check-input" type="radio" name="usertype"
@@ -153,7 +153,7 @@
 							<div id="employerDetails" style="display: none;">
 								<div class="row">
 									<div class="col">
-										<label for="taxid" class="form-label">Mã số thuế:</label> <input
+										<label for="taxid" class="form-label">Mã số thuế: <span style="color: red;">*</span></label> <input
 											type="text" id="taxid" name="taxid" class="form-control"
 											value="${taxid}"> <span class="text-danger">${taxidError}</span>
 									</div>
@@ -161,26 +161,26 @@
 								<div class="row">
 									<div class="col">
 										<label for="companyName" class="form-label">Tên Công
-											Ty</label> <input type="text" class="form-control" id="companyName"
+											Ty <span style="color: red;">*</span></label> <input type="text" class="form-control" id="companyName"
 											name="companyName" value="${companyName}"> <span
 											class="text-danger">${companyNameError}</span>
 									</div>
 									<div class="col">
 										<label for="companyWebsite" class="form-label">Website
-											Công Ty</label> <input type="text" class="form-control"
+											Công Ty <span style="color: red;">*</span></label> <input type="text" class="form-control"
 											id="companyWebsite" name="companyWebsite"
 											value="${companyWebsite}"> <span class="text-danger">${companyWebsiteError}</span>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col">
-										<label for="companyAddress" class="form-label">Địa Chỉ</label>
+										<label for="companyAddress" class="form-label">Địa Chỉ <span style="color: red;">*</span></label>
 										<input type="text" class="form-control" id="companyAddress"
 											name="companyAddress" value="${companyAddress}"> <span
 											class="text-danger">${companyAddressError}</span>
 									</div>
 									<div class="col">
-										<label for="industry" class="form-label">Ngành nghề</label> <select
+										<label for="industry" class="form-label">Ngành nghề <span style="color: red;">*</span></label> <select
 											class="form-select" id="industry" name="industry">
 											<option value="" disabled selected>Chọn ngành nghề</option>
 											<option value="Nông nghiệp">Nông nghiệp</option>
@@ -217,7 +217,7 @@
 								<div class="row">
 									<div class="col">
 										<label for="contactPerson" class="form-label">Người
-											Liên Hệ</label> <input type="text" class="form-control"
+											Liên Hệ <span style="color: red;">*</span></label> <input type="text" class="form-control"
 											id="contactPerson" name="contactPerson"
 											value="${contactPerson}"> <span class="text-danger">${contactPersonError}</span>
 									</div>
@@ -374,100 +374,77 @@
 					});
 		});
 	</script>
-	<script>
-	document.addEventListener('DOMContentLoaded', function () {
-	    const form = document.querySelector('form'); // Form cần submit
-	    const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], select, textarea, input[type="radio"]');
-	    const errorSpans = document.querySelectorAll('.text-danger');
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form'); // Form cần submit
+    const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], select, textarea, input[type="radio"]');
+    const errorSpans = document.querySelectorAll('.text-danger');
 
-	    // Kiểm tra và hiển thị lỗi khi di chuột vào input
-	    inputs.forEach((input, index) => {
-	        input.addEventListener('mouseover', function () {
-	            if (input.type === 'radio') {
-	                const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
-	                let checked = false;
-	                radioGroup.forEach(radio => {
-	                    if (radio.checked) {
-	                        checked = true;
-	                    }
-	                });
-	                if (!checked) {
-	                    errorSpans[index].innerText = 'Vui lòng chọn một tùy chọn!';
-	                } else {
-	                    errorSpans[index].innerText = '';
-	                }
-	            } else {
-	                if (input.value.trim() === '') {
-	                    errorSpans[index].innerText = 'Trường này không được để trống!';
-	                } else {
-	                    errorSpans[index].innerText = ''; // Xóa thông báo lỗi nếu nhập đúng
-	                }
-	            }
-	        });
+    // Hiển thị lỗi khi người dùng nhấn vào ô input và rời khỏi (blur)
+    inputs.forEach((input, index) => {
+        input.addEventListener('focus', function () {
+            // Kiểm tra khi input mất focus
+            input.addEventListener('blur', function () {
+                if (input.type === 'radio') {
+                    const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
+                    let checked = false;
+                    radioGroup.forEach(radio => {
+                        if (radio.checked) {
+                            checked = true;
+                        }
+                    });
+                    if (!checked) {
+                        errorSpans[index].innerText = 'Vui lòng chọn một tùy chọn!';
+                    } else {
+                        errorSpans[index].innerText = ''; // Xóa lỗi nếu chọn đúng
+                    }
+                } else {
+                    if (input.value.trim() === '') {
+                        errorSpans[index].innerText = 'Trường này không được để trống!';
+                    } else {
+                        errorSpans[index].innerText = ''; // Xóa thông báo lỗi nếu nhập đúng
+                    }
+                }
+            });
+        });
+    });
 
-	        input.addEventListener('mouseout', function () {
-	            errorSpans[index].innerText = ''; // Ẩn thông báo lỗi khi di chuột ra ngoài
-	        });
+    // Kiểm tra lỗi khi submit form
+    form.addEventListener('submit', function (event) {
+        let hasErrors = false;
 
-	        input.addEventListener('blur', function () {
-	            if (input.type === 'radio') {
-	                const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
-	                let checked = false;
-	                radioGroup.forEach(radio => {
-	                    if (radio.checked) {
-	                        checked = true;
-	                    }
-	                });
-	                if (!checked) {
-	                    errorSpans[index].innerText = 'Vui lòng chọn một tùy chọn!';
-	                } else {
-	                    errorSpans[index].innerText = ''; // Xóa lỗi nếu chọn đúng
-	                }
-	            } else {
-	                if (input.value.trim() === '') {
-	                    errorSpans[index].innerText = 'Trường này không được để trống!';
-	                } else {
-	                    errorSpans[index].innerText = ''; // Xóa thông báo lỗi nếu nhập đúng
-	                }
-	            }
-	        });
-	    });
+        inputs.forEach((input, index) => {
+            if (input.type === 'radio') {
+                const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
+                let checked = false;
+                radioGroup.forEach(radio => {
+                    if (radio.checked) {
+                        checked = true;
+                    }
+                });
+                if (!checked) {
+                    errorSpans[index].innerText = 'Vui lòng chọn một tùy chọn!';
+                    hasErrors = true;
+                } else {
+                    errorSpans[index].innerText = ''; // Xóa lỗi nếu chọn đúng
+                }
+            } else {
+                if (input.value.trim() === '') {
+                    errorSpans[index].innerText = 'Trường này không được để trống!';
+                    hasErrors = true;
+                } else {
+                    errorSpans[index].innerText = ''; // Xóa thông báo lỗi nếu nhập đúng
+                }
+            }
+        });
 
-	    // Kiểm tra lỗi khi submit form
-	    form.addEventListener('submit', function (event) {
-	        let hasErrors = false;
-
-	        inputs.forEach((input, index) => {
-	            if (input.type === 'radio') {
-	                const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
-	                let checked = false;
-	                radioGroup.forEach(radio => {
-	                    if (radio.checked) {
-	                        checked = true;
-	                    }
-	                });
-	                if (!checked) {
-	                    errorSpans[index].innerText = 'Vui lòng chọn một tùy chọn!';
-	                    hasErrors = true;
-	                } else {
-	                    errorSpans[index].innerText = ''; // Xóa lỗi nếu chọn đúng
-	                }
-	            } else {
-	                if (input.value.trim() === '') {
-	                    errorSpans[index].innerText = 'Trường này không được để trống!';
-	                    hasErrors = true;
-	                } else {
-	                    errorSpans[index].innerText = ''; // Xóa thông báo lỗi nếu nhập đúng
-	                }
-	            }
-	        });
-
-	        if (hasErrors) {
-	            event.preventDefault(); // Ngăn chặn submit nếu còn lỗi
-	        }
-	    });
-	});
+        if (hasErrors) {
+            event.preventDefault(); // Ngăn chặn submit nếu còn lỗi
+        }
+    });
+});
 </script>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
