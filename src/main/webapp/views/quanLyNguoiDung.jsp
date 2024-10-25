@@ -117,6 +117,7 @@
 											<th>Email</th>
 											<th>Số điện thoại</th>
 											<th>Role</th>
+											<th>Trạng Thái>
 											<th>Hành Động</th>
 
 										</tr>
@@ -133,6 +134,11 @@
 														<c:when test="${nd.role == 0}">Admin</c:when>
 														<c:when test="${nd.role == 1}">Ứng viên</c:when>
 														<c:when test="${nd.role == 2}">Nhà tuyển dụng</c:when>
+														<c:otherwise>Không xác định</c:otherwise>
+													</c:choose></td>
+												<td><c:choose>
+														<c:when test="${nd.status == false}">Không hoạt động</c:when>
+														<c:when test="${nd.status == true}">Hoạt động</c:when>
 														<c:otherwise>Không xác định</c:otherwise>
 													</c:choose></td>
 												<td><a href="/admin/detailUser/${nd.userid}"

@@ -28,6 +28,7 @@ import com.mailjet.client.resource.User;
 import ch.qos.logback.core.subst.Token;
 import demo.dao.UsersDao;
 import demo.entity.UsersEntity;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -114,5 +115,13 @@ public class UserService {
     }
     public int getNewUsersCount(LocalDateTime since) {
         return usersDao.countNewUsersSince(since);
+    }
+    
+    
+    //khóa tài khoản 
+    public void updateUserStatus(Integer userid, boolean status) {
+        UsersEntity user = usersDao.findById(userid).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setStatus(status); // Cập nhật trạng thái
+        usersDao.save(user); // Lưu lại thay đổi
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import demo.dao.EmployersDao;
 import demo.dao.JobSeekersDao;
@@ -21,6 +22,7 @@ import demo.dao.JoblistingsDao;
 import demo.dao.UsersDao;
 import demo.entity.JoblistingsEntity;
 import demo.entity.UsersEntity;
+import demo.services.UserService;
 import demo.entity.EmployersEntity;
 import demo.entity.JobSeekersEntity;
 import jakarta.servlet.http.HttpSession;
@@ -42,6 +44,9 @@ public class AdminController {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	UserService userService;
 
 	@RequestMapping("")
 	public String adminPage(HttpSession session, @RequestParam(value = "page", required = false) String page,
@@ -173,8 +178,29 @@ public class AdminController {
 
 	    return "redirect:/admin"; // Chuyển hướng về trang admin
 	}
+	
+
+	@PostMapping("/lock/{id}")
+	public String lockUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+	    try {
+	    	
+	    	UsersEntity user = userDao.findById(id).orElse(null);
+	        
+	        // Cập nhật trạng thái khóa tài khoản
+	        user.setStatus(false); // false để khóa tài khoản
+	        userDao.save(user); // Lưu lại thay đổi
+
+	        redirectAttributes.addFlashAttribute("success", "Tài khoản đã được khóa thành công!");
+	        
+	        return "redirect:/admin"; // Quay về trang admin
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
+	        return "redirect:/admin"; // Quay về trang admin nếu có lỗi
+	    }
+	}
 
 
+	
 
 	@GetMapping("/detailPost/{id}")
 	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
@@ -183,7 +209,7 @@ public class AdminController {
 		return "chiTietBaiViet";
 	}
 
-//	ts
+
 	@PostMapping("/deletePost")
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
 		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
@@ -264,6 +290,7 @@ public class AdminController {
 
 		return "redirect:/admin"; // Quay về trang admin sau khi ẩn bài viết
 	}
+	
 
 	@PostMapping("/showPost/{jobid}")
 	public String showPost(@PathVariable Integer jobid) {
