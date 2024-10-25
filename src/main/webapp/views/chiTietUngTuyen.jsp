@@ -228,7 +228,7 @@ body {
 		<div class="modal fade" id="uploadCvModal" tabindex="-1"
 			aria-labelledby="uploadCvModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<form id="cvUploadForm" action="/chiTiet/${job.jobid}" method="post"
+				<form id="cvUploadForm" action="/chiTiet/${jobid}" method="post"
 					enctype="multipart/form-data">
 					<div class="modal-content custom-card">
 						<div class="modal-header">
@@ -259,7 +259,7 @@ body {
 								<input type="file" class="form-control d-none" id="cvFile"
 									name="cvFile" onchange="displayFileName()">
 								<p id="fileName" class="mt-2"></p>
-								
+
 								<!-- Đây là nơi hiển thị tên file -->
 							</div>
 							<!-- Phần chọn CV có sẵn -->
