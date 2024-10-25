@@ -199,6 +199,25 @@ public class AdminController {
 	    }
 	}
 
+	@PostMapping("/open/{id}")
+	public String openUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+	    try {
+	    	
+	    	UsersEntity user = userDao.findById(id).orElse(null);
+	        
+	        // Cập nhật trạng thái mở tài khoản
+	        user.setStatus(true); // true để mở tài khoản
+	        userDao.save(user); // Lưu lại thay đổi
+
+	        redirectAttributes.addFlashAttribute("success", "Tài khoản đã được mở thành công!");
+	        
+	        return "redirect:/admin"; // Quay về trang admin
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
+	        return "redirect:/admin"; // Quay về trang admin nếu có lỗi
+	    }
+	}
+
 
 	
 

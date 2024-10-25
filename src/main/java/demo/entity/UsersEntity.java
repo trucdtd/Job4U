@@ -73,4 +73,14 @@ public class UsersEntity implements Serializable {
     public boolean isAdmin() {
         return this.role != null && this.role == 0;
     }
+    
+    // Phương thức getter cho status
+    public boolean isStatus() {
+        return status;
+    }
+
+    // Phương thức setter cho status (nếu cần)
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }

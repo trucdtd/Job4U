@@ -94,8 +94,9 @@
 									<div class="row">
 										<div class="card-action">
 											<a href="/admin/deleteUser" type="submit" class="btn btn-danger text-white">Xóa</a>
-											<button type="button" class="btn btn-danger" onclick="lockUserAccount(${nd.userid})">Khóa tài khoản</button>
-
+											<button type="button" class="btn btn-warning" onclick="lockUserAccount(${nd.userid})">Khóa tài khoản</button>
+											<button type="button" class="btn btn-success" onclick="openUserAccount(${nd.userid})">Mở tài khoản</button>
+											
 											<!-- Đổi thành submit -->
 											<a href="/admin" class="btn btn-secondary">Quay lại</a>
 										</div>
@@ -160,6 +161,30 @@
 	                window.location.reload(); // Tải lại trang
 	            } else {
 	                alert('Có lỗi xảy ra khi khóa tài khoản!');
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error:', error);
+	            alert('Có lỗi xảy ra khi khóa tài khoản!');
+	        });
+	    }
+	}
+	
+	function openUserAccount(id) {
+	    if (confirm("Bạn có chắc chắn muốn mở tài khoản này không?")) {
+	        fetch(`/admin/open/${id}`, {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                'X-Requested-With': 'XMLHttpRequest'
+	            }
+	        })
+	        .then(response => {
+	            if (response.ok) {
+	                alert('Tài khoản đã được mở!');
+	                window.location.reload(); // Tải lại trang
+	            } else {
+	                alert('Có lỗi xảy ra khi mở tài khoản!');
 	            }
 	        })
 	        .catch(error => {
