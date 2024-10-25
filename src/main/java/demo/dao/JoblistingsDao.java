@@ -81,19 +81,6 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     // Phương thức tìm kiếm bài đăng theo nhà tuyển dụng
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer = :employer")
     List<JoblistingsEntity> findByEmployer(@Param("employer") EmployersEntity employer);
-    
-//    @Query("SELECT j FROM JoblistingsEntity j " +
-//    	       "JOIN j.employer e " +
-//    	       "JOIN e.user u " +
-//    	       "WHERE (:userServiceId IS NULL OR u.userId IN (" +
-//    	       "    SELECT us.userid FROM UserServicesEntity us " +
-//    	       "    WHERE us.userServiceId = :userServiceId))")
-//    List<JoblistingsEntity> findJoblistingsByUserServiceId(@Param("userServiceId") Integer userServiceId);
-    
-//    @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer IN " +
-//    	       "(SELECT e FROM EmployersEntity e WHERE e.user.userid IN " +
-//    	       "(SELECT us.user.userid FROM UserServicesEntity us WHERE us.userserviceid = :userServiceId))")
-//    List<JoblistingsEntity> findJobsByUserServiceId(@Param("userServiceId") Integer userServiceId);
 
     //phương thức để lấy danh sách các bài đăng mà không bao gồm những bài đã bị ẩn
     List<JoblistingsEntity> findByEmployerAndActive(EmployersEntity employer, boolean active);
@@ -103,14 +90,6 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.posteddate DESC")
     List<JoblistingsEntity> findTop5LatestJobListings();
    
-    //khoa
-	/*
-	 * @Modifying
-	 * 
-	 * @Query("UPDATE Post p SET p.active = :active WHERE p.jobid = :jobid") void
-	 * updatePostActiveStatus(@Param("jobid") Integer jobid, @Param("active")
-	 * boolean active);
-	 */
  // Cập nhật trạng thái hoạt động của bài đăng
     @Modifying
     @Transactional
@@ -135,21 +114,6 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     
     //tìm kiếm bài viết chưa hết hạn
      Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline, Pageable pageable);
-
- // Lấy danh sách các bài tuyển dụng hàng đầu, sắp xếp theo IsTop và TopStartDate
-    @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.isTop DESC, j.topStartDate DESC")
-    List<JoblistingsEntity> findTopJobListingsByIsTopAndTopStartDate();
-
-    @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.isTop DESC, j.topStartDate DESC")
-    Page<JoblistingsEntity> findTopJobListingsByIsTopAndTopStartDate(Pageable pageable);
-
-    @Query("SELECT MONTH(j.posteddate) AS month, COUNT(j) AS post_count " +
-    	       "FROM JoblistingsEntity j " +
-    	       "WHERE j.posteddate >= :startDate " +
-    	       "GROUP BY MONTH(j.posteddate) " +
-    	       "ORDER BY MONTH(j.posteddate)")
-    	List<Object[]> countPostsByMonth(@Param("startDate") LocalDate startDate);
-
 
 }
 

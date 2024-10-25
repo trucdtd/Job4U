@@ -62,8 +62,9 @@ public class JoblistingsEntity implements Serializable {
     @Column(name = "istop")
     private Boolean isTop;
 
-    @Column(name = "topstartdate")
-    private LocalDate topStartDate;
+	
+//	  @Column(name = "topstartdate") private LocalDate topStartDate;
+	 
 
 
     @ManyToOne
