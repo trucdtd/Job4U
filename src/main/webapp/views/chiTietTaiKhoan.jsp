@@ -80,7 +80,8 @@
 											</select>
 										</div>
 										<div class="col-md-6 p-2">
-											<label for="status" class="form-label">Trạng Thái</label> <select
+											<label for="status" class="form-label">Trạng Thái </label> 
+											<select
 												name="status" id="status" class="form-select" disabled>
 												<option value="0" ${nd.status == false ? 'selected' : ''}>Không
 													hoạt động</option>

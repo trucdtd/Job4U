@@ -113,11 +113,10 @@
 										<tr>
 											<th>STT</th>
 											<th>Tên Tài Khoản</th>
-											<th>Họ Và Tên</th>
 											<th>Email</th>
 											<th>Số điện thoại</th>
 											<th>Role</th>
-											<th>Trạng Thái>
+											<th>Trạng Thái</th>
 											<th>Hành Động</th>
 
 										</tr>
@@ -127,7 +126,6 @@
 											<tr>
 												<th scope="row">${nd.userid}</th>
 												<td>${nd.username}</td>
-												<td>${nd.fullname}</td>
 												<td>${nd.email}</td>
 												<td>${nd.phonenumber}</td>
 												<td><c:choose>
