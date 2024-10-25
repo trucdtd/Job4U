@@ -119,40 +119,62 @@ public class AdminController {
 	}
 
 	@PostMapping("/deleteUser")
-	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes) {
-		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
-		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
-		String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
-		String deleteMessagesSql = "DELETE FROM Messages WHERE SenderID = ?";
-		String deleteUserSql = "DELETE FROM users WHERE userid = ?";
+	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes, HttpSession session) {
+	    Integer loggedInUserId = (Integer) session.getAttribute("loggedInUserId");
 
-		try {
-			// Xóa các bản ghi liên quan trong bảng Applications trước
-			jdbcTemplate.update(deleteApplicationsSql, userid);
+	    // Kiểm tra người dùng đang cố gắng xóa chính mình
+	    if (userid.equals(loggedInUserId)) {
+	        redirectAttributes.addAttribute("error", "Bạn không thể xóa tài khoản của chính mình.");
+	        return "redirect:/admin";
+	    }
 
-			// Xóa các bản ghi liên quan trong bảng Joblistings
-			jdbcTemplate.update(deleteJobListingsSql, userid);
+	    // Kiểm tra role của người dùng
+	    String roleSql = "SELECT role FROM Users WHERE userid = ?";
+	    Integer userRole = jdbcTemplate.queryForObject(roleSql, new Object[]{userid}, Integer.class);
 
-			// Xóa các bản ghi liên quan trong bảng Employers và Messages
-			jdbcTemplate.update(deleteEmployersSql, userid);
-			jdbcTemplate.update(deleteMessagesSql, userid);
+	    if (userRole != null && userRole == 0) {
+	        redirectAttributes.addAttribute("error", "Không thể xóa người dùng có role = 0.");
+	        return "redirect:/admin";
+	    }
 
-			// Sau đó xóa người dùng
-			int rows = jdbcTemplate.update(deleteUserSql, userid);
-			if (rows > 0) {
-				redirectAttributes.addAttribute("successMessage", "Xóa người dùng thành công!");
-			} else {
-				redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần xóa!");
-			}
-		} catch (DataIntegrityViolationException e) {
-			redirectAttributes.addAttribute("error", "Không thể xóa tài khoản vì có liên quan đến các dữ liệu khác.");
-		} catch (Exception e) {
+	    try {
+	       
+	        // Xóa các bản ghi liên quan trong bảng UserAgreements
+	        String deleteUserAgreementsSql = "DELETE FROM UserAgreements WHERE userid = ?";
+	        jdbcTemplate.update(deleteUserAgreementsSql, userid);
 
-			redirectAttributes.addAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
-			e.printStackTrace();
-		}
-		return "redirect:/admin";
+	        // Xóa các bản ghi trong bảng Employers trước
+	        String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
+	        jdbcTemplate.update(deleteEmployersSql, userid);
+	        
+	        // Xóa các bản ghi trong bảng Applications và Joblistings
+	        String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
+	        String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
+
+	        // Xóa các bản ghi liên quan
+	        jdbcTemplate.update(deleteApplicationsSql, userid);
+	        jdbcTemplate.update(deleteJobListingsSql, userid);
+
+	        // Cuối cùng, xóa người dùng
+	        String deleteUserSql = "DELETE FROM Users WHERE userid = ?";
+	        int rows = jdbcTemplate.update(deleteUserSql, userid);
+	        if (rows > 0) {
+	            redirectAttributes.addAttribute("successMessage", "Xóa người dùng thành công!");
+	        } else {
+	            redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần xóa!");
+	        }
+	    } catch (DataIntegrityViolationException e) {
+	        redirectAttributes.addAttribute("error", "Xóa thất bại do người dùng đang ứng tuyển hoặc đang sử dụng dịch vụ.");
+	        e.printStackTrace();
+	    } catch (Exception e) {
+	        redirectAttributes.addAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    return "redirect:/admin"; // Chuyển hướng về trang admin
 	}
+
+
 
 	@GetMapping("/detailPost/{id}")
 	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
@@ -161,6 +183,7 @@ public class AdminController {
 		return "chiTietBaiViet";
 	}
 
+//	ts
 	@PostMapping("/deletePost")
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
 		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
