@@ -126,9 +126,8 @@ body {
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-currency-dollar text-success"></i> <strong>Lương:</strong>
-									<%-- <span id="salary">${job.salary} VNĐ</span> --%>
 									<c:choose>
-										<c:when test="${job.salary != null}">
+										<c:when test="${not empty job.salary}">
 											<span style="display: inline-flex; align-items: center;">
 												${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
 												VND </span>

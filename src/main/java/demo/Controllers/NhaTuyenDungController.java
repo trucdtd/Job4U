@@ -113,92 +113,100 @@ public class NhaTuyenDungController {
 	}
 
 	@PostMapping("/submit")
-	public String themTuyenDung(@RequestParam("companyname") String companyname,
-			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
-			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
-			@RequestParam(value = "logo", required = false) MultipartFile logo,
-			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
-			@RequestParam("jobtype") String jobtype,
-			@RequestParam(value = "salary", required = false) BigDecimal salary,
-			@RequestParam("companydescription") String companydescription,
-			@RequestParam("jobrequirements") String jobrequirements,
-			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
-			@RequestParam("applicationdeadline") String applicationdeadline) {
+	public String themTuyenDung(
+	        @RequestParam("companyname") String companyname,
+	        @RequestParam("companywebsite") String companywebsite,
+	        @RequestParam("address") String address,
+	        @RequestParam("industry") String industry,
+	        @RequestParam("contactperson") String contactperson,
+	        @RequestParam(value = "logo", required = false) MultipartFile logo,
+	        @RequestParam("jobtitle") String jobtitle,
+	        @RequestParam("joblocation") String joblocation,
+	        @RequestParam("jobtype") String jobtype,
+	        @RequestParam(value = "salary", required = false) String salary,
+	        @RequestParam("companydescription") String companydescription,
+	        @RequestParam("jobrequirements") String jobrequirements,
+	        @RequestParam("jobdescription") String jobdescription,
+	        @RequestParam("posteddate") String posteddate,
+	        @RequestParam("applicationdeadline") String applicationdeadline) {
 
-		// Kiểm tra dữ liệu đầu vào
-		if (companyname == null || companyname.isEmpty()) {
-			return "error"; // Trả về thông báo lỗi
-		}
+	    // Kiểm tra dữ liệu đầu vào
+	    if (companyname == null || companyname.isEmpty()) {
+	        return "error"; // Trả về thông báo lỗi
+	    }
 
-		// Lấy ID nhà tuyển dụng từ phiên đăng nhập của người dùng
-		Integer userId = sessionService.getCurrentUserId();
-		EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
+	    // Lấy ID nhà tuyển dụng từ phiên đăng nhập của người dùng
+	    Integer userId = sessionService.getCurrentUserId();
+	    EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
-		if (employer == null) {
-			return "error"; // Nhà tuyển dụng không tồn tại
-		}
+	    if (employer == null) {
+	        return "error"; // Nhà tuyển dụng không tồn tại
+	    }
 
-		// Kiểm tra và lưu logo
-		String logoFilename = null;
-		if (logo != null && !logo.isEmpty()) {
-			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
-			try {
-				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
-				if (!uploadsDir.exists()) {
-					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
-				}
-				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
-				Files.write(path, logo.getBytes());
-			} catch (IOException e) {
-				e.printStackTrace();
-				return "error"; // Xử lý lỗi tải lên
-			}
-		}
+	    // Kiểm tra và lưu logo
+	    String logoFilename = null;
+	    if (logo != null && !logo.isEmpty()) {
+	        logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+	        try {
+	            File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+	            if (!uploadsDir.exists()) {
+	                uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+	            }
+	            Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+	            Files.write(path, logo.getBytes());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return "error"; // Xử lý lỗi tải lên
+	        }
+	    }
 
-		// Cập nhật thông tin nhà tuyển dụng
-		employer.setCompanyname(companyname);
-		employer.setCompanywebsite(companywebsite);
-		employer.setAddress(address);
-		employer.setIndustry(industry);
-		employer.setContactperson(contactperson);
-		if (logoFilename != null) {
-			employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
-		}
-		employer.setCompanydescription(companydescription);
+	    // Cập nhật thông tin nhà tuyển dụng
+	    employer.setCompanyname(companyname);
+	    employer.setCompanywebsite(companywebsite);
+	    employer.setAddress(address);
+	    employer.setIndustry(industry);
+	    employer.setContactperson(contactperson);
+	    if (logoFilename != null) {
+	        employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
+	    }
+	    employer.setCompanydescription(companydescription);
 
-		nhaTuyenDungDao.save(employer);
+	    nhaTuyenDungDao.save(employer);
 
-		// Tạo đối tượng JoblistingsEntity và lưu trữ
-		JoblistingsEntity jobListing = new JoblistingsEntity();
-		jobListing.setJobtitle(jobtitle);
-		jobListing.setJoblocation(joblocation);
-		jobListing.setJobtype(jobtype);
-		jobListing.setSalary(salary);
-		jobListing.setJobrequirements(jobrequirements);
-		jobListing.setJobdescription(jobdescription);
-		jobListing.setEmployer(employer);
+	    // Tạo đối tượng JoblistingsEntity và lưu trữ
+	    JoblistingsEntity jobListing = new JoblistingsEntity();
+	    jobListing.setJobtitle(jobtitle);
+	    jobListing.setJoblocation(joblocation);
+	    jobListing.setJobtype(jobtype);
+	    
+	    // Gán giá trị cho salary, nếu null hoặc rỗng thì gán là "Thỏa Thuận"
+	    jobListing.setSalary((salary != null && !salary.isEmpty()) ? salary : "Thỏa Thuận");
+	    
+	    jobListing.setJobrequirements(jobrequirements);
+	    jobListing.setJobdescription(jobdescription);
+	    jobListing.setEmployer(employer);
 
-		// Xử lý ngày
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		try {
-			LocalDate postedDate = LocalDate.parse(posteddate, formatter);
-			LocalDate applicationDeadline = LocalDate.parse(applicationdeadline, formatter);
-			jobListing.setPosteddate(postedDate);
-			jobListing.setApplicationdeadline(applicationDeadline);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error"; // Xử lý lỗi phân tích ngày
-		}
+	    // Xử lý ngày
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    try {
+	        LocalDate postedDate = LocalDate.parse(posteddate, formatter);
+	        LocalDate applicationDeadline = LocalDate.parse(applicationdeadline, formatter);
+	        jobListing.setPosteddate(postedDate);
+	        jobListing.setApplicationdeadline(applicationDeadline);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "error"; // Xử lý lỗi phân tích ngày
+	    }
 
-		danhSachViecLamDao.save(jobListing);
-		return "redirect:/employers";
+	    danhSachViecLamDao.save(jobListing);
+	    return "redirect:/employers";
 	}
 
 	@PostMapping("/edit")
 	public String editJobPosting(@RequestParam("jobId") Integer jobId, @RequestParam("jobTitle") String jobTitle,
 			@RequestParam("jobLocation") String jobLocation, @RequestParam("jobDescription") String jobDescription,
 			@RequestParam("jobRequirements") String jobRequirements,
-			@RequestParam(value = "salaryEdit", required = false) BigDecimal salary,
+			@RequestParam(value = "salaryEdit", required = false) String salary,
 			@RequestParam("jobType") String jobType, @RequestParam("postedDate") String postedDate,
 			@RequestParam("applicationDeadline") String applicationDeadline) {
 		// Tìm kiếm công việc theo jobId
