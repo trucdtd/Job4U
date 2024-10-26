@@ -96,6 +96,12 @@ body {
 	<div class="wrapper">
 		<%@ include file="/views/header.jsp"%>
 		<div class="container">
+			<div>
+				<c:if test="${not empty message}">
+					<div class="alert alert-info">${message}</div>
+				</c:if>
+			</div>
+
 			<div class="row">
 				<!-- Nội dung chính -->
 				<div class="col-md-8">
@@ -154,11 +160,21 @@ body {
 							<div class="mt-4">
 								<c:choose>
 									<c:when test="${not empty userid}">
-										<!-- Kiểm tra nếu userid không rỗng -->
-										<button type="button" class="btn btn-success btn-apply"
-											data-bs-toggle="modal" data-bs-target="#uploadCvModal">
-											<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
-										</button>
+										<c:choose>
+											<c:when test="${not hasApplied}">
+												<!-- Nếu người dùng chưa ứng tuyển -->
+												<button type="button" class="btn btn-success btn-apply"
+													data-bs-toggle="modal" data-bs-target="#uploadCvModal">
+													<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
+												</button>
+											</c:when>
+											<c:otherwise>
+												<!-- Nếu người dùng đã ứng tuyển -->
+												<button type="button" class="btn btn-secondary" disabled>
+													<i class="bi bi-check text-light"></i> Đã ứng tuyển
+												</button>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
 										<button type="button" class="btn btn-success btn-apply"
