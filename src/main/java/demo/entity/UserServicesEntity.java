@@ -28,10 +28,10 @@ public class UserServicesEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
     private UsersEntity user;
-
+    
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "ServiceID")
+    @JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID", nullable = false)
     private ServicesEntity service;
 
     @Column(name = "purchasedate")

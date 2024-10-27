@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,8 +48,8 @@
 									<div class="ps-3">
 										<h6 id="post-count">145</h6>
 										<!-- Thay đổi ID để quản lý bài viết -->
-										<span class="text-success small fw-bold" id="post-percentage">12%</span> <span
-											class="text-muted small">tăng</span>
+										<span class="text-success small fw-bold" id="post-percentage">12%</span>
+										<span class="text-muted small">tăng</span>
 									</div>
 								</div>
 							</div>
@@ -124,92 +124,122 @@
 								<table class="table table-borderless datatable">
 									<thead>
 										<tr>
-											<th>Services Id</th>
-											<th>User Id</th>
-											<th>PurchaseDate</th>
-											<th>Price</th>
-											
+											<th>Id Dịch Vụ</th>
+											<th>Id Người Mua</th>
+											<th>Ngày Mua</th>
+											<th>Gía Tiền</th>
 										</tr>
 									</thead>
 									<tbody>
+										<c:set var="totalRevenue" value="0" />
 										<c:forEach items="${qlTK}" var="tk">
 											<tr>
-												<th scope="row">${tk.serviceid}</th>
+												<th scope="row">${tk.service.serviceid}</th>
 												<td>${tk.user.userid}</td>
-												<td>${tk.service.price}</td>
 												<td>${tk.purchasedate}</td>
+												<td><c:choose>
+														<c:when test="${tk.service.price != null}">
+															<span style="display: inline-flex; align-items: center;">
+																${tk.service.price.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+																VND </span>
+														</c:when>
+													</c:choose></td>
 											</tr>
+											<c:set var="totalRevenue"
+												value="${totalRevenue + tk.service.price}" />
 										</c:forEach>
+										<!-- Thêm dòng tính tổng doanh thu với màu đỏ -->
+										<tr>
+											<th style="color: red;" scope="row"><strong>Tổng Doanh Thu:</strong></th>
+											<td></td>
+											<!-- Cột User Id trống -->
+											<td></td>
+											<!-- Cột PurchaseDate trống -->
+											
+											<td style="color: red;"><c:choose>
+														<c:when test="${totalRevenue != null}">
+															<span style="display: inline-flex; align-items: center;">
+																${totalRevenue.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+																VND </span>
+														</c:when>
+													</c:choose></td>
+											<!-- Tổng doanh thu hiện ở cột Price -->
+										</tr>
 									</tbody>
 								</table>
+
+
 							</div>
 						</div>
 					</div>
 				</div>
 		</section>
 	</div>
-		<!-- footer -->
+	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-	
+
 	<!-- ChartJS and custom script -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
-	function updatePostData() {
-	    var timeframe = document.getElementById("post-timeframe").value;
-	    var postCountElement = document.getElementById("post-count");
-	    var postPercentageElement = document.getElementById("post-percentage");
+		function updatePostData() {
+			var timeframe = document.getElementById("post-timeframe").value;
+			var postCountElement = document.getElementById("post-count");
+			var postPercentageElement = document
+					.getElementById("post-percentage");
 
-	    if (timeframe === "today") {
-	        postCountElement.innerText = "145"; // Dữ liệu giả định cho hôm nay
-	        postPercentageElement.innerText = "5%"; // Phần trăm giả định cho hôm nay
-	    } else if (timeframe === "6months") {
-	        postCountElement.innerText = "1023"; // Dữ liệu giả định cho 6 tháng
-	        postPercentageElement.innerText = "8%"; // Phần trăm giả định cho 6 tháng
-	    } else if (timeframe === "1year") {
-	        postCountElement.innerText = "3456"; // Dữ liệu giả định cho 1 năm
-	        postPercentageElement.innerText = "15%"; // Phần trăm giả định cho 1 năm
-	    }
-	}
-    </script>
-
-	<script>
-	function updateUserData() {
-	    var timeframe = document.getElementById("user-timeframe").value;
-	    var userCountElement = document.getElementById("user-count");
-	    var userPercentageElement = document.getElementById("user-percentage");
-
-	    if (timeframe === "today") {
-	        userCountElement.innerText = "150"; // Dữ liệu giả định cho hôm nay
-	        userPercentageElement.innerText = "5%"; // Phần trăm giả định
-	    } else if (timeframe === "6months") {
-	        userCountElement.innerText = "1050"; // Dữ liệu giả định cho 6 tháng
-	        userPercentageElement.innerText = "10%"; // Phần trăm giả định
-	    } else if (timeframe === "1year") {
-	        userCountElement.innerText = "1244"; // Dữ liệu giả định cho 1 năm
-	        userPercentageElement.innerText = "12%"; // Phần trăm giả định
-	    }
-	}
-    </script>
+			if (timeframe === "today") {
+				postCountElement.innerText = "145"; // Dữ liệu giả định cho hôm nay
+				postPercentageElement.innerText = "5%"; // Phần trăm giả định cho hôm nay
+			} else if (timeframe === "6months") {
+				postCountElement.innerText = "1023"; // Dữ liệu giả định cho 6 tháng
+				postPercentageElement.innerText = "8%"; // Phần trăm giả định cho 6 tháng
+			} else if (timeframe === "1year") {
+				postCountElement.innerText = "3456"; // Dữ liệu giả định cho 1 năm
+				postPercentageElement.innerText = "15%"; // Phần trăm giả định cho 1 năm
+			}
+		}
+	</script>
 
 	<script>
-    function updateSalesData() {
-    var timeframe = document.getElementById("sales-timeframe").value;
-    var salesCountElement = document.getElementById("sales-count");
-    var salesPercentageElement = document.getElementById("sales-percentage");
+		function updateUserData() {
+			var timeframe = document.getElementById("user-timeframe").value;
+			var userCountElement = document.getElementById("user-count");
+			var userPercentageElement = document
+					.getElementById("user-percentage");
 
-    if (timeframe === "today") {
-        salesCountElement.innerText = "145"; // Dữ liệu giả định cho hôm nay
-        salesPercentageElement.innerText = "12%"; // Phần trăm giả định cho hôm nay
-    } else if (timeframe === "6months") {
-        salesCountElement.innerText = "890"; // Dữ liệu giả định cho 6 tháng
-        salesPercentageElement.innerText = "9%"; // Phần trăm giả định cho 6 tháng
-    } else if (timeframe === "1year") {
-        salesCountElement.innerText = "1500"; // Dữ liệu giả định cho 1 năm
-        salesPercentageElement.innerText = "18%"; // Phần trăm giả định cho 1 năm
-    }
-}
-    </script>
+			if (timeframe === "today") {
+				userCountElement.innerText = "150"; // Dữ liệu giả định cho hôm nay
+				userPercentageElement.innerText = "5%"; // Phần trăm giả định
+			} else if (timeframe === "6months") {
+				userCountElement.innerText = "1050"; // Dữ liệu giả định cho 6 tháng
+				userPercentageElement.innerText = "10%"; // Phần trăm giả định
+			} else if (timeframe === "1year") {
+				userCountElement.innerText = "1244"; // Dữ liệu giả định cho 1 năm
+				userPercentageElement.innerText = "12%"; // Phần trăm giả định
+			}
+		}
+	</script>
+
+	<script>
+		function updateSalesData() {
+			var timeframe = document.getElementById("sales-timeframe").value;
+			var salesCountElement = document.getElementById("sales-count");
+			var salesPercentageElement = document
+					.getElementById("sales-percentage");
+
+			if (timeframe === "today") {
+				salesCountElement.innerText = "145"; // Dữ liệu giả định cho hôm nay
+				salesPercentageElement.innerText = "12%"; // Phần trăm giả định cho hôm nay
+			} else if (timeframe === "6months") {
+				salesCountElement.innerText = "890"; // Dữ liệu giả định cho 6 tháng
+				salesPercentageElement.innerText = "9%"; // Phần trăm giả định cho 6 tháng
+			} else if (timeframe === "1year") {
+				salesCountElement.innerText = "1500"; // Dữ liệu giả định cho 1 năm
+				salesPercentageElement.innerText = "18%"; // Phần trăm giả định cho 1 năm
+			}
+		}
+	</script>
 </body>
 </html>
 

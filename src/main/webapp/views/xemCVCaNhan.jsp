@@ -223,7 +223,7 @@ p {
 
 		<!-- </div> -->
 		<div class="text-center mt-4 mb-4">
-			<button class="btn btn-primary" onclick="downloadPDF()">Tải
+			<button class="btn btn-success" onclick="downloadPDF()">Tải
 				CV Dưới Dạng PDF</button>
 		</div>
 
