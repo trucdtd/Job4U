@@ -38,10 +38,19 @@ public class LoginController {
     public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
                              Model model, HttpSession session) {
         List<UsersEntity> users = userDao.findByUsername(username);
-
+        
+    
         if (!users.isEmpty()) {
             UsersEntity user = users.get(0);
             logger.info("Đăng nhập với tài khoản: " + username + ", Vai trò: " + user.getRole());
+            
+         // Kiểm tra trạng thái tài khoản
+            if (!user.isStatus()) { // Nếu status là false (khóa)
+                model.addAttribute("message", "Tài khoản đã bị khóa do vi phạm điều khoản");
+                return "dangnhap";
+            }
+
+            
             if (user.getPassword().equals(password)) {
                 session.setAttribute("userIsLoggedIn", true);
                 session.setAttribute("userName", user.getFullname());

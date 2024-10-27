@@ -44,8 +44,8 @@ public class JoblistingsEntity implements Serializable {
     @Column(name = "joblocation",nullable = false)
     private String joblocation;
 
-    @Column(name = "salary", precision = 18, scale = 3)
-    private BigDecimal salary;
+    @Column(name = "salary")
+    private String salary;
 
     @NotNull
     @Column(name = "jobtype", nullable = false)

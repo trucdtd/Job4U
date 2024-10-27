@@ -96,6 +96,12 @@ body {
 	<div class="wrapper">
 		<%@ include file="/views/header.jsp"%>
 		<div class="container">
+			<div>
+				<c:if test="${not empty message}">
+					<div class="alert alert-info">${message}</div>
+				</c:if>
+			</div>
+
 			<div class="row">
 				<!-- Nội dung chính -->
 				<div class="col-md-8">
@@ -126,9 +132,8 @@ body {
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-currency-dollar text-success"></i> <strong>Lương:</strong>
-									<%-- <span id="salary">${job.salary} VNĐ</span> --%>
 									<c:choose>
-										<c:when test="${job.salary != null}">
+										<c:when test="${not empty job.salary}">
 											<span style="display: inline-flex; align-items: center;">
 												${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
 												VND </span>
@@ -155,11 +160,21 @@ body {
 							<div class="mt-4">
 								<c:choose>
 									<c:when test="${not empty userid}">
-										<!-- Kiểm tra nếu userid không rỗng -->
-										<button type="button" class="btn btn-success btn-apply"
-											data-bs-toggle="modal" data-bs-target="#uploadCvModal">
-											<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
-										</button>
+										<c:choose>
+											<c:when test="${not hasApplied}">
+												<!-- Nếu người dùng chưa ứng tuyển -->
+												<button type="button" class="btn btn-success btn-apply"
+													data-bs-toggle="modal" data-bs-target="#uploadCvModal">
+													<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
+												</button>
+											</c:when>
+											<c:otherwise>
+												<!-- Nếu người dùng đã ứng tuyển -->
+												<button type="button" class="btn btn-secondary" disabled>
+													<i class="bi bi-check text-light"></i> Đã ứng tuyển
+												</button>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
 										<button type="button" class="btn btn-success btn-apply"
