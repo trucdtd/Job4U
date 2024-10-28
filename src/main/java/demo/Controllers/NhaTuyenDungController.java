@@ -81,13 +81,15 @@ public class NhaTuyenDungController {
 		Integer userId = sessionService.getCurrentUserId();
 
 //	    System.out.println("Current User ID: " + userId);
-		List<ServicesEntity> service = servicesDao.findAll();
-		model.addAttribute("service", service);
-		
 		/*
-		 * ServicesEntity service = servicesDao.findByServiceid(4);
+		 * List<ServicesEntity> service = servicesDao.findAll();
 		 * model.addAttribute("service", service);
 		 */
+		
+		
+	ServicesEntity service = servicesDao.findByServiceid(4);
+	model.addAttribute("service", service);
+		 
 
 		if (userId != null) {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
@@ -329,30 +331,31 @@ public class NhaTuyenDungController {
 	}
 	
 	@PostMapping("/pay")
-	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal price,
+	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal servicePrice,
 	                              @RequestParam(value = "serviceId", required = false) String serviceId,
 	                              @RequestParam(value = "userId", required = false) String userId,
 	                              @RequestParam(value = "jobId", required = false) String jobId,
 	                              HttpServletRequest request) {
 	    // Kiểm tra giá trị đầu vào
-	    if (price == null || serviceId == null || userId == null || jobId == null) {
-	    	System.out.println("servicePrice: " + price);
-	    	System.out.println("serviceId: " + serviceId);
-	    	System.out.println("jobId: " + jobId);
-	    	System.out.println("userId: " + userId);
+	    if (servicePrice == null || serviceId == null || userId == null || jobId == null) {
+	        System.out.println("servicePrice: " + servicePrice);
+	        System.out.println("serviceId: " + serviceId);
+	        System.out.println("jobId: " + jobId);
+	        System.out.println("userId: " + userId);
 	        
 	        // Trả về trang lỗi hoặc thông báo
-	        return "redirect:/employers"; // Hoặc return một thông báo lỗi nào đó
+	        return "redirect:/employers";
 	    }
 
 	    // Làm tròn giá thành int
-	    int totalAmount = price.setScale(0, RoundingMode.HALF_UP).intValue();
+	    int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
 	    String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 
 	    // Tạo URL thanh toán từ VNPayService
 	    String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho jobId: " + jobId, baseUrl);
 	    return "redirect:" + vnpayUrl;
 	}
+
 
     @GetMapping("/vnpay-payment")
     public String vnpayPayment(HttpServletRequest request, RedirectAttributes redirectAttributes) {

@@ -49,7 +49,7 @@
 </style>
 </head>
 <body>
-    <div class="container pricing">
+    <%-- <div class="container pricing">
         <div class="row justify-content-center">
             <!-- Loop qua các gói dịch vụ -->
             <c:forEach items="${service}" var="service">
@@ -72,7 +72,31 @@
                 </div>
             </c:forEach>
         </div>
-    </div>
+    </div> --%>
+    
+    <div class="container pricing">
+		<div class="row justify-content-center">
+			<div class="col-md-4">
+				<div class="pricing-card special">
+					<div class="pricing-header">
+						<h4 class="text-center">${service.servicename}</h4>
+					</div>
+					<div class="pricing-body text-center">
+						<p class="price">
+							<strong> <fmt:formatNumber value="${service.price}"
+									type="currency" currencySymbol="" maxFractionDigits="0" />
+							</strong>
+						</p>
+						<ul class="features">
+							<li>${service.description}</li>
+						</ul>
+						<button type="button" class="btn btn-danger"
+							onclick="openJobSelectionModal('${service.servicename}', ${service.price}, '${service.description}')">MUA</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
     <!-- Modal chọn công việc -->
     <div id="jobSelectionModal" class="modal">
@@ -95,6 +119,7 @@
                             <td>
                                 <button type="button" class="btn btn-success"
                                     onclick='selectJobPost({
+                                     jobid: ${job.jobid},
                                         jobtitle: "${job.jobtitle}",
                                         joblocation: "${job.joblocation}",
                                         jobdescription: "${job.jobdescription}"
@@ -107,82 +132,83 @@
         </div>
     </div>
 
-    <!-- Modal thanh toán -->
-   <!-- Modal Thanh Toán -->
-	<div id="paymentModal" class="modal" style="display: none;">
-		<div class="modal-content">
-			<span class="close" onclick="closePaymentModal()">&times;</span>
-			<div class="payment-container">
-				<div class="payment-summary">
-					<h3>Tóm tắt thanh toán</h3>
-					<ul>
-						<li><span>Gói đã chọn:</span> <span id="serviceName"></span></li>
-						<li><span>ID Bài Viết:</span> <span id="jobIdSelected"></span></li>
-						<!-- Hiển thị jobid ở đây -->
-					</ul>
-					<div class="total-price">
-						<h2>Tổng Tiền</h2>
-						<h1 id="servicePrice"></h1>
-						<p id="serviceDescription"></p>
-					</div>
-				</div>
-				<form action="/employers/pay" method="post" class="payment-form">
-					<h3>Thanh Toán</h3>
-					<input type="hidden" name="servicePrice" id="servicePrice" value="${servicePrice}"> <!-- Giá dịch vụ -->
-					<input type="hidden" name="serviceId" id="serviceId"
-						value="4">
-					<!-- ID dịch vụ -->
-					<input type="hidden" name="jobId" id="jobId" value="${jobId}">
-					<!-- ID bài viết -->
-					<input type="hidden" name="userId" value="${userId}">
-					<!-- ID người dùng -->
+  <!-- Modal Thanh Toán -->
+<div id="paymentModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closePaymentModal()">&times;</span>
+        <div class="payment-container">
+            <div class="payment-summary">
+                <h3>Tóm tắt thanh toán</h3>
+                <ul>
+                    <li><span>Gói đã chọn:</span> <span id="serviceName"></span></li>
+                    <li><span>ID Bài Viết:</span> <span id="jobIdSelected"></span></li>
+                </ul>
+                <div class="total-price">
+                    <h2>Tổng Tiền</h2>
+                    <h1 id="servicePrice"></h1>
+                    <p id="serviceDescription"></p>
+                </div>
+            </div>
+            <form action="/employers/pay" method="post" class="payment-form">
+                <input type="hidden" name="servicePrice" id="servicePriceInput" value="">
+                <input type="hidden" name="serviceId" id="serviceId" value="">
+                <input type="hidden" name="jobId" id="jobId" value="">
+                <input type="hidden" name="userId" id="userId" value="${userId}">
 
-					<div class="payment-methods">
-						<button class="momo2-btn" id="momo2-button" type="button"
-							onclick="submitPayment()">
-							<img src="/img/vnpay.png">
-						</button>
-					</div>
-					<button class="submit-btn" style="background: #198754"
-						type="button" onclick="submitPayment()">Thanh Toán</button>
-				</form>
+                <div class="payment-methods">
+                    <button class="momo2-btn" id="momo2-button" type="button" onclick="submitPayment()">
+                        <img src="/img/vnpay.png">
+                    </button>
+                </div>
+                <button class="submit-btn" style="background: #198754" type="button" onclick="submitPayment()">Thanh Toán</button>
+            </form>
+        </div>
+    </div>
+</div>
 
+<script>
+    let selectedService = {};
+    let jobIdSelected = null;
 
-			</div>
-		</div>
-	</div>
+    function openJobSelectionModal(serviceName, servicePrice, serviceDescription, serviceId) {
+        selectedService = { serviceName, servicePrice, serviceDescription, serviceId };
+        document.getElementById('jobSelectionModal').style.display = 'flex';
+    }
 
-    <script>
-        let selectedService = {};
+    function closeJobSelectionModal() {
+        document.getElementById('jobSelectionModal').style.display = 'none';
+    }
 
-        function openJobSelectionModal(serviceName, servicePrice, serviceDescription) {
-            selectedService = { serviceName, servicePrice, serviceDescription };
-            document.getElementById('jobSelectionModal').style.display = 'flex';
-        }
+    function selectJobPost(job) {
+        closeJobSelectionModal();
+        document.getElementById('paymentModal').style.display = 'flex';
 
-        function closeJobSelectionModal() {
-            document.getElementById('jobSelectionModal').style.display = 'none';
-        }
+        document.getElementById('serviceName').innerText = selectedService.serviceName;
+        document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(selectedService.servicePrice);
+        document.getElementById('serviceDescription').innerText = selectedService.serviceDescription;
+        document.getElementById('jobIdSelected').innerText = job.jobid;
 
-        function selectJobPost(job) {
-            closeJobSelectionModal();
-            document.getElementById('paymentModal').style.display = 'flex';
-            document.getElementById('serviceName').innerText = selectedService.serviceName;
-            document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
-                style: 'currency',
-                currency: 'VND'
-            }).format(selectedService.servicePrice);
-            document.getElementById('serviceDescription').innerText = selectedService.serviceDescription;
-        }
+        jobIdSelected = job.jobid;
+    }
 
-        function closePaymentModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
+    function closePaymentModal() {
+        document.getElementById('paymentModal').style.display = 'none';
+    }
 
-        function confirmPayment() {
-            alert('Thanh toán thành công!');
-            closePaymentModal();
-        }
-    </script>
+    function submitPayment() {
+        console.log("Job ID:", jobIdSelected);
+        console.log("Service Price:", selectedService.servicePrice);
+        console.log("Service ID:", selectedService.serviceId);
+
+        document.getElementById('jobId').value = jobIdSelected;
+        document.getElementById('servicePriceInput').value = selectedService.servicePrice;
+        document.getElementById('serviceId').value = selectedService.serviceId;
+
+        document.querySelector('.payment-form').submit();
+    }
+</script>
 </body>
 </html>

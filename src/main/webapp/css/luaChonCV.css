@@ -63,7 +63,10 @@ body {
 	/* background-color: rgba(255, 255, 255, 0.2); Nền mờ
 	color: white;
 	border: 2px solid rgba(255, 255, 255, 0.6); Viền mờ trắng */
-	background-color: rgba(40, 167, 69, 0.2); /* Nền mờ màu xanh lá */
+	/* background-color: rgba(40, 167, 69, 0.2); Nền mờ màu xanh lá
+	color: white;
+	border: 2px solid rgba(40, 167, 69, 0.6); Viền mờ xanh lá */
+	background-color:  #198754; /* Nền mờ màu xanh lá */
 	color: white;
 	border: 2px solid rgba(40, 167, 69, 0.6); /* Viền mờ xanh lá */
 	border-radius: 50px; /* Bo tròn nút */
@@ -87,13 +90,13 @@ body {
 }
 
 /* Icon mắt */
-.preview-btn::before {
-	content: "\1F441"; /* Mã Unicode cho biểu tượng mắt */
+/* .preview-btn::before {
+	content: "\1F441"; Mã Unicode cho biểu tượng mắt
 	font-size: 18px;
-}
+} */
 
 .use-btn {
-	background-color: rgba(40, 167, 69, 0.2); /* Nền mờ màu xanh lá */
+	background-color: #198754; /* Nền mờ màu xanh lá */
 	color: white;
 	border: 2px solid rgba(40, 167, 69, 0.6); /* Viền mờ xanh lá */
 	border-radius: 50px; /* Bo tròn nút */
