@@ -1,20 +1,17 @@
 package demo.dao;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
-import org.springframework.boot.autoconfigure.batch.BatchProperties.Job;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import jakarta.transaction.Transactional;
 
 import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
-import jakarta.transaction.Transactional;
 
 public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer> {
 
@@ -64,7 +61,6 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     Page<JoblistingsEntity> findByJobTitleAndIndustry(@Param("jobtitle") String jobtitle,
                                                       @Param("industry") String industry, Pageable pageable);
 
-
     // Lấy 5 công việc mới nhất
     @Query("SELECT j FROM JoblistingsEntity j ORDER BY j.posteddate DESC")
     List<JoblistingsEntity> findTop5ByOrderByPosteddateDesc();
@@ -82,15 +78,14 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer = :employer")
     List<JoblistingsEntity> findByEmployer(@Param("employer") EmployersEntity employer);
 
-    //phương thức để lấy danh sách các bài đăng mà không bao gồm những bài đã bị ẩn
+    // Phương thức để lấy danh sách các bài đăng mà không bao gồm những bài đã bị ẩn
     List<JoblistingsEntity> findByEmployerAndActive(EmployersEntity employer, boolean active);
     
-    
-    //top5baivietmoinhat
+    // Lấy 5 bài viết mới nhất có trạng thái hoạt động
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.active = true ORDER BY j.posteddate DESC")
     List<JoblistingsEntity> findTop5LatestJobListings();
-   
- // Cập nhật trạng thái hoạt động của bài đăng
+
+    // Cập nhật trạng thái hoạt động của bài đăng
     @Modifying
     @Transactional
     @Query("UPDATE JoblistingsEntity j SET j.active = :active WHERE j.jobid = :jobid")
@@ -109,11 +104,22 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.posteddate BETWEEN :startDate AND :endDate")
     List<JoblistingsEntity> findByPostedDateBetween(@Param("startDate") LocalDate startDate,
                                                     @Param("endDate") LocalDate endDate);
+
+    // Đếm số lượng bài đăng từ một ngày cụ thể
     @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :since")
     int countNewPostsSince(@Param("since") LocalDate since);
     
-    //tìm kiếm bài viết chưa hết hạn
-     Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline, Pageable pageable);
+    // Tìm kiếm bài viết chưa hết hạn
+    Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline, Pageable pageable);
 
+    // Tìm kiếm các công việc, sắp xếp isTop trước
+    @Modifying
+    @Transactional
+    @Query("UPDATE JoblistingsEntity j SET j.isTop = true WHERE j.userservice IS NOT NULL")
+    void updateIsTopForNonNullUserServiceId();
+    
+    @Query("SELECT j FROM JoblistingsEntity j WHERE j.isTop = true ORDER BY j.posteddate DESC")
+    List<JoblistingsEntity> findTop20JobListingsWithIstop(Pageable pageable);
+    
+    List<JoblistingsEntity> findByIsTopTrue(); // Phương thức này sẽ lấy danh sách công việc có isTop = 1
 }
-
