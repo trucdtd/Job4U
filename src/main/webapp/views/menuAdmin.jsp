@@ -15,6 +15,8 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
@@ -50,6 +52,8 @@
 		</div>
 	</div>
 	<!-- Bootstrap JavaScript Libraries -->
+	<script
+		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
