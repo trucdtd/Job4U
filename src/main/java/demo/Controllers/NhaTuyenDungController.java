@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.common.net.MediaType;
 
 import demo.services.SessionService;
+import demo.services.VNPayService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -34,6 +35,7 @@ import demo.entity.ServicesEntity;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,6 +51,9 @@ public class NhaTuyenDungController {
 
 	@Autowired
 	private SessionService sessionService;
+	
+    @Autowired
+    private VNPayService vnPayService;
 
 	@Autowired
 	private EmployersDao nhaTuyenDungDao;
@@ -78,6 +83,11 @@ public class NhaTuyenDungController {
 //	    System.out.println("Current User ID: " + userId);
 		List<ServicesEntity> service = servicesDao.findAll();
 		model.addAttribute("service", service);
+		
+		/*
+		 * ServicesEntity service = servicesDao.findByServiceid(4);
+		 * model.addAttribute("service", service);
+		 */
 
 		if (userId != null) {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
@@ -317,7 +327,44 @@ public class NhaTuyenDungController {
 	    // Điều hướng đến trang chi tiết ứng viên
 	    return "cvnop"; // Trả về trang JSP
 	}
+	
+	@PostMapping("/pay")
+	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal price,
+	                              @RequestParam(value = "serviceId", required = false) String serviceId,
+	                              @RequestParam(value = "userId", required = false) String userId,
+	                              @RequestParam(value = "jobId", required = false) String jobId,
+	                              HttpServletRequest request) {
+	    // Kiểm tra giá trị đầu vào
+	    if (price == null || serviceId == null || userId == null || jobId == null) {
+	    	System.out.println("servicePrice: " + price);
+	    	System.out.println("serviceId: " + serviceId);
+	    	System.out.println("jobId: " + jobId);
+	    	System.out.println("userId: " + userId);
+	        
+	        // Trả về trang lỗi hoặc thông báo
+	        return "redirect:/employers"; // Hoặc return một thông báo lỗi nào đó
+	    }
 
+	    // Làm tròn giá thành int
+	    int totalAmount = price.setScale(0, RoundingMode.HALF_UP).intValue();
+	    String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 
+	    // Tạo URL thanh toán từ VNPayService
+	    String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho jobId: " + jobId, baseUrl);
+	    return "redirect:" + vnpayUrl;
+	}
+
+    @GetMapping("/vnpay-payment")
+    public String vnpayPayment(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        int paymentStatus = vnPayService.orderReturn(request);
+        
+        if (paymentStatus == 1) {
+            redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
+            return "redirect:/ThanhCong";
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");
+            return "redirect:/ThatBai";
+        }
+    }
 
 }
