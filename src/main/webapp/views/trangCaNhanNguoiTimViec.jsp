@@ -44,14 +44,10 @@
 					id="accordionSidebar" style="background: #198754">
 					<a
 						class="sidebar-brand d-flex align-items-center justify-content-center"
-						href="index.html">
+						href="#">
 						<div class="sidebar-brand-text mx-3">Trang cá nhân</div>
 					</a>
 					<hr class="sidebar-divider my-0" />
-
-					<li class="nav-item active"><a class="nav-link" href="#">
-							<i class="fas fa-fw fa-chart-area"></i> <span>Thống kê</span>
-					</a></li>
 
 					<hr class="sidebar-divider d-none d-md-block" />
 

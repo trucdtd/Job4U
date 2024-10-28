@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import demo.entity.ApplicationsEntity;
 import demo.entity.EmployersEntity;
+import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
 import java.util.List;
 
@@ -30,5 +31,8 @@ public interface ApplicationsDao extends JpaRepository<ApplicationsEntity, Integ
 
 	boolean existsByJobseeker_Jobseekerid(Integer jobseekerId);
 	
-	
+	// kiểm tra xem người dùng đã ứng tuyển
+	@Query("SELECT a.job FROM ApplicationsEntity a WHERE a.jobseeker.user.userid = :userid")
+	List<JoblistingsEntity> findJobsAppliedByUserId(@Param("userid") Integer userid);
+
 }
