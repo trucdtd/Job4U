@@ -109,13 +109,14 @@ public class UserService {
     public boolean isPhoneNumberExists(String numberphone) {
         return usersDao.existsByPhonenumber(numberphone);
     }
-    public interface userService {
-        int countUsersToday();
-        int countUsersThisMonth();
-    }
-    public int getNewUsersCount(LocalDateTime since) {
-        return usersDao.countNewUsersSince(since);
-    }
+	/*
+	 * public interface userService { int countUsersToday(); int
+	 * countUsersThisMonth(); }
+	 */
+	/*
+	 * public int getNewUsersCount(LocalDateTime since) { return
+	 * usersDao.countNewUsersSince(since); }
+	 */
     
     
     //khóa tài khoản 

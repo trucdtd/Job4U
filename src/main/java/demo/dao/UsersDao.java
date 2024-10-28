@@ -16,51 +16,47 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface UsersDao extends JpaRepository<UsersEntity, Integer> {
 
-    // Tìm user theo username
-    @Query("SELECT u FROM UsersEntity u WHERE u.username = ?1")
-    List<UsersEntity> findByUsername(String username);
+	// Tìm user theo username
+	@Query("SELECT u FROM UsersEntity u WHERE u.username = ?1")
+	List<UsersEntity> findByUsername(String username);
 
-    // Kiểm tra xem email đã tồn tại chưa
-    boolean existsByEmail(String email);
+	// Kiểm tra xem email đã tồn tại chưa
+	boolean existsByEmail(String email);
 
-    // Kiểm tra xem số điện thoại đã tồn tại chưa
-    boolean existsByPhonenumber(String numberphone);
+	// Kiểm tra xem số điện thoại đã tồn tại chưa
+	boolean existsByPhonenumber(String numberphone);
 
-    // Thêm user mới vào cơ sở dữ liệu
-    @Modifying
-    @Transactional
-    @Query(value = "INSERT INTO UsersEntity (username, fullname, password, email, phonenumber) "
-            + "VALUES (:username, :fullname, :password, :email, :phonenumber)", nativeQuery = true)
-    void insertByUsername(@Param("username") String username,
-                          @Param("fullname") String fullname,
-                          @Param("password") String password,
-                          @Param("email") String email,
-                          @Param("phonenumber") String phonenumber);
+	// Thêm user mới vào cơ sở dữ liệu
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO UsersEntity (username, fullname, password, email, phonenumber) "
+			+ "VALUES (:username, :fullname, :password, :email, :phonenumber)", nativeQuery = true)
+	void insertByUsername(@Param("username") String username, @Param("fullname") String fullname,
+			@Param("password") String password, @Param("email") String email, @Param("phonenumber") String phonenumber);
 
-    // Tìm user theo email
-    @Query("SELECT u FROM UsersEntity u WHERE u.email = :email")
-    UsersEntity findByEmail(@Param("email") String email);
+	// Tìm user theo email
+	@Query("SELECT u FROM UsersEntity u WHERE u.email = :email")
+	UsersEntity findByEmail(@Param("email") String email);
 
-    // Cập nhật mật khẩu cho user theo email
-    @Modifying
-    @Transactional
-    @Query("UPDATE UsersEntity u SET u.password = :password WHERE u.email = :email")
-    void updatePasswordByEmail(@Param("email") String email, @Param("password") String password);
+	// Cập nhật mật khẩu cho user theo email
+	@Modifying
+	@Transactional
+	@Query("UPDATE UsersEntity u SET u.password = :password WHERE u.email = :email")
+	void updatePasswordByEmail(@Param("email") String email, @Param("password") String password);
 
-    // Tìm user theo ID
-    @Query("SELECT u FROM UsersEntity u WHERE u.id = :id")
-    UsersEntity findByUserid(@Param("id") Integer id);
+	// Tìm user theo ID
+	@Query("SELECT u FROM UsersEntity u WHERE u.id = :id")
+	UsersEntity findByUserid(@Param("id") Integer id);
 
-    // Đếm số người dùng mới kể từ ngày startDate
-    @Query("SELECT COUNT(u) FROM UsersEntity u WHERE u.createdat >= :since")
-    int countNewUsersSince(@Param("since") LocalDateTime since);
-    
-    @Query("SELECT MONTH(u.createdat) AS month, COUNT(u) AS user_count " +
-    	       "FROM UsersEntity u " +
-    	       "WHERE u.createdat >= :startDate " +
-    	       "GROUP BY MONTH(u.createdat) " +
-    	       "ORDER BY MONTH(u.createdat)")
-    	List<Object[]> countUsersByMonth(@Param("startDate") LocalDateTime startDate);
+	// Đếm số người dùng mới kể từ ngày startDate
+	/*
+	 * @Query("SELECT COUNT(u) FROM UsersEntity u WHERE u.createdat >= :since") int
+	 * countNewUsersSince(@Param("since") LocalDateTime since);
+	 */
+	@Query("SELECT MONTH(u.createdat) AS month, COUNT(u) AS user_count " + "FROM UsersEntity u "
+			+ "WHERE u.createdat >= :startDate " + "GROUP BY MONTH(u.createdat) " + "ORDER BY MONTH(u.createdat)")
+	List<Object[]> countUsersByMonth(@Param("startDate") LocalDateTime startDate);
 
-
-   }
+	@Query("SELECT COUNT(u) FROM UsersEntity u WHERE u.createdat >= :startDate AND u.createdat < :endDate")
+    Integer countUsersInRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+}
