@@ -37,7 +37,7 @@
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<form class="p-4 border" method="post"
-									action="">
+									action="/admin/deleteUser">
 									<input type="hidden" name="userid" value="${nd.userid}">
 									<!-- Thêm trường ẩn cho userid -->
 									<div class="row">
@@ -93,7 +93,7 @@
 									<hr>
 									<div class="row">
 										<div class="card-action">
-											<a href="/admin/deleteUser" type="submit" class="btn btn-danger text-white">Xóa</a>
+											<button type="submit" class="btn btn-danger text-white">Xóa</button>
 											<button type="button" class="btn btn-warning" onclick="lockUserAccount(${nd.userid})">Khóa tài khoản</button>
 											<button type="button" class="btn btn-success" onclick="openUserAccount(${nd.userid})">Mở tài khoản</button>
 											
@@ -156,12 +156,14 @@
 	            }
 	        })
 	        .then(response => {
-	            if (response.ok) {
-	                alert('Tài khoản đã được khóa!');
-	                window.location.reload(); // Tải lại trang
-	            } else {
-	                alert('Có lỗi xảy ra khi khóa tài khoản!');
-	            }
+	            return response.json().then(data => {
+	                if (response.ok) {
+	                    alert(data); // Thông báo thành công
+	                    window.location.reload(); // Tải lại trang
+	                } else {
+	                    alert(data); // Thông báo lỗi
+	                }
+	            });
 	        })
 	        .catch(error => {
 	            console.error('Error:', error);
@@ -169,7 +171,7 @@
 	        });
 	    }
 	}
-	
+
 	function openUserAccount(id) {
 	    if (confirm("Bạn có chắc chắn muốn mở tài khoản này không?")) {
 	        fetch(`/admin/open/${id}`, {

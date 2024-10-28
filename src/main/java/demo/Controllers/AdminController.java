@@ -181,23 +181,41 @@ public class AdminController {
 	
 
 	@PostMapping("/lock/{id}")
-	public String lockUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+	public String lockUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, HttpSession session) {
 	    try {
-	    	
-	    	UsersEntity user = userDao.findById(id).orElse(null);
-	        
+	        Integer loggedInUserId = (Integer) session.getAttribute("loggedInUserId");
+
+	        // Kiểm tra xem người dùng có đang cố gắng khóa tài khoản của chính mình
+	        if (id.equals(loggedInUserId)) {
+	            redirectAttributes.addFlashAttribute("error", "Bạn không thể khóa tài khoản của chính mình.");
+	            return "redirect:/admin";
+	        }
+
+	        // Kiểm tra vai trò của người dùng
+	        UsersEntity user = userDao.findById(id).orElse(null);
+	        if (user == null) {
+	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần khóa.");
+	            return "redirect:/admin";
+	        }
+
+	        // Kiểm tra vai trò
+	        if (user.getRole() != null && user.getRole() == 0) {
+	            redirectAttributes.addFlashAttribute("error", "Không thể khóa tài khoản của người dùng có role = 0.");
+	            return "redirect:/admin";
+	        }
+
 	        // Cập nhật trạng thái khóa tài khoản
 	        user.setStatus(false); // false để khóa tài khoản
 	        userDao.save(user); // Lưu lại thay đổi
 
 	        redirectAttributes.addFlashAttribute("success", "Tài khoản đã được khóa thành công!");
-	        
 	        return "redirect:/admin"; // Quay về trang admin
 	    } catch (Exception e) {
 	        redirectAttributes.addFlashAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
 	        return "redirect:/admin"; // Quay về trang admin nếu có lỗi
 	    }
 	}
+
 
 	@PostMapping("/open/{id}")
 	public String openUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
