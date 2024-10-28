@@ -121,16 +121,14 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
      @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :sinceDate")
      Integer countPostsSince(@Param("sinceDate") LocalDate sinceDate);
 
-}
-
-    // Tìm kiếm các công việc, sắp xếp isTop trước
-    @Modifying
-    @Transactional
-    @Query("UPDATE JoblistingsEntity j SET j.isTop = true WHERE j.userservice IS NOT NULL")
-    void updateIsTopForNonNullUserServiceId();
-    
-    @Query("SELECT j FROM JoblistingsEntity j WHERE j.isTop = true ORDER BY j.posteddate DESC")
-    List<JoblistingsEntity> findTop20JobListingsWithIstop(Pageable pageable);
-    
-    List<JoblistingsEntity> findByIsTopTrue(); // Phương thức này sẽ lấy danh sách công việc có isTop = 1
+  // Tìm kiếm các công việc, sắp xếp isTop trước
+     @Modifying
+     @Transactional
+     @Query("UPDATE JoblistingsEntity j SET j.isTop = true WHERE j.userservice IS NOT NULL")
+     void updateIsTopForNonNullUserServiceId();
+     
+     @Query("SELECT j FROM JoblistingsEntity j WHERE j.isTop = true ORDER BY j.posteddate DESC")
+     List<JoblistingsEntity> findTop20JobListingsWithIstop(Pageable pageable);
+     
+     List<JoblistingsEntity> findByIsTopTrue(); // Phương thức này sẽ lấy danh sách công việc có isTop = 1
 }
