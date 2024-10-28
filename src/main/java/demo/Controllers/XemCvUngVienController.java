@@ -42,13 +42,17 @@ public class XemCvUngVienController {
     public String cvDetails(@PathVariable("applicationId") Integer applicationId, Model model) {
         ApplicationsEntity applicationDetails = applicationsDao.findById(applicationId).orElse(null);
         
-		/*
-		 * // Lấy danh sách CV của ứng viên dựa trên jobListingId
-		 * List<ApplicationsEntity> cvList =
-		 * applicationsDao.findApplicationsByJoblistingId(applicationId);
-		 * 
-		 * // Thêm danh sách CV vào mô hình model.addAttribute("cvList", cvList);
-		 */
+		
+		  // Lấy danh sách CV của ứng viên dựa trên jobListingId
+//		  List<ApplicationsEntity> cvList = model.addAttribute("cvList", cvList)
+//		  applicationsDao.findApplicationsByJoblistingId(applicationId);
+		  
+		  List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByJoblistingId(applicationId);
+	        
+	        // Thêm danh sách CV vào mô hình
+	        model.addAttribute("cvList", cvList);
+		  // Thêm danh sách CV vào mô hình model.addAttribute("cvList", cvList);
+		 
         
         if (applicationDetails == null) {
             model.addAttribute("errorMessage", "Không tìm thấy thông tin ứng tuyển.");
