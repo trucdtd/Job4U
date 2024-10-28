@@ -109,11 +109,17 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
     @Query("SELECT j FROM JoblistingsEntity j WHERE j.posteddate BETWEEN :startDate AND :endDate")
     List<JoblistingsEntity> findByPostedDateBetween(@Param("startDate") LocalDate startDate,
                                                     @Param("endDate") LocalDate endDate);
-    @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :since")
-    int countNewPostsSince(@Param("since") LocalDate since);
+    
+	/*
+	 * @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :since"
+	 * ) int countNewPostsSince(@Param("since") LocalDate since);
+	 */
     
     //tìm kiếm bài viết chưa hết hạn
      Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline, Pageable pageable);
+     
+     @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :sinceDate")
+     Integer countPostsSince(@Param("sinceDate") LocalDate sinceDate);
 
 }
 
