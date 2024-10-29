@@ -44,7 +44,7 @@ public class XemCvUngVienController {
         
 		
 		  // Lấy danh sách CV của ứng viên dựa trên jobListingId
-//		  List<ApplicationsEntity> cvList = model.addAttribute("cvList", cvList)
+//		  List<ApplicationsEntity> cvList = 
 //		  applicationsDao.findApplicationsByJoblistingId(applicationId);
 		  
 		  List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByJoblistingId(applicationId);
