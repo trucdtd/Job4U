@@ -1,5 +1,6 @@
 package demo.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,5 +67,12 @@ public class JoblistingsService {
         
         // Giới hạn số lượng công việc hiển thị là 20
         return topJobListings.stream().limit(20).collect(Collectors.toList());
+    }
+    
+    //giới hạn nhà tuyển dụng chỉ được đăng 3 bài trên tháng
+    public List<JoblistingsEntity> getPostsThisMonth(Integer employerid) {
+        LocalDate now = LocalDate.now();
+        LocalDate startOfMonth = now.withDayOfMonth(1);
+        return joblistingsDao.findJobsByEmployerIdAndMonthStart(employerid, startOfMonth);
     }
 }
