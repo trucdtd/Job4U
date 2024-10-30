@@ -166,17 +166,6 @@
     </div>
 </div>
 
-<!-- Modal Hiển Thị Thông Báo Thanh Toán -->
-<c:if test="${not empty message}">
-    <div id="paymentMessageModal" class="modal" style="display: flex;">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p>${message}</p>
-        </div>
-    </div>
-</c:if>
-
-
 <script>
     let selectedService = {};
     let jobIdSelected = null;
