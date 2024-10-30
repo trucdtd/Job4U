@@ -1,7 +1,7 @@
 package demo.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,10 +35,10 @@ public class UserServicesEntity implements Serializable {
     private ServicesEntity service;
 
     @Column(name = "purchasedate")
-    private LocalDate purchasedate;
+    private LocalDateTime  purchasedate;
 
     @Column(name = "expirydate")
-    private LocalDate expirydate;
+    private LocalDateTime  expirydate;
 
     @Column(name = "numberofjobsallowed")
     private Integer numberofjobsallowed;
