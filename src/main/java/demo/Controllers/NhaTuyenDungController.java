@@ -81,14 +81,16 @@ public class NhaTuyenDungController {
 		Integer userId = sessionService.getCurrentUserId();
 
 //	    System.out.println("Current User ID: " + userId);
-		/*
-		 * List<ServicesEntity> service = servicesDao.findAll();
-		 * model.addAttribute("service", service);
-		 */
+		
+		  List<ServicesEntity> service = servicesDao.findAll();
+		  model.addAttribute("service", service);
+		 
 		
 		
-	ServicesEntity service = servicesDao.findByServiceid(4);
-	model.addAttribute("service", service);
+			/*
+			 * ServicesEntity service = servicesDao.findByServiceid(4);
+			 * model.addAttribute("service", service);
+			 */
 		 
 
 		if (userId != null) {
@@ -357,17 +359,16 @@ public class NhaTuyenDungController {
 	}
 
 
-    @GetMapping("/vnpay-payment")
-    public String vnpayPayment(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        int paymentStatus = vnPayService.orderReturn(request);
-        
-        if (paymentStatus == 1) {
-            redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
-            return "redirect:/ThanhCong";
-        } else {
-            redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");
-            return "redirect:/ThatBai";
-        }
-    }
+	@GetMapping("/vnpay-payment")
+	public String vnpayPayment(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	    int paymentStatus = vnPayService.orderReturn(request);
+	    
+	    if (paymentStatus == 1) {
+	        redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");
+	    }
+	    return "redirect:/employers";
+	}
 
 }

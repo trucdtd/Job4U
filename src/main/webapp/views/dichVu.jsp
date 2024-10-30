@@ -49,7 +49,7 @@
 </style>
 </head>
 <body>
-    <%-- <div class="container pricing">
+    <div class="container pricing">
         <div class="row justify-content-center">
             <!-- Loop qua các gói dịch vụ -->
             <c:forEach items="${service}" var="service">
@@ -72,9 +72,9 @@
                 </div>
             </c:forEach>
         </div>
-    </div> --%>
+    </div>
     
-    <div class="container pricing">
+    <%-- <div class="container pricing">
 		<div class="row justify-content-center">
 			<div class="col-md-4">
 				<div class="pricing-card special">
@@ -96,7 +96,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --%>
 
     <!-- Modal chọn công việc -->
     <div id="jobSelectionModal" class="modal">
@@ -166,6 +166,17 @@
     </div>
 </div>
 
+<!-- Modal Hiển Thị Thông Báo Thanh Toán -->
+<c:if test="${not empty message}">
+    <div id="paymentMessageModal" class="modal" style="display: flex;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>${message}</p>
+        </div>
+    </div>
+</c:if>
+
+
 <script>
     let selectedService = {};
     let jobIdSelected = null;
@@ -196,6 +207,18 @@
 
     function closePaymentModal() {
         document.getElementById('paymentModal').style.display = 'none';
+    }
+    
+    function closeModal() {
+        document.getElementById("paymentMessageModal").style.display = "none";
+    }
+    
+ // Tự động hiển thị modal nếu có message
+    window.onload = function() {
+        var modal = document.getElementById('paymentMessageModal');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
     }
 
     function submitPayment() {
