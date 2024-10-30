@@ -113,7 +113,7 @@ body {
 									alt="Logo công ty" class="company-logo me-3">
 								<div>
 									<h2 class="company-name text-success">${job.jobtitle}</h2>
-									<a href="#" target="_blank" class="text-primary"> <i
+									<a href="#" target="_blank" class="text-primary"><i
 										class="bi bi-globe"></i> Truy cập website:
 										${job.employer.companywebsite}
 									</a>
@@ -215,7 +215,6 @@ body {
 				</div>
 			</div>
 		</div>
-
 		<!-- Modal đăng nhập -->
 		<div class="modal fade" id="loginModal" tabindex="-1"
 			aria-labelledby="loginModalLabel" aria-hidden="true">

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +70,7 @@ public class NopCVController {
 
     @PostMapping("")
     public String postSubmitCV(@PathVariable("jobid") Integer jobid, Model model,
-                                @RequestParam("id") Integer jSKID,
+                                @RequestParam("id") Optional<Integer> jSKID,
                                 @RequestParam("cvFile") MultipartFile cvFile,
                                 @RequestParam("cvOptions") String cvOption) {
         Integer id = (Integer) ss.getAttribute("userid");
