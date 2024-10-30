@@ -393,7 +393,8 @@
 											<div class="input-group">
 												<span class="input-group-text">VND</span> <input type="text"
 													class="form-control salary-input" id="salary" name="salary"
-													min="0" placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
+													min="0"
+													placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
 											</div>
 										</div>
 									</div>
@@ -515,7 +516,7 @@
 					</div>
 					<div class="modal-body">
 						<form id="editJobForm" action="/employers/edit" method="post">
-							<input type="hidden" id="jobId" name="jobId" />
+							<input type="hidden" id="jobIdedit" name="jobIdedit" class="form-control" />
 							<div class="mb-3">
 								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
 									type="text" class="form-control" id="jobTitle" name="jobTitle" />
@@ -649,27 +650,30 @@ document.addEventListener('DOMContentLoaded', () => {
     editButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Lấy thông tin từ thuộc tính data của nút chỉnh sửa
-            const jobId = button.getAttribute('data-jobid');
-            const jobTitle = button.getAttribute('data-jobtitle');
-            const jobLocation = button.getAttribute('data-joblocation');
-            const jobDescription = button.getAttribute('data-jobdescription');
-            const jobRequirements = button.getAttribute('data-jobrequirements');
-            const salary = button.getAttribute('data-salary');
-            const jobType = button.getAttribute('data-jobtype');
-            const postedDate = button.getAttribute('data-posteddate');
-            const applicationDeadline = button.getAttribute('data-applicationdeadline');
+            const jobData = {
+            	jobIdedit: button.getAttribute('data-jobid'),
+                jobTitle: button.getAttribute('data-jobtitle'),
+                jobLocation: button.getAttribute('data-joblocation'),
+                jobDescription: button.getAttribute('data-jobdescription'),
+                jobRequirements: button.getAttribute('data-jobrequirements'),
+                salary: button.getAttribute('data-salary'),
+                jobType: button.getAttribute('data-jobtype'),
+                postedDate: button.getAttribute('data-posteddate'),
+                applicationDeadline: button.getAttribute('data-applicationdeadline')
+            };
 
             // Điền thông tin vào modal
-            document.getElementById('jobId').value = jobId;
-            document.getElementById('jobTitle').value = jobTitle;
-            document.getElementById('jobLocation').value = jobLocation;
-            document.getElementById('jobDescription').value = jobDescription;
-            document.getElementById('jobRequirements').value = jobRequirements;
-            document.getElementById('salaryEdit').value = salary;
-            document.getElementById('jobType').value = jobType;
-            document.getElementById('postedDate').value = postedDate;
-            document.getElementById('applicationDeadline').value = applicationDeadline;
-
+            document.getElementById('jobIdedit').value = jobData.jobIdedit;
+            document.getElementById('jobTitle').value = jobData.jobTitle;
+            document.getElementById('jobLocation').value = jobData.jobLocation;
+            document.getElementById('jobDescription').value = jobData.jobDescription;
+            document.getElementById('jobRequirements').value = jobData.jobRequirements;
+            document.getElementById('salaryEdit').value = jobData.salary;
+            document.getElementById('jobType').value = jobData.jobType;
+            document.getElementById('postedDate').value = jobData.postedDate;
+            document.getElementById('applicationDeadline').value = jobData.applicationDeadline;
+            console.log('jobId:', document.getElementById('jobId').value);
+            console.log('jobTitle:', document.getElementById('jobTitle').value);
             // Hiển thị modal
             const editJobModal = new bootstrap.Modal(document.getElementById('editJobModal'));
             editJobModal.show();
@@ -681,8 +685,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
 
         // Cập nhật ngày hiện tại cho ngày đăng
-        const currentDate = new Date().toISOString().split('T')[0]; // Lấy ngày hiện tại
-        document.getElementById('postedDate').value = currentDate; // Cập nhật vào trường ngày đăng
+        const currentDate = new Date().toISOString().split('T')[0];
+        document.getElementById('postedDate').value = currentDate;
 
         // Lấy giá trị ngày đăng và hạn nộp hồ sơ
         const postedDate = new Date(document.getElementById('postedDate').value);
@@ -691,7 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Kiểm tra hạn nộp hồ sơ không nhỏ hơn ngày đăng
         if (applicationDeadline < postedDate) {
             alert('Hạn nộp hồ sơ không được nhỏ hơn ngày đăng.');
-            return; // Dừng quá trình gửi form
+            return;
         }
 
         // Lấy dữ liệu từ form
@@ -706,7 +710,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 window.location.reload(); // Tải lại trang để xem thay đổi
             } else {
-                // Xử lý lỗi
                 alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
             }
         })

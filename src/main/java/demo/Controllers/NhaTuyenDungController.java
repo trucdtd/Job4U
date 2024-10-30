@@ -228,7 +228,7 @@ public class NhaTuyenDungController {
 	}
 
 	@PostMapping("/edit")
-	public String editJobPosting(@RequestParam("jobId") Integer jobId, @RequestParam("jobTitle") String jobTitle,
+	public String editJobPosting(@RequestParam("jobIdedit") Integer jobId, @RequestParam("jobTitle") String jobTitle,
 			@RequestParam("jobLocation") String jobLocation, @RequestParam("jobDescription") String jobDescription,
 			@RequestParam("jobRequirements") String jobRequirements,
 			@RequestParam(value = "salaryEdit", required = false) String salary,
