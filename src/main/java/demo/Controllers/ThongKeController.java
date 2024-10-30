@@ -53,9 +53,9 @@ public class ThongKeController {
         Integer usersOneYear = userDao.countUsersInRange(oneYearAgoStart, todayStart);
 
         // Dịch vụ
-        Integer serviceToday = userServicesDao.countServicesSince(today);
-        Integer service6Months = userServicesDao.countServicesSince(sixMonthsAgo);
-        Integer service1Year = userServicesDao.countServicesSince(oneYearAgo);
+        Integer serviceToday = userServicesDao.countServicesSince(todayStart);
+        Integer service6Months = userServicesDao.countServicesSince(sixMonthsAgoStart);
+        Integer service1Year = userServicesDao.countServicesSince(oneYearAgoStart);
 
         // Đưa dữ liệu vào model
         model.addAttribute("postToday", postToday);
