@@ -225,6 +225,7 @@ p {
 		<div class="text-center mt-4 mb-4">
 			<button class="btn btn-success" onclick="downloadPDF()">Tải
 				CV Dưới Dạng PDF</button>
+				<button class="btn btn-success" >Sửa</button>
 		</div>
 
 	</div>
