@@ -131,4 +131,8 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
      List<JoblistingsEntity> findTop20JobListingsWithIstop(Pageable pageable);
      
      List<JoblistingsEntity> findByIsTopTrue(); // Phương thức này sẽ lấy danh sách công việc có isTop = 1
+     
+     //giới hạn nhà tuyển dụng chỉ được đăng 3 bài trên tháng List<JoblistingsEntity> findByEmployerIdAndPostedDateBetween(
+     @Query("SELECT j FROM JoblistingsEntity j WHERE j.employer.employerid = :employerid AND j.posteddate >= :startOfMonth")
+     List<JoblistingsEntity> findJobsByEmployerIdAndMonthStart(@Param("employerid") Integer employerid, @Param("startOfMonth") LocalDate startOfMonth);
 }

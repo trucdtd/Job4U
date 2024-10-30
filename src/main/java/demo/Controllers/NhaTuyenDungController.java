@@ -142,7 +142,8 @@ public class NhaTuyenDungController {
 	        @RequestParam("jobrequirements") String jobrequirements,
 	        @RequestParam("jobdescription") String jobdescription,
 	        @RequestParam("posteddate") String posteddate,
-	        @RequestParam("applicationdeadline") String applicationdeadline) {
+	        @RequestParam("applicationdeadline") String applicationdeadline,
+	        Model model) {
 
 	    // Kiểm tra dữ liệu đầu vào
 	    if (companyname == null || companyname.isEmpty()) {
@@ -155,6 +156,19 @@ public class NhaTuyenDungController {
 
 	    if (employer == null) {
 	        return "error"; // Nhà tuyển dụng không tồn tại
+	    }
+
+	    // Kiểm tra số lượng bài viết đã đăng trong tháng
+	    LocalDate now = LocalDate.now();
+	    LocalDate startOfMonth = now.withDayOfMonth(1);
+	    List<JoblistingsEntity> postsThisMonth = danhSachViecLamDao.findJobsByEmployerIdAndMonthStart(employer.getEmployerid(), startOfMonth);
+	    
+	    if (postsThisMonth.size() >= 3) {
+	        // Nếu vượt quá 3 bài, chuyển hướng đến trang dịch vụ với thông báo
+	        // Bạn có thể sử dụng redirectAttributes để thêm thông báo
+	    	model.addAttribute("successMessage", "Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
+	    	System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
+	        return "redirect:/employers";
 	    }
 
 	    // Kiểm tra và lưu logo
@@ -184,7 +198,6 @@ public class NhaTuyenDungController {
 	        employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
 	    }
 	    employer.setCompanydescription(companydescription);
-
 	    nhaTuyenDungDao.save(employer);
 
 	    // Tạo đối tượng JoblistingsEntity và lưu trữ

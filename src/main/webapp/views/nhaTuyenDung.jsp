@@ -198,6 +198,8 @@
 
 				<!-- Bảng quản lý bài đăng-->
 				<!-- bài đăng -->
+
+
 				<div id="postEmployers" class="card" style="display: none;">
 					<div class="card-header">
 						<div class="card-title p-1">Đăng Bài Tuyển Dụng</div>
@@ -218,7 +220,7 @@
 													name="logo" accept="image/*" style="display: none;">
 												<label for="logo" class="form-control text-center"
 													style="cursor: pointer; height: 30px; display: flex; align-items: center; justify-content: center;">
-													Cập nhật logo mới tại đây</label>
+													Cập nhật logo mới tại đây </label>
 											</div>
 										</div>
 
@@ -289,7 +291,8 @@
 											<div class="input-group">
 												<span class="input-group-text">VND</span> <input type="text"
 													class="form-control salary-input" id="salary" name="salary"
-													min="0" placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
+													min="0"
+													placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
 											</div>
 										</div>
 									</div>
@@ -337,6 +340,7 @@
 						</div>
 					</div>
 				</div>
+
 
 				<!-- Quản lý cv -->
 				<div id="cvApply" class="card" style="display: none;">
@@ -410,7 +414,7 @@
 					</div>
 					<div class="modal-body">
 						<form id="editJobForm" action="/employers/edit" method="post">
-							<input id="jobId" name="jobId" class="form-control"/>
+							<input id="jobId" name="jobId" class="form-control" />
 							<div class="mb-3">
 								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
 									type="text" class="form-control" id="jobTitle" name="jobTitle" />
