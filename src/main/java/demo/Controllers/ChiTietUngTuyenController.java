@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,32 +52,31 @@ public class ChiTietUngTuyenController {
 
 	@RequestMapping("/{jobid}")
 	public String chiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
-	    // Lấy thông tin chi tiết công việc
-	    JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
+		// Lấy thông tin chi tiết công việc
+		JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
 
-	    // Lấy ID người dùng đã đăng nhập
-	    Integer userId = (Integer) ss.getAttribute("userid");
+		// Lấy ID người dùng đã đăng nhập
+		Integer userId = (Integer) ss.getAttribute("userid");
 
-	    // Lấy danh sách CV của người dùng
-	    List<JobSeekersEntity> listCV = dao.findByUsername(userId);
+		// Lấy danh sách CV của người dùng
+		List<JobSeekersEntity> listCV = dao.findByUsername(userId);
 
-	    // Lấy danh sách các công việc mà người dùng đã ứng tuyển
-	    List<JoblistingsEntity> appliedJobs = appDao.findJobsAppliedByUserId(userId);
-	    boolean hasApplied = appliedJobs.stream()
-	                                    .anyMatch(job -> job.getJobid().equals(jobid));
+		// Lấy danh sách các công việc mà người dùng đã ứng tuyển
+		List<JoblistingsEntity> appliedJobs = appDao.findJobsAppliedByUserId(userId);
+		boolean hasApplied = appliedJobs.stream().anyMatch(job -> job.getJobid().equals(jobid));
 
-	    // Thêm các thuộc tính vào model để truyền sang view
-	    model.addAttribute("job", chiTietUngTuyen);
-	    model.addAttribute("listCV", listCV);
-	    model.addAttribute("hasApplied", hasApplied); // Thêm thuộc tính kiểm tra vào model
+		// Thêm các thuộc tính vào model để truyền sang view
+		model.addAttribute("job", chiTietUngTuyen);
+		model.addAttribute("listCV", listCV);
+		model.addAttribute("hasApplied", hasApplied); // Thêm thuộc tính kiểm tra vào model
 
-	    return "chiTietUngTuyen";
+		return "chiTietUngTuyen";
 	}
 
 	@PostMapping("/{jobid}")
 	public String postSubmitCV(@PathVariable("jobid") Integer jobid, Model model,
 			@RequestParam("cvFile") MultipartFile cvFile, @RequestParam("cvOptions") String cvOption,
-			@RequestParam("id") Integer jSKID, RedirectAttributes redirectAttributes) {
+			@RequestParam("id") Optional<Integer> jSKID, RedirectAttributes redirectAttributes) {
 		Integer userId = (Integer) ss.getAttribute("userid");
 
 		JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
@@ -98,16 +98,34 @@ public class ChiTietUngTuyenController {
 
 			if ("upload".equals(cvOption)) {
 				// Xử lý upload CV
-				String filename = cvFile.getOriginalFilename();
-				File file = new File(sc.getRealPath("/uploads/" + filename));
+				// Xử lý upload CV
+				String originalFilename = cvFile.getOriginalFilename();
+				String fileExtension = originalFilename.substring(originalFilename.lastIndexOf(".")); // Lấy đuôi tệp
+
+				// Tạo tên tệp mới duy nhất với UUID
+				String newFilename = UUID.randomUUID().toString() + fileExtension;
+
+				// Đảm bảo thư mục uploads tồn tại
+				File uploadDir = new File(sc.getRealPath("/uploads/"));
+				if (!uploadDir.exists()) {
+					uploadDir.mkdirs();
+				}
+
+				// Lưu tệp với tên mới trong thư mục uploads
+				File file = new File(uploadDir, newFilename);
 				cvFile.transferTo(file);
+
+				// Lưu thông tin vào database
 				app.setJob(chiTietUngTuyen);
 				app.setJobseeker(jSK);
 				app.setApplicationdate(LocalDateTime.now());
 				app.setStatus(0);
 				app.setCreatedat(LocalDateTime.now());
-				app.setFilename(filename);
+				app.setFilename(newFilename); // Lưu tên mới vào database
 				appDao.save(app);
+
+				redirectAttributes.addFlashAttribute("message", "Upload CV ứng tuyển thành công");
+
 				redirectAttributes.addFlashAttribute("message", "Upload CV ứng tuyển thành công");
 			} else if ("choose".equals(cvOption)) {
 				JobSeekersEntity existingCV = dao.findByJobseekerid(jSKID);

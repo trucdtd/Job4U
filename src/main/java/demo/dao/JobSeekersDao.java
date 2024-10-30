@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import demo.entity.JobSeekersEntity;
 
 public interface JobSeekersDao extends JpaRepository<JobSeekersEntity, Integer>{
-	JobSeekersEntity findByJobseekerid(Integer jobseekerid);
+	JobSeekersEntity findByJobseekerid(Optional<Integer> jobseekerid);
 	
 	 @Query("SELECT u FROM JobSeekersEntity u WHERE u.user.userid = ?1")
 	    List<JobSeekersEntity> findByUsername(Integer id);
