@@ -289,7 +289,8 @@
 											<div class="input-group">
 												<span class="input-group-text">VND</span> <input type="text"
 													class="form-control salary-input" id="salary" name="salary"
-													min="0" placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
+													min="0"
+													placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
 											</div>
 										</div>
 									</div>
@@ -410,7 +411,7 @@
 					</div>
 					<div class="modal-body">
 						<form id="editJobForm" action="/employers/edit" method="post">
-							<input id="jobId" name="jobId" class="form-control"/>
+							<input type="hidden" id="jobIdedit" name="jobIdedit" class="form-control" />
 							<div class="mb-3">
 								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
 									type="text" class="form-control" id="jobTitle" name="jobTitle" />
@@ -545,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             // Lấy thông tin từ thuộc tính data của nút chỉnh sửa
             const jobData = {
-                jobId: button.getAttribute('data-jobid'),
+            	jobIdedit: button.getAttribute('data-jobid'),
                 jobTitle: button.getAttribute('data-jobtitle'),
                 jobLocation: button.getAttribute('data-joblocation'),
                 jobDescription: button.getAttribute('data-jobdescription'),
@@ -557,7 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Điền thông tin vào modal
-            document.getElementById('jobId').value = jobData.jobId;
+            document.getElementById('jobIdedit').value = jobData.jobIdedit;
             document.getElementById('jobTitle').value = jobData.jobTitle;
             document.getElementById('jobLocation').value = jobData.jobLocation;
             document.getElementById('jobDescription').value = jobData.jobDescription;
