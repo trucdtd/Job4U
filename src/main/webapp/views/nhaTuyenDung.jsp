@@ -19,10 +19,114 @@
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
+<style>
+    /* Modal background */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    /* Modal content */
+    .modal-content {
+        background-color: #fff;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+
+    /* Modal header */
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .modal-header h2 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
+    }
+
+    /* Close button */
+    .close {
+        font-size: 20px;
+        font-weight: bold;
+        color: #999;
+        cursor: pointer;
+    }
+
+    .close:hover {
+        color: #555;
+    }
+
+    /* Modal body */
+    .modal-body {
+        padding: 20px;
+        font-size: 16px;
+        color: #333;
+        text-align: center;
+    }
+
+    /* Modal footer */
+    .modal-footer {
+        padding: 15px 20px;
+        border-top: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* OK Button */
+    .modal-button {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .modal-button:hover {
+        background-color: #45a049;
+    }
+</style>
+
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
+	
+	<!-- Modal Hiển Thị Thông Báo Thanh Toán -->
+<c:if test="${not empty message}">
+    <div id="paymentSuccessModal" class="modal" style="display: flex;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Thông báo</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>${message}</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal()" class="modal-button">OK</button>
+            </div>
+        </div>
+    </div>
+</c:if>
 
 	<div class="container">
 		<div class="container mt-4">
@@ -289,7 +393,8 @@
 											<div class="input-group">
 												<span class="input-group-text">VND</span> <input type="text"
 													class="form-control salary-input" id="salary" name="salary"
-													min="0" placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
+													min="0"
+													placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
 											</div>
 										</div>
 									</div>
@@ -390,8 +495,9 @@
 					<div class="card-header">
 						<div class="card-title">Dịch vụ bài đăng</div>
 					</div>
-					<%@ include file="/views/dichVu.jsp"%>
 					<br>
+					<%@ include file="/views/dichVu.jsp"%>
+					
 				</div>
 			</div>
 			<!-- article -->
@@ -410,7 +516,7 @@
 					</div>
 					<div class="modal-body">
 						<form id="editJobForm" action="/employers/edit" method="post">
-							<input type="hidden" id="jobId" name="jobId" />
+							<input type="hidden" id="jobIdedit" name="jobIdedit" class="form-control" />
 							<div class="mb-3">
 								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
 									type="text" class="form-control" id="jobTitle" name="jobTitle" />
@@ -544,27 +650,30 @@ document.addEventListener('DOMContentLoaded', () => {
     editButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Lấy thông tin từ thuộc tính data của nút chỉnh sửa
-            const jobId = button.getAttribute('data-jobid');
-            const jobTitle = button.getAttribute('data-jobtitle');
-            const jobLocation = button.getAttribute('data-joblocation');
-            const jobDescription = button.getAttribute('data-jobdescription');
-            const jobRequirements = button.getAttribute('data-jobrequirements');
-            const salary = button.getAttribute('data-salary');
-            const jobType = button.getAttribute('data-jobtype');
-            const postedDate = button.getAttribute('data-posteddate');
-            const applicationDeadline = button.getAttribute('data-applicationdeadline');
+            const jobData = {
+            	jobIdedit: button.getAttribute('data-jobid'),
+                jobTitle: button.getAttribute('data-jobtitle'),
+                jobLocation: button.getAttribute('data-joblocation'),
+                jobDescription: button.getAttribute('data-jobdescription'),
+                jobRequirements: button.getAttribute('data-jobrequirements'),
+                salary: button.getAttribute('data-salary'),
+                jobType: button.getAttribute('data-jobtype'),
+                postedDate: button.getAttribute('data-posteddate'),
+                applicationDeadline: button.getAttribute('data-applicationdeadline')
+            };
 
             // Điền thông tin vào modal
-            document.getElementById('jobId').value = jobId;
-            document.getElementById('jobTitle').value = jobTitle;
-            document.getElementById('jobLocation').value = jobLocation;
-            document.getElementById('jobDescription').value = jobDescription;
-            document.getElementById('jobRequirements').value = jobRequirements;
-            document.getElementById('salaryEdit').value = salary;
-            document.getElementById('jobType').value = jobType;
-            document.getElementById('postedDate').value = postedDate;
-            document.getElementById('applicationDeadline').value = applicationDeadline;
-
+            document.getElementById('jobIdedit').value = jobData.jobIdedit;
+            document.getElementById('jobTitle').value = jobData.jobTitle;
+            document.getElementById('jobLocation').value = jobData.jobLocation;
+            document.getElementById('jobDescription').value = jobData.jobDescription;
+            document.getElementById('jobRequirements').value = jobData.jobRequirements;
+            document.getElementById('salaryEdit').value = jobData.salary;
+            document.getElementById('jobType').value = jobData.jobType;
+            document.getElementById('postedDate').value = jobData.postedDate;
+            document.getElementById('applicationDeadline').value = jobData.applicationDeadline;
+            console.log('jobId:', document.getElementById('jobId').value);
+            console.log('jobTitle:', document.getElementById('jobTitle').value);
             // Hiển thị modal
             const editJobModal = new bootstrap.Modal(document.getElementById('editJobModal'));
             editJobModal.show();
@@ -576,8 +685,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
 
         // Cập nhật ngày hiện tại cho ngày đăng
-        const currentDate = new Date().toISOString().split('T')[0]; // Lấy ngày hiện tại
-        document.getElementById('postedDate').value = currentDate; // Cập nhật vào trường ngày đăng
+        const currentDate = new Date().toISOString().split('T')[0];
+        document.getElementById('postedDate').value = currentDate;
 
         // Lấy giá trị ngày đăng và hạn nộp hồ sơ
         const postedDate = new Date(document.getElementById('postedDate').value);
@@ -586,7 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Kiểm tra hạn nộp hồ sơ không nhỏ hơn ngày đăng
         if (applicationDeadline < postedDate) {
             alert('Hạn nộp hồ sơ không được nhỏ hơn ngày đăng.');
-            return; // Dừng quá trình gửi form
+            return;
         }
 
         // Lấy dữ liệu từ form
@@ -601,7 +710,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 window.location.reload(); // Tải lại trang để xem thay đổi
             } else {
-                // Xử lý lỗi
                 alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
             }
         })
@@ -695,7 +803,12 @@ document.getElementById('logo').addEventListener('change', function(event) {
     }
 });
 </script>
-
+<script>
+    // Close modal function
+    function closeModal() {
+        document.getElementById("paymentSuccessModal").style.display = "none";
+    }
+</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

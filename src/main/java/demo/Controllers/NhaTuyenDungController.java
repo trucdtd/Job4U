@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.common.net.MediaType;
 
 import demo.services.SessionService;
+import demo.services.UserRepository;
+import demo.services.UserService;
 import demo.services.VNPayService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,12 +27,15 @@ import demo.dao.ApplicationsDao;
 import demo.dao.EmployersDao;
 import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
+import demo.dao.PaymentsDao;
 import demo.entity.ApplicationsEntity;
 import demo.dao.ServicesDao;
 import demo.entity.EmployersEntity;
 import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
+import demo.entity.PaymentsEntity;
 import demo.entity.ServicesEntity;
+import demo.entity.UsersEntity;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +59,9 @@ public class NhaTuyenDungController {
 	
     @Autowired
     private VNPayService vnPayService;
+    
+    @Autowired
+    private PaymentsDao paymentDao;
 
 	@Autowired
 	private EmployersDao nhaTuyenDungDao;
@@ -69,6 +77,9 @@ public class NhaTuyenDungController {
 
 	@Autowired
 	private ApplicationsDao applicationsDao;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	HttpServletRequest req;
@@ -81,14 +92,16 @@ public class NhaTuyenDungController {
 		Integer userId = sessionService.getCurrentUserId();
 
 //	    System.out.println("Current User ID: " + userId);
-		/*
-		 * List<ServicesEntity> service = servicesDao.findAll();
-		 * model.addAttribute("service", service);
-		 */
+		
+		  List<ServicesEntity> service = servicesDao.findAll();
+		  model.addAttribute("service", service);
+		 
 		
 		
-	ServicesEntity service = servicesDao.findByServiceid(4);
-	model.addAttribute("service", service);
+			/*
+			 * ServicesEntity service = servicesDao.findByServiceid(4);
+			 * model.addAttribute("service", service);
+			 */
 		 
 
 		if (userId != null) {
@@ -140,7 +153,8 @@ public class NhaTuyenDungController {
 	        @RequestParam("jobrequirements") String jobrequirements,
 	        @RequestParam("jobdescription") String jobdescription,
 	        @RequestParam("posteddate") String posteddate,
-	        @RequestParam("applicationdeadline") String applicationdeadline) {
+	        @RequestParam("applicationdeadline") String applicationdeadline,
+	        Model model) {
 
 	    // Kiểm tra dữ liệu đầu vào
 	    if (companyname == null || companyname.isEmpty()) {
@@ -153,6 +167,19 @@ public class NhaTuyenDungController {
 
 	    if (employer == null) {
 	        return "error"; // Nhà tuyển dụng không tồn tại
+	    }
+
+	    // Kiểm tra số lượng bài viết đã đăng trong tháng
+	    LocalDate now = LocalDate.now();
+	    LocalDate startOfMonth = now.withDayOfMonth(1);
+	    List<JoblistingsEntity> postsThisMonth = danhSachViecLamDao.findJobsByEmployerIdAndMonthStart(employer.getEmployerid(), startOfMonth);
+	    
+	    if (postsThisMonth.size() >= 3) {
+	        // Nếu vượt quá 3 bài, chuyển hướng đến trang dịch vụ với thông báo
+	        // Bạn có thể sử dụng redirectAttributes để thêm thông báo
+	    	model.addAttribute("successMessage", "Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
+	    	System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
+	        return "redirect:/employers";
 	    }
 
 	    // Kiểm tra và lưu logo
@@ -182,7 +209,6 @@ public class NhaTuyenDungController {
 	        employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
 	    }
 	    employer.setCompanydescription(companydescription);
-
 	    nhaTuyenDungDao.save(employer);
 
 	    // Tạo đối tượng JoblistingsEntity và lưu trữ
@@ -215,7 +241,7 @@ public class NhaTuyenDungController {
 	}
 
 	@PostMapping("/edit")
-	public String editJobPosting(@RequestParam("jobId") Integer jobId, @RequestParam("jobTitle") String jobTitle,
+	public String editJobPosting(@RequestParam("jobIdedit") Integer jobId, @RequestParam("jobTitle") String jobTitle,
 			@RequestParam("jobLocation") String jobLocation, @RequestParam("jobDescription") String jobDescription,
 			@RequestParam("jobRequirements") String jobRequirements,
 			@RequestParam(value = "salaryEdit", required = false) String salary,
@@ -336,38 +362,55 @@ public class NhaTuyenDungController {
 	                              @RequestParam(value = "userId", required = false) String userId,
 	                              @RequestParam(value = "jobId", required = false) String jobId,
 	                              HttpServletRequest request) {
-	    // Kiểm tra giá trị đầu vào
 	    if (servicePrice == null || serviceId == null || userId == null || jobId == null) {
-	        System.out.println("servicePrice: " + servicePrice);
-	        System.out.println("serviceId: " + serviceId);
-	        System.out.println("jobId: " + jobId);
-	        System.out.println("userId: " + userId);
-	        
-	        // Trả về trang lỗi hoặc thông báo
-	        return "redirect:/employers";
+	        System.out.println("Thiếu tham số bắt buộc: servicePrice, serviceId, userId hoặc jobId.");
+	        return "redirect:/employers?error=missingParameters";
 	    }
 
-	    // Làm tròn giá thành int
 	    int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
 	    String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 
-	    // Tạo URL thanh toán từ VNPayService
 	    String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho jobId: " + jobId, baseUrl);
 	    return "redirect:" + vnpayUrl;
 	}
 
+	@GetMapping("/vnpay-payment")
+	public String vnpayPayment(HttpServletRequest request, RedirectAttributes redirectAttributes,
+	                           @RequestParam(value = "userId", required = false) String userId,
+	                           @RequestParam(value = "serviceId", required = false) String serviceId) {
+	    if (userId == null || serviceId == null) {
+	        redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId hoặc serviceId.");
+	        return "redirect:/employers?error=missingParameters";
+	    }
 
-    @GetMapping("/vnpay-payment")
-    public String vnpayPayment(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        int paymentStatus = vnPayService.orderReturn(request);
-        
-        if (paymentStatus == 1) {
-            redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
-            return "redirect:/ThanhCong";
-        } else {
-            redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");
-            return "redirect:/ThatBai";
-        }
-    }
+	    int paymentStatus = vnPayService.orderReturn(request);
 
+	    if (paymentStatus == 1) {
+	        UsersEntity user = userRepository.findByUsername(userId);
+	        ServicesEntity service = servicesDao.findByServiceid(Integer.parseInt(serviceId));
+
+	        if (user != null && service != null) {
+	            PaymentsEntity payment = new PaymentsEntity();
+	            payment.setUser(user);
+	            payment.setService(service);
+	            payment.setAmount(new BigDecimal(request.getParameter("vnp_Amount")).divide(new BigDecimal(100)));
+	            payment.setPaymentdate(LocalDate.now());
+	            payment.setStatus("HOANTAT");
+	            payment.setPaymentmethod("VNPay");
+
+	            paymentDao.save(payment);
+	        } else {
+	            redirectAttributes.addFlashAttribute("message", "Người dùng hoặc dịch vụ không hợp lệ.");
+	            return "redirect:/employers?error=invalidData";
+	        }
+
+	        redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");
+	    }
+
+	    return "redirect:/employers";
+	}
+
+	
 }
