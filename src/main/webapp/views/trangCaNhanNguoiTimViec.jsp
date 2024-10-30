@@ -73,11 +73,9 @@
 
 					<hr class="sidebar-divider" />
 
-					<li class="nav-item"><a class="nav-link" href="#"> <i
+					<!-- <li class="nav-item"><a class="nav-link" href="#"> <i
 							class="fa fa-cog fa-spin fa-fw"></i> <span>Cài đặt</span>
-					</a></li>
-
-					<hr class="sidebar-divider" />
+					</a></li> -->
 
 					<div class="text-center d-none d-md-inline">
 						<button class="rounded-circle border-0" id="sidebarToggle"></button>

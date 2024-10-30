@@ -8,20 +8,17 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-<!--link css gắn trực tiếp trên bootstrap-->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-<!-- Jquery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-<link rel="stylesheet" href="/css/thongke.css">
-<script
-	src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<!-- CSS for DataTables -->
+<!-- DataTables CSS -->
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- DataTables JS -->
+<script
+	src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="/css/thongke.css">
 </head>
 <body>
 	<div class="container mt-5">
@@ -53,8 +50,8 @@
 									</div>
 									<div class="ps-3">
 										<h6 id="post-count">${postToday}</h6>
-										<span class="text-success small fw-bold" id="post-percentage">0%</span>
-										<span class="text-muted small">tăng</span>
+										<!-- <span class="text-success small fw-bold" id="post-percentage">0%</span>
+										<span class="text-muted small">tăng</span> -->
 									</div>
 								</div>
 							</div>
@@ -82,8 +79,8 @@
 									</div>
 									<div class="ps-3">
 										<h6 id="user-count">${usersToday}</h6>
-										<span class="text-danger small fw-bold" id="user-percentage">0%</span>
-										<span class="text-muted small">giảm</span>
+										<!-- <span class="text-danger small fw-bold" id="user-percentage">0%</span>
+										<span class="text-muted small">giảm</span> -->
 									</div>
 								</div>
 							</div>
@@ -110,8 +107,8 @@
 									</div>
 									<div class="ps-3">
 										<h6 id="sales-count">${serviceToday}</h6>
-										<span class="text-success small fw-bold" id="sales-percentage">0%</span>
-										<span class="text-muted small">tăng</span>
+										<!-- <span class="text-success small fw-bold" id="sales-percentage">0%</span>
+										<span class="text-muted small">tăng</span> -->
 									</div>
 								</div>
 							</div>
@@ -122,61 +119,61 @@
 						<div class="card recent-sales shadow-sm">
 							<div class="card-body">
 								<h5 class="card-title">Dịch Vụ Đã Bán</h5>
-								<div class="table-responsive">
-									<table id="tkTable" class="table table-borderless datatable">
-										<thead>
+								<table id="tkTable" class="table table-borderless datatable">
+									<thead>
+										<tr>
+											<th>Id Dịch Vụ</th>
+											<th>Id Người Mua</th>
+											<th>Ngày Mua</th>
+											<th>Giá Tiền</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:set var="totalRevenue" value="0" />
+										<c:forEach items="${qlTK}" var="tk">
 											<tr>
-												<th>Id Dịch Vụ</th>
-												<th>Id Người Mua</th>
-												<th>Ngày Mua</th>
-												<th>Giá Tiền</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:set var="totalRevenue" value="0" />
-											<c:forEach items="${qlTK}" var="tk">
-												<tr>
-													<th scope="row">${tk.service.serviceid}</th>
-													<td>${tk.user.userid}</td>
-													<td>${tk.purchasedate}</td>
-													<td><c:choose>
-															<c:when test="${tk.service.price != null}">
-																<span style="display: inline-flex; align-items: center;">
-																	${tk.service.price.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
-																	VND </span>
-															</c:when>
-														</c:choose></td>
-												</tr>
-												<c:set var="totalRevenue"
-													value="${totalRevenue + tk.service.price}" />
-											</c:forEach>
-											<!-- Thêm dòng tính tổng doanh thu với màu đỏ -->
-											<tr>
-												<th style="color: red;" scope="row"><strong>Tổng
-														Doanh Thu:</strong></th>
-												<td></td>
-												<!-- Cột User Id trống -->
-												<td></td>
-												<!-- Cột PurchaseDate trống -->
-
-												<td style="color: red;"><c:choose>
-														<c:when test="${totalRevenue != null}">
+												<th scope="row">${tk.service.serviceid}</th>
+												<td>${tk.user.userid}</td>
+												<td>${tk.purchasedate}</td>
+												<td><c:choose>
+														<c:when test="${tk.service.price != null}">
 															<span style="display: inline-flex; align-items: center;">
-																${totalRevenue.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+																${tk.service.price.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
 																VND </span>
 														</c:when>
 													</c:choose></td>
-												<!-- Tổng doanh thu hiện ở cột Price -->
 											</tr>
-										</tbody>
-									</table>
-								</div>
+											<c:set var="totalRevenue"
+												value="${totalRevenue + tk.service.price}" />
+										</c:forEach>
+										<!-- Thêm dòng tính tổng doanh thu với màu đỏ -->
+										<tr>
+											<th style="color: red;" scope="row"><strong>Tổng
+													Doanh Thu:</strong></th>
+											<td></td>
+											<!-- Cột User Id trống -->
+											<td></td>
+											<!-- Cột PurchaseDate trống -->
+
+											<td style="color: red;"><c:choose>
+													<c:when test="${totalRevenue != null}">
+														<span style="display: inline-flex; align-items: center;">
+															${totalRevenue.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+															VND </span>
+													</c:when>
+												</c:choose></td>
+											<!-- Tổng doanh thu hiện ở cột Price -->
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 		</section>
 	</div>
+	<br>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
@@ -198,17 +195,17 @@
 		}
 
 		function updateUserData() {
-	        const timeframe = document.getElementById("user-timeframe").value;
-	        const userCountElement = document.getElementById("user-count");
+			const timeframe = document.getElementById("user-timeframe").value;
+			const userCountElement = document.getElementById("user-count");
 
-	        if (timeframe === "today") {
-	            userCountElement.innerText = "${usersToday}";
-	        } else if (timeframe === "6months") {
-	            userCountElement.innerText = "${usersSixMonths}";
-	        } else if (timeframe === "1year") {
-	            userCountElement.innerText = "${usersOneYear}";
-	        }
-	    }
+			if (timeframe === "today") {
+				userCountElement.innerText = "${usersToday}";
+			} else if (timeframe === "6months") {
+				userCountElement.innerText = "${usersSixMonths}";
+			} else if (timeframe === "1year") {
+				userCountElement.innerText = "${usersOneYear}";
+			}
+		}
 
 		function updateSalesData() {
 			const timeframe = document.getElementById("sales-timeframe").value;
@@ -223,27 +220,33 @@
 			}
 		}
 	</script>
+	<!-- Khởi tạo DataTable -->
 	<script>
-$(document).ready(function() {
-    $('#tkTable').DataTable({
-        "paging": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "language": {
-            "paginate": {
-                "next": "Tiếp theo",
-                "previous": "Trước đó"
-            },
-            "lengthMenu": "Hiển thị _MENU_ mục",
-            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
-            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
-            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
-            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
-            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
-        }
-    });
-</script>
+		$(document)
+				.ready(
+						function() {
+							$('#tkTable')
+									.DataTable(
+											{
+												"paging" : true,
+												"searching" : true,
+												"ordering" : true,
+												"info" : true,
+												"language" : {
+													"paginate" : {
+														"next" : "Tiếp theo",
+														"previous" : "Trước đó"
+													},
+													"lengthMenu" : "Hiển thị _MENU_ mục",
+													"info" : "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+													"zeroRecords" : "Không tìm thấy kết quả nào",
+													"infoEmpty" : "Không có dữ liệu",
+													"infoFiltered" : "(lọc từ _MAX_ mục)",
+													"search" : "Tìm kiếm:"
+												}
+											});
+						});
+	</script>
 </body>
 </html>
 

@@ -96,5 +96,11 @@ public class LoginController {
         session.invalidate(); // Xóa tất cả dữ liệu khỏi session
         return "redirect:/job4u"; // Chuyển hướng về trang chính hoặc trang đăng nhập
     }
+    
+    //show thông tin chi tiết điều khoản
+    @GetMapping("/terms")
+    public String showTerms() {
+        return "dieuKhoanDichVu"; // Tên của JSP (không có phần mở rộng .jsp)
+    }
 }
 

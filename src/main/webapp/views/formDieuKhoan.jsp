@@ -45,13 +45,13 @@
                     <span>Job4U yêu cầu người dùng:</span>
                     <br>
                     <span>
-                        1. Tuân thủ quy tắc cộng đồng. Vi phạm có thể dẫn đến khóa tài khoản.
-                        <br>2. Không spam. Tài khoản có thể bị khóa nếu vi phạm.
+                        1. <a href="/Login/terms" target="_blank">Tuân thủ quy tắc cộng đồng</a>. Vi phạm có thể dẫn đến khóa tài khoản.
+                        <br>2.<a href="/Login/terms" target="_blank"> Không spam.</a> Tài khoản có thể bị khóa nếu vi phạm.
                         <br>3. Cung cấp thông tin tuyển dụng đúng sự thật. Nội dung không phù hợp sẽ bị xóa và tài khoản có thể bị khóa.
                         <br>4. Cung cấp thông tin chính xác. Thông tin sai lệch sẽ dẫn đến việc khóa tài khoản.
                     </span>
                     <h5>Quy Định</h5>
-                    <span>Đây là nội dung chính sách và điều khoản của chúng tôi. Bạn cần đồng ý với các điều khoản sau để tiếp tục sử dụng dịch vụ của chúng tôi:
+                    <span>Đây là <a href="/Login/terms" target="_blank">nội dung chính sách và điều khoản</a> của chúng tôi. Bạn cần đồng ý với các điều khoản sau để tiếp tục sử dụng dịch vụ của chúng tôi:
                     <br> 1. Bạn đồng ý cung cấp thông tin chính xác và đầy đủ.
                     <br> 2. Bạn đồng ý không sử dụng dịch vụ của chúng tôi cho các mục đích trái pháp luật.
                     <br> 3. Chúng tôi có quyền thay đổi các điều khoản và chính sách này mà không cần thông báo trước.

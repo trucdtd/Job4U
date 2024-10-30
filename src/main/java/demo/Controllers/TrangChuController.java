@@ -146,12 +146,12 @@ public class TrangChuController {
 			dsSP = danhSachViecLamDao.findAll(pageable);
 		    model.addAttribute("dsSP", dsSP);
 			// Trả về trang chủ với thông báo
-			return "trangChu";
+			return "redirect:/job4u";
 		}
 
 		// Nếu có kết quả, thêm vào mô hình và trả về trang kết quả
 		model.addAttribute("dsSP", dsSP);
-		return "trangChu";
+		return "redirect:/job4u";
 	}
 
 	@GetMapping("/dangxuat")
