@@ -44,6 +44,10 @@
 						class="bi bi-grid me-2"></i> Quản Lý CV
 				</a></li>
 				<li><a href="#" class="navqlndung nav-link text-dark"
+					onclick="showTable(event, 'serviceManagement')"> <i
+						class="bi bi-house me-2"></i> Quản Lý Dịch Vụ
+				</a></li>
+				<li><a href="#" class="navqlndung nav-link text-dark"
 					onclick="showTable(event, 'statisticalManagement')"> <i
 						class="bi bi-house me-2"></i> Quản Lý Thống Kê
 				</a></li>

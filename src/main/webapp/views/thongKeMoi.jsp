@@ -68,7 +68,6 @@
 												style="width: 150px;"> <input type="date"
 												id="posts-end-date" class="form-control"
 												onchange="updateData('posts')" style="width: 150px;">
-
 										</div>
 									</small>
 								</h5>
