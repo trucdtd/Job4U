@@ -142,14 +142,14 @@
 			<!-- aside -->
 			<div class="col-lg-3 col-md-3 p-2 d-flex">
 				<div class="d-flex flex-column flex-shrink-0 p-3 text-dark"
-					style="width: 100%; background: #198754;">
+					style="width: 100%; background: #ffffff;">
 					<a href="#"
 						class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none text-center">
-						<i class="bi bi-bootstrap" style="font-size: 35px;"></i> <span
-						class="fs-4 ms-2">Menu Tuyển Dụng</span>
+						<i class="bi bi-journal-arrow-down" style="font-size: 40px"></i> <span
+						class="fs-4 ms-2" style="background: #198754; color: white;">Menu Tuyển Dụng</span>
 					</a>
 					<hr>
-					<ul class="nav nav-pills flex-column mb-auto">
+					<ul class="nav flex-column mb-auto">
 						<li><a href="#"
 							class=" navnhatuyendung nav-link text-dark active"
 							onclick="showTable(event, 'employersManagement')"> <i

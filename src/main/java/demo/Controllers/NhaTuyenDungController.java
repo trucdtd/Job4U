@@ -87,6 +87,9 @@ public class NhaTuyenDungController {
 	@Autowired
 	HttpServletResponse resp;
 
+	@Autowired
+	HttpSession ss;
+
 	@RequestMapping("")
 	public String nhaTuyenDung(Model model) {
 		Integer userId = sessionService.getCurrentUserId();
@@ -135,16 +138,36 @@ public class NhaTuyenDungController {
 	}
 
 	@PostMapping("/submit")
-	public String themTuyenDung(@RequestParam("companyname") String companyname,
-			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
-			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
-			@RequestParam(value = "logo", required = false) MultipartFile logo,
-			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
-			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) String salary,
-			@RequestParam("companydescription") String companydescription,
-			@RequestParam("jobrequirements") String jobrequirements,
-			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
-			@RequestParam("applicationdeadline") String applicationdeadline) {
+// <<<<<<< HEAD
+// 	public String themTuyenDung(@RequestParam("companyname") String companyname,
+// 			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
+// 			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
+// 			@RequestParam(value = "logo", required = false) MultipartFile logo,
+// 			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
+// 			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) String salary,
+// 			@RequestParam("companydescription") String companydescription,
+// 			@RequestParam("jobrequirements") String jobrequirements,
+// 			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
+// 			@RequestParam("applicationdeadline") String applicationdeadline) {
+// =======
+	public String themTuyenDung(
+	        @RequestParam("companyname") String companyname,
+	        @RequestParam("companywebsite") String companywebsite,
+	        @RequestParam("address") String address,
+	        @RequestParam("industry") String industry,
+	        @RequestParam("contactperson") String contactperson,
+	        @RequestParam(value = "logo", required = false) MultipartFile logo,
+	        @RequestParam("jobtitle") String jobtitle,
+	        @RequestParam("joblocation") String joblocation,
+	        @RequestParam("jobtype") String jobtype,
+	        @RequestParam(value = "salary", required = false) String salary,
+	        @RequestParam("companydescription") String companydescription,
+	        @RequestParam("jobrequirements") String jobrequirements,
+	        @RequestParam("jobdescription") String jobdescription,
+	        @RequestParam("posteddate") String posteddate,
+	        @RequestParam("applicationdeadline") String applicationdeadline,
+	        Model model) {
+// >>>>>>> dev
 
 		// Kiểm tra dữ liệu đầu vào
 		if (companyname == null || companyname.isEmpty()) {
@@ -159,35 +182,79 @@ public class NhaTuyenDungController {
 			return "error"; // Nhà tuyển dụng không tồn tại
 		}
 
-		// Kiểm tra và lưu logo
-		String logoFilename = null;
-		if (logo != null && !logo.isEmpty()) {
-			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
-			try {
-				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
-				if (!uploadsDir.exists()) {
-					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
-				}
-				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
-				Files.write(path, logo.getBytes());
-			} catch (IOException e) {
-				e.printStackTrace();
-				return "error"; // Xử lý lỗi tải lên
-			}
-		}
+// <<<<<<< HEAD
+// 		// Kiểm tra và lưu logo
+// 		String logoFilename = null;
+// 		if (logo != null && !logo.isEmpty()) {
+// 			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+// 			try {
+// 				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+// 				if (!uploadsDir.exists()) {
+// 					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+// 				}
+// 				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+// 				Files.write(path, logo.getBytes());
+// 			} catch (IOException e) {
+// 				e.printStackTrace();
+// 				return "error"; // Xử lý lỗi tải lên
+// 			}
+// 		}
 
-		// Cập nhật thông tin nhà tuyển dụng
-		employer.setCompanyname(companyname);
-		employer.setCompanywebsite(companywebsite);
-		employer.setAddress(address);
-		employer.setIndustry(industry);
-		employer.setContactperson(contactperson);
-		if (logoFilename != null) {
-			employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
-		}
-		employer.setCompanydescription(companydescription);
+// 		// Cập nhật thông tin nhà tuyển dụng
+// 		employer.setCompanyname(companyname);
+// 		employer.setCompanywebsite(companywebsite);
+// 		employer.setAddress(address);
+// 		employer.setIndustry(industry);
+// 		employer.setContactperson(contactperson);
+// 		if (logoFilename != null) {
+// 			employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
+// 		}
+// 		employer.setCompanydescription(companydescription);
 
-		nhaTuyenDungDao.save(employer);
+// 		nhaTuyenDungDao.save(employer);
+// =======
+	    // Kiểm tra số lượng bài viết đã đăng trong tháng
+	    LocalDate now = LocalDate.now();
+	    LocalDate startOfMonth = now.withDayOfMonth(1);
+	    List<JoblistingsEntity> postsThisMonth = danhSachViecLamDao.findJobsByEmployerIdAndMonthStart(employer.getEmployerid(), startOfMonth);
+	    
+	    if (postsThisMonth.size() >= 3) {
+	        // Nếu vượt quá 3 bài, chuyển hướng đến trang dịch vụ với thông báo
+	        // Bạn có thể sử dụng redirectAttributes để thêm thông báo
+	    	model.addAttribute("successMessage", "Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
+	    	System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
+	        return "redirect:/employers";
+	    }
+
+	    // Kiểm tra và lưu logo
+	    String logoFilename = null;
+	    if (logo != null && !logo.isEmpty()) {
+	        logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+	        try {
+	            File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+	            if (!uploadsDir.exists()) {
+	                uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+	            }
+	            Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+	            Files.write(path, logo.getBytes());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return "error"; // Xử lý lỗi tải lên
+	        }
+	    }
+
+	    // Cập nhật thông tin nhà tuyển dụng
+	    employer.setCompanyname(companyname);
+	    employer.setCompanywebsite(companywebsite);
+	    employer.setAddress(address);
+	    employer.setIndustry(industry);
+	    employer.setContactperson(contactperson);
+	    if (logoFilename != null) {
+	        employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
+	    }
+	    employer.setCompanydescription(companydescription);
+	    nhaTuyenDungDao.save(employer);
+// >>>>>>> dev
 
 		// Tạo đối tượng JoblistingsEntity và lưu trữ
 		JoblistingsEntity jobListing = new JoblistingsEntity();
@@ -317,101 +384,84 @@ public class NhaTuyenDungController {
 
 			model.addAttribute("dsCV", jobSeekersList);
 		}
-
+		ss.setAttribute("jobid", jobId);
 		// Chuyển đến trang xemcv.jsp để hiển thị danh sách CV
 		return "xemcv";
 	}
 
 	@GetMapping("/jobseekerDetails/{jobseekerid}")
 	public String viewJobseekerDetails(@PathVariable("jobseekerid") Integer jobseekerid, Model model) {
+		String giaoDien = "cvnop";
 		// Tìm thông tin của ứng viên theo jobseekerid
-		JobSeekersEntity jobseeker = jobSeekersDao.findById(jobseekerid).orElse(null);
-
+		ApplicationsEntity jobApplications = applicationsDao
+				.find1ApplicationsByJoblistingId(Integer.parseInt(ss.getAttribute("jobid") + ""), jobseekerid);
+		if (jobApplications.getFilename() != null) {
+			giaoDien = "cvNopFile";
+			String filename = jobApplications.getFilename();
+			model.addAttribute("filename", filename);
+		} else {
+			JobSeekersEntity jobseeker = jobSeekersDao.findById(jobseekerid).orElse(null);
+			model.addAttribute("jobSeeker", jobseeker);
+		}
 		// Đưa thông tin ứng viên vào model để truyền sang view
-		model.addAttribute("jobSeeker", jobseeker);
 
 		// Điều hướng đến trang chi tiết ứng viên
-		return "cvnop"; // Trả về trang JSP
+		return giaoDien; // Trả về trang JSP
 	}
 
 	@PostMapping("/pay")
 	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal servicePrice,
-	                              @RequestParam(value = "serviceId", required = false) String serviceId,
-	                              @RequestParam(value = "userId", required = false) String userId,
-	                              @RequestParam(value = "jobId", required = false) String jobId,
-	                              HttpServletRequest request) {
-	    System.out.println("userId: " + userId);
-	    System.out.println("jobId: " + jobId);
-	    System.out.println("serviceId: " + serviceId);
+			@RequestParam(value = "serviceId", required = false) String serviceId,
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "jobId", required = false) String jobId, HttpServletRequest request) {
+		if (servicePrice == null || serviceId == null || userId == null || jobId == null) {
+			System.out.println("Thiếu tham số bắt buộc: servicePrice, serviceId, userId hoặc jobId.");
+			return "redirect:/employers?error=missingParameters";
+		}
 
-	    if (servicePrice == null || serviceId == null || userId == null || jobId == null) {
-	        System.out.println("Thiếu tham số bắt buộc: servicePrice, serviceId, userId hoặc jobId.");
-	        return "redirect:/employers?error=missingParameters";
-	    }
+		int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
+		String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 
-	    int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
-	    String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
-
-	    // Construct callback URL with userId, serviceId, and jobId for VNPay
-	    String callbackUrl = baseUrl + "/vnpay-payment?userId=" + userId + "&serviceId=" + serviceId + "&jobId=" + jobId;
-	    String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho jobId: " + jobId, callbackUrl);
-
-	    return "redirect:" + vnpayUrl;
+		String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho jobId: " + jobId, baseUrl);
+		return "redirect:" + vnpayUrl;
 	}
 
 	@GetMapping("/vnpay-payment")
 	public String vnpayPayment(HttpServletRequest request, RedirectAttributes redirectAttributes,
-	                           @RequestParam(value = "userId", required = false) String userId,
-	                           @RequestParam(value = "serviceId", required = false) String serviceId,
-	                           @RequestParam(value = "jobId", required = false) String jobId) {
+			@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "serviceId", required = false) String serviceId) {
+		if (userId == null || serviceId == null) {
+			redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId hoặc serviceId.");
+			return "redirect:/employers?error=missingParameters";
+		}
 
-	    System.out.println("userId: " + userId);
-	    System.out.println("jobId: " + jobId);
-	    System.out.println("serviceId: " + serviceId);
+		int paymentStatus = vnPayService.orderReturn(request);
 
-	    // Kiểm tra thông tin đầu vào
-	    if (userId == null || serviceId == null || jobId == null) {
-	        redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
-	        return "redirect:/employers?error=missingParameters";
-	    }
+		if (paymentStatus == 1) {
+			UsersEntity user = userRepository.findByUsername(userId);
+			ServicesEntity service = servicesDao.findByServiceid(Integer.parseInt(serviceId));
 
-	    int paymentStatus = vnPayService.orderReturn(request);
-	    System.out.println("Payment status: " + paymentStatus); // Log trạng thái thanh toán
+			if (user != null && service != null) {
+				PaymentsEntity payment = new PaymentsEntity();
+				payment.setUser(user);
+				payment.setService(service);
+				payment.setAmount(new BigDecimal(request.getParameter("vnp_Amount")).divide(new BigDecimal(100)));
+				payment.setPaymentdate(LocalDate.now());
+				payment.setStatus("HOANTAT");
+				payment.setPaymentmethod("VNPay");
 
-	    if (paymentStatus == 1) {
-	        UsersEntity user = userRepository.findByUsername(userId);
-	        ServicesEntity service = servicesDao.findByServiceid(Integer.parseInt(serviceId));
+				paymentDao.save(payment);
+			} else {
+				redirectAttributes.addFlashAttribute("message", "Người dùng hoặc dịch vụ không hợp lệ.");
+				return "redirect:/employers?error=invalidData";
+			}
 
-	        if (user != null && service != null) {
-	            PaymentsEntity payment = new PaymentsEntity();
-	            payment.setUser(user);
-	            payment.setService(service);
+			redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
+		} else {
+			redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");
+		}
 
-	            // Chuyển đổi số tiền VNPay (chia 100)
-	            BigDecimal amount = new BigDecimal(request.getParameter("vnp_Amount")).divide(new BigDecimal(100));
-	            payment.setAmount(amount);
-	            payment.setPaymentdate(LocalDate.now());
-	            payment.setStatus("HOANTAT");
-	            payment.setPaymentmethod("VNPay");
-
-	            // Lưu thông tin thanh toán vào cơ sở dữ liệu
-	            paymentDao.save(payment);
-	            redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
-	        } else {
-	            redirectAttributes.addFlashAttribute("message", "Người dùng hoặc dịch vụ không hợp lệ.");
-	            redirectAttributes.addAttribute("userId", userId);
-	            redirectAttributes.addAttribute("serviceId", serviceId);
-	            redirectAttributes.addAttribute("jobId", jobId);
-	            return "redirect:/employers?error=invalidData";
-	        }
-	    } else {
-	        redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");
-	        redirectAttributes.addAttribute("userId", userId);
-	        redirectAttributes.addAttribute("serviceId", serviceId);
-	        redirectAttributes.addAttribute("jobId", jobId);
-	    }
-
-	    return "redirect:/employers";
+		return "redirect:/employers";
 	}
 
 }

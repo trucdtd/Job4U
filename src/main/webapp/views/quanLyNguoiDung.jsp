@@ -276,28 +276,24 @@
 
 
 					<!--statisticalManagement table -->
-					<div id="statisticalManagement" class="card" style="display: none;">
-						<div class="card-header">
-							<div class="card-title">Quản Lý Thống Kê</div>
+					<div id="statisticalManagement"
+						class="card shadow-sm rounded-4 border-0"
+						style="display: none; background-color: #eafaf1;">
+						<div
+							class="card-header bg-success text-white d-flex align-items-center rounded-top">
+							<h5 class="card-title mb-0">Quản Lý Thống Kê</h5>
 						</div>
 						<div class="card-body">
-							<h5 class="card-title">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a
-										style="text-decoration: none;" href="/thongke">Thống kê
-											chi tiết </a><i class="bi bi-graph-up"></i></li>
+							<h6 class="mb-3 text-secondary">
+								<ol class="breadcrumb bg-transparent p-0 m-0">
+									<li class="breadcrumb-item"><a href="/thongke"
+										class="text-decoration-none text-success">Thống kê chi
+											tiết</a> <i class="bi bi-graph-up ms-2"></i></li>
 								</ol>
-							</h5>
-							<div class="panel panel-default">
-								<!-- /.panel-heading -->
-
-								<!-- /.panel-body -->
-							</div>
+							</h6>
 						</div>
 					</div>
-
 				</div>
-
 				<!--  -->
 			</div>
 		</div>

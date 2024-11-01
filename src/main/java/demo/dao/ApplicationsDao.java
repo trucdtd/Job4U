@@ -26,6 +26,10 @@ public interface ApplicationsDao extends JpaRepository<ApplicationsEntity, Integ
 		       "JOIN a.job j " +
 		       "WHERE j.jobid = :joblistingId")
 		List<ApplicationsEntity> findApplicationsByJoblistingId(@Param("joblistingId") Integer joblistingId);
+	@Query("SELECT a FROM ApplicationsEntity a " +
+		       "JOIN a.job j " +
+		       "WHERE j.jobid = :joblistingId and a.jobseeker.jobseekerid = :jskid")
+		ApplicationsEntity find1ApplicationsByJoblistingId(@Param("joblistingId") Integer joblistingId,@Param("jskid") Integer jskid);
 	
     List<ApplicationsEntity> findByJobseeker_User_Userid(Integer userId);
 

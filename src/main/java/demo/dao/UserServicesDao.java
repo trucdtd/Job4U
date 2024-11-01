@@ -1,6 +1,7 @@
 package demo.dao;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,9 @@ import demo.entity.UserServicesEntity;
 
 
 public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integer>{
-	
-	@Query("SELECT COUNT(s) FROM UserServicesEntity s WHERE s.purchasedate >= :startDate")
-	Integer countServicesSince(@Param("startDate") LocalDate startDate);
+
+	@Query("SELECT COUNT(s) FROM UserServicesEntity s WHERE s.purchasedate >= :startDate AND s.purchasedate <= :endDate")
+	Integer countServicesInRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
+
 }

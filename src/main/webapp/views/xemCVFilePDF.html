@@ -31,7 +31,8 @@ body {
 
 /* Container chính */
 .cv-container {
-	max-width: 800px;
+	max-width: 900px;
+	max-height: 900px;
 	margin: 0 auto;
 	background-color: #fff;
 	padding: 30px;
@@ -144,91 +145,58 @@ p {
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
 	<div class="container mt-4">
+		<%-- <h2 class="text-center mb-4">Chi Tiết CV của ${cv.user.fullname}</h2> --%>
+		<!-- <div class="card">
+			<div class="card-header bg-success text-white text-center">
+				<h5>Thông Tin Ứng Viên</h5>
+			</div> -->
+
 		<div class="cv-container" id="cv-content">
-			<div class="cv-header text-center">
-				<h2>${cv.fullnamecv}</h2>
-				<h4>Curriculum Vitae</h4>
-			</div>
-
-			<div class="cv-body">
-				<div class="cv-section">
-					<h3>Thông Tin Cá Nhân</h3>
-					<div class="info-grid">
-						<div class="photo-container">
-							<img src="${pageContext.request.contextPath}/uploads/${cv.image}" alt="Ảnh ứng viên" class="cv-photo"
-								onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
-							<div class="placeholder-photo" style="display: none;">
-								<img src="path/to/placeholder-image.png" alt="Khung ảnh"
-									class="placeholder">
-							</div>
-						</div>
-						<div class="info-details">
-							<div>
-								<strong>Tên:</strong> ${cv.fullnamecv}
-							</div>
-
-							<div>
-								<strong>Giới Tính:</strong> ${cv.gender}
-							</div>
-							<div>
-								<strong>Ngày Sinh:</strong> ${cv.dateOfbirth}
-							</div>
-							<div>
-								<strong>Email:</strong> ${cv.emailcv}
-							</div>
-							<div>
-								<strong>Số Điện Thoại:</strong> ${cv.phonenumbercv}
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="cv-section">
-					<h3>Tóm Tắt Hồ Sơ</h3>
-					<p>${cv.profilesummary}</p>
-				</div>
-
-				<div class="cv-section">
-					<h3>Kinh Nghiệm</h3>
-					<p>${cv.experience}</p>
-				</div>
-
-				<div class="cv-section">
-					<h3>Học Vấn</h3>
-					<p>${cv.education}</p>
-				</div>
-
-				<div class="cv-section">
-					<h3>Kỹ Năng</h3>
-					<p>${cv.skills}</p>
-				</div>
-
-				<div class="cv-section">
-					<h3>Chứng Chỉ</h3>
-					<p>${cv.certifications}</p>
-				</div>
-
-				<div class="cv-section">
-					<h3>Ngôn Ngữ</h3>
-					<p>${cv.languages}</p>
-				</div>
-
-				<div class="cv-section">
-					<h3>Sở Thích</h3>
-					<p>${cv.interests}</p>
-				</div>
-			</div>
-
+			<iframe src="/uploads/${filename}" width="100%" height="100%"></iframe>
 		</div>
-
-		<!-- </div> -->
-		<div class="text-center mt-4 mb-4">
-			<button class="btn btn-success" onclick="downloadPDF()">Tải
-				CV Dưới Dạng PDF</button>
-				<button class="btn btn-success" >Sửa</button>
+	</div>
+	<br>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-3">
+				<table id="listCV" class="table table-striped table-sm text-center">
+					<thead>
+						<tr>
+							<th>Trạng Thái</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="cv" items="${cvList}">
+							<tr>
+								<td><c:choose>
+										<c:when test="${cv.status == 0}">Đang chờ</c:when>
+										<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
+										<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+										<c:otherwise>Không xác định</c:otherwise>
+									</c:choose></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
+	</div>
+
+
+	<!-- </div> -->
+	<div class="text-center mt-4 mb-4">
+		<button class="btn btn-success"
+			onclick="acceptApplication(${application.applicationid})">Chấp
+			nhận</button>
+		<button class="btn btn-danger"
+			onclick="rejectApplication(${application.applicationid})">Từ
+			Chối</button>
+		<button class="btn btn-primary" onclick="downloadPDF()">Tải
+			CV Dưới Dạng PDF</button>
 
 	</div>
+
+
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
@@ -247,7 +215,7 @@ p {
 					quality : 0.98
 				},
 				html2canvas : {
-					scale : 2
+					scale : 1
 				},
 				jsPDF : {
 					unit : 'in',
@@ -256,8 +224,55 @@ p {
 				}
 			};
 			html2pdf().set(opt).from(element).save();
-		}
+		}						
 	</script>
+
+	<script>
+   function acceptApplication(applicationId) {
+	    fetch(`/cvDetails/${applicationId}/accept`, {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	            'X-Requested-With': 'XMLHttpRequest'
+	        }
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            alert('Chấp nhận đơn ứng tuyển thành công!');
+	            window.location.reload();
+	        } else {
+	            alert('Có lỗi xảy ra khi chấp nhận đơn ứng tuyển!');
+	        }
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	        alert('Có lỗi xảy ra khi chấp nhận đơn ứng tuyển!');
+	    });
+	}
+
+   function rejectApplication(applicationId) {
+	    fetch(`/cvDetails/${applicationId}/reject`, {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	            'X-Requested-With': 'XMLHttpRequest'
+	        }
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            alert('Đã từ chối đơn ứng tuyển!');
+	            window.location.reload();
+	        } else {
+	            alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
+	        }
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	        alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
+	    });
+	}
+    </script>
+
 
 </body>
 </html>
