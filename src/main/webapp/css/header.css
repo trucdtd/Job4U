@@ -39,8 +39,8 @@ display: none;
     justify-content: center;
 }
 .dropdown-item:hover {
-    background-color: #c0c0c0!important; /* Màu xanh khi hover */
-    color: white !important; /* Màu chữ khi hover */
+    background-color: rgb(211, 211, 211) !important; /* Màu xanh khi hover */
+    color:#198754 !important; /* Màu chữ khi hover */
 }
 
 .dropdown-menu {
