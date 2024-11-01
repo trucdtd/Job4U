@@ -39,7 +39,7 @@
 			<tbody>
 				<c:forEach items="${dsCV}" var="application">
 					<tr>
-						<td>${application.fullnamecv}</td>
+						<td>${application.emailcv}</td>
 						<!-- Định dạng ngày tháng từ trường createdat -->
 						<td class="formatted-date" data-date="${application.createdat}"></td>
 						<td><c:choose>
