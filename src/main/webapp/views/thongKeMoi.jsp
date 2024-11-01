@@ -34,53 +34,51 @@
 						<div class="card info-card sales-card shadow-sm">
 							<div class="card-body">
 								<h5 class="card-title">
-									Bài viết <span class="text-muted">| <select
-										id="post-timeframe" onchange="updatePostData()">
-											<option value="today">Hôm nay</option>
-											<option value="6months">6 tháng</option>
-											<option value="1year">1 năm</option>
-									</select>
-									</span>
+									Bài Viết <br> <small class="text-muted">
+										<div class="d-flex align-items-center">
+											<input type="date" id="post-start-date"
+												class="form-control me-2" onchange="updateData('posts')"
+												style="width: 150px;"> <input type="date"
+												id="post-end-date" class="form-control"
+												onchange="updateData('posts')" style="width: 150px;">
+										</div>
+									</small>
 								</h5>
 								<div class="d-flex align-items-center justify-content-center">
 									<div
 										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
 										<i class="bi bi-file-text"></i>
-										<!-- Thay đổi icon thành bài viết -->
 									</div>
 									<div class="ps-3">
 										<h6 id="post-count">${postToday}</h6>
-										<!-- <span class="text-success small fw-bold" id="post-percentage">0%</span>
-										<span class="text-muted small">tăng</span> -->
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<!-- Customers Card -->
 					<div class="col-xxl-4 col-md-6 mb-4">
 						<div class="card info-card customers-card shadow-sm">
 							<div class="card-body">
 								<h5 class="card-title">
-									Người dùng <span class="text-muted">| <select
-										id="user-timeframe" onchange="updateUserData()">
-											<option value="today">Hôm nay</option>
-											<option value="6months">6 tháng</option>
-											<option value="1year">1 năm</option>
-									</select>
-									</span>
+									Người Dùng <br> <small class="text-muted">
+										<div class="d-flex align-items-center">
+											<input type="date" id="user-start-date"
+												class="form-control me-2" onchange="updateData('users')"
+												style="width: 150px;"> <input type="date"
+												id="user-end-date" class="form-control"
+												onchange="updateData('users')" style="width: 150px;">
+										</div>
+									</small>
 								</h5>
+
 								<div class="d-flex align-items-center justify-content-center">
 									<div
 										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
 										<i class="bi bi-people"></i>
-										<!-- Biểu tượng người dùng -->
 									</div>
 									<div class="ps-3">
 										<h6 id="user-count">${usersToday}</h6>
-										<!-- <span class="text-danger small fw-bold" id="user-percentage">0%</span>
-										<span class="text-muted small">giảm</span> -->
 									</div>
 								</div>
 							</div>
@@ -91,30 +89,30 @@
 						<div class="card info-card sales-card shadow-sm">
 							<div class="card-body">
 								<h5 class="card-title">
-									Dịch Vụ <span class="text-muted">| <select
-										id="sales-timeframe" onchange="updateSalesData()">
-											<option value="today">Hôm nay</option>
-											<option value="6months">6 tháng</option>
-											<option value="1year">1 năm</option>
-									</select>
-									</span>
+									Dịch Vụ <br> <small class="text-muted">
+										<div class="d-flex align-items-center">
+											<input type="date" id="sales-start-date"
+												class="form-control me-2" onchange="updateData('services')"
+												style="width: 150px;"> <input type="date"
+												id="sales-end-date" class="form-control"
+												onchange="updateData('services')" style="width: 150px;">
+										</div>
+									</small>
 								</h5>
+
 								<div class="d-flex align-items-center justify-content-center">
 									<div
 										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
 										<i class="bi bi-cart" style="color: green;"></i>
-										<!-- Biểu tượng giỏ hàng -->
 									</div>
 									<div class="ps-3">
 										<h6 id="sales-count">${serviceToday}</h6>
-										<!-- <span class="text-success small fw-bold" id="sales-percentage">0%</span>
-										<span class="text-muted small">tăng</span> -->
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
+					<!-- Table for Sold Services -->
 					<div class="col-12">
 						<div class="card recent-sales shadow-sm">
 							<div class="card-body">
@@ -146,15 +144,11 @@
 											<c:set var="totalRevenue"
 												value="${totalRevenue + tk.service.price}" />
 										</c:forEach>
-										<!-- Thêm dòng tính tổng doanh thu với màu đỏ -->
 										<tr>
 											<th style="color: red;" scope="row"><strong>Tổng
 													Doanh Thu:</strong></th>
 											<td></td>
-											<!-- Cột User Id trống -->
 											<td></td>
-											<!-- Cột PurchaseDate trống -->
-
 											<td style="color: red;"><c:choose>
 													<c:when test="${totalRevenue != null}">
 														<span style="display: inline-flex; align-items: center;">
@@ -162,7 +156,6 @@
 															VND </span>
 													</c:when>
 												</c:choose></td>
-											<!-- Tổng doanh thu hiện ở cột Price -->
 										</tr>
 									</tbody>
 								</table>
@@ -173,53 +166,39 @@
 			</div>
 		</section>
 	</div>
-	<br>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-
-	<!-- ChartJS and custom script -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
-		function updatePostData() {
-			const timeframe = document.getElementById("post-timeframe").value;
-			const postCountElement = document.getElementById("post-count");
+	function updateData(type) {
+	    // Lấy các phần tử nhập ngày bắt đầu và kết thúc cho từng loại thống kê
+	    const startDateInput = document.getElementById(`${type}-start-date`);
+	    const endDateInput = document.getElementById(`${type}-end-date`);
 
-			if (timeframe === "today") {
-				postCountElement.innerText = "${postToday}";
-			} else if (timeframe === "6months") {
-				postCountElement.innerText = "${post6Months}";
-			} else if (timeframe === "1year") {
-				postCountElement.innerText = "${post1Year}";
-			}
-		}
+	    // Kiểm tra xem các phần tử có tồn tại hay không
+	    if (!startDateInput || !endDateInput) {
+	        console.error(`Không tìm thấy phần tử với ID ${type}-start-date hoặc ${type}-end-date`);
+	        return;
+	    }
 
-		function updateUserData() {
-			const timeframe = document.getElementById("user-timeframe").value;
-			const userCountElement = document.getElementById("user-count");
+	    const startDate = startDateInput.value;
+	    const endDate = endDateInput.value;
 
-			if (timeframe === "today") {
-				userCountElement.innerText = "${usersToday}";
-			} else if (timeframe === "6months") {
-				userCountElement.innerText = "${usersSixMonths}";
-			} else if (timeframe === "1year") {
-				userCountElement.innerText = "${usersOneYear}";
-			}
-		}
-
-		function updateSalesData() {
-			const timeframe = document.getElementById("sales-timeframe").value;
-			const salesCountElement = document.getElementById("sales-count");
-
-			if (timeframe === "today") {
-				salesCountElement.innerText = "${serviceToday}";
-			} else if (timeframe === "6months") {
-				salesCountElement.innerText = "${service6Months}";
-			} else if (timeframe === "1year") {
-				salesCountElement.innerText = "${service1Year}";
-			}
-		}
+	    // Kiểm tra xem cả hai ngày bắt đầu và kết thúc đã được chọn hay chưa
+	    if (startDate && endDate) {
+	        // Gọi API tương ứng để lấy dữ liệu thống kê
+	        fetch(`/thongke/${type}?start=${startDate}&end=${endDate}`)
+	            .then(response => response.json())
+	            .then(data => {
+	                // Cập nhật dữ liệu thống kê lên giao diện
+	                document.getElementById(`${type}-count`).innerText = data.count;
+	            })
+	            .catch(error => console.error("Lỗi khi lấy dữ liệu:", error));
+	    }
+	}
 	</script>
+
 	<!-- Khởi tạo DataTable -->
 	<script>
 		$(document)

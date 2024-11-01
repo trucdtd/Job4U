@@ -1,6 +1,7 @@
 package demo.dao;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -117,9 +118,9 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	 * @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :since"
 	 * ) int countNewPostsSince(@Param("since") LocalDate since);
 	 */
-     
-     @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :sinceDate")
-     Integer countPostsSince(@Param("sinceDate") LocalDate sinceDate);
+     //thong ke
+    @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :startDate AND j.posteddate <= :endDate")
+	Integer countPostsInRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
   // Tìm kiếm các công việc, sắp xếp isTop trước
      @Modifying

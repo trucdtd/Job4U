@@ -68,9 +68,9 @@ public class doimatkhauController {
 	            return "redirect:/changePass";
 	        }
 
-	        // Kiểm tra mật khẩu mới có ký tự số và ký tự chữ cái
-	        if (!newPassword.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
-	            redirectAttributes.addFlashAttribute("error", "Mật khẩu mới phải có ít nhất 8 ký tự và chứa ký tự số");
+	     // Kiểm tra mật khẩu mới có ít nhất 8 ký tự và chứa ký tự số
+	        if (newPassword.length() < 8 || !newPassword.matches(".*\\d.*")) {
+	            redirectAttributes.addFlashAttribute("error", "Mật khẩu mới phải có ít nhất 8 ký tự và chứa ít nhất 1 ký tự số");
 	            return "redirect:/changePass";
 	        }
 
