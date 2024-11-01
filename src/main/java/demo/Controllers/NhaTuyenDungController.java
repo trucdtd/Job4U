@@ -138,6 +138,18 @@ public class NhaTuyenDungController {
 	}
 
 	@PostMapping("/submit")
+// <<<<<<< HEAD
+// 	public String themTuyenDung(@RequestParam("companyname") String companyname,
+// 			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
+// 			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
+// 			@RequestParam(value = "logo", required = false) MultipartFile logo,
+// 			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
+// 			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) String salary,
+// 			@RequestParam("companydescription") String companydescription,
+// 			@RequestParam("jobrequirements") String jobrequirements,
+// 			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
+// 			@RequestParam("applicationdeadline") String applicationdeadline) {
+// =======
 	public String themTuyenDung(
 	        @RequestParam("companyname") String companyname,
 	        @RequestParam("companywebsite") String companywebsite,
@@ -155,6 +167,7 @@ public class NhaTuyenDungController {
 	        @RequestParam("posteddate") String posteddate,
 	        @RequestParam("applicationdeadline") String applicationdeadline,
 	        Model model) {
+// >>>>>>> dev
 
 		// Kiểm tra dữ liệu đầu vào
 		if (companyname == null || companyname.isEmpty()) {
@@ -169,6 +182,37 @@ public class NhaTuyenDungController {
 			return "error"; // Nhà tuyển dụng không tồn tại
 		}
 
+// <<<<<<< HEAD
+// 		// Kiểm tra và lưu logo
+// 		String logoFilename = null;
+// 		if (logo != null && !logo.isEmpty()) {
+// 			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+// 			try {
+// 				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+// 				if (!uploadsDir.exists()) {
+// 					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+// 				}
+// 				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+// 				Files.write(path, logo.getBytes());
+// 			} catch (IOException e) {
+// 				e.printStackTrace();
+// 				return "error"; // Xử lý lỗi tải lên
+// 			}
+// 		}
+
+// 		// Cập nhật thông tin nhà tuyển dụng
+// 		employer.setCompanyname(companyname);
+// 		employer.setCompanywebsite(companywebsite);
+// 		employer.setAddress(address);
+// 		employer.setIndustry(industry);
+// 		employer.setContactperson(contactperson);
+// 		if (logoFilename != null) {
+// 			employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
+// 		}
+// 		employer.setCompanydescription(companydescription);
+
+// 		nhaTuyenDungDao.save(employer);
+// =======
 	    // Kiểm tra số lượng bài viết đã đăng trong tháng
 	    LocalDate now = LocalDate.now();
 	    LocalDate startOfMonth = now.withDayOfMonth(1);
@@ -210,6 +254,8 @@ public class NhaTuyenDungController {
 	    }
 	    employer.setCompanydescription(companydescription);
 	    nhaTuyenDungDao.save(employer);
+// >>>>>>> dev
+
 		// Tạo đối tượng JoblistingsEntity và lưu trữ
 		JoblistingsEntity jobListing = new JoblistingsEntity();
 		jobListing.setJobtitle(jobtitle);
