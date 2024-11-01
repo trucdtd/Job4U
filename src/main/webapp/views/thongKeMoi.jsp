@@ -37,10 +37,10 @@
 									Bài Viết <br> <small class="text-muted">
 										<div class="d-flex align-items-center">
 											<input type="date" id="post-start-date"
-												class="form-control me-2" onchange="updateData('posts')"
+												class="form-control me-2" onchange="updateData('post')"
 												style="width: 150px;"> <input type="date"
 												id="post-end-date" class="form-control"
-												onchange="updateData('posts')" style="width: 150px;">
+												onchange="updateData('post')" style="width: 150px;">
 										</div>
 									</small>
 								</h5>
@@ -63,11 +63,12 @@
 								<h5 class="card-title">
 									Người Dùng <br> <small class="text-muted">
 										<div class="d-flex align-items-center">
-											<input type="date" id="user-start-date"
-												class="form-control me-2" onchange="updateData('users')"
+											<input type="date" id="posts-start-date"
+												class="form-control me-2" onchange="updateData('posts')"
 												style="width: 150px;"> <input type="date"
-												id="user-end-date" class="form-control"
-												onchange="updateData('users')" style="width: 150px;">
+												id="posts-end-date" class="form-control"
+												onchange="updateData('posts')" style="width: 150px;">
+
 										</div>
 									</small>
 								</h5>
