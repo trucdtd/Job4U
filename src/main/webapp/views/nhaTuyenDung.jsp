@@ -149,7 +149,7 @@
 						class="fs-4 ms-2" style="background: #198754; color: white;">Menu Tuyển Dụng</span>
 					</a>
 					<hr>
-					<ul class="nav nav-pills flex-column mb-auto">
+					<ul class="nav flex-column mb-auto">
 						<li><a href="#"
 							class=" navnhatuyendung nav-link text-dark active"
 							onclick="showTable(event, 'employersManagement')"> <i
