@@ -20,113 +20,113 @@
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 <style>
-    /* Modal background */
-    .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
+/* Modal background */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
 
-    /* Modal content */
-    .modal-content {
-        background-color: #fff;
-        border-radius: 8px;
-        width: 90%;
-        max-width: 400px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-    }
+/* Modal content */
+.modal-content {
+	background-color: #fff;
+	border-radius: 8px;
+	width: 90%;
+	max-width: 400px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+}
 
-    /* Modal header */
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 20px;
-        border-bottom: 1px solid #ddd;
-    }
+/* Modal header */
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 20px;
+	border-bottom: 1px solid #ddd;
+}
 
-    .modal-header h2 {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin: 0;
-    }
+.modal-header h2 {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+	margin: 0;
+}
 
-    /* Close button */
-    .close {
-        font-size: 20px;
-        font-weight: bold;
-        color: #999;
-        cursor: pointer;
-    }
+/* Close button */
+.close {
+	font-size: 20px;
+	font-weight: bold;
+	color: #999;
+	cursor: pointer;
+}
 
-    .close:hover {
-        color: #555;
-    }
+.close:hover {
+	color: #555;
+}
 
-    /* Modal body */
-    .modal-body {
-        padding: 20px;
-        font-size: 16px;
-        color: #333;
-        text-align: center;
-    }
+/* Modal body */
+.modal-body {
+	padding: 20px;
+	font-size: 16px;
+	color: #333;
+	text-align: center;
+}
 
-    /* Modal footer */
-    .modal-footer {
-        padding: 15px 20px;
-        border-top: 1px solid #ddd;
-        display: flex;
-        justify-content: center;
-    }
+/* Modal footer */
+.modal-footer {
+	padding: 15px 20px;
+	border-top: 1px solid #ddd;
+	display: flex;
+	justify-content: center;
+}
 
-    /* OK Button */
-    .modal-button {
-        background-color: #4CAF50;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+/* OK Button */
+.modal-button {
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
 
-    .modal-button:hover {
-        background-color: #45a049;
-    }
+.modal-button:hover {
+	background-color: #45a049;
+}
 </style>
 
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
-	
+
 	<!-- Modal Hiển Thị Thông Báo Thanh Toán -->
-<c:if test="${not empty message}">
-    <div id="paymentSuccessModal" class="modal" style="display: flex;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Thông báo</h2>
-                <span class="close" onclick="closeModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p>${message}</p>
-            </div>
-            <div class="modal-footer">
-                <button onclick="closeModal()" class="modal-button">OK</button>
-            </div>
-        </div>
-    </div>
-</c:if>
+	<c:if test="${not empty message}">
+		<div id="paymentSuccessModal" class="modal" style="display: flex;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>Thông báo</h2>
+					<span class="close" onclick="closeModal()">&times;</span>
+				</div>
+				<div class="modal-body">
+					<p>${message}</p>
+				</div>
+				<div class="modal-footer">
+					<button onclick="closeModal()" class="modal-button">OK</button>
+				</div>
+			</div>
+		</div>
+	</c:if>
 
 	<div class="container">
 		<div class="container mt-4">
@@ -146,7 +146,8 @@
 					<a href="#"
 						class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none text-center">
 						<i class="bi bi-journal-arrow-down" style="font-size: 40px"></i> <span
-						class="fs-4 ms-2" style="background: #198754; color: white;">Menu Tuyển Dụng</span>
+						class="fs-4 ms-2" style="background: #198754; color: white;">Menu
+							Tuyển Dụng</span>
 					</a>
 					<hr>
 					<ul class="nav flex-column mb-auto">
@@ -164,9 +165,9 @@
 								class="bi bi-grid me-2"></i> CV Ứng Tuyển
 						</a></li>
 						<li><a href="#" class="navnhatuyendung nav-link text-dark"
-							onclick="showTable(event, 'postingServices')"> <i
-								class="bi bi-house me-2"></i> Dịch Vụ Bài Đăng
-						</a></li>
+							onclick="showTable(event, 'postingServices')"><img width="20"
+								height="20" src="https://img.icons8.com/ios/50/card-in-use.png"
+								alt="card-in-use" /> Dịch Vụ Bài Đăng </a></li>
 					</ul>
 					<hr>
 				</div>
@@ -497,7 +498,7 @@
 					</div>
 					<br>
 					<%@ include file="/views/dichVu.jsp"%>
-					
+
 				</div>
 			</div>
 			<!-- article -->
@@ -516,7 +517,8 @@
 					</div>
 					<div class="modal-body">
 						<form id="editJobForm" action="/employers/edit" method="post">
-							<input type="hidden" id="jobIdedit" name="jobIdedit" class="form-control" />
+							<input type="hidden" id="jobIdedit" name="jobIdedit"
+								class="form-control" />
 							<div class="mb-3">
 								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
 									type="text" class="form-control" id="jobTitle" name="jobTitle" />
@@ -803,7 +805,7 @@ document.getElementById('logo').addEventListener('change', function(event) {
     }
 });
 </script>
-<script>
+	<script>
     // Close modal function
     function closeModal() {
         document.getElementById("paymentSuccessModal").style.display = "none";
