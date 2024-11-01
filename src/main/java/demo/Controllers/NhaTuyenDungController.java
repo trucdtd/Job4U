@@ -297,7 +297,10 @@ public class NhaTuyenDungController {
 		}
 
 		// Xóa bài đăng
-		danhSachViecLamDao.delete(jobListing);
+//		danhSachViecLamDao.delete(jobListing);
+		// Cập nhật trạng thái hoạt động thành false
+	    jobListing.setActive(false); // Giả sử có thuộc tính active trong entity
+	    danhSachViecLamDao.save(jobListing); // Lưu lại thay đổi trong cơ sở dữ liệu
 		model.addAttribute("success", "Xóa bài đăng thành công.");
 		return "redirect:/employers";
 	}
