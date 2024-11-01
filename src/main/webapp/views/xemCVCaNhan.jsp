@@ -290,32 +290,33 @@ p {
 				</div>
 				<div class="about section">
 					<div class="section-title">Giới Thiệu</div>
-					<p>${cv.profilesummary}</p>
+					<p contenteditable="true">${cv.profilesummary}</p>
 				</div>
 				<div class="contact section">
 					<div class="section-title">Liên Hệ</div>
-					<p>📞 ${cv.phonenumbercv}</p>
-					<p>✉️ ${cv.emailcv}</p>
-					<p>Ngày Sinh: ${cv.dateOfbirth}</p>
-					<p>Giới tính: ${cv.gender}</p>
+					<p contenteditable="true">📞 ${cv.phonenumbercv}</p>
+					<p contenteditable="true">✉️ ${cv.emailcv}</p>
+					<p contenteditable="true">Ngày Sinh: ${cv.dateOfbirth}</p>
+					<p contenteditable="true">Giới tính: ${cv.gender}</p>
 				</div>
 				<div class="skills section">
 					<div class="section-title">Kỹ Năng</div>
 					<ul>
-						<li>${cv.skills}</li>
+						<li contenteditable="true">${cv.skills}</li>
 					</ul>
 				</div>
 				<div class="language section">
 					<div class="section-title">Ngôn Ngữ</div>
-					<p>${cv.languages}</p>
+					<p contenteditable="true">${cv.languages}</p>
 				</div>
 			</div>
 
 			<div class="right-column" id="sortable-right">
+			<h1 contenteditable="true">${cv.fullnamecv}</h1>
 				<div class="experience section">
 					<div class="section-title">Kinh Nghiệm Làm Việc</div>
 					<div class="job">
-						<h3>Quản lý Marketing</h3>
+						<h3 contenteditable="true">Quản lý Marketing</h3>
 						<span>Aerowell Industries | 2022 - 2023</span>
 						<p class="description">Lãnh đạo các sáng kiến tiếp thị...</p>
 					</div>
@@ -323,14 +324,14 @@ p {
 				<div class="education section">
 					<div class="section-title">Học Vấn</div>
 					<div class="education-item">
-						<h3>${cv.education}</h3>
-						<span>Cử nhân Quản trị Kinh doanh | 2019 - 2023</span>
+						<h3 contenteditable="true">${cv.education}</h3>
+						<span contenteditable="true">Cử nhân Quản trị Kinh doanh | 2019 - 2023</span>
 					</div>
 				</div>
 				<div class="references section">
-					<div class="section-title">Người Tham Chiếu</div>
-					<div class="reference-item">
-						<h3>Harumi Kobayashi</h3>
+					<div  contenteditable="true" class="section-title">Người Tham Chiếu</div>
+					<div contenteditable="true" class="reference-item">
+						<h3 contenteditable="true" >Harumi Kobayashi</h3>
 						<span>Saiford & Co. | CEO</span>
 						<p>📞 123-456-7890</p>
 						<p>✉️ hello@reallygreatsite.com</p>
@@ -342,6 +343,7 @@ p {
 
 	</div>
 
+<!-- Trạng thái cv ứng tuyển -->
 	<br>
 	<div class="container">
 		<div class="row justify-content-center">
@@ -443,6 +445,35 @@ p {
 			// Có thể thực hiện thêm thao tác, ví dụ gửi dữ liệu qua AJAX
 		});
 	});
+	
+	
+	/* chỉnh sửa dữ liệu của cv khi đã được hiện lên*/
+	document.querySelectorAll('[contenteditable="true"]').forEach(element => {
+	    element.addEventListener("blur", function() {
+	        const updatedContent = this.innerHTML;
+	        const contentId = this.getAttribute('data-id');
+
+	        // Gửi dữ liệu qua AJAX hoặc lưu vào một biến
+	        console.log(`Nội dung mới của phần tử ${contentId}: ${updatedContent}`);
+
+	        // Ví dụ gửi AJAX (bạn cần cài đặt đường dẫn và method phù hợp)
+	        fetch('/updateCv', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json',
+	            },
+	            body: JSON.stringify({ id: contentId, value: updatedContent }),
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            console.log('Thành công:', data);
+	        })
+	        .catch((error) => {
+	            console.error('Lỗi:', error);
+	        });
+	    });
+	});
+
 </script>
 
 
