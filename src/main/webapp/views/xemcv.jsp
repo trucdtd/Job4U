@@ -131,6 +131,53 @@ $(document).ready(function() {
             }
         });
     });
+    
+    <script>
+    function acceptApplication(applicationId) {
+ 	    fetch(`/cvDetails/${applicationId}/accept`, {
+ 	        method: 'POST',
+ 	        headers: {
+ 	            'Content-Type': 'application/json',
+ 	            'X-Requested-With': 'XMLHttpRequest'
+ 	        }
+ 	    })
+ 	    .then(response => {
+ 	        if (response.ok) {
+ 	            alert('Chấp nhận đơn ứng tuyển thành công!');
+ 	            window.location.reload();
+ 	        } else {
+ 	            alert('Có lỗi xảy ra khi chấp nhận đơn ứng tuyển!');
+ 	        }
+ 	    })
+ 	    .catch(error => {
+ 	        console.error('Error:', error);
+ 	        alert('Có lỗi xảy ra khi chấp nhận đơn ứng tuyển!');
+ 	    });
+ 	}
+
+    function rejectApplication(applicationId) {
+ 	    fetch(`/cvDetails/${applicationId}/reject`, {
+ 	        method: 'POST',
+ 	        headers: {
+ 	            'Content-Type': 'application/json',
+ 	            'X-Requested-With': 'XMLHttpRequest'
+ 	        }
+ 	    })
+ 	    .then(response => {
+ 	        if (response.ok) {
+ 	            alert('Đã từ chối đơn ứng tuyển!');
+ 	            window.location.reload();
+ 	        } else {
+ 	            alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
+ 	        }
+ 	    })
+ 	    .catch(error => {
+ 	        console.error('Error:', error);
+ 	        alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
+ 	    });
+ 	}
+     </script>
+
 </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
