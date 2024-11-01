@@ -362,38 +362,6 @@ public class NhaTuyenDungController {
 		return "xemcv";
 	}
 
-	@GetMapping("/jobseekerDetails/{jobseekerid}")
-	public String viewJobseekerDetails(@PathVariable("jobseekerid") Integer jobseekerid,
-			Model model) {
- 
-		  ApplicationsEntity applicationDetails = applicationsDao.findById(jobseekerid).orElse(null);
-	      
-		  
-			
-		  // Lấy danh sách CV của ứng viên dựa trên jobListingId
-//		  List<ApplicationsEntity> cvList = 
-//		  applicationsDao.findApplicationsByJoblistingId(applicationId);
-		  
-		  List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByJoblistingId(jobseekerid);
-		  // Thêm danh sách CV vào mô hình
-	        model.addAttribute("cvList", cvList);
-		  // Thêm danh sách CV vào mô hình model.addAttribute("cvList", cvList);
-		 
-      
-      if (applicationDetails == null) {
-          model.addAttribute("errorMessage", "Không tìm thấy thông tin ứng tuyển.");
-          return "nhaTuyenDung"; // Trả về view với thông báo lỗi
-      }
-
-      JobSeekersEntity jobSeeker = applicationDetails.getJobseeker();
-      model.addAttribute("cv", jobSeeker);
-      model.addAttribute("jobseekerid", applicationDetails.getApplicationid());
-
-      return "cvnop"; // Trả về view chi tiết CV
-		
-		
-	}
-
 	
 	@PostMapping("/pay")
 	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal servicePrice,
