@@ -65,8 +65,10 @@
                             <ul class="features">
                                 <li>${service.description}</li>
                             </ul>
-                            <button type="button" class="btn btn-danger"
-                                onclick="openJobSelectionModal('${service.servicename}', ${service.price}, '${service.description}')">MUA</button>
+                            <input type="hidden" id="serviceid-${service.serviceid}" value="${service.serviceid}" />
+<button type="button" class="btn btn-danger"
+    onclick="openJobSelectionModal('${service.servicename}', ${service.price}, '${service.description}', ${service.serviceid})">MUA</button>
+
                         </div>
                     </div>
                 </div>
@@ -131,8 +133,8 @@
             </table>
         </div>
     </div>
-
-  <!-- Modal Thanh Toán -->
+    
+<!-- Modal Thanh Toán -->
 <div id="paymentModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close" onclick="closePaymentModal()">&times;</span>
@@ -149,14 +151,15 @@
                     <p id="serviceDescription"></p>
                 </div>
             </div>
+            <!-- Form để gửi dữ liệu thanh toán -->
             <form action="/employers/pay" method="post" class="payment-form">
                 <input type="hidden" name="servicePrice" id="servicePriceInput" value="">
-                <input type="hidden" name="serviceId" id="serviceId" value="">
-                <input type="hidden" name="jobId" id="jobId" value="">
+                <input type="hidden" name="serviceId" id="serviceId" value="${serviceId}">
+                <input type="hidden" name="jobId" id="jobId" value="${jobId}">
                 <input type="hidden" name="userId" id="userId" value="${userId}">
 
                 <div class="payment-methods">
-                    <button class="momo2-btn" id="momo2-button" type="button" onclick="submitPayment()">
+                    <button class="momo2-btn" type="button" onclick="submitPayment()">
                         <img src="/img/vnpay.png">
                     </button>
                 </div>
@@ -167,60 +170,54 @@
 </div>
 
 <script>
-    let selectedService = {};
-    let jobIdSelected = null;
+let selectedService = {};
+let jobIdSelected = null;
 
-    function openJobSelectionModal(serviceName, servicePrice, serviceDescription, serviceId) {
-        selectedService = { serviceName, servicePrice, serviceDescription, serviceId };
-        document.getElementById('jobSelectionModal').style.display = 'flex';
+function openJobSelectionModal(serviceName, servicePrice, serviceDescription, serviceId) {
+    selectedService = { serviceName, servicePrice, serviceDescription, serviceId };
+    document.getElementById('jobSelectionModal').style.display = 'flex';
+}
+
+function closeJobSelectionModal() {
+    document.getElementById('jobSelectionModal').style.display = 'none';
+}
+
+function selectJobPost(job) {
+    closeJobSelectionModal();
+    document.getElementById('paymentModal').style.display = 'flex';
+
+    document.getElementById('serviceName').innerText = selectedService.serviceName;
+    document.getElementById('serviceId').value = selectedService.serviceId;
+    document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    }).format(selectedService.servicePrice);
+    document.getElementById('serviceDescription').innerText = selectedService.serviceDescription;
+    document.getElementById('jobIdSelected').innerText = job.jobid;
+
+    // Cập nhật giá trị cho hidden input
+    document.getElementById('jobId').value = job.jobid;
+    document.getElementById('servicePriceInput').value = selectedService.servicePrice;
+    jobIdSelected = job.jobid; // Cập nhật jobIdSelected để kiểm tra khi submit
+}
+
+function closePaymentModal() {
+    document.getElementById('paymentModal').style.display = 'none';
+}
+
+function submitPayment() {
+    // Kiểm tra rằng tất cả thông tin cần thiết đã được chọn
+    if (!jobIdSelected || !selectedService.serviceId || !document.getElementById('userId').value) {
+        alert("Vui lòng chọn tất cả thông tin cần thiết trước khi thanh toán.");
+        return;
     }
 
-    function closeJobSelectionModal() {
-        document.getElementById('jobSelectionModal').style.display = 'none';
-    }
+    // Đảm bảo các hidden input có giá trị đúng
+    document.getElementById('jobId').value = jobIdSelected;
+    document.getElementById('servicePriceInput').value = selectedService.servicePrice;
 
-    function selectJobPost(job) {
-        closeJobSelectionModal();
-        document.getElementById('paymentModal').style.display = 'flex';
-
-        document.getElementById('serviceName').innerText = selectedService.serviceName;
-        document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(selectedService.servicePrice);
-        document.getElementById('serviceDescription').innerText = selectedService.serviceDescription;
-        document.getElementById('jobIdSelected').innerText = job.jobid;
-
-        jobIdSelected = job.jobid;
-    }
-
-    function closePaymentModal() {
-        document.getElementById('paymentModal').style.display = 'none';
-    }
-    
-    function closeModal() {
-        document.getElementById("paymentMessageModal").style.display = "none";
-    }
-    
- // Tự động hiển thị modal nếu có message
-    window.onload = function() {
-        var modal = document.getElementById('paymentMessageModal');
-        if (modal) {
-            modal.style.display = 'flex';
-        }
-    }
-
-    function submitPayment() {
-        console.log("Job ID:", jobIdSelected);
-        console.log("Service Price:", selectedService.servicePrice);
-        console.log("Service ID:", selectedService.serviceId);
-
-        document.getElementById('jobId').value = jobIdSelected;
-        document.getElementById('servicePriceInput').value = selectedService.servicePrice;
-        document.getElementById('serviceId').value = selectedService.serviceId;
-
-        document.querySelector('.payment-form').submit();
-    }
+    document.querySelector('.payment-form').submit(); // Submit form
+}
 </script>
 </body>
 </html>
