@@ -57,6 +57,7 @@ public interface UsersDao extends JpaRepository<UsersEntity, Integer> {
 			+ "WHERE u.createdat >= :startDate " + "GROUP BY MONTH(u.createdat) " + "ORDER BY MONTH(u.createdat)")
 	List<Object[]> countUsersByMonth(@Param("startDate") LocalDateTime startDate);
 
-	@Query("SELECT COUNT(u) FROM UsersEntity u WHERE u.createdat >= :startDate AND u.createdat < :endDate")
-    Integer countUsersInRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+	//thong ke
+	@Query("SELECT COUNT(u) FROM UsersEntity u WHERE u.createdat >= :startDate AND u.createdat <= :endDate")
+	Integer countUsersInRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }
