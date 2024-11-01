@@ -29,6 +29,127 @@ body {
 	border-radius: 5px;
 }
 
+/* phần css cv */
+.cv-container {
+	width: 800px;
+	background-color: #ffffff;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	border-radius: 15px;
+	overflow: hidden;
+	display: flex;
+	padding: 40px;
+	gap: 30px;
+}
+
+.left-column {
+	width: 35%;
+	background-color: #f7f7f7;
+	padding: 20px;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.profile-photo {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-bottom: 20px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-photo img {
+	width: 100%;
+	height: auto;
+}
+
+.section-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+	margin: 15px 0 10px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	border-bottom: 2px solid #333;
+	padding-bottom: 5px;
+	width: 100%; /* Đặt chiều rộng bằng với phần chứa */
+	text-align: center; /* Căn giữa văn bản */
+}
+
+.about p, .contact p, .skills ul, .language p {
+	font-size: 14px;
+	color: #555;
+	margin-bottom: 10px;
+	line-height: 1.6;
+}
+
+.contact, .skills, .language {
+	margin-bottom: 20px;
+}
+
+.skills ul, .language {
+	list-style: none;
+	padding-left: 0;
+}
+
+.right-column {
+	width: 65%;
+}
+
+.right-column h1 {
+	font-size: 36px;
+	font-weight: 700;
+	color: #444;
+	margin-bottom: 5px;
+}
+
+.right-column h2 {
+	font-size: 18px;
+	font-weight: 500;
+	color: #777;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+}
+
+.experience, .education, .references {
+	margin-bottom: 30px;
+}
+
+.job, .education-item, .reference-item {
+	margin-bottom: 20px;
+	padding: 10px 0;
+	border-left: 3px solid #888;
+	padding-left: 15px;
+}
+
+.job h3, .education-item h3, .reference-item h3 {
+	font-size: 16px;
+	font-weight: 600;
+	color: #333;
+}
+
+.job span, .education-item span, .reference-item span {
+	display: block;
+	font-size: 14px;
+	color: #888;
+	margin-top: 5px;
+}
+
+.description {
+	font-size: 13px;
+	color: #555;
+	margin-top: 8px;
+	line-height: 1.5;
+}
+
+.reference-item p {
+	font-size: 13px;
+	color: #555;
+}
+
 /* Container chính */
 .cv-container {
 	max-width: 800px;
@@ -131,6 +252,12 @@ p {
 	line-height: 1.6;
 }
 
+/*dùng để di chuyển các class  */
+.sortable-ghost {
+    opacity: 0.5;
+    background-color: #f0f0f0;
+}
+
 /* Hiệu ứng khi in */
 @media print {
 	.cv-container {
@@ -151,118 +278,110 @@ p {
 			</div> -->
 
 		<div class="cv-container" id="cv-content">
-			<div class="cv-header text-center">
-				<h2>${jobSeeker.fullnamecv}</h2>
-				<h4>Curriculum Vitae</h4>
-			</div>
-
-			<div class="cv-body">
-				<div class="cv-section">
-					<h3>Thông Tin Cá Nhân</h3>
-					<div class="info-grid">
-						<div class="photo-container">
-							<img src="${pageContext.request.contextPath}/uploads/${jobSeeker.image}"
-								alt="Ảnh ứng viên" class="cv-photo"
-								onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
-							<div class="placeholder-photo" style="display: none;">
-								<img src="path/to/placeholder-image.png" alt="Khung ảnh"
-									class="placeholder">
-							</div>
-						</div>
-						<div class="info-details">
-							<%--  <div><strong>Tên:</strong> ${cv.user.fullname}</div> --%>
-							<div>
-								<strong>Giới Tính:</strong> ${jobSeeker.gender}
-							</div>
-							<div>
-								<strong>Ngày Sinh:</strong> ${jobSeeker.dateOfbirth}
-							</div>
-							<div>
-								<strong>Email:</strong> ${jobSeeker.emailcv}
-							</div>
-						</div>
+			<div class="left-column" >
+			<div class="profile-photo">
+					<img src="${pageContext.request.contextPath}/uploads/${cv.image}"
+						alt="Ảnh ứng viên" class="cv-photo"
+						onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
+					<div class="placeholder-photo" style="display: none;">
+						<img src="path/to/placeholder-image.png" alt="Khung ảnh"
+							class="placeholder">
 					</div>
 				</div>
-
-				<div class="cv-section">
-					<h3>Tóm Tắt Hồ Sơ</h3>
-					<p>${jobSeeker.profilesummary}</p>
+				<div class="about section">
+					<div class="section-title">Giới Thiệu</div>
+					<p>${cv.profilesummary}</p>
 				</div>
-
-				<div class="cv-section">
-					<h3>Kinh Nghiệm</h3>
-					<p>${jobSeeker.experience}</p>
+				<div class="contact section">
+					<div class="section-title">Liên Hệ</div>
+					<p>📞 ${cv.phonenumbercv}</p>
+					<p>✉️ ${cv.emailcv}</p>
+					<p>Ngày Sinh: ${cv.dateOfbirth}</p>
+					<p>Giới tính: ${cv.gender}</p>
 				</div>
-
-				<div class="cv-section">
-					<h3>Học Vấn</h3>
-					<p>${jobSeeker.education}</p>
+				<div class="skills section">
+					<div class="section-title">Kỹ Năng</div>
+					<ul>
+						<li>${cv.skills}</li>
+					</ul>
 				</div>
-
-				<div class="cv-section">
-					<h3>Kỹ Năng</h3>
-					<p>${jobSeeker.skills}</p>
-				</div>
-
-				<div class="cv-section">
-					<h3>Chứng Chỉ</h3>
-					<p>${jobSeeker.certifications}</p>
-				</div>
-
-				<div class="cv-section">
-					<h3>Ngôn Ngữ</h3>
-					<p>${jobSeeker.languages}</p>
-				</div>
-
-				<div class="cv-section">
-					<h3>Sở Thích</h3>
-					<p>${jobSeeker.interests}</p>
+				<div class="language section">
+					<div class="section-title">Ngôn Ngữ</div>
+					<p>${cv.languages}</p>
 				</div>
 			</div>
 
+			<div class="right-column" >
+				<div class="experience section">
+					<h1>${cv.fullnamecv}</h1>
+					<div class="section-title">Kinh Nghiệm Làm Việc</div>
+					<div class="job">
+						<h3>Quản lý Marketing</h3>
+						<span>Aerowell Industries | 2022 - 2023</span>
+						<p class="description">Lãnh đạo các sáng kiến tiếp thị...</p>
+					</div>
+				</div>
+				<div class="education section">
+					<div class="section-title">Học Vấn</div>
+					<div class="education-item">
+						<h3>${cv.education}</h3>
+						<span>Cử nhân Quản trị Kinh doanh | 2019 - 2023</span>
+					</div>
+				</div>
+				<div class="references section">
+					<div class="section-title">Người Tham Chiếu</div>
+					<div class="reference-item">
+						<h3>Harumi Kobayashi</h3>
+						<span>Saiford & Co. | CEO</span>
+						<p>📞 123-456-7890</p>
+						<p>✉️ hello@reallygreatsite.com</p>
+					</div>
+				</div>
+			</div>
 		</div>
-		</div>
-<br>
-		<div class="container">
-	<div class="row justify-content-center">
-		<div class="col-3">
-			<table id="listCV" class="table table-striped table-sm text-center">
-				<thead>
-					<tr>
-						<th>Trạng Thái</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="cv" items="${cvList}">
+
+
+	</div>
+
+	<br>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-3">
+				<table id="listCV" class="table table-striped table-sm text-center">
+					<thead>
 						<tr>
-							<td>
-								<c:choose>
-									<c:when test="${cv.status == 0}">Đang chờ</c:when>
-									<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
-									<c:when test="${cv.status == 2}">Bị từ chối</c:when>
-									<c:otherwise>Không xác định</c:otherwise>
-								</c:choose>
-							</td>
+							<th>Trạng Thái</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<c:forEach var="cv" items="${cvList}">
+							<tr>
+								<td><c:choose>
+										<c:when test="${cv.status == 0}">Đang chờ</c:when>
+										<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
+										<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+										<c:otherwise>Không xác định</c:otherwise>
+									</c:choose></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-</div>
 
 
 	<!-- </div> -->
 	<div class="text-center mt-4 mb-4">
 		<button class="btn btn-success"
-			onclick="acceptApplication(${application.applicationid})">Chấp
+			onclick="acceptApplication(${application.jobseekerid})">Chấp
 			nhận</button>
 		<button class="btn btn-danger"
 			onclick="rejectApplication(${application.applicationid})">Từ
 			Chối</button>
 		<button class="btn btn-primary" onclick="downloadPDF()">Tải
 			CV Dưới Dạng PDF</button>
-	
+
 	</div>
 
 
@@ -273,32 +392,37 @@ p {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
 	<script>
-		function downloadPDF() {
-			var element = document.getElementById('cv-content'); // Chọn nội dung form
-			var opt = {
-				margin : 1,
-				filename : 'chi-tiet-cv.pdf',
-				image : {
-					type : 'jpeg',
-					quality : 0.98
-				},
-				html2canvas : {
-					scale : 1
-				},
-				jsPDF : {
-					unit : 'in',
-					format : 'letter',
-					orientation : 'portrait'
-				}
-			};
-			html2pdf().set(opt).from(element).save();
-		}						
-	</script>
+	
+    function downloadPDF() {
+        var element = document.getElementById('cv-content'); // Chọn nội dung form
+        var opt = {
+            margin: [0.1, 0.5, 0.5, 1], // Lề 1cm ở tất cả các cạnh: trên, phải, dưới, trái
+            filename: 'chi-tiet-cv.pdf',
+            image: {
+                type: 'jpeg',
+                quality: 0.98
+            },
+            html2canvas: {
+                scale: 2 // Tăng độ phân giải cho ảnh chụp màn hình
+            },
+            jsPDF: {
+                unit: 'cm', // Đặt đơn vị thành cm
+                format: 'a4', // Đặt kích thước trang là A4
+                orientation: 'portrait'
+            }
+        };
+        html2pdf().set(opt).from(element).save();
+    }						
+</script>
+
 
 	<script>
    function acceptApplication(applicationId) {
-	    fetch(`/cvDetails/${applicationId}/accept`, {
+	    fetch(`/employers/${jobseekerid}/accept`, {
 	        method: 'POST',
 	        headers: {
 	            'Content-Type': 'application/json',
@@ -320,7 +444,7 @@ p {
 	}
 
    function rejectApplication(applicationId) {
-	    fetch(`/cvDetails/${applicationId}/reject`, {
+	    fetch(`/employers/${applicationId}/reject`, {
 	        method: 'POST',
 	        headers: {
 	            'Content-Type': 'application/json',
@@ -341,6 +465,9 @@ p {
 	    });
 	}
     </script>
+	
+
+
 
 
 </body>

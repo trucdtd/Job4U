@@ -307,7 +307,7 @@ p {
 				</div>
 			</div>
 			
-			<div class="right-column">
+			<div class= "right-column">
 				<h1>${cv.fullnamecv}</h1>
 				<div class="experience">
 					<div class="section-title">Kinh Nghiệm Làm Việc</div>
@@ -407,7 +407,10 @@ p {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+	
 	<script>
+	
     function downloadPDF() {
         var element = document.getElementById('cv-content'); // Chọn nội dung form
         var opt = {

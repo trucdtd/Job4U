@@ -1,5 +1,7 @@
 package demo.Controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.net.MediaType;
 
+import demo.services.ApplicationService;
 import demo.services.SessionService;
 import demo.services.UserRepository;
 import demo.services.UserService;
@@ -50,10 +53,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @Controller
 @RequestMapping("/employers")
 public class NhaTuyenDungController {
 
+	 private static final Logger logger = LoggerFactory.getLogger(XemCvUngVienController.class);
+	  
 	@Autowired
 	private SessionService sessionService;
 
@@ -78,6 +85,9 @@ public class NhaTuyenDungController {
 	@Autowired
 	private ApplicationsDao applicationsDao;
 
+	@Autowired
+    private ApplicationService applicationService;
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -104,6 +114,7 @@ public class NhaTuyenDungController {
 		 * model.addAttribute("service", service);
 		 */
 
+		
 		if (userId != null) {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
@@ -312,6 +323,8 @@ public class NhaTuyenDungController {
 		// In ra jobId để kiểm tra giá trị nhận được
 		System.out.println("JobId: " + jobId);
 
+		
+		
 		// Kiểm tra giá trị jobId
 		if (jobId == null) {
 			model.addAttribute("message", "ID công việc không hợp lệ.");
@@ -332,6 +345,8 @@ public class NhaTuyenDungController {
 
 		// In ra số lượng ứng tuyển tìm thấy
 		System.out.println("Số lượng CV được tìm thấy: " + jobApplicationsList.size());
+		model.addAttribute("dsCV", jobApplicationsList); // Thêm danh sách CV vào model
+		
 		// Kiểm tra xem có ứng tuyển nào không
 		if (!jobApplicationsList.isEmpty()) {
 			List<JobSeekersEntity> jobSeekersList = new ArrayList<>();
@@ -341,7 +356,6 @@ public class NhaTuyenDungController {
 				jobSeekersList.add(jobSeeker);
 			}
 
-			model.addAttribute("dsCV", jobSeekersList);
 		}
 		ss.setAttribute("jobid", jobId);
 		// Chuyển đến trang xemcv.jsp để hiển thị danh sách CV
@@ -349,25 +363,38 @@ public class NhaTuyenDungController {
 	}
 
 	@GetMapping("/jobseekerDetails/{jobseekerid}")
-	public String viewJobseekerDetails(@PathVariable("jobseekerid") Integer jobseekerid, Model model) {
-		String giaoDien = "cvnop";
-		// Tìm thông tin của ứng viên theo jobseekerid
-		ApplicationsEntity jobApplications = applicationsDao
-				.find1ApplicationsByJoblistingId(Integer.parseInt(ss.getAttribute("jobid") + ""), jobseekerid);
-		if (jobApplications.getFilename() != null) {
-			giaoDien = "cvNopFile";
-			String filename = jobApplications.getFilename();
-			model.addAttribute("filename", filename);
-		} else {
-			JobSeekersEntity jobseeker = jobSeekersDao.findById(jobseekerid).orElse(null);
-			model.addAttribute("jobSeeker", jobseeker);
-		}
-		// Đưa thông tin ứng viên vào model để truyền sang view
+	public String viewJobseekerDetails(@PathVariable("jobseekerid") Integer jobseekerid,
+			Model model) {
+ 
+		  ApplicationsEntity applicationDetails = applicationsDao.findById(jobseekerid).orElse(null);
+	      
+		  
+			
+		  // Lấy danh sách CV của ứng viên dựa trên jobListingId
+//		  List<ApplicationsEntity> cvList = 
+//		  applicationsDao.findApplicationsByJoblistingId(applicationId);
+		  
+		  List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByJoblistingId(jobseekerid);
+		  // Thêm danh sách CV vào mô hình
+	        model.addAttribute("cvList", cvList);
+		  // Thêm danh sách CV vào mô hình model.addAttribute("cvList", cvList);
+		 
+      
+      if (applicationDetails == null) {
+          model.addAttribute("errorMessage", "Không tìm thấy thông tin ứng tuyển.");
+          return "nhaTuyenDung"; // Trả về view với thông báo lỗi
+      }
 
-		// Điều hướng đến trang chi tiết ứng viên
-		return giaoDien; // Trả về trang JSP
+      JobSeekersEntity jobSeeker = applicationDetails.getJobseeker();
+      model.addAttribute("cv", jobSeeker);
+      model.addAttribute("jobseekerid", applicationDetails.getApplicationid());
+
+      return "cvnop"; // Trả về view chi tiết CV
+		
+		
 	}
 
+	
 	@PostMapping("/pay")
 	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal servicePrice,
 			@RequestParam(value = "serviceId", required = false) String serviceId,
@@ -423,4 +450,33 @@ public class NhaTuyenDungController {
 		return "redirect:/employers";
 	}
 
+	//từ chối và chấp nhận cv
+	 @PostMapping("/{jobseekerid}/accept")
+	    @ResponseBody
+	    public String acceptApplication(@PathVariable("jobseekerid") Integer jobseekerid,
+	    		@PathVariable Integer applicationId) {
+	        try {
+	            applicationService.updateApplicationStatus(applicationId, 1);
+	            return "success";
+	        } catch (Exception e) {
+	            logger.error("Error updating application status: ", e);
+	            return "error";
+	        }
+	    }
+	    
+	    @PostMapping("/{jobseekerid}/reject")
+	    @ResponseBody
+	    public String rejectApplication(
+	    		@PathVariable("jobseekerid") Integer jobseekerid,
+	    		@PathVariable Integer applicationId) {
+	        try {
+	            applicationService.updateApplicationStatus(applicationId, 2); // Cập nhật status = 2
+	            return "success";
+	        } catch (Exception e) {
+	            logger.error("Error updating application status to rejected: ", e);
+	            return "error";
+	        }
+	    }
+
+	
 }
