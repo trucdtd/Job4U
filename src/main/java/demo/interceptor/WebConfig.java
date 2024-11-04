@@ -19,6 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Autowired
 	private UserInterceptor userInterceptor;
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // Áp dụng AdminInterceptor cho tất cả
@@ -26,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 		registry.addInterceptor(employerInterceptor).addPathPatterns("/employers/**");
 		// Áp dụng EmployerInterceptor cho /job4u/employers
-		
+
 		registry.addInterceptor(userInterceptor).addPathPatterns("/user/**");
 		// Áp dụng UserInterceptor cho /job4u/profile
 	}

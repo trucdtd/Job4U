@@ -10,12 +10,9 @@ import org.springframework.data.repository.query.Param;
 
 import demo.entity.UserServicesEntity;
 
-
-
-public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integer>{
+public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integer> {
 
 	@Query("SELECT COUNT(s) FROM UserServicesEntity s WHERE s.purchasedate >= :startDate AND s.purchasedate <= :endDate")
 	Integer countServicesInRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
-
 
 }
