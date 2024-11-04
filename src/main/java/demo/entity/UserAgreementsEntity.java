@@ -17,21 +17,21 @@ import java.time.LocalDate;
 @Table(name = "Useragreements")
 public class UserAgreementsEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "agreementid")
-    private Integer agreementid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "agreementid")
+	private Integer agreementid;
 
-    @ManyToOne
-    @JoinColumn(name = "userid", nullable = false)
-    private UsersEntity userid;
+	@ManyToOne
+	@JoinColumn(name = "userid", nullable = false)
+	private UsersEntity userid;
 
-    @Column(name = "agreementdate", nullable = false)
-    private LocalDate agreementdate;
+	@Column(name = "agreementdate", nullable = false)
+	private LocalDate agreementdate;
 
-    @Column(name = "agreementcontent", nullable = false, columnDefinition = "NVARCHAR(MAX)")
-    private String agreementcontent;
+	@Column(name = "agreementcontent", nullable = false, columnDefinition = "NVARCHAR(MAX)")
+	private String agreementcontent;
 
-    @Column(name = "status")
-    private Integer status;
+	@Column(name = "status")
+	private Integer status;
 }

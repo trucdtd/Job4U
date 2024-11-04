@@ -43,14 +43,13 @@ public class AdminController {
 
 	@Autowired
 	EmployersDao employersDao;
-	
+
 	@Autowired
 	ServicesDao servicesDao;
-	
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Autowired
 	UserService userService;
 
@@ -74,7 +73,7 @@ public class AdminController {
 
 			List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
 			model.addAttribute("qlCV", qlCV);
-			
+
 			List<ServicesEntity> qldv = servicesDao.findAll();
 			model.addAttribute("qldv", qldv);
 		}
@@ -132,120 +131,118 @@ public class AdminController {
 	}
 
 	@PostMapping("/deleteUser")
-	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes, HttpSession session) {
-	    Integer loggedInUserId = (Integer) session.getAttribute("loggedInUserId");
+	public String deleteUser(@RequestParam("userid") Integer userid, RedirectAttributes redirectAttributes,
+			HttpSession session) {
+		Integer loggedInUserId = (Integer) session.getAttribute("loggedInUserId");
 
-	    // Kiểm tra người dùng đang cố gắng xóa chính mình
-	    if (userid.equals(loggedInUserId)) {
-	        redirectAttributes.addAttribute("error", "Bạn không thể xóa tài khoản của chính mình.");
-	        return "redirect:/admin";
-	    }
+		// Kiểm tra người dùng đang cố gắng xóa chính mình
+		if (userid.equals(loggedInUserId)) {
+			redirectAttributes.addAttribute("error", "Bạn không thể xóa tài khoản của chính mình.");
+			return "redirect:/admin";
+		}
 
-	    // Kiểm tra role của người dùng
-	    String roleSql = "SELECT role FROM Users WHERE userid = ?";
-	    Integer userRole = jdbcTemplate.queryForObject(roleSql, new Object[]{userid}, Integer.class);
+		// Kiểm tra role của người dùng
+		String roleSql = "SELECT role FROM Users WHERE userid = ?";
+		Integer userRole = jdbcTemplate.queryForObject(roleSql, new Object[] { userid }, Integer.class);
 
-	    if (userRole != null && userRole == 0) {
-	        redirectAttributes.addAttribute("error", "Không thể xóa người dùng có role = 0.");
-	        return "redirect:/admin";
-	    }
+		if (userRole != null && userRole == 0) {
+			redirectAttributes.addAttribute("error", "Không thể xóa người dùng có role = 0.");
+			return "redirect:/admin";
+		}
 
-	    try {
-	       
-	        // Xóa các bản ghi liên quan trong bảng UserAgreements
-	        String deleteUserAgreementsSql = "DELETE FROM UserAgreements WHERE userid = ?";
-	        jdbcTemplate.update(deleteUserAgreementsSql, userid);
+		try {
 
-	        // Xóa các bản ghi trong bảng Employers trước
-	        String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
-	        jdbcTemplate.update(deleteEmployersSql, userid);
-	        
-	        // Xóa các bản ghi trong bảng Applications và Joblistings
-	        String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
-	        String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
+			// Xóa các bản ghi liên quan trong bảng UserAgreements
+			String deleteUserAgreementsSql = "DELETE FROM UserAgreements WHERE userid = ?";
+			jdbcTemplate.update(deleteUserAgreementsSql, userid);
 
-	        // Xóa các bản ghi liên quan
-	        jdbcTemplate.update(deleteApplicationsSql, userid);
-	        jdbcTemplate.update(deleteJobListingsSql, userid);
+			// Xóa các bản ghi trong bảng Employers trước
+			String deleteEmployersSql = "DELETE FROM Employers WHERE UserID = ?";
+			jdbcTemplate.update(deleteEmployersSql, userid);
 
-	        // Cuối cùng, xóa người dùng
-	        String deleteUserSql = "DELETE FROM Users WHERE userid = ?";
-	        int rows = jdbcTemplate.update(deleteUserSql, userid);
-	        if (rows > 0) {
-	            redirectAttributes.addAttribute("successMessage", "Xóa người dùng thành công!");
-	        } else {
-	            redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần xóa!");
-	        }
-	    } catch (DataIntegrityViolationException e) {
-	        redirectAttributes.addAttribute("error", "Xóa thất bại do người dùng đang ứng tuyển hoặc đang sử dụng dịch vụ.");
-	        e.printStackTrace();
-	    } catch (Exception e) {
-	        redirectAttributes.addAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
-	        e.printStackTrace();
-	    }
+			// Xóa các bản ghi trong bảng Applications và Joblistings
+			String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID IN (SELECT JobID FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?))";
+			String deleteJobListingsSql = "DELETE FROM Joblistings WHERE EmployerID IN (SELECT EmployerID FROM Employers WHERE UserID = ?)";
 
-	    return "redirect:/admin"; // Chuyển hướng về trang admin
+			// Xóa các bản ghi liên quan
+			jdbcTemplate.update(deleteApplicationsSql, userid);
+			jdbcTemplate.update(deleteJobListingsSql, userid);
+
+			// Cuối cùng, xóa người dùng
+			String deleteUserSql = "DELETE FROM Users WHERE userid = ?";
+			int rows = jdbcTemplate.update(deleteUserSql, userid);
+			if (rows > 0) {
+				redirectAttributes.addAttribute("successMessage", "Xóa người dùng thành công!");
+			} else {
+				redirectAttributes.addAttribute("error", "Không tìm thấy người dùng cần xóa!");
+			}
+		} catch (DataIntegrityViolationException e) {
+			redirectAttributes.addAttribute("error",
+					"Xóa thất bại do người dùng đang ứng tuyển hoặc đang sử dụng dịch vụ.");
+			e.printStackTrace();
+		} catch (Exception e) {
+			redirectAttributes.addAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return "redirect:/admin"; // Chuyển hướng về trang admin
 	}
-	
 
 	@PostMapping("/lock/{id}")
-	public String lockUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, HttpSession session) {
-	    try {
-	        Integer loggedInUserId = (Integer) session.getAttribute("loggedInUserId");
+	public String lockUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,
+			HttpSession session) {
+		try {
+			Integer loggedInUserId = (Integer) session.getAttribute("loggedInUserId");
 
-	        // Kiểm tra xem người dùng có đang cố gắng khóa tài khoản của chính mình
-	        if (id.equals(loggedInUserId)) {
-	            redirectAttributes.addFlashAttribute("error", "Bạn không thể khóa tài khoản của chính mình.");
-	            return "redirect:/admin";
-	        }
+			// Kiểm tra xem người dùng có đang cố gắng khóa tài khoản của chính mình
+			if (id.equals(loggedInUserId)) {
+				redirectAttributes.addFlashAttribute("error", "Bạn không thể khóa tài khoản của chính mình.");
+				return "redirect:/admin";
+			}
 
-	        // Kiểm tra vai trò của người dùng
-	        UsersEntity user = userDao.findById(id).orElse(null);
-	        if (user == null) {
-	            redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần khóa.");
-	            return "redirect:/admin";
-	        }
+			// Kiểm tra vai trò của người dùng
+			UsersEntity user = userDao.findById(id).orElse(null);
+			if (user == null) {
+				redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần khóa.");
+				return "redirect:/admin";
+			}
 
-	        // Kiểm tra vai trò
-	        if (user.getRole() != null && user.getRole() == 0) {
-	            redirectAttributes.addFlashAttribute("error", "Không thể khóa tài khoản của người dùng có role = 0.");
-	            return "redirect:/admin";
-	        }
+			// Kiểm tra vai trò
+			if (user.getRole() != null && user.getRole() == 0) {
+				redirectAttributes.addFlashAttribute("error", "Không thể khóa tài khoản của người dùng có role = 0.");
+				return "redirect:/admin";
+			}
 
-	        // Cập nhật trạng thái khóa tài khoản
-	        user.setStatus(false); // false để khóa tài khoản
-	        userDao.save(user); // Lưu lại thay đổi
+			// Cập nhật trạng thái khóa tài khoản
+			user.setStatus(false); // false để khóa tài khoản
+			userDao.save(user); // Lưu lại thay đổi
 
-	        redirectAttributes.addFlashAttribute("success", "Tài khoản đã được khóa thành công!");
-	        return "redirect:/admin"; // Quay về trang admin
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
-	        return "redirect:/admin"; // Quay về trang admin nếu có lỗi
-	    }
+			redirectAttributes.addFlashAttribute("success", "Tài khoản đã được khóa thành công!");
+			return "redirect:/admin"; // Quay về trang admin
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
+			return "redirect:/admin"; // Quay về trang admin nếu có lỗi
+		}
 	}
-
 
 	@PostMapping("/open/{id}")
 	public String openUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-	    try {
-	    	
-	    	UsersEntity user = userDao.findById(id).orElse(null);
-	        
-	        // Cập nhật trạng thái mở tài khoản
-	        user.setStatus(true); // true để mở tài khoản
-	        userDao.save(user); // Lưu lại thay đổi
+		try {
 
-	        redirectAttributes.addFlashAttribute("success", "Tài khoản đã được mở thành công!");
-	        
-	        return "redirect:/admin"; // Quay về trang admin
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
-	        return "redirect:/admin"; // Quay về trang admin nếu có lỗi
-	    }
+			UsersEntity user = userDao.findById(id).orElse(null);
+
+			// Cập nhật trạng thái mở tài khoản
+			user.setStatus(true); // true để mở tài khoản
+			userDao.save(user); // Lưu lại thay đổi
+
+			redirectAttributes.addFlashAttribute("success", "Tài khoản đã được mở thành công!");
+
+			return "redirect:/admin"; // Quay về trang admin
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
+			return "redirect:/admin"; // Quay về trang admin nếu có lỗi
+		}
 	}
-
-
-	
 
 	@GetMapping("/detailPost/{id}")
 	public String showPostDetail(@PathVariable("id") Integer id, Model model) {
@@ -253,7 +250,6 @@ public class AdminController {
 		model.addAttribute("bv", bv);
 		return "chiTietBaiViet";
 	}
-
 
 	@PostMapping("/deletePost")
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
@@ -335,7 +331,6 @@ public class AdminController {
 
 		return "redirect:/admin"; // Quay về trang admin sau khi ẩn bài viết
 	}
-	
 
 	@PostMapping("/showPost/{jobid}")
 	public String showPost(@PathVariable Integer jobid) {
@@ -348,19 +343,19 @@ public class AdminController {
 
 		return "redirect:/admin"; // Quay về trang admin sau khi hiện bài viết
 	}
-	
+
 	@GetMapping("/detailCV/{id}")
 	public String showCVDetail(@PathVariable("id") Integer id, Model model) {
 		JobSeekersEntity cv = jobSeekersDao.findById(id).orElse(null);
 		model.addAttribute("cv", cv);
 		return "chiTietCV";
 	}
-	
+
 	@GetMapping("/detailDV/{id}")
 	public String showDVDetail(@PathVariable("id") Integer id, Model model) {
 		ServicesEntity dv = servicesDao.findById(id).orElse(null);
 		model.addAttribute("dv", dv);
 		return "chiTietDichVu";
 	}
-	
+
 }

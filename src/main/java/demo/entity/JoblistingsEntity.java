@@ -23,54 +23,53 @@ import lombok.Data;
 @Table(name = "Joblistings")
 public class JoblistingsEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "jobid")
-    private Integer jobid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "jobid")
+	private Integer jobid;
 
-    @NotNull
-    @Column(name = "jobtitle", length = 100, nullable = false)
-    private String jobtitle;
+	@NotNull
+	@Column(name = "jobtitle", length = 100, nullable = false)
+	private String jobtitle;
 
-    @NotNull
-    @Column(name = "jobdescription", nullable = false)
-    private String jobdescription;
+	@NotNull
+	@Column(name = "jobdescription", nullable = false)
+	private String jobdescription;
 
-    @NotNull
-    @Column(name = "jobrequirements", nullable = false)
-    private String jobrequirements;
+	@NotNull
+	@Column(name = "jobrequirements", nullable = false)
+	private String jobrequirements;
 
-    @NotNull
-    @Column(name = "joblocation",nullable = false)
-    private String joblocation;
+	@NotNull
+	@Column(name = "joblocation", nullable = false)
+	private String joblocation;
 
-    @Column(name = "salary")
-    private String salary;
+	@Column(name = "salary")
+	private String salary;
 
-    @NotNull
-    @Column(name = "jobtype", nullable = false)
-    private String jobtype;
+	@NotNull
+	@Column(name = "jobtype", nullable = false)
+	private String jobtype;
 
-    @NotNull
-    @Column(name = "posteddate", nullable = false)
-    private LocalDate posteddate;
+	@NotNull
+	@Column(name = "posteddate", nullable = false)
+	private LocalDate posteddate;
 
-    @NotNull
-    @Column(name = "applicationdeadline", nullable = false)
-    private LocalDate applicationdeadline;
+	@NotNull
+	@Column(name = "applicationdeadline", nullable = false)
+	private LocalDate applicationdeadline;
 
-    @Column(name = "istop")
-    private Boolean isTop;
+	@Column(name = "istop")
+	private Boolean isTop;
 
-    @ManyToOne
-    @JoinColumn(name = "EmployerID", referencedColumnName = "EmployerID", nullable = false)
-    private EmployersEntity employer;
+	@ManyToOne
+	@JoinColumn(name = "EmployerID", referencedColumnName = "EmployerID", nullable = false)
+	private EmployersEntity employer;
 
+	@ManyToOne
+	@JoinColumn(name = "userserviceid")
+	private UserServicesEntity userservice;
 
-    @ManyToOne
-    @JoinColumn(name = "userserviceid")
-    private UserServicesEntity userservice;
-    
-    @Column(name = "active", nullable = false)
-    private boolean active = true; // Trạng thái bài đăng
+	@Column(name = "active", nullable = false)
+	private boolean active = true; // Trạng thái bài đăng
 }

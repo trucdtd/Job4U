@@ -158,9 +158,8 @@ public class dangkyController {
 				model.addAttribute("taxidError", "Mã số thuế không tồn tại hoặc không hợp lệ");
 				hasErrors = true;
 			}
-			
+
 		}
-		
 
 		try {
 			// Tạo đối tượng người dùng mới

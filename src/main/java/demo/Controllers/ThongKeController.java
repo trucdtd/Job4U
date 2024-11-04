@@ -37,49 +37,47 @@ public class ThongKeController {
 	@GetMapping("/thongke/posts")
 	@ResponseBody
 	public Map<String, Object> getPostStatistics(
-	        @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
-	        @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+			@RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+			@RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
 
-	    Integer postCount = joblistingsDao.countPostsInRange(start, end);
+		Integer postCount = joblistingsDao.countPostsInRange(start, end);
 
-	    return Map.of("count", postCount);
+		return Map.of("count", postCount);
 	}
 
 	@GetMapping("/thongke/users")
 	@ResponseBody
 	public Map<String, Object> getUserStatistics(
-	        @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-	        @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
+			@RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+			@RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
 
-	    Integer userCount = userDao.countUsersInRange(start, end);
+		Integer userCount = userDao.countUsersInRange(start, end);
 
-	    return Map.of("count", userCount);
+		return Map.of("count", userCount);
 	}
 
 	@GetMapping("/thongke/services")
 	@ResponseBody
 	public Map<String, Object> getServiceStatistics(
-	        @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-	        @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
+			@RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+			@RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
 
-	    Integer serviceCount = userServicesDao.countServicesInRange(start, end);
+		Integer serviceCount = userServicesDao.countServicesInRange(start, end);
 
-	    return Map.of("count", serviceCount);
+		return Map.of("count", serviceCount);
 	}
-
 
 	@GetMapping("")
 	public String getSoldServices(Model model) {
-	    // Lấy danh sách dịch vụ đã bán từ userServicesDao
-	    List<UserServicesEntity> qlTK = userServicesDao.findAll();
-	    
-	    // Đưa danh sách vào model để sử dụng trong view
-	    model.addAttribute("qlTK", qlTK);
-	    
-	    // Trả về tên view (ví dụ "thongke" là tên của file HTML)
-	    return "thongKeMoi";
-	}
+		// Lấy danh sách dịch vụ đã bán từ userServicesDao
+		List<UserServicesEntity> qlTK = userServicesDao.findAll();
 
+		// Đưa danh sách vào model để sử dụng trong view
+		model.addAttribute("qlTK", qlTK);
+
+		// Trả về tên view (ví dụ "thongke" là tên của file HTML)
+		return "thongKeMoi";
+	}
 
 	/*
 	 * @GetMapping("/thongke") public String getStatistics(Model model) { LocalDate
