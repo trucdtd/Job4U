@@ -18,29 +18,29 @@ import lombok.Data;
 @Table(name = "Services")
 public class ServicesEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "serviceid")
-    private Integer serviceid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "serviceid")
+	private Integer serviceid;
 
-    @NotNull
-    @Column(name = "servicename", nullable = false)
-    private String servicename;
+	@NotNull
+	@Column(name = "servicename", nullable = false)
+	private String servicename;
 
-    @Column(name = "description")
-    private String description;
+	@Column(name = "description")
+	private String description;
 
-    @NotNull
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
+	@NotNull
+	@Column(name = "price", nullable = false)
+	private BigDecimal price;
 
-    @NotNull
-    @Column(name = "createdat", nullable = false)
-    private LocalDate createdat;
+	@NotNull
+	@Column(name = "createdat", nullable = false)
+	private LocalDate createdat;
 
-    @NotNull
-    @Column(name = "updatedat", nullable = false)
-    private LocalDate updatedat;
+	@NotNull
+	@Column(name = "updatedat", nullable = false)
+	private LocalDate updatedat;
 }

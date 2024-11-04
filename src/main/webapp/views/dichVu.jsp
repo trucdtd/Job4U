@@ -193,7 +193,7 @@ function selectJobPost(job) {
     document.getElementById('paymentModal').style.display = 'flex';
 
     document.getElementById('serviceName').innerText = selectedService.serviceName;
-    document.getElementById('serviceId').value = selectedService.serviceId;
+    document.getElementById('serviceId').value = parseInt(selectedService.serviceId);
     document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND'

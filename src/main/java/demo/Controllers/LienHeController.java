@@ -18,47 +18,42 @@ import demo.entity.MessagesEntity;
 @Controller
 @RequestMapping("/lienhe")
 public class LienHeController {
-	
+
 	@Autowired
-    private JavaMailSender mailSender;
-	
+	private JavaMailSender mailSender;
+
 	@GetMapping("")
-    public String hotline() {
-        return "lienHe"; 
-    }
-	
+	public String hotline() {
+		return "lienHe";
+	}
+
 	@PostMapping("/sendEmail")
-    public String sendEmail(
-            @RequestParam("name") String name,
-            @RequestParam("phone") String phone,
-            @RequestParam("email") String email,
-            @RequestParam("message") String message,
-            RedirectAttributes redirectAttributes) {
-		
-		 	System.out.println("Request received for sending email with details:");
-		    System.out.println("Name: " + name + ", Phone: " + phone + ", Email: " + email + ", Message: " + message);
+	public String sendEmail(@RequestParam("name") String name, @RequestParam("phone") String phone,
+			@RequestParam("email") String email, @RequestParam("message") String message,
+			RedirectAttributes redirectAttributes) {
 
-        try {
-            // Tạo email với thông tin liên hệ
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setFrom("your-email@gmail.com"); // Email của bạn
-            mailMessage.setTo("lanhbvpc07752@fpt.edu.vn"); // Email nhận thông tin liên hệ
-            mailMessage.setSubject("Liên hệ từ: " + name);
-            mailMessage.setText("Họ và tên: " + name + "\n"
-                    + "Điện thoại: " + phone + "\n"
-                    + "Email: " + email + "\n"
-                    + "Nội dung: " + message);
+		System.out.println("Request received for sending email with details:");
+		System.out.println("Name: " + name + ", Phone: " + phone + ", Email: " + email + ", Message: " + message);
 
-            // Gửi email
-            mailSender.send(mailMessage);
+		try {
+			// Tạo email với thông tin liên hệ
+			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			mailMessage.setFrom("your-email@gmail.com"); // Email của bạn
+			mailMessage.setTo("lanhbvpc07752@fpt.edu.vn"); // Email nhận thông tin liên hệ
+			mailMessage.setSubject("Liên hệ từ: " + name);
+			mailMessage.setText("Họ và tên: " + name + "\n" + "Điện thoại: " + phone + "\n" + "Email: " + email + "\n"
+					+ "Nội dung: " + message);
 
-            // Thêm Flash Attribute thông báo thành công
-            redirectAttributes.addFlashAttribute("success", "Thông tin đã được gửi thành công!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Thêm Flash Attribute thông báo lỗi
-            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi gửi email. Vui lòng thử lại!");
-        }
-        return "redirect:/lienhe"; // Redirect về trang liên hệ hoặc trang chủ sau khi gửi
-    }
+			// Gửi email
+			mailSender.send(mailMessage);
+
+			// Thêm Flash Attribute thông báo thành công
+			redirectAttributes.addFlashAttribute("success", "Thông tin đã được gửi thành công!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			// Thêm Flash Attribute thông báo lỗi
+			redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi gửi email. Vui lòng thử lại!");
+		}
+		return "redirect:/lienhe"; // Redirect về trang liên hệ hoặc trang chủ sau khi gửi
+	}
 }

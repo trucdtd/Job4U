@@ -131,20 +131,20 @@ public class UsersController {
 
 	@GetMapping("/cv/list")
 	public String viewCvList(Model model) {
-	    Integer userId = (Integer) ss.getAttribute("userid");
-	    List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByUserId(userId);
+		Integer userId = (Integer) ss.getAttribute("userid");
+		List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByUserId(userId);
 
-	    // In ra để kiểm tra
-	    System.out.println("Số lượng CV đã lấy: " + cvList.size());
-	    for (ApplicationsEntity cv : cvList) {
-	        System.out.println("CV ID: " + cv.getApplicationid() + ", Job Seeker ID: " + cv.getJobseeker().getJobseekerid());
-	    }
+		// In ra để kiểm tra
+		System.out.println("Số lượng CV đã lấy: " + cvList.size());
+		for (ApplicationsEntity cv : cvList) {
+			System.out.println(
+					"CV ID: " + cv.getApplicationid() + ", Job Seeker ID: " + cv.getJobseeker().getJobseekerid());
+		}
 
-	    model.addAttribute("cvList", cvList);
-	    model.addAttribute("page", "listCVUngTuyen.jsp");
-	    return "trangCaNhanNguoiTimViec";
+		model.addAttribute("cvList", cvList);
+		model.addAttribute("page", "listCVUngTuyen.jsp");
+		return "trangCaNhanNguoiTimViec";
 	}
-
 
 	// Trúc
 	@GetMapping("/cv/list2")
@@ -172,23 +172,23 @@ public class UsersController {
 	public String cvDetails(@PathVariable("jobseekerId") Integer jobseekerId, Model model) {
 		JobSeekersEntity jobseeker = dao.findById(jobseekerId).orElse(null);
 
-	    Integer userId = (Integer) ss.getAttribute("userid");
-	    List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByUserId(userId);
+		Integer userId = (Integer) ss.getAttribute("userid");
+		List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByUserId(userId);
 
-	    // In ra để kiểm tra
-	    System.out.println("Số lượng CV đã lấy: " + cvList.size());
-	    for (ApplicationsEntity cv : cvList) {
-	        System.out.println("CV ID: " + cv.getApplicationid() + ", Job Seeker ID: " + cv.getJobseeker().getJobseekerid());
-	    }
+		// In ra để kiểm tra
+		System.out.println("Số lượng CV đã lấy: " + cvList.size());
+		for (ApplicationsEntity cv : cvList) {
+			System.out.println(
+					"CV ID: " + cv.getApplicationid() + ", Job Seeker ID: " + cv.getJobseeker().getJobseekerid());
+		}
 
-	    model.addAttribute("cvList", cvList);
-	    
+		model.addAttribute("cvList", cvList);
+
 		if (jobseeker == null) {
 			model.addAttribute("errorMessage", "Không tìm thấy thông tin CV.");
 			return "redirect:/user/cv/list2";
 		}
 
-		
 		model.addAttribute("cv", jobseeker);
 		return "xemCVCaNhan"; // Trả về view chi tiết CV
 	}
@@ -211,7 +211,5 @@ public class UsersController {
 		}
 		return "redirect:/user/cv/list2";
 	}
-	
-
 
 }
