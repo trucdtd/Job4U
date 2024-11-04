@@ -474,7 +474,7 @@
 					<br>
 					<div class="card-body p-2">
 						<div class="table-responsive">
-							<table id="serviceTable" class="table align-items-center">
+							<table id="myServicesTable" class="table align-items-center">
 								<thead class="thead-light">
 									<tr>
 										<th scope="col">Tên dịch vụ</th>
@@ -752,6 +752,24 @@ $(document).ready(function() {
     });
 
     $('#cvTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
+    });
+    $('#myServicesTable').DataTable({
         "paging": true,
         "searching": true,
         "ordering": true,
