@@ -357,12 +357,12 @@ p {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="cv" items="${cvList}">
+						<c:forEach var="scv" items="${cvList}">
 							<tr>
 								<td><c:choose>
-										<c:when test="${cv.status == 0}">Đang chờ</c:when>
-										<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
-										<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+										<c:when test="${scv.status == 0}">Đang chờ</c:when>
+										<c:when test="${scv.status == 1}">Được chấp nhận</c:when>
+										<c:when test="${scv.status == 2}">Bị từ chối</c:when>
 										<c:otherwise>Không xác định</c:otherwise>
 									</c:choose></td>
 							</tr>
