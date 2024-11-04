@@ -165,9 +165,12 @@
 								class="bi bi-grid me-2"></i> CV Ứng Tuyển
 						</a></li>
 						<li><a href="#" class="navnhatuyendung nav-link text-dark"
+							onclick="showTable(event, 'myServices')"><i
+								class="bi bi-bag-heart me-2"></i>Gói Dịch Dụ đã mua </a></li>
+						<li><a href="#" class="navnhatuyendung nav-link text-dark"
 							onclick="showTable(event, 'postingServices')"><img width="20"
 								height="20" src="https://img.icons8.com/ios/50/card-in-use.png"
-								alt="card-in-use" /> Dịch Vụ Bài Đăng </a></li>
+								alt="card-in-use" /> Mua Dịch Vụ</a></li>
 					</ul>
 					<hr>
 				</div>
@@ -193,7 +196,7 @@
 											<th scope="col">Lương</th>
 											<th scope="col">Loại Công Việc</th>
 											<th scope="col">Ngày Đăng</th>
-											<th scope="col">Trạng Thái</th>
+<!-- 											<th scope="col">Trạng Thái</th> -->
 											<th scope="col">Hành Động</th>
 											<th scope="col">Xem CV</th>
 										</tr>
@@ -215,8 +218,7 @@
 													</c:choose></td>
 												<td>${job.jobtype}</td>
 												<td class="formatted-date" data-date="${job.posteddate}"></td>
-												<%-- <td>${job.applicationdeadline}</td> --%>
-												<td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td>
+												<%-- <td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td> --%>
 												<td>
 													<div class="d-flex align-items-center">
 														<button type="button" class="btn btn-sm btn-edit me-2"
@@ -263,43 +265,6 @@
 						</form>
 					</div>
 				</div>
-
-
-				<%-- <!-- Modal Xem CV -->
-				<div class="modal fade" id="detailModal" tabindex="-1"
-					aria-labelledby="detailModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="detailModalLabel">CV đã nộp</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Tên Ứng Viên</th>
-											<th>Ngày Nộp</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${dsCV}" var="application">
-											<tr>
-												<td>${application.jobseeker.user.fullname}</td>
-												<td>${application.jobseeker.createdat}</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">Đóng</button>
-							</div>
-						</div>
-					</div>
-				</div> --%>
 
 				<!-- Bảng quản lý bài đăng-->
 				<!-- bài đăng -->
@@ -499,6 +464,42 @@
 					<br>
 					<%@ include file="/views/dichVu.jsp"%>
 
+				</div>
+				
+				<!-- Gói Dịch vụ đã mua -->
+				<div id="myServices" class="card" style="display: none;">
+					<div class="card-header">
+						<div class="card-title">Dịch vụ đã mua</div>
+					</div>
+					<br>
+					<div class="card-body p-2">
+						<div class="table-responsive">
+							<table id="serviceTable" class="table align-items-center">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col">Tên dịch vụ</th>
+										<th scope="col">Nội dung dịch vụ</th>
+										<th scope="col">Số lượng cho phép</th>
+										<th scope="col">Trạng thái</th>
+										<th scope="col">Ngày mua</th>
+										<th scope="col">Ngày hết hạn</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${dsDV}" var="dv">
+										<tr>
+											<th>${dv.service.servicename}</th>
+											<td>${dv.service.description}</td>
+											<th>${dv.numberofjobsallowed}</th>
+											<th>${dv.isactive}</th>
+											<td class="formatted-date" data-date="${dv.purchasedate}"></td>
+											<td class="formatted-date" data-date="${dv.expirydate}"></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- article -->

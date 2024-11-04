@@ -3,12 +3,10 @@ package demo.Controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.google.common.net.MediaType;
-
 import demo.services.ApplicationService;
 import demo.services.SessionService;
 import demo.services.UserRepository;
-import demo.services.UserService;
 import demo.services.VNPayService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,7 +36,6 @@ import demo.entity.PaymentsEntity;
 import demo.entity.ServicesEntity;
 import demo.entity.UserServicesEntity;
 import demo.entity.UsersEntity;
-
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -50,7 +43,6 @@ import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -100,6 +92,9 @@ public class NhaTuyenDungController {
 	private UserRepository userRepository;
 
 	@Autowired
+	private UserServicesDao userservicesDao;
+	
+	@Autowired
 	HttpServletRequest req;
 
 	@Autowired
@@ -117,11 +112,6 @@ public class NhaTuyenDungController {
 		List<ServicesEntity> service = servicesDao.findAll();
 		model.addAttribute("service", service);
 
-		/*
-		 * ServicesEntity service = servicesDao.findByServiceid(4);
-		 * model.addAttribute("service", service);
-		 */
-
 		if (userId != null) {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
@@ -134,6 +124,10 @@ public class NhaTuyenDungController {
 				List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
 				model.addAttribute("dsCV", cv); // Thêm danh sách CV vào model
 
+				// Lấy danh sách dịch vụ đã mua của nhà tuyển dụng
+	            List<UserServicesEntity> dv = userservicesDao.findByUser(employer.getUser());
+				model.addAttribute("dsDV", dv); // Thêm danh sách DV vào model
+				
 				for (JoblistingsEntity jobPosting : jobPostings) {
 					List<ApplicationsEntity> applications = applicationsDao.findByJob(jobPosting);
 					model.addAttribute("applications" + jobPosting.getJobid(), applications);
@@ -156,22 +150,6 @@ public class NhaTuyenDungController {
 	}
 
 	@PostMapping("/submit")
-
-
-/*<<<<<<< Updated upstream*/
-// <<<<<<< HEAD
-// 	public String themTuyenDung(@RequestParam("companyname") String companyname,
-// 			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
-// 			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
-// 			@RequestParam(value = "logo", required = false) MultipartFile logo,
-// 			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
-// 			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) String salary,
-// 			@RequestParam("companydescription") String companydescription,
-// 			@RequestParam("jobrequirements") String jobrequirements,
-// 			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
-// 			@RequestParam("applicationdeadline") String applicationdeadline) {
-// =======
-
 	public String themTuyenDung(
 	        @RequestParam("companyname") String companyname,
 	        @RequestParam("companywebsite") String companywebsite,
@@ -189,32 +167,7 @@ public class NhaTuyenDungController {
 	        @RequestParam("posteddate") String posteddate,
 	        @RequestParam("applicationdeadline") String applicationdeadline,
 	        Model model) {
-/*=======
-	public String themTuyenDung(@RequestParam("companyname") String companyname,
-			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
-			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
-			@RequestParam(value = "logo", required = false) MultipartFile logo,
-			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
-			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) String salary,
-			@RequestParam("companydescription") String companydescription,
-			@RequestParam("jobrequirements") String jobrequirements,
-			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
-			@RequestParam("applicationdeadline") String applicationdeadline, Model model) {
->>>>>>> dev
-*/
-
-	/*public String themTuyenDung(@RequestParam("companyname") String companyname,
-			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
-			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
-			@RequestParam(value = "logo", required = false) MultipartFile logo,
-			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
-			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) String salary,
-			@RequestParam("companydescription") String companydescription,
-			@RequestParam("jobrequirements") String jobrequirements,
-			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
-			@RequestParam("applicationdeadline") String applicationdeadline, Model model) {*/
-
-
+		
 		// Kiểm tra dữ liệu đầu vào
 		if (companyname == null || companyname.isEmpty()) {
 			return "error"; // Trả về thông báo lỗi
@@ -228,52 +181,6 @@ public class NhaTuyenDungController {
 			return "error"; // Nhà tuyển dụng không tồn tại
 		}
 
-
-// <<<<<<< HEAD
-// 		// Kiểm tra và lưu logo
-// 		String logoFilename = null;
-// 		if (logo != null && !logo.isEmpty()) {
-// 			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
-// 			try {
-// 				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
-// 				if (!uploadsDir.exists()) {
-// 					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
-// 				}
-// 				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
-// 				Files.write(path, logo.getBytes());
-// 			} catch (IOException e) {
-// 				e.printStackTrace();
-// 				return "error"; // Xử lý lỗi tải lên
-// 			}
-// 		}
-
-// 		// Cập nhật thông tin nhà tuyển dụng
-// 		employer.setCompanyname(companyname);
-// 		employer.setCompanywebsite(companywebsite);
-// 		employer.setAddress(address);
-// 		employer.setIndustry(industry);
-// 		employer.setContactperson(contactperson);
-// 		if (logoFilename != null) {
-// 			employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
-// 		}
-// 		employer.setCompanydescription(companydescription);
-
-// 		nhaTuyenDungDao.save(employer);
-// =======
-/*		// Kiểm tra số lượng bài viết đã đăng trong tháng
-=======
-		// Kiểm tra số lượng bài viết đã đăng trong tháng
->>>>>>> Stashed changes
-=======
-		// Kiểm tra số lượng bài viết đã đăng trong tháng
->>>>>>> dev
-		LocalDate now = LocalDate.now();
-		LocalDate startOfMonth = now.withDayOfMonth(1);
-		List<JoblistingsEntity> postsThisMonth = danhSachViecLamDao
-				.findJobsByEmployerIdAndMonthStart(employer.getEmployerid(), startOfMonth);
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======*/
 	    // Kiểm tra số lượng bài viết đã đăng trong tháng
 	    LocalDate now = LocalDate.now();
 	    LocalDate startOfMonth = now.withDayOfMonth(1);
@@ -286,9 +193,6 @@ public class NhaTuyenDungController {
 	    	System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
 	        return "redirect:/employers";
 	    }
-/*=======
-*//*>>>>>>> Stashed changes*/
-
 		if (postsThisMonth.size() >= 3) {
 			// Nếu vượt quá 3 bài, chuyển hướng đến trang dịch vụ với thông báo
 			// Bạn có thể sử dụng redirectAttributes để thêm thông báo
@@ -314,27 +218,6 @@ public class NhaTuyenDungController {
 			}
 		}
 
-/*<<<<<<< Updated upstream*/
-/*		// Cập nhật thông tin nhà tuyển dụng
-=======
-		// Cập nhật thông tin nhà tuyển dụng
->>>>>>> Stashed changes
-=======
-		// Cập nhật thông tin nhà tuyển dụng
->>>>>>> dev
-		employer.setCompanyname(companyname);
-		employer.setCompanywebsite(companywebsite);
-		employer.setAddress(address);
-		employer.setIndustry(industry);
-		employer.setContactperson(contactperson);
-		if (logoFilename != null) {
-			employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
-		}
-		employer.setCompanydescription(companydescription);
-		nhaTuyenDungDao.save(employer);
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======*/
 	    // Cập nhật thông tin nhà tuyển dụng
 	    employer.setCompanyname(companyname);
 	    employer.setCompanywebsite(companywebsite);
@@ -578,35 +461,6 @@ public class NhaTuyenDungController {
 	    return "redirect:/employers";
 	}
 
-
-	        
-
-	/*
-	 * // từ chối và chấp nhận cv
-	 * 
-	 * @PostMapping("/{jobseekerid}/accept")
-	 * 
-	 * @ResponseBody public String acceptApplication(@PathVariable("jobseekerid")
-	 * Integer jobseekerid,
-	 * 
-	 * @PathVariable Integer applicationId) { try {
-	 * applicationService.updateApplicationStatus(applicationId, 1); return
-	 * "success"; } catch (Exception e) {
-	 * logger.error("Error updating application status: ", e); return "error"; } }
-	 */
-
-	/*
-	 * @PostMapping("/{jobseekerid}/reject")
-	 * 
-	 * @ResponseBody public String rejectApplication(@PathVariable("jobseekerid")
-	 * Integer jobseekerid,
-	 * 
-	 * @PathVariable Integer applicationId) { try {
-	 * applicationService.updateApplicationStatus(applicationId, 2); // Cập nhật
-	 * status = 2 return "success"; } catch (Exception e) {
-	 * logger.error("Error updating application status to rejected: ", e);
-	 */
-
 	// từ chối và chấp nhận cv
 	@PostMapping("/{jobseekerid}/accept")
 	@ResponseBody
@@ -621,7 +475,6 @@ public class NhaTuyenDungController {
 			return "error";
 		}
 	}
-
 
 	@PostMapping("/{jobseekerid}/reject")
 	@ResponseBody
