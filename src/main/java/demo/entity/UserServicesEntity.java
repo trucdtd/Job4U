@@ -19,30 +19,35 @@ import lombok.Data;
 @Table(name = "Userservices")
 public class UserServicesEntity implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "userserviceid")
-	private Integer userserviceid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userserviceid")
+    private Integer userserviceid;
 
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
-	private UsersEntity user;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
+    private UsersEntity user;
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID", nullable = false)
+    private ServicesEntity service;
 
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID", nullable = false)
-	private ServicesEntity service;
+    @Column(name = "purchasedate")
+    private LocalDateTime  purchasedate;
 
-	@Column(name = "purchasedate")
-	private LocalDateTime purchasedate;
+    @Column(name = "expirydate")
+    private LocalDateTime  expirydate;
 
-	@Column(name = "expirydate")
-	private LocalDateTime expirydate;
+    @Column(name = "numberofjobsallowed")
+    private Integer numberofjobsallowed;
+    
+    @Column(name = "Isactive")
+    private Boolean isactive = true;
 
-	@Column(name = "numberofjobsallowed")
-	private Integer numberofjobsallowed;
-
-	@Column(name = "Isactive")
-	private Boolean isactive = true;
+	public LocalDateTime getCreatedDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

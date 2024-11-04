@@ -10,14 +10,11 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- DataTables CSS -->
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- DataTables JS -->
-<script
-	src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="/css/thongke.css">
 </head>
 <body>
@@ -37,10 +34,9 @@
 									Bài Viết <br> <small class="text-muted">
 										<div class="d-flex align-items-center">
 											<input type="date" id="post-start-date"
-												class="form-control me-2" onchange="updateData('post')"
-												style="width: 150px;"> <input type="date"
-												id="post-end-date" class="form-control"
-												onchange="updateData('post')" style="width: 150px;">
+												class="form-control me-2" style="width: 150px;"> <input
+												type="date" id="post-end-date" class="form-control"
+												style="width: 150px;">
 										</div>
 									</small>
 								</h5>
@@ -63,15 +59,13 @@
 								<h5 class="card-title">
 									Người Dùng <br> <small class="text-muted">
 										<div class="d-flex align-items-center">
-											<input type="date" id="posts-start-date"
-												class="form-control me-2" onchange="updateData('posts')"
-												style="width: 150px;"> <input type="date"
-												id="posts-end-date" class="form-control"
-												onchange="updateData('posts')" style="width: 150px;">
+											<input type="date" id="user-start-date"
+												class="form-control me-2" style="width: 150px;"> <input
+												type="date" id="user-end-date" class="form-control"
+												style="width: 150px;">
 										</div>
 									</small>
 								</h5>
-
 								<div class="d-flex align-items-center justify-content-center">
 									<div
 										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -91,15 +85,13 @@
 								<h5 class="card-title">
 									Dịch Vụ <br> <small class="text-muted">
 										<div class="d-flex align-items-center">
-											<input type="date" id="sales-start-date"
-												class="form-control me-2" onchange="updateData('services')"
-												style="width: 150px;"> <input type="date"
-												id="sales-end-date" class="form-control"
-												onchange="updateData('services')" style="width: 150px;">
+											<input type="date" id="service-start-date"
+												class="form-control me-2" style="width: 150px;"> <input
+												type="date" id="service-end-date" class="form-control"
+												style="width: 150px;">
 										</div>
 									</small>
 								</h5>
-
 								<div class="d-flex align-items-center justify-content-center">
 									<div
 										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -112,6 +104,7 @@
 							</div>
 						</div>
 					</div>
+
 					<!-- Table for Sold Services -->
 					<div class="col-12">
 						<div class="card recent-sales shadow-sm">
@@ -162,6 +155,7 @@
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</section>
@@ -169,37 +163,73 @@
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 	<script>
-	function updateData(type) {
-	    // Lấy các phần tử nhập ngày bắt đầu và kết thúc cho từng loại thống kê
-	    const startDateInput = document.getElementById(`${type}-start-date`);
-	    const endDateInput = document.getElementById(`${type}-end-date`);
+	function fetchStatistics(startDate, endDate, type) {
+		let apiUrl;
+		let countElement;
 
-	    // Kiểm tra xem các phần tử có tồn tại hay không
-	    if (!startDateInput || !endDateInput) {
-	        console.error(`Không tìm thấy phần tử với ID ${type}-start-date hoặc ${type}-end-date`);
-	        return;
-	    }
+		// Xác định loại API và phần tử hiển thị số liệu
+		if (type === 'post') {
+			apiUrl = /thongke/posts?startDate=${startDate}&endDate=${endDate};
+			countElement = $('#post-count');
+		} else if (type === 'user') {
+			apiUrl = /thongke/users?startDate=${startDate}&endDate=${endDate};
+			countElement = $('#user-count');
+		} else if (type === 'service') {
+			apiUrl = /thongke/services?startDate=${startDate}&endDate=${endDate};
+			countElement = $('#service-count');
+		}
+		// Log URL để kiểm tra giá trị của startDate và endDate trong URL
+		console.log("API URL:", apiUrl);
 
-	    const startDate = startDateInput.value;
-	    const endDate = endDateInput.value;
-
-	    // Kiểm tra xem cả hai ngày bắt đầu và kết thúc đã được chọn hay chưa
-	    if (startDate && endDate) {
-	        // Gọi API tương ứng để lấy dữ liệu thống kê
-	        fetch(`/thongke/${type}?start=${startDate}&end=${endDate}`)
-	            .then(response => response.json())
-	            .then(data => {
-	                // Cập nhật dữ liệu thống kê lên giao diện
-	                document.getElementById(`${type}-count`).innerText = data.count;
-	            })
-	            .catch(error => console.error("Lỗi khi lấy dữ liệu:", error));
-	    }
+		// Gửi yêu cầu AJAX
+		$.ajax({
+			url : apiUrl,
+			type : 'GET',
+			success : function(data) {
+				countElement.text(data.count || 0); // Hiển thị 0 nếu không có dữ liệu
+			},
+			error : function(xhr, status, error) {
+				console.error('Error fetching data:', error);
+				countElement.text(0); // Hiển thị 0 trong trường hợp có lỗi
+			}
+		});
 	}
-	</script>
 
-	<!-- Khởi tạo DataTable -->
+	// Xử lý khi người dùng thay đổi ngày
+	$('input[type="date"]')
+			.on(
+					'change',
+					function() {
+						let type = $(this).closest('.card').hasClass(
+								'sales-card') ? 'post'
+								: $(this).closest('.card').hasClass(
+										'customers-card') ? 'user'
+										: 'service';
+						let startDate = $(this).closest('.card-body').find(
+						'input[type="date"]').first().val();
+				let endDate = $(this).closest('.card-body').find(
+						'input[type="date"]').last().val();
+
+				// Log giá trị của startDate và endDate để kiểm tra
+				console.log("Start Date:", startDate);
+				console.log("End Date:", endDate);
+
+				if (startDate && endDate) {
+					// Format ngày thành YYYY-MM-DD
+					const formattedStartDate = new Date(startDate)
+							.toISOString().slice(0, 10);
+					const formattedEndDate = new Date(endDate)
+							.toISOString().slice(0, 10);
+
+					fetchStatistics(formattedStartDate,
+							formattedEndDate, type);
+				}
+					});
+			</script>
+
 	<script>
 		$(document)
 				.ready(
@@ -228,4 +258,3 @@
 	</script>
 </body>
 </html>
-
