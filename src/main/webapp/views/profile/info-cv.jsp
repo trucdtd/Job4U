@@ -36,7 +36,6 @@
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Định dạng cho draggable fields */
 .draggable-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -44,48 +43,43 @@
 }
 
 .draggable-item {
-    flex: 1 1 45%;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 2px dashed transparent; /* Viền trong suốt trừ khi hover hoặc focus */
-    border-radius: 5px;
-    background-color: #fff; /* Màu trắng để tệp với phần nền tổng thể */
-    cursor: move;
-    transition: box-shadow 0.2s, border-color 0.2s; /* Thêm hiệu ứng cho viền */
+	flex: 1 1 45%;
+	margin-bottom: 20px;
+	padding: 10px;
+	border: 2px dashed transparent;
+	border-radius: 5px;
+	background-color: #fff;
+	cursor: move;
+	transition: box-shadow 0.2s, border-color 0.2s;
 }
 
-/* Khi hover hoặc focus vào trường kéo thả */
-.draggable-item:focus-within,
-.draggable-item:hover {
-    border-color: #28a745; /* Viền xanh lá khi focus hoặc hover */
+.draggable-item:focus-within, .draggable-item:hover {
+	border-color: #28a745;
 }
 
-/* Phần nhập liệu bên trong */
 input, textarea {
-    background-color: #f9f9f9; /* Nền riêng cho phần nhập chữ */
-    border: 1px solid #ced4da; /* Đường viền nhẹ cho các trường nhập */
-    border-radius: 4px;
-    padding: 8px;
-    width: 100%; /* Đảm bảo các trường nhập liệu chiếm toàn bộ chiều rộng */
-    box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước */
-    transition: border-color 0.2s; /* Hiệu ứng khi focus vào trường */
+	background-color: #f9f9f9;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	padding: 8px;
+	width: 100%;
+	box-sizing: border-box;
+	transition: border-color 0.2s;
 }
 
-/* Khi focus vào trường nhập liệu */
 input:focus, textarea:focus {
-    background-color: #fff; /* Nền trắng khi focus vào */
-    border-color: #28a745; /* Màu xanh lá khi focus */
-    outline: none; /* Bỏ viền outline mặc định */
+	background-color: #fff;
+	border-color: #28a745;
+	outline: none;
 }
-
 </style>
 </head>
 <body>
 	<div class="container mt-5 pdf-style shadow p-4">
 		<h4 class="text-center text-success">CẬP NHẬT HÌNH ẢNH & THÔNG
 			TIN CV</h4>
-		<form method="post" action="/user/cv" enctype="multipart/form-data">
-			<!-- Phần hình ảnh (cố định vị trí) -->
+		<form id="cvForm" method="post" action="/user/cv"
+			enctype="multipart/form-data">
 			<div class="text-center mb-4">
 				<div class="image-upload position-relative"
 					onclick="document.getElementById('imageInput').click();">
@@ -97,7 +91,6 @@ input:focus, textarea:focus {
 				</div>
 			</div>
 
-			<!-- Phần các trường thông tin có thể kéo thả -->
 			<div id="draggableFields" class="draggable-container">
 				<div class="draggable-item" draggable="true">
 					<label>Giới tính:</label>
@@ -128,18 +121,21 @@ input:focus, textarea:focus {
 				<div class="draggable-item" draggable="true">
 					<label for="dateOfbirth">Ngày sinh:</label> <input type="date"
 						class="form-control" id="dateOfbirth" name="dateOfbirth" required>
+					<span class="text-danger" id="dobError" style="display: none;"></span>
 				</div>
 
 				<div class="draggable-item" draggable="true">
 					<label for="emailcv">Email cá nhân:</label> <input type="email"
 						class="form-control" id="emailcv" name="emailcv"
-						placeholder="tencuaban@example.com" required>
+						placeholder="tencuaban@example.com" required> <span
+						class="text-danger" id="emailError" style="display: none;"></span>
 				</div>
 
 				<div class="draggable-item" draggable="true">
-					<label for="phonenumbercv">Phone cá nhân:</label> <input type="tel"
+					<label for="phonenumbercv">Số điện thoại:</label> <input type="tel"
 						class="form-control" id="phonenumbercv" name="phonenumbercv"
-						placeholder="số điện thoại" required>
+						placeholder="Số điện thoại" required> <span
+						class="text-danger" id="phoneError" style="display: none;"></span>
 				</div>
 
 				<div class="draggable-item" draggable="true">
@@ -202,59 +198,106 @@ input:focus, textarea:focus {
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 	<script>
-    const container = document.getElementById("draggableFields");
-    let draggedItem = null;
+        const container = document.getElementById("draggableFields");
+        let draggedItem = null;
 
-    container.addEventListener("dragstart", (event) => {
-        draggedItem = event.target;
-        event.target.classList.add("dragging");
-    });
-
-    container.addEventListener("dragend", (event) => {
-        event.target.classList.remove("dragging");
-        draggedItem = null;
-    });
-
-    container.addEventListener("dragover", (event) => {
-        event.preventDefault();
-        const afterElement = getDragAfterElement(container, event.clientY);
-        if (afterElement == null) {
-            container.appendChild(draggedItem);
-        } else {
-            container.insertBefore(draggedItem, afterElement);
-        }
-    });
-
-    function getDragAfterElement(container, y) {
-        const draggableElements = [...container.querySelectorAll(".draggable-item:not(.dragging)")];
-
-        return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect();
-            const offset = y - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
-            } else {
-                return closest;
-            }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
-
-    // Tính năng phóng to, thu nhỏ cho các trường thông tin
-    $(function() {
-        $(".draggable-item").resizable({
-            minWidth: 150,
-            minHeight: 50,
-            handles: "n, e, s, w, ne, se, sw, nw"
+        container.addEventListener("dragstart", (event) => {
+            draggedItem = event.target;
+            event.target.classList.add("dragging");
         });
-    });
 
-    function previewImage(event) {
-        const image = document.getElementById('profileImage');
-        image.src = URL.createObjectURL(event.target.files[0]);
-    }
-</script>
+        container.addEventListener("dragend", (event) => {
+            event.target.classList.remove("dragging");
+            draggedItem = null;
+        });
+
+        container.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            const afterElement = getDragAfterElement(container, event.clientY);
+            if (afterElement == null) {
+                container.appendChild(draggedItem);
+            } else {
+                container.insertBefore(draggedItem, afterElement);
+            }
+        });
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll(".draggable-item:not(.dragging)")];
+
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        $(function() {
+            $(".draggable-item").resizable({
+                minWidth: 150,
+                minHeight: 50,
+                handles: "n, e, s, w, ne, se, sw, nw"
+            });
+        });
+
+        function previewImage(event) {
+            const image = document.getElementById('profileImage');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+     // Kiểm tra thông tin trước khi gửi
+        document.getElementById('cvForm').addEventListener('submit', function(event) {
+            const dateOfBirthInput = document.getElementById('dateOfbirth');
+            const phoneInput = document.getElementById('phonenumbercv');
+            const emailInput = document.getElementById('emailcv'); // Thêm biến cho email
+            let hasError = false;
+
+            // Reset thông báo lỗi
+            document.getElementById('dobError').style.display = 'none';
+            document.getElementById('phoneError').style.display = 'none';
+            document.getElementById('emailError').style.display = 'none'; // Reset thông báo lỗi email
+
+            // Kiểm tra tuổi
+            const dob = new Date(dateOfBirthInput.value);
+            const today = new Date();
+            const age = today.getFullYear() - dob.getFullYear();
+            const monthDifference = today.getMonth() - dob.getMonth();
+
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            if (age < 18) {
+                document.getElementById('dobError').textContent = 'Bạn phải từ 18 tuổi trở lên.';
+                document.getElementById('dobError').style.display = 'block';
+                hasError = true;
+            }
+
+            // Kiểm tra số điện thoại
+            const phoneRegex = /^0[1-9][0-9]{8}$/; 
+            if (!phoneRegex.test(phoneInput.value)) {
+                document.getElementById('phoneError').textContent = 'Số điện thoại phải bắt đầu bằng 0 và có đúng 10 chữ số.';
+                document.getElementById('phoneError').style.display = 'block';
+                hasError = true;
+            }
+
+            // Kiểm tra email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Định dạng email
+            if (!emailRegex.test(emailInput.value)) {
+                document.getElementById('emailError').textContent = 'Email không hợp lệ.';
+                document.getElementById('emailError').style.display = 'block';
+                hasError = true;
+            }
+
+            if (hasError) {
+                event.preventDefault(); // Ngăn không cho gửi form nếu có lỗi
+            }
+        });
+    </script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
