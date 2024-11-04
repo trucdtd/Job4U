@@ -33,8 +33,7 @@ public class TrangChuController {
 	@Autowired
 	private JoblistingsService jobListingService;
 
-<<<<<<< HEAD
-=======
+
 //	@RequestMapping("")
 //	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page
 //			 ) {
@@ -60,15 +59,14 @@ public class TrangChuController {
 ////        
 //		return "trangChu";
 //	}
->>>>>>> trinhtt
+
 	// Phương thức trangChu
 	@RequestMapping("")
 	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page) {
 		int pageNumber = page.orElse(0);
 		Pageable pageable = PageRequest.of(pageNumber, 8, Sort.by("posteddate").descending());
 
-<<<<<<< HEAD
-=======
+
 		// Lấy danh sách 20 công việc có isTop = true
 		List<JoblistingsEntity> latestJobs = jobListingService.getTop20JobListingsWithIstop();
 		model.addAttribute("latestJobs", latestJobs);
@@ -102,7 +100,7 @@ public class TrangChuController {
 //		return "trangChu";
 //	}
 
->>>>>>> trinhtt
+
 	@RequestMapping("/findJob")
 	public String findJob(Model model, @RequestParam("page") Optional<Integer> page,
 			@RequestParam("joblocation") Optional<String> joblocation,
