@@ -300,29 +300,23 @@ public class NhaTuyenDungController {
 	}
 
 	@PostMapping("/delete")
-	public String deleteJob(@RequestParam("jobId") Integer jobId, Model model) {
-		// Kiểm tra xem bài đăng có tồn tại không
-		JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
+	public String deleteJob(@RequestParam("jobId") Integer jobId, RedirectAttributes redirectAttributes) {
+	    JoblistingsEntity jobListing = danhSachViecLamDao.findById(jobId).orElse(null);
 
-		if (jobListing == null) {
+	    if (jobListing == null) {
+	        redirectAttributes.addFlashAttribute("message", "Bài đăng không tồn tại.");
+	        return "redirect:/employers";
+	    }
 
-			model.addAttribute("error", "Bài đăng không tồn tại.");
-			return "redirect:/job4u/employers"; // Hoặc trang thông báo lỗi
-		}
+	    if (jobListing.getUserservice() != null) {
+	        redirectAttributes.addFlashAttribute("message", "Không thể xóa bài đăng đã sử dụng dịch vụ.");
+	        return "redirect:/employers";
+	    }
 
-		// Kiểm tra xem bài đăng có sử dụng dịch vụ nào không
-		if (jobListing.getUserservice() != null) {
-			model.addAttribute("error", "Không thể xóa bài đăng đã sử dụng dịch vụ.");
-			return "redirect:/job4u/employers"; // Hoặc trang thông báo lỗi
-		}
-
-		// Xóa bài đăng
-//		danhSachViecLamDao.delete(jobListing);
-		// Cập nhật trạng thái hoạt động thành false
-		jobListing.setActive(false); // Giả sử có thuộc tính active trong entity
-		danhSachViecLamDao.save(jobListing); // Lưu lại thay đổi trong cơ sở dữ liệu
-		model.addAttribute("success", "Xóa bài đăng thành công.");
-		return "redirect:/employers";
+	    jobListing.setActive(false);
+	    danhSachViecLamDao.save(jobListing);
+	    redirectAttributes.addFlashAttribute("message", "Xóa bài đăng thành công.");
+	    return "redirect:/employers";
 	}
 
 	@GetMapping("/xemcv")

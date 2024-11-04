@@ -129,15 +129,6 @@
 	</c:if>
 
 	<div class="container">
-		<div class="container mt-4">
-			<!-- Thông báo thành công -->
-			<div id="success" class="alert alert-success" style="display: none;"
-				role="alert"></div>
-
-			<!-- Thông báo lỗi -->
-			<div id="error" class="alert alert-danger" style="display: none;"
-				role="alert"></div>
-		</div>
 		<div class="row">
 			<!-- aside -->
 			<div class="col-lg-3 col-md-3 p-2 d-flex">
@@ -198,7 +189,7 @@
 											<th scope="col">Lương</th>
 											<th scope="col">Loại Công Việc</th>
 											<th scope="col">Ngày Đăng</th>
-											<!-- 											<th scope="col">Trạng Thái</th> -->
+											<!-- <th scope="col">Trạng Thái</th> -->
 											<th scope="col">Hành Động</th>
 											<th scope="col">Xem CV</th>
 										</tr>
