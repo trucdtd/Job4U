@@ -12,14 +12,14 @@ import demo.entity.ApplicationsEntity;
 @Service
 public class ApplicationService {
 	@Autowired
-    private ApplicationsDao applicationsDao; // Repository để truy cập CSDL
+	private ApplicationsDao applicationsDao; // Repository để truy cập CSDL
 
 	public void updateApplicationStatus(Integer applicationId, Integer status) {
-	    ApplicationsEntity application = applicationsDao.findById(applicationId)
-	            .orElseThrow(() -> new RuntimeException("Application not found"));
+		ApplicationsEntity application = applicationsDao.findById(applicationId)
+				.orElseThrow(() -> new RuntimeException("Application not found"));
 
-	    application.setStatus(status);
-	    applicationsDao.save(application);
+		application.setStatus(status);
+		applicationsDao.save(application);
 	}
-	
+
 }

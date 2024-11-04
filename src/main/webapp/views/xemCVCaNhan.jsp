@@ -254,8 +254,8 @@ p {
 
 /*dùng để di chuyển các class  */
 .sortable-ghost {
-    opacity: 0.5;
-    background-color: #f0f0f0;
+	opacity: 0.5;
+	background-color: #f0f0f0;
 }
 
 /* Hiệu ứng khi in */
@@ -279,7 +279,7 @@ p {
 
 		<div class="cv-container" id="cv-content">
 			<div class="left-column" id="sortable-left">
-			<div class="profile-photo">
+				<div class="profile-photo">
 					<img src="${pageContext.request.contextPath}/uploads/${cv.image}"
 						alt="Ảnh ứng viên" class="cv-photo"
 						onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
@@ -290,29 +290,29 @@ p {
 				</div>
 				<div class="about section">
 					<div class="section-title">Giới Thiệu</div>
-					<p contenteditable="true">${cv.profilesummary}</p>
+					<p contenteditable="true" id="profilesummary">${cv.profilesummary}</p>
 				</div>
 				<div class="contact section">
 					<div class="section-title">Liên Hệ</div>
-					<p contenteditable="true">📞 ${cv.phonenumbercv}</p>
-					<p contenteditable="true">✉️ ${cv.emailcv}</p>
-					<p contenteditable="true">Ngày Sinh: ${cv.dateOfbirth}</p>
-					<p contenteditable="true">Giới tính: ${cv.gender}</p>
+					<p contenteditable="true" id="phonenumbercv">📞 ${cv.phonenumbercv}</p>
+					<p contenteditable="true" id="emailcv">✉️ ${cv.emailcv}</p>
+					<p contenteditable="true" id="dateOfbirth">Ngày Sinh: ${cv.dateOfbirth}</p>
+					<p contenteditable="true" id="gender">Giới tính: ${cv.gender}</p>
 				</div>
 				<div class="skills section">
 					<div class="section-title">Kỹ Năng</div>
 					<ul>
-						<li contenteditable="true">${cv.skills}</li>
+						<li contenteditable="true" id="skills">${cv.skills}</li>
 					</ul>
 				</div>
 				<div class="language section">
 					<div class="section-title">Ngôn Ngữ</div>
-					<p contenteditable="true">${cv.languages}</p>
+					<p contenteditable="true" id="languages">${cv.languages}</p>
 				</div>
 			</div>
 
 			<div class="right-column" id="sortable-right">
-			<h1 contenteditable="true">${cv.fullnamecv}</h1>
+				<h1 contenteditable="true" id="fullnamecv"  name="fullnamecv">${cv.fullnamecv}</h1>
 				<div class="experience section">
 					<div class="section-title">Kinh Nghiệm Làm Việc</div>
 					<div class="job">
@@ -324,14 +324,16 @@ p {
 				<div class="education section">
 					<div class="section-title">Học Vấn</div>
 					<div class="education-item">
-						<h3 contenteditable="true">${cv.education}</h3>
-						<span contenteditable="true">Cử nhân Quản trị Kinh doanh | 2019 - 2023</span>
+						<h3 contenteditable="true" id="education">${cv.education}</h3>
+						<span contenteditable="true">Cử nhân Quản trị Kinh doanh |
+							2019 - 2023</span>
 					</div>
 				</div>
 				<div class="references section">
-					<div  contenteditable="true" class="section-title">Người Tham Chiếu</div>
+					<div contenteditable="true" class="section-title">Người Tham
+						Chiếu</div>
 					<div contenteditable="true" class="reference-item">
-						<h3 contenteditable="true" >Harumi Kobayashi</h3>
+						<h3 contenteditable="true">Harumi Kobayashi</h3>
 						<span>Saiford & Co. | CEO</span>
 						<p>📞 123-456-7890</p>
 						<p>✉️ hello@reallygreatsite.com</p>
@@ -343,7 +345,7 @@ p {
 
 	</div>
 
-<!-- Trạng thái cv ứng tuyển -->
+	<!-- Trạng thái cv ứng tuyển -->
 	<br>
 	<div class="container">
 		<div class="row justify-content-center">
@@ -376,7 +378,11 @@ p {
 	<div class="text-center mt-4 mb-4">
 		<button class="btn btn-primary" onclick="downloadPDF()">Tải
 			CV Dưới Dạng PDF</button>
-		<button class="btn btn-success" >Cập nhật</button>
+		<button id="saveBtn">Cập nhật</button>
+		<form action="/user/updateCv/${cv.jobseekerid}" method="post">
+			<button type="submit" class="btn btn-success">Cập nhật</button>
+		</form>
+		
 	</div>
 
 
@@ -447,30 +453,44 @@ p {
 	});
 	
 	
-	/* chỉnh sửa dữ liệu của cv khi đã được hiện lên*/
-	document.querySelectorAll('[contenteditable="true"]').forEach(element => {
-	    element.addEventListener("blur", function() {
-	        const updatedContent = this.innerHTML;
-	        const contentId = this.getAttribute('data-id');
+	document.getElementById('saveBtn').addEventListener('click', function() {
+	    const updatedData = {
+	        fullnamecv: document.getElementById('fullnamecv').innerText.trim() || '',
+	        emailcv: document.getElementById('emailcv').innerText.trim() || '',
+	        phonenumbercv: document.getElementById('phonenumbercv').innerText.trim() || '',
+	        profilesummary: document.getElementById('profilesummary').innerText.trim() || '',
+	        experience: document.getElementById('experience') ? document.getElementById('experience').innerText.trim() : '',
+	        education: document.getElementById('education') ? document.getElementById('education').innerText.trim() : '',
+	        skills: document.getElementById('skills') ? document.getElementById('skills').innerText.trim() : '',
+	        certifications: document.getElementById('certifications') ? document.getElementById('certifications').innerText.trim() : '',
+	        languages: document.getElementById('languages') ? document.getElementById('languages').innerText.trim() : '',
+	        image: document.getElementById('image') ? document.getElementById('image').src : ''
+	    };
 
-	        // Gửi dữ liệu qua AJAX hoặc lưu vào một biến
-	        console.log(`Nội dung mới của phần tử ${contentId}: ${updatedContent}`);
+	    console.log("Dữ liệu cập nhật trước khi gửi: ", updatedData); // Để kiểm tra dữ liệu
 
-	        // Ví dụ gửi AJAX (bạn cần cài đặt đường dẫn và method phù hợp)
-	        fetch('/updateCv', {
-	            method: 'POST',
-	            headers: {
-	                'Content-Type': 'application/json',
-	            },
-	            body: JSON.stringify({ id: contentId, value: updatedContent }),
-	        })
-	        .then(response => response.json())
-	        .then(data => {
-	            console.log('Thành công:', data);
-	        })
-	        .catch((error) => {
-	            console.error('Lỗi:', error);
-	        });
+	    // Kiểm tra xem dữ liệu có rỗng không
+	    if (Object.values(updatedData).every(value => value === '')) {
+	        alert("Vui lòng điền vào ít nhất một trường!");
+	        return;
+	    }
+
+	    // Gửi dữ liệu mới đến server
+	    fetch(`/user/updateCv/${jobseekerId}`, {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/x-www-form-urlencoded'
+	        },
+	        body: new URLSearchParams(updatedData)
+	    }).then(response => {
+	        if (response.ok) {
+	            alert("Cập nhật thành công!");
+	            // Chuyển hướng hoặc làm gì đó sau khi cập nhật thành công
+	        } else {
+	            alert("Có lỗi xảy ra!");
+	        }
+	    }).catch(error => {
+	        console.error("Lỗi:", error);
 	    });
 	});
 

@@ -32,8 +32,7 @@ public class TrangChuController {
 
 	@Autowired
 	private JoblistingsService jobListingService;
-	
-	
+
 //	@RequestMapping("")
 //	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page
 //			 ) {
@@ -60,25 +59,21 @@ public class TrangChuController {
 //		return "trangChu";
 //	}
 	// Phương thức trangChu
-    @RequestMapping("")
-    public String trangChu(Model model, @RequestParam("page") Optional<Integer> page) {
-        int pageNumber = page.orElse(0);
-        Pageable pageable = PageRequest.of(pageNumber, 8, Sort.by("posteddate").descending()); 
+	@RequestMapping("")
+	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page) {
+		int pageNumber = page.orElse(0);
+		Pageable pageable = PageRequest.of(pageNumber, 8, Sort.by("posteddate").descending());
 
-        // Lấy danh sách 20 công việc có isTop = true
-        List<JoblistingsEntity> latestJobs = jobListingService.getTop20JobListingsWithIstop();
-        model.addAttribute("latestJobs", latestJobs);
+		// Lấy danh sách 20 công việc có isTop = true
+		List<JoblistingsEntity> latestJobs = jobListingService.getTop20JobListingsWithIstop();
+		model.addAttribute("latestJobs", latestJobs);
 
-        // Lấy danh sách các bài viết chưa hết hạn
-        Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
-        model.addAttribute("dsSP", dsSP);
+		// Lấy danh sách các bài viết chưa hết hạn
+		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
+		model.addAttribute("dsSP", dsSP);
 
-        return "trangChu";
-    }
-
-
-
-
+		return "trangChu";
+	}
 
 //	@RequestMapping("")
 //	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page
@@ -105,8 +100,7 @@ public class TrangChuController {
 	@RequestMapping("/findJob")
 	public String findJob(Model model, @RequestParam("page") Optional<Integer> page,
 			@RequestParam("joblocation") Optional<String> joblocation,
-			@RequestParam("industry") Optional<String> industry, 
-			@RequestParam("jobtitle") Optional<String> jobtitle) {
+			@RequestParam("industry") Optional<String> industry, @RequestParam("jobtitle") Optional<String> jobtitle) {
 		Pageable pageable = PageRequest.of(page.orElse(0), 8, Sort.by("posteddate").descending());
 		Page<JoblistingsEntity> dsSP;
 
@@ -142,9 +136,10 @@ public class TrangChuController {
 		// Kiểm tra nếu không có kết quả
 		if (dsSP.isEmpty()) {
 			// Thêm thông báo vào mô hình
-			model.addAttribute("message", "Nội dung tìm kiếm hiện không có. Vui lòng tham khảo thêm công việc bên dưới.");
+			model.addAttribute("message",
+					"Nội dung tìm kiếm hiện không có. Vui lòng tham khảo thêm công việc bên dưới.");
 			dsSP = danhSachViecLamDao.findAll(pageable);
-		    model.addAttribute("dsSP", dsSP);
+			model.addAttribute("dsSP", dsSP);
 			// Trả về trang chủ với thông báo
 			return "redirect:/job4u";
 		}

@@ -27,69 +27,65 @@ import org.slf4j.LoggerFactory;
 @RequestMapping("/cvDetails")
 public class XemCvUngVienController {
 
-    private static final Logger logger = LoggerFactory.getLogger(XemCvUngVienController.class);
+	private static final Logger logger = LoggerFactory.getLogger(XemCvUngVienController.class);
 
-    @Autowired
-    private ApplicationsDao applicationsDao;
-    
-    @Autowired
+	@Autowired
+	private ApplicationsDao applicationsDao;
+
+	@Autowired
 	HttpSession ss;
-    
-    @Autowired
-    private ApplicationService applicationService;
 
-    @RequestMapping("/{applicationId}")
-    public String cvDetails(@PathVariable("applicationId") Integer applicationId, Model model) {
-        ApplicationsEntity applicationDetails = applicationsDao.findById(applicationId).orElse(null);
-        
-		
-		  // Lấy danh sách CV của ứng viên dựa trên jobListingId
+	@Autowired
+	private ApplicationService applicationService;
+
+	@RequestMapping("/{applicationId}")
+	public String cvDetails(@PathVariable("applicationId") Integer applicationId, Model model) {
+		ApplicationsEntity applicationDetails = applicationsDao.findById(applicationId).orElse(null);
+
+		// Lấy danh sách CV của ứng viên dựa trên jobListingId
 //		  List<ApplicationsEntity> cvList = 
 //		  applicationsDao.findApplicationsByJoblistingId(applicationId);
-		  
-		  List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByJoblistingId(applicationId);
-	        
-	        // Thêm danh sách CV vào mô hình
-	        model.addAttribute("cvList", cvList);
-		  // Thêm danh sách CV vào mô hình model.addAttribute("cvList", cvList);
-		 
-        
-        if (applicationDetails == null) {
-            model.addAttribute("errorMessage", "Không tìm thấy thông tin ứng tuyển.");
-            return "nhaTuyenDung"; // Trả về view với thông báo lỗi
-        }
 
-        JobSeekersEntity jobSeeker = applicationDetails.getJobseeker();
-        model.addAttribute("cv", jobSeeker);
-        model.addAttribute("applicationId", applicationDetails.getApplicationid());
+		List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByJoblistingId(applicationId);
 
-        return "cvDetails"; // Trả về view chi tiết CV
-    }
+		// Thêm danh sách CV vào mô hình
+		model.addAttribute("cvList", cvList);
+		// Thêm danh sách CV vào mô hình model.addAttribute("cvList", cvList);
 
-    @PostMapping("/{applicationId}/accept")
-    @ResponseBody
-    public String acceptApplication(@PathVariable Integer applicationId) {
-        try {
-            applicationService.updateApplicationStatus(applicationId, 1);
-            return "success";
-        } catch (Exception e) {
-            logger.error("Error updating application status: ", e);
-            return "error";
-        }
-    }
-    
-    @PostMapping("/{applicationId}/reject")
-    @ResponseBody
-    public String rejectApplication(@PathVariable Integer applicationId) {
-        try {
-            applicationService.updateApplicationStatus(applicationId, 2); // Cập nhật status = 2
-            return "success";
-        } catch (Exception e) {
-            logger.error("Error updating application status to rejected: ", e);
-            return "error";
-        }
-    }
+		if (applicationDetails == null) {
+			model.addAttribute("errorMessage", "Không tìm thấy thông tin ứng tuyển.");
+			return "nhaTuyenDung"; // Trả về view với thông báo lỗi
+		}
 
-  
+		JobSeekersEntity jobSeeker = applicationDetails.getJobseeker();
+		model.addAttribute("cv", jobSeeker);
+		model.addAttribute("applicationId", applicationDetails.getApplicationid());
+
+		return "cvDetails"; // Trả về view chi tiết CV
+	}
+
+	@PostMapping("/{applicationId}/accept")
+	@ResponseBody
+	public String acceptApplication(@PathVariable Integer applicationId) {
+		try {
+			applicationService.updateApplicationStatus(applicationId, 1);
+			return "success";
+		} catch (Exception e) {
+			logger.error("Error updating application status: ", e);
+			return "error";
+		}
+	}
+
+	@PostMapping("/{applicationId}/reject")
+	@ResponseBody
+	public String rejectApplication(@PathVariable Integer applicationId) {
+		try {
+			applicationService.updateApplicationStatus(applicationId, 2); // Cập nhật status = 2
+			return "success";
+		} catch (Exception e) {
+			logger.error("Error updating application status to rejected: ", e);
+			return "error";
+		}
+	}
 
 }
