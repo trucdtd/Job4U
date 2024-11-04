@@ -133,7 +133,6 @@ $(document).ready(function() {
         });
     });
     
-    <script>
     function acceptApplication(applicationId) {
  	    fetch(`/cvDetails/${applicationId}/accept`, {
  	        method: 'POST',
