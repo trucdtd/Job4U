@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -191,6 +192,41 @@ public class UsersController {
 
 		model.addAttribute("cv", jobseeker);
 		return "xemCVCaNhan"; // Trả về view chi tiết CV
+	}
+
+	@PostMapping("/updateCv/{jobseekerId}")
+	public String cvUpdate(@PathVariable("jobseekerId") Integer jobseekerId,
+			@RequestParam Map<String, String> updatedData, Model model) {
+		try {
+			JobSeekersEntity jobSeeker = dao.findById(jobseekerId).orElse(null);
+
+			if (jobSeeker == null) {
+				model.addAttribute("errorMessage", "Không tìm thấy thông tin CV.");
+				return "redirect:/user/cv/list2"; // Chuyển hướng nếu không tìm thấy
+			}
+
+			// Cập nhật các trường, kiểm tra null
+			jobSeeker.setFullnamecv(updatedData.getOrDefault("fullnamecv", jobSeeker.getFullnamecv()));
+			jobSeeker.setPhonenumbercv(updatedData.getOrDefault("phonenumbercv", jobSeeker.getPhonenumbercv()));
+			jobSeeker.setEmailcv(updatedData.getOrDefault("emailcv", jobSeeker.getEmailcv()));
+			jobSeeker.setProfilesummary(updatedData.getOrDefault("profilesummary", jobSeeker.getProfilesummary()));
+			jobSeeker.setExperience(updatedData.getOrDefault("experience", jobSeeker.getExperience()));
+			jobSeeker.setEducation(updatedData.getOrDefault("education", jobSeeker.getEducation()));
+			jobSeeker.setSkills(updatedData.getOrDefault("skills", jobSeeker.getSkills()));
+			jobSeeker.setCertifications(updatedData.getOrDefault("certifications", jobSeeker.getCertifications()));
+			jobSeeker.setLanguages(updatedData.getOrDefault("languages", jobSeeker.getLanguages()));
+			jobSeeker.setImage(updatedData.getOrDefault("image", jobSeeker.getImage()));
+
+			// Lưu thay đổi vào cơ sở dữ liệu
+			dao.save(jobSeeker);
+
+			System.out.println("Dữ liệu cập nhật: " + updatedData);
+
+			return "xemCVCaNhan"; // Trả về view chi tiết CV
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
+			return "redirect:/user/cv/list2"; // Chuyển hướng nếu có lỗi
+		}
 	}
 
 	@PostMapping("/deleteCV")

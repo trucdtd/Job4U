@@ -27,4 +27,6 @@ public interface JobSeekersDao extends JpaRepository<JobSeekersEntity, Integer> 
 
 	void deleteById(Integer jobseekerId);
 
+	;
+
 }

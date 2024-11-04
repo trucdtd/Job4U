@@ -252,12 +252,6 @@ p {
 	line-height: 1.6;
 }
 
-/*dùng để di chuyển các class  */
-.sortable-ghost {
-    opacity: 0.5;
-    background-color: #f0f0f0;
-}
-
 /* Hiệu ứng khi in */
 @media print {
 	.cv-container {
@@ -278,8 +272,8 @@ p {
 			</div> -->
 
 		<div class="cv-container" id="cv-content">
-			<div class="left-column" >
-			<div class="profile-photo">
+			<div class="left-column">
+				<div class="profile-photo">
 					<img src="${pageContext.request.contextPath}/uploads/${cv.image}"
 						alt="Ảnh ứng viên" class="cv-photo"
 						onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
@@ -288,47 +282,69 @@ p {
 							class="placeholder">
 					</div>
 				</div>
-				<div class="about section">
+				<h2>Quản lý Marketing</h2>
+				<div class="about">
 					<div class="section-title">Giới Thiệu</div>
 					<p>${cv.profilesummary}</p>
 				</div>
-				<div class="contact section">
+				<div class="contact">
 					<div class="section-title">Liên Hệ</div>
 					<p>📞 ${cv.phonenumbercv}</p>
 					<p>✉️ ${cv.emailcv}</p>
 					<p>Ngày Sinh: ${cv.dateOfbirth}</p>
-					<p>Giới tính: ${cv.gender}</p>
+					<p>Giới tính: ${cv.gender} </p>
 				</div>
-				<div class="skills section">
+				<div class="skills">
 					<div class="section-title">Kỹ Năng</div>
 					<ul>
 						<li>${cv.skills}</li>
+						
 					</ul>
 				</div>
-				<div class="language section">
+				<div class="language">
 					<div class="section-title">Ngôn Ngữ</div>
 					<p>${cv.languages}</p>
 				</div>
 			</div>
-
-			<div class="right-column" >
-				<div class="experience section">
-					<h1>${cv.fullnamecv}</h1>
+			
+			<div class= "right-column">
+				<h1>${cv.fullnamecv}</h1>
+				<div class="experience">
 					<div class="section-title">Kinh Nghiệm Làm Việc</div>
 					<div class="job">
 						<h3>Quản lý Marketing</h3>
-						<span>Aerowell Industries | 2022 - 2023</span>
-						<p class="description">Lãnh đạo các sáng kiến tiếp thị...</p>
+						<span>${cv.education} | 2022 - 2023</span>
+						<p class="description">Lãnh đạo các sáng kiến tiếp thị, tăng
+							cường nhận thức thương hiệu lên 15%. Phát triển các chiến dịch số
+							sáng tạo, phù hợp với nhu cầu của khách hàng.</p>
+					</div>
+					<div class="job">
+						<h3>Quản lý Marketing</h3>
+						<span>Ginyard International Co. | 2020 - 2021</span>
+						<p class="description">Quản lý một đội ngũ tiếp thị, nâng cao
+							hiệu quả chiến dịch lên 20%. Giám sát ngân sách quảng cáo và lập
+							kế hoạch chiến lược.</p>
+					</div>
+					<div class="job">
+						<h3>Quản lý Marketing</h3>
+						<span>Saiford & Co. | 2018 - 2019</span>
+						<p class="description">Thiết kế và triển khai các chiến lược
+							thương hiệu, tăng cường tương tác khách hàng. Mở rộng phạm vi
+							tiếp cận trên mạng xã hội lên 40%.</p>
 					</div>
 				</div>
-				<div class="education section">
+				<div class="education">
 					<div class="section-title">Học Vấn</div>
 					<div class="education-item">
-						<h3>${cv.education}</h3>
+						<h3>${cv.education} </h3>
 						<span>Cử nhân Quản trị Kinh doanh | 2019 - 2023</span>
 					</div>
+					<div class="education-item">
+						<h3>Đại học Borcelle</h3>
+						<span>Cử nhân Quản trị Kinh doanh | 2016 - 2018</span>
+					</div>
 				</div>
-				<div class="references section">
+				<div class="references">
 					<div class="section-title">Người Tham Chiếu</div>
 					<div class="reference-item">
 						<h3>Harumi Kobayashi</h3>
@@ -340,8 +356,8 @@ p {
 			</div>
 		</div>
 
-
 	</div>
+
 
 	<br>
 	<div class="container">
@@ -354,12 +370,12 @@ p {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="cv" items="${cvList}">
+						<c:forEach var="scv" items="${cvList}">
 							<tr>
 								<td><c:choose>
-										<c:when test="${cv.status == 0}">Đang chờ</c:when>
-										<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
-										<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+										<c:when test="${scv.status == 0}">Đang chờ</c:when>
+										<c:when test="${scv.status == 1}">Được chấp nhận</c:when>
+										<c:when test="${scv.status == 2}">Bị từ chối</c:when>
 										<c:otherwise>Không xác định</c:otherwise>
 									</c:choose></td>
 							</tr>
@@ -374,7 +390,7 @@ p {
 	<!-- </div> -->
 	<div class="text-center mt-4 mb-4">
 		<button class="btn btn-success"
-			onclick="acceptApplication(${application.jobseekerid})">Chấp
+			onclick="acceptApplication(${application.applicationid})">Chấp
 			nhận</button>
 		<button class="btn btn-danger"
 			onclick="rejectApplication(${application.applicationid})">Từ
@@ -392,9 +408,8 @@ p {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+	
 	<script>
 	
     function downloadPDF() {
@@ -422,7 +437,7 @@ p {
 
 	<script>
    function acceptApplication(applicationId) {
-	    fetch(`/employers/${jobseekerid}/accept`, {
+	    fetch(`/cvDetails/${applicationId}/accept`, {
 	        method: 'POST',
 	        headers: {
 	            'Content-Type': 'application/json',
@@ -444,7 +459,7 @@ p {
 	}
 
    function rejectApplication(applicationId) {
-	    fetch(`/employers/${applicationId}/reject`, {
+	    fetch(`/cvDetails/${applicationId}/reject`, {
 	        method: 'POST',
 	        headers: {
 	            'Content-Type': 'application/json',
@@ -465,9 +480,6 @@ p {
 	    });
 	}
     </script>
-	
-
-
 
 
 </body>
