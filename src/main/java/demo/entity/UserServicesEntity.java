@@ -45,4 +45,9 @@ public class UserServicesEntity implements Serializable {
     
     @Column(name = "Isactive")
     private Boolean isactive = true;
+
+	public LocalDateTime getCreatedDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

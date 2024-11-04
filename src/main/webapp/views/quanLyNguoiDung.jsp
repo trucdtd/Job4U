@@ -113,7 +113,7 @@
 								<table id="userTable" class="table align-items-center mb-0">
 									<thead class="thead-light text-center">
 										<tr>
-											<th>STT</th>
+											<th>ID</th>
 											<th>Tên Tài Khoản</th>
 											<th>Email</th>
 											<th>Số điện thoại</th>
@@ -280,10 +280,10 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<table id="postTable" class="table align-items-center mb-0">
+								<table id="dvTable" class="table align-items-center mb-0">
 									<thead class="thead-light">
 										<tr>
-											<th scope="col">STT</th>
+											<th scope="col">ID</th>
 											<th scope="col">Tên Dịch Vụ</th>
 											<th scope="col">Giá</th>
 											<th scope="col">Ngày Tạo</th>
@@ -296,14 +296,7 @@
 											<tr>
 												<th scope="row">${dv.serviceid}</th>
 												<td>${dv.servicename}</td>
-												<td><c:choose>
-														<c:when test="${dv.price != null}">
-															<span style="display: inline-flex; align-items: center;">
-																${bv.price.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
-																VND </span>
-														</c:when>
-													</c:choose></td>
-												
+												<td>${dv.price}</td>
 												<td>${dv.createdat}</td>
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
@@ -348,7 +341,8 @@
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-
+	<script
+		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </body>
 <script>
 	function showTable(event, tableId) {
@@ -459,10 +453,27 @@ $(document).ready(function() {
             "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
         }
     });
+    
+    $('#dvTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
+    });
 });
 </script>
-<script
-	src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <!-- CSS for DataTables -->
 </body>
 </html>
