@@ -73,12 +73,16 @@ public class NhaTuyenDungController {
 	private PaymentsDao paymentDao;
 
 	@Autowired
-	private UserServicesDao userServicesDao;
+	private JoblistingsDao joblistingsDao;
+	
 	@Autowired
 	private EmployersDao nhaTuyenDungDao;
 
 	@Autowired
 	private ServicesDao servicesDao;
+	
+	@Autowired
+	private UserServicesDao userServiceDao;
 
 	@Autowired
 	private JobSeekersDao jobSeekersDao;
@@ -532,8 +536,10 @@ public class NhaTuyenDungController {
 	    if (paymentStatus == 1) {
 	        UsersEntity user = userRepository.findById(userId).orElse(null);
 	        ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
+	        JoblistingsEntity job = joblistingsDao.findById(jobId).orElse(null); // Lấy thông tin bài đăng từ jobId
 
 	        if (user != null && service != null) {
+	            // Lưu thông tin thanh toán
 	            PaymentsEntity payment = new PaymentsEntity();
 	            payment.setUser(user);
 	            payment.setService(service);
@@ -541,11 +547,28 @@ public class NhaTuyenDungController {
 	            payment.setPaymentdate(LocalDate.now());
 	            payment.setStatus("Thanh toán thành công");
 	            payment.setPaymentmethod("VNPay");
-
 	            paymentDao.save(payment);
+
+	            // Tạo hoặc cập nhật UserServicesEntity
+	            UserServicesEntity userService = new UserServicesEntity();
+	            userService.setUser(user);
+	            userService.setService(service);
+	            userService.setPurchasedate(LocalDateTime.now());
+	            userService.setExpirydate(LocalDateTime.now().plusDays(3)); // Đặt ngày hết hạn là 3 ngày kể từ ngày mua
+	            userService.setNumberofjobsallowed(1); // Điều chỉnh số lượng công việc cho phép
+	            userServiceDao.save(userService); // Giả sử bạn có DAO cho UserServicesEntity
+
+	         // Tùy chọn: tạo một JoblistingsEntity
+	            if (job != null) {
+	                // Ví dụ: liên kết công việc với dịch vụ hoặc người dùng nếu cần
+	                job.setUserservice(userService);
+	                job.setIsTop(true); // Đặt cột isTop thành true
+	                joblistingsDao.save(job); // Lưu thay đổi vào bài đăng
+	            }
+
 	            redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
 	        } else {
-	        	redirectAttributes.addFlashAttribute("message", "Người dùng hoặc dịch vụ không hợp lệ.");
+	            redirectAttributes.addFlashAttribute("message", "Người dùng hoặc dịch vụ không hợp lệ.");
 	            return "redirect:/employers?error=invalidData";
 	        }
 	    } else {
@@ -554,6 +577,8 @@ public class NhaTuyenDungController {
 
 	    return "redirect:/employers";
 	}
+
+
 	        
 
 	/*
