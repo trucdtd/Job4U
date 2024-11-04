@@ -1,6 +1,5 @@
 package demo.Controllers;
 
-
 import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,34 +80,34 @@ public class thongTinCaNhanController {
 
 	@PostMapping("/updateUser")
 	public String updateUser(@ModelAttribute UsersEntity user, HttpSession session, Model model) {
-	    Integer userId = (Integer) session.getAttribute("userid");
-	    
-	    if (userId == null) {
-	        model.addAttribute("error", "Bạn cần đăng nhập để truy cập trang này.");
-	        return "dangnhap"; // Chuyển hướng đến trang đăng nhập
-	    }
+		Integer userId = (Integer) session.getAttribute("userid");
 
-	    try {
-	        UsersEntity existingUser = usersDao.findById(userId)
-	                .orElseThrow(() -> new RuntimeException("Người dùng không tồn tại."));
-	        
-	        // Cập nhật thông tin người dùng
-	        existingUser.setFullname(user.getFullname());
-	        existingUser.setEmail(user.getEmail());
+		if (userId == null) {
+			model.addAttribute("error", "Bạn cần đăng nhập để truy cập trang này.");
+			return "dangnhap"; // Chuyển hướng đến trang đăng nhập
+		}
 
-	        // Lưu người dùng đã cập nhật vào cơ sở dữ liệu
-	        usersDao.save(existingUser);
-	        
-	        // Cập nhật thông tin trong session
-	        session.setAttribute("userName", existingUser.getFullname());
+		try {
+			UsersEntity existingUser = usersDao.findById(userId)
+					.orElseThrow(() -> new RuntimeException("Người dùng không tồn tại."));
 
-	        model.addAttribute("success", "Cập nhật thành công!");
-	    } catch (Exception e) {
-	        model.addAttribute("error", "Đã xảy ra lỗi khi cập nhật thông tin: " + e.getMessage());
-	        return "thongTinCaNhan"; // Quay lại trang thông tin cá nhân
-	    }
+			// Cập nhật thông tin người dùng
+			existingUser.setFullname(user.getFullname());
+			existingUser.setEmail(user.getEmail());
 
-	    return "redirect:/ThongTinCaNhan"; // Chuyển hướng về trang thông tin cá nhân
+			// Lưu người dùng đã cập nhật vào cơ sở dữ liệu
+			usersDao.save(existingUser);
+
+			// Cập nhật thông tin trong session
+			session.setAttribute("userName", existingUser.getFullname());
+
+			model.addAttribute("success", "Cập nhật thành công!");
+		} catch (Exception e) {
+			model.addAttribute("error", "Đã xảy ra lỗi khi cập nhật thông tin: " + e.getMessage());
+			return "thongTinCaNhan"; // Quay lại trang thông tin cá nhân
+		}
+
+		return "redirect:/ThongTinCaNhan"; // Chuyển hướng về trang thông tin cá nhân
 	}
 
 }

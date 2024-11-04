@@ -22,19 +22,18 @@ public interface ApplicationsDao extends JpaRepository<ApplicationsEntity, Integ
 	List<ApplicationsEntity> findApplicationsByUserId(@Param("userid") Integer userid);
 
 	// Tìm danh sách ứng viên đã ứng tuyển vào một Joblisting dựa trên Joblisting ID
-	@Query("SELECT a FROM ApplicationsEntity a " +
-		       "JOIN a.job j " +
-		       "WHERE j.jobid = :joblistingId")
-		List<ApplicationsEntity> findApplicationsByJoblistingId(@Param("joblistingId") Integer joblistingId);
-	@Query("SELECT a FROM ApplicationsEntity a " +
-		       "JOIN a.job j " +
-		       "WHERE j.jobid = :joblistingId and a.jobseeker.jobseekerid = :jskid")
-		ApplicationsEntity find1ApplicationsByJoblistingId(@Param("joblistingId") Integer joblistingId,@Param("jskid") Integer jskid);
-	
-    List<ApplicationsEntity> findByJobseeker_User_Userid(Integer userId);
+	@Query("SELECT a FROM ApplicationsEntity a " + "JOIN a.job j " + "WHERE j.jobid = :joblistingId")
+	List<ApplicationsEntity> findApplicationsByJoblistingId(@Param("joblistingId") Integer joblistingId);
+
+	@Query("SELECT a FROM ApplicationsEntity a " + "JOIN a.job j "
+			+ "WHERE j.jobid = :joblistingId and a.jobseeker.jobseekerid = :jskid")
+	ApplicationsEntity find1ApplicationsByJoblistingId(@Param("joblistingId") Integer joblistingId,
+			@Param("jskid") Integer jskid);
+
+	List<ApplicationsEntity> findByJobseeker_User_Userid(Integer userId);
 
 	boolean existsByJobseeker_Jobseekerid(Integer jobseekerId);
-	
+
 	// kiểm tra xem người dùng đã ứng tuyển
 	@Query("SELECT a.job FROM ApplicationsEntity a WHERE a.jobseeker.user.userid = :userid")
 	List<JoblistingsEntity> findJobsAppliedByUserId(@Param("userid") Integer userid);

@@ -37,7 +37,7 @@ public class quenMatKhauController {
 
 	@Autowired
 	private UserService userService; // Dịch vụ xử lý logic người dùng
-	
+
 	@Autowired
 	ServletRequest req;;
 
@@ -101,15 +101,15 @@ public class quenMatKhauController {
 
 	// Sinh mã token không mã hóa
 	public static String generateToken() {
-	    SecureRandom random = new SecureRandom();
-	    StringBuilder token = new StringBuilder(TOKEN_LENGTH);
+		SecureRandom random = new SecureRandom();
+		StringBuilder token = new StringBuilder(TOKEN_LENGTH);
 
-	    // Sinh token chỉ gồm số
-	    for (int i = 0; i < TOKEN_LENGTH; i++) {
-	        token.append(NUMERIC_CHARACTERS.charAt(random.nextInt(NUMERIC_CHARACTERS.length())));
-	    }
+		// Sinh token chỉ gồm số
+		for (int i = 0; i < TOKEN_LENGTH; i++) {
+			token.append(NUMERIC_CHARACTERS.charAt(random.nextInt(NUMERIC_CHARACTERS.length())));
+		}
 
-	    return token.toString(); // Trả về token dạng chuỗi số
+		return token.toString(); // Trả về token dạng chuỗi số
 	}
 
 	// Mã hóa token thành chuỗi Base64
@@ -125,76 +125,77 @@ public class quenMatKhauController {
 
 	@PostMapping("/NhapMa")
 	public String hienThiNhapMaForm(@RequestParam("token") String token, Model model, HttpSession session) {
-	    // Kiểm tra xem token có trống hay không
-	    if (token == null || token.isEmpty()) {
-	        model.addAttribute("error", "Mã token bị trống.");
-	        return "nhapMa"; // Trang nhập mã
-	    }
+		// Kiểm tra xem token có trống hay không
+		if (token == null || token.isEmpty()) {
+			model.addAttribute("error", "Mã token bị trống.");
+			return "nhapMa"; // Trang nhập mã
+		}
 
-	    // Lấy token đã gửi từ session
-	    String sessionToken = (String) session.getAttribute("resetToken");
+		// Lấy token đã gửi từ session
+		String sessionToken = (String) session.getAttribute("resetToken");
 
-	    // Kiểm tra mã token có khớp không
-	    if (sessionToken == null || !sessionToken.equals(token)) {
-	        model.addAttribute("error", "Mã token không hợp lệ.");
-	        return "nhapMa"; // Trang nhập mã
-	    }
+		// Kiểm tra mã token có khớp không
+		if (sessionToken == null || !sessionToken.equals(token)) {
+			model.addAttribute("error", "Mã token không hợp lệ.");
+			return "nhapMa"; // Trang nhập mã
+		}
 
-	    // Truyền token vào model nếu hợp lệ
-	    model.addAttribute("token", token);
+		// Truyền token vào model nếu hợp lệ
+		model.addAttribute("token", token);
 
-	    // Chuyển hướng đến trang đặt lại mật khẩu
-	    return "datLaiMatKhau";
+		// Chuyển hướng đến trang đặt lại mật khẩu
+		return "datLaiMatKhau";
 	}
-	
+
 	@PostMapping("/DatLaiMatKhau")
 	public String xuLyDatLaiMatKhau(@RequestParam("newPassword") String newPassword,
-	        @RequestParam("confirmPassword") String confirmPassword, 
-	        Model model, RedirectAttributes redirectAttributes, HttpSession session) {
+			@RequestParam("confirmPassword") String confirmPassword, Model model, RedirectAttributes redirectAttributes,
+			HttpSession session) {
 
-	    // Lấy token từ session
-	    String sessionToken = (String) session.getAttribute("resetToken");
-	    if (sessionToken == null) {
-	        model.addAttribute("error", "Phiên đã hết hạn hoặc mã token không hợp lệ.");
-	        return "datLaiMatKhau"; // Trả về trang đặt lại mật khẩu với thông báo lỗi
-	    }
+		// Lấy token từ session
+		String sessionToken = (String) session.getAttribute("resetToken");
+		if (sessionToken == null) {
+			model.addAttribute("error", "Phiên đã hết hạn hoặc mã token không hợp lệ.");
+			return "datLaiMatKhau"; // Trả về trang đặt lại mật khẩu với thông báo lỗi
+		}
 
-	    // Kiểm tra độ dài mật khẩu
-	    if (newPassword.length() < 8) {
-	        model.addAttribute("error", "Mật khẩu phải chứa ít nhất 8 ký tự.");
-	        return "datLaiMatKhau"; // Trả về trang đặt lại mật khẩu với thông báo lỗi
-	    }
+		// Kiểm tra độ dài mật khẩu
+		if (newPassword.length() < 8) {
+			model.addAttribute("error", "Mật khẩu phải chứa ít nhất 8 ký tự.");
+			return "datLaiMatKhau"; // Trả về trang đặt lại mật khẩu với thông báo lỗi
+		}
 
-	    // Kiểm tra mật khẩu mới và xác nhận mật khẩu có khớp không
-	    if (!newPassword.equals(confirmPassword)) {
-	        model.addAttribute("error", "Mật khẩu và xác nhận mật khẩu không khớp.");
-	        return "datLaiMatKhau"; // Trả về trang đặt lại mật khẩu với thông báo lỗi
-	    }
+		// Kiểm tra mật khẩu mới và xác nhận mật khẩu có khớp không
+		if (!newPassword.equals(confirmPassword)) {
+			model.addAttribute("error", "Mật khẩu và xác nhận mật khẩu không khớp.");
+			return "datLaiMatKhau"; // Trả về trang đặt lại mật khẩu với thông báo lỗi
+		}
 
-	    // Tìm người dùng dựa trên token đã lưu trong session
-	    UsersEntity user = userRepository.findByToken(sessionToken);
-	    if (user == null) {
-	        model.addAttribute("error", "Mã token không hợp lệ.");
-	        return "datLaiMatKhau";
-	    }
+		// Tìm người dùng dựa trên token đã lưu trong session
+		UsersEntity user = userRepository.findByToken(sessionToken);
+		if (user == null) {
+			model.addAttribute("error", "Mã token không hợp lệ.");
+			return "datLaiMatKhau";
+		}
 
-	    // Mã hóa mật khẩu trước khi lưu (nếu cần)
-	    // String encodedPassword = passwordEncoder.encode(newPassword);
-	    // user.setPassword(encodedPassword);
+		// Mã hóa mật khẩu trước khi lưu (nếu cần)
+		// String encodedPassword = passwordEncoder.encode(newPassword);
+		// user.setPassword(encodedPassword);
 
-	    user.setPassword(newPassword); // Nếu không mã hóa mật khẩu, chỉ lưu mật khẩu mới
-	    user.setToken(null); // Hủy token sau khi mật khẩu đã được đặt lại
-	    userRepository.save(user); // Lưu thông tin vào cơ sở dữ liệu
+		user.setPassword(newPassword); // Nếu không mã hóa mật khẩu, chỉ lưu mật khẩu mới
+		user.setToken(null); // Hủy token sau khi mật khẩu đã được đặt lại
+		userRepository.save(user); // Lưu thông tin vào cơ sở dữ liệu
 
-	    // Xóa token khỏi session
-	    session.removeAttribute("resetToken");
+		// Xóa token khỏi session
+		session.removeAttribute("resetToken");
 
-	    // Thêm thông báo thành công vào redirectAttributes
-	    redirectAttributes.addFlashAttribute("message", "Mật khẩu đã được thay đổi thành công");
+		// Thêm thông báo thành công vào redirectAttributes
+		redirectAttributes.addFlashAttribute("message", "Mật khẩu đã được thay đổi thành công");
 
-	    // Chuyển hướng đến trang đăng nhập
-	    return "dangnhap";
+		// Chuyển hướng đến trang đăng nhập
+		return "dangnhap";
 	}
+
 	// Xác thực token
 	public boolean validatePasswordResetToken(String token, String code) {
 		// Giải mã token

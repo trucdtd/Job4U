@@ -13,23 +13,24 @@ import demo.dao.EmployersDao;
 import demo.services.SessionService;
 import org.springframework.web.bind.annotation.RequestParam;
 import demo.entity.EmployersEntity;
+
 @Controller
 @RequestMapping("/ListEmployers")
 public class DanhSachCongTyController {
 	@Autowired
 	EmployersDao employersDao;
-	
+
 	@Autowired
 	SessionService ss;
-	
+
 	@RequestMapping("")
 	public String ListEmployerd(Model model, @RequestParam("page") Optional<Integer> page) {
 		int pageNumber = page.orElse(0);
 //		Pageable pageable = PageRequest.of(pageNumber, 8);
 		Pageable pageable = PageRequest.of(pageNumber, 8);
-        Page<EmployersEntity> dsCTy = employersDao.findAll(pageable);
-        model.addAttribute("dsCTy", dsCTy);
-        return "danhSachCongTy";
+		Page<EmployersEntity> dsCTy = employersDao.findAll(pageable);
+		model.addAttribute("dsCTy", dsCTy);
+		return "danhSachCongTy";
 	}
-	
+
 }

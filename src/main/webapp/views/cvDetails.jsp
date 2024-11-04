@@ -307,7 +307,7 @@ p {
 				</div>
 			</div>
 			
-			<div class="right-column">
+			<div class= "right-column">
 				<h1>${cv.fullnamecv}</h1>
 				<div class="experience">
 					<div class="section-title">Kinh Nghiệm Làm Việc</div>
@@ -358,6 +358,7 @@ p {
 
 	</div>
 
+
 	<br>
 	<div class="container">
 		<div class="row justify-content-center">
@@ -369,12 +370,12 @@ p {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="cv" items="${cvList}">
+						<c:forEach var="scv" items="${cvList}">
 							<tr>
 								<td><c:choose>
-										<c:when test="${cv.status == 0}">Đang chờ</c:when>
-										<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
-										<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+										<c:when test="${scv.status == 0}">Đang chờ</c:when>
+										<c:when test="${scv.status == 1}">Được chấp nhận</c:when>
+										<c:when test="${scv.status == 2}">Bị từ chối</c:when>
 										<c:otherwise>Không xác định</c:otherwise>
 									</c:choose></td>
 							</tr>
@@ -407,7 +408,10 @@ p {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+	
 	<script>
+	
     function downloadPDF() {
         var element = document.getElementById('cv-content'); // Chọn nội dung form
         var opt = {

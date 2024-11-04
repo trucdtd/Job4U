@@ -20,36 +20,36 @@ import lombok.Data;
 @Table(name = "Payments")
 public class PaymentsEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "paymentid")
-    private Integer paymentid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "paymentid")
+	private Integer paymentid;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "UserID", nullable = false)
-    private UsersEntity user;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "UserID", nullable = false)
+	private UsersEntity user;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "ServiceID", nullable = false)
-    private ServicesEntity service;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "ServiceID", nullable = false)
+	private ServicesEntity service;
 
-    @NotNull
-    @Column(name = "Amount", nullable = false)
-    private BigDecimal amount;
+	@NotNull
+	@Column(name = "Amount", nullable = false)
+	private BigDecimal amount;
 
-    @NotNull
-    @Column(name = "Paymentdate", nullable = false)
-    private LocalDate Paymentdate;
+	@NotNull
+	@Column(name = "Paymentdate", nullable = false)
+	private LocalDate Paymentdate;
 
-    @NotNull
-    @Column(name = "Status", nullable = false)
-    private String status;
-    
-    @NotNull
-    @Column(name = "paymentmethod", nullable = false)
-    private String paymentmethod;
+	@NotNull
+	@Column(name = "Status", nullable = false)
+	private String status;
+
+	@NotNull
+	@Column(name = "paymentmethod", nullable = false)
+	private String paymentmethod;
 }

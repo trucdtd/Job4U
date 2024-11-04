@@ -1,4 +1,4 @@
-	
+
 /*
  * package demo.services;
  * 
@@ -34,81 +34,82 @@ import jakarta.transaction.Transactional;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Autowired
-    private UsersDao usersDao;
+	@Autowired
+	private UsersDao usersDao;
 
-    /**
-     * Tìm người dùng dựa trên tên đăng nhập.
-     *
-     * @param username tên đăng nhập của người dùng.
-     * @return người dùng tương ứng với tên đăng nhập, hoặc null nếu không tìm thấy.
-     */
-    public UsersEntity findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+	/**
+	 * Tìm người dùng dựa trên tên đăng nhập.
+	 *
+	 * @param username tên đăng nhập của người dùng.
+	 * @return người dùng tương ứng với tên đăng nhập, hoặc null nếu không tìm thấy.
+	 */
+	public UsersEntity findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 
-    /**
-     * Tìm người dùng dựa trên ID.
-     *
-     * @param userId ID của người dùng.
-     * @return người dùng tương ứng với ID, hoặc null nếu không tìm thấy.
-     */
-    public UsersEntity findById(Integer userId) {
-        return userRepository.findById(userId).orElse(null);
-    }
+	/**
+	 * Tìm người dùng dựa trên ID.
+	 *
+	 * @param userId ID của người dùng.
+	 * @return người dùng tương ứng với ID, hoặc null nếu không tìm thấy.
+	 */
+	public UsersEntity findById(Integer userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
 
-    /**
-     * Thay đổi mật khẩu của người dùng.
-     *
-     * @param username    tên đăng nhập của người dùng.
-     * @param oldPassword mật khẩu cũ.
-     * @param newPassword mật khẩu mới.
-     * @return true nếu mật khẩu được thay đổi thành công, false nếu không thành công.
-     */
-    public boolean changePassword(String username, String oldPassword, String newPassword) {
-        UsersEntity user = findByUsername(username);
-        if (user != null && oldPassword.equals(user.getPassword())) { // So sánh mật khẩu không mã hóa
-            user.setPassword(newPassword); // Lưu mật khẩu mới mà không mã hóa
-            userRepository.save(user);
-            return true;
-        }
-        return false;
-    }
+	/**
+	 * Thay đổi mật khẩu của người dùng.
+	 *
+	 * @param username    tên đăng nhập của người dùng.
+	 * @param oldPassword mật khẩu cũ.
+	 * @param newPassword mật khẩu mới.
+	 * @return true nếu mật khẩu được thay đổi thành công, false nếu không thành
+	 *         công.
+	 */
+	public boolean changePassword(String username, String oldPassword, String newPassword) {
+		UsersEntity user = findByUsername(username);
+		if (user != null && oldPassword.equals(user.getPassword())) { // So sánh mật khẩu không mã hóa
+			user.setPassword(newPassword); // Lưu mật khẩu mới mà không mã hóa
+			userRepository.save(user);
+			return true;
+		}
+		return false;
+	}
 
-    /**
-     * Lưu người dùng vào cơ sở dữ liệu.
-     *
-     * @param user đối tượng người dùng cần lưu.
-     */
-    public void save(UsersEntity user) {
-        userRepository.save(user);
-    }
+	/**
+	 * Lưu người dùng vào cơ sở dữ liệu.
+	 *
+	 * @param user đối tượng người dùng cần lưu.
+	 */
+	public void save(UsersEntity user) {
+		userRepository.save(user);
+	}
 
-    public UsersEntity findByToken(String token) {
-        return userRepository.findByToken(token);
-    }
-    
-    // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
-    public boolean isEmailExists(String email) {
-        return userRepository.findByEmail(email) != null;
-    }
-    
-    public boolean isUsernameExists(String username) {
-        return userRepository.findByUsername(username) != null; // Giả sử bạn có phương thức này trong repository
-    }
+	public UsersEntity findByToken(String token) {
+		return userRepository.findByToken(token);
+	}
 
-    /**
-     * Kiểm tra xem số điện thoại có tồn tại trong cơ sở dữ liệu không.
-     *
-     * @param numberphone số điện thoại cần kiểm tra.
-     * @return true nếu số điện thoại tồn tại, false nếu không.
-     */
-    public boolean isPhoneNumberExists(String numberphone) {
-        return usersDao.existsByPhonenumber(numberphone);
-    }
+	// Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
+	public boolean isEmailExists(String email) {
+		return userRepository.findByEmail(email) != null;
+	}
+
+	public boolean isUsernameExists(String username) {
+		return userRepository.findByUsername(username) != null; // Giả sử bạn có phương thức này trong repository
+	}
+
+	/**
+	 * Kiểm tra xem số điện thoại có tồn tại trong cơ sở dữ liệu không.
+	 *
+	 * @param numberphone số điện thoại cần kiểm tra.
+	 * @return true nếu số điện thoại tồn tại, false nếu không.
+	 */
+	public boolean isPhoneNumberExists(String numberphone) {
+		return usersDao.existsByPhonenumber(numberphone);
+	}
 	/*
 	 * public interface userService { int countUsersToday(); int
 	 * countUsersThisMonth(); }
@@ -117,12 +118,11 @@ public class UserService {
 	 * public int getNewUsersCount(LocalDateTime since) { return
 	 * usersDao.countNewUsersSince(since); }
 	 */
-    
-    
-    //khóa tài khoản 
-    public void updateUserStatus(Integer userid, boolean status) {
-        UsersEntity user = usersDao.findById(userid).orElseThrow(() -> new RuntimeException("User not found"));
-        user.setStatus(status); // Cập nhật trạng thái
-        usersDao.save(user); // Lưu lại thay đổi
-    }
+
+	// khóa tài khoản
+	public void updateUserStatus(Integer userid, boolean status) {
+		UsersEntity user = usersDao.findById(userid).orElseThrow(() -> new RuntimeException("User not found"));
+		user.setStatus(status); // Cập nhật trạng thái
+		usersDao.save(user); // Lưu lại thay đổi
+	}
 }
