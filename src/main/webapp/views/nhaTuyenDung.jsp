@@ -141,8 +141,7 @@
 		<div class="row">
 			<!-- aside -->
 			<div class="col-lg-3 col-md-3 p-2 d-flex">
-				<div class="d-flex flex-column flex-shrink-0 p-3 text-dark"
-					style="width: 100%; background: #ffffff;">
+				<div class="card p-3 text-dark" style="width: 100%;">
 					<a href="#"
 						class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none text-center">
 						<i class="bi bi-journal-arrow-down" style="font-size: 40px"></i> <span
@@ -152,7 +151,7 @@
 					<hr>
 					<ul class="nav flex-column mb-auto">
 						<li><a href="#"
-							class=" navnhatuyendung nav-link text-dark active"
+							class="navnhatuyendung nav-link text-dark active"
 							onclick="showTable(event, 'employersManagement')"> <i
 								class="bi bi-speedometer2 me-2"></i> Quản Lý Bài Đăng
 						</a></li>
@@ -165,12 +164,15 @@
 								class="bi bi-grid me-2"></i> CV Ứng Tuyển
 						</a></li>
 						<li><a href="#" class="navnhatuyendung nav-link text-dark"
-							onclick="showTable(event, 'myServices')"><i
-								class="bi bi-bag-heart me-2"></i>Gói Dịch Dụ đã mua </a></li>
+							onclick="showTable(event, 'myServices')"> <i
+								class="bi bi-bag-heart me-2"></i> Gói Dịch Dụ đã mua
+						</a></li>
 						<li><a href="#" class="navnhatuyendung nav-link text-dark"
-							onclick="showTable(event, 'postingServices')"><img width="20"
-								height="20" src="https://img.icons8.com/ios/50/card-in-use.png"
-								alt="card-in-use" /> Mua Dịch Vụ</a></li>
+							onclick="showTable(event, 'postingServices')"> <img
+								width="20" height="20"
+								src="https://img.icons8.com/ios/50/card-in-use.png"
+								alt="card-in-use" /> Mua Dịch Vụ
+						</a></li>
 					</ul>
 					<hr>
 				</div>
@@ -196,7 +198,7 @@
 											<th scope="col">Lương</th>
 											<th scope="col">Loại Công Việc</th>
 											<th scope="col">Ngày Đăng</th>
-<!-- 											<th scope="col">Trạng Thái</th> -->
+											<!-- 											<th scope="col">Trạng Thái</th> -->
 											<th scope="col">Hành Động</th>
 											<th scope="col">Xem CV</th>
 										</tr>
@@ -465,7 +467,7 @@
 					<%@ include file="/views/dichVu.jsp"%>
 
 				</div>
-				
+
 				<!-- Gói Dịch vụ đã mua -->
 				<div id="myServices" class="card" style="display: none;">
 					<div class="card-header">
