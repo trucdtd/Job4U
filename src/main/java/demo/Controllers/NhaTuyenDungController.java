@@ -334,6 +334,7 @@ public class NhaTuyenDungController {
 
 		// In ra số lượng ứng tuyển tìm thấy
 		System.out.println("Số lượng CV được tìm thấy: " + jobApplicationsList.size());
+	
 		model.addAttribute("dsCV", jobApplicationsList); // Thêm danh sách CV vào model
 
 		// Kiểm tra xem có ứng tuyển nào không
@@ -344,6 +345,7 @@ public class NhaTuyenDungController {
 				JobSeekersEntity jobSeeker = application.getJobseeker();
 				jobSeekersList.add(jobSeeker);
 			}
+//			model.addAttribute("dsCV", jobSeekersList);
 
 		}
 		ss.setAttribute("jobid", jobId);
@@ -433,4 +435,23 @@ public class NhaTuyenDungController {
 		}
 	}
 
+	@GetMapping("/jobseekerDetails/{jobseekerid}")
+	public String viewJobseekerDetails(@PathVariable("jobseekerid") Integer jobseekerid, Model model) {
+		String giaoDien = "cvnop";
+		// Tìm thông tin của ứng viên theo jobseekerid
+		ApplicationsEntity jobApplications = applicationsDao
+				.find1ApplicationsByJoblistingId(Integer.parseInt(ss.getAttribute("jobid") + ""), jobseekerid);
+		if (jobApplications.getFilename() != null) {
+			giaoDien = "cvNopFile";
+			String filename = jobApplications.getFilename();
+			model.addAttribute("filename", filename);
+		} else {
+			JobSeekersEntity jobseeker = jobSeekersDao.findById(jobseekerid).orElse(null);
+			model.addAttribute("jobSeeker", jobseeker);
+		}
+		// Đưa thông tin ứng viên vào model để truyền sang view
+
+		// Điều hướng đến trang chi tiết ứng viên
+		return giaoDien; // Trả về trang JSP
+	}
 }

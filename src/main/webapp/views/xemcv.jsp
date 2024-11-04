@@ -50,12 +50,9 @@
 							</c:choose></td>
 						<td>
 
-							<form action="/cvDetails/${application.applicationid}" method="get"
-								style="display: inline;">
-								<button type="submit"
-									class="btn btn-success text-light text-white p-2">Xem
-									Thêm</button>
-							</form>
+							<form action="/employers/jobseekerDetails/${application.jobseeker.jobseekerid}" method="get" style="display: inline;">
+								<button type="submit" class="btn btn-success text-white p-2">Xem</button>
+								</form>
 						</td>
 					</tr>
 				</c:forEach>
