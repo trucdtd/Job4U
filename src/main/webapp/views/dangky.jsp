@@ -393,11 +393,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             checked = true;
                         }
                     });
-                    if (!checked) {
-                        errorSpans[index].innerText = 'Vui lòng chọn một tùy chọn!';
-                    } else {
-                        errorSpans[index].innerText = ''; // Xóa lỗi nếu chọn đúng
-                    }
                 } else {
                     if (input.value.trim() === '') {
                         errorSpans[index].innerText = 'Trường này không được để trống!';
