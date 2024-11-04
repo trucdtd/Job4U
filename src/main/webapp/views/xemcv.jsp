@@ -39,18 +39,22 @@
 			<tbody>
 				<c:forEach items="${dsCV}" var="application">
 					<tr>
-						<td>${application.emailcv}</td>
+						<td>${application.jobseeker.emailcv}</td>
 						<!-- Định dạng ngày tháng từ trường createdat -->
 						<td class="formatted-date" data-date="${application.createdat}"></td>
 						<td><c:choose>
-													<c:when test="${cv.status == 0}">Đang chờ</c:when>
-													<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
-													<c:when test="${cv.status == 2}">Bị từ chối</c:when>
-													<c:otherwise>Không xác định</c:otherwise>
-												</c:choose></td>
+								<c:when test="${application.status == 0}">Đang chờ</c:when>
+								<c:when test="${application.status == 1}">Được chấp nhận</c:when>
+								<c:when test="${application.status == 2}">Bị từ chối</c:when>
+								<c:otherwise>Không xác định</c:otherwise>
+							</c:choose></td>
 						<td>
-							<form action="/employers/jobseekerDetails/${application.jobseekerid}" method="get" style="display: inline;">
-								<button type="submit" class="btn btn-success text-white p-2">Xem</button>
+
+							<form action="/cvDetails/${application.applicationid}" method="get"
+								style="display: inline;">
+								<button type="submit"
+									class="btn btn-success text-light text-white p-2">Xem
+									Thêm</button>
 							</form>
 						</td>
 					</tr>
@@ -131,7 +135,54 @@ $(document).ready(function() {
             }
         });
     });
-</script>
+    
+    <script>
+    function acceptApplication(applicationId) {
+ 	    fetch(`/cvDetails/${applicationId}/accept`, {
+ 	        method: 'POST',
+ 	        headers: {
+ 	            'Content-Type': 'application/json',
+ 	            'X-Requested-With': 'XMLHttpRequest'
+ 	        }
+ 	    })
+ 	    .then(response => {
+ 	        if (response.ok) {
+ 	            alert('Chấp nhận đơn ứng tuyển thành công!');
+ 	            window.location.reload();
+ 	        } else {
+ 	            alert('Có lỗi xảy ra khi chấp nhận đơn ứng tuyển!');
+ 	        }
+ 	    })
+ 	    .catch(error => {
+ 	        console.error('Error:', error);
+ 	        alert('Có lỗi xảy ra khi chấp nhận đơn ứng tuyển!');
+ 	    });
+ 	}
+
+    function rejectApplication(applicationId) {
+ 	    fetch(`/cvDetails/${applicationId}/reject`, {
+ 	        method: 'POST',
+ 	        headers: {
+ 	            'Content-Type': 'application/json',
+ 	            'X-Requested-With': 'XMLHttpRequest'
+ 	        }
+ 	    })
+ 	    .then(response => {
+ 	        if (response.ok) {
+ 	            alert('Đã từ chối đơn ứng tuyển!');
+ 	            window.location.reload();
+ 	        } else {
+ 	            alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
+ 	        }
+ 	    })
+ 	    .catch(error => {
+ 	        console.error('Error:', error);
+ 	        alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
+ 	    });
+ 	}
+     </script>
+
+	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,5 +1,7 @@
 package demo.Controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.net.MediaType;
 
+import demo.services.ApplicationService;
 import demo.services.SessionService;
 import demo.services.UserRepository;
 import demo.services.UserService;
@@ -50,10 +53,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @Controller
 @RequestMapping("/employers")
 public class NhaTuyenDungController {
 
+	 private static final Logger logger = LoggerFactory.getLogger(XemCvUngVienController.class);
+	  
 	@Autowired
 	private SessionService sessionService;
 
@@ -78,6 +85,9 @@ public class NhaTuyenDungController {
 	@Autowired
 	private ApplicationsDao applicationsDao;
 
+	@Autowired
+    private ApplicationService applicationService;
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -104,6 +114,7 @@ public class NhaTuyenDungController {
 		 * model.addAttribute("service", service);
 		 */
 
+		
 		if (userId != null) {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
@@ -138,18 +149,7 @@ public class NhaTuyenDungController {
 	}
 
 	@PostMapping("/submit")
-// <<<<<<< HEAD
-// 	public String themTuyenDung(@RequestParam("companyname") String companyname,
-// 			@RequestParam("companywebsite") String companywebsite, @RequestParam("address") String address,
-// 			@RequestParam("industry") String industry, @RequestParam("contactperson") String contactperson,
-// 			@RequestParam(value = "logo", required = false) MultipartFile logo,
-// 			@RequestParam("jobtitle") String jobtitle, @RequestParam("joblocation") String joblocation,
-// 			@RequestParam("jobtype") String jobtype, @RequestParam(value = "salary", required = false) String salary,
-// 			@RequestParam("companydescription") String companydescription,
-// 			@RequestParam("jobrequirements") String jobrequirements,
-// 			@RequestParam("jobdescription") String jobdescription, @RequestParam("posteddate") String posteddate,
-// 			@RequestParam("applicationdeadline") String applicationdeadline) {
-// =======
+
 	public String themTuyenDung(
 	        @RequestParam("companyname") String companyname,
 	        @RequestParam("companywebsite") String companywebsite,
@@ -167,7 +167,6 @@ public class NhaTuyenDungController {
 	        @RequestParam("posteddate") String posteddate,
 	        @RequestParam("applicationdeadline") String applicationdeadline,
 	        Model model) {
-// >>>>>>> dev
 
 		// Kiểm tra dữ liệu đầu vào
 		if (companyname == null || companyname.isEmpty()) {
@@ -182,37 +181,6 @@ public class NhaTuyenDungController {
 			return "error"; // Nhà tuyển dụng không tồn tại
 		}
 
-// <<<<<<< HEAD
-// 		// Kiểm tra và lưu logo
-// 		String logoFilename = null;
-// 		if (logo != null && !logo.isEmpty()) {
-// 			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
-// 			try {
-// 				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
-// 				if (!uploadsDir.exists()) {
-// 					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
-// 				}
-// 				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
-// 				Files.write(path, logo.getBytes());
-// 			} catch (IOException e) {
-// 				e.printStackTrace();
-// 				return "error"; // Xử lý lỗi tải lên
-// 			}
-// 		}
-
-// 		// Cập nhật thông tin nhà tuyển dụng
-// 		employer.setCompanyname(companyname);
-// 		employer.setCompanywebsite(companywebsite);
-// 		employer.setAddress(address);
-// 		employer.setIndustry(industry);
-// 		employer.setContactperson(contactperson);
-// 		if (logoFilename != null) {
-// 			employer.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
-// 		}
-// 		employer.setCompanydescription(companydescription);
-
-// 		nhaTuyenDungDao.save(employer);
-// =======
 	    // Kiểm tra số lượng bài viết đã đăng trong tháng
 	    LocalDate now = LocalDate.now();
 	    LocalDate startOfMonth = now.withDayOfMonth(1);
@@ -254,7 +222,6 @@ public class NhaTuyenDungController {
 	    }
 	    employer.setCompanydescription(companydescription);
 	    nhaTuyenDungDao.save(employer);
-// >>>>>>> dev
 
 		// Tạo đối tượng JoblistingsEntity và lưu trữ
 		JoblistingsEntity jobListing = new JoblistingsEntity();
@@ -343,7 +310,10 @@ public class NhaTuyenDungController {
 		}
 
 		// Xóa bài đăng
-		danhSachViecLamDao.delete(jobListing);
+//		danhSachViecLamDao.delete(jobListing);
+		// Cập nhật trạng thái hoạt động thành false
+	    jobListing.setActive(false); // Giả sử có thuộc tính active trong entity
+	    danhSachViecLamDao.save(jobListing); // Lưu lại thay đổi trong cơ sở dữ liệu
 		model.addAttribute("success", "Xóa bài đăng thành công.");
 		return "redirect:/employers";
 	}
@@ -353,6 +323,8 @@ public class NhaTuyenDungController {
 		// In ra jobId để kiểm tra giá trị nhận được
 		System.out.println("JobId: " + jobId);
 
+		
+		
 		// Kiểm tra giá trị jobId
 		if (jobId == null) {
 			model.addAttribute("message", "ID công việc không hợp lệ.");
@@ -373,6 +345,8 @@ public class NhaTuyenDungController {
 
 		// In ra số lượng ứng tuyển tìm thấy
 		System.out.println("Số lượng CV được tìm thấy: " + jobApplicationsList.size());
+		model.addAttribute("dsCV", jobApplicationsList); // Thêm danh sách CV vào model
+		
 		// Kiểm tra xem có ứng tuyển nào không
 		if (!jobApplicationsList.isEmpty()) {
 			List<JobSeekersEntity> jobSeekersList = new ArrayList<>();
@@ -382,33 +356,13 @@ public class NhaTuyenDungController {
 				jobSeekersList.add(jobSeeker);
 			}
 
-			model.addAttribute("dsCV", jobSeekersList);
 		}
 		ss.setAttribute("jobid", jobId);
 		// Chuyển đến trang xemcv.jsp để hiển thị danh sách CV
 		return "xemcv";
 	}
 
-	@GetMapping("/jobseekerDetails/{jobseekerid}")
-	public String viewJobseekerDetails(@PathVariable("jobseekerid") Integer jobseekerid, Model model) {
-		String giaoDien = "cvnop";
-		// Tìm thông tin của ứng viên theo jobseekerid
-		ApplicationsEntity jobApplications = applicationsDao
-				.find1ApplicationsByJoblistingId(Integer.parseInt(ss.getAttribute("jobid") + ""), jobseekerid);
-		if (jobApplications.getFilename() != null) {
-			giaoDien = "cvNopFile";
-			String filename = jobApplications.getFilename();
-			model.addAttribute("filename", filename);
-		} else {
-			JobSeekersEntity jobseeker = jobSeekersDao.findById(jobseekerid).orElse(null);
-			model.addAttribute("jobSeeker", jobseeker);
-		}
-		// Đưa thông tin ứng viên vào model để truyền sang view
-
-		// Điều hướng đến trang chi tiết ứng viên
-		return giaoDien; // Trả về trang JSP
-	}
-
+	
 	@PostMapping("/pay")
 	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal servicePrice,
 			@RequestParam(value = "serviceId", required = false) String serviceId,
@@ -464,4 +418,33 @@ public class NhaTuyenDungController {
 		return "redirect:/employers";
 	}
 
+	//từ chối và chấp nhận cv
+	 @PostMapping("/{jobseekerid}/accept")
+	    @ResponseBody
+	    public String acceptApplication(@PathVariable("jobseekerid") Integer jobseekerid,
+	    		@PathVariable Integer applicationId) {
+	        try {
+	            applicationService.updateApplicationStatus(applicationId, 1);
+	            return "success";
+	        } catch (Exception e) {
+	            logger.error("Error updating application status: ", e);
+	            return "error";
+	        }
+	    }
+	    
+	    @PostMapping("/{jobseekerid}/reject")
+	    @ResponseBody
+	    public String rejectApplication(
+	    		@PathVariable("jobseekerid") Integer jobseekerid,
+	    		@PathVariable Integer applicationId) {
+	        try {
+	            applicationService.updateApplicationStatus(applicationId, 2); // Cập nhật status = 2
+	            return "success";
+	        } catch (Exception e) {
+	            logger.error("Error updating application status to rejected: ", e);
+	            return "error";
+	        }
+	    }
+
+	
 }

@@ -273,7 +273,54 @@
 							</div>
 						</div>
 					</div>
-
+					
+					<div id="serviceManagement" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Quản Lý Dịch Vụ</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<table id="postTable" class="table align-items-center mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">STT</th>
+											<th scope="col">Tên Dịch Vụ</th>
+											<th scope="col">Giá</th>
+											<th scope="col">Ngày Tạo</th>
+											<th scope="col">Hành Động</th>
+											
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${qldv}" var="dv">
+											<tr>
+												<th scope="row">${dv.serviceid}</th>
+												<td>${dv.servicename}</td>
+												<td><c:choose>
+														<c:when test="${dv.price != null}">
+															<span style="display: inline-flex; align-items: center;">
+																${bv.price.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+																VND </span>
+														</c:when>
+													</c:choose></td>
+												
+												<td>${dv.createdat}</td>
+												<td>
+													<div style="display: flex; align-items: center; gap: 10px;">
+														<a href="/admin/detailDV/${dv.serviceid}" class="btn"
+															type="button"> <img src="/img/detail-icon.png"
+															style="padding-bottom: 7px;" width="25px" height="30px"
+															alt="Detail">
+														</a> 
+													</div>
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 
 					<!--statisticalManagement table -->
 					<div id="statisticalManagement"

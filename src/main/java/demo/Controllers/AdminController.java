@@ -19,8 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import demo.dao.EmployersDao;
 import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
+import demo.dao.ServicesDao;
 import demo.dao.UsersDao;
 import demo.entity.JoblistingsEntity;
+import demo.entity.ServicesEntity;
 import demo.entity.UsersEntity;
 import demo.services.UserService;
 import demo.entity.EmployersEntity;
@@ -41,6 +43,10 @@ public class AdminController {
 
 	@Autowired
 	EmployersDao employersDao;
+	
+	@Autowired
+	ServicesDao servicesDao;
+	
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -68,8 +74,10 @@ public class AdminController {
 
 			List<JobSeekersEntity> qlCV = jobSeekersDao.findAll();
 			model.addAttribute("qlCV", qlCV);
+			
+			List<ServicesEntity> qldv = servicesDao.findAll();
+			model.addAttribute("qldv", qldv);
 		}
-
 		return "quanLyNguoiDung"; // Trang admin
 	}
 
@@ -347,4 +355,12 @@ public class AdminController {
 		model.addAttribute("cv", cv);
 		return "chiTietCV";
 	}
+	
+	@GetMapping("/detailDV/{id}")
+	public String showDVDetail(@PathVariable("id") Integer id, Model model) {
+		ServicesEntity dv = servicesDao.findById(id).orElse(null);
+		model.addAttribute("dv", dv);
+		return "chiTietDichVu";
+	}
+	
 }
