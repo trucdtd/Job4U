@@ -39,17 +39,14 @@ public class XemCvUngVienController {
 	private ApplicationService applicationService;
 
 	@RequestMapping("/{applicationId}")
-	public String cvDetails(@PathVariable("applicationId") Integer applicationId, Model model) {
+	public String cvDetails(@PathVariable("applicationId") Integer applicationId, HttpSession ss, Model model) {
 		ApplicationsEntity applicationDetails = applicationsDao.findById(applicationId).orElse(null);
 
-		// Lấy danh sách CV của ứng viên dựa trên jobListingId
-//		  List<ApplicationsEntity> cvList = 
-//		  applicationsDao.findApplicationsByJoblistingId(applicationId);
+		List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByApplicationId(applicationId);
+		System.out.println("Số lượng CV tìm thấy: " + cvList.size());
 
-		List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByJoblistingId(applicationId);
-
-		// Thêm danh sách CV vào mô hình
 		model.addAttribute("cvList", cvList);
+
 		// Thêm danh sách CV vào mô hình model.addAttribute("cvList", cvList);
 
 		if (applicationDetails == null) {
@@ -57,6 +54,10 @@ public class XemCvUngVienController {
 			return "nhaTuyenDung"; // Trả về view với thông báo lỗi
 		}
 
+		if (applicationDetails != null && applicationDetails.getFilename() != null) {
+			model.addAttribute("filename", applicationDetails.getFilename());
+			return "cvNopFile"; // Hiển thị giao diện khi ứng viên đã nộp CV
+		}
 		JobSeekersEntity jobSeeker = applicationDetails.getJobseeker();
 		model.addAttribute("cv", jobSeeker);
 		model.addAttribute("applicationId", applicationDetails.getApplicationid());

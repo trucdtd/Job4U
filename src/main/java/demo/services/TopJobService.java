@@ -19,11 +19,6 @@ public class TopJobService {
 	@Autowired
 	private JoblistingsDao joblistingsDao;
 
-	// Truy vấn 5 công việc mới nhất (sắp xếp theo ngày đăng sớm nhất)
-	public List<JoblistingsEntity> queryTopJobs() {
-		return joblistingsDao.findTop5ByOrderByPosteddateDesc();
-	}
-
 	// Lấy danh sách công việc với phân trang
 	public Page<JoblistingsEntity> getJobList(Pageable pageable) {
 		Pageable sortedByDateDesc = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),

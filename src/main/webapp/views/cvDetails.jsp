@@ -272,7 +272,7 @@ p {
 			</div> -->
 
 		<div class="cv-container" id="cv-content">
-			<div class="left-column">
+			<div class="left-column" id="sortable-left">
 				<div class="profile-photo">
 					<img src="${pageContext.request.contextPath}/uploads/${cv.image}"
 						alt="Ảnh ứng viên" class="cv-photo"
@@ -282,77 +282,63 @@ p {
 							class="placeholder">
 					</div>
 				</div>
-				<h2>Quản lý Marketing</h2>
-				<div class="about">
-					<div class="section-title">Giới Thiệu</div>
-					<p>${cv.profilesummary}</p>
-				</div>
-				<div class="contact">
+				<div class="contact section">
 					<div class="section-title">Liên Hệ</div>
-					<p>📞 ${cv.phonenumbercv}</p>
-					<p>✉️ ${cv.emailcv}</p>
-					<p>Ngày Sinh: ${cv.dateOfbirth}</p>
-					<p>Giới tính: ${cv.gender} </p>
+					<p contenteditable="true" id="phonenumbercv">${cv.phonenumbercv}</p>
+					<p contenteditable="true" id="emailcv">${cv.emailcv}</p>
+					<p contenteditable="true" id="dateOfbirth">${cv.dateOfbirth}</p>
+					<p contenteditable="true" id="gender">${cv.gender}</p>
 				</div>
-				<div class="skills">
+				<div class="skills section">
 					<div class="section-title">Kỹ Năng</div>
 					<ul>
-						<li>${cv.skills}</li>
-						
+						<li contenteditable="true" id="skills">${cv.skills}</li>
 					</ul>
 				</div>
-				<div class="language">
+				<div class="language section">
 					<div class="section-title">Ngôn Ngữ</div>
-					<p>${cv.languages}</p>
+					<p contenteditable="true" id="languages">${cv.languages}</p>
+				</div>
+				<div class="interests section">
+					<div class="section-title">Sở thích</div>
+					<p contenteditable="true" id="interests">${cv.interests}</p>
 				</div>
 			</div>
-			
-			<div class= "right-column">
-				<h1>${cv.fullnamecv}</h1>
-				<div class="experience">
+
+			<div class="right-column" id="sortable-right">
+				<h1 contenteditable="true" id="fullnamecv" name="fullnamecv">${cv.fullnamecv}</h1>
+
+				<div class="about section">
+					<div class="section-title">Giới thiệu</div>
+					<div class="education-item">
+						<h3 contenteditable="true" id="profilesummary">${cv.profilesummary}</h3>
+						<span contenteditable="true" id="profilesummary"></span>
+					</div>
+				</div>
+				<div class="experience section">
 					<div class="section-title">Kinh Nghiệm Làm Việc</div>
 					<div class="job">
-						<h3>Quản lý Marketing</h3>
-						<span>${cv.education} | 2022 - 2023</span>
-						<p class="description">Lãnh đạo các sáng kiến tiếp thị, tăng
-							cường nhận thức thương hiệu lên 15%. Phát triển các chiến dịch số
-							sáng tạo, phù hợp với nhu cầu của khách hàng.</p>
-					</div>
-					<div class="job">
-						<h3>Quản lý Marketing</h3>
-						<span>Ginyard International Co. | 2020 - 2021</span>
-						<p class="description">Quản lý một đội ngũ tiếp thị, nâng cao
-							hiệu quả chiến dịch lên 20%. Giám sát ngân sách quảng cáo và lập
-							kế hoạch chiến lược.</p>
-					</div>
-					<div class="job">
-						<h3>Quản lý Marketing</h3>
-						<span>Saiford & Co. | 2018 - 2019</span>
-						<p class="description">Thiết kế và triển khai các chiến lược
-							thương hiệu, tăng cường tương tác khách hàng. Mở rộng phạm vi
-							tiếp cận trên mạng xã hội lên 40%.</p>
+						<h3 contenteditable="true">${cv.experience}</h3>
+						<span>Aerowell Industries | 2022 - 2023</span>
+						<p class="description">Lãnh đạo các sáng kiến tiếp thị...</p>
 					</div>
 				</div>
-				<div class="education">
+				<div class="education section">
 					<div class="section-title">Học Vấn</div>
 					<div class="education-item">
-						<h3>${cv.education} </h3>
-						<span>Cử nhân Quản trị Kinh doanh | 2019 - 2023</span>
+						<h3 contenteditable="true" id="education">${cv.education}</h3>
+						<span contenteditable="true">Cử nhân Quản trị Kinh doanh |
+							2019 - 2023</span>
 					</div>
+				</div>
+				<div class="certifications section">
+					<div class="section-title">Chứng chỉ</div>
 					<div class="education-item">
-						<h3>Đại học Borcelle</h3>
-						<span>Cử nhân Quản trị Kinh doanh | 2016 - 2018</span>
+						<h3 contenteditable="true" id="certifications">${cv.certifications}</h3>
+						<span contenteditable="true"></span>
 					</div>
 				</div>
-				<div class="references">
-					<div class="section-title">Người Tham Chiếu</div>
-					<div class="reference-item">
-						<h3>Harumi Kobayashi</h3>
-						<span>Saiford & Co. | CEO</span>
-						<p>📞 123-456-7890</p>
-						<p>✉️ hello@reallygreatsite.com</p>
-					</div>
-				</div>
+
 			</div>
 		</div>
 
@@ -370,12 +356,12 @@ p {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="scv" items="${cvList}">
+						<c:forEach items="${cvList}" var="cv">
 							<tr>
 								<td><c:choose>
-										<c:when test="${scv.status == 0}">Đang chờ</c:when>
-										<c:when test="${scv.status == 1}">Được chấp nhận</c:when>
-										<c:when test="${scv.status == 2}">Bị từ chối</c:when>
+										<c:when test="${cv.status == 0}">Đang chờ</c:when>
+										<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
+										<c:when test="${cv.status == 2}">Bị từ chối</c:when>
 										<c:otherwise>Không xác định</c:otherwise>
 									</c:choose></td>
 							</tr>
@@ -385,6 +371,7 @@ p {
 			</div>
 		</div>
 	</div>
+
 
 
 	<!-- </div> -->
@@ -408,8 +395,9 @@ p {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-	
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
 	<script>
 	
     function downloadPDF() {
@@ -480,7 +468,5 @@ p {
 	    });
 	}
     </script>
-
-
 </body>
 </html>

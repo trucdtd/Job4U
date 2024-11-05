@@ -271,132 +271,105 @@ p {
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
 	<div class="container mt-4">
-		<%-- <h2 class="text-center mb-4">Chi Tiết CV của ${cv.user.fullname}</h2> --%>
-		<!-- <div class="card">
-			<div class="card-header bg-success text-white text-center">
-				<h5>Thông Tin Ứng Viên</h5>
-			</div> -->
 
-		<div class="cv-container" id="cv-content">
-			<div class="left-column" id="sortable-left">
-				<div class="profile-photo">
-					<img src="${pageContext.request.contextPath}/uploads/${cv.image}"
-						alt="Ảnh ứng viên" class="cv-photo"
-						onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
-					<div class="placeholder-photo" style="display: none;">
-						<img src="path/to/placeholder-image.png" alt="Khung ảnh"
-							class="placeholder">
-					</div>
-				</div>
-				<div class="about section">
-					<div class="section-title">Giới Thiệu</div>
-					<p contenteditable="true" id="profilesummary">${cv.profilesummary}</p>
-				</div>
-				<div class="contact section">
-					<div class="section-title">Liên Hệ</div>
-					<p contenteditable="true" id="phonenumbercv">📞 ${cv.phonenumbercv}</p>
-					<p contenteditable="true" id="emailcv">✉️ ${cv.emailcv}</p>
-					<p contenteditable="true" id="dateOfbirth">Ngày Sinh: ${cv.dateOfbirth}</p>
-					<p contenteditable="true" id="gender">Giới tính: ${cv.gender}</p>
-				</div>
-				<div class="skills section">
-					<div class="section-title">Kỹ Năng</div>
-					<ul>
-						<li contenteditable="true" id="skills">${cv.skills}</li>
-					</ul>
-				</div>
-				<div class="language section">
-					<div class="section-title">Ngôn Ngữ</div>
-					<p contenteditable="true" id="languages">${cv.languages}</p>
-				</div>
-			</div>
-
-			<div class="right-column" id="sortable-right">
-				<h1 contenteditable="true" id="fullnamecv"  name="fullnamecv">${cv.fullnamecv}</h1>
-				<div class="experience section">
-					<div class="section-title">Kinh Nghiệm Làm Việc</div>
-					<div class="job">
-						<h3 contenteditable="true">Quản lý Marketing</h3>
-						<span>Aerowell Industries | 2022 - 2023</span>
-						<p class="description">Lãnh đạo các sáng kiến tiếp thị...</p>
-					</div>
-				</div>
-				<div class="education section">
-					<div class="section-title">Học Vấn</div>
-					<div class="education-item">
-						<h3 contenteditable="true" id="education">${cv.education}</h3>
-						<span contenteditable="true">Cử nhân Quản trị Kinh doanh |
-							2019 - 2023</span>
-					</div>
-				</div>
-				<div class="references section">
-					<div contenteditable="true" class="section-title">Người Tham
-						Chiếu</div>
-					<div contenteditable="true" class="reference-item">
-						<h3 contenteditable="true">Harumi Kobayashi</h3>
-						<span>Saiford & Co. | CEO</span>
-						<p>📞 123-456-7890</p>
-						<p>✉️ hello@reallygreatsite.com</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-	</div>
-
-	<!-- Trạng thái cv ứng tuyển -->
-	<br>
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-3">
-				<table id="listCV" class="table table-striped table-sm text-center">
-					<thead>
-						<tr>
-							<th>Trạng Thái</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="scv" items="${cvList}">
-							<tr>
-								<td><c:choose>
-										<c:when test="${scv.status == 0}">Đang chờ</c:when>
-										<c:when test="${scv.status == 1}">Được chấp nhận</c:when>
-										<c:when test="${scv.status == 2}">Bị từ chối</c:when>
-										<c:otherwise>Không xác định</c:otherwise>
-									</c:choose></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-
-
-	<!-- </div> -->
-	<div class="text-center mt-4 mb-4">
-		<button class="btn btn-primary" onclick="downloadPDF()">Tải
-			CV Dưới Dạng PDF</button>
-		<button id="saveBtn">Cập nhật</button>
 		<form action="/user/updateCv/${cv.jobseekerid}" method="post">
-			<button type="submit" class="btn btn-success">Cập nhật</button>
+			<div class="cv-container" id="cv-content">
+				<div class="left-column" id="sortable-left">
+					<div class="profile-photo">
+						<img src="${pageContext.request.contextPath}/uploads/${cv.image}"
+							alt="Ảnh ứng viên" class="cv-photo"
+							onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
+						<div class="placeholder-photo" style="display: none;">
+							<img src="path/to/placeholder-image.png" alt="Khung ảnh"
+								class="placeholder">
+						</div>
+					</div>
+					<div class="contact section">
+						<div class="section-title">Liên Hệ</div>
+						<p contenteditable="true" id="phonenumbercv">${cv.phonenumbercv}</p>
+						<p contenteditable="true" id="emailcv">${cv.emailcv}</p>
+						<p contenteditable="true" id="dateOfbirth">${cv.dateOfbirth}</p>
+						<p contenteditable="true" id="gender">${cv.gender}</p>
+					</div>
+					<div class="skills section">
+						<div class="section-title">Kỹ Năng</div>
+						<ul>
+							<li contenteditable="true" id="skills">${cv.skills}</li>
+						</ul>
+					</div>
+					<div class="language section">
+						<div class="section-title">Ngôn Ngữ</div>
+						<p contenteditable="true" id="languages">${cv.languages}</p>
+					</div>
+					<div class="interests section">
+						<div class="section-title">Sở thích</div>
+						<p contenteditable="true" id="interests">${cv.interests}</p>
+					</div>
+				</div>
+
+				<div class="right-column" id="sortable-right">
+					<h1 contenteditable="true" id="fullnamecv" name="fullnamecv">${cv.fullnamecv}</h1>
+
+					<div class="about section">
+						<div class="section-title">Giới thiệu</div>
+						<div class="education-item">
+							<h3 contenteditable="true" id="profilesummary">${cv.profilesummary}</h3>
+							<span contenteditable="true" id="profilesummary"></span>
+						</div>
+					</div>
+					<div class="experience section">
+						<div class="section-title">Kinh Nghiệm Làm Việc</div>
+						<div class="job">
+							<h3 contenteditable="true">${cv.experience}</h3>
+							<span>Aerowell Industries | 2022 - 2023</span>
+							<p class="description">Lãnh đạo các sáng kiến tiếp thị...</p>
+						</div>
+					</div>
+					<div class="education section">
+						<div class="section-title">Học Vấn</div>
+						<div class="education-item">
+							<h3 contenteditable="true" id="education">${cv.education}</h3>
+							<span contenteditable="true">Cử nhân Quản trị Kinh doanh |
+								2019 - 2023</span>
+						</div>
+					</div>
+					<div class="certifications section">
+						<div class="section-title">Chứng chỉ</div>
+						<div class="education-item">
+							<h3 contenteditable="true" id="certifications">${cv.certifications}</h3>
+							<span contenteditable="true"></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+			<!-- </div> -->
+			<div class="text-center mt-4 mb-4">
+				<button class="btn btn-primary" onclick="downloadPDF()">Tải
+					CV Dưới Dạng PDF</button>
+				<!-- Nút Cập Nhật -->
+				<div class="text-center mt-4 mb-4">
+					<button type="submit" class="btn btn-success">Cập nhật</button>
+				</div>
+
+			</div>
 		</form>
-		
-	</div>
 
 
-	<!-- footer -->
-	<%@ include file="/views/footer.jsp"%>
-	<!-- footer -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 
-	<script>
+		<!-- footer -->
+		<%@ include file="/views/footer.jsp"%>
+		<!-- footer -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
+		<script>
 	
     function downloadPDF() {
         var element = document.getElementById('cv-content'); // Chọn nội dung form
@@ -421,8 +394,8 @@ p {
 </script>
 
 
-	<!--di chuyển các class lớn của form -->
-	<script>
+		<!--di chuyển các class lớn của form -->
+		<script>
 	document.addEventListener("DOMContentLoaded", function() {
     // Kích hoạt SortableJS trên left-column
     Sortable.create(document.getElementById('sortable-left'), {
@@ -453,49 +426,18 @@ p {
 	});
 	
 	
-	document.getElementById('saveBtn').addEventListener('click', function() {
-	    const updatedData = {
-	        fullnamecv: document.getElementById('fullnamecv').innerText.trim() || '',
-	        emailcv: document.getElementById('emailcv').innerText.trim() || '',
-	        phonenumbercv: document.getElementById('phonenumbercv').innerText.trim() || '',
-	        profilesummary: document.getElementById('profilesummary').innerText.trim() || '',
-	        experience: document.getElementById('experience') ? document.getElementById('experience').innerText.trim() : '',
-	        education: document.getElementById('education') ? document.getElementById('education').innerText.trim() : '',
-	        skills: document.getElementById('skills') ? document.getElementById('skills').innerText.trim() : '',
-	        certifications: document.getElementById('certifications') ? document.getElementById('certifications').innerText.trim() : '',
-	        languages: document.getElementById('languages') ? document.getElementById('languages').innerText.trim() : '',
-	        image: document.getElementById('image') ? document.getElementById('image').src : ''
-	    };
-
-	    console.log("Dữ liệu cập nhật trước khi gửi: ", updatedData); // Để kiểm tra dữ liệu
-
-	    // Kiểm tra xem dữ liệu có rỗng không
-	    if (Object.values(updatedData).every(value => value === '')) {
-	        alert("Vui lòng điền vào ít nhất một trường!");
-	        return;
-	    }
-
-	    // Gửi dữ liệu mới đến server
-	    fetch(`/user/updateCv/${jobseekerId}`, {
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/x-www-form-urlencoded'
-	        },
-	        body: new URLSearchParams(updatedData)
-	    }).then(response => {
-	        if (response.ok) {
-	            alert("Cập nhật thành công!");
-	            // Chuyển hướng hoặc làm gì đó sau khi cập nhật thành công
-	        } else {
-	            alert("Có lỗi xảy ra!");
-	        }
-	    }).catch(error => {
-	        console.error("Lỗi:", error);
+	//luu các trường sau khi đã chỉnh sửa
+	document.querySelector('form').addEventListener('submit', function(event) {
+	    // Lấy tất cả các phần tử contenteditable
+	    document.querySelectorAll('[contenteditable="true"]').forEach(element => {
+	        // Tạo một trường input ẩn với giá trị là nội dung đã chỉnh sửa
+	        const input = document.createElement('input');
+	        input.type = 'hidden';  // Trường input ẩn
+	        input.name = element.id;  // Đặt name trùng với ID của phần tử contenteditable
+	        input.value = element.innerHTML;  // Gán giá trị là nội dung của phần tử contenteditable
+	        this.appendChild(input);  // Thêm vào form trước khi gửi
 	    });
 	});
-
 </script>
-
-
 </body>
 </html>
