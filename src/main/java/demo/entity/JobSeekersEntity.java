@@ -71,7 +71,7 @@ public class JobSeekersEntity implements Serializable {
 	@JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false, foreignKey = @ForeignKey(name = "FK_Jobseekers_Users"))
 	private UsersEntity user;
 
-	@NotNull
+	@NotNull 
 	@Column(name = "createdat", nullable = false)
 	private LocalDate createdat;
 
