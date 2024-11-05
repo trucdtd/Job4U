@@ -48,8 +48,9 @@
 						class="bi bi-house me-2"></i> Quản Lý Dịch Vụ
 				</a></li>
 				<li><a href="#" class="navqlndung nav-link text-dark"
-					onclick="showTable(event, 'statisticalManagement')"> <i
-						class="bi bi-house me-2"></i> Quản Lý Thống Kê
+					onclick="showTable(event, 'statisticalManagement')"><img width="20"
+								height="20" src="https://img.icons8.com/ios/50/card-in-use.png"
+								alt="card-in-use" /> Quản Lý Thống Kê
 				</a></li>
 			</ul>
 			<hr>

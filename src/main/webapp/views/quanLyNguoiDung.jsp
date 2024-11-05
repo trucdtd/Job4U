@@ -142,9 +142,9 @@
 														<c:otherwise>Không xác định</c:otherwise>
 													</c:choose></td>
 												<td><a href="/admin/detailUser/${nd.userid}"
-													class="btn" type="button"><img
+													class="btn" type="button" title="Xem Chi Tiết"><img
 														src="/img/detail-icon.png" style="padding-bottom: 7px;"
-														width="25px" height="30px" alt="Detail"></a> <%-- <a href="#"
+														width="25px" height="30px" alt="Detail" ></a> <%-- <a href="#"
 													class="btn btn-danger"
 													onclick="return confirmDeleteAccount(${nd.userid});">Xóa</a> --%>
 												</td>
@@ -208,10 +208,10 @@
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
 														<a href="/admin/detailPost/${bv.jobid}" class="btn"
-															type="button"> <img src="/img/detail-icon.png"
+															type="button" title="Xem Chi Tiết"> <img src="/img/detail-icon.png"
 															style="padding-bottom: 7px;" width="25px" height="30px"
 															alt="Detail">
-														</a> <a href="#" onclick="return confirmDelete(${bv.jobid});">
+														</a> <a href="#" onclick="return confirmDelete(${bv.jobid});" title="Xóa">
 															<img src="/img/delete-icon.png"
 															style="padding-bottom: 7px;" width="25px" height="30px"
 															alt="Delete">
@@ -260,7 +260,7 @@
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
 														<a href="/admin/detailCV/${cv.jobseekerid}" class="btn"
-															type="button"> <img src="/img/detail-icon.png"
+															type="button" title="Xem CV"> <img src="/img/detail-icon.png"
 															style="padding-bottom: 7px;" width="25px" height="30px"
 															alt="Detail">
 														</a>
@@ -301,7 +301,7 @@
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
 														<a href="/admin/detailDV/${dv.serviceid}" class="btn"
-															type="button"> <img src="/img/detail-icon.png"
+															type="button" title="Xem Chi Tiết"> <img src="/img/detail-icon.png"
 															style="padding-bottom: 7px;" width="25px" height="30px"
 															alt="Detail">
 														</a> 

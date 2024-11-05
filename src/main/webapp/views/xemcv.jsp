@@ -50,9 +50,9 @@
 							</c:choose></td>
 						<td>
 
-							<form action="/employers/jobseekerDetails/${application.jobseeker.jobseekerid}" method="get" style="display: inline;">
+							<%-- <form action="/employers/jobseekerDetails/${application.jobseeker.jobseekerid}" method="get" style="display: inline;">
 								<button type="submit" class="btn btn-success text-white p-2">Xem</button>
-								</form>
+								</form> --%>
 							<form action="/cvDetails/${application.applicationid}" method="get"
 													style="display: inline;">
 													<button type="submit"
