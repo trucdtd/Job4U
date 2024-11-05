@@ -192,20 +192,14 @@ public class AdminController {
 	public String lockUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,
 			HttpSession session) {
 		try {
-			Integer loggedInUserId = (Integer) session.getAttribute("loggedInUserId");
-
-			// Kiểm tra xem người dùng có đang cố gắng khóa tài khoản của chính mình
-			if (id.equals(loggedInUserId)) {
-				redirectAttributes.addFlashAttribute("error", "Bạn không thể khóa tài khoản của chính mình.");
-				return "redirect:/admin";
-			}
+		
 
 			// Kiểm tra vai trò của người dùng
 			UsersEntity user = userDao.findById(id).orElse(null);
-			if (user == null) {
-				redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần khóa.");
-				return "redirect:/admin";
-			}
+//			if (user == null) {
+//				redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần khóa.");
+//				return "redirect:/admin";
+//			}
 
 			// Kiểm tra vai trò
 			if (user.getRole() != null && user.getRole() == 0) {
@@ -240,6 +234,7 @@ public class AdminController {
 			return "redirect:/admin"; // Quay về trang admin
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
+			System.out.println("Lỗi khi mở tài khoản: " + e.getMessage());
 			return "redirect:/admin"; // Quay về trang admin nếu có lỗi
 		}
 	}
