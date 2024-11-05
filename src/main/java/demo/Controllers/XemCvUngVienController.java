@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.dao.ApplicationsDao;
-import demo.dao.JobSeekersDao;
 import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
 import demo.services.ApplicationService;
@@ -32,9 +31,6 @@ public class XemCvUngVienController {
 
 	@Autowired
 	private ApplicationsDao applicationsDao;
-	
-	@Autowired
-	private JobSeekersDao jobSeekersDao;
 
 	@Autowired
 	HttpSession ss;
@@ -43,28 +39,13 @@ public class XemCvUngVienController {
 	private ApplicationService applicationService;
 
 	@RequestMapping("/{applicationId}")
-	public String cvDetails(@PathVariable("applicationId") Integer applicationId,
-			
-	Model model) {
-//		String giaoDien = "cvDetails";
+	public String cvDetails(@PathVariable("applicationId") Integer applicationId, HttpSession ss, Model model) {
 		ApplicationsEntity applicationDetails = applicationsDao.findById(applicationId).orElse(null);
 
-		
 		List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByApplicationId(applicationId);
 		System.out.println("Số lượng CV tìm thấy: " + cvList.size());
-		
+
 		model.addAttribute("cvList", cvList);
-		
-//		ApplicationsEntity jobApplications = applicationsDao
-//				.find1ApplicationsByJoblistingId(Integer.parseInt(ss.getAttribute("jobid") + ""), jobseekerid);
-//		if (jobApplications.getFilename() != null) {
-//			giaoDien = "cvNopFile";
-//			String filename = jobApplications.getFilename();
-//			model.addAttribute("filename", filename);
-//		} else {
-//			JobSeekersEntity jobseeker = jobSeekersDao.findById(jobseekerid).orElse(null);
-//			model.addAttribute("jobSeeker", jobseeker);
-//		}
 
 		// Thêm danh sách CV vào mô hình model.addAttribute("cvList", cvList);
 
@@ -73,6 +54,10 @@ public class XemCvUngVienController {
 			return "nhaTuyenDung"; // Trả về view với thông báo lỗi
 		}
 
+		if (applicationDetails != null && applicationDetails.getFilename() != null) {
+			model.addAttribute("filename", applicationDetails.getFilename());
+			return "cvNopFile"; // Hiển thị giao diện khi ứng viên đã nộp CV
+		}
 		JobSeekersEntity jobSeeker = applicationDetails.getJobseeker();
 		model.addAttribute("cv", jobSeeker);
 		model.addAttribute("applicationId", applicationDetails.getApplicationid());
