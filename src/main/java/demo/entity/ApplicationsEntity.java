@@ -19,30 +19,33 @@ import lombok.Data;
 @Table(name = "Applications")
 public class ApplicationsEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer applicationid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "applicationid")
+	private Integer applicationid;
 
-    @NotNull
-    @Column(name = "applicationDate")
-    private LocalDateTime applicationdate;
+	@NotNull
+	@Column(name = "applicationdate")
+	private LocalDateTime applicationdate;
 
-    @Column(name = "status", length = 50)
-    private String status;
+	@Column(name = "status")
+	private Integer status;
 
-    @Column(name = "resume", length = 2000)
-    private String resume;
+	@Column(name = "resume")
+	private String resume;
+	@Column(name = "filename")
+	private String filename;
+	@Column(name = "createdat")
+	@NotNull
+	private LocalDateTime createdat;
 
-    @Column(name = "coverletter", length = 2000)
-    private String coverletter;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "jobid", nullable = false)
+	private JoblistingsEntity job;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "JobID", nullable = false)  // Chỉ định tên cột trong bảng Applications và không cho phép null
-    private JoblistingsEntity job;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "JobSeekerID", nullable = false)  // Chỉ định tên cột trong bảng Applications và không cho phép null
-    private JobSeekersEntity jobseeker;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "jobseekerid", nullable = false)
+	private JobSeekersEntity jobseeker;
 }

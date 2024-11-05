@@ -1,7 +1,11 @@
 package demo.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,45 +23,53 @@ import lombok.Data;
 @Table(name = "Joblistings")
 public class JoblistingsEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "JobID")
-    private Integer jobid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "jobid")
+	private Integer jobid;
 
-    @NotNull
-    @Column(name = "JobTitle", length = 100, nullable = false)
-    private String jobtitle;
+	@NotNull
+	@Column(name = "jobtitle", length = 100, nullable = false)
+	private String jobtitle;
 
-    @NotNull
-    @Column(name = "JobDescription", length = 1000, nullable = false)
-    private String jobdescription;
+	@NotNull
+	@Column(name = "jobdescription", nullable = false)
+	private String jobdescription;
 
-    @NotNull
-    @Column(name = "JobRequirements", length = 1000, nullable = false)
-    private String jobrequirements;
+	@NotNull
+	@Column(name = "jobrequirements", nullable = false)
+	private String jobrequirements;
 
-    @NotNull
-    @Column(name = "JobLocation", length = 100, nullable = false)
-    private String joblocation;
+	@NotNull
+	@Column(name = "joblocation", nullable = false)
+	private String joblocation;
 
-    @Column(name = "Salary", length = 50)
-    private String salary;
+	@Column(name = "salary")
+	private String salary;
 
-    @NotNull
-    @Column(name = "JobType", length = 50, nullable = false)
-    private String jobtype;
+	@NotNull
+	@Column(name = "jobtype", nullable = false)
+	private String jobtype;
 
-    @NotNull
-    @Column(name = "PostedDate", nullable = false)
-    private LocalDateTime posteddate;
+	@NotNull
+	@Column(name = "posteddate", nullable = false)
+	private LocalDate posteddate;
 
-    @NotNull
-    @Column(name = "ApplicationDeadline", nullable = false)
-    private LocalDateTime applicationdeadline;
+	@NotNull
+	@Column(name = "applicationdeadline", nullable = false)
+	private LocalDate applicationdeadline;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "EmployerID", referencedColumnName = "EmployerID", nullable = false)
-    private EmployersEntity employer;
+	@Column(name = "istop")
+	private Boolean isTop;
 
+	@ManyToOne
+	@JoinColumn(name = "EmployerID", referencedColumnName = "EmployerID", nullable = false)
+	private EmployersEntity employer;
+
+	@ManyToOne
+	@JoinColumn(name = "userserviceid")
+	private UserServicesEntity userservice;
+
+	@Column(name = "active", nullable = false)
+	private boolean active = true; // Trạng thái bài đăng
 }

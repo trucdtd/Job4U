@@ -19,29 +19,29 @@ import lombok.Data;
 @Table(name = "Messages")
 public class MessagesEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MessageID")
-    private Integer messageid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "messageid")
+	private Integer messageid;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "SenderID", referencedColumnName = "UserID", nullable = false)
-    private UsersEntity sender;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "senderid", referencedColumnName = "UserID", nullable = false)
+	private UsersEntity senderid;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "ReceiverID", referencedColumnName = "UserID", nullable = false)
-    private UsersEntity receiver;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "receiverid", referencedColumnName = "UserID", nullable = false)
+	private UsersEntity receiverid;
 
-    @NotNull
-    @Column(name = "Content", length = 2000, nullable = false)
-    private String content;
+	@NotNull
+	@Column(name = "content", length = 2000, nullable = false)
+	private String content;
 
-    @NotNull
-    @Column(name = "SentDate", nullable = false)
-    private LocalDateTime sentdate;
+	@NotNull
+	@Column(name = "sentdate", nullable = false)
+	private LocalDateTime sentdate;
 
-    @Column(name = "ReadDate")
-    private LocalDateTime readdate;
+	@Column(name = "readdate")
+	private LocalDateTime readdate;
 }

@@ -19,33 +19,33 @@ import lombok.Data;
 @Table(name = "FeedbackAndRatings")
 public class FeedbackEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FeedbackAndRatingID")
-    private Integer feedbackAndRatingID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "feedbackandratingid")
+	private Integer feedbackandratingid;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
-    private UsersEntity user;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
+	private UsersEntity user;
 
-    @NotNull
-    @Column(name = "FeedbackType", length = 50)
-    private String feedbackType;
+	@NotNull
+	@Column(name = "feedbacktype", length = 50)
+	private String feedbacktype;
 
-    @NotNull
-    @Column(name = "TargetID")
-    private Integer targetID;
+	@NotNull
+	@Column(name = "targetid")
+	private Integer targetid;
 
-    @Column(name = "RatingValue")
-    private Integer ratingValue;
+	@Column(name = "ratingvalue")
+	private Integer ratingvalue;
 
-    @NotNull
-    @Column(name = "Content", length = 1000)
-    private String content;
+	@NotNull
+	@Column(name = "content", length = 1000)
+	private String content;
 
-    @NotNull
-    @Column(name = "CreatedDate")
-    private LocalDateTime createdDate;
+	@NotNull
+	@Column(name = "createddate")
+	private LocalDateTime createddate;
 
 }

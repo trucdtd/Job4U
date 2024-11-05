@@ -1,27 +1,75 @@
 package demo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import demo.dao.ServicesDao;
+import demo.entity.ServicesEntity;
+import demo.entity.UsersEntity;
 import jakarta.servlet.http.HttpSession;
 
 @Service
 public class SessionService {
 	@Autowired
-	HttpSession session; //lưu bộ nhớ tạm
-	
-	public void luuDuLieu(String username, Object matkhau) {
-		session.setAttribute(username, matkhau);
+	private UserRepository userRepository;
+
+	@Autowired
+	private HttpSession session; // lưu bộ nhớ tạm
+
+	// Lưu dữ liệu vào session
+	public void luuDuLieu(String key, Object value) {
+		session.setAttribute(key, value);
 	}
-	
-	public <T> T docDuLieu(String name) {
-		return (T)session.getAttribute(name); //T kiểu dữ liệu tạm
+
+	// Đọc dữ liệu từ session
+	public <T> T docDuLieu(String key) {
+		return (T) session.getAttribute(key);
 	}
-	
-	public void xoaDuLieu(String name) {
-		session.removeAttribute(name);
+
+	// Xóa dữ liệu khỏi session
+	public void xoaDuLieu(String key) {
+		session.removeAttribute(key);
 	}
-	
-	
+
+	// Lấy ID của nhà tuyển dụng hiện tại từ session
+	public Integer getCurrentEmployerId() {
+		return (Integer) session.getAttribute("employerId");
+	}
+
+	// Lưu ID của nhà tuyển dụng vào session
+	public void setCurrentEmployerId(Integer employerId) {
+		session.setAttribute("employerId", employerId);
+	}
+
+	// Lấy ID của user sdụng hiện tại từ session
+	public Integer getCurrentUserId() {
+		return (Integer) session.getAttribute("userId");
+	}
+
+	// Lưu ID của user sdụng hiện tại từ session
+	public void setCurrentUserId(Integer userId) {
+		session.setAttribute("userId", userId);
+	}
+
+	// Lưu ID tài khoản vào session
+	public void setCurrentUser(Integer userId) {
+		session.setAttribute("userid", userId);
+	}
+
+	// Lấy ID tài khoản từ session
+	public Integer getCurrentUser() {
+		return (Integer) session.getAttribute("userid");
+	}
+
+	// Lấy thông tin người dùng từ cơ sở dữ liệu dựa trên userId
+	public UsersEntity getCurrentUserEntity() {
+		Integer userId = getCurrentUser();
+		if (userId != null) {
+			return userRepository.findById(userId).orElse(null);
+		}
+		return null;
+	}
 
 }
