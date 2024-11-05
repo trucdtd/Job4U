@@ -214,7 +214,7 @@
 												<%-- <td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td> --%>
 												<td>
 													<div class="d-flex align-items-center">
-														<button type="button" class="btn btn-sm btn-edit me-2"
+														<button type="button" class="btn btn-sm btn-edit me-2" title="Chỉnh sửa"
 															data-jobid="${job.jobid}" data-jobtitle="${job.jobtitle}"
 															data-joblocation="${job.joblocation}"
 															data-jobdescription="${job.jobdescription}"
@@ -222,16 +222,16 @@
 															data-salary="${job.salary}" data-jobtype="${job.jobtype}"
 															data-posteddate="${job.posteddate}"
 															data-applicationdeadline="${job.applicationdeadline}">
-															<img src="/img/icons8-edit-50.png" height="25px"
-																width="25px" alt="Chỉnh sửa" />
+															<img alt="Chỉnh sửa" src="/img/icons8-edit-50.png" height="25px"
+																width="25px"/>
 														</button>
 														<form action="/employers/delete" method="post"
 															style="display: inline;"
 															onsubmit="return confirmDelete();">
 															<input type="hidden" name="jobId" value="${job.jobid}">
-															<button type="submit" class="btn btn-sm">
-																<img src="/img/icons8-delete-50.png" height="25px"
-																	width="25px" alt="Xóa" />
+															<button type="submit" class="btn btn-sm" title="Xóa">
+																<img alt="Xóa" src="/img/icons8-delete-50.png" height="25px"
+																	width="25px" />
 															</button>
 														</form>
 													</div>
