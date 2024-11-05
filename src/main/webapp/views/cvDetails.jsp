@@ -361,30 +361,30 @@ p {
 
 	<br>
 	<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-3">
-            <table id="listCV" class="table table-striped table-sm text-center">
-                <thead>
-                    <tr>
-                        <th>Trạng Thái</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <c:choose>
-                                <c:when test="${cvStatus == 0}">Đang chờ</c:when>
-                                <c:when test="${cvStatus == 1}">Được chấp nhận</c:when>
-                                <c:when test="${cvStatus == 2}">Bị từ chối</c:when>
-                                <c:otherwise>Không xác định</c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+		<div class="row justify-content-center">
+			<div class="col-3">
+				<table id="listCV" class="table table-striped table-sm text-center">
+					<thead>
+						<tr>
+							<th>Trạng Thái</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${cvList}" var="cv">
+							<tr>
+								<td><c:choose>
+										<c:when test="${cv.status == 0}">Đang chờ</c:when>
+										<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
+										<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+										<c:otherwise>Không xác định</c:otherwise>
+									</c:choose></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
 
 

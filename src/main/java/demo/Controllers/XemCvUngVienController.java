@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.dao.ApplicationsDao;
+import demo.dao.JobSeekersDao;
 import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
 import demo.services.ApplicationService;
@@ -31,6 +32,9 @@ public class XemCvUngVienController {
 
 	@Autowired
 	private ApplicationsDao applicationsDao;
+	
+	@Autowired
+	private JobSeekersDao jobSeekersDao;
 
 	@Autowired
 	HttpSession ss;
@@ -40,15 +44,27 @@ public class XemCvUngVienController {
 
 	@RequestMapping("/{applicationId}")
 	public String cvDetails(@PathVariable("applicationId") Integer applicationId,
-
+			
 	Model model) {
+//		String giaoDien = "cvDetails";
 		ApplicationsEntity applicationDetails = applicationsDao.findById(applicationId).orElse(null);
 
 		
-		List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByJoblistingId(applicationId);
+		List<ApplicationsEntity> cvList = applicationsDao.findApplicationsByApplicationId(applicationId);
 		System.out.println("Số lượng CV tìm thấy: " + cvList.size());
 		
 		model.addAttribute("cvList", cvList);
+		
+//		ApplicationsEntity jobApplications = applicationsDao
+//				.find1ApplicationsByJoblistingId(Integer.parseInt(ss.getAttribute("jobid") + ""), jobseekerid);
+//		if (jobApplications.getFilename() != null) {
+//			giaoDien = "cvNopFile";
+//			String filename = jobApplications.getFilename();
+//			model.addAttribute("filename", filename);
+//		} else {
+//			JobSeekersEntity jobseeker = jobSeekersDao.findById(jobseekerid).orElse(null);
+//			model.addAttribute("jobSeeker", jobseeker);
+//		}
 
 		// Thêm danh sách CV vào mô hình model.addAttribute("cvList", cvList);
 
