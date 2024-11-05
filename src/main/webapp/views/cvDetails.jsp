@@ -292,13 +292,13 @@ p {
 					<p>📞 ${cv.phonenumbercv}</p>
 					<p>✉️ ${cv.emailcv}</p>
 					<p>Ngày Sinh: ${cv.dateOfbirth}</p>
-					<p>Giới tính: ${cv.gender} </p>
+					<p>Giới tính: ${cv.gender}</p>
 				</div>
 				<div class="skills">
 					<div class="section-title">Kỹ Năng</div>
 					<ul>
 						<li>${cv.skills}</li>
-						
+
 					</ul>
 				</div>
 				<div class="language">
@@ -306,8 +306,8 @@ p {
 					<p>${cv.languages}</p>
 				</div>
 			</div>
-			
-			<div class= "right-column">
+
+			<div class="right-column">
 				<h1>${cv.fullnamecv}</h1>
 				<div class="experience">
 					<div class="section-title">Kinh Nghiệm Làm Việc</div>
@@ -336,7 +336,7 @@ p {
 				<div class="education">
 					<div class="section-title">Học Vấn</div>
 					<div class="education-item">
-						<h3>${cv.education} </h3>
+						<h3>${cv.education}</h3>
 						<span>Cử nhân Quản trị Kinh doanh | 2019 - 2023</span>
 					</div>
 					<div class="education-item">
@@ -361,30 +361,31 @@ p {
 
 	<br>
 	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-3">
-				<table id="listCV" class="table table-striped table-sm text-center">
-					<thead>
-						<tr>
-							<th>Trạng Thái</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="scv" items="${cvList}">
-							<tr>
-								<td><c:choose>
-										<c:when test="${scv.status == 0}">Đang chờ</c:when>
-										<c:when test="${scv.status == 1}">Được chấp nhận</c:when>
-										<c:when test="${scv.status == 2}">Bị từ chối</c:when>
-										<c:otherwise>Không xác định</c:otherwise>
-									</c:choose></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <table id="listCV" class="table table-striped table-sm text-center">
+                <thead>
+                    <tr>
+                        <th>Trạng Thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <c:choose>
+                                <c:when test="${cvStatus == 0}">Đang chờ</c:when>
+                                <c:when test="${cvStatus == 1}">Được chấp nhận</c:when>
+                                <c:when test="${cvStatus == 2}">Bị từ chối</c:when>
+                                <c:otherwise>Không xác định</c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 
 
 	<!-- </div> -->
@@ -408,8 +409,9 @@ p {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-	
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
 	<script>
 	
     function downloadPDF() {
@@ -480,7 +482,5 @@ p {
 	    });
 	}
     </script>
-
-
 </body>
 </html>
