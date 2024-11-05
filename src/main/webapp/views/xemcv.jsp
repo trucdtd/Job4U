@@ -30,7 +30,7 @@
 		<table id="myTable" class="display">
 			<thead>
 				<tr>
-					<th>Tên ứng viên</th>
+					<th>Email ứng viên</th>
 					<th>Ngày Ứng Tuyển</th>
 					<th>Trạng thái</th>
 					<th>Xem cv</th>
@@ -50,12 +50,15 @@
 							</c:choose></td>
 						<td>
 
+							<form action="/employers/jobseekerDetails/${application.jobseeker.jobseekerid}" method="get" style="display: inline;">
+								<button type="submit" class="btn btn-success text-white p-2">Xem</button>
+								</form>
 							<form action="/cvDetails/${application.applicationid}" method="get"
-								style="display: inline;">
-								<button type="submit"
-									class="btn btn-success text-light text-white p-2">Xem
-									Thêm</button>
-							</form>
+													style="display: inline;">
+													<button type="submit"
+														class="btn btn-success text-light text-white p-2">Xem
+														Thêm</button>
+												</form>
 						</td>
 					</tr>
 				</c:forEach>
@@ -136,7 +139,6 @@ $(document).ready(function() {
         });
     });
     
-    <script>
     function acceptApplication(applicationId) {
  	    fetch(`/cvDetails/${applicationId}/accept`, {
  	        method: 'POST',
@@ -182,7 +184,6 @@ $(document).ready(function() {
  	}
      </script>
 
-	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
