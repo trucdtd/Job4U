@@ -271,11 +271,6 @@ p {
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
 	<div class="container mt-4">
-		<%-- <h2 class="text-center mb-4">Chi Tiết CV của ${cv.user.fullname}</h2> --%>
-		<!-- <div class="card">
-			<div class="card-header bg-success text-white text-center">
-				<h5>Thông Tin Ứng Viên</h5>
-			</div> -->
 
 		<div class="cv-container" id="cv-content">
 			<div class="left-column" id="sortable-left">
@@ -345,40 +340,10 @@ p {
 
 	</div>
 
-	<!-- Trạng thái cv ứng tuyển -->
-	<br>
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-3">
-				<table id="listCV" class="table table-striped table-sm text-center">
-					<thead>
-						<tr>
-							<th>Trạng Thái</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="scv" items="${cvList}">
-							<tr>
-								<td><c:choose>
-										<c:when test="${scv.status == 0}">Đang chờ</c:when>
-										<c:when test="${scv.status == 1}">Được chấp nhận</c:when>
-										<c:when test="${scv.status == 2}">Bị từ chối</c:when>
-										<c:otherwise>Không xác định</c:otherwise>
-									</c:choose></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-
-
 	<!-- </div> -->
 	<div class="text-center mt-4 mb-4">
 		<button class="btn btn-primary" onclick="downloadPDF()">Tải
 			CV Dưới Dạng PDF</button>
-		<button id="saveBtn">Cập nhật</button>
 		<form action="/user/updateCv/${cv.jobseekerid}" method="post">
 			<button type="submit" class="btn btn-success">Cập nhật</button>
 		</form>
@@ -452,48 +417,6 @@ p {
 		});
 	});
 	
-	
-	document.getElementById('saveBtn').addEventListener('click', function() {
-	    const updatedData = {
-	        fullnamecv: document.getElementById('fullnamecv').innerText.trim() || '',
-	        emailcv: document.getElementById('emailcv').innerText.trim() || '',
-	        phonenumbercv: document.getElementById('phonenumbercv').innerText.trim() || '',
-	        profilesummary: document.getElementById('profilesummary').innerText.trim() || '',
-	        experience: document.getElementById('experience') ? document.getElementById('experience').innerText.trim() : '',
-	        education: document.getElementById('education') ? document.getElementById('education').innerText.trim() : '',
-	        skills: document.getElementById('skills') ? document.getElementById('skills').innerText.trim() : '',
-	        certifications: document.getElementById('certifications') ? document.getElementById('certifications').innerText.trim() : '',
-	        languages: document.getElementById('languages') ? document.getElementById('languages').innerText.trim() : '',
-	        image: document.getElementById('image') ? document.getElementById('image').src : ''
-	    };
-
-	    console.log("Dữ liệu cập nhật trước khi gửi: ", updatedData); // Để kiểm tra dữ liệu
-
-	    // Kiểm tra xem dữ liệu có rỗng không
-	    if (Object.values(updatedData).every(value => value === '')) {
-	        alert("Vui lòng điền vào ít nhất một trường!");
-	        return;
-	    }
-
-	    // Gửi dữ liệu mới đến server
-	    fetch(`/user/updateCv/${jobseekerId}`, {
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/x-www-form-urlencoded'
-	        },
-	        body: new URLSearchParams(updatedData)
-	    }).then(response => {
-	        if (response.ok) {
-	            alert("Cập nhật thành công!");
-	            // Chuyển hướng hoặc làm gì đó sau khi cập nhật thành công
-	        } else {
-	            alert("Có lỗi xảy ra!");
-	        }
-	    }).catch(error => {
-	        console.error("Lỗi:", error);
-	    });
-	});
-
 </script>
 
 
