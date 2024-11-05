@@ -57,7 +57,7 @@
 						</div>
 					</div>
 					<div class="logined" id="logined">
-						<div class="btn-group me-3">
+						<!-- <div class="btn-group me-3">
 							<button class="btn btn-light dropdown-toggle rounded-pill shadow"
 								type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
 								aria-expanded="false">
@@ -67,10 +67,10 @@
 								aria-labelledby="dropdownMenuButton">
 								<li><a class="dropdown-item" href="#">Thoong bao 1</a></li>
 							</ul>
-						</div>
-						<a name="" id="" class="btn rounded-circle me-3 shadow" href="#"
+						</div> -->
+					<!-- 	<a name="" id="" class="btn rounded-circle me-3 shadow" href="#"
 							role="button"><img
-							src="/img/icons8-chat-60.png" height="25" alt="" /></a>
+							src="/img/icons8-chat-60.png" height="25" alt="" /></a> -->
 						<div class="btn-group me-3">
 							<button class="btn btn-white dropdown-toggle rounded-pill shadow"
 								type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
