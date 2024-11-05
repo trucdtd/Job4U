@@ -60,18 +60,11 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	Page<JoblistingsEntity> findByJobTitleAndIndustry(@Param("jobtitle") String jobtitle,
 			@Param("industry") String industry, Pageable pageable);
 
-	// Lấy 5 công việc mới nhất
-	@Query("SELECT j FROM JoblistingsEntity j ORDER BY j.posteddate DESC")
-	List<JoblistingsEntity> findTop5ByOrderByPosteddateDesc();
-
 	// Xoá công việc theo jobid
 	void deleteByJobid(Integer jobid);
 
 	// Tìm công việc theo employer userid
 	List<JoblistingsEntity> findByEmployerUserUserid(Integer userid);
-
-	// Lấy 5 công việc cũ nhất
-	List<JoblistingsEntity> findTop5ByOrderByPosteddateAsc();
 
 	// Phương thức tìm kiếm bài đăng theo nhà tuyển dụng
 	@Query("SELECT j FROM JoblistingsEntity j WHERE j.employer = :employer")
@@ -111,13 +104,8 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	// Tìm kiếm bài viết chưa hết hạn
 	Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline, Pageable pageable);
 
-	/*
-	 * @Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :since"
-	 * ) int countNewPostsSince(@Param("since") LocalDate since);
-	 */
-	// thong ke
-	@Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.posteddate >= :startDate AND j.posteddate <= :endDate")
-	Integer countPostsInRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+	@Query("SELECT j FROM JoblistingsEntity j WHERE j.applicationdeadline BETWEEN :startDate AND :endDate")
+	List<JoblistingsEntity> findByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 	// Tìm kiếm các công việc, sắp xếp isTop trước
 	@Modifying
