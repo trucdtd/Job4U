@@ -181,8 +181,30 @@ let jobIdSelected = null;
 
 function openJobSelectionModal(serviceName, servicePrice, serviceDescription, serviceId) {
     selectedService = { serviceName, servicePrice, serviceDescription, serviceId };
-    document.getElementById('jobSelectionModal').style.display = 'flex';
+    
+    if (serviceId === 4) {
+        // Nếu là gói "Lên Top" (serviceId = 4), yêu cầu chọn bài viết
+        document.getElementById('jobSelectionModal').style.display = 'flex';
+    } else {
+        // Nếu không phải là gói "Lên Top", hiện modal thanh toán trực tiếp
+        document.getElementById('paymentModal').style.display = 'flex';
+        
+        // Cập nhật thông tin dịch vụ trong modal thanh toán
+        document.getElementById('serviceName').innerText = selectedService.serviceName;
+        document.getElementById('serviceId').value = parseInt(selectedService.serviceId);
+        document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(selectedService.servicePrice);
+        document.getElementById('serviceDescription').innerText = selectedService.serviceDescription;
+        
+        // Đặt jobId là trống vì không cần chọn bài viết
+        document.getElementById('jobId').value = ""; 
+        document.getElementById('servicePriceInput').value = selectedService.servicePrice;
+        jobIdSelected = null; // Đặt jobIdSelected là null để không yêu cầu bài viết khi thanh toán
+    }
 }
+
 
 function closeJobSelectionModal() {
     document.getElementById('jobSelectionModal').style.display = 'none';
