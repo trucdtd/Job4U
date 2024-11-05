@@ -156,14 +156,12 @@
 	            }
 	        })
 	        .then(response => {
-	            return response.json().then(data => {
-	                if (response.ok) {
-	                    alert(data); // Thông báo thành công
-	                    window.location.reload(); // Tải lại trang
-	                } else {
-	                    alert(data); // Thông báo lỗi
-	                }
-	            });
+	            if (response.ok) {
+	                alert('Tài khoản đã được khóa!');
+	                window.location.reload(); // Tải lại trang
+	            } else {
+	                alert('Có lỗi xảy ra khi khóa tài khoản!');
+	            }
 	        })
 	        .catch(error => {
 	            console.error('Error:', error);
@@ -191,7 +189,7 @@
 	        })
 	        .catch(error => {
 	            console.error('Error:', error);
-	            alert('Có lỗi xảy ra khi khóa tài khoản!');
+	            alert('Có lỗi xảy ra khi mở tài khoản!');
 	        });
 	    }
 	}
