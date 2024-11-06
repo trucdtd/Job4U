@@ -226,7 +226,7 @@ public class NhaTuyenDungController {
 		// Nếu chưa vượt quá số bài đăng, tiếp tục xử lý đăng bài
 		System.out.println("Nhà tuyển dụng có thể đăng thêm bài.");
 
-
+		
 		// Kiểm tra và lưu logo
 		String logoFilename = null;
 		if (logo != null && !logo.isEmpty()) {
