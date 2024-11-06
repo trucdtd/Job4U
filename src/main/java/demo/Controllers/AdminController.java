@@ -196,10 +196,6 @@ public class AdminController {
 
 			// Kiểm tra vai trò của người dùng
 			UsersEntity user = userDao.findById(id).orElse(null);
-//			if (user == null) {
-//				redirectAttributes.addFlashAttribute("error", "Không tìm thấy người dùng cần khóa.");
-//				return "redirect:/admin";
-//			}
 
 			// Kiểm tra vai trò
 			if (user.getRole() != null && user.getRole() == 0) {
