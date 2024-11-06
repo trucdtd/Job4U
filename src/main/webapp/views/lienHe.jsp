@@ -65,7 +65,7 @@
                 <input type="text" name="phone" placeholder="* Điện thoại" required>
                 <input type="email" name="email" placeholder="* Email" required>
                 <textarea placeholder="Nội dung liên hệ" name="message" ></textarea>
-                <button style="background-color: #00688b; margin-left: 432px;" type="submit">Liên hệ</button>
+                <button style="background-color: #00688b;" type="submit">Liên hệ</button>
             </form>
         </div>
     </div>
