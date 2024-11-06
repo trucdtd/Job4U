@@ -105,7 +105,8 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline, Pageable pageable);
 
 	@Query("SELECT j FROM JoblistingsEntity j WHERE j.applicationdeadline BETWEEN :startDate AND :endDate")
-	List<JoblistingsEntity> findByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+	List<JoblistingsEntity> findByDateRange(@Param("startDate") LocalDate startDate,
+			@Param("endDate") LocalDate endDate);
 
 	// Tìm kiếm các công việc, sắp xếp isTop trước
 	@Modifying
@@ -123,4 +124,9 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	@Query("SELECT j FROM JoblistingsEntity j WHERE j.employer.employerid = :employerid AND j.posteddate >= :startOfMonth")
 	List<JoblistingsEntity> findJobsByEmployerIdAndMonthStart(@Param("employerid") Integer employerid,
 			@Param("startOfMonth") LocalDate startOfMonth);
+
+	@Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.employer.employerid = :employerId AND j.posteddate BETWEEN :startDate AND :endDate")
+	int countJobsByEmployerIdAndDateRange(@Param("employerId") Integer employerId,
+			@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
 }
