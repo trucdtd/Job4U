@@ -49,7 +49,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/employers")
 public class NhaTuyenDungController {
@@ -185,22 +184,19 @@ public class NhaTuyenDungController {
 		System.out.println("Ngày bắt đầu tháng: " + startOfMonth);
 		System.out.println("Số bài đăng trong tháng: " + postsThisMonth.size());
 
-		// Số bài đăng miễn phí cho phép mỗi tháng
-		int freePostsThisMonth = 3;
-
-		// Thiết lập tổng số bài đăng cho phép ban đầu là 3 (3 bài miễn phí)
-		int totalAllowedPosts = freePostsThisMonth;
+		// Số bài đăng tối đa trong tháng nếu chưa mua gói dịch vụ
+		int maxPostsThisMonth = 3;
 
 		// Lấy thông tin dịch vụ của nhà tuyển dụng
 		List<UserServicesEntity> userServices = userServiceDao.findByUser(employer.getUser());
-		boolean hasValidSupplementalService = false; // Biến kiểm tra nếu có gói dịch vụ bổ sung hợp lệ
+		int totalAllowedPosts = maxPostsThisMonth; // Khởi tạo tổng số bài đăng cho phép là 3
 
 		if (userServices != null && !userServices.isEmpty()) {
 		    for (UserServicesEntity userService : userServices) {
 		        LocalDateTime serviceStartDate = userService.getPurchasedate();
 		        LocalDateTime serviceEndDate = userService.getExpirydate();
 		        int jobsAllowed = userService.getNumberofjobsallowed();
-		        
+
 		        System.out.println("Dịch vụ: " + userService.getService().getServicename());
 		        System.out.println("Ngày bắt đầu dịch vụ: " + serviceStartDate);
 		        System.out.println("Ngày kết thúc dịch vụ: " + serviceEndDate);
@@ -212,35 +208,25 @@ public class NhaTuyenDungController {
 		            continue;
 		        }
 
-		        // Bỏ qua gói dịch vụ có serviceid là 4 (lên Top) khi tính số lượng bài đăng
-		        if (userService.getService().getServiceid() == 4) {
-		            System.out.println("Bỏ qua gói dịch vụ 'lên Top'.");
-		            continue;
-		        }
-
-		        // Cộng dồn số bài đăng từ gói bổ sung nếu nhà tuyển dụng đã đăng hết 3 bài miễn phí
+		        // Cộng dồn số bài đăng cho phép từ gói dịch vụ vào tổng số bài đăng trong tháng
 		        totalAllowedPosts += jobsAllowed;
-		        hasValidSupplementalService = true;
 		    }
+		    System.out.println("Tổng số bài đăng cho phép (bao gồm gói dịch vụ): " + totalAllowedPosts);
+		} else {
+		    System.out.println("Nhà tuyển dụng chưa mua gói dịch vụ nào.");
 		}
 
-		// Nếu nhà tuyển dụng chưa mua gói nào và đã đạt giới hạn 3 bài miễn phí, yêu cầu mua gói bổ sung
-		if (postsThisMonth.size() >= freePostsThisMonth && !hasValidSupplementalService) {
-		    redirectAttributes.addFlashAttribute("message", "Bạn đã vượt quá giới hạn bài đăng miễn phí. Vui lòng mua gói dịch vụ để tiếp tục đăng.");
-		    System.out.println("Nhà tuyển dụng đã đạt giới hạn bài đăng miễn phí và chưa có gói bổ sung.");
-		    return "redirect:/employers";
-		}
-
-		// Kiểm tra xem số lượng bài đăng hiện tại có vượt tổng số bài cho phép hay không
+		// Kiểm tra số lượng bài đăng trong tháng và so sánh với số bài đăng cho phép
 		if (postsThisMonth.size() >= totalAllowedPosts) {
-		    redirectAttributes.addFlashAttribute("message", "Bạn đã vượt quá số lượng bài viết trong tháng.");
-		    System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết cho phép trong tháng.");
+			redirectAttributes.addFlashAttribute("message", "Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
+		    System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
 		    return "redirect:/employers";
 		}
 
 		// Nếu chưa vượt quá số bài đăng, tiếp tục xử lý đăng bài
 		System.out.println("Nhà tuyển dụng có thể đăng thêm bài.");
-		
+
+
 		// Kiểm tra và lưu logo
 		String logoFilename = null;
 		if (logo != null && !logo.isEmpty()) {
@@ -477,7 +463,6 @@ public class NhaTuyenDungController {
 					// Xử lý logic đặc biệt cho gói "Lên Top"
 					userService.setExpirydate(LocalDateTime.now().plusDays(3));
 					userService.setNumberofjobsallowed(1); // Ví dụ chỉ 1 bài đăng lên top
-					userService.setNumberofjobsallowed(userService.getNumberofjobsallowed() - 1); // Trừ 1 ngay khi mua
 				} else {
 					// Xử lý logic chung cho các gói khác
 					switch (serviceId) {
