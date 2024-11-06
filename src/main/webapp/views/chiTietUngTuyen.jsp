@@ -162,7 +162,7 @@ body {
 										<c:choose>
 											<c:when test="${not hasApplied}">
 												<!-- Nếu người dùng chưa ứng tuyển và role không phải là 2 -->
-												<c:if test="${userRole != 2}">
+												<c:if test="${userRole != 2 && userRole != 0}">
 													<button type="button" class="btn btn-success btn-apply"
 														data-bs-toggle="modal" data-bs-target="#uploadCvModal">
 														<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
