@@ -23,7 +23,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light shadow">
 			<div class="container-fluid">
 				<div class="text-center text-success fw-bold">
-					<a class="navbar-brand text-success" href="#">JOB4U</a>
+					<a class="navbar-brand text-success" href="/job4u">JOB4U</a>
 					<p class="navbar-brand-text-p">Tìm việc làm - Tuyển nhân sự
 						online</p>
 				</div>
