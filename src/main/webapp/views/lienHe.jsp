@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Liên hệ</title>
 <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="shortcut icon" href="https://gv.poly.edu.vn/images/favicon.ico">
     <!-- Bootstrap CSS v5.3.2 -->
