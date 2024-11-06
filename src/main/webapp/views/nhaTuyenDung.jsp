@@ -489,7 +489,7 @@
 											<th>${dv.service.servicename}</th>
 											<td>${dv.service.description}</td>
 											<th>${dv.numberofjobsallowed}</th>
-											<th>${dv.isactive}</th>
+											<th>${dv.isactive ? 'Hoạt Động' : 'Không Hoạt Động'}</th>
 											<td class="formatted-date" data-date="${dv.purchasedate}"></td>
 											<td class="formatted-date" data-date="${dv.expirydate}"></td>
 										</tr>

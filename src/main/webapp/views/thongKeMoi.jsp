@@ -113,8 +113,8 @@
 								<table id="tkTable" class="table table-borderless datatable">
 									<thead>
 										<tr>
-											<th>Id Dịch Vụ</th>
-											<th>Id Người Mua</th>
+											<th>Tên Dịch Vụ</th>
+											<th>Tên Người Mua</th>
 											<th>Ngày Mua</th>
 											<th>Giá Tiền</th>
 										</tr>
@@ -123,9 +123,9 @@
 										<c:set var="totalRevenue" value="0" />
 										<c:forEach items="${qlTK}" var="tk">
 											<tr>
-												<th scope="row">${tk.service.serviceid}</th>
-												<td>${tk.user.userid}</td>
-												<td>${tk.purchasedate}</td>
+												<th scope="row">${tk.service.servicename}</th>
+												<td>${tk.user.fullname}</td>
+												<td class="purchaseDate">${tk.purchasedate}</td>
 												<td><c:choose>
 														<c:when test="${tk.service.price != null}">
 															<span style="display: inline-flex; align-items: center;">
@@ -256,5 +256,37 @@
 											});
 						});
 	</script>
+
+	<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy tất cả các thẻ <td> có class="purchaseDate"
+        const purchaseDateCells = document.querySelectorAll('.purchaseDate');
+
+        // Duyệt qua tất cả các phần tử này
+        purchaseDateCells.forEach(function(cell) {
+            const purchasedate = cell.innerText;
+            
+            // Kiểm tra nếu purchasedate có giá trị hợp lệ
+            if (purchasedate) {
+                // Chuyển đổi thành đối tượng Date
+                const date = new Date(purchasedate);
+
+                // Đảm bảo rằng đối tượng Date hợp lệ
+                if (!isNaN(date.getTime())) {
+                    // Thay đổi giờ thành 09:00
+                    date.setHours(9, 0, 0, 0);
+
+                    // Định dạng lại ngày (chỉ lấy phần ngày mà không có giờ)
+                    const formattedDate = date.toISOString().split('T')[0]; // "yyyy-MM-dd"
+
+                    // Cập nhật lại nội dung của thẻ <td>
+                    cell.innerText = formattedDate;
+                } else {
+                    console.error("Invalid date format.");
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
