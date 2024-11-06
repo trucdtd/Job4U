@@ -49,7 +49,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/employers")
 public class NhaTuyenDungController {
@@ -179,7 +178,7 @@ public class NhaTuyenDungController {
 		LocalDate now = LocalDate.now();
 		LocalDate startOfMonth = now.withDayOfMonth(1);
 		List<JoblistingsEntity> postsThisMonth = danhSachViecLamDao
-		        .findJobsByEmployerIdAndMonthStart(employer.getEmployerid(), startOfMonth);
+				.findJobsByEmployerIdAndMonthStart(employer.getEmployerid(), startOfMonth);
 
 		System.out.println("Ngày hiện tại: " + now);
 		System.out.println("Ngày bắt đầu tháng: " + startOfMonth);
@@ -193,40 +192,40 @@ public class NhaTuyenDungController {
 		int totalAllowedPosts = maxPostsThisMonth; // Khởi tạo tổng số bài đăng cho phép là 3
 
 		if (userServices != null && !userServices.isEmpty()) {
-		    for (UserServicesEntity userService : userServices) {
-		        LocalDateTime serviceStartDate = userService.getPurchasedate();
-		        LocalDateTime serviceEndDate = userService.getExpirydate();
-		        int jobsAllowed = userService.getNumberofjobsallowed();
+			for (UserServicesEntity userService : userServices) {
+				LocalDateTime serviceStartDate = userService.getPurchasedate();
+				LocalDateTime serviceEndDate = userService.getExpirydate();
+				int jobsAllowed = userService.getNumberofjobsallowed();
 
-		        System.out.println("Dịch vụ: " + userService.getService().getServicename());
-		        System.out.println("Ngày bắt đầu dịch vụ: " + serviceStartDate);
-		        System.out.println("Ngày kết thúc dịch vụ: " + serviceEndDate);
-		        System.out.println("Số bài đăng cho phép từ gói dịch vụ: " + jobsAllowed);
+				System.out.println("Dịch vụ: " + userService.getService().getServicename());
+				System.out.println("Ngày bắt đầu dịch vụ: " + serviceStartDate);
+				System.out.println("Ngày kết thúc dịch vụ: " + serviceEndDate);
+				System.out.println("Số bài đăng cho phép từ gói dịch vụ: " + jobsAllowed);
 
-		        // Kiểm tra xem gói dịch vụ còn hiệu lực không
-		        if (now.isBefore(serviceStartDate.toLocalDate()) || now.isAfter(serviceEndDate.toLocalDate())) {
-		            System.out.println("Gói dịch vụ không còn hiệu lực.");
-		            continue;
-		        }
+				// Kiểm tra xem gói dịch vụ còn hiệu lực không
+				if (now.isBefore(serviceStartDate.toLocalDate()) || now.isAfter(serviceEndDate.toLocalDate())) {
+					System.out.println("Gói dịch vụ không còn hiệu lực.");
+					continue;
+				}
 
-		        // Cộng dồn số bài đăng cho phép từ gói dịch vụ vào tổng số bài đăng trong tháng
-		        totalAllowedPosts += jobsAllowed;
-		    }
-		    System.out.println("Tổng số bài đăng cho phép (bao gồm gói dịch vụ): " + totalAllowedPosts);
+				// Cộng dồn số bài đăng cho phép từ gói dịch vụ vào tổng số bài đăng trong tháng
+				totalAllowedPosts += jobsAllowed;
+			}
+			System.out.println("Tổng số bài đăng cho phép (bao gồm gói dịch vụ): " + totalAllowedPosts);
 		} else {
-		    System.out.println("Nhà tuyển dụng chưa mua gói dịch vụ nào.");
+			System.out.println("Nhà tuyển dụng chưa mua gói dịch vụ nào.");
 		}
 
 		// Kiểm tra số lượng bài đăng trong tháng và so sánh với số bài đăng cho phép
 		if (postsThisMonth.size() >= totalAllowedPosts) {
-			redirectAttributes.addFlashAttribute("message", "Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
-		    System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
-		    return "redirect:/employers";
+			redirectAttributes.addFlashAttribute("message",
+					"Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
+			System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
+			return "redirect:/employers";
 		}
 
 		// Nếu chưa vượt quá số bài đăng, tiếp tục xử lý đăng bài
 		System.out.println("Nhà tuyển dụng có thể đăng thêm bài.");
-
 
 		// Kiểm tra và lưu logo
 		String logoFilename = null;
