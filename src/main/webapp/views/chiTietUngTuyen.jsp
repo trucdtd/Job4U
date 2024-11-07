@@ -115,8 +115,7 @@ body {
 									<h2 class="company-name text-success">${job.jobtitle}</h2>
 									<a href="#" target="_blank" class="text-primary"><i
 										class="bi bi-globe"></i> Truy cập website:
-										${job.employer.companywebsite}
-									</a>
+										${job.employer.companywebsite} </a>
 								</div>
 							</div>
 							<hr>
@@ -162,11 +161,13 @@ body {
 									<c:when test="${not empty userid}">
 										<c:choose>
 											<c:when test="${not hasApplied}">
-												<!-- Nếu người dùng chưa ứng tuyển -->
-												<button type="button" class="btn btn-success btn-apply"
-													data-bs-toggle="modal" data-bs-target="#uploadCvModal">
-													<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
-												</button>
+												<!-- Nếu người dùng chưa ứng tuyển và role không phải là 2 và 0 -->
+												<c:if test="${userRole != 2 && userRole != 0}">
+													<button type="button" class="btn btn-success btn-apply"
+														data-bs-toggle="modal" data-bs-target="#uploadCvModal">
+														<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
+													</button>
+												</c:if>
 											</c:when>
 											<c:otherwise>
 												<!-- Nếu người dùng đã ứng tuyển -->
@@ -177,6 +178,7 @@ body {
 										</c:choose>
 									</c:when>
 									<c:otherwise>
+										<!-- Nếu người dùng chưa đăng nhập -->
 										<button type="button" class="btn btn-success btn-apply"
 											data-bs-toggle="modal" data-bs-target="#loginModal">
 											<i class="bi bi-lock text-light"></i> Đăng nhập để ứng tuyển
