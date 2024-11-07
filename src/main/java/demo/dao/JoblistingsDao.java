@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 
 import demo.entity.EmployersEntity;
 import demo.entity.JoblistingsEntity;
+import demo.entity.UserServicesEntity;
 
 public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer> {
 
@@ -120,7 +121,12 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	@Transactional
 	@Query("UPDATE JoblistingsEntity j SET j.isTop = true WHERE j.userservice IS NOT NULL")
 	void updateIsTopForNonNullUserServiceId();
+	
+//	@Query("UPDATE UserServicesEntity u SET u.isactive = false WHERE u.expirydate < :now AND u.isactive = true")
+	@Query("SELECT j FROM UserServicesEntity j WHERE j.isactive = true")
+    List<UserServicesEntity> findActiveServices();
 
+	
 	@Query("SELECT j FROM JoblistingsEntity j WHERE j.isTop = true ORDER BY j.posteddate DESC")
 	List<JoblistingsEntity> findTop20JobListingsWithIstop(Pageable pageable);
 
@@ -131,6 +137,12 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	@Query("SELECT j FROM JoblistingsEntity j WHERE j.employer.employerid = :employerid AND j.posteddate >= :startOfMonth")
 	List<JoblistingsEntity> findJobsByEmployerIdAndMonthStart(@Param("employerid") Integer employerid,
 			@Param("startOfMonth") LocalDate startOfMonth);
+
+	
+
+	@Query("SELECT j FROM JoblistingsEntity j WHERE j.isTop = true and j.active = true and j.userservice.isactive = true")
+	List<JoblistingsEntity> findTop20();
+
 
 	@Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.employer.employerid = :employerId AND j.posteddate BETWEEN :startDate AND :endDate")
 	int countJobsByEmployerIdAndDateRange(@Param("employerId") Integer employerId,
