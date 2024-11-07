@@ -49,7 +49,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/employers")
 public class NhaTuyenDungController {
@@ -179,7 +178,7 @@ public class NhaTuyenDungController {
 		LocalDate now = LocalDate.now();
 		LocalDate startOfMonth = now.withDayOfMonth(1);
 		List<JoblistingsEntity> postsThisMonth = danhSachViecLamDao
-		        .findJobsByEmployerIdAndMonthStart(employer.getEmployerid(), startOfMonth);
+				.findJobsByEmployerIdAndMonthStart(employer.getEmployerid(), startOfMonth);
 
 		System.out.println("Ngày hiện tại: " + now);
 		System.out.println("Ngày bắt đầu tháng: " + startOfMonth);
@@ -196,51 +195,55 @@ public class NhaTuyenDungController {
 		boolean hasValidSupplementalService = false; // Biến kiểm tra nếu có gói dịch vụ bổ sung hợp lệ
 
 		if (userServices != null && !userServices.isEmpty()) {
-		    for (UserServicesEntity userService : userServices) {
-		        LocalDateTime serviceStartDate = userService.getPurchasedate();
-		        LocalDateTime serviceEndDate = userService.getExpirydate();
-		        int jobsAllowed = userService.getNumberofjobsallowed();
-		        
-		        System.out.println("Dịch vụ: " + userService.getService().getServicename());
-		        System.out.println("Ngày bắt đầu dịch vụ: " + serviceStartDate);
-		        System.out.println("Ngày kết thúc dịch vụ: " + serviceEndDate);
-		        System.out.println("Số bài đăng cho phép từ gói dịch vụ: " + jobsAllowed);
+			for (UserServicesEntity userService : userServices) {
+				LocalDateTime serviceStartDate = userService.getPurchasedate();
+				LocalDateTime serviceEndDate = userService.getExpirydate();
+				int jobsAllowed = userService.getNumberofjobsallowed();
 
-		        // Kiểm tra xem gói dịch vụ còn hiệu lực không
-		        if (now.isBefore(serviceStartDate.toLocalDate()) || now.isAfter(serviceEndDate.toLocalDate())) {
-		            System.out.println("Gói dịch vụ không còn hiệu lực.");
-		            continue;
-		        }
+				System.out.println("Dịch vụ: " + userService.getService().getServicename());
+				System.out.println("Ngày bắt đầu dịch vụ: " + serviceStartDate);
+				System.out.println("Ngày kết thúc dịch vụ: " + serviceEndDate);
+				System.out.println("Số bài đăng cho phép từ gói dịch vụ: " + jobsAllowed);
 
-		        // Bỏ qua gói dịch vụ có serviceid là 4 (lên Top) khi tính số lượng bài đăng
-		        if (userService.getService().getServiceid() == 4) {
-		            System.out.println("Bỏ qua gói dịch vụ 'lên Top'.");
-		            continue;
-		        }
+				// Kiểm tra xem gói dịch vụ còn hiệu lực không
+				if (now.isBefore(serviceStartDate.toLocalDate()) || now.isAfter(serviceEndDate.toLocalDate())) {
+					System.out.println("Gói dịch vụ không còn hiệu lực.");
+					continue;
+				}
 
-		        // Cộng dồn số bài đăng từ gói bổ sung nếu nhà tuyển dụng đã đăng hết 3 bài miễn phí
-		        totalAllowedPosts += jobsAllowed;
-		        hasValidSupplementalService = true;
-		    }
+				// Bỏ qua gói dịch vụ có serviceid là 4 (lên Top) khi tính số lượng bài đăng
+				if (userService.getService().getServiceid() == 4) {
+					System.out.println("Bỏ qua gói dịch vụ 'lên Top'.");
+					continue;
+				}
+
+				// Cộng dồn số bài đăng từ gói bổ sung nếu nhà tuyển dụng đã đăng hết 3 bài miễn
+				// phí
+				totalAllowedPosts += jobsAllowed;
+				hasValidSupplementalService = true;
+			}
 		}
 
-		// Nếu nhà tuyển dụng chưa mua gói nào và đã đạt giới hạn 3 bài miễn phí, yêu cầu mua gói bổ sung
+		// Nếu nhà tuyển dụng chưa mua gói nào và đã đạt giới hạn 3 bài miễn phí, yêu
+		// cầu mua gói bổ sung
 		if (postsThisMonth.size() >= freePostsThisMonth && !hasValidSupplementalService) {
-		    redirectAttributes.addFlashAttribute("message", "Bạn đã vượt quá giới hạn bài đăng miễn phí. Vui lòng mua gói dịch vụ để tiếp tục đăng.");
-		    System.out.println("Nhà tuyển dụng đã đạt giới hạn bài đăng miễn phí và chưa có gói bổ sung.");
-		    return "redirect:/employers";
+			redirectAttributes.addFlashAttribute("message",
+					"Bạn đã vượt quá giới hạn bài đăng miễn phí. Vui lòng mua gói dịch vụ để tiếp tục đăng.");
+			System.out.println("Nhà tuyển dụng đã đạt giới hạn bài đăng miễn phí và chưa có gói bổ sung.");
+			return "redirect:/employers";
 		}
 
-		// Kiểm tra xem số lượng bài đăng hiện tại có vượt tổng số bài cho phép hay không
+		// Kiểm tra xem số lượng bài đăng hiện tại có vượt tổng số bài cho phép hay
+		// không
 		if (postsThisMonth.size() >= totalAllowedPosts) {
-		    redirectAttributes.addFlashAttribute("message", "Bạn đã vượt quá số lượng bài viết trong tháng.");
-		    System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết cho phép trong tháng.");
-		    return "redirect:/employers";
+			redirectAttributes.addFlashAttribute("message", "Bạn đã vượt quá số lượng bài viết trong tháng.");
+			System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết cho phép trong tháng.");
+			return "redirect:/employers";
 		}
 
 		// Nếu chưa vượt quá số bài đăng, tiếp tục xử lý đăng bài
 		System.out.println("Nhà tuyển dụng có thể đăng thêm bài.");
-		
+
 		// Kiểm tra và lưu logo
 		String logoFilename = null;
 		if (logo != null && !logo.isEmpty()) {
