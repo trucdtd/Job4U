@@ -96,7 +96,7 @@
 	<%-- <%@ include file="/views/nhaTuyenDungHangDau.jsp"%> --%>
 
 	<!-- Thanh tìm kiếm chính -->
-	<nav class="col-md-12">
+	<nav class="col-md-12 mb-4">
 		<div class="container mt-4">
 			<form action="/job4u/topjob/findJob" method="GET" class="search-form">
 				<div class="d-flex align-items-center gap-3">
