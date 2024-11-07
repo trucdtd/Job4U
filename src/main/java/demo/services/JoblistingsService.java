@@ -1,6 +1,7 @@
 package demo.services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,14 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import demo.dao.EmployersDao;
 import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
+import demo.dao.UserServicesDao;
 import demo.entity.EmployersEntity;
 import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
+import jakarta.transaction.Transactional;
 
 @Service
 public class JoblistingsService {
@@ -76,4 +80,12 @@ public class JoblistingsService {
 		LocalDate startOfMonth = now.withDayOfMonth(1);
 		return joblistingsDao.findJobsByEmployerIdAndMonthStart(employerid, startOfMonth);
 	}
+	
+	//thời gian hết hạn
+	@Scheduled(cron = "0 0 0 * * ?") // Chạy mỗi ngày vào 0:00
+    @Transactional
+    public void updateExpiredServices() {
+        LocalDateTime now = LocalDateTime.now();
+//        UserServicesDao.updateExpiredServices(now);
+    }
 }

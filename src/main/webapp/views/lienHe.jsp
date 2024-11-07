@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Liên hệ</title>
 <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="shortcut icon" href="https://gv.poly.edu.vn/images/favicon.ico">
     <!-- Bootstrap CSS v5.3.2 -->
@@ -65,7 +65,7 @@
                 <input type="text" name="phone" placeholder="* Điện thoại" required>
                 <input type="email" name="email" placeholder="* Email" required>
                 <textarea placeholder="Nội dung liên hệ" name="message" ></textarea>
-                <button style="background-color: #00688b; margin-left: 432px;" type="submit">Liên hệ</button>
+                <button style="background-color: #00688b;" type="submit">Liên hệ</button>
             </form>
         </div>
     </div>
