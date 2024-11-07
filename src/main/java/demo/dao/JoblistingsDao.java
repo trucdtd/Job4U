@@ -128,5 +128,4 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	@Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.employer.employerid = :employerId AND j.posteddate BETWEEN :startDate AND :endDate")
 	int countJobsByEmployerIdAndDateRange(@Param("employerId") Integer employerId,
 			@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
 }

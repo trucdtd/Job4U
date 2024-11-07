@@ -144,7 +144,7 @@
 												<td><a href="/admin/detailUser/${nd.userid}"
 													class="btn" type="button" title="Xem Chi Tiết"><img
 														src="/img/detail-icon.png" style="padding-bottom: 7px;"
-														width="25px" height="30px" alt="Detail" ></a> <%-- <a href="#"
+														width="25px" height="30px" alt="Detail"></a> <%-- <a href="#"
 													class="btn btn-danger"
 													onclick="return confirmDeleteAccount(${nd.userid});">Xóa</a> --%>
 												</td>
@@ -208,11 +208,11 @@
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
 														<a href="/admin/detailPost/${bv.jobid}" class="btn"
-															type="button" title="Xem Chi Tiết"> <img src="/img/detail-icon.png"
-															style="padding-bottom: 7px;" width="25px" height="30px"
-															alt="Detail">
-														</a> <a href="#" onclick="return confirmDelete(${bv.jobid});" title="Xóa">
-															<img src="/img/delete-icon.png"
+															type="button" title="Xem Chi Tiết"> <img
+															src="/img/detail-icon.png" style="padding-bottom: 7px;"
+															width="25px" height="30px" alt="Detail">
+														</a> <a href="#" onclick="return confirmDelete(${bv.jobid});"
+															title="Xóa"> <img src="/img/delete-icon.png"
 															style="padding-bottom: 7px;" width="25px" height="30px"
 															alt="Delete">
 														</a>
@@ -260,9 +260,9 @@
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
 														<a href="/admin/detailCV/${cv.jobseekerid}" class="btn"
-															type="button" title="Xem CV"> <img src="/img/detail-icon.png"
-															style="padding-bottom: 7px;" width="25px" height="30px"
-															alt="Detail">
+															type="button" title="Xem CV"> <img
+															src="/img/detail-icon.png" style="padding-bottom: 7px;"
+															width="25px" height="30px" alt="Detail">
 														</a>
 													</div>
 												</td>
@@ -273,7 +273,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div id="serviceManagement" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Dịch Vụ</div>
@@ -288,7 +288,7 @@
 											<th scope="col">Giá</th>
 											<th scope="col">Ngày Tạo</th>
 											<th scope="col">Hành Động</th>
-											
+
 										</tr>
 									</thead>
 									<tbody>
@@ -301,10 +301,10 @@
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
 														<a href="/admin/detailDV/${dv.serviceid}" class="btn"
-															type="button" title="Xem Chi Tiết"> <img src="/img/detail-icon.png"
-															style="padding-bottom: 7px;" width="25px" height="30px"
-															alt="Detail">
-														</a> 
+															type="button" title="Xem Chi Tiết"> <img
+															src="/img/detail-icon.png" style="padding-bottom: 7px;"
+															width="25px" height="30px" alt="Detail">
+														</a>
 													</div>
 												</td>
 											</tr>
