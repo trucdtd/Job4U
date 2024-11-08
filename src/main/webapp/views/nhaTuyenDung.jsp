@@ -589,7 +589,8 @@
             <form action="/employers/pay" method="post" class="payment-form">
                 <input type="hidden" name="servicePrice" id="servicePriceInput" value="75000">
                 <input type="hidden" name="serviceId" id="serviceId" value="4">
-                <input type="hidden" name="jobId" id="jobId" value="${jobId}">  <!-- Đây là input hidden cho jobId -->
+                <input type="hidden" name="jobId" id="jobId" value="${jobid}">
+
                 <input type="hidden" name="userId" id="userId" value="${userId}">
                 <div class="payment-methods">
                     <button class="momo2-btn" type="submit">
@@ -880,26 +881,19 @@ document.getElementById('logo').addEventListener('change', function(event) {
 
         // Lặp qua các nút "Mua"
         buyButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Lấy jobId từ thuộc tính data-jobid của nút
-                const jobId = button.getAttribute('data-jobid');
-                console.log("Clicked Job ID:", jobId); // Kiểm tra trên console
-
-                // Kiểm tra nếu jobId đã được lấy chính xác
-                if (jobId) {
-                    // Gán giá trị jobId vào input hidden trong modal form
-                    jobIdInputHidden.value = jobId;
-                    
-                    // Hiển thị jobId trong modal
-                    jobIdDisplay.textContent = jobId;
-
-                    // Hiển thị modal
-                    paymentModal.style.display = 'block';
-                } else {
-                    console.error("Không thể lấy Job ID từ nút.");
-                }
-            });
-        });
+    button.addEventListener('click', () => {
+        const jobId = button.getAttribute('data-jobid');
+        console.log("Job ID from button click:", jobId); // Kiểm tra jobId trong console
+        
+        if (jobId) {
+            jobIdInputHidden.value = jobId;  // Gán jobId vào input hidden
+            jobIdDisplay.textContent = jobId; // Hiển thị jobId trong modal
+            paymentModal.style.display = 'block'; // Hiển thị modal
+        } else {
+            console.error("Không thể lấy Job ID từ nút.");
+        }
+    });
+});
 
         // Đóng modal khi nhấn nút đóng
         document.querySelector('.close').addEventListener('click', () => {
