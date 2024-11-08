@@ -236,6 +236,7 @@
 																	height="25px" width="25px" />
 															</button>
 														</form>
+														
 														<!-- Nút mua dịch vụ lên top -->
 														<button type="button" class="btn btn-sm btn-mua"
 															title="Mua" data-jobid="${job.jobid}">
@@ -243,6 +244,7 @@
 																width="25px">
 														</button>
 														<!-- Nút mua dịch vụ lên top -->
+														
 													</div>
 												</td>
 												<!-- XEM CV -->
@@ -606,7 +608,6 @@
 		</div>
 
 
-
 	</div>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
@@ -874,6 +875,9 @@ document.getElementById('logo').addEventListener('change', function(event) {
         document.getElementById('paymentModalghim').style.display = 'none';
     }
     
+    
+    
+
     document.addEventListener('DOMContentLoaded', () => {
         const buyButtons = document.querySelectorAll('.btn-mua');
         const paymentModal = document.getElementById('paymentModalghim');
@@ -915,8 +919,6 @@ document.getElementById('logo').addEventListener('change', function(event) {
             }
         });
     });
-    
-
 </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
