@@ -22,14 +22,14 @@ public class luaCVController {
 		return "maucv2";
 	}
 
-//	@RequestMapping("/mauCV3")
-//	public String luaChonCV3() {
-//		return "mauCV3";
-//	}
-//	
-//	@RequestMapping("/mauCV4")
-//	public String luaChonCV4() {
-//		return "mauCV4";
-//	}
+	@RequestMapping("/mauCV3")
+	public String luaChonCV3() {
+		return "maucv3";
+	}
+	
+	@RequestMapping("/mauCV4")
+	public String luaChonCV4() {
+		return "maucv4";
+	}
 
 }

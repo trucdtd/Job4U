@@ -13,228 +13,422 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-/* CSS cho toàn trang */
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: Arial, sans-serif;
 }
 
 body {
-	font-family: 'Arial', sans-serif;
-	background-color: #f9f9f9;
-	padding: 20px;
-}
-
-.cv-container {
-	display: flex;
-	width: 100%;
-	max-width: 900px;
-	margin: 0 auto;
-	background-color: white;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-	overflow: hidden;
-}
-
-.left-column {
-	width: 35%;
 	background-color: #f4f4f4;
-	padding: 30px;
-	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
 }
 
-.profile-pic {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
+header, footer {
+	width: 100%;
+	background-color: #fff;
+	z-index: 10;
+}
+
+footer {
+	margin-top: auto;
+}
+
+/* CV Container */
+.cv-container {
+	width: 850px;
+	background-color: #fff;
+	padding: 40px;
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	gap: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	position: relative;
+	overflow: hidden;
+	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
-.left-column h2 {
-	font-size: 22px;
-	color: #333;
+/* Decorative Header and Footer */
+.header-decoration, .footer-decoration {
+	position: absolute;
+	width: 100%;
+	height: 120px;
+	background-color: #2c3e50;
 }
 
-.info {
-	text-align: left;
-	margin-top: 20px;
+.header-decoration {
+	top: 0;
+	clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
 }
 
-.info h3 {
-	font-size: 16px;
-	color: #555;
-	margin-bottom: 10px;
+.footer-decoration {
+	bottom: 0;
+	clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
 }
 
-.info p {
-	font-size: 14px;
-	color: #777;
-	line-height: 1.5;
+/* Left Column */
+.left-column {
+	background-color: #f4f4f4;
+	padding: 20px;
+	border-radius: 8px;
+	border-right: 3px solid #2c3e50;
+	z-index: 1;
 }
 
-.skills {
-	margin-top: 20px;
-	text-align: left;
-}
-
-.skills h3 {
-	font-size: 16px;
-	color: #555;
-	margin-bottom: 10px;
-}
-
-.skill-bar {
-	margin-bottom: 15px;
-}
-
-.skill-bar p {
-	font-size: 14px;
-	color: #777;
-	margin-bottom: 5px;
-}
-
-.bar {
+.profile-picture {
+	width: 100%;
+	height: 200px;
 	background-color: #ddd;
-	height: 10px;
-	border-radius: 5px;
+	border-radius: 8px;
+	background-size: cover;
+	background-position: center;
+	margin-bottom: 20px;
+	transition: all 0.3s ease-in-out;
 }
 
-.bar span {
-	display: block;
-	height: 100%;
-	background-color: #4caf50;
-	border-radius: 5px;
+.profile-picture:hover {
+	transform: scale(1.05);
 }
 
+.section-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.contact-info, .education, .skills {
+	margin-bottom: 20px;
+}
+
+.contact-info p, .education p, .skills p {
+	margin: 5px 0;
+	color: #555;
+	font-size: 14px;
+}
+
+/* Right Column */
 .right-column {
-	width: 65%;
-	padding: 30px;
+	z-index: 1;
+	padding: 0 20px;
+	padding-bottom: 40px;
 }
 
 .right-column h1 {
-	font-size: 28px;
+	padding-top: 53px;
+	font-size: 24px;
+	font-weight: bold;
 	color: #333;
+	margin-bottom: 5px;
+	padding-bottom: 50px;
 }
 
-.right-column h3 {
-	font-size: 20px;
-	color: #555;
-	margin-top: 20px;
-	margin-bottom: 10px;
+.right-column h2 {
+	margin-top: -50px;
+	font-size: 17px;
+	color: #666;
 }
 
-.right-column p {
-	font-size: 14px;
-	color: #777;
-	line-height: 1.6;
+/* Work Experience Section */
+.work-experience-item {
 	margin-bottom: 15px;
 }
 
-.photo-frame {
-	width: 150px; /* Chiều rộng theo tỷ lệ 3x4 */
-	height: 200px; /* Chiều cao theo tỷ lệ 3x4 */
-	border: 2px solid #ccc; /* Khung viền */
-	border-radius: 50%; /* Tạo hình tròn hoặc oval */
-	overflow: hidden; /* Đảm bảo ảnh không tràn ra ngoài */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #f8f8f8; /* Màu nền cho khung */
+.work-experience-item h4 {
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
 }
 
-.profile-photo {
+.work-experience-item p {
+	color: #555;
+	font-size: 14px;
+	margin: 2px 0;
+}
+
+.profile, .work-experience {
+	margin-bottom: 20px;
+}
+
+textarea {
 	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	/* Đảm bảo ảnh lấp đầy toàn bộ khung mà không bị biến dạng */
+	padding: 10px;
+	margin-top: 5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+	min-height: 120px;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	color: #333;
+}
+
+textarea:focus {
+	border-color: #2c3e50;
+	outline: none;
+}
+
+input[type="text"], input[type="email"], input[type="date"], select {
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	color: #333;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus,
+	select:focus {
+	border-color: #2c3e50;
+	outline: none;
+}
+
+button {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 6px 12px; /* Giảm padding */
+	cursor: pointer;
+	margin-top: 10px;
+	border-radius: 5px;
+	font-size: 13px; /* Giảm font-size */
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #45a049;
+}
+
+button:focus {
+	outline: none;
+}
+
+/* Thêm hiệu ứng xuất hiện từ từ cho các trường input và nút */
+input, select, textarea {
+	opacity: 0;
+	animation: fadeIn 0.5s forwards;
+}
+
+@
+keyframes fadeIn { 0% {
+	opacity: 0;
+}
+
+100
+%
+{
+opacity
+:
+1;
+}
+}
+
+/* Thêm hiệu ứng xuất hiện từ từ cho các nút "Thêm" */
+button.add-field {
+	opacity: 0;
+	animation: fadeIn 0.5s forwards;
+	animation-delay: 0.3s; /* Tạo độ trễ cho nút */
+}
+
+/* Ẩn nút thêm ban đầu */
+.add-button-container {
+	display: none;
+	margin-top: 10px;
+}
+
+/* Hiển thị nút thêm khi hover vào khu vực nhập liệu */
+.section:hover .add-button-container {
+	display: block;
+}
+
+/* Hiệu ứng hover cho các input */
+input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
+	select:hover {
+	border-color: #2c3e50;
 }
 </style>
-
 </head>
 <body>
+	<!-- header -->
+	<%@ include file="/views/headerNoPanner.jsp"%>
+	<!-- header -->
 	<div class="cv-container">
+		<!-- Decorative Header -->
+		<div class="header-decoration"></div>
+		<div class="inner-header-decoration"></div>
+
+		<!-- Decorative Footer -->
+		<div class="footer-decoration"></div>
+		<div class="inner-footer-decoration"></div>
+
+		<!-- Corner Triangles -->
+		<div class="top-left-triangle"></div>
+		<div class="bottom-right-triangle"></div>
+
+		<!-- Left Column -->
 		<div class="left-column">
-			<div class="photo-frame">
-				<img src="profile.jpg" alt="Ảnh thẻ" class="profile-photo">
-			</div>
-			<div class="info">
-				<h3>Thông tin liên hệ</h3>
-				<p>
-					Địa chỉ: <br>123 Đường ABC, Quận 1, TP.HCM
-				</p>
-				<p>
-					Số điện thoại: <br>0123 456 789
-				</p>
-				<p>
-					Email: <br>ananguyen@gmail.com
-				</p>
+			<div class="profile-picture"
+				onclick="document.getElementById('profile-picture-input').click()"
+				style="background-image: url('your-image-url.jpg');"></div>
+			<input type="file" id="profile-picture-input" style="display: none;"
+				accept="image/*" onchange="loadProfilePicture(event)">
+
+			<div class="section">
+				<div class="section-title">Contact</div>
+				<div class="contact-info">
+					<p>
+						Điện Thoại: <input type="text" name="phone"
+							placeholder="+123-456-7890">
+					</p>
+					<p>
+						Email: <input type="email" name="email"
+							placeholder="alfredo@example.com">
+					</p>
+					<p>
+						Ngày Sinh: <input type="date" name="dob">
+					</p>
+					<p>
+						Địa Chỉ: <input type="text" name="address"
+							placeholder="123 Anywhere St, Any City">
+					</p>
+					<p>
+						Giới Tính: <select name="gender">
+							<option value="male">Nam</option>
+							<option value="female">Nữ</option>
+						</select>
+					</p>
+				</div>
 			</div>
 
-			<div class="skills">
-				<h3>Kỹ năng</h3>
-				<div class="skill-bar">
-					<p>Kỹ năng giao tiếp</p>
-					<div class="bar">
-						<span style="width: 80%;"></span>
-					</div>
+			<!-- Học Vấn -->
+			<div class="section">
+				<div class="section-title">Học Vấn</div>
+				<div id="education-section" class="draggable-section">
+					<input type="text" name="education[]" placeholder="FPT Polytechnic">
 				</div>
-				<div class="skill-bar">
-					<p>Kỹ năng tổ chức</p>
-					<div class="bar">
-						<span style="width: 75%;"></span>
-					</div>
+				<div class="add-button-container">
+					<button onclick="addField('education-section')">+ Thêm Học
+						Vấn</button>
 				</div>
-				<div class="skill-bar">
-					<p>Tiếng Anh</p>
-					<div class="bar">
-						<span style="width: 90%;"></span>
-					</div>
+			</div>
+
+			<div class="section">
+				<div class="section-title">Chứng Chỉ</div>
+				<div id="certificates-section">
+					<input type="text" name="certificates[]"
+						placeholder="Nhập chứng chỉ">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('certificates-section')">+ Thêm
+						Chứng Chỉ</button>
 				</div>
 			</div>
 		</div>
 
 		<div class="right-column">
-			<h1>Anan Nguyễn</h1>
-			<h3>Học vấn</h3>
-			<p>
-				<strong>Cử nhân Quản trị Kinh doanh</strong> <br> Đại học ABC <br>
-				2015 - 2019
-			</p>
+			<h1>
+				<input type="text" name="name" placeholder="Nguyễn Văn A">
+			</h1>
+			<h2>
+				<input type="text" name="title" placeholder="Vị Tí Ứng Tuyển">
+			</h2>
 
-			<h3>Kinh nghiệm làm việc</h3>
-			<p>
-				<strong>Chuyên viên hỗ trợ khách hàng</strong> <br> Công ty XYZ
-				<br> 2020 - Hiện tại
-			</p>
-			<p>- Hỗ trợ khách hàng qua điện thoại, email và trực tiếp.</p>
-			<p>- Giải quyết các vấn đề liên quan đến dịch vụ và sản phẩm của
-				công ty.</p>
+			<div class="section">
+				<div class="section-title">Mục Tiêu Nghề Nghiệp</div>
+				<textarea name="careerGoal" placeholder="Nhập mục tiêu nghề nghiệp"></textarea>
+			</div>
+			<!-- Kỹ Năng -->
+			<div class="section">
+				<div class="section-title">Kỹ Năng</div>
+				<div id="skills-section" class="draggable-section">
+					<input type="text" name="skills[]" placeholder="Nhập kỹ năng">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('skills-section')">+ Thêm Kỹ
+						Năng</button>
+				</div>
+			</div>
 
-			<h3>Hoạt động ngoại khóa</h3>
-			<p>
-				<strong>Tình nguyện viên</strong> <br> Tổ chức ABC <br>
-				2018 - 2019
-			</p>
-			<p>- Tham gia các hoạt động tình nguyện và hỗ trợ cộng đồng.</p>
+			<div class="section">
+				<div class="section-title">Dự Án Đã Tham Gia</div>
+				<div id="projects-section" class="draggable-section">
+					<div class="work-experience-item">
+						<input type="text" name="projects[]"
+							placeholder="Tên dự án - Công ty"> <input type="text"
+							name="project-dates[]" placeholder="Thời gian">
+						<textarea name="project-descriptions[]" placeholder="Mô tả"></textarea>
+					</div>
+				</div>
+				<div class="add-button-container">
+					<button onclick="addProjectField()">+ Thêm Dự Án</button>
+				</div>
+			</div>
 		</div>
 	</div>
-	</script>
+	<br>
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 	<script>
+	function addField(sectionId) {
+	    const section = document.getElementById(sectionId);
+	    const input = document.createElement("input");
+	    input.type = "text";
+	    input.name = sectionId.replace('-section', '') + "[]";
+	    input.placeholder = "Nhập thông tin";
+	    input.style.opacity = 0;
+	    section.appendChild(input);
 
-    // Add functionality to buttons if needed
-document.querySelectorAll('.use-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        alert('Mẫu đã được chọn!');
-    });
-});
+	    // Thêm hiệu ứng fade-in cho input mới
+	    setTimeout(() => {
+	        input.style.transition = "opacity 0.5s";
+	        input.style.opacity = 1;
+	    }, 50);
+	}
 
-document.querySelectorAll('.preview-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        alert('Xem trước mẫu này!');
-    });
-});
+	// Hàm thêm dự án mới với hiệu ứng fade-in
+	function addProjectField() {
+	    const projectSection = document.getElementById('projects-section');
+	    const div = document.createElement("div");
+	    div.className = "work-experience-item";
 
+	    div.innerHTML = `
+	        <input type="text" name="projects[]" placeholder="Tên dự án - Công ty" style="opacity: 0;">
+	        <input type="text" name="project-dates[]" placeholder="Thời gian" style="opacity: 0;">
+	        <textarea name="project-descriptions[]" placeholder="Mô tả" style="opacity: 0;"></textarea>
+	    `;
+	    projectSection.appendChild(div);
+
+	    // Hiệu ứng fade-in cho các trường mới
+	    const inputs = div.querySelectorAll('input, textarea');
+	    setTimeout(() => {
+	        inputs.forEach(input => {
+	            input.style.transition = "opacity 0.5s";
+	            input.style.opacity = 1;
+	        });
+	    }, 50);
+	}
+</script>
+<script>	
+	document.addEventListener("DOMContentLoaded", function () {
+	    // Khởi tạo tính năng kéo và thả cho các phần chứa input
+	    new Sortable(document.querySelectorAll('.draggable-section'), {
+	        handle: '.section-title', // Kéo từ tiêu đề
+	        animation: 150, // Thêm hiệu ứng mượt mà
+	    });
+	});
 </script>
 </body>
 </html>
