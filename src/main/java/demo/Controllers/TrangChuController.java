@@ -1,5 +1,6 @@
 package demo.Controllers;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,12 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import demo.dao.JoblistingsDao;
+import demo.dao.UserServicesDao;
 import demo.entity.JoblistingsEntity;
+import demo.entity.UserServicesEntity;
 import demo.services.JoblistingsService;
 import demo.services.SessionService;
 import jakarta.servlet.http.HttpSession;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +38,12 @@ public class TrangChuController {
 
 	@Autowired
 	private JoblistingsService jobListingService;
+
+	@Autowired
+	UserServicesDao usDao;
+
+	@Autowired
+	JoblistingsDao jlsDAO;
 
 //	@RequestMapping("")
 //	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page
@@ -63,13 +75,32 @@ public class TrangChuController {
 	@RequestMapping("")
 	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page) {
 		int pageNumber = page.orElse(0);
+		// Sắp xếp theo posteddate giảm dần
 		Pageable pageable = PageRequest.of(pageNumber, 8, Sort.by("posteddate").descending());
 
-		// Lấy danh sách 20 công việc có isTop = true
-		List<JoblistingsEntity> latestJobs = jobListingService.getTop20JobListingsWithIstop();
-		model.addAttribute("latestJobs", latestJobs);
+		// xu ly bai viet het han
+		List<JoblistingsEntity> list = jlsDAO.findByIsTopTrue();
+		String dateTimeStr2 = LocalDateTime.now().toString();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.n");
+		LocalDateTime dateTime2 = LocalDateTime.parse(dateTimeStr2, formatter);
+		for (JoblistingsEntity entity : list) {
+			String dateTimeStr1 = entity.getUserservice().getExpirydate().toString();
+			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+			LocalDateTime dateTime1 = LocalDateTime.parse(dateTimeStr1, formatter1);
+			if (dateTime1.isBefore(dateTime2)) {
+//				// cập nhật lại isActive trong bảng userservice là false
+				entity.setIsTop(false);
+				entity.getUserservice().setIsactive(false);
+				jlsDAO.save(entity);
 
-		// Lấy danh sách các bài viết chưa hết hạn
+			}
+		}
+		// lay ngau nhien bai viet da mua dich vu len top
+		List<JoblistingsEntity> top20 = jlsDAO.findTop20();
+		Collections.shuffle(top20);
+		model.addAttribute("latestJobs", top20);
+
+// 		// Lấy danh sách các bài viết chưa hết hạn
 		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
 		model.addAttribute("dsSP", dsSP);
 
@@ -109,7 +140,7 @@ public class TrangChuController {
 				&& !"All".equalsIgnoreCase(joblocation.get())) {
 			dsSP = danhSachViecLamDao.findByJobLocation(joblocation.get(), pageable);
 		} else {
-			dsSP = danhSachViecLamDao.findAll(pageable);
+			dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
 		}
 
 		// Kiểm tra nếu không có kết quả
@@ -117,7 +148,7 @@ public class TrangChuController {
 			// Thêm thông báo vào mô hình
 			model.addAttribute("message",
 					"Nội dung tìm kiếm hiện không có. Vui lòng tham khảo thêm công việc bên dưới.");
-			dsSP = danhSachViecLamDao.findAll(pageable);
+			dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
 			model.addAttribute("dsSP", dsSP);
 			// Trả về trang chủ với thông báo
 			return "trangChu";

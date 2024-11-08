@@ -1,5 +1,6 @@
 package demo.Controllers;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,11 @@ public class TopJobController {
 	public String main(Model model, @RequestParam("page") Optional<Integer> page) {
 		// Sắp xếp giảm dần theo ngày và thời gian đăng (bao gồm giờ, phút, giây nếu có)
 		Pageable pageable = PageRequest.of(page.orElse(0), 6, Sort.by("posteddate").descending());
-		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
+//		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
+		// Lấy danh sách các bài viết chưa hết hạn
+		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
 		model.addAttribute("dsSP", dsSP);
-		return "topViecLam";
+		return "congViecMoi";
 	}
 
 	@RequestMapping("/job4u/topjob/findJob")
@@ -71,11 +74,11 @@ public class TopJobController {
 
 		if (dsSP.isEmpty()) {
 			model.addAttribute("message", "Không tìm thấy công việc phù hợp.");
-			return "topViecLam";
+			return "congViecMoi";
 		}
 
 		model.addAttribute("dsSP", dsSP);
-		return "topViecLam";
+		return "congViecMoi";
 	}
 
 }

@@ -168,7 +168,13 @@
 										alt="logo" class="img-fluid" style="object-fit: cover;">
 								</div>
 								<div class="flex-grow-1">
-									<h5 class="card-title">${job.jobtitle}</h5>
+									<h5 class="card-title">${job.jobtitle}
+										<!-- Hiển thị ngôi sao vàng nếu là công việc top -->
+										<c:if test="${job.isTop}">
+											<i class="bi bi-star-fill text-warning"></i>
+											<!-- Ngôi sao vàng -->
+										</c:if>
+									</h5>
 									<p class="text-muted">${job.employer.companyname}</p>
 									<p class="card-text">${job.jobdescription}</p>
 								</div>
