@@ -192,7 +192,6 @@ public class AdminController {
 	public String lockUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,
 			HttpSession session) {
 		try {
-		
 
 			// Kiểm tra vai trò của người dùng
 			UsersEntity user = userDao.findById(id).orElse(null);

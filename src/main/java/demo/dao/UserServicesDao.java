@@ -13,20 +13,22 @@ import demo.entity.UserServicesEntity;
 import demo.entity.UsersEntity;
 import jakarta.transaction.Transactional;
 
+public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integer> {
 
-
-public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integer>{
-	
-	//thongke
+	// thongke
 //	@Query("SELECT COUNT(s) FROM UserServicesEntity s WHERE s.purchasedate >= :startDate")
 //	Integer countServicesSince(@Param("startDate") LocalDateTime startDate);
-	
+
 	@Query("SELECT u FROM UserServicesEntity u WHERE u.purchasedate BETWEEN :startDate AND :endDate")
-	List<UserServicesEntity> findByDateRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
-	
+	List<UserServicesEntity> findByDateRange(@Param("startDate") LocalDateTime startDate,
+			@Param("endDate") LocalDateTime endDate);
+
 	// Các dịch vụ đã mua của người dùng dựa trên UsersEntity
-    @Query("SELECT u FROM UserServicesEntity u WHERE u.user = :user")
-    List<UserServicesEntity> findByUser(@Param("user") UsersEntity user);
+
+	@Query("SELECT u FROM UserServicesEntity u WHERE u.user = :user")
+	List<UserServicesEntity> findByUser(@Param("user") UsersEntity user);
+
+
     
  // Phương thức cập nhật các dịch vụ đã hết hạn
 	/*
@@ -37,4 +39,5 @@ public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integ
 	 * @Query("UPDATE UserServicesEntity u SET u.status = 'EXPIRED' WHERE u.expiryDate <= :expiryDate"
 	 * ) void updateExpiredServices(@Param("expiryDate") LocalDateTime expiryDate);
 	 */
+
 }
