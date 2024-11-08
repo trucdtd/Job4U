@@ -52,25 +52,29 @@ public class ChiTietUngTuyenController {
 
 	@RequestMapping("/{jobid}")
 	public String chiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
-		// Lấy thông tin chi tiết công việc
-		JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
+	    // Lấy thông tin chi tiết công việc
+	    JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
 
-		// Lấy ID người dùng đã đăng nhập
-		Integer userId = (Integer) ss.getAttribute("userid");
+	    // Lấy ID người dùng đã đăng nhập
+	    Integer userId = (Integer) ss.getAttribute("userid");
 
-		// Lấy danh sách CV của người dùng
-		List<JobSeekersEntity> listCV = dao.findByUsername(userId);
+	    // Lấy vai trò (role) người dùng từ session (giả sử role là Integer)
+	    Integer userRole = (Integer) ss.getAttribute("role");  // Đổi kiểu thành Integer
 
-		// Lấy danh sách các công việc mà người dùng đã ứng tuyển
-		List<JoblistingsEntity> appliedJobs = appDao.findJobsAppliedByUserId(userId);
-		boolean hasApplied = appliedJobs.stream().anyMatch(job -> job.getJobid().equals(jobid));
+	    // Lấy danh sách CV của người dùng
+	    List<JobSeekersEntity> listCV = dao.findByUsername(userId);
 
-		// Thêm các thuộc tính vào model để truyền sang view
-		model.addAttribute("job", chiTietUngTuyen);
-		model.addAttribute("listCV", listCV);
-		model.addAttribute("hasApplied", hasApplied); // Thêm thuộc tính kiểm tra vào model
+	    // Lấy danh sách các công việc mà người dùng đã ứng tuyển
+	    List<JoblistingsEntity> appliedJobs = appDao.findJobsAppliedByUserId(userId);
+	    boolean hasApplied = appliedJobs.stream().anyMatch(job -> job.getJobid().equals(jobid));
 
-		return "chiTietUngTuyen";
+	    // Thêm các thuộc tính vào model để truyền sang view
+	    model.addAttribute("job", chiTietUngTuyen);
+	    model.addAttribute("listCV", listCV);
+	    model.addAttribute("hasApplied", hasApplied); // Thêm thuộc tính kiểm tra vào model
+	    model.addAttribute("userRole", userRole);    // Truyền userRole vào model
+
+	    return "chiTietUngTuyen";
 	}
 
 	@PostMapping("/{jobid}")

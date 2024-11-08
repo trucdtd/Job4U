@@ -163,9 +163,9 @@
 						type="hidden" name="userId" id="userId" value="${userId}">
 
 					<div class="payment-methods">
-						<button class="momo2-btn" type="submit">
+						<a class="momo2-btn" type="submit">
 							<img src="/img/vnpay.png">
-						</button>
+						</a>
 					</div>
 					<button class="submit-btn" style="background: #198754"
 						type="submit">Thanh Toán</button>
@@ -203,6 +203,7 @@ function openJobSelectionModal(serviceName, servicePrice, serviceDescription, se
         document.getElementById('servicePriceInput').value = selectedService.servicePrice;
         jobIdSelected = null; // Đặt jobIdSelected là null để không yêu cầu bài viết khi thanh toán
     }
+    
 }
 
 
@@ -228,6 +229,13 @@ function selectJobPost(job) {
     document.getElementById('servicePriceInput').value = selectedService.servicePrice;
     jobIdSelected = job.jobid; // Cập nhật jobIdSelected để kiểm tra khi submit
 }
+
+//Đóng modal khi nhấn vào dấu X hoặc vùng bên ngoài modal
+window.addEventListener('click', (event) => {
+    if (event.target === paymentModal) {
+    	closePaymentModal();
+    }
+});
 
 function closePaymentModal() {
     document.getElementById('paymentModal').style.display = 'none';
