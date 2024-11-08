@@ -78,7 +78,7 @@ public class TrangChuController {
 		// Sắp xếp theo posteddate giảm dần
 		Pageable pageable = PageRequest.of(pageNumber, 8, Sort.by("posteddate").descending());
 
-		// xu ly bai viet het han
+		// xu ly bai viet het han top
 		List<JoblistingsEntity> list = jlsDAO.findByIsTopTrue();
 		String dateTimeStr2 = LocalDateTime.now().toString();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.n");
@@ -100,7 +100,7 @@ public class TrangChuController {
 		Collections.shuffle(top20);
 		model.addAttribute("latestJobs", top20);
 
-// 		// Lấy danh sách các bài viết chưa hết hạn
+// 		// Lấy danh sách các bài viết chưa hết hạn nộp hồ sơ
 		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
 		model.addAttribute("dsSP", dsSP);
 
