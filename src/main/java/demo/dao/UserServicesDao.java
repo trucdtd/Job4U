@@ -5,11 +5,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import demo.entity.UserServicesEntity;
 import demo.entity.UsersEntity;
+import jakarta.transaction.Transactional;
 
 public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integer> {
 
@@ -22,6 +24,21 @@ public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integ
 			@Param("endDate") LocalDateTime endDate);
 
 	// Các dịch vụ đã mua của người dùng dựa trên UsersEntity
+<<<<<<< HEAD
 	@Query("SELECT u FROM UserServicesEntity u WHERE u.user = :user")
 	List<UserServicesEntity> findByUser(@Param("user") UsersEntity user);
+=======
+    @Query("SELECT u FROM UserServicesEntity u WHERE u.user = :user")
+    List<UserServicesEntity> findByUser(@Param("user") UsersEntity user);
+    
+ // Phương thức cập nhật các dịch vụ đã hết hạn
+	/*
+	 * @Modifying
+	 * 
+	 * @Transactional
+	 * 
+	 * @Query("UPDATE UserServicesEntity u SET u.status = 'EXPIRED' WHERE u.expiryDate <= :expiryDate"
+	 * ) void updateExpiredServices(@Param("expiryDate") LocalDateTime expiryDate);
+	 */
+>>>>>>> dev
 }
