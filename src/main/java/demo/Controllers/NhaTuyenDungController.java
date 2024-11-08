@@ -211,14 +211,6 @@ public class NhaTuyenDungController {
 					continue;
 				}
 
-<<<<<<< HEAD
-				// Cộng dồn số bài đăng cho phép từ gói dịch vụ vào tổng số bài đăng trong tháng
-				totalAllowedPosts += jobsAllowed;
-			}
-			System.out.println("Tổng số bài đăng cho phép (bao gồm gói dịch vụ): " + totalAllowedPosts);
-		} else {
-			System.out.println("Nhà tuyển dụng chưa mua gói dịch vụ nào.");
-=======
 				// Bỏ qua gói dịch vụ có serviceid là 4 (lên Top) khi tính số lượng bài đăng
 				if (userService.getService().getServiceid() == 4) {
 					System.out.println("Bỏ qua gói dịch vụ 'lên Top'.");
@@ -230,7 +222,6 @@ public class NhaTuyenDungController {
 				totalAllowedPosts += jobsAllowed;
 				hasValidSupplementalService = true;
 			}
->>>>>>> dev
 		}
 
 		// Nếu nhà tuyển dụng chưa mua gói nào và đã đạt giới hạn 3 bài miễn phí, yêu
@@ -245,14 +236,8 @@ public class NhaTuyenDungController {
 		// Kiểm tra xem số lượng bài đăng hiện tại có vượt tổng số bài cho phép hay
 		// không
 		if (postsThisMonth.size() >= totalAllowedPosts) {
-<<<<<<< HEAD
-			redirectAttributes.addFlashAttribute("message",
-					"Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
-			System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết trong tháng.");
-=======
 			redirectAttributes.addFlashAttribute("message", "Bạn đã vượt quá số lượng bài viết trong tháng.");
 			System.out.println("Nhà tuyển dụng đã vượt quá số lượng bài viết cho phép trong tháng.");
->>>>>>> dev
 			return "redirect:/employers";
 		}
 
