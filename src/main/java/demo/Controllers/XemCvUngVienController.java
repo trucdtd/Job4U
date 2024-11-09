@@ -1,21 +1,19 @@
 package demo.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import demo.dao.ApplicationsDao;
 import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
 import demo.services.ApplicationService;
+import demo.services.EmailService;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
@@ -34,7 +32,10 @@ public class XemCvUngVienController {
 
 	@Autowired
 	HttpSession ss;
-
+	
+	@Autowired
+	 private EmailService emailService;  // Inject EmailService để gửi email
+	
 	@Autowired
 	private ApplicationService applicationService;
 
@@ -66,27 +67,47 @@ public class XemCvUngVienController {
 	}
 
 	@PostMapping("/{applicationId}/accept")
-	@ResponseBody
-	public String acceptApplication(@PathVariable Integer applicationId) {
-		try {
-			applicationService.updateApplicationStatus(applicationId, 1);
-			return "success";
-		} catch (Exception e) {
-			logger.error("Error updating application status: ", e);
-			return "error";
-		}
-	}
+    @ResponseBody
+    public String acceptApplication(@PathVariable Integer applicationId) {
+        try {
+            // Cập nhật trạng thái đơn ứng tuyển thành "chấp nhận"
+            applicationService.updateApplicationStatus(applicationId, 1);
 
-	@PostMapping("/{applicationId}/reject")
-	@ResponseBody
-	public String rejectApplication(@PathVariable Integer applicationId) {
-		try {
-			applicationService.updateApplicationStatus(applicationId, 2); // Cập nhật status = 2
-			return "success";
-		} catch (Exception e) {
-			logger.error("Error updating application status to rejected: ", e);
-			return "error";
-		}
-	}
+            // Lấy thông tin ứng viên
+            JobSeekersEntity jobSeeker = applicationService.getJobSeekerById(applicationId);
+            String applicantEmail = jobSeeker.getEmailcv();
+            String applicantName = jobSeeker.getFullnamecv();
+
+            // Gửi email thông báo chấp nhận
+            emailService.sendAcceptanceEmail(applicantEmail, applicantName);
+
+            return "success";
+        } catch (Exception e) {
+            logger.error("Error updating application status: ", e);
+            return "error";
+        }
+    }
+
+    @PostMapping("/{applicationId}/reject")
+    @ResponseBody
+    public String rejectApplication(@PathVariable Integer applicationId) {
+        try {
+            // Cập nhật trạng thái đơn ứng tuyển thành "từ chối"
+            applicationService.updateApplicationStatus(applicationId, 2);
+
+            // Lấy thông tin ứng viên
+            JobSeekersEntity jobSeeker = applicationService.getJobSeekerById(applicationId);
+            String applicantEmail = jobSeeker.getEmailcv();
+            String applicantName = jobSeeker.getFullnamecv();
+
+            // Gửi email thông báo từ chối
+            emailService.sendRejectionEmail(applicantEmail, applicantName);
+
+            return "success";
+        } catch (Exception e) {
+            logger.error("Error updating application status to rejected: ", e);
+            return "error";
+        }
+    }
 
 }
