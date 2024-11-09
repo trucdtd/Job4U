@@ -10,6 +10,7 @@ import demo.dao.ApplicationsDao;
 import demo.dao.JobSeekersDao;
 import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
+import demo.entity.JoblistingsEntity;
 
 @Service
 public class ApplicationService {
@@ -36,5 +37,13 @@ public class ApplicationService {
         ApplicationsEntity application = applicationsDao.findById(applicationId)
                 .orElseThrow(() -> new RuntimeException("Application not found"));
         return application.getJobseeker();  // Lấy ứng viên từ đơn ứng tuyển
+    }
+    
+ // Lấy thông tin công việc (JoblistingsEntity) từ applicationId
+    public JoblistingsEntity getJobListingByApplicationId(Integer applicationId) {
+        // Tìm đơn ứng tuyển và lấy thông tin công việc liên kết
+        ApplicationsEntity application = applicationsDao.findById(applicationId)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+        return application.getJob(); // Lấy công việc từ đơn ứng tuyển
     }
 }
