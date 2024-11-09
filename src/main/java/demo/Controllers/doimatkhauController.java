@@ -71,6 +71,12 @@ public class doimatkhauController {
 						"Mật khẩu mới phải có ít nhất 8 ký tự và chứa ít nhất 1 ký tự số");
 				return "redirect:/changePass";
 			}
+			
+			 // Kiểm tra mật khẩu mới không trùng với mật khẩu cũ
+	        if (newPassword.equals(oldPassword)) {
+	            redirectAttributes.addFlashAttribute("error", "Mật khẩu mới không được trùng với mật khẩu cũ");
+	            return "redirect:/changePass";
+	        }
 
 			// Kiểm tra mật khẩu mới và xác nhận mật khẩu mới
 			if (!newPassword.equals(confirmNewPassword)) {
