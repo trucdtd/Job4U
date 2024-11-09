@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import demo.dao.ApplicationsDao;
 import demo.entity.ApplicationsEntity;
 import demo.entity.JobSeekersEntity;
+import demo.entity.JoblistingsEntity;
 import demo.services.ApplicationService;
 import demo.services.EmailService;
 import jakarta.servlet.http.HttpSession;
@@ -67,26 +68,32 @@ public class XemCvUngVienController {
 	}
 
 	@PostMapping("/{applicationId}/accept")
-    @ResponseBody
-    public String acceptApplication(@PathVariable Integer applicationId) {
-        try {
-            // Cập nhật trạng thái đơn ứng tuyển thành "chấp nhận"
-            applicationService.updateApplicationStatus(applicationId, 1);
+	@ResponseBody
+	public String acceptApplication(@PathVariable Integer applicationId) {
+	    try {
+	        // Cập nhật trạng thái đơn ứng tuyển thành "chấp nhận"
+	        applicationService.updateApplicationStatus(applicationId, 1);
 
-            // Lấy thông tin ứng viên
-            JobSeekersEntity jobSeeker = applicationService.getJobSeekerById(applicationId);
-            String applicantEmail = jobSeeker.getEmailcv();
-            String applicantName = jobSeeker.getFullnamecv();
+	        // Lấy thông tin ứng viên
+	        JobSeekersEntity jobSeeker = applicationService.getJobSeekerById(applicationId);
+	        String applicantEmail = jobSeeker.getEmailcv();
+	        String applicantName = jobSeeker.getFullnamecv();
 
-            // Gửi email thông báo chấp nhận
-            emailService.sendAcceptanceEmail(applicantEmail, applicantName);
+	        // Lấy thông tin công việc (JoblistingsEntity)
+	        JoblistingsEntity jobListing = applicationService.getJobListingByApplicationId(applicationId);
+	        String companyName = jobListing.getEmployer().getCompanyname();
+	        String jobTitle = jobListing.getJobtitle();
 
-            return "success";
-        } catch (Exception e) {
-            logger.error("Error updating application status: ", e);
-            return "error";
-        }
-    }
+	        // Gửi email thông báo chấp nhận
+	        emailService.sendAcceptanceEmail(applicantEmail, applicantName, companyName, jobTitle);
+
+	        return "success";
+	    } catch (Exception e) {
+	        logger.error("Error updating application status for applicationId: " + applicationId, e);
+	        return "error: " + e.getMessage();  // Trả về thông điệp lỗi chi tiết
+	    }
+	}
+
 
     @PostMapping("/{applicationId}/reject")
     @ResponseBody
@@ -100,8 +107,13 @@ public class XemCvUngVienController {
             String applicantEmail = jobSeeker.getEmailcv();
             String applicantName = jobSeeker.getFullnamecv();
 
+            // Lấy thông tin công việc (JoblistingsEntity)
+	        JoblistingsEntity jobListing = applicationService.getJobListingByApplicationId(applicationId);
+	        String companyName = jobListing.getEmployer().getCompanyname();
+	        String jobTitle = jobListing.getJobtitle();
+	        
             // Gửi email thông báo từ chối
-            emailService.sendRejectionEmail(applicantEmail, applicantName);
+            emailService.sendRejectionEmail(applicantEmail, applicantName, companyName, jobTitle);
 
             return "success";
         } catch (Exception e) {
