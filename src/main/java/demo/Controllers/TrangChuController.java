@@ -77,8 +77,6 @@ public class TrangChuController {
 		int pageNumber = page.orElse(0);
 		// Đếm tổng số bài viết chưa hết hạn nộp hồ sơ
 	    long totalItems = danhSachViecLamDao.countByApplicationdeadlineAfterAndActiveTrue(LocalDate.now()); // Đếm bài viết còn hạn
-	    System.out.println("Total items (with deadline after today): " + totalItems);
-
 	    // Tính tổng số trang
 	    int totalPages = (int) Math.ceil((double) totalItems / 8); // Mỗi trang 8 bài
 	    System.out.println("Total pages: " + totalPages);
