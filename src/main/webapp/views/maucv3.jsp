@@ -12,6 +12,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
     * {
         box-sizing: border-box;
@@ -137,61 +139,76 @@ li {
         <div class="left-column">
             <div class="photo-background">
                 <div class="photo-frame">
-                    <img src="profile.jpg" alt="Profile Image">
+                    <input type="file" accept="image/*" onchange="previewImage(event)">
+                    <img id="profileImage" src="profile.jpg" alt="Profile Image">
                 </div>
             </div>
             <div class="contact-info">
-                <h2 class="section-title">CONTACT</h2>
-                <p>Email: hello@reallygreatsite.com</p>
-                <p>Phone: +1 234 567 8910</p>
-                <p>Location: 43 Anywhere St., Any City</p>
-                <p>Website: www.reallygreatsite.com</p>
+                <h2 class="section-title">Thông Tin</h2>
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="hello@reallygreatsite.com"><br>
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" value="+1 234 567 8910"><br>
+                <label for="dob">Ngày Sinh:</label>
+                <input type="date" id="dob" value="2004-09-28"><br>
+                <label for="gender">Giới Tính:</label>
+                <select id="gender">
+                    <option value="male" selected>Nam</option>
+                    <option value="female">Nữ</option>
+                    <option value="other">Khác</option>
+                </select><br>
+                <label for="language">Ngôn Ngữ:</label>
+                <input type="text" id="language" value="Việt Nam"><br>
             </div>
 
-            <div class="skills">
-                <h2 class="section-title">SKILLS</h2>
-                <p>Icon Design</p>
-                <p>Photography</p>
-                <p>Content Creation</p>
-                <p>Social Media</p>
+         	  <div class="skills">
+                <h2 class="section-title">Học Vấn</h2>
+                <input type="text" value="Icon Design"><br>
             </div>
-
-            <div class="reference">
-                <h2 class="section-title">REFERENCE</h2>
-                <p>Helene Paquet</p>
-                <p>Holto Werner &amp; Schomer</p>
-                <p>Email: helene@holto.com</p>
-                <p>Lee Landra, Inc.</p>
-                <p>CEO Landra, Inc.</p>
-                <p>Tel: +1 555 234 5678</p>
+             <div class="skills">
+                <h2 class="section-title">Chứng Chỉ</h2>
+                <input type="text" value="Icon Design"><br>
             </div>
         </div>
 
         <!-- Right Column -->
         <div class="right-column">
             <div class="personal-info">
-                <h1>OLIVIA WILSON</h1>
-                <h2>GRAPHIC DESIGNER</h2>
-                <p>I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me.</p>
+                <h1 contenteditable="true">OLIVIA WILSON</h1>
+                <h2 contenteditable="true">GRAPHIC DESIGNER</h2>
+                <textarea rows="4" cols="50" placeholder="Write a personal summary here...">I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me.</textarea>
             </div>
 
-            <h2 class="section-title">EDUCATION</h2>
+            <h2 class="section-title">Dự Án Đã Tham Gia</h2>
             <ul>
-                <li><strong>Really Great University</strong><br>Master in Product Design<br>2010 - 2013</li>
-                <li><strong>Really Great University</strong><br>Bachelor Degree in Digital Analysis<br>2008 - 2010</li>
-                <li><strong>Really Great University</strong><br>Bachelor in Graphic Design<br>2006 - 2008</li>
-            </ul>
-
-            <h2 class="section-title">EXPERIENCE</h2>
-            <ul>
-                <li><strong>Senior Fashion Manager</strong><br>2007 - Present<br>Worked on marketing for top fashion brands</li>
-                <li><strong>Fashion Journalist</strong><br>2007 - 2008<br>Responsible for content publishing to multiple brands</li>
+                <li>
+                    <input type="text" value="Really Great University">
+                    <input type="text" value="Master in Product Design">
+                    <input type="text" value="2010 - 2013">
+                </li>
+                <li>
+                    <input type="text" value="Really Great University">
+                    <input type="text" value="Bachelor Degree in Digital Analysis">
+                    <input type="text" value="2008 - 2010">
+                </li>
+                <li>
+                    <input type="text" value="Really Great University">
+                    <input type="text" value="Bachelor in Graphic Design">
+                    <input type="text" value="2006 - 2008">
+                </li>
             </ul>
         </div>
     </div>
-	<br>
-	<!-- footer -->
-	<%@ include file="/views/footer.jsp"%>
-	<!-- footer -->
+    
+    <script>
+function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        var output = document.getElementById('profileImage');
+        output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+</script>
 </body>
 </html>

@@ -19,9 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import demo.dao.EmployersDao;
 import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
+import demo.dao.PaymentsDao;
 import demo.dao.ServicesDao;
 import demo.dao.UsersDao;
 import demo.entity.JoblistingsEntity;
+import demo.entity.PaymentsEntity;
 import demo.entity.ServicesEntity;
 import demo.entity.UsersEntity;
 import demo.services.UserService;
@@ -52,6 +54,9 @@ public class AdminController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	PaymentsDao paymentsDao;
 
 	@RequestMapping("")
 	public String adminPage(HttpSession session, @RequestParam(value = "page", required = false) String page,
@@ -76,6 +81,9 @@ public class AdminController {
 
 			List<ServicesEntity> qldv = servicesDao.findAll();
 			model.addAttribute("qldv", qldv);
+			
+			List<PaymentsEntity> qlnm = paymentsDao.findAll();
+			model.addAttribute("qlnm", qlnm);
 		}
 		return "quanLyNguoiDung"; // Trang admin
 	}
@@ -244,26 +252,33 @@ public class AdminController {
 
 	@PostMapping("/deletePost")
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
-		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
-		String deletePostSql = "DELETE FROM Post WHERE JobID = ?";
+	    
+	    // Câu truy vấn để kiểm tra xem bài viết có liên quan đến dịch vụ đang hoạt động không
+	    String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
+	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
+	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
+	    try {
+	        int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
+	        if (serviceCount > 0) {
+	            // Nếu bài viết đang mua dịch vụ, cập nhật trạng thái bài viết thành ẩn (active = false)
+	            joblistingsDao.updatePostActiveStatus(id, false);  // Cập nhật bài viết thành "Đang ẩn"
+	            redirectAttributes.addFlashAttribute("message", "Bài viết không thể xóa vì đang mua dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
+	            return "redirect:/admin";
+	        }
 
-		try { // Xóa các bản ghi liên quan trong bảng Applications trước
-			jdbcTemplate.update(deleteApplicationsSql, id);
+	        // Nếu không có dịch vụ, xóa các bản ghi liên quan trong bảng Applications và Joblistings
+	        jdbcTemplate.update(deleteApplicationsSql, id);
+	        jdbcTemplate.update(deleteJobListingsSql, id);
 
-			// Xóa các bản ghi liên quan trong bảng Joblistings
-			jdbcTemplate.update(deleteJobListingsSql, id);
+	        redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 
-			// Sau đó xóa bài viết jdbcTemplate.update(deletePostSql, id);
-
-			redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
-		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
-			e.printStackTrace();
-		}
-
-		return "redirect:/admin";
+	    return "redirect:/admin";
 	}
+
 
 	/*
 	 * @PostMapping("/updatePost/{jobid}") public String
@@ -348,5 +363,7 @@ public class AdminController {
 		model.addAttribute("dv", dv);
 		return "chiTietDichVu";
 	}
+	
+
 
 }
