@@ -59,14 +59,14 @@
 					<div class="col-md-3"> <!-- 4 card trong một slide -->
 						<div class="card shadow-sm rounded-3">
                             <div class="card-body d-flex align-items-start">
-                                <div class="bg-image me-3">
+                                <div class="bg-image">
 									<img src="${pageContext.request.contextPath}/uploads/${job.employer.logo}"
 										alt="logo" class="img-fluid"
-										style="width: 100px; height: 100px; object-fit: cover;">
+										style="width: 70px; height: 70px; object-fit: cover;">
 								</div>
                                 <div class="flex-grow-1">
-                                    <h6 class="card-title text-center">${job.jobtitle}</h6>
-                                    <p class="text-muted text-center">${job.employer.companyname}</p>
+                                    <h6 class="text-center">${job.jobtitle}</h6>
+                                    <p class="text-center">${job.employer.companyname}</p>
                                 </div>
                             </div>
                             <div class="card-footer">
