@@ -194,54 +194,53 @@ public class UsersController {
 		model.addAttribute("cv", jobseeker);
 		return "xemCVCaNhan"; // Trả về view chi tiết CV
 	}
-	
 
 	@PostMapping("/updateCv/{jobseekerId}")
 	public String updateCv(@PathVariable("jobseekerId") Integer jobseekerId,
-	        @RequestParam Map<String, String> updatedData, Model model) {
-	    try {
-	        JobSeekersEntity jobSeeker = dao.findById(jobseekerId).orElse(null);
+			@RequestParam Map<String, String> updatedData, Model model) {
+		try {
+			JobSeekersEntity jobSeeker = dao.findById(jobseekerId).orElse(null);
 
-	        if (jobSeeker == null) {
-	            model.addAttribute("errorMessage", "Không tìm thấy thông tin CV.");
-	            return "redirect:/user/cv/list2"; // Chuyển hướng nếu không tìm thấy
-	        }
+			if (jobSeeker == null) {
+				model.addAttribute("errorMessage", "Không tìm thấy thông tin CV.");
+				return "redirect:/user/cv/list2"; // Chuyển hướng nếu không tìm thấy
+			}
 
-	        // Cập nhật các trường thông tin từ form
-	        jobSeeker.setFullnamecv(updatedData.get("fullnamecv"));
-	        jobSeeker.setPhonenumbercv(updatedData.get("phonenumbercv"));
-	        jobSeeker.setEmailcv(updatedData.get("emailcv"));
-	        jobSeeker.setProfilesummary(updatedData.get("profilesummary"));
-	        jobSeeker.setExperience(updatedData.get("experience"));
-	        jobSeeker.setEducation(updatedData.get("education"));
-	        jobSeeker.setGender(updatedData.get("gender"));        
-	        jobSeeker.setSkills(updatedData.get("skills"));
-	        jobSeeker.setLanguages(updatedData.get("languages"));
-	        jobSeeker.setImage(updatedData.get("image"));
-	        jobSeeker.setCertifications(updatedData.get("certifications"));
-	        jobSeeker.setInterests(updatedData.get("interests"));
+			// Cập nhật các trường thông tin từ form
+			jobSeeker.setFullnamecv(updatedData.get("fullnamecv"));
+			jobSeeker.setPhonenumbercv(updatedData.get("phonenumbercv"));
+			jobSeeker.setEmailcv(updatedData.get("emailcv"));
+			jobSeeker.setProfilesummary(updatedData.get("profilesummary"));
+			jobSeeker.setExperience(updatedData.get("experience"));
+			jobSeeker.setEducation(updatedData.get("education"));
+			jobSeeker.setGender(updatedData.get("gender"));
+			jobSeeker.setSkills(updatedData.get("skills"));
+			jobSeeker.setLanguages(updatedData.get("languages"));
+			jobSeeker.setImage(updatedData.get("image"));
+			jobSeeker.setCertifications(updatedData.get("certifications"));
+			jobSeeker.setInterests(updatedData.get("interests"));
 
-	     // Cập nhật ngày sinh (dateOfbirth)
-	        String dateOfbirthStr = updatedData.get("dateOfbirth");
-	        if (dateOfbirthStr != null && !dateOfbirthStr.isEmpty()) {
-	            try {
-	                // Chuyển đổi chuỗi ngày tháng sang java.sql.Date (kiểu "yyyy-MM-dd")
-	                java.sql.Date dateOfbirth = java.sql.Date.valueOf(dateOfbirthStr); 
-	                jobSeeker.setDateOfbirth(dateOfbirth);
-	            } catch (IllegalArgumentException e) {
-	                // Xử lý nếu chuỗi ngày tháng không hợp lệ
-	                System.err.println("Ngày sinh không hợp lệ: " + dateOfbirthStr);
-	            }
-	        }
-	        // Lưu thay đổi vào cơ sở dữ liệu
-	        dao.save(jobSeeker);
-	        System.out.println("cập nhật thông công" +updatedData);
-	        return "redirect:/user/cv/list2"; // Quay lại trang chi tiết CV
-	    } catch (Exception e) {
-	        model.addAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
-	        System.out.println("Có lỗi xảy ra" + e.getMessage());
-	        return "redirect:/user/cv/list2"; // Chuyển hướng nếu có lỗi
-	    }
+			// Cập nhật ngày sinh (dateOfbirth)
+			String dateOfbirthStr = updatedData.get("dateOfbirth");
+			if (dateOfbirthStr != null && !dateOfbirthStr.isEmpty()) {
+				try {
+					// Chuyển đổi chuỗi ngày tháng sang java.sql.Date (kiểu "yyyy-MM-dd")
+					java.sql.Date dateOfbirth = java.sql.Date.valueOf(dateOfbirthStr);
+					jobSeeker.setDateOfbirth(dateOfbirth);
+				} catch (IllegalArgumentException e) {
+					// Xử lý nếu chuỗi ngày tháng không hợp lệ
+					System.err.println("Ngày sinh không hợp lệ: " + dateOfbirthStr);
+				}
+			}
+			// Lưu thay đổi vào cơ sở dữ liệu
+			dao.save(jobSeeker);
+			System.out.println("cập nhật thông công" + updatedData);
+			return "redirect:/user/cv/list2"; // Quay lại trang chi tiết CV
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
+			System.out.println("Có lỗi xảy ra" + e.getMessage());
+			return "redirect:/user/cv/list2"; // Chuyển hướng nếu có lỗi
+		}
 	}
 
 	@PostMapping("/deleteCV")

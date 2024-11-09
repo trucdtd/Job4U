@@ -23,7 +23,6 @@ import demo.entity.JoblistingsEntity;
 import demo.entity.UserServicesEntity;
 import demo.entity.UsersEntity;
 
-
 @Controller
 @RequestMapping("/thongke")
 public class ThongKeController {
@@ -36,51 +35,49 @@ public class ThongKeController {
 
 	@Autowired
 	UserServicesDao userServicesDao;
-	 
+
 	@GetMapping("/posts")
 	public ResponseEntity<Map<String, Integer>> getPostsByDateRange(
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-	    List<JoblistingsEntity> jobListings = joblistingsDao.findByDateRange(startDate, endDate);
-	    Map<String, Integer> response = new HashMap<>();
-	    response.put("count", jobListings.size());
-	    return ResponseEntity.ok(response);
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+		List<JoblistingsEntity> jobListings = joblistingsDao.findByDateRange(startDate, endDate);
+		Map<String, Integer> response = new HashMap<>();
+		response.put("count", jobListings.size());
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/users")
 	public ResponseEntity<Map<String, Integer>> getUsersByDateRange(
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-	    List<UsersEntity> users = userDao.findByDateRange(startDate, endDate);
-	    Map<String, Integer> response = new HashMap<>();
-	    response.put("count", users.size());
-	    return ResponseEntity.ok(response);
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+		List<UsersEntity> users = userDao.findByDateRange(startDate, endDate);
+		Map<String, Integer> response = new HashMap<>();
+		response.put("count", users.size());
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/services")
 	public ResponseEntity<Map<String, Integer>> getServicesByDateRange(
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-	    List<UserServicesEntity> services = userServicesDao.findByDateRange(startDate, endDate);
-	    Map<String, Integer> response = new HashMap<>();
-	    response.put("count", services.size());
-	    return ResponseEntity.ok(response);
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+		List<UserServicesEntity> services = userServicesDao.findByDateRange(startDate, endDate);
+		Map<String, Integer> response = new HashMap<>();
+		response.put("count", services.size());
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("")
 	public String getSoldServices(Model model) {
-	    // Lấy danh sách dịch vụ đã bán từ userServicesDao
-	    List<UserServicesEntity> qlTK = userServicesDao.findAll();
-	    
-	    // Đưa danh sách vào model để sử dụng trong view
-	    model.addAttribute("qlTK", qlTK);
-	    
-	    // Trả về tên view (ví dụ "thongke" là tên của file HTML)
-	    return "thongKeMoi";
+		// Lấy danh sách dịch vụ đã bán từ userServicesDao
+		List<UserServicesEntity> qlTK = userServicesDao.findAll();
+
+		// Đưa danh sách vào model để sử dụng trong view
+		model.addAttribute("qlTK", qlTK);
+
+		// Trả về tên view (ví dụ "thongke" là tên của file HTML)
+		return "thongKeMoi";
 	}
 
-
-	
 //	@GetMapping("/thongke")
 //    public String getStatistics(Model model) {
 //        LocalDate today = LocalDate.now();
@@ -124,5 +121,5 @@ public class ThongKeController {
 //        
 //        return "thongKeMoi";
 //	}
-	
+
 }

@@ -191,6 +191,7 @@ public class AdminController {
 		} catch (Exception e) {
 			redirectAttributes.addAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
 			e.printStackTrace();
+			
 		}
 
 		return "redirect:/admin"; // Chuyển hướng về trang admin
@@ -200,14 +201,14 @@ public class AdminController {
 	public String lockUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,
 			HttpSession session) {
 		try {
-		
 
 			// Kiểm tra vai trò của người dùng
 			UsersEntity user = userDao.findById(id).orElse(null);
 
 			// Kiểm tra vai trò
 			if (user.getRole() != null && user.getRole() == 0) {
-				redirectAttributes.addFlashAttribute("error", "Không thể khóa tài khoản của người dùng có role = 0.");
+				redirectAttributes.addAttribute("error",
+						"Không thể khóa tài khoản Admin.");				
 				return "redirect:/admin";
 			}
 
@@ -215,10 +216,11 @@ public class AdminController {
 			user.setStatus(false); // false để khóa tài khoản
 			userDao.save(user); // Lưu lại thay đổi
 
-			redirectAttributes.addFlashAttribute("success", "Tài khoản đã được khóa thành công!");
+			redirectAttributes.addAttribute("error",
+					"Tài khoản đã được khóa thành công!");	
 			return "redirect:/admin"; // Quay về trang admin
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
+			redirectAttributes.addAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
 			return "redirect:/admin"; // Quay về trang admin nếu có lỗi
 		}
 	}
@@ -233,11 +235,11 @@ public class AdminController {
 			user.setStatus(true); // true để mở tài khoản
 			userDao.save(user); // Lưu lại thay đổi
 
-			redirectAttributes.addFlashAttribute("success", "Tài khoản đã được mở thành công!");
+			redirectAttributes.addAttribute("error", "Tài khoản đã được mở thành công!");
 
 			return "redirect:/admin"; // Quay về trang admin
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
+			redirectAttributes.addAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
 			System.out.println("Lỗi khi mở tài khoản: " + e.getMessage());
 			return "redirect:/admin"; // Quay về trang admin nếu có lỗi
 		}

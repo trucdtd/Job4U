@@ -6,6 +6,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Điều khoản dịch vụ</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding-top: 20px;
+    }
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .content-paragraph {
+        text-align: justify;
+        margin-bottom: 20px;
+    }
+    hr {
+        border: 1px solid #ddd;
+    }
+    .section-title {
+        margin-top: 40px;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+    .footer {
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        background-color: #f1f1f1;
+    }
+</style>
 </head>
 <body>
 	<!-- header -->
