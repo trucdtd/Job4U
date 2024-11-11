@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -57,6 +56,17 @@
 .modal-button:hover {
 	background-color: #45a049;
 }
+
+.card-action {
+  display: flex; /* Sử dụng Flexbox để căn chỉnh các nút theo hàng */
+  gap: 3px; /* Thêm khoảng cách giữa các nút */
+  justify-content: flex-start; /* Căn các nút sang bên trái */
+}
+
+.card-action button, .card-action a {
+  margin-right: 3px; /* Tạo khoảng cách giữa các nút */
+}
+
 </style>
 </head>
 <body>
@@ -139,13 +149,13 @@
 
 										<!-- Nút Khóa -->
 										<form action="/admin/lock/${nd.userid}" method="post"
-											class="me-2">
+											>
 											<button type="submit" class="btn btn-warning">Khóa tài khoản</button>
 										</form>
 
 										<!-- Nút Mở tài khoản -->
 										<form action="/admin/open/${nd.userid}" method="post"
-											class="me-2">
+											>
 											<button type="submit" class="btn btn-success">Mở tài
 												khoản</button>
 										</form>
@@ -155,10 +165,6 @@
 
 									</div>
 								</div>
-
-
-
-
 							</div>
 						</div>
 					</div>
@@ -168,8 +174,6 @@
 					<!-- article -->
 				</div>
 
-			</div>
-		</div>
 		<!-- footer -->
 		<%@ include file="/views/footer.jsp"%>
 

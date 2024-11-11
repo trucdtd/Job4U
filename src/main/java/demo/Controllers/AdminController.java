@@ -1,6 +1,7 @@
 package demo.Controllers;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -154,7 +155,7 @@ public class AdminController {
 		Integer userRole = jdbcTemplate.queryForObject(roleSql, new Object[] { userid }, Integer.class);
 
 		if (userRole != null && userRole == 0) {
-			redirectAttributes.addAttribute("error", "Không thể xóa người dùng có role = 0.");
+			redirectAttributes.addAttribute("error", "Không thể xóa người dùng có quyền Admin");
 			return "redirect:/admin";
 		}
 
@@ -367,5 +368,79 @@ public class AdminController {
 	}
 	
 
+	@PostMapping("/updateDV/{id}")
+	public String capnhatDv(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,
+	                        @RequestParam("servicename") String servicename,
+	                        @RequestParam("price") String price,
+	                        @RequestParam("description") String description) {
+	    // Tìm dịch vụ theo id
+	    ServicesEntity updv = servicesDao.findById(id).orElse(null);
+	    
+	    if (updv != null) {
+	        // Cập nhật tên dịch vụ và mô tả
+	        updv.setServicename(servicename);
+	        updv.setDescription(description);
+	        
+	        // Chuyển đổi price từ String sang BigDecimal
+	        try {
+	            BigDecimal priceValue = new BigDecimal(price); // Chuyển đổi giá trị chuỗi sang BigDecimal
+	            updv.setPrice(priceValue); // Lưu giá trị đã chuyển đổi
+	        } catch (NumberFormatException e) {
+	            // Nếu không thể chuyển đổi, bạn có thể xử lý lỗi hoặc để giá trị mặc định
+	        	redirectAttributes.addAttribute("error", "Giá không hợp lệ!");
+	            return "quanLyNguoiDung"; // Trả về trang quản lý với thông báo lỗi
+	        }
+	        
+	        // Lưu dịch vụ sau khi cập nhật
+	        servicesDao.save(updv);
+	        
+	        // Trả về trang với thông báo thành công (có thể thêm thông báo vào model nếu cần)
+	        redirectAttributes.addAttribute("error", "Cập nhật dịch vụ thành công!");
+	        return "redirect:/admin";
+	    } else {
+	        // Nếu không tìm thấy dịch vụ với id đã cho
+	    	redirectAttributes.addAttribute("error", "Dịch vụ không tồn tại!");
+	        return "redirect:/admin";
+	    }
+	}
+	
+	@PostMapping("/newDv")
+	public String themoiDv(RedirectAttributes redirectAttributes,
+	                       @RequestParam("servicename") String servicename,
+	                       @RequestParam("price") String price,
+	                       @RequestParam("description") String description) {
+	    // Tạo mới đối tượng dịch vụ
+	    ServicesEntity newDv = new ServicesEntity();
+	    
+	    // Cập nhật các thuộc tính cho dịch vụ mới
+	    newDv.setServicename(servicename);
+	    newDv.setDescription(description);
+	    
+	    // Cập nhật ngày tạo và ngày cập nhật (sử dụng ngày hiện tại)
+	    LocalDate currentDate = LocalDate.now();  // Lấy ngày hiện tại
+	    newDv.setCreatedat(currentDate);
+	    newDv.setUpdatedat(currentDate);  // Ban đầu, ngày cập nhật cũng là ngày tạo
+	    
+	    // Chuyển đổi price từ String sang BigDecimal
+	    try {
+	        BigDecimal priceValue = new BigDecimal(price); // Chuyển đổi giá trị chuỗi sang BigDecimal
+	        // Kiểm tra nếu giá tiền không hợp lệ (ví dụ: giá nhỏ hơn hoặc bằng 0)
+	        if (priceValue.compareTo(BigDecimal.ZERO) <= 0) {
+	            throw new NumberFormatException("Giá phải lớn hơn 0");
+	        }
+	        newDv.setPrice(priceValue); // Lưu giá trị đã chuyển đổi
+	    } catch (NumberFormatException e) {
+	        // Nếu không thể chuyển đổi hoặc giá không hợp lệ, trả thông báo lỗi
+	        redirectAttributes.addAttribute("error", "Giá không hợp lệ! " + e.getMessage());
+	        return "redirect:/admin"; // Trả về trang quản lý với thông báo lỗi
+	    }
+
+	    // Lưu dịch vụ mới vào cơ sở dữ liệu
+	    servicesDao.save(newDv);
+	    
+	    // Trả về trang với thông báo thành công
+	    redirectAttributes.addAttribute("message", "Thêm dịch vụ thành công!");
+	    return "redirect:/admin";
+	}
 
 }

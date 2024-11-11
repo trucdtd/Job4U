@@ -45,32 +45,6 @@ public class TrangChuController {
 	@Autowired
 	JoblistingsDao jlsDAO;
 
-//	@RequestMapping("")
-//	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page
-//			 ) {
-//		int pageNumber = page.orElse(0);
-////		Pageable pageable = PageRequest.of(pageNumber, 8);
-//		// Sắp xếp giảm dần theo ngày và thời gian đăng (bao gồm giờ, phút, giây nếu có)
-//        Pageable pageable = PageRequest.of(page.orElse(0), 8, Sort.by("posteddate").descending()); 
-////		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
-////		model.addAttribute("dsSP", dsSP);
-//        
-//        // Lấy danh sách các bài viết chưa hết hạn
-//        Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
-//        model.addAttribute("dsSP", dsSP);
-//		
-////		List<JoblistingsEntity> latestJobs = jobListingService.getTop5LatestJobListings();
-////	    model.addAttribute("latestJobs", latestJobs);
-//        // Lấy danh sách công việc theo userServiceId nếu nó không null
-////        if (userServiceId != null) {
-////            // Gọi dịch vụ để lấy danh sách công việc theo userServiceId
-////            List<JoblistingsEntity> joblistings = jobListingService.getJobsByUserServiceId(userServiceId);
-////            model.addAttribute("joblistings", joblistings); // Thêm danh sách công việc theo userServiceId vào mô hình để hiển thị
-////        }
-////        
-//		return "trangChu";
-//	}
-
 	// Phương thức trangChu
 	@RequestMapping("")
 	public String trangChu(Model model, @RequestParam("page") Optional<Integer> page) {
@@ -79,7 +53,7 @@ public class TrangChuController {
 	    long totalItems = danhSachViecLamDao.countByApplicationdeadlineAfterAndActiveTrue(LocalDate.now()); // Đếm bài viết còn hạn
 	    // Tính tổng số trang
 	    int totalPages = (int) Math.ceil((double) totalItems / 8); // Mỗi trang 8 bài
-	    System.out.println("Total pages: " + totalPages);
+	    //System.out.println("Total pages: " + totalPages);
 
 	    // Nếu số trang yêu cầu vượt quá tổng số trang, chuyển về trang cuối cùng
 	    if (pageNumber >= totalPages) {

@@ -334,6 +334,45 @@
 						</div>
 					</div>
 
+					<!-- thêm mới dịch vụ -->
+					<div id="serviceNew" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Thêm mới dịch vụ</div>
+						</div>
+						<div class="card-body p-3">
+							<form action="/admin/newDv" method="post">
+								<!-- Job ID and Deadline -->
+								<div class="row mb-3">
+									<div class="col-md-6">
+										<label for="applicationdeadline">Tên Dịch Vụ:</label> <input
+											class="form-control" type="text" id="servicename"
+											name="servicename" >
+									</div>
+									<div class="col-md-6">
+										<label for="salary">Giá:</label> <input class="form-control"
+											type="text" id="price" name="price" >
+									</div>
+								</div>
+
+								<!-- Job Type and Description -->
+								<div class="row mb-3">
+									<div class="col-md-12">
+										<label for="contactperson">Mô Tả:</label> <input
+											class="form-control" type="text" id="description"
+											name="description" >
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 d-flex justify-content-start">
+										<button type="submit" class="btn btn-success">Thêm mới</button>
+									</div>
+
+								</div>
+							</form>
+						</div>
+					</div>
+					<!--end thêm mới dịch vụ  -->
+
 					<div id="servicesSold" class="card" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Dịch Vụ Đã Bán</div>

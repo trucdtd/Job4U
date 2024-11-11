@@ -64,8 +64,9 @@
 										alt="logo" class="img-fluid"
 										style="width: 70px; height: 70px; object-fit: cover;">
 								</div>
+								<i class="bi bi-star-fill text-warning"></i>
                                 <div class="flex-grow-1">
-                                    <h6 class="text-center">${job.jobtitle}</h6>
+                                    <h6 class="text-center">${job.jobtitle}</h6> 
                                     <p class="text-center">${job.employer.companyname}</p>
                                 </div>
                             </div>
