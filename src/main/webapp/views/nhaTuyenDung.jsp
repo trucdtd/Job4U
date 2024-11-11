@@ -238,7 +238,7 @@
 														</form>
 														<!-- Nút mua dịch vụ lên top -->
 														<button type="button" class="btn btn-sm btn-mua"
-															title="Mua" data-jobid="${job.jobid}">
+															title="Mua" data-jobId="${job.jobid}">
 															<img alt="Mua" src="/img/icons8-pin-50.png" height="25px"
 																width="25px">
 														</button>
@@ -589,8 +589,7 @@
             <form action="/employers/pay" method="post" class="payment-form">
                 <input type="hidden" name="servicePrice" id="servicePriceInput" value="75000">
                 <input type="hidden" name="serviceId" id="serviceId" value="4">
-                <input type="hidden" name="jobId" id="jobId" value="${jobid}">
-
+                <input type="hidden" name="jobId" id="jobId" value="${jobid}">  <!-- jobId sẽ được cập nhật bởi JS -->
                 <input type="hidden" name="userId" id="userId" value="${userId}">
                 <div class="payment-methods">
                     <button class="momo2-btn" type="submit">
@@ -602,8 +601,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 	</div>
@@ -874,41 +871,46 @@ document.getElementById('logo').addEventListener('change', function(event) {
     }
     
     document.addEventListener('DOMContentLoaded', () => {
-        const buyButtons = document.querySelectorAll('.btn-mua');  // Các nút "Mua"
-        const paymentModal = document.getElementById('paymentModalghim');  // Modal thanh toán
-        const jobIdDisplay = document.getElementById('jobIdDisplay');  // Hiển thị jobId trong modal
-        const jobIdInputHidden = document.getElementById('jobId');  // Input hidden trong form
+        const buyButtons = document.querySelectorAll('.btn-mua');
+        const paymentModal = document.getElementById('paymentModalghim');
+        const jobIdInput = document.getElementById('jobId');
+        const jobIdDisplay = document.getElementById('jobIdDisplay');
+        const paymentForm = document.querySelector('.payment-form');
 
-        // Lặp qua các nút "Mua"
         buyButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const jobId = button.getAttribute('data-jobid');
-        console.log("Job ID from button click:", jobId); // Kiểm tra jobId trong console
-        
-        if (jobId) {
-            jobIdInputHidden.value = jobId;  // Gán jobId vào input hidden
-            jobIdDisplay.textContent = jobId; // Hiển thị jobId trong modal
-            paymentModal.style.display = 'block'; // Hiển thị modal
-        } else {
-            console.error("Không thể lấy Job ID từ nút.");
-        }
-    });
-});
+            button.addEventListener('click', () => {
+                // Get jobId from the button's data attribute
+                const jobId = button.getAttribute('data-jobId');
+                
+                // Check if jobId was retrieved correctly
+                if (!jobId) {
+                    console.error("Job ID is not found in data attribute");
+                    return;
+                }
 
-        // Đóng modal khi nhấn nút đóng
+                // Update hidden input and display field in the modal
+                jobIdInput.value = jobId;
+                jobIdDisplay.textContent = jobId;
+
+                // Show the modal
+                paymentModal.style.display = 'block';
+            });
+        });
+
+        // Close modal when the close button is clicked
         document.querySelector('.close').addEventListener('click', () => {
             paymentModal.style.display = 'none';
         });
 
-        // Đóng modal khi nhấn ngoài modal
-        window.addEventListener('click', (event) => {
-            if (event.target === paymentModal) {
-                paymentModal.style.display = 'none';
-            }
+        // Log form data upon submission for confirmation
+        paymentForm.addEventListener('submit', (event) => {
+            console.log("Form data being submitted:");
+            console.log("Service Price:", document.getElementById('servicePriceInput').value);
+            console.log("Service ID:", document.getElementById('serviceId').value);
+            console.log("Job ID:", jobIdInput.value);
+            console.log("User ID:", document.getElementById('userId').value);
         });
     });
-
-    
 
 </script>
 	<script
