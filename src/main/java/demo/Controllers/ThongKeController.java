@@ -25,7 +25,6 @@ import demo.entity.UsersEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @Controller
 @RequestMapping("/thongke")
 public class ThongKeController {
@@ -38,6 +37,39 @@ public class ThongKeController {
 
 	@Autowired
 	UserServicesDao userServicesDao;
+// <<<<<<< HEAD
+// =======
+
+// 	@GetMapping("/posts")
+// 	public ResponseEntity<Map<String, Integer>> getPostsByDateRange(
+// 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+// 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+// 		List<JoblistingsEntity> jobListings = joblistingsDao.findByDateRange(startDate, endDate);
+// 		Map<String, Integer> response = new HashMap<>();
+// 		response.put("count", jobListings.size());
+// 		return ResponseEntity.ok(response);
+// 	}
+
+// 	@GetMapping("/users")
+// 	public ResponseEntity<Map<String, Integer>> getUsersByDateRange(
+// 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+// 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+// 		List<UsersEntity> users = userDao.findByDateRange(startDate, endDate);
+// 		Map<String, Integer> response = new HashMap<>();
+// 		response.put("count", users.size());
+// 		return ResponseEntity.ok(response);
+// 	}
+
+// 	@GetMapping("/services")
+// 	public ResponseEntity<Map<String, Integer>> getServicesByDateRange(
+// 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+// 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+// 		List<UserServicesEntity> services = userServicesDao.findByDateRange(startDate, endDate);
+// 		Map<String, Integer> response = new HashMap<>();
+// 		response.put("count", services.size());
+// 		return ResponseEntity.ok(response);
+// 	}
+// >>>>>>> dev
 
 	@GetMapping("")
 	public String getSoldServices(Model model) {

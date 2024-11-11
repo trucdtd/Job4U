@@ -23,6 +23,22 @@
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<br>
 	<!-- header -->
+	<c:if test="${not empty message}">
+		<div id="paymentSuccessModal" class="modal" style="display: flex;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>Thông báo</h2>
+					<span class="close" onclick="closeModal()">&times;</span>
+				</div>
+				<div class="modal-body">
+					<p>${message}</p>
+				</div>
+				<div class="modal-footer">
+					<button onclick="closeModal()" class="modal-button">OK</button>
+				</div>
+			</div>
+		</div>
+	</c:if>
 	<div class="container">
 		<div class="container">
 			<div class="row">
@@ -157,12 +173,12 @@
 						</div>
 					</div>
 
-					<c:if test="${not empty message}">
+					<%-- <c:if test="${not empty message}">
 						<div class="alert alert-success">${message}</div>
 					</c:if>
 					<c:if test="${not empty error}">
 						<div class="alert alert-danger">${error}</div>
-					</c:if>
+					</c:if> --%>
 
 					<!-- Post Management table -->
 					<div id="postManagement" class="card" style="display: none;">
@@ -182,11 +198,12 @@
 											<th scope="col">ID</th>
 											<th scope="col">Tên Công Ty</th>
 											<th scope="col">Tiêu Đề</th>
-											<th scope="col">Yêu Cầu</th>
-											<!-- <th scope="col">Vị Trí Công Việc</th> -->
 											<th scope="col">Tên Ngành</th>
 											<th scope="col">Lương</th>
+											<th scope="col">Trạng Thái</th>
 											<th scope="col">Hành Động</th>
+
+
 										</tr>
 									</thead>
 									<tbody>
@@ -195,7 +212,6 @@
 												<th scope="row">${bv.jobid}</th>
 												<td>${bv.employer.companyname}</td>
 												<td>${bv.jobtitle}</td>
-												<td>${bv.jobrequirements}</td>
 												<%-- <td>${bv.joblocation}</td> --%>
 												<td>${bv.jobdescription}</td>
 												<td><c:choose>
@@ -205,6 +221,9 @@
 																VND </span>
 														</c:when>
 													</c:choose></td>
+
+												<td>${bv.active ? 'Đang hoạt động' : 'Đang ẩn'}</td>
+
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
 														<a href="/admin/detailPost/${bv.jobid}" class="btn"
@@ -296,7 +315,7 @@
 											<tr>
 												<th scope="row">${dv.serviceid}</th>
 												<td>${dv.servicename}</td>
-												<td>${dv.price}</td>
+												<td class="price">${dv.price}</td>
 												<td>${dv.createdat}</td>
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
@@ -307,6 +326,49 @@
 														</a>
 													</div>
 												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div id="servicesSold" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Dịch Vụ Đã Bán</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<table id="nmTable" class="table align-items-center mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">ID</th>
+											<th scope="col">Tên Dịch Vụ</th>
+											<th scope="col">Tên Người Mua</th>
+											<th scope="col">Giá</th>
+											<th scope="col">Ngày Mua</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${qlnm}" var="nm">
+											<tr>
+												<th scope="row">${nm.paymentid}</th>
+												<td>${nm.service.servicename}</td>
+												<td>${nm.user.fullname}</td>
+												<td class="price">${nm.service.price}</td>
+												</td>
+
+												<td>${nm.paymentdate}</td>
+												<%-- <td>
+													<div style="display: flex; align-items: center; gap: 10px;">
+														<a href="/admin/detailDV/${dv.serviceid}" class="btn"
+															type="button" title="Xem Chi Tiết"> <img src="/img/detail-icon.png"
+															style="padding-bottom: 7px;" width="25px" height="30px"
+															alt="Detail">
+														</a> 
+													</div>
+												</td> --%>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -472,8 +534,51 @@ $(document).ready(function() {
             "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
         }
     });
+    
+    $('#nmTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
+    });
 });
 </script>
-<!-- CSS for DataTables -->
+
+<script>
+    window.onload = function() {
+        // Lấy tất cả các thẻ <td> có class là 'price'
+        let priceElements = document.querySelectorAll('.price');
+        
+        // Lặp qua từng phần tử và định dạng giá trị
+        priceElements.forEach(function(priceElement) {
+            let price = priceElement.innerText;
+
+            // Định dạng giá trị với dấu phân cách hàng nghìn
+            price = parseFloat(price).toLocaleString();
+
+            // Thêm chữ "VND" vào cuối số tiền
+            priceElement.innerText = price + " VND";
+        });
+    };
+</script>
+
+<script>
+    // Close modal function
+    function closeModal() {
+        document.getElementById("paymentSuccessModal").style.display = "none";
+    }
+    </script>
 </body>
 </html>

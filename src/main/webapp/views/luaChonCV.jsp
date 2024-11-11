@@ -23,7 +23,7 @@
 	<div class="container">
 		<div class="cv-template">
 			<div class="image-container">
-				<img src="/img/cv2.jpg" alt="CV 1">
+				<img src="/img/cv11.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
 					<a style="text-decoration: none;" href="/luaCV/mauCV1" class="use-btn">Dùng mẫu</a>
@@ -36,7 +36,7 @@
 
 		<div class="cv-template">
 			<div class="image-container">
-				<img src="/img/cv3.jpg" alt="CV 1">
+				<img src="/img/cv22.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
 					<a style="text-decoration: none;" href="/luaCV/mauCV2" class="use-btn">Dùng mẫu</a>
@@ -49,10 +49,10 @@
 
 		<div class="cv-template">
 			<div class="image-container">
-				<img src="/img/cv4.jpg" alt="CV 1">
+				<img src="/img/cv33.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
-					<a style="text-decoration: none;" href="/luaCV/mauCV1" class="use-btn">Dùng mẫu</a>
+					<a style="text-decoration: none;" href="/luaCV/mauCV3" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">
@@ -62,10 +62,10 @@
 
 		<div class="cv-template">
 			<div class="image-container">
-				<img src="/img/cv5.jpg" alt="CV 1">
+				<img src="/img/cv44.jpg" alt="CV 1">
 				<div class="buttons">
 					<button class="preview-btn">Xem trước</button>
-					<a style="text-decoration: none;" href="/luaCV/mauCV" class="use-btn">Dùng mẫu</a>
+					<a style="text-decoration: none;" href="/luaCV/mauCV4" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">

@@ -22,39 +22,45 @@
 <body>
 	<div class="col-lg-3 col-md-3 p-2 d-flex">
 		<div class="card p-3 text-dark" style="width: 100%;">
-			
-				<a href="#"
-					class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none text-center">
-					<i class="bi bi-journal-arrow-down" style="font-size: 40px"></i> <span
-					class="fs-4 ms-2" style="background: #198754; color: white;">Menu
-						ADMIN</span>
-				</a>
-				<hr>
-				<ul class="nav nav-pills flex-column mb-auto">
-					<li><a href="#" class=" navqlndung nav-link text-dark active"
-						onclick="showTable(event, 'userManagement')"> <i
-							class="bi bi-speedometer2 me-2"></i> Quản Lý Tài Khoản
-					</a></li>
-					<li><a href="#" class="navqlndung nav-link text-dark"
-						onclick="showTable(event, 'postManagement')"> <i
-							class="bi bi-table me-2"></i> Quản Lý Bài Viết
-					</a></li>
-					<li><a href="#" class="navqlndung nav-link text-dark"
-						onclick="showTable(event, 'cvManagement')"> <i
-							class="bi bi-grid me-2"></i> Quản Lý CV
-					</a></li>
-					<li><a href="#" class="navqlndung nav-link text-dark"
-						onclick="showTable(event, 'serviceManagement')"> <i
-							class="bi bi-house me-2"></i> Quản Lý Dịch Vụ
-					</a></li>
-					<li><a href="#" class="navqlndung nav-link text-dark"
-						onclick="showTable(event, 'statisticalManagement')"><img
-							width="20" height="20"
-							src="https://img.icons8.com/ios/50/card-in-use.png"
-							alt="card-in-use" /> Quản Lý Thống Kê </a></li>
-				</ul>
-				<hr>
-			
+
+			<a href="#"
+				class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none text-center">
+				<i class="bi bi-journal-arrow-down" style="font-size: 40px"></i> <span
+				class="fs-4 ms-2" style="background: #198754; color: white;">Menu
+					ADMIN</span>
+			</a>
+			<hr>
+			<ul class="nav nav-pills flex-column mb-auto">
+				<li><a href="#" class=" navqlndung nav-link text-dark active"
+					onclick="showTable(event, 'userManagement')"> <i
+						class="bi bi-speedometer2 me-2"></i> Quản Lý Tài Khoản
+				</a></li>
+				<li><a href="#" class="navqlndung nav-link text-dark"
+					onclick="showTable(event, 'postManagement')"> <i
+						class="bi bi-table me-2"></i> Quản Lý Bài Viết
+				</a></li>
+				<li><a href="#" class="navqlndung nav-link text-dark"
+					onclick="showTable(event, 'cvManagement')"> <i
+						class="bi bi-grid me-2"></i> Quản Lý CV
+				</a></li>
+				<li><a href="#" class="navqlndung nav-link text-dark"
+					onclick="showTable(event, 'serviceManagement')"> <i
+						class="bi bi-house me-2"></i> Quản Lý Dịch Vụ
+				</a></li>
+				<li><a href="#" class="navqlndung nav-link text-dark"
+					onclick="showTable(event, 'servicesSold')"><img width="20"
+						height="20"
+						src="https://img.icons8.com/pulsar-line/48/buy-sign.png"
+						alt="buy-sign"/> Dịch Vụ Đã Bán </a></li>
+				<li><a href="#" class="navqlndung nav-link text-dark"
+					onclick="showTable(event, 'statisticalManagement')"><img
+						width="20" height="20"
+						src="https://img.icons8.com/ios/50/card-in-use.png"
+						alt="card-in-use" /> Quản Lý Thống Kê </a></li>
+
+			</ul>
+			<hr>
+
 		</div>
 	</div>
 

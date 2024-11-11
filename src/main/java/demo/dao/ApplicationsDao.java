@@ -24,13 +24,12 @@ public interface ApplicationsDao extends JpaRepository<ApplicationsEntity, Integ
 	// Tìm danh sách ứng viên đã ứng tuyển vào một Joblisting dựa trên Joblisting ID
 	@Query("SELECT a FROM ApplicationsEntity a JOIN a.job j WHERE j.jobid = :joblistingId")
 	List<ApplicationsEntity> findApplicationsByJoblistingId(@Param("joblistingId") Integer joblistingId);
-	
-	//trinh - tim đơn xin việc theo mã đơn - hiện thị trạng thái đơn xin việc
+
+	// trinh - tim đơn xin việc theo mã đơn - hiện thị trạng thái đơn xin việc
 	@Query("SELECT a FROM ApplicationsEntity a JOIN a.job j WHERE a.applicationid = :applicationId")
 	List<ApplicationsEntity> findApplicationsByApplicationId(@Param("applicationId") Integer applicationId);
 
-	
-	//đoàn
+	// đoàn
 	@Query("SELECT a FROM ApplicationsEntity a " + "JOIN a.job j "
 			+ "WHERE j.jobid = :joblistingId and a.jobseeker.jobseekerid = :jskid")
 	ApplicationsEntity find1ApplicationsByJoblistingId(@Param("joblistingId") Integer joblistingId,
