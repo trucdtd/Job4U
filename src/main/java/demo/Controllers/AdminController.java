@@ -154,7 +154,7 @@ public class AdminController {
 		Integer userRole = jdbcTemplate.queryForObject(roleSql, new Object[] { userid }, Integer.class);
 
 		if (userRole != null && userRole == 0) {
-			redirectAttributes.addAttribute("error", "Không thể xóa người dùng có role = 0.");
+			redirectAttributes.addAttribute("error", "Không thể xóa người dùng có quyền Admin");
 			return "redirect:/admin";
 		}
 
