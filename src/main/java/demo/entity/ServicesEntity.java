@@ -37,6 +37,10 @@ public class ServicesEntity implements Serializable {
 	private BigDecimal price;
 
 	@NotNull
+	@Column(name = "numberofjobsallowed", nullable = false)
+	private Integer numberofjobsallowed;
+	
+	@NotNull
 	@Column(name = "createdat", nullable = false)
 	private LocalDate createdat;
 

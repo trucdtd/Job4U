@@ -408,7 +408,8 @@ public class AdminController {
 	public String themoiDv(RedirectAttributes redirectAttributes,
 	                       @RequestParam("servicename") String servicename,
 	                       @RequestParam("price") String price,
-	                       @RequestParam("description") String description) {
+	                       @RequestParam("description") String description,
+	                       @RequestParam("numberofjobsallowed") Integer numberofjobsallowed) {
 	    // Tạo mới đối tượng dịch vụ
 	    ServicesEntity newDv = new ServicesEntity();
 	    
@@ -434,6 +435,15 @@ public class AdminController {
 	        redirectAttributes.addAttribute("error", "Giá không hợp lệ! " + e.getMessage());
 	        return "redirect:/admin"; // Trả về trang quản lý với thông báo lỗi
 	    }
+	    
+	    // Kiểm tra tính hợp lệ của numberofjobsallowed
+	    if (numberofjobsallowed <= 0) {
+	        redirectAttributes.addAttribute("error", "Số lượng công việc phải lớn hơn 0");
+	        return "redirect:/admin"; // Trả về trang quản lý với thông báo lỗi
+	    }
+
+	    // Lưu số lượng công việc vào đối tượng
+	    newDv.setNumberofjobsallowed(numberofjobsallowed);
 
 	    // Lưu dịch vụ mới vào cơ sở dữ liệu
 	    servicesDao.save(newDv);
@@ -442,5 +452,6 @@ public class AdminController {
 	    redirectAttributes.addAttribute("message", "Thêm dịch vụ thành công!");
 	    return "redirect:/admin";
 	}
+
 
 }
