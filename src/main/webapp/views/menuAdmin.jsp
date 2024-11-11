@@ -57,13 +57,16 @@
 						class="bi bi-grid me-2"></i> Quản Lý CV
 				</a></li>
 				<li><a href="#" class="navqlndung nav-link text-dark"
-					onclick="toggleSubMenu(event); showTable(event, 'serviceManagement')"> <i class="bi bi-house me-2"></i>
-						Quản Lý Dịch Vụ
+					onclick="toggleSubMenu(event); showTable(event, 'serviceManagement')">
+						<i class="bi bi-house me-2"></i> Quản Lý Dịch Vụ
 				</a> <!-- Sub-menu for Quản Lý Dịch Vụ -->
 					<ul class="sub-menu"
 						style="display: none; list-style: none; padding-left: 20px;">
 						<li><a href="#" class="navqlndung nav-link text-dark"
-							onclick="showTable(event, 'serviceNew')">Thêm dịch vụ</a></li>
+							onclick="showTable(event, 'serviceNew')"><img width="15"
+								height="15"
+								src="https://img.icons8.com/fluency-systems-regular/50/add-to-basket.png"
+								alt="add-to-basket" />Thêm dịch vụ</a></li>
 					</ul></li>
 				<li><a href="#" class="navqlndung nav-link text-dark"
 					onclick="showTable(event, 'servicesSold')"><img width="20"
@@ -84,18 +87,19 @@
 
 
 	<script>
-	//code sổ menu con
-	function toggleSubMenu(event) {
-		  event.preventDefault(); // Ngừng chuyển hướng của link
-		  
-		  // Tìm menu con gần nhất của mục "Quản Lý Dịch Vụ"
-		  const subMenu = event.target.closest('li').querySelector('.sub-menu');
-		  
-		  // Kiểm tra và thay đổi trạng thái hiển thị của menu con
-		  if (subMenu) {
-		    const isVisible = subMenu.style.display === 'block';
-		    subMenu.style.display = isVisible ? 'none' : 'block';
-		  }
+		//code sổ menu con
+		function toggleSubMenu(event) {
+			event.preventDefault(); // Ngừng chuyển hướng của link
+
+			// Tìm menu con gần nhất của mục "Quản Lý Dịch Vụ"
+			const subMenu = event.target.closest('li').querySelector(
+					'.sub-menu');
+
+			// Kiểm tra và thay đổi trạng thái hiển thị của menu con
+			if (subMenu) {
+				const isVisible = subMenu.style.display === 'block';
+				subMenu.style.display = isVisible ? 'none' : 'block';
+			}
 		}
 	</script>
 	<!-- Bootstrap JavaScript Libraries -->
