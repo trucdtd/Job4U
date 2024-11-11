@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -17,12 +16,63 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
+<style>
+/* Modal - Nền */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+	display: none; /* Ban đầu ẩn */
+	justify-content: center;
+	align-items: center;
+}
+
+/* Nội dung modal */
+.modal-content {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	width: 300px;
+}
+
+/* Nút đóng modal */
+.close {
+	font-size: 30px;
+	cursor: pointer;
+}
+
+/* Nút OK */
+.modal-button {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+}
+
+.modal-button:hover {
+	background-color: #45a049;
+}
+
+.card-action {
+  display: flex; /* Sử dụng Flexbox để căn chỉnh các nút theo hàng */
+  gap: 3px; /* Thêm khoảng cách giữa các nút */
+  justify-content: flex-start; /* Căn các nút sang bên trái */
+}
+
+.card-action button, .card-action a {
+  margin-right: 3px; /* Tạo khoảng cách giữa các nút */
+}
+
+</style>
 </head>
 <body>
 	<!-- header -->
 	<%@ include file="/views/header.jsp"%>
 	<!-- header -->
-	<div class="container">
 		<div class="container">
 			<div class="row mt-3">
 				<!-- aside -->
@@ -30,14 +80,13 @@
 				<!-- article -->
 				<div class="col-lg-12 col-md-12 p-2 ">
 					<!-- User Management table -->
-					<div id="userManagement" class="card"">
+					<div id="userManagement" class="card">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
-								<form class="p-4 border" method="post"
-									action="/admin/deleteUser">
+								<form class="p-4 border" action="/admin/deleteUser" method="post">
 									<input type="hidden" name="userid" value="${nd.userid}">
 									<!-- Thêm trường ẩn cho userid -->
 									<div class="row">
@@ -80,8 +129,7 @@
 											</select>
 										</div>
 										<div class="col-md-6 p-2">
-											<label for="status" class="form-label">Trạng Thái </label> 
-											<select
+											<label for="status" class="form-label">Trạng Thái </label> <select
 												name="status" id="status" class="form-select" disabled>
 												<option value="0" ${nd.status == false ? 'selected' : ''}>Không
 													hoạt động</option>
@@ -90,36 +138,46 @@
 											</select>
 										</div>
 									</div>
-									<hr>
-									<div class="row">
-										<div class="card-action">
-											<button type="submit" class="btn btn-danger text-white">Xóa</button>
-											<button type="button" class="btn btn-warning" onclick="lockUserAccount(${nd.userid})">Khóa tài khoản</button>
-											<button type="button" class="btn btn-success" onclick="openUserAccount(${nd.userid})">Mở tài khoản</button>
-											
-											<!-- Đổi thành submit -->
-											<a href="/admin" class="btn btn-secondary">Quay lại</a>
-										</div>
+
+								<hr>
+								<div class="row p-2">
+									<div class="card-action d-flex justify-content-start">
+
+										<!-- Nút Xóa -->
+											<button type="submit" class="btn btn-danger text-white" >Xóa</button>
+										</form>
+
+										<!-- Nút Khóa -->
+										<form action="/admin/lock/${nd.userid}" method="post"
+											>
+											<button type="submit" class="btn btn-warning">Khóa tài khoản</button>
+										</form>
+
+										<!-- Nút Mở tài khoản -->
+										<form action="/admin/open/${nd.userid}" method="post"
+											>
+											<button type="submit" class="btn btn-success">Mở tài
+												khoản</button>
+										</form>
+
+										<!-- Nút Quay lại -->
+										<a href="/admin" class="btn btn-secondary">Quay lại</a>
+
 									</div>
-								</form>
-
-
+								</div>
 							</div>
 						</div>
 					</div>
 
 
 
-				<!-- article -->
-			</div>
+					<!-- article -->
+				</div>
 
-		</div>
-	</div>
-	<!-- footer -->
-	<%@ include file="/views/footer.jsp"%>
-	<!-- footer -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- footer -->
+		<%@ include file="/views/footer.jsp"%>
+
+		<!-- footer -->
 </body>
 <script>
 	function showTable(event, tableId) {
@@ -146,54 +204,14 @@
 		activeLink.classList.add('active');
 	}
 	
-	function lockUserAccount(id) {
-	    if (confirm("Bạn có chắc chắn muốn khóa tài khoản này không?")) {
-	        fetch(`/admin/lock/${id}`, {
-	            method: 'POST',
-	            headers: {
-	                'Content-Type': 'application/json',
-	                'X-Requested-With': 'XMLHttpRequest'
-	            }
-	        })
-	        .then(response => {
-	            if (response.ok) {
-	                alert('Tài khoản đã được khóa!');
-	                window.location.reload(); // Tải lại trang
-	            } else {
-	                alert('Có lỗi xảy ra khi khóa tài khoản!');
-	            }
-	        })
-	        .catch(error => {
-	            console.error('Error:', error);
-	            alert('Có lỗi xảy ra khi khóa tài khoản!');
-	        });
-	    }
-	}
-
-	function openUserAccount(id) {
-	    if (confirm("Bạn có chắc chắn muốn mở tài khoản này không?")) {
-	        fetch(`/admin/open/${id}`, {
-	            method: 'POST',
-	            headers: {
-	                'Content-Type': 'application/json',
-	                'X-Requested-With': 'XMLHttpRequest'
-	            }
-	        })
-	        .then(response => {
-	            if (response.ok) {
-	                alert('Tài khoản đã được mở!');
-	                window.location.reload(); // Tải lại trang
-	            } else {
-	                alert('Có lỗi xảy ra khi mở tài khoản!');
-	            }
-	        })
-	        .catch(error => {
-	            console.error('Error:', error);
-	            alert('Có lỗi xảy ra khi mở tài khoản!');
-	        });
-	    }
-	}
 
 </script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- JS for DataTables -->
+<script
+	src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 </body>
 </html>

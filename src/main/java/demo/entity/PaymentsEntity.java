@@ -29,21 +29,20 @@ public class PaymentsEntity implements Serializable {
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "UserID", nullable = false)
+	@JoinColumn(name = "UserID", referencedColumnName = "UserID", nullable = false)
 	private UsersEntity user;
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "ServiceID", nullable = false)
+	@JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID", nullable = false)
 	private ServicesEntity service;
-
 	@NotNull
 	@Column(name = "Amount", nullable = false)
 	private BigDecimal amount;
 
 	@NotNull
 	@Column(name = "Paymentdate", nullable = false)
-	private LocalDate Paymentdate;
+	private LocalDate paymentdate;
 
 	@NotNull
 	@Column(name = "Status", nullable = false)

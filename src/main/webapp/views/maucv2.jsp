@@ -12,6 +12,9 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		
 <style>
 * {
 	margin: 0;
@@ -19,6 +22,7 @@
 	box-sizing: border-box;
 	font-family: Arial, sans-serif;
 }
+
 
 body {
 	background-color: #f4f4f4;
@@ -53,6 +57,10 @@ footer {
 	overflow: hidden;
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+h1 {
+	font-size: 24px;
+	color: #4d5c4b;
 }
 
 /* Decorative Header and Footer */
@@ -124,12 +132,13 @@ footer {
 }
 
 .right-column h1 {
-	padding-top: 53px;
-	font-size: 24px;
-	font-weight: bold;
-	color: #333;
-	margin-bottom: 5px;
-	padding-bottom: 50px;
+    font-size: 50px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    
+    margin-top: 15px;
+    border-radius: 5px;
 }
 
 .right-column h2 {
@@ -213,24 +222,17 @@ button:focus {
 	outline: none;
 }
 
-/* Thêm hiệu ứng xuất hiện từ từ cho các trường input và nút */
 input, select, textarea {
-	opacity: 0;
-	animation: fadeIn 0.5s forwards;
+    animation: fadeIn 0.5s forwards;
 }
 
-@
-keyframes fadeIn { 0% {
-	opacity: 0;
-}
-
-100
-%
-{
-opacity
-:
-1;
-}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 /* Thêm hiệu ứng xuất hiện từ từ cho các nút "Thêm" */
@@ -277,36 +279,17 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 
 		<!-- Left Column -->
 		<div class="left-column">
-			<div class="profile-picture"
-				onclick="document.getElementById('profile-picture-input').click()"
-				style="background-image: url('your-image-url.jpg');"></div>
-			<input type="file" id="profile-picture-input" style="display: none;"
-				accept="image/*" onchange="loadProfilePicture(event)">
+			<div class="profile-picture" onclick="document.getElementById('profile-picture-input').click()" style="background-image: url('your-image-url.jpg');"></div>
+			<input type="file" id="profile-picture-input" style="display: none;" accept="image/*" onchange="loadProfilePicture(event)">
 
 			<div class="section">
 				<div class="section-title">Contact</div>
 				<div class="contact-info">
-					<p>
-						Điện Thoại: <input type="text" name="phone"
-							placeholder="+123-456-7890">
-					</p>
-					<p>
-						Email: <input type="email" name="email"
-							placeholder="alfredo@example.com">
-					</p>
-					<p>
-						Ngày Sinh: <input type="date" name="dob">
-					</p>
-					<p>
-						Địa Chỉ: <input type="text" name="address"
-							placeholder="123 Anywhere St, Any City">
-					</p>
-					<p>
-						Giới Tính: <select name="gender">
-							<option value="male">Nam</option>
-							<option value="female">Nữ</option>
-						</select>
-					</p>
+					<p>Điện Thoại: <input type="text" name="phone" placeholder="+123-456-7890"></p>
+					<p>Email: <input type="email" name="email" placeholder="alfredo@example.com"></p>
+					<p>Ngày Sinh: <input type="date" name="dob"></p>
+					<p>Ngôn Ngữ: <input type="text" name="language" placeholder="Tiếng Việt"></p>
+					<p>Giới Tính: <select name="gender"><option value="male">Nam</option><option value="female">Nữ</option></select></p>
 				</div>
 			</div>
 
@@ -314,48 +297,41 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 			<div class="section">
 				<div class="section-title">Học Vấn</div>
 				<div id="education-section" class="draggable-section">
-					<input type="text" name="education[]" placeholder="FPT Polytechnic">
+					<input type="text" name="education[]" placeholder="FPT Polytechnic" draggable="true" class="draggable">
 				</div>
 				<div class="add-button-container">
-					<button onclick="addField('education-section')">+ Thêm Học
-						Vấn</button>
+					<button onclick="addField('education-section')">+ Thêm Học Vấn</button>
 				</div>
 			</div>
 
 			<div class="section">
 				<div class="section-title">Chứng Chỉ</div>
 				<div id="certificates-section">
-					<input type="text" name="certificates[]"
-						placeholder="Nhập chứng chỉ">
+					<input type="text" name="certificates[]" placeholder="Nhập chứng chỉ" draggable="true" class="draggable">
 				</div>
 				<div class="add-button-container">
-					<button onclick="addField('certificates-section')">+ Thêm
-						Chứng Chỉ</button>
+					<button onclick="addField('certificates-section')">+ Thêm Chứng Chỉ</button>
 				</div>
 			</div>
 		</div>
 
 		<div class="right-column">
-			<h1>
-				<input type="text" name="name" placeholder="Nguyễn Văn A">
-			</h1>
-			<h2>
-				<input type="text" name="title" placeholder="Vị Tí Ứng Tuyển">
-			</h2>
+			<h1 contenteditable="true">OLIVIA WILSON</h1>
+			<!-- <h2><input type="text" name="title" placeholder="Vị Tí Ứng Tuyển"></h2> -->
 
 			<div class="section">
 				<div class="section-title">Mục Tiêu Nghề Nghiệp</div>
 				<textarea name="careerGoal" placeholder="Nhập mục tiêu nghề nghiệp"></textarea>
 			</div>
+
 			<!-- Kỹ Năng -->
 			<div class="section">
 				<div class="section-title">Kỹ Năng</div>
 				<div id="skills-section" class="draggable-section">
-					<input type="text" name="skills[]" placeholder="Nhập kỹ năng">
+					<input type="text" name="skills[]" placeholder="Nhập kỹ năng" draggable="true" class="draggable">
 				</div>
 				<div class="add-button-container">
-					<button onclick="addField('skills-section')">+ Thêm Kỹ
-						Năng</button>
+					<button onclick="addField('skills-section')">+ Thêm Kỹ Năng</button>
 				</div>
 			</div>
 
@@ -363,9 +339,8 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 				<div class="section-title">Dự Án Đã Tham Gia</div>
 				<div id="projects-section" class="draggable-section">
 					<div class="work-experience-item">
-						<input type="text" name="projects[]"
-							placeholder="Tên dự án - Công ty"> <input type="text"
-							name="project-dates[]" placeholder="Thời gian">
+						<input type="text" name="projects[]" placeholder="Tên dự án - Công ty">
+						<input type="text" name="project-dates[]" placeholder="Thời gian">
 						<textarea name="project-descriptions[]" placeholder="Mô tả"></textarea>
 					</div>
 				</div>
@@ -379,56 +354,60 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 	<script>
-	function addField(sectionId) {
-	    const section = document.getElementById(sectionId);
-	    const input = document.createElement("input");
-	    input.type = "text";
-	    input.name = sectionId.replace('-section', '') + "[]";
-	    input.placeholder = "Nhập thông tin";
-	    input.style.opacity = 0;
-	    section.appendChild(input);
+		function addField(sectionId) {
+		    const section = document.getElementById(sectionId);
+		    const input = document.createElement("input");
+		    input.type = "text";
+		    input.name = sectionId.replace('-section', '') + "[]";
+		    input.placeholder = "Nhập thông tin";
+		    input.style.opacity = 0;
+		    section.appendChild(input);
 
-	    // Thêm hiệu ứng fade-in cho input mới
-	    setTimeout(() => {
-	        input.style.transition = "opacity 0.5s";
-	        input.style.opacity = 1;
-	    }, 50);
-	}
+		    setTimeout(() => {
+		        input.style.transition = "opacity 0.5s";
+		        input.style.opacity = 1;
+		    }, 50);
+		}
 
-	// Hàm thêm dự án mới với hiệu ứng fade-in
-	function addProjectField() {
-	    const projectSection = document.getElementById('projects-section');
-	    const div = document.createElement("div");
-	    div.className = "work-experience-item";
+		function addProjectField() {
+		    const projectSection = document.getElementById('projects-section');
+		    const div = document.createElement("div");
+		    div.className = "work-experience-item";
 
-	    div.innerHTML = `
-	        <input type="text" name="projects[]" placeholder="Tên dự án - Công ty" style="opacity: 0;">
-	        <input type="text" name="project-dates[]" placeholder="Thời gian" style="opacity: 0;">
-	        <textarea name="project-descriptions[]" placeholder="Mô tả" style="opacity: 0;"></textarea>
-	    `;
-	    projectSection.appendChild(div);
+		    div.innerHTML = `
+		        <input type="text" name="projects[]" placeholder="Tên dự án - Công ty" style="opacity: 0;">
+		        <input type="text" name="project-dates[]" placeholder="Thời gian" style="opacity: 0;">
+		        <textarea name="project-descriptions[]" placeholder="Mô tả" style="opacity: 0;"></textarea>
+		    `;
+		    projectSection.appendChild(div);
 
-	    // Hiệu ứng fade-in cho các trường mới
-	    const inputs = div.querySelectorAll('input, textarea');
-	    setTimeout(() => {
-	        inputs.forEach(input => {
-	            input.style.transition = "opacity 0.5s";
-	            input.style.opacity = 1;
-	        });
-	    }, 50);
-	}
-</script>
-<script>	
-	document.addEventListener("DOMContentLoaded", function () {
-	    // Khởi tạo tính năng kéo và thả cho các phần chứa input
-	    new Sortable(document.querySelectorAll('.draggable-section'), {
-	        handle: '.section-title', // Kéo từ tiêu đề
-	        animation: 150, // Thêm hiệu ứng mượt mà
-	    });
-	});
+		    const inputs = div.querySelectorAll('input, textarea');
+		    setTimeout(() => {
+		        inputs.forEach(input => {
+		            input.style.transition = "opacity 0.5s";
+		            input.style.opacity = 1;
+		        });
+		    }, 50);
+		}
+
+	</script>
+	<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Kích hoạt kéo thả cho các phần khác nhau
+        const sections = ['education-section', 'skills-section', 'projects-section', 'certificates-section'];
+        
+        sections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                new Sortable(section, {
+                    animation: 150,
+                    handle: '.section-title' // Bạn có thể thay đổi handle nếu cần
+                });
+            }
+        });
+    });
 </script>
 </body>
 </html>

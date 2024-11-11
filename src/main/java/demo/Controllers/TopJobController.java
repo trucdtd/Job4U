@@ -27,7 +27,7 @@ public class TopJobController {
 		Pageable pageable = PageRequest.of(page.orElse(0), 6, Sort.by("posteddate").descending());
 //		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
 		// Lấy danh sách các bài viết chưa hết hạn
-		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfter(LocalDate.now(), pageable);
+		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate.now(), pageable);
 		model.addAttribute("dsSP", dsSP);
 		return "congViecMoi";
 	}

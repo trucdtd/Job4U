@@ -72,4 +72,5 @@ public class JoblistingsEntity implements Serializable {
 
 	@Column(name = "active", nullable = false)
 	private boolean active = true; // Trạng thái bài đăng
+	
 }

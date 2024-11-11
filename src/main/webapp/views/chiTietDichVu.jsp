@@ -23,7 +23,7 @@
 		<article>
 			<div class="card">
 				<div class="card-body p-4">
-					<form method="post">
+					<form action="/admin/updateDV/${dv.serviceid}" method="post">
 						<!-- Job ID and Deadline -->
 						<div class="row mb-3">
 							<div class="col-md-6">
@@ -42,7 +42,7 @@
 							<div class="col-md-6">
 								<label for="jobtype">Ngày Tạo:</label> <input
 									class="form-control" type="text" id="createdat"
-									name="createdat" value="${dv.createdat}">
+									name="createdat" value="${dv.createdat}" readonly required>
 							</div>
 
 							<div class="col-md-6">
@@ -54,32 +54,34 @@
 						<!-- Job Type and Description -->
 
 						<div class="row mb-3">
-							<div class="col-md-12">
+							<div class="col-md-6">
+										<label for="">Số lượng bài viết</label> <input class="form-control"
+											type="text" id="numberofjobsallowed" name="numberofjobsallowed"
+											value="${dv.numberofjobsallowed}" >
+									</div>
+							<div class="col-md-6">
 								<label for="contactperson">Mô Tả:</label> <input
 									class="form-control" type="text" id="description"
 									name="description" value="${dv.description}">
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-md-12 d-flex justify-content-start">
-								<form method="post"
-									class="me-2">
-									<button type="submit" class="btn btn-success">Sửa</button>
-								</form>
+								<button type="submit" class="btn btn-success">Cập Nhật</button>
 							</div>
+
 						</div>
+					</form>
 				</div>
 			</div>
-	</div>
-	</article>
-	<br>
-	</div>
-	<!-- footer-->
-	<%@ include file="/views/footer.jsp"%>
-	<!-- /footer -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		</article>
+		<br>
+		</div>
+		<!-- footer-->
+		<%@ include file="/views/footer.jsp"%>
+		<!-- /footer -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <script>
 	// Giả sử giá trị salary ban đầu là một số

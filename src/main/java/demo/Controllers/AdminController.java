@@ -1,6 +1,7 @@
 package demo.Controllers;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -19,9 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import demo.dao.EmployersDao;
 import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
+import demo.dao.PaymentsDao;
 import demo.dao.ServicesDao;
 import demo.dao.UsersDao;
 import demo.entity.JoblistingsEntity;
+import demo.entity.PaymentsEntity;
 import demo.entity.ServicesEntity;
 import demo.entity.UsersEntity;
 import demo.services.UserService;
@@ -52,6 +55,9 @@ public class AdminController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	PaymentsDao paymentsDao;
 
 	@RequestMapping("")
 	public String adminPage(HttpSession session, @RequestParam(value = "page", required = false) String page,
@@ -76,6 +82,9 @@ public class AdminController {
 
 			List<ServicesEntity> qldv = servicesDao.findAll();
 			model.addAttribute("qldv", qldv);
+			
+			List<PaymentsEntity> qlnm = paymentsDao.findAll();
+			model.addAttribute("qlnm", qlnm);
 		}
 		return "quanLyNguoiDung"; // Trang admin
 	}
@@ -146,7 +155,7 @@ public class AdminController {
 		Integer userRole = jdbcTemplate.queryForObject(roleSql, new Object[] { userid }, Integer.class);
 
 		if (userRole != null && userRole == 0) {
-			redirectAttributes.addAttribute("error", "Không thể xóa người dùng có role = 0.");
+			redirectAttributes.addAttribute("error", "Không thể xóa người dùng có quyền Admin");
 			return "redirect:/admin";
 		}
 
@@ -183,6 +192,7 @@ public class AdminController {
 		} catch (Exception e) {
 			redirectAttributes.addAttribute("error", "Xóa người dùng thất bại. Lỗi: " + e.getMessage());
 			e.printStackTrace();
+			
 		}
 
 		return "redirect:/admin"; // Chuyển hướng về trang admin
@@ -198,7 +208,8 @@ public class AdminController {
 
 			// Kiểm tra vai trò
 			if (user.getRole() != null && user.getRole() == 0) {
-				redirectAttributes.addFlashAttribute("error", "Không thể khóa tài khoản của người dùng có role = 0.");
+				redirectAttributes.addAttribute("error",
+						"Không thể khóa tài khoản Admin.");				
 				return "redirect:/admin";
 			}
 
@@ -206,10 +217,11 @@ public class AdminController {
 			user.setStatus(false); // false để khóa tài khoản
 			userDao.save(user); // Lưu lại thay đổi
 
-			redirectAttributes.addFlashAttribute("success", "Tài khoản đã được khóa thành công!");
+			redirectAttributes.addAttribute("error",
+					"Tài khoản đã được khóa thành công!");	
 			return "redirect:/admin"; // Quay về trang admin
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
+			redirectAttributes.addAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
 			return "redirect:/admin"; // Quay về trang admin nếu có lỗi
 		}
 	}
@@ -224,11 +236,11 @@ public class AdminController {
 			user.setStatus(true); // true để mở tài khoản
 			userDao.save(user); // Lưu lại thay đổi
 
-			redirectAttributes.addFlashAttribute("success", "Tài khoản đã được mở thành công!");
+			redirectAttributes.addAttribute("error", "Tài khoản đã được mở thành công!");
 
 			return "redirect:/admin"; // Quay về trang admin
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
+			redirectAttributes.addAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
 			System.out.println("Lỗi khi mở tài khoản: " + e.getMessage());
 			return "redirect:/admin"; // Quay về trang admin nếu có lỗi
 		}
@@ -243,26 +255,33 @@ public class AdminController {
 
 	@PostMapping("/deletePost")
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
-		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
-		String deletePostSql = "DELETE FROM Post WHERE JobID = ?";
+	    
+	    // Câu truy vấn để kiểm tra xem bài viết có liên quan đến dịch vụ đang hoạt động không
+	    String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
+	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
+	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
+	    try {
+	        int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
+	        if (serviceCount > 0) {
+	            // Nếu bài viết đang mua dịch vụ, cập nhật trạng thái bài viết thành ẩn (active = false)
+	            joblistingsDao.updatePostActiveStatus(id, false);  // Cập nhật bài viết thành "Đang ẩn"
+	            redirectAttributes.addFlashAttribute("message", "Bài viết không thể xóa vì đang mua dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
+	            return "redirect:/admin";
+	        }
 
-		try { // Xóa các bản ghi liên quan trong bảng Applications trước
-			jdbcTemplate.update(deleteApplicationsSql, id);
+	        // Nếu không có dịch vụ, xóa các bản ghi liên quan trong bảng Applications và Joblistings
+	        jdbcTemplate.update(deleteApplicationsSql, id);
+	        jdbcTemplate.update(deleteJobListingsSql, id);
 
-			// Xóa các bản ghi liên quan trong bảng Joblistings
-			jdbcTemplate.update(deleteJobListingsSql, id);
+	        redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 
-			// Sau đó xóa bài viết jdbcTemplate.update(deletePostSql, id);
-
-			redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
-		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
-			e.printStackTrace();
-		}
-
-		return "redirect:/admin";
+	    return "redirect:/admin";
 	}
+
 
 	/*
 	 * @PostMapping("/updatePost/{jobid}") public String
@@ -347,5 +366,92 @@ public class AdminController {
 		model.addAttribute("dv", dv);
 		return "chiTietDichVu";
 	}
+	
+
+	@PostMapping("/updateDV/{id}")
+	public String capnhatDv(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,
+	                        @RequestParam("servicename") String servicename,
+	                        @RequestParam("price") String price,
+	                        @RequestParam("description") String description) {
+	    // Tìm dịch vụ theo id
+	    ServicesEntity updv = servicesDao.findById(id).orElse(null);
+	    
+	    if (updv != null) {
+	        // Cập nhật tên dịch vụ và mô tả
+	        updv.setServicename(servicename);
+	        updv.setDescription(description);
+	        
+	        // Chuyển đổi price từ String sang BigDecimal
+	        try {
+	            BigDecimal priceValue = new BigDecimal(price); // Chuyển đổi giá trị chuỗi sang BigDecimal
+	            updv.setPrice(priceValue); // Lưu giá trị đã chuyển đổi
+	        } catch (NumberFormatException e) {
+	            // Nếu không thể chuyển đổi, bạn có thể xử lý lỗi hoặc để giá trị mặc định
+	        	redirectAttributes.addAttribute("error", "Giá không hợp lệ!");
+	            return "quanLyNguoiDung"; // Trả về trang quản lý với thông báo lỗi
+	        }
+	        
+	        // Lưu dịch vụ sau khi cập nhật
+	        servicesDao.save(updv);
+	        
+	        // Trả về trang với thông báo thành công (có thể thêm thông báo vào model nếu cần)
+	        redirectAttributes.addAttribute("error", "Cập nhật dịch vụ thành công!");
+	        return "redirect:/admin";
+	    } else {
+	        // Nếu không tìm thấy dịch vụ với id đã cho
+	    	redirectAttributes.addAttribute("error", "Dịch vụ không tồn tại!");
+	        return "redirect:/admin";
+	    }
+	}
+	
+	@PostMapping("/newDv")
+	public String themoiDv(RedirectAttributes redirectAttributes,
+	                       @RequestParam("servicename") String servicename,
+	                       @RequestParam("price") String price,
+	                       @RequestParam("description") String description,
+	                       @RequestParam("numberofjobsallowed") Integer numberofjobsallowed) {
+	    // Tạo mới đối tượng dịch vụ
+	    ServicesEntity newDv = new ServicesEntity();
+	    
+	    // Cập nhật các thuộc tính cho dịch vụ mới
+	    newDv.setServicename(servicename);
+	    newDv.setDescription(description);
+	    
+	    // Cập nhật ngày tạo và ngày cập nhật (sử dụng ngày hiện tại)
+	    LocalDate currentDate = LocalDate.now();  // Lấy ngày hiện tại
+	    newDv.setCreatedat(currentDate);
+	    newDv.setUpdatedat(currentDate);  // Ban đầu, ngày cập nhật cũng là ngày tạo
+	    
+	    // Chuyển đổi price từ String sang BigDecimal
+	    try {
+	        BigDecimal priceValue = new BigDecimal(price); // Chuyển đổi giá trị chuỗi sang BigDecimal
+	        // Kiểm tra nếu giá tiền không hợp lệ (ví dụ: giá nhỏ hơn hoặc bằng 0)
+	        if (priceValue.compareTo(BigDecimal.ZERO) <= 0) {
+	            throw new NumberFormatException("Giá phải lớn hơn 0");
+	        }
+	        newDv.setPrice(priceValue); // Lưu giá trị đã chuyển đổi
+	    } catch (NumberFormatException e) {
+	        // Nếu không thể chuyển đổi hoặc giá không hợp lệ, trả thông báo lỗi
+	        redirectAttributes.addAttribute("error", "Giá không hợp lệ! " + e.getMessage());
+	        return "redirect:/admin"; // Trả về trang quản lý với thông báo lỗi
+	    }
+	    
+	    // Kiểm tra tính hợp lệ của numberofjobsallowed
+	    if (numberofjobsallowed <= 0) {
+	        redirectAttributes.addAttribute("error", "Số lượng công việc phải lớn hơn 0");
+	        return "redirect:/admin"; // Trả về trang quản lý với thông báo lỗi
+	    }
+
+	    // Lưu số lượng công việc vào đối tượng
+	    newDv.setNumberofjobsallowed(numberofjobsallowed);
+
+	    // Lưu dịch vụ mới vào cơ sở dữ liệu
+	    servicesDao.save(newDv);
+	    
+	    // Trả về trang với thông báo thành công
+	    redirectAttributes.addAttribute("message", "Thêm dịch vụ thành công!");
+	    return "redirect:/admin";
+	}
+
 
 }
