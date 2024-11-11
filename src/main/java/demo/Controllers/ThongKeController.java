@@ -56,10 +56,11 @@ public class ThongKeController {
 	}
 	
 	@PostMapping("")
-	public String thongKe(@RequestBody String entity) {
+	public String thongKe(@RequestParam("startdate") String startDate,@RequestParam("startdate") String endDate) {
 		//TODO: process POST request
+		//lay du lieu
 		
-		return entity;
+		return "thongKeMoi";
 	}
 	
 

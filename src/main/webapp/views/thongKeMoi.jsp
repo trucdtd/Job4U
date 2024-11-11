@@ -36,7 +36,7 @@
 								aria-describedby="helpId" placeholder="" />
 						</div>
 						<div class="mb-3 me-2">
-							<button type="button" class="btn btn-success">Thống kê</button>
+							<button type="submit" class="btn btn-success">Thống kê</button>
 						</div>
 						<div class="mb-3">
 							<button type="button" class="btn btn-warning">Làm mới</button>
