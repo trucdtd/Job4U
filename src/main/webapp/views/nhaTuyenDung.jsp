@@ -179,8 +179,6 @@
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<form class="p-2" action="/employers" method="get"
-							id="nhaTuyenDung">
 							<div class="table-responsive">
 								<table id="myTable" class="table align-items-center">
 									<thead class="thead-light">
@@ -227,15 +225,18 @@
 															<img alt="Chỉnh sửa" src="/img/icons8-edit-50.png"
 																height="25px" width="25px" />
 														</button>
+					
 														<form action="/employers/delete" method="post"
 															style="display: inline;"
 															onsubmit="return confirmDelete();">
 															<input type="hidden" name="jobId" value="${job.jobid}">
+														
 															<button type="submit" class="btn btn-sm" title="Xóa">
 																<img alt="Xóa" src="/img/icons8-delete-50.png"
 																	height="25px" width="25px" />
 															</button>
 														</form>
+														
 														<!-- Nút mua dịch vụ lên top -->
 														<button type="button" class="btn btn-sm btn-mua"
 															title="Mua" data-jobid="${job.jobid}">
@@ -243,7 +244,7 @@
 																width="25px">
 														</button>
 														<!-- Nút mua dịch vụ lên top -->
-													</div>
+														</div>
 												</td>
 												<!-- XEM CV -->
 												<td>
@@ -264,344 +265,349 @@
 									</tbody>
 								</table>
 							</div>
-						</form>
+						
 					</div>
 				</div>
+			</div>
 
-				<!-- Bảng quản lý bài đăng-->
-				<!-- bài đăng -->
-				<div id="postEmployers" class="card" style="display: none;">
-					<div class="card-header">
-						<div class="card-title p-1">Đăng Bài Tuyển Dụng</div>
-					</div>
-					<div class="card-body p-0">
-						<div class="table-responsive">
-							<div class="card-body p-0">
-								<form class="p-4" action="/employers/submit" method="post"
-									id="nhaTuyenDung" enctype="multipart/form-data">
-									<div class="row mb-3 align-items-center">
-										<div class="col-md-4">
-											<div class="bg-image me-3">
-												<img id="logoPreview"
-													src="${pageContext.request.contextPath}/uploads/${employer.logo}"
-													alt="Logo" class="img-fluid"
-													style="object-fit: cover; max-width: 100%; height: 200px;">
-												<input type="file" class="form-control" id="logo"
-													name="logo" accept="image/*" style="display: none;">
-												<label for="logo" class="form-control text-center"
-													style="cursor: pointer; height: 30px; display: flex; align-items: center; justify-content: center;">
-													Cập nhật logo mới tại đây</label>
-											</div>
-										</div>
 
-										<div class="col-md-8">
-											<div class="mb-3">
-												<label for="companyname" class="form-label">Tên công
-													ty</label> <input type="text" class="form-control" id="companyname"
-													name="companyname" value="${employer.companyname}" readonly>
-											</div>
-											<div>
-												<label for="companywebsite" class="form-label">Tên
-													web công ty</label> <input type="text" class="form-control"
-													id="companywebsite" name="companywebsite"
-													value="${employer.companywebsite}" readonly>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 p-2">
-											<label for="address" class="form-label">Địa chỉ công
-												ty</label> <input type="text" class="form-control" id="address"
-												name="address" value="${employer.address}" readonly>
-										</div>
-										<div class="col-md-6 p-2">
-											<label for="industry" class="form-label">Ngành nghề</label> <input
-												type="text" class="form-control" id="industry"
-												name="industry" value="${employer.industry}" readonly>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 p-2">
-											<label for="jobtitle" class="form-label">Tiêu đề công
-												việc</label> <input type="text" class="form-control" id="jobtitle"
-												name="jobtitle" required>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-md-6 p-2">
-											<label for="contactperson" class="form-label">Người
-												liên hệ & số điện thoại</label> <input type="text"
-												class="form-control" id="contactperson" name="contactperson">
-										</div>
-										<div class="col-md-6 p-2">
-											<label for="joblocation" class="form-label">Địa điểm
-												làm việc</label> <input type="text" class="form-control"
-												id="joblocation" name="joblocation">
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 p-2">
-											<label for="jobtype" class="form-label">Loại công
-												việc</label> <select id="jobtype" name="jobtype" class="form-select"
-												required>
-												<option value="" disabled selected>Chọn 1 loại công
-													việc</option>
-												<option value="Toàn thời gian">Công việc toàn thời
-													gian</option>
-												<option value="Bán thời gian">Công việc bán thời
-													gian</option>
-												<option value="Thời vụ">Công việc thời vụ</option>
-												<option value="Hợp đồng">Công việc theo hợp đồng</option>
-												<option value="Tự do">Công việc tự do</option>
-											</select>
-										</div>
-										<div class="col-md-6 p-2">
-											<label for="salary" class="form-label">Lương</label>
-											<div class="input-group">
-												<span class="input-group-text">VND</span> <input type="text"
-													class="form-control salary-input" id="salary" name="salary"
-													min="0"
-													placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 p-2">
-											<label for="companydescription" class="form-label">Mô
-												tả về công ty</label>
-											<textarea class="form-control" id="companydescription"
-												name="companydescription" rows="4" readonly>${employer.companydescription}</textarea>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 p-2">
-											<label for="jobrequirements" class="form-label">Yêu
-												cầu công việc</label>
-											<textarea class="form-control" id="jobrequirements"
-												name="jobrequirements" rows="4" required></textarea>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 p-2">
-											<label for="jobdescription" class="form-label">Mô tả
-												công việc</label>
-											<textarea class="form-control" id="jobdescription"
-												name="jobdescription" rows="4" required></textarea>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 p-2" style="display: none;">
-											<label for="posteddate" class="form-label">Ngày đăng</label>
-											<input type="text" class="form-control" id="posteddate"
-												name="posteddate" required>
-										</div>
-										<div class="col-md-6 p-2">
-											<label for="applicationdeadline" class="form-label">Hạn
-												nộp hồ sơ</label> <input type="date" class="form-control"
-												id="applicationdeadline" name="applicationdeadline" required>
-										</div>
-									</div>
-									<hr>
-									<button type="submit" class="btn text-light p-2"
-										style="background-color: #198754">Đăng bài</button>
-								</form>
-							</div>
-						</div>
-					</div>
+			<!-- Bảng quản lý bài đăng-->
+			<!-- bài đăng -->
+			<div id="postEmployers" class="card" style="display: none;">
+				<div class="card-header">
+					<div class="card-title p-1">Đăng Bài Tuyển Dụng</div>
 				</div>
+				<div class="card-body p-0">
+					<div class="table-responsive">
+						<div class="card-body p-0">
+							<form class="p-4" action="/employers/submit" method="post"
+								id="nhaTuyenDung" enctype="multipart/form-data">
+								<div class="row mb-3 align-items-center">
+									<div class="col-md-4">
+										<div class="bg-image me-3">
+											<img id="logoPreview"
+												src="${pageContext.request.contextPath}/uploads/${employer.logo}"
+												alt="Logo" class="img-fluid"
+												style="object-fit: cover; max-width: 100%; height: 200px;">
+											<input type="file" class="form-control" id="logo" name="logo"
+												accept="image/*" style="display: none;"> <label
+												for="logo" class="form-control text-center"
+												style="cursor: pointer; height: 30px; display: flex; align-items: center; justify-content: center;">
+												Cập nhật logo mới tại đây</label>
+										</div>
+									</div>
 
-				<!-- Quản lý cv -->
-				<div id="cvApply" class="card" style="display: none;">
-					<div class="card-header">
-						<div class="card-title">CV Ứng tuyển</div>
-					</div>
-					<div class="card-body p-2">
-						<div class="table-responsive">
-							<table id="cvTable" class="table align-items-center">
-								<thead class="thead-light">
-									<tr>
-										<th scope="col">Tiêu để bài viết</th>
-										<th scope="col">Thông tin người ứng tuyển</th>
-										<th scope="col">Tên CV ứng tuyển</th>
-										<th scope="col">Thời gian nộp hồ sơ</th>
-										<th scope="col">Trạng thái</th>
-										<th scope="col">Chi tiết hồ sơ</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${dsCV}" var="cv">
-										<tr>
-											<th>${cv.job.jobtitle}</th>
-											<td>${cv.jobseeker.fullnamecv}</td>
-											<th>${cv.resume}</th>
-											<td class="formatted-date" data-date="${cv.applicationdate}"></td>
-											<td><c:choose>
-													<c:when test="${cv.status == 0}">Đang chờ</c:when>
-													<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
-													<c:when test="${cv.status == 2}">Bị từ chối</c:when>
-													<c:otherwise>Không xác định</c:otherwise>
-												</c:choose></td>
-											<td>
-												<form action="/cvDetails/${cv.applicationid}" method="get"
-													style="display: inline;">
-													<button type="submit"
-														class="btn btn-success text-light text-white p-2">Xem
-														Thêm</button>
-												</form>
-											</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
+									<div class="col-md-8">
+										<div class="mb-3">
+											<label for="companyname" class="form-label">Tên công
+												ty</label> <input type="text" class="form-control" id="companyname"
+												name="companyname" value="${employer.companyname}" readonly>
+										</div>
+										<div>
+											<label for="companywebsite" class="form-label">Tên
+												web công ty</label> <input type="text" class="form-control"
+												id="companywebsite" name="companywebsite"
+												value="${employer.companywebsite}" readonly>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 p-2">
+										<label for="address" class="form-label">Địa chỉ công
+											ty</label> <input type="text" class="form-control" id="address"
+											name="address" value="${employer.address}" readonly>
+									</div>
+									<div class="col-md-6 p-2">
+										<label for="industry" class="form-label">Ngành nghề</label> <input
+											type="text" class="form-control" id="industry"
+											name="industry" value="${employer.industry}" readonly>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 p-2">
+										<label for="jobtitle" class="form-label">Tiêu đề công
+											việc</label> <input type="text" class="form-control" id="jobtitle"
+											name="jobtitle" required>
+									</div>
+								</div>
 
-				<!-- Dịch vụ -->
-				<div id="postingServices" class="card" style="display: none;">
-					<div class="card-header">
-						<div class="card-title">Dịch vụ bài đăng</div>
-					</div>
-					<br>
-					<%@ include file="/views/dichVu.jsp"%>
-
-				</div>
-
-				<!-- Gói Dịch vụ đã mua -->
-				<div id="myServices" class="card" style="display: none;">
-					<div class="card-header">
-						<div class="card-title">Dịch vụ đã mua</div>
-					</div>
-					<br>
-					<div class="card-body p-2">
-						<div class="table-responsive">
-							<table id="myServicesTable" class="table align-items-center">
-								<thead class="thead-light">
-									<tr>
-										<th scope="col">Tên dịch vụ</th>
-										<th scope="col">Nội dung dịch vụ</th>
-										<th scope="col">Số lượng cho phép</th>
-										<th scope="col">Trạng thái</th>
-										<th scope="col">Ngày mua</th>
-										<th scope="col">Ngày hết hạn</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${dsDV}" var="dv">
-										<tr>
-											<th>${dv.service.servicename}</th>
-											<td>${dv.service.description}</td>
-											<th>${dv.numberofjobsallowed}</th>
-											<th>${dv.isactive ? 'Hoạt Động' : 'Không Hoạt Động'}</th>
-											<td class="formatted-date" data-date="${dv.purchasedate}"></td>
-											<td class="formatted-date" data-date="${dv.expirydate}"></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+								<div class="row">
+									<div class="col-md-6 p-2">
+										<label for="contactperson" class="form-label">Người
+											liên hệ & số điện thoại</label> <input type="text"
+											class="form-control" id="contactperson" name="contactperson">
+									</div>
+									<div class="col-md-6 p-2">
+										<label for="joblocation" class="form-label">Địa điểm
+											làm việc</label> <input type="text" class="form-control"
+											id="joblocation" name="joblocation">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 p-2">
+										<label for="jobtype" class="form-label">Loại công việc</label>
+										<select id="jobtype" name="jobtype" class="form-select"
+											required>
+											<option value="" disabled selected>Chọn 1 loại công
+												việc</option>
+											<option value="Toàn thời gian">Công việc toàn thời
+												gian</option>
+											<option value="Bán thời gian">Công việc bán thời
+												gian</option>
+											<option value="Thời vụ">Công việc thời vụ</option>
+											<option value="Hợp đồng">Công việc theo hợp đồng</option>
+											<option value="Tự do">Công việc tự do</option>
+										</select>
+									</div>
+									<div class="col-md-6 p-2">
+										<label for="salary" class="form-label">Lương</label>
+										<div class="input-group">
+											<span class="input-group-text">VND</span> <input type="text"
+												class="form-control salary-input" id="salary" name="salary"
+												min="0"
+												placeholder="ví dụ: 12 - 15 Triệu hoặc để trống nếu muốn Thỏa Thuận">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 p-2">
+										<label for="companydescription" class="form-label">Mô
+											tả về công ty</label>
+										<textarea class="form-control" id="companydescription"
+											name="companydescription" rows="4" readonly>${employer.companydescription}</textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 p-2">
+										<label for="jobrequirements" class="form-label">Yêu
+											cầu công việc</label>
+										<textarea class="form-control" id="jobrequirements"
+											name="jobrequirements" rows="4" required></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 p-2">
+										<label for="jobdescription" class="form-label">Mô tả
+											công việc</label>
+										<textarea class="form-control" id="jobdescription"
+											name="jobdescription" rows="4" required></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 p-2" style="display: none;">
+										<label for="posteddate" class="form-label">Ngày đăng</label> <input
+											type="text" class="form-control" id="posteddate"
+											name="posteddate" required>
+									</div>
+									<div class="col-md-6 p-2">
+										<label for="applicationdeadline" class="form-label">Hạn
+											nộp hồ sơ</label> <input type="date" class="form-control"
+											id="applicationdeadline" name="applicationdeadline" required>
+									</div>
+								</div>
+								<hr>
+								<button type="submit" class="btn text-light p-2"
+									style="background-color: #198754">Đăng bài</button>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- article -->
-		</div>
 
-		<!-- Modal Chỉnh Sửa Bài Đăng Tuyển Dụng-->
-		<div class="modal fade" id="editJobModal" tabindex="-1"
-			aria-labelledby="editJobModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="editJobModalLabel">Chỉnh Sửa Bài
-							Đăng Tuyển Dụng</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
+			<!-- Quản lý cv -->
+			<div id="cvApply" class="card" style="display: none;">
+				<div class="card-header">
+					<div class="card-title">CV Ứng tuyển</div>
+				</div>
+				<div class="card-body p-2">
+					<div class="table-responsive">
+						<table id="cvTable" class="table align-items-center">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Tiêu để bài viết</th>
+									<th scope="col">Thông tin người ứng tuyển</th>
+									<th scope="col">Tên CV ứng tuyển</th>
+									<th scope="col">Thời gian nộp hồ sơ</th>
+									<th scope="col">Trạng thái</th>
+									<th scope="col">Chi tiết hồ sơ</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${dsCV}" var="cv">
+									<tr>
+										<th>${cv.job.jobtitle}</th>
+										<td>${cv.jobseeker.fullnamecv}</td>
+										<th>${cv.resume}</th>
+										<td class="formatted-date" data-date="${cv.applicationdate}"></td>
+										<td><c:choose>
+												<c:when test="${cv.status == 0}">Đang chờ</c:when>
+												<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
+												<c:when test="${cv.status == 2}">Bị từ chối</c:when>
+												<c:otherwise>Không xác định</c:otherwise>
+											</c:choose></td>
+										<td>
+											<form action="/cvDetails/${cv.applicationid}" method="get"
+												style="display: inline;">
+												<button type="submit"
+													class="btn btn-success text-light text-white p-2">Xem
+													Thêm</button>
+											</form>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
-					<div class="modal-body">
-						<form id="editJobForm" action="/employers/edit" method="post">
-							<input type="hidden" id="jobIdedit" name="jobIdedit"
-								class="form-control" />
-							<div class="mb-3">
-								<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
-									type="text" class="form-control" id="jobTitle" name="jobTitle" />
-							</div>
-							<div class="mb-3">
-								<label for="jobLocation" class="form-label">Vị Trí</label> <input
-									type="text" class="form-control" id="jobLocation"
-									name="jobLocation" />
-							</div>
-							<div class="mb-3">
-								<label for="jobDescription" class="form-label">Mô Tả
-									Công Việc</label>
-								<textarea class="form-control" id="jobDescription"
-									name="jobDescription"></textarea>
-							</div>
-							<div class="mb-3">
-								<label for="jobRequirements" class="form-label">Yêu Cầu</label>
-								<textarea class="form-control" id="jobRequirements"
-									name="jobRequirements"></textarea>
-							</div>
-							<div class="mb-3">
-								<label for="salary" class="form-label">Lương</label> <input
-									type="text" class="form-control" id="salaryEdit"
-									name="salaryEdit" placeholder="Thỏa Thuận" />
-							</div>
-							<div class="mb-3">
-								<label for="jobType" class="form-label">Loại Công Việc</label> <input
-									type="text" class="form-control" id="jobType" name="jobType" />
-							</div>
-							<div class="mb-3">
-								<label for="postedDate" class="form-label">Ngày Đăng</label> <input
-									type="date" class="form-control" id="postedDate"
-									name="postedDate" readonly />
-							</div>
-							<div class="mb-3">
-								<label for="applicationDeadline" class="form-label">Hạn
-									Nộp Hồ Sơ</label> <input type="date" class="form-control"
-									id="applicationDeadline" name="applicationDeadline" />
-							</div>
-							<button type="submit" class="btn btn-success">Lưu Thay
-								Đổi</button>
-						</form>
+				</div>
+			</div>
+
+			<!-- Dịch vụ -->
+			<div id="postingServices" class="card" style="display: none;">
+				<div class="card-header">
+					<div class="card-title">Dịch vụ bài đăng</div>
+				</div>
+				<br>
+				<%@ include file="/views/dichVu.jsp"%>
+
+			</div>
+
+			<!-- Gói Dịch vụ đã mua -->
+			<div id="myServices" class="card" style="display: none;">
+				<div class="card-header">
+					<div class="card-title">Dịch vụ đã mua</div>
+				</div>
+				<br>
+				<div class="card-body p-2">
+					<div class="table-responsive">
+						<table id="myServicesTable" class="table align-items-center">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Tên dịch vụ</th>
+									<th scope="col">Nội dung dịch vụ</th>
+									<th scope="col">Số lượng cho phép</th>
+									<th scope="col">Trạng thái</th>
+									<th scope="col">Ngày mua</th>
+									<th scope="col">Ngày hết hạn</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${dsDV}" var="dv">
+									<tr>
+										<th>${dv.service.servicename}</th>
+										<td>${dv.service.description}</td>
+										<th>${dv.numberofjobsallowed}</th>
+										<th>${dv.isactive ? 'Hoạt Động' : 'Không Hoạt Động'}</th>
+										<td class="formatted-date" data-date="${dv.purchasedate}"></td>
+										<td class="formatted-date" data-date="${dv.expirydate}"></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- article -->
+	</div>
 
-		<!-- Modal Thanh Toán -->
-<div id="paymentModalghim" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close" onclick="closePaymentModalghim()">&times;</span>
-        <div class="payment-container">
-            <div class="payment-summary">
-                <h3>Tóm tắt thanh toán</h3>
-                <ul>
-                    <li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
-                    <li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>  <!-- Hiển thị Job ID -->
-                </ul>
-                <div class="total-price">
-                    <h2>Tổng Tiền</h2>
-                    <h1>75.000 ₫</h1>
-                    <p>Ghim Bài đăng lên top những công việc hàng đầu trong 3 ngày.</p>
-                </div>
-            </div>
-            <form action="/employers/pay" method="post" class="payment-form">
-                <input type="hidden" name="servicePrice" id="servicePriceInput" value="75000">
-                <input type="hidden" name="serviceId" id="serviceId" value="4">
-                <input type="hidden" name="jobId" id="jobId" value="${jobid}">
+	<!-- Modal Chỉnh Sửa Bài Đăng Tuyển Dụng-->
+	<div class="modal fade" id="editJobModal" tabindex="-1"
+		aria-labelledby="editJobModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editJobModalLabel">Chỉnh Sửa Bài
+						Đăng Tuyển Dụng</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="editJobForm" action="/employers/edit" method="post">
+						<input type="hidden" id="jobIdedit" name="jobIdedit"
+							class="form-control" />
+						<div class="mb-3">
+							<label for="jobTitle" class="form-label">Tên Công Việc</label> <input
+								type="text" class="form-control" id="jobTitle" name="jobTitle" />
+						</div>
+						<div class="mb-3">
+							<label for="jobLocation" class="form-label">Vị Trí</label> <input
+								type="text" class="form-control" id="jobLocation"
+								name="jobLocation" />
+						</div>
+						<div class="mb-3">
+							<label for="jobDescription" class="form-label">Mô Tả Công
+								Việc</label>
+							<textarea class="form-control" id="jobDescription"
+								name="jobDescription"></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="jobRequirements" class="form-label">Yêu Cầu</label>
+							<textarea class="form-control" id="jobRequirements"
+								name="jobRequirements"></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="salary" class="form-label">Lương</label> <input
+								type="text" class="form-control" id="salaryEdit"
+								name="salaryEdit" placeholder="Thỏa Thuận" />
+						</div>
+						<div class="mb-3">
+							<label for="jobType" class="form-label">Loại Công Việc</label> <input
+								type="text" class="form-control" id="jobType" name="jobType" />
+						</div>
+						<div class="mb-3">
+							<label for="postedDate" class="form-label">Ngày Đăng</label> <input
+								type="date" class="form-control" id="postedDate"
+								name="postedDate" readonly />
+						</div>
+						<div class="mb-3">
+							<label for="applicationDeadline" class="form-label">Hạn
+								Nộp Hồ Sơ</label> <input type="date" class="form-control"
+								id="applicationDeadline" name="applicationDeadline" />
+						</div>
+						<button type="submit" class="btn btn-success">Lưu Thay
+							Đổi</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-                <input type="hidden" name="userId" id="userId" value="${userId}">
-                <div class="payment-methods">
-                    <button class="momo2-btn" type="submit">
-                        <img src="/img/vnpay.png">
-                    </button>
-                </div>
-                <button class="submit-btn" style="background: #198754" type="submit">Thanh Toán</button>
-            </form>
-        </div>
-    </div>
-</div>
+	<!-- Modal Thanh Toán -->
+	<div id="paymentModalghim" class="modal" style="display: none;">
+		<div class="modal-content">
+			<span class="close" onclick="closePaymentModalghim()">&times;</span>
+			<div class="payment-container">
+				<div class="payment-summary">
+					<h3>Tóm tắt thanh toán</h3>
+					<ul>
+						<li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
+						<li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
+						<!-- Hiển thị Job ID -->
+					</ul>
+					<div class="total-price">
+						<h2>Tổng Tiền</h2>
+						<h1>75.000 ₫</h1>
+						<p>Ghim Bài đăng lên top những công việc hàng đầu trong 3
+							ngày.</p>
+					</div>
+				</div>
+				<form action="/employers/pay" method="post" class="payment-form">
+					<input type="hidden" name="servicePrice" id="servicePriceInput"
+						value="75000"> <input type="hidden" name="serviceId"
+						id="serviceId" value="4"> <input type="hidden"
+						name="jobId" id="jobId" value="${jobid}"> <input
+						type="hidden" name="userId" id="userId" value="${userId}">
+					<div class="payment-methods">
+						<button class="momo2-btn" type="submit">
+							<img src="/img/vnpay.png">
+						</button>
+					</div>
+					<button class="submit-btn" style="background: #198754"
+						type="submit">Thanh Toán</button>
+				</form>
+			</div>
+		</div>
+	</div>
 
 
 
