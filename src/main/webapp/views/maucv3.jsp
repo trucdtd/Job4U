@@ -14,6 +14,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 <style>
 * {
 	box-sizing: border-box;
@@ -169,17 +171,29 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="date"],
 }
 
 button {
-        padding: 8px 15px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+	padding: 8px 15px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
 
 .input-group button:hover {
 	background-color: #3b4b3b;
 }
+
+/* Ẩn nút thêm ban đầu */
+.add-button-container {
+	display: none;
+	margin-top: 10px;
+}
+
+/* Hiển thị nút thêm khi hover vào khu vực nhập liệu */
+.section:hover .add-button-container {
+	display: block;
+}
+
 </style>
 </head>
 <body>
@@ -191,73 +205,111 @@ button {
 	<div class="resume-container">
 		<!-- Left Column -->
 		<div class="left-column">
+			<!-- Phần Ảnh Hồ Sơ -->
 			<div class="photo-frame">
 				<input type="file" accept="image/*" onchange="previewImage(event)">
 				<img id="profileImage" src="profile.jpg" alt="Profile Image">
 			</div>
-			<div class="contact-info">
-				<h2 class="section-title">Thông Tin</h2>
-				<label for="email">Email:</label> <input type="email" id="email"
-					value="hello@reallygreatsite.com"> <label for="phone">Phone:</label>
-				<input type="tel" id="phone" value="+1 234 567 8910"> <label
-					for="dob">Ngày Sinh:</label> <input type="date" id="dob"
-					value="2004-09-28"> <label for="gender">Giới Tính:</label>
-				<select id="gender">
-					<option value="male" selected>Nam</option>
-					<option value="female">Nữ</option>
-					<option value="other">Khác</option>
-				</select> <label for="language">Ngôn Ngữ:</label> <input type="text"
-					id="language" value="Việt Nam">
-			</div>
+			<h4 class="text-center p-2">Thông Tin Cá Nhân</h4>
+			<!-- Phần Thông Tin Cá Nhân -->
+			<div id="sortable-left">
+				<div class="contact-info" id="contactInfoSection">
+					<!-- Email -->
+					<div class="input-group">
+						<label for="email">Email:</label> <input type="email" id="email"
+							value="hello@reallygreatsite.com">
+					</div>
 
-			<div class="skills" id="educationSection">
-				<h2 class="section-title">Học Vấn</h2>
-				<div class="input-group">
-					<input type="text" placeholder="Nhập học vấn">
+					<!-- Phone -->
+					<div class="input-group">
+						<label for="phone">Phone:</label> <input type="tel" id="phone"
+							value="+1 234 567 8910">
+					</div>
+
+					<!-- Ngày Sinh -->
+					<div class="input-group">
+						<label for="dob">Ngày Sinh:</label> <input type="date" id="dob"
+							value="2004-09-28">
+					</div>
+
+					<!-- Giới Tính -->
+					<div class="input-group">
+						<label for="gender">Giới Tính:</label> <select id="gender">
+							<option value="male" selected>Nam</option>
+							<option value="female">Nữ</option>
+							<option value="other">Khác</option>
+						</select>
+					</div>
+
+					<!-- Ngôn Ngữ -->
+					<div class="input-group">
+						<label for="language">Ngôn Ngữ:</label> <input type="text"
+							id="language" value="Việt Nam">
+					</div>
+
 				</div>
-				<button type="button" onclick="addEducationField()">+ Thêm
-					Học Vấn</button>
-			</div>
 
-			<div class="skills" id="certificateSection">
-				<h2 class="section-title">Chứng Chỉ</h2>
-				<div class="input-group">
-					<input type="text" placeholder="Nhập chứng chỉ">
+				<!-- Phần Học Vấn -->
+				<div class="skills" id="educationSection">
+					<h2 class="section-title">Học Vấn</h2>
+					<div class="input-group">
+						<input type="text" placeholder="Nhập học vấn">
+					</div>
+					<div class="add-button-container">
+					<button type="button" onclick="addEducationField()">+ Thêm
+						Học Vấn</button>
+					</div>
 				</div>
-				<button type="button" onclick="addCertificateField()">+ Thêm
-					Chứng Chỉ</button>
-			</div>
 
+				<!-- Phần Chứng Chỉ -->
+				<div class="skills" id="certificateSection">
+					<h2 class="section-title">Chứng Chỉ</h2>
+					<div class="input-group">
+						<input type="text" placeholder="Nhập chứng chỉ">
+					</div>
+					<button type="button" onclick="addCertificateField()">+
+						Thêm Chứng Chỉ</button>
+				</div>
+			</div>
 		</div>
+
 
 		<!-- Right Column -->
 		<div class="right-column">
 			<div class="personal-info">
 				<h1 contenteditable="true">OLIVIA WILSON</h1>
-				<!-- <h2 contenteditable="true">GRAPHIC DESIGNER</h2> -->
 				<textarea rows="4" cols="50"
 					placeholder="Write a personal summary here...">I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me.</textarea>
 			</div>
-
-			<div id="experienceSection">
-				<h2 class="section-title">Chứng Chỉ</h2>
-				<div class="input-group">
-					<input type="text" placeholder="Nhập kinh nghiệm">
+			<div id="sortable-right">
+				<div id="experienceSection">
+					<h2 class="section-title">Chứng Chỉ</h2>
+					<div class="input-group">
+						<input type="text" placeholder="Nhập kinh nghiệm">
+					</div>
+					<button type="button" onclick="addExperienceField()">+
+						Thêm Kinh Nghiệm</button>
 				</div>
-				<button type="button" onclick="addExperienceField()">+ Thêm
-					Kinh Nghiệm</button>
+
+				<div id="projectSection">
+					<h2 class="section-title">Dự Án Đã Tham Gia</h2>
+					<div class="input-group">
+						<input type="text" placeholder="Nhập thời gian"> <input
+							type="text" placeholder="Tên dự án">
+						<textarea placeholder="Mô tả dự án..."></textarea>
+					</div>
+					<button type="button" onclick="addProjectField()">+ Thêm
+						Dự Án</button>
+				</div>
+				
+				<div id="hobbiesSection">
+				<h2 class="section-title">Sở Thích</h2>
+				<div class="input-group">
+					<input type="text" placeholder="Sở Thích">
+				</div>
+				<button type="button" onclick="addHobbiesField()">+ Thêm Sở
+					Thích</button>
 			</div>
-
-
-			<div id="projectSection">
-				<h2 class="section-title">Dự Án Đã Tham Gia</h2>
-				<div class="input-group">
-					<input type="text" placeholder="Nhập thời gian"> <input
-						type="text" placeholder="Tên dự án">
-					<textarea placeholder="Mô tả dự án..."></textarea>
-				</div>
-				<button type="button" onclick="addProjectField()">+ Thêm Dự
-					Án</button>
 			</div>
 		</div>
 	</div>
@@ -284,52 +336,78 @@ button {
         }
 
         // Dynamic field functions for Education, Certificate, Experience, and Project sections
-       function addEducationField() {
-    const educationSection = document.getElementById('educationSection');
-    const newField = document.createElement('div');
-    newField.classList.add('input-group');
-    newField.innerHTML = `
-        <input type="text" placeholder="Nhập học vấn">
-    `;
-    // Insert the new field before the button
-    educationSection.insertBefore(newField, educationSection.querySelector("button"));
-}
+        function addEducationField() {
+            const educationSection = document.getElementById('educationSection');
+            const newField = document.createElement('div');
+            newField.classList.add('input-group');
+            newField.innerHTML = `
+                <input type="text" placeholder="Nhập học vấn">
+            `;
+            educationSection.insertBefore(newField, educationSection.querySelector("button"));
+        }
 
-function addCertificateField() {
-    const certificateSection = document.getElementById('certificateSection');
-    const newField = document.createElement('div');
-    newField.classList.add('input-group');
-    newField.innerHTML = `
-        <input type="text" placeholder="Nhập chứng chỉ">
-    `;
-    // Insert the new field before the button
-    certificateSection.insertBefore(newField, certificateSection.querySelector("button"));
-}
+        function addCertificateField() {
+            const certificateSection = document.getElementById('certificateSection');
+            const newField = document.createElement('div');
+            newField.classList.add('input-group');
+            newField.innerHTML = `
+                <input type="text" placeholder="Nhập chứng chỉ">
+            `;
+            certificateSection.insertBefore(newField, certificateSection.querySelector("button"));
+        }
 
-function addExperienceField() {
-    const experienceSection = document.getElementById('experienceSection');
-    const newField = document.createElement('div');
-    newField.classList.add('input-group');
-    newField.innerHTML = `
-        <input type="text" placeholder="Nhập kinh nghiệm">
-    `;
-    // Insert the new field before the button
-    experienceSection.insertBefore(newField, experienceSection.querySelector("button"));
-}
+        function addExperienceField() {
+            const experienceSection = document.getElementById('experienceSection');
+            const newField = document.createElement('div');
+            newField.classList.add('input-group');
+            newField.innerHTML = `
+                <input type="text" placeholder="Nhập kinh nghiệm">
+            `;
+            experienceSection.insertBefore(newField, experienceSection.querySelector("button"));
+        }
 
-function addProjectField() {
-    const projectSection = document.getElementById('projectSection');
-    const newField = document.createElement('div');
-    newField.classList.add('input-group');
-    newField.innerHTML = `
-        <input type="text" placeholder="Nhập thời gian">
-        <input type="text" placeholder="Tên dự án">
-        <textarea placeholder="Mô tả dự án..."></textarea>
-    `;
-    // Insert the new field before the button
-    projectSection.insertBefore(newField, projectSection.querySelector("button"));
-}
+        function addProjectField() {
+            const projectSection = document.getElementById('projectSection');
+            const newField = document.createElement('div');
+            newField.classList.add('input-group');
+            newField.innerHTML = `
+                <input type="text" placeholder="Nhập thời gian">
+                <input type="text" placeholder="Tên dự án">
+                <textarea placeholder="Mô tả dự án..."></textarea>
+            `;
+            projectSection.insertBefore(newField, projectSection.querySelector("button"));
+        }
+        
+        function addHobbiesField() {
+            const experienceSection = document.getElementById('hobbiesSection');
+            const newField = document.createElement('div');
+            newField.classList.add('input-group');
+            newField.innerHTML = `
+                <input type="text" placeholder="Nhập Sở Thích">
+            `;
+            // Insert the new field before the button
+            experienceSection.insertBefore(newField, experienceSection.querySelector("button"));
+        }
 
+        document.addEventListener("DOMContentLoaded", function() {
+	        // Cho phép kéo-thả trong cột bên trái
+	        new Sortable(document.getElementById("sortable-left"), {
+	            animation: 150,
+	            group: "shared",  // Tùy chọn: Cho phép kéo-thả qua lại giữa các cột
+	            draggable: ".section",  // Các mục có thể kéo là những mục có lớp .section
+	            handle: ".section-title",  // Kéo bằng tiêu đề của phần
+	            ghostClass: "sortable-ghost"  // Thêm lớp cho phần tử đang kéo
+	        });
+
+	        // Cho phép kéo-thả trong cột bên phải
+	        new Sortable(document.getElementById("sortable-right"), {
+	            animation: 150,
+	            group: "shared",
+	            draggable: ".section",
+	            handle: ".section-title",
+	            ghostClass: "sortable-ghost"
+	        });
+	    });
     </script>
 </body>
 </html>
