@@ -52,7 +52,6 @@
 						</div>
 
 						<!-- Job Type and Description -->
-
 						<div class="row mb-3">
 							<div class="col-md-6">
 										<label for="">Số lượng bài viết</label> <input class="form-control"
@@ -65,6 +64,7 @@
 									name="durationindays" value="${dv.durationindays}">
 							</div>
 						</div>
+						
 						<div class="row mb-3">
 							<div class="col-md-12">
 								<label for="contactperson">Mô Tả:</label> <input
@@ -72,12 +72,13 @@
 									name="description" value="${dv.description}">
 							</div>
 						</div>
+						
 						<div class="row">
 							<div class="col-md-12 d-flex justify-content-start">
 								<button type="submit" class="btn btn-success">Cập Nhật</button>
 							</div>
-
 						</div>
+						
 					</form>
 				</div>
 			</div>
