@@ -86,7 +86,7 @@ public class TrangChuController {
 		model.addAttribute("latestJobs", top20);
 
  		// Lấy danh sách các bài viết chưa hết hạn nộp hồ sơ
-		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate.now(), pageable);
+		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrueOrderByIsTopAndApplicationDeadline(LocalDate.now(), pageable);
 
 		model.addAttribute("dsSP", dsSP);
 		return "trangChu";
@@ -125,7 +125,7 @@ public class TrangChuController {
 				&& !"All".equalsIgnoreCase(joblocation.get())) {
 			dsSP = danhSachViecLamDao.findByJobLocation(joblocation.get(), pageable);
 		} else {
-			dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate.now(), pageable);
+			dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrueOrderByIsTopAndApplicationDeadline(LocalDate.now(), pageable);
 		}
 
 		// Kiểm tra nếu không có kết quả
@@ -133,7 +133,7 @@ public class TrangChuController {
 			// Thêm thông báo vào mô hình
 			model.addAttribute("message",
 					"Nội dung tìm kiếm hiện không có. Vui lòng tham khảo thêm công việc bên dưới.");
-			dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate.now(), pageable);
+			dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrueOrderByIsTopAndApplicationDeadline(LocalDate.now(), pageable);
 			model.addAttribute("dsSP", dsSP);
 			// Trả về trang chủ với thông báo
 			return "trangChu";

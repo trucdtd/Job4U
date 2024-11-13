@@ -76,15 +76,16 @@
 .pagination-number:hover:not(.active) {
 	text-decoration: underline;
 }
+
 .bg-image {
-    height: 150px; /* Đảm bảo chiều cao đủ lớn */
-    overflow: hidden; /* Ẩn phần ảnh bị cắt */
+	height: 150px; /* Đảm bảo chiều cao đủ lớn */
+	overflow: hidden; /* Ẩn phần ảnh bị cắt */
 }
 
 .card img {
-    width: 100%;
-    height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao */
-    object-fit: contain; /* Giữ nguyên tỷ lệ và không bị cắt */
+	width: 100%;
+	height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao */
+	object-fit: contain; /* Giữ nguyên tỷ lệ và không bị cắt */
 }
 </style>
 </head>
@@ -214,6 +215,10 @@
 			</form>
 		</div>
 	</nav>
+	<!-- Kiểm tra và hiển thị thông báo -->
+	<c:if test="${not empty message}">
+		<div class="mt-4 alert alert-info" role="alert">${message}</div>
+	</c:if>
 	<!-- Top Jobs Section -->
 	<c:if test="${not empty topJobs}">
 		<div class="container">
@@ -244,20 +249,26 @@
 								<div class="row">
 									<div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
 										<div class="bg-image hover-zoom ripple rounded ripple-surface">
-											<img src="${pageContext.request.contextPath}/uploads/${job.employer.logo}" class="w-100"
-												alt="${job.employer.companyname}" />
+											<img
+												src="${pageContext.request.contextPath}/uploads/${job.employer.logo}"
+												class="w-100" alt="${job.employer.companyname}" />
 										</div>
 									</div>
 									<div class="col-md-6 col-lg-6 col-xl-6">
-										<h5>${job.employer.companyname}</h5>
+										<h5>${job.employer.companyname}<!-- Hiển thị ngôi sao vàng nếu là công việc top -->
+										<c:if test="${job.isTop}">
+											<i class="bi bi-star-fill text-warning"></i>
+											<!-- Ngôi sao vàng -->
+										</c:if></h5>
 										<p class="text-truncate mb-4 mb-md-0">Mô tả:
 											${job.jobdescription}</p>
 									</div>
 									<div
 										class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
 										<div class="d-flex flex-column mt-4">
-											<a href="/applyCV/${job.jobid}" class="btn btn-success btn-sm">Ứng
-												tuyển</a> <a href="/chiTiet/${job.jobid}"
+											<a href="/applyCV/${job.jobid}"
+												class="btn btn-success btn-sm">Ứng tuyển</a> <a
+												href="/chiTiet/${job.jobid}"
 												class="btn btn-outline-success btn-sm mt-2">Thông tin
 												chi tiết</a>
 										</div>
