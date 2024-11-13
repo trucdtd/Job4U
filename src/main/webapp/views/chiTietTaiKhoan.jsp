@@ -58,126 +58,151 @@
 }
 
 .card-action {
-  display: flex; /* Sử dụng Flexbox để căn chỉnh các nút theo hàng */
-  gap: 3px; /* Thêm khoảng cách giữa các nút */
-  justify-content: flex-start; /* Căn các nút sang bên trái */
+	display: flex; /* Sử dụng Flexbox để căn chỉnh các nút theo hàng */
+	gap: 3px; /* Thêm khoảng cách giữa các nút */
+	justify-content: flex-start; /* Căn các nút sang bên trái */
 }
 
 .card-action button, .card-action a {
-  margin-right: 3px; /* Tạo khoảng cách giữa các nút */
+	margin-right: 3px; /* Tạo khoảng cách giữa các nút */
 }
-
 </style>
 </head>
 <body>
 	<!-- header -->
 	<%@ include file="/views/header.jsp"%>
 	<!-- header -->
-		<div class="container">
-			<div class="row mt-3">
-				<!-- aside -->
+	<div class="container">
+		<div class="row mt-3">
+			<!-- aside -->
+			<!-- Thông báo thành công -->
+			<c:if test="${not empty param.error}">
+				<script>
+					document.addEventListener('DOMContentLoaded', function() {
+						const successModal = new bootstrap.Modal(document
+								.getElementById('successModal'));
+						successModal.show();
+					});
+				</script>
 
-				<!-- article -->
-				<div class="col-lg-12 col-md-12 p-2 ">
-					<!-- User Management table -->
-					<div id="userManagement" class="card">
-						<div class="card-header">
-							<div class="card-title">Quản Lý Tài Khoản</div>
+				<div class="modal fade" id="successModal" tabindex="-1"
+					aria-labelledby="successModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="successModalLabel">Thông báo</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">${param.error}</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+									onclick="window.location.href='/admin'">OK</button>
+							</div>
 						</div>
-						<div class="card-body p-0">
-							<div class="table-responsive">
-								<form class="p-4 border" action="/admin/deleteUser" method="post">
-									<input type="hidden" name="userid" value="${nd.userid}">
-									<!-- Thêm trường ẩn cho userid -->
-									<div class="row">
-										<div class="col-md-6 p-2">
-											<label for="username" class="form-label">Tên tài
-												khoản</label> <input type="text" class="form-control" id="username"
-												name="username" value="${nd.username}" readonly required>
-										</div>
-										<div class="col-md-6 p-2">
-											<label for="fullname" class="form-label">Họ và tên</label> <input
-												type="text" class="form-control" id="fullname"
-												name="fullname" value="${nd.fullname}" readonly required>
-										</div>
+					</div>
+				</div>
+			</c:if>
+			<!-- article -->
+			<div class="col-lg-12 col-md-12 p-2 ">
+				<!-- User Management table -->
+				<div id="userManagement" class="card">
+					<div class="card-header">
+						<div class="card-title">Quản Lý Tài Khoản</div>
+					</div>
+					<div class="card-body p-0">
+						<div class="table-responsive">
+							<form class="p-4 border" action="/admin/deleteUser" method="post">
+								<input type="hidden" name="userid" value="${nd.userid}">
+								<!-- Thêm trường ẩn cho userid -->
+								<div class="row">
+									<div class="col-md-6 p-2">
+										<label for="username" class="form-label">Tên tài khoản</label>
+										<input type="text" class="form-control" id="username"
+											name="username" value="${nd.username}" readonly required>
 									</div>
-
-									<div class="row">
-										<div class="col-md-6 p-2">
-											<label for="email" class="form-label">Email</label> <input
-												type="text" class="form-control" id="email" name="email"
-												value="${nd.email}" readonly required>
-										</div>
-										<div class="col-md-6 p-2">
-											<label for="phonenumber" class="form-label">Số điện
-												thoại</label> <input type="text" class="form-control"
-												id="phonenumber" name="phonenumber"
-												value="${nd.phonenumber}" readonly required>
-										</div>
+									<div class="col-md-6 p-2">
+										<label for="fullname" class="form-label">Họ và tên</label> <input
+											type="text" class="form-control" id="fullname"
+											name="fullname" value="${nd.fullname}" readonly required>
 									</div>
+								</div>
 
-									<div class="row">
-
-										<div class="col-md-6 p-2">
-											<label for="role" class="form-label">Vai trò</label> <select
-												name="role" id="role" class="form-select" disabled>
-												<option value="0" ${nd.role == '0' ? 'selected' : ''}>Admin</option>
-												<option value="1" ${nd.role == '1' ? 'selected' : ''}>Ứng
-													viên</option>
-												<option value="2" ${nd.role == '2' ? 'selected' : ''}>Nhà
-													tuyển dụng</option>
-											</select>
-										</div>
-										<div class="col-md-6 p-2">
-											<label for="status" class="form-label">Trạng Thái </label> <select
-												name="status" id="status" class="form-select" disabled>
-												<option value="0" ${nd.status == false ? 'selected' : ''}>Không
-													hoạt động</option>
-												<option value="1" ${nd.status == true ? 'selected' : ''}>Hoạt
-													động</option>
-											</select>
-										</div>
+								<div class="row">
+									<div class="col-md-6 p-2">
+										<label for="email" class="form-label">Email</label> <input
+											type="text" class="form-control" id="email" name="email"
+											value="${nd.email}" readonly required>
 									</div>
+									<div class="col-md-6 p-2">
+										<label for="phonenumber" class="form-label">Số điện
+											thoại</label> <input type="text" class="form-control"
+											id="phonenumber" name="phonenumber" value="${nd.phonenumber}"
+											readonly required>
+									</div>
+								</div>
+
+								<div class="row">
+
+									<div class="col-md-6 p-2">
+										<label for="role" class="form-label">Vai trò</label> <select
+											name="role" id="role" class="form-select" disabled>
+											<option value="0" ${nd.role == '0' ? 'selected' : ''}>Admin</option>
+											<option value="1" ${nd.role == '1' ? 'selected' : ''}>Ứng
+												viên</option>
+											<option value="2" ${nd.role == '2' ? 'selected' : ''}>Nhà
+												tuyển dụng</option>
+										</select>
+									</div>
+									<div class="col-md-6 p-2">
+										<label for="status" class="form-label">Trạng Thái </label> <select
+											name="status" id="status" class="form-select" disabled>
+											<option value="0" ${nd.status == false ? 'selected' : ''}>Không
+												hoạt động</option>
+											<option value="1" ${nd.status == true ? 'selected' : ''}>Hoạt
+												động</option>
+										</select>
+									</div>
+								</div>
 
 								<hr>
 								<div class="row p-2">
 									<div class="card-action d-flex justify-content-start">
 
 										<!-- Nút Xóa -->
-											<button type="submit" class="btn btn-danger text-white" >Xóa</button>
-										</form>
+										<button type="submit" class="btn btn-danger text-white">Xóa</button>
+							</form>
 
-										<!-- Nút Khóa -->
-										<form action="/admin/lock/${nd.userid}" method="post"
-											>
-											<button type="submit" class="btn btn-warning">Khóa tài khoản</button>
-										</form>
+							<!-- Nút Khóa -->
+							<form action="/admin/lock/${nd.userid}" method="post">
+								<button type="submit" class="btn btn-warning">Khóa tài
+									khoản</button>
+							</form>
 
-										<!-- Nút Mở tài khoản -->
-										<form action="/admin/open/${nd.userid}" method="post"
-											>
-											<button type="submit" class="btn btn-success">Mở tài
-												khoản</button>
-										</form>
+							<!-- Nút Mở tài khoản -->
+							<form action="/admin/open/${nd.userid}" method="post">
+								<button type="submit" class="btn btn-success">Mở tài
+									khoản</button>
+							</form>
 
-										<!-- Nút Quay lại -->
-										<a href="/admin" class="btn btn-secondary">Quay lại</a>
+							<!-- Nút Quay lại -->
+							<a href="/admin" class="btn btn-secondary">Quay lại</a>
 
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
-
-
-
-					<!-- article -->
 				</div>
+			</div>
+		</div>
 
-		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
 
-		<!-- footer -->
+
+		<!-- article -->
+	</div>
+
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+
+	<!-- footer -->
 </body>
 <script>
 	function showTable(event, tableId) {
@@ -203,8 +228,6 @@
 				+ tableId + '"]');
 		activeLink.classList.add('active');
 	}
-	
-
 </script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
