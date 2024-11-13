@@ -169,13 +169,13 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="date"],
 }
 
 button {
-        padding: 8px 15px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+	padding: 8px 15px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
 
 .input-group button:hover {
 	background-color: #3b4b3b;
@@ -224,8 +224,8 @@ button {
 				<div class="input-group">
 					<input type="text" placeholder="Nhập chứng chỉ">
 				</div>
-				<button type="button" onclick="addCertificateField()">+ Thêm
-					Chứng Chỉ</button>
+				<button type="button" onclick="addCertificateField()">+
+					Thêm Chứng Chỉ</button>
 			</div>
 
 		</div>
@@ -258,6 +258,15 @@ button {
 				</div>
 				<button type="button" onclick="addProjectField()">+ Thêm Dự
 					Án</button>
+			</div>
+
+			<div id="hobbiesSection">
+				<h2 class="section-title">Sở Thích</h2>
+				<div class="input-group">
+					<input type="text" placeholder="Sở Thích">
+				</div>
+				<button type="button" onclick="addHobbiesField()">+ Thêm Sở
+					Thích</button>
 			</div>
 		</div>
 	</div>
@@ -329,7 +338,16 @@ function addProjectField() {
     // Insert the new field before the button
     projectSection.insertBefore(newField, projectSection.querySelector("button"));
 }
-
+function addHobbiesField() {
+    const experienceSection = document.getElementById('hobbiesSection');
+    const newField = document.createElement('div');
+    newField.classList.add('input-group');
+    newField.innerHTML = `
+        <input type="text" placeholder="Nhập Sở Thích">
+    `;
+    // Insert the new field before the button
+    experienceSection.insertBefore(newField, experienceSection.querySelector("button"));
+}
     </script>
 </body>
 </html>

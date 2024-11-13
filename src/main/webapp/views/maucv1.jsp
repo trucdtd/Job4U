@@ -454,6 +454,5 @@ button {
 	    projectsContainer.insertBefore(newProjectField, addProjectButton);
 	}
 	</script>
-
 </body>
 </html>

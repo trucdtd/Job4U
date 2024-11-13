@@ -338,7 +338,7 @@ public class AdminController {
 		job.setActive(false);
 		joblistingsDao.save(job);
 
-		return "redirect:/admin"; // Quay về trang admin sau khi ẩn bài viết
+		return "redirect:/chiTietBaiViet"; // Quay về trang admin sau khi ẩn bài viết
 	}
 
 	@PostMapping("/showPost/{jobid}")
@@ -350,7 +350,7 @@ public class AdminController {
 		job.setActive(true);
 		joblistingsDao.save(job);
 
-		return "redirect:/admin"; // Quay về trang admin sau khi hiện bài viết
+		return "redirect:/chiTietBaiViet"; // Quay về trang admin sau khi hiện bài viết
 	}
 
 	@GetMapping("/detailCV/{id}")
