@@ -14,6 +14,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <style>
 body {
 	background-color: #f8f9fa; /* Màu nền nhạt */
@@ -302,9 +303,13 @@ button {
 
 /* Hiển thị nút thêm khi hover vào vùng chứa */
 #skills-container:hover .add-button, #certifications-container:hover .add-button,
-	#experience-container:hover .add-button, #projects-container:hover .add-button
-	{
+	#experience-container:hover .add-button, #projects-container:hover .add-button,
+	#hobbies-container:hover .add-button {
 	display: inline-block;
+}
+.sortable-ghost {
+    opacity: 0.7;
+    background-color: #e0e0e0;  /* Đổi màu khi đang kéo */
 }
 </style>
 </head>
@@ -354,8 +359,6 @@ button {
 							Chứng Chỉ</button>
 					</div>
 				</div>
-
-				
 			</div>
 
 			<div class="right-column" id="sortable-right">
@@ -383,6 +386,15 @@ button {
 							onclick="addProjectField()">+ Thêm Dự Án</button>
 					</div>
 				</div>
+				<div class="hobbies section">
+					<div class="section-title">Sở Thích</div>
+					<div id="hobbies-container">
+						<input type="text" id="hobbies" class="input-field"
+							placeholder="Chứng chỉ">
+						<button id="add-hobbies-button" class="add-button" type="button"
+							onclick="addHobbiesField()">+ Thêm Sở Thích</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -391,68 +403,108 @@ button {
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
 	<script>
-	function addSkillField() {
-	    const skillsContainer = document.getElementById('skills-container');
-	    const addSkillButton = document.getElementById('add-skill-button');
+		function addSkillField() {
+			const skillsContainer = document.getElementById('skills-container');
+			const addSkillButton = document.getElementById('add-skill-button');
 
-	    const newField = document.createElement('input');
-	    newField.type = 'text';
-	    newField.className = 'input-field';
-	    newField.placeholder = 'Kỹ năng';
+			const newField = document.createElement('input');
+			newField.type = 'text';
+			newField.className = 'input-field';
+			newField.placeholder = 'Kỹ năng';
 
-	    skillsContainer.insertBefore(newField, addSkillButton);
-	}
+			skillsContainer.insertBefore(newField, addSkillButton);
+		}
 
-	function addCertificationField() {
-	    const certificationsContainer = document.getElementById('certifications-container');
-	    const addCertificationButton = document.getElementById('add-certification-button');
+		function addCertificationField() {
+			const certificationsContainer = document
+					.getElementById('certifications-container');
+			const addCertificationButton = document
+					.getElementById('add-certification-button');
 
-	    const newField = document.createElement('input');
-	    newField.type = 'text';
-	    newField.className = 'input-field';
-	    newField.placeholder = 'Chứng chỉ';
+			const newField = document.createElement('input');
+			newField.type = 'text';
+			newField.className = 'input-field';
+			newField.placeholder = 'Chứng chỉ';
 
-	    certificationsContainer.insertBefore(newField, addCertificationButton);
-	}
+			certificationsContainer.insertBefore(newField,
+					addCertificationButton);
+		}
 
-	function addExperienceField() {
-	    const experienceContainer = document.getElementById('experience-container');
-	    const addExperienceButton = document.getElementById('add-experience-button');
+		function addExperienceField() {
+			const experienceContainer = document
+					.getElementById('experience-container');
+			const addExperienceButton = document
+					.getElementById('add-experience-button');
 
-	    const newField = document.createElement('textarea');
-	    newField.className = 'input-area';
-	    newField.placeholder = 'Kinh nghiệm làm việc';
+			const newField = document.createElement('textarea');
+			newField.className = 'input-area';
+			newField.placeholder = 'Kinh nghiệm làm việc';
 
-	    experienceContainer.insertBefore(newField, addExperienceButton);
-	}
+			experienceContainer.insertBefore(newField, addExperienceButton);
+		}
 
-	function addProjectField() {
-	    const projectsContainer = document.getElementById('projects-container');
-	    const addProjectButton = document.getElementById('add-project-button');
+		function addHobbiesField() {
+			const hobbiesContainer = document
+					.getElementById('hobbies-container');
+			const addHobbiesButton = document
+					.getElementById('add-hobbies-button');
 
-	    const newProjectField = document.createElement('div');
-	    newProjectField.classList.add('project-field');
+			const newField = document.createElement('input');
+			newField.type = 'text';
+			newField.className = 'input-field';
+			newField.placeholder = 'Sở Thích';
 
-	    const projectName = document.createElement('input');
-	    projectName.type = 'text';
-	    projectName.className = 'input-field';
-	    projectName.placeholder = 'Tên Dự Án';
+			hobbiesContainer.insertBefore(newField, addHobbiesButton);
+		}
 
-	    const projectTime = document.createElement('input');
-	    projectTime.type = 'text';
-	    projectTime.className = 'input-field';
-	    projectTime.placeholder = 'Thời Gian';
+		function addProjectField() {
+			const projectsContainer = document
+					.getElementById('projects-container');
+			const addProjectButton = document
+					.getElementById('add-project-button');
 
-	    const projectDescription = document.createElement('textarea');
-	    projectDescription.className = 'input-area';
-	    projectDescription.placeholder = 'Mô Tả';
+			const newProjectField = document.createElement('div');
+			newProjectField.classList.add('project-field');
 
-	    newProjectField.appendChild(projectName);
-	    newProjectField.appendChild(projectTime);
-	    newProjectField.appendChild(projectDescription);
+			const projectName = document.createElement('input');
+			projectName.type = 'text';
+			projectName.className = 'input-field';
+			projectName.placeholder = 'Tên Dự Án';
 
-	    projectsContainer.insertBefore(newProjectField, addProjectButton);
-	}
+			const projectTime = document.createElement('input');
+			projectTime.type = 'text';
+			projectTime.className = 'input-field';
+			projectTime.placeholder = 'Thời Gian';
+
+			const projectDescription = document.createElement('textarea');
+			projectDescription.className = 'input-area';
+			projectDescription.placeholder = 'Mô Tả';
+
+			newProjectField.appendChild(projectName);
+			newProjectField.appendChild(projectTime);
+			newProjectField.appendChild(projectDescription);
+
+			projectsContainer.insertBefore(newProjectField, addProjectButton);
+		}
+		  document.addEventListener("DOMContentLoaded", function() {
+		        // Cho phép kéo-thả trong cột bên trái
+		        new Sortable(document.getElementById("sortable-left"), {
+		            animation: 150,
+		            group: "shared",  // Tùy chọn: Cho phép kéo-thả qua lại giữa các cột
+		            draggable: ".section",  // Các mục có thể kéo là những mục có lớp .section
+		            handle: ".section-title",  // Kéo bằng tiêu đề của phần
+		            ghostClass: "sortable-ghost"  // Thêm lớp cho phần tử đang kéo
+		        });
+
+		        // Cho phép kéo-thả trong cột bên phải
+		        new Sortable(document.getElementById("sortable-right"), {
+		            animation: 150,
+		            group: "shared",
+		            draggable: ".section",
+		            handle: ".section-title",
+		            ghostClass: "sortable-ghost"
+		        });
+		    });
 	</script>
 </body>
 </html>

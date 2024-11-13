@@ -13,11 +13,112 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+/* Modal content */
+.modal-content {
+	background-color: #fff;
+	border-radius: 8px;
+	width: 90%;
+	max-width: 400px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+}
+
+/* Modal header */
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+.modal-header h2 {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+	margin: 0;
+}
+
+/* Close button */
+.close {
+	font-size: 20px;
+	font-weight: bold;
+	color: #999;
+	cursor: pointer;
+}
+
+.close:hover {
+	color: #555;
+}
+
+/* Modal body */
+.modal-body {
+	padding: 20px;
+	font-size: 16px;
+	color: #333;
+	text-align: center;
+}
+
+/* Modal footer */
+.modal-footer {
+	padding: 15px 20px;
+	border-top: 1px solid #ddd;
+	display: flex;
+	justify-content: center;
+}
+
+/* OK Button */
+.modal-button {
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+	background-color: #45a049;
+}
+</style>
 </head>
 <body>
 	<!-- header -->
-	<%@ include file="/views/header.jsp"%>
-	<!-- /header -->
+	<%@ include file="/views/headerNoPanner.jsp"%>
+	<!-- header -->
+	
+	<c:if test="${not empty message}">
+		<div id="paymentSuccessModal" class="modal" style="display: flex;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>Thông báo</h2>
+					<span class="close" onclick="closeModal()">&times;</span>
+				</div>
+				<div class="modal-body">
+					<p>${message}</p>
+				</div>
+				<div class="modal-footer">
+					<button onclick="closeModal()" class="modal-button">OK</button>
+				</div>
+			</div>
+		</div>
+	</c:if>
 	<div class="container">
 		<br>
 		<article>
@@ -196,4 +297,10 @@
 		}
 	};
 </script>
+<script>
+    // Close modal function
+    function closeModal() {
+        document.getElementById("paymentSuccessModal").style.display = "none";
+    }
+    </script>
 </html>
