@@ -316,7 +316,7 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 		</div>
 
 		<div class="right-column">
-			<h1 contenteditable="true">OLIVIA WILSON</h1>
+			<h1 placeholder="Nhập mục tiêu nghề nghiệp" contenteditable="true">OLIVIA WILSON</h1>
 			<!-- <h2><input type="text" name="title" placeholder="Vị Tí Ứng Tuyển"></h2> -->
 
 			<div class="section">
@@ -346,6 +346,15 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 				</div>
 				<div class="add-button-container">
 					<button onclick="addProjectField()">+ Thêm Dự Án</button>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section-title">Sở Thích</div>
+				<div id="hobbies-section" class="draggable-section">
+					<input type="text" name="hobbies[]" placeholder="Nhập Sở Thích" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('hobbies-section')">+ Thêm Kỹ Năng</button>
 				</div>
 			</div>
 		</div>
@@ -396,7 +405,7 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 	<script>
     document.addEventListener("DOMContentLoaded", function () {
         // Kích hoạt kéo thả cho các phần khác nhau
-        const sections = ['education-section', 'skills-section', 'projects-section', 'certificates-section'];
+        const sections = ['education-section', 'skills-section', 'projects-section', 'certificates-section', 'hobbies-section'];
         
         sections.forEach(sectionId => {
             const section = document.getElementById(sectionId);

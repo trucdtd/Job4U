@@ -330,27 +330,33 @@ public class AdminController {
 	 */
 
 	@PostMapping("/hidePost/{jobid}")
-	public String hidePost(@PathVariable Integer jobid) {
-		// Lấy thông tin bài viết từ database
-		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
+	public String hidePost(@PathVariable Integer jobid, RedirectAttributes redirectAttributes) {
+	    // Lấy thông tin bài viết từ database
+	    JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
 
-		// Cập nhật trạng thái ẩn bài viết
-		job.setActive(false);
-		joblistingsDao.save(job);
+	    // Cập nhật trạng thái ẩn bài viết
+	    job.setActive(false);
+	    joblistingsDao.save(job);
 
-		return "redirect:/admin"; // Quay về trang admin sau khi ẩn bài viết
+	    // Thêm thông báo ẩn thành công
+	    redirectAttributes.addFlashAttribute("message", "Đã ẩn bài viết thành công!");
+	    
+	    return "redirect:/admin/detailPost/" + jobid; // Quay về trang admin
 	}
 
 	@PostMapping("/showPost/{jobid}")
-	public String showPost(@PathVariable Integer jobid) {
-		// Lấy thông tin bài viết từ database
-		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
+	public String showPost(@PathVariable Integer jobid, RedirectAttributes redirectAttributes) {
+	    // Lấy thông tin bài viết từ database
+	    JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
 
-		// Cập nhật trạng thái hiện bài viết
-		job.setActive(true);
-		joblistingsDao.save(job);
+	    // Cập nhật trạng thái hiện bài viết
+	    job.setActive(true);
+	    joblistingsDao.save(job);
 
-		return "redirect:/admin"; // Quay về trang admin sau khi hiện bài viết
+	    // Thêm thông báo hiện thành công
+	    redirectAttributes.addFlashAttribute("message", "Đã hiển thị bài viết thành công!");
+
+	    return "redirect:/admin/detailPost/" + jobid; // Quay về trang admin sau khi hiện bài viết
 	}
 
 	@GetMapping("/detailCV/{id}")

@@ -19,54 +19,62 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 
 	// 1 Tìm kiếm theo job location và industry, chỉ lấy bài viết chưa hết hạn và có trạng thái hợp lệ (isActive = true)
 	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
-			+ "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%'))) AND "
-			+ "j.applicationdeadline > CURRENT_DATE AND " + "j.active = true")
+	        + "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
+	        + "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%'))) AND "
+	        + "j.applicationdeadline > CURRENT_DATE AND "
+	        + "j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	Page<JoblistingsEntity> findByJobLocationAndIndustry(@Param("joblocation") String joblocation,
-			@Param("industry") String industry, Pageable pageable);
+	        @Param("industry") String industry, Pageable pageable);
 
 	// 2 Tìm kiếm theo job location, chỉ lấy bài viết chưa hết hạn và có trạng thái hợp lệ (isActive = true)
 	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
-			+ "j.applicationdeadline > CURRENT_DATE AND " + "j.active = true")
+	        + "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
+	        + "j.applicationdeadline > CURRENT_DATE AND "
+	        + "j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	Page<JoblistingsEntity> findByJobLocation(@Param("joblocation") String joblocation, Pageable pageable);
 
 	// 3 Tìm kiếm theo industry, chỉ lấy bài viết chưa hết hạn và có trạng thái hợp lệ (isActive = true)
 	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%'))) AND "
-			+ "j.applicationdeadline > CURRENT_DATE AND " + "j.active = true")
+	        + "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%'))) AND "
+	        + "j.applicationdeadline > CURRENT_DATE AND "
+	        + "j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	Page<JoblistingsEntity> findByIndustry(@Param("industry") String industry, Pageable pageable);
 
 	// 4 Tìm kiếm theo job title, chỉ lấy bài viết chưa hết hạn và có trạng thái hợp lệ (isActive = true)
 	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
-			+ "j.applicationdeadline > CURRENT_DATE AND " + "j.active = true")
+	        + "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
+	        + "j.applicationdeadline > CURRENT_DATE AND "
+	        + "j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	Page<JoblistingsEntity> findByJobTitle(@Param("jobtitle") String jobtitle, Pageable pageable);
-
+	
 	// 5 Tìm kiếm theo job title, location và industry, chỉ lấy bài viết chưa hết hạn và có trạng thái hợp lệ (isActive = true)
 	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
-			+ "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
-			+ "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%'))) AND "
-			+ "j.applicationdeadline > CURRENT_DATE AND " + "j.active = true")
+	        + "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
+	        + "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
+	        + "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%'))) AND "
+	        + "j.applicationdeadline > CURRENT_DATE AND "
+	        + "j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	Page<JoblistingsEntity> findByJobTitleAndJobLocationAndIndustry(@Param("jobtitle") String jobtitle,
-			@Param("joblocation") String joblocation, @Param("industry") String industry, Pageable pageable);
+	        @Param("joblocation") String joblocation, @Param("industry") String industry, Pageable pageable);
+
 
 	// 6 Tìm kiếm theo job title và location, chỉ lấy bài viết chưa hết hạn và có trạng thái hợp lệ (isActive = true)
 	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
-			+ "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
-			+ "j.applicationdeadline > CURRENT_DATE AND " + "j.active = true")
+	        + "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
+	        + "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
+	        + "j.applicationdeadline > CURRENT_DATE AND "
+	        + "j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	Page<JoblistingsEntity> findByJobTitleAndJobLocation(@Param("jobtitle") String jobtitle,
-			@Param("joblocation") String joblocation, Pageable pageable);
+	        @Param("joblocation") String joblocation, Pageable pageable);
 
 	// 7 Tìm kiếm theo job title và industry, chỉ lấy bài viết chưa hết hạn và có trạng thái hợp lệ (isActive = true)
 	@Query("SELECT j FROM JoblistingsEntity j WHERE "
-			+ "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
-			+ "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%'))) AND "
-			+ "j.applicationdeadline > CURRENT_DATE AND " + "j.active = true")
+	        + "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
+	        + "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%'))) AND "
+	        + "j.applicationdeadline > CURRENT_DATE AND "
+	        + "j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	Page<JoblistingsEntity> findByJobTitleAndIndustry(@Param("jobtitle") String jobtitle,
-			@Param("industry") String industry, Pageable pageable);
+	        @Param("industry") String industry, Pageable pageable);
 
 	// Xoá công việc theo jobid
 	void deleteByJobid(Integer jobid);
@@ -113,8 +121,12 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	// Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline,
 	// Pageable pageable);
 
-	// Phương thức truy vấn lấy tất cả các bài viết có deadline chưa hết hạn nộp hồ sơ và có trạng thái hợp lệ (isActive = true) (Trúc)
-	Page<JoblistingsEntity> findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate deadline, Pageable pageable);
+	// Phương thức truy vấn lấy tất cả các bài viết có deadline chưa hết hạn nộp hồ sơ và có trạng thái hợp lệ (isActive = true)và đưa top lên trước (Trúc)
+//	Page<JoblistingsEntity> findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate deadline, Pageable pageable);
+	@Query("SELECT j FROM JoblistingsEntity j WHERE j.applicationdeadline > :deadline AND j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
+	Page<JoblistingsEntity> findAllByApplicationdeadlineAfterAndActiveTrueOrderByIsTopAndApplicationDeadline(
+	        @Param("deadline") LocalDate deadline, Pageable pageable);
+
 
 	// Đếm số lượng bài viết có deadline sau ngày hôm nay và có trạng thái active = true (Trúc)
 	long countByApplicationdeadlineAfterAndActiveTrue(LocalDate deadline);
@@ -150,5 +162,7 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	@Query("SELECT COUNT(j) FROM JoblistingsEntity j WHERE j.employer.employerid = :employerId AND j.posteddate BETWEEN :startDate AND :endDate")
 	int countJobsByEmployerIdAndDateRange(@Param("employerId") Integer employerId,
 			@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
+	
+	@Query("SELECT COUNT(j.jobid) FROM JoblistingsEntity j WHERE j.posteddate >= :startDate AND j.posteddate <= :endDate")
+	Long countJobStartDateEndDate(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

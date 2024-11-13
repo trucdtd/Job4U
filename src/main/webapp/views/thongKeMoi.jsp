@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Thống Kê</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <link rel="stylesheet"
@@ -18,27 +18,47 @@
 <link rel="stylesheet" href="/css/thongke.css">
 </head>
 <body>
-	<div class="container mt-5">
+	<div class="container mt-3">
 		<section class="section dashboard">
 			<div class="row">
 				<!-- Title Section -->
-				<div class="col-12 mb-4">
+				<div class="col-12 mb-2">
 					<h1>Thống Kê Hệ Thống</h1>
+				</div>
+				<div class="container mb-2">
+					<form action="/thongke" method="post" class="d-flex pt-3 rounded-3">
+						<div class="mb-3 me-2">
+							<input type="date" class="form-control" name="startdate" id=""
+								aria-describedby="helpId" placeholder="" />
+						</div>
+						<div class="mb-3 me-3">
+							<input type="date" class="form-control" name="enddate" id=""
+								aria-describedby="helpId" placeholder="" />
+						</div>
+						<div class="mb-3 me-2">
+							<button type="submit" class="btn btn-success">Thống kê</button>
+						</div>
+						<div class="mb-3">
+							<button type="button" class="btn btn-warning">Làm mới</button>
+						</div>
+
+					</form>
 				</div>
 				<div class="row text-center">
 					<!-- Sales Card -->
 					<div class="col-xxl-4 col-md-6 mb-4">
-						<div class="card info-card sales-card shadow-sm">
+						<div class="card info-card sales-card shadow border-0">
 							<div class="card-body">
 								<h5 class="card-title">
-									Bài Viết <br> <small class="text-muted">
-										<div class="d-flex align-items-center">
+									Bài Viết <br>
+									<!--<small class="text-muted">
+										<!-- <div class="d-flex align-items-center">
 											<input type="date" id="post-start-date"
 												class="form-control me-2" style="width: 150px;"> <input
 												type="date" id="post-end-date" class="form-control"
 												style="width: 150px;">
-										</div>
-									</small>
+										</div> -->
+									<!-- </small> -->
 								</h5>
 								<div class="d-flex align-items-center justify-content-center">
 									<div
@@ -46,25 +66,26 @@
 										<i class="bi bi-file-text"></i>
 									</div>
 									<div class="ps-3">
-										<h6 id="post-count">${postToday}</h6>
+										<h6 id="post-count">${countJoblisting}</h6>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-xxl-4 col-md-6 mb-4">
-						<div class="card info-card customers-card shadow-sm">
+					<div class="col-xxl-4 col-md-6 mb-2">
+						<div class="card info-card customers-card shadow border-0">
 							<div class="card-body">
 								<h5 class="card-title">
-									Người Dùng <br> <small class="text-muted">
+									Người Dùng <br>
+									<!-- <small class="text-muted">
 										<div class="d-flex align-items-center">
 											<input type="date" id="user-start-date"
 												class="form-control me-2" style="width: 150px;"> <input
 												type="date" id="user-end-date" class="form-control"
 												style="width: 150px;">
 										</div>
-									</small>
+									</small> -->
 								</h5>
 								<div class="d-flex align-items-center justify-content-center">
 									<div
@@ -72,25 +93,26 @@
 										<i class="bi bi-people"></i>
 									</div>
 									<div class="ps-3">
-										<h6 id="user-count">${usersToday}</h6>
+										<h6 id="user-count">${countUser}</h6>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-xxl-4 col-md-6 mb-4">
-						<div class="card info-card sales-card shadow-sm">
+					<div class="col-xxl-4 col-md-6 mb-2">
+						<div class="card info-card sales-card shadow border-0">
 							<div class="card-body">
 								<h5 class="card-title">
-									Dịch Vụ <br> <small class="text-muted">
+									Dịch Vụ <br>
+									<!--  <small class="text-muted">
 										<div class="d-flex align-items-center">
 											<input type="date" id="service-start-date"
 												class="form-control me-2" style="width: 150px;"> <input
 												type="date" id="service-end-date" class="form-control"
 												style="width: 150px;">
 										</div>
-									</small>
+									</small> -->
 								</h5>
 								<div class="d-flex align-items-center justify-content-center">
 									<div
@@ -98,7 +120,7 @@
 										<i class="bi bi-cart" style="color: green;"></i>
 									</div>
 									<div class="ps-3">
-										<h6 id="sales-count">${serviceToday}</h6>
+										<h6 id="sales-count">${countService}</h6>
 									</div>
 								</div>
 							</div>
@@ -107,7 +129,7 @@
 
 					<!-- Table for Sold Services -->
 					<div class="col-12">
-						<div class="card recent-sales shadow-sm">
+						<div class="card recent-sales shadow border-0">
 							<div class="card-body">
 								<h5 class="card-title">Dịch Vụ Đã Bán</h5>
 								<table id="tkTable" class="table table-borderless datatable">
@@ -161,7 +183,6 @@
 		</section>
 	</div>
 	<!-- footer -->
-	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>

@@ -36,6 +36,7 @@ public class PaymentsEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ServiceID", referencedColumnName = "ServiceID", nullable = false)
 	private ServicesEntity service;
+	
 	@NotNull
 	@Column(name = "Amount", nullable = false)
 	private BigDecimal amount;
