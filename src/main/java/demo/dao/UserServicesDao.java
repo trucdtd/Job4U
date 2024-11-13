@@ -28,7 +28,7 @@ public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integ
 	@Query("SELECT u FROM UserServicesEntity u WHERE u.user = :user")
 	List<UserServicesEntity> findByUser(@Param("user") UsersEntity user);
 
-
+	
     
  // Phương thức cập nhật các dịch vụ đã hết hạn
 	/*
@@ -39,5 +39,10 @@ public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integ
 	 * @Query("UPDATE UserServicesEntity u SET u.status = 'EXPIRED' WHERE u.expiryDate <= :expiryDate"
 	 * ) void updateExpiredServices(@Param("expiryDate") LocalDateTime expiryDate);
 	 */
+	@Query("SELECT COUNT(j.userserviceid) FROM UserServicesEntity j WHERE j.purchasedate >= :startDate AND j.purchasedate <= :endDate")
+	Long countUSStartDateEndDate(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
+	@Query("SELECT j FROM UserServicesEntity j WHERE j.purchasedate >= :startDate AND j.purchasedate <= :endDate")
+	List<UserServicesEntity> selectUSStartDateEndDateList(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
 }
