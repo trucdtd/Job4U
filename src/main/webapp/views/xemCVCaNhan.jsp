@@ -356,7 +356,7 @@ p {
 
 			</div>
 		</form>
-
+</div>
 
 
 		<!-- footer -->
