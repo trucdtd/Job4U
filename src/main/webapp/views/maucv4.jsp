@@ -188,12 +188,12 @@
 
                 <!-- Right Column -->
                 <div class="right-column" id="sortable-right">
-                    <div class="section" data-id="3">
+                    <div class="section">
                         <div class="section-title">Mục Tiêu Nghề Nghiệp</div>
                         <textarea name="career-objective" placeholder="Mục tiêu nghề nghiệp của bạn..." required></textarea>
                     </div>
 
-                    <div class="section" data-id="4">
+                    <div class="section" >
                         <div class="section-title">Học Vấn</div>
                         <div id="education">
                             <input type="text" name="education[]" placeholder="Thêm học vấn" required>
@@ -201,7 +201,7 @@
                         <button type="button" onclick="addEducation()">+ Thêm học vấn</button>
                     </div>
 
-                    <div class="section" data-id="5">
+                    <div class="section" >
                         <div class="section-title">Kinh Nghiệm Làm Việc</div>
                         <div id="experience">
                             <input type="text" name="experience[]" placeholder="Tên Dự Án" required>
@@ -211,7 +211,7 @@
                         <button type="button" onclick="addExperience()">+ Thêm công việc</button>
                     </div>
 
-                    <div class="section" data-id="6">
+                    <div class="section" >
                         <h2 class="section-title">Sở Thích</h2>
                         <div id="hobbies">
                             <input type="text" name="hobbies[]" placeholder="Thêm sở thích" required>
@@ -293,18 +293,24 @@
             hobbiesDiv.appendChild(input);
         }
 
-        // Make sections sortable
-        document.addEventListener("DOMContentLoaded", function() {
-            Sortable.create(document.getElementById('sortable-left'), {
+     // Enable drag-and-drop functionality for sections in both columns
+        document.addEventListener("DOMContentLoaded", function () {
+            // Enable dragging within left column
+            new Sortable(document.getElementById("sortable-left"), {
                 animation: 150,
-                ghostClass: 'sortable-ghost',
-                handle: '.section-title', // Only allow dragging by the section title
+                group: "shared",
+                draggable: ".section",
+                handle: ".section-title",
+                ghostClass: "sortable-ghost"
             });
 
-            Sortable.create(document.getElementById('sortable-right'), {
+            // Enable dragging within right column
+            new Sortable(document.getElementById("sortable-right"), {
                 animation: 150,
-                ghostClass: 'sortable-ghost',
-                handle: '.section-title', // Only allow dragging by the section title
+                group: "shared",
+                draggable: ".section",
+                handle: ".section-title",
+                ghostClass: "sortable-ghost"
             });
         });
     </script>
