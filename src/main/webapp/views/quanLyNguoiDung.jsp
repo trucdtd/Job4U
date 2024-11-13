@@ -305,6 +305,7 @@
 											<th scope="col">ID</th>
 											<th scope="col">Tên Dịch Vụ</th>
 											<th scope="col">Giá</th>
+											<th scope="col">Ngày chạy dịch vụ</th>
 											<th scope="col">Ngày Tạo</th>
 											<th scope="col">Hành Động</th>
 
@@ -316,6 +317,7 @@
 												<th scope="row">${dv.serviceid}</th>
 												<td>${dv.servicename}</td>
 												<td class="price">${dv.price}</td>
+												<td>${dv.durationindays}</td>
 												<td>${dv.createdat}</td>
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
@@ -361,6 +363,13 @@
 											type="text" id="numberofjobsallowed" name="numberofjobsallowed" >
 									</div>
 									<div class="col-md-6">
+										<label for="contactperson">Thời gian chạy dịch vụ: </label> <input
+											class="form-control" type="text" id="durationindays"
+											name="durationindays" >
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-md-12">
 										<label for="contactperson">Mô Tả:</label> <input
 											class="form-control" type="text" id="description"
 											name="description" >

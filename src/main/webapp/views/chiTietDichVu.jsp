@@ -60,6 +60,13 @@
 											value="${dv.numberofjobsallowed}" >
 									</div>
 							<div class="col-md-6">
+								<label for="contactperson">Ngày chạy dịch vụ</label> <input
+									class="form-control" type="text" id="durationindays"
+									name="durationindays" value="${dv.durationindays}">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-12">
 								<label for="contactperson">Mô Tả:</label> <input
 									class="form-control" type="text" id="description"
 									name="description" value="${dv.description}">
