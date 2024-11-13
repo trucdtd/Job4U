@@ -344,7 +344,7 @@
 								<!-- Job ID and Deadline -->
 								<div class="row mb-3">
 									<div class="col-md-6">
-										<label for="applicationdeadline">Tên Dịch Vụ:</label> <input
+										<label for="">Tên Dịch Vụ:</label> <input
 											class="form-control" type="text" id="servicename"
 											name="servicename" >
 									</div>
@@ -356,7 +356,11 @@
 
 								<!-- Job Type and Description -->
 								<div class="row mb-3">
-									<div class="col-md-12">
+								<div class="col-md-6">
+										<label for="">Số lượng bài viết</label> <input class="form-control"
+											type="text" id="numberofjobsallowed" name="numberofjobsallowed" >
+									</div>
+									<div class="col-md-6">
 										<label for="contactperson">Mô Tả:</label> <input
 											class="form-control" type="text" id="description"
 											name="description" >

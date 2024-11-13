@@ -176,84 +176,90 @@
 	</div>
 
 	<script>
-let selectedService = {};
-let jobIdSelected = null;
+	let selectedService = {};
+	let jobIdSelected = null;
 
-function openJobSelectionModal(serviceName, servicePrice, serviceDescription, serviceId) {
-    selectedService = { serviceName, servicePrice, serviceDescription, serviceId };
-    
-    if (serviceId === 4) {
-        // Nếu là gói "Lên Top" (serviceId = 4), yêu cầu chọn bài viết
-        document.getElementById('jobSelectionModal').style.display = 'flex';
-    } else {
-        // Nếu không phải là gói "Lên Top", hiện modal thanh toán trực tiếp
-        document.getElementById('paymentModal').style.display = 'flex';
-        
-        // Cập nhật thông tin dịch vụ trong modal thanh toán
-        document.getElementById('serviceName').innerText = selectedService.serviceName;
-        document.getElementById('serviceId').value = parseInt(selectedService.serviceId);
-        document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(selectedService.servicePrice);
-        document.getElementById('serviceDescription').innerText = selectedService.serviceDescription;
-        
-        // Đặt jobId là trống vì không cần chọn bài viết
-        document.getElementById('jobId').value = ""; 
-        document.getElementById('servicePriceInput').value = selectedService.servicePrice;
-        jobIdSelected = null; // Đặt jobIdSelected là null để không yêu cầu bài viết khi thanh toán
-    }
-    
-}
+	function openJobSelectionModal(serviceName, servicePrice, serviceDescription, serviceId) {
+	    selectedService = { serviceName, servicePrice, serviceDescription, serviceId };
+	    
+	    if (serviceId === 4) {
+	        // Nếu là gói "Lên Top" (serviceId = 4), yêu cầu chọn bài viết
+	        document.getElementById('jobSelectionModal').style.display = 'flex';
+	    } else {
+	        // Nếu không phải là gói "Lên Top", hiển thị modal thanh toán trực tiếp
+	        openPaymentModal();
+	    }
+	}
 
+	function openPaymentModal() {
+	    // Hiển thị modal thanh toán
+	    document.getElementById('paymentModal').style.display = 'flex';
+	    
+	    // Cập nhật thông tin dịch vụ trong modal thanh toán
+	    document.getElementById('serviceName').innerText = selectedService.serviceName;
+	    document.getElementById('serviceId').value = parseInt(selectedService.serviceId);
+	    document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
+	        style: 'currency',
+	        currency: 'VND'
+	    }).format(selectedService.servicePrice);
+	    document.getElementById('serviceDescription').innerText = selectedService.serviceDescription;
+	    
+	    // Nếu không chọn bài viết, đặt jobId là trống
+	    document.getElementById('jobId').value = jobIdSelected || ""; 
+	    document.getElementById('servicePriceInput').value = selectedService.servicePrice;
+	}
 
-function closeJobSelectionModal() {
-    document.getElementById('jobSelectionModal').style.display = 'none';
-}
+	function closeJobSelectionModal() {
+	    document.getElementById('jobSelectionModal').style.display = 'none';
+	}
 
-function selectJobPost(job) {
-    closeJobSelectionModal();
-    document.getElementById('paymentModal').style.display = 'flex';
+	function selectJobPost(job) {
+	    closeJobSelectionModal();
+	    jobIdSelected = job.jobid; // Cập nhật jobIdSelected từ bài viết được chọn
 
-    document.getElementById('serviceName').innerText = selectedService.serviceName;
-    document.getElementById('serviceId').value = parseInt(selectedService.serviceId);
-    document.getElementById('servicePrice').innerText = new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND'
-    }).format(selectedService.servicePrice);
-    document.getElementById('serviceDescription').innerText = selectedService.serviceDescription;
-    document.getElementById('jobIdSelected').innerText = job.jobid;
+	    openPaymentModal();
+	    
+	    // Hiển thị jobId đã chọn
+	    document.getElementById('jobIdSelected').innerText = jobIdSelected;
+	    
+	    // Cập nhật giá trị cho hidden input
+	    document.getElementById('jobId').value = jobIdSelected;
+	}
 
-    // Cập nhật giá trị cho hidden input
-    document.getElementById('jobId').value = job.jobid;
-    document.getElementById('servicePriceInput').value = selectedService.servicePrice;
-    jobIdSelected = job.jobid; // Cập nhật jobIdSelected để kiểm tra khi submit
-}
+	window.addEventListener('click', (event) => {
+	    const paymentModal = document.getElementById('paymentModal');
+	    const jobSelectionModal = document.getElementById('jobSelectionModal');
 
-//Đóng modal khi nhấn vào dấu X hoặc vùng bên ngoài modal
-window.addEventListener('click', (event) => {
-    if (event.target === paymentModal) {
-    	closePaymentModal();
-    }
-});
+	    if (event.target === paymentModal) {
+	        closePaymentModal();
+	    } else if (event.target === jobSelectionModal) {
+	        closeJobSelectionModal();
+	    }
+	});
 
-function closePaymentModal() {
-    document.getElementById('paymentModal').style.display = 'none';
-}
+	function closePaymentModal() {
+	    document.getElementById('paymentModal').style.display = 'none';
+	    
+	    // Reset lại jobIdSelected và các trường liên quan
+	    jobIdSelected = null;
+	    document.getElementById('jobId').value = "";
+	    document.getElementById('jobIdSelected').innerText = "";
+	}
 
-function submitPayment() {
-    // Lấy giá trị từ element servicePrice và chuyển đổi thành số
-    const servicePriceFormatted = document.getElementById("servicePrice").innerText.replace(/[^\d.-]/g, ''); // loại bỏ ký tự không phải số
-    document.getElementById("servicePriceInput").value = parseFloat(servicePriceFormatted); // Chuyển đổi sang số thực
+	function submitPayment() {
+	    // Chuyển đổi giá trị servicePrice thành số thực
+	    const servicePriceFormatted = document.getElementById("servicePrice").innerText.replace(/[^\d.-]/g, '');
+	    document.getElementById("servicePriceInput").value = parseFloat(servicePriceFormatted);
 
-    // Chỉ cần lấy giá trị từ các hidden input mà không cần sử dụng getAttribute
-    document.getElementById("serviceId").value = selectedService.serviceId;
-    document.getElementById("jobId").value = jobIdSelected; // jobId đã được cập nhật trong selectJobPost
-    document.getElementById("userId").value = document.getElementById("userId").value; // userId đã được thiết lập trước đó
+	    // Đảm bảo các hidden input có giá trị chính xác trước khi submit
+	    document.getElementById("serviceId").value = selectedService.serviceId;
+	    document.getElementById("jobId").value = jobIdSelected || ""; // Nếu không có jobId thì để trống
+	    document.getElementById("userId").value = document.getElementById("userId").value;
 
-    // Submit the form after setting values
-    document.querySelector(".payment-form").submit();
-}
+	    // Submit form sau khi thiết lập các giá trị
+	    document.querySelector(".payment-form").submit();
+	}
+
 </script>
 </body>
 </html>

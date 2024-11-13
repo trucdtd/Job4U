@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -179,8 +179,6 @@
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<form class="p-2" action="/employers" method="get"
-							id="nhaTuyenDung">
 							<div class="table-responsive">
 								<table id="myTable" class="table align-items-center">
 									<thead class="thead-light">
@@ -264,7 +262,7 @@
 									</tbody>
 								</table>
 							</div>
-						</form>
+
 					</div>
 				</div>
 

@@ -54,7 +54,12 @@
 						<!-- Job Type and Description -->
 
 						<div class="row mb-3">
-							<div class="col-md-12">
+							<div class="col-md-6">
+										<label for="">Số lượng bài viết</label> <input class="form-control"
+											type="text" id="numberofjobsallowed" name="numberofjobsallowed"
+											value="${dv.numberofjobsallowed}" >
+									</div>
+							<div class="col-md-6">
 								<label for="contactperson">Mô Tả:</label> <input
 									class="form-control" type="text" id="description"
 									name="description" value="${dv.description}">
