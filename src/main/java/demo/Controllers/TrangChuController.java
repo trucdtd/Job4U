@@ -110,27 +110,55 @@ public class TrangChuController {
 						&& !"All".equalsIgnoreCase(joblocation.get())) {
 					dsSP = danhSachViecLamDao.findByJobTitleAndJobLocationAndIndustry(jobtitle.get(), joblocation.get(),
 							industry.get(), pageable);
+					// lay ngau nhien bai viet da mua dich vu len top
+					List<JoblistingsEntity> top20 = jlsDAO.findTop20();
+					Collections.shuffle(top20);
+					model.addAttribute("latestJobs", top20);
 				} else {
 					dsSP = danhSachViecLamDao.findByJobTitleAndIndustry(jobtitle.get(), industry.get(), pageable);
+					// lay ngau nhien bai viet da mua dich vu len top
+					List<JoblistingsEntity> top20 = jlsDAO.findTop20();
+					Collections.shuffle(top20);
+					model.addAttribute("latestJobs", top20);
 				}
 			} else if (joblocation.isPresent() && !joblocation.get().isEmpty()
 					&& !"All".equalsIgnoreCase(joblocation.get())) {
 				dsSP = danhSachViecLamDao.findByJobTitleAndJobLocation(jobtitle.get(), joblocation.get(), pageable);
 			} else {
 				dsSP = danhSachViecLamDao.findByJobTitle(jobtitle.get(), pageable);
+				// lay ngau nhien bai viet da mua dich vu len top
+				List<JoblistingsEntity> top20 = jlsDAO.findTop20();
+				Collections.shuffle(top20);
+				model.addAttribute("latestJobs", top20);
 			}
 		} else if (industry.isPresent() && !industry.get().isEmpty()) {
 			if (joblocation.isPresent() && !joblocation.get().isEmpty() && !"All".equalsIgnoreCase(joblocation.get())) {
 				dsSP = danhSachViecLamDao.findByJobLocationAndIndustry(joblocation.get(), industry.get(), pageable);
+				// lay ngau nhien bai viet da mua dich vu len top
+				List<JoblistingsEntity> top20 = jlsDAO.findTop20();
+				Collections.shuffle(top20);
+				model.addAttribute("latestJobs", top20);
 			} else {
 				dsSP = danhSachViecLamDao.findByIndustry(industry.get(), pageable);
+				// lay ngau nhien bai viet da mua dich vu len top
+				List<JoblistingsEntity> top20 = jlsDAO.findTop20();
+				Collections.shuffle(top20);
+				model.addAttribute("latestJobs", top20);
 			}
 		} else if (joblocation.isPresent() && !joblocation.get().isEmpty()
 				&& !"All".equalsIgnoreCase(joblocation.get())) {
 			dsSP = danhSachViecLamDao.findByJobLocation(joblocation.get(), pageable);
+			// lay ngau nhien bai viet da mua dich vu len top
+			List<JoblistingsEntity> top20 = jlsDAO.findTop20();
+			Collections.shuffle(top20);
+			model.addAttribute("latestJobs", top20);
 		} else {
 			dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrueOrderByIsTopAndApplicationDeadline(
 					LocalDate.now(), pageable);
+			// lay ngau nhien bai viet da mua dich vu len top
+			List<JoblistingsEntity> top20 = jlsDAO.findTop20();
+			Collections.shuffle(top20);
+			model.addAttribute("latestJobs", top20);
 		}
 
 		// Kiểm tra nếu không có kết quả
