@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -179,89 +179,89 @@
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-						<div class="table-responsive">
-							<table id="myTable" class="table align-items-center">
-								<thead class="thead-light">
-									<tr>
-										<th scope="col">Tên Công Việc</th>
-										<th scope="col">Vị Trí</th>
-										<th scope="col">Lương</th>
-										<th scope="col">Loại Công Việc</th>
-										<th scope="col">Ngày Đăng</th>
-										<!-- <th scope="col">Trạng Thái</th> -->
-										<th scope="col">Hành Động</th>
-										<th scope="col">Xem CV</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${jobPostings}" var="job">
-										<tr data-jobid="${job.jobid}">
-											<td>${job.jobtitle}</td>
-											<td>${job.joblocation}</td>
-											<td><c:choose>
-													<c:when test="${not empty job.salary}">
-														<span style="display: inline-flex; align-items: center;">
-															${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
-															VND </span>
-													</c:when>
-													<c:otherwise>
+							<div class="table-responsive">
+								<table id="myTable" class="table align-items-center">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">Tên Công Việc</th>
+											<th scope="col">Vị Trí</th>
+											<th scope="col">Lương</th>
+											<th scope="col">Loại Công Việc</th>
+											<th scope="col">Ngày Đăng</th>
+											<!-- <th scope="col">Trạng Thái</th> -->
+											<th scope="col">Hành Động</th>
+											<th scope="col">Xem CV</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${jobPostings}" var="job">
+											<tr data-jobid="${job.jobid}">
+												<td>${job.jobtitle}</td>
+												<td>${job.joblocation}</td>
+												<td><c:choose>
+														<c:when test="${not empty job.salary}">
+															<span style="display: inline-flex; align-items: center;">
+																${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+																VND </span>
+														</c:when>
+														<c:otherwise>
 												            Thỏa Thuận
 												        </c:otherwise>
-												</c:choose></td>
-											<td>${job.jobtype}</td>
-											<td class="formatted-date" data-date="${job.posteddate}"></td>
-											<%-- <td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td> --%>
-											<td>
-												<div class="d-flex align-items-center">
-													<button type="button" class="btn btn-sm btn-edit me-2"
-														title="Chỉnh sửa" data-jobid="${job.jobid}"
-														data-jobtitle="${job.jobtitle}"
-														data-joblocation="${job.joblocation}"
-														data-jobdescription="${job.jobdescription}"
-														data-jobrequirements="${job.jobrequirements}"
-														data-salary="${job.salary}" data-jobtype="${job.jobtype}"
-														data-posteddate="${job.posteddate}"
-														data-applicationdeadline="${job.applicationdeadline}">
-														<img alt="Chỉnh sửa" src="/img/icons8-edit-50.png"
-															height="25px" width="25px" />
-													</button>
-													<form action="/employers/delete" method="post"
-														style="display: inline;"
-														onsubmit="return confirmDelete();">
-														<input type="hidden" name="jobId" value="${job.jobid}">
-														<button type="submit" class="btn btn-sm" title="Xóa">
-															<img alt="Xóa" src="/img/icons8-delete-50.png"
+													</c:choose></td>
+												<td>${job.jobtype}</td>
+												<td class="formatted-date" data-date="${job.posteddate}"></td>
+												<%-- <td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td> --%>
+												<td>
+													<div class="d-flex align-items-center">
+														<button type="button" class="btn btn-sm btn-edit me-2"
+															title="Chỉnh sửa" data-jobid="${job.jobid}"
+															data-jobtitle="${job.jobtitle}"
+															data-joblocation="${job.joblocation}"
+															data-jobdescription="${job.jobdescription}"
+															data-jobrequirements="${job.jobrequirements}"
+															data-salary="${job.salary}" data-jobtype="${job.jobtype}"
+															data-posteddate="${job.posteddate}"
+															data-applicationdeadline="${job.applicationdeadline}">
+															<img alt="Chỉnh sửa" src="/img/icons8-edit-50.png"
 																height="25px" width="25px" />
 														</button>
+														<form action="/employers/delete" method="post"
+															style="display: inline;"
+															onsubmit="return confirmDelete();">
+															<input type="hidden" name="jobId" value="${job.jobid}">
+															<button type="submit" class="btn btn-sm" title="Xóa">
+																<img alt="Xóa" src="/img/icons8-delete-50.png"
+																	height="25px" width="25px" />
+															</button>
+														</form>
+														<!-- Nút mua dịch vụ lên top -->
+														<button type="button" class="btn btn-sm btn-mua"
+															title="Mua" data-jobid="${job.jobid}">
+															<img alt="Mua" src="/img/icons8-pin-50.png" height="25px"
+																width="25px">
+														</button>
+														<!-- Nút mua dịch vụ lên top -->
+													</div>
+												</td>
+												<!-- XEM CV -->
+												<td>
+													<form action="/employers/xemcv" method="get">
+														<!-- Chuyển từ POST sang GET -->
+														<!-- Ẩn input để truyền jobId vào request -->
+														<input type="hidden" name="jobId" value="${job.jobid}">
+														<button type="submit" class="btn btn-sm btn-detail"
+															title="Xem CV">
+															<img alt="Xem CV" src="/img/icons8-eye-48.png"
+																height="25px">
+														</button>
 													</form>
-													<!-- Nút mua dịch vụ lên top -->
-													<button type="button" class="btn btn-sm btn-mua"
-														title="Mua" data-jobidmua="${job.jobid}">
-														<img alt="Mua" src="/img/icons8-pin-50.png" height="25px"
-															width="25px">
-													</button>
-													<!-- Nút mua dịch vụ lên top -->
-												</div>
-											</td>
-											<!-- XEM CV -->
-											<td>
-												<form action="/employers/xemcv" method="get">
-													<!-- Chuyển từ POST sang GET -->
-													<!-- Ẩn input để truyền jobId vào request -->
-													<input type="hidden" name="jobId" value="${job.jobid}">
-													<button type="submit" class="btn btn-sm btn-detail"
-														title="Xem CV">
-														<img alt="Xem CV" src="/img/icons8-eye-48.png"
-															height="25px">
-													</button>
-												</form>
-											</td>
-											<!-- XEM CV -->
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
+												</td>
+												<!-- XEM CV -->
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
 
 					</div>
 				</div>
@@ -568,41 +568,39 @@
 		</div>
 
 		<!-- Modal Thanh Toán -->
-		<div id="paymentModalghim" class="modal" style="display: none;">
-			<div class="modal-content">
-				<span class="close" onclick="closePaymentModalghim()">&times;</span>
-				<div class="payment-container">
-					<div class="payment-summary">
-						<h3>Tóm tắt thanh toán</h3>
-						<ul>
-							<li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
-							<li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
-						</ul>
-						<div class="total-price">
-							<h2>Tổng Tiền</h2>
-							<h1>75.000 ₫</h1>
-							<p>Ghim Bài đăng lên top những công việc hàng đầu trong 3
-								ngày.</p>
-						</div>
-					</div>
-					<form action="/employers/pay" method="post" class="payment-form">
-						<input type="hidden" name="servicePrice" id="servicePriceInput"
-							value="75000"> <input type="hidden" name="serviceId"
-							id="serviceId" value="4"> <input type="hidden"
-							name="jobId" id="jobId">
-						<!-- Input ẩn để lưu jobId -->
-						<input type="hidden" name="userId" id="userId" value="${userId}">
-						<div class="payment-methods">
-							<button class="momo2-btn" type="submit">
-								<img src="/img/vnpay.png">
-							</button>
-						</div>
-						<button class="submit-btn" style="background: #198754"
-							type="submit">Thanh Toán</button>
-					</form>
-				</div>
-			</div>
-		</div>
+<div id="paymentModalghim" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closePaymentModalghim()">&times;</span>
+        <div class="payment-container">
+            <div class="payment-summary">
+                <h3>Tóm tắt thanh toán</h3>
+                <ul>
+                    <li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
+                    <li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>  <!-- Hiển thị Job ID -->
+                </ul>
+                <div class="total-price">
+                    <h2>Tổng Tiền</h2>
+                    <h1>75.000 ₫</h1>
+                    <p>Ghim Bài đăng lên top những công việc hàng đầu trong 3 ngày.</p>
+                </div>
+            </div>
+            <form action="/employers/pay" method="post" class="payment-form">
+                <input type="hidden" name="servicePrice" id="servicePriceInput" value="75000">
+                <input type="hidden" name="serviceId" id="serviceId" value="4">
+                <input type="hidden" name="jobId" id="jobId" value="${jobid}">
+
+                <input type="hidden" name="userId" id="userId" value="${userId}">
+                <div class="payment-methods">
+                    <button class="momo2-btn" type="submit">
+                        <img src="/img/vnpay.png">
+                    </button>
+                </div>
+                <button class="submit-btn" style="background: #198754" type="submit">Thanh Toán</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -869,51 +867,46 @@ document.getElementById('logo').addEventListener('change', function(event) {
         document.getElementById("paymentSuccessModal").style.display = "none";
     }
     
+    function closePaymentModalghim() {
+        document.getElementById('paymentModalghim').style.display = 'none';
+    }
+    
     document.addEventListener('DOMContentLoaded', () => {
-        const buyButtons = document.querySelectorAll('.btn-mua');
-        const paymentModal = document.getElementById('paymentModalghim');
-        const jobIdDisplay = document.getElementById('jobIdDisplay');
-        const jobIdInputHidden = document.getElementById('jobId');
-        const paymentForm = document.querySelector('.payment-form');
+        const buyButtons = document.querySelectorAll('.btn-mua');  // Các nút "Mua"
+        const paymentModal = document.getElementById('paymentModalghim');  // Modal thanh toán
+        const jobIdDisplay = document.getElementById('jobIdDisplay');  // Hiển thị jobId trong modal
+        const jobIdInputHidden = document.getElementById('jobId');  // Input hidden trong form
 
+        // Lặp qua các nút "Mua"
         buyButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const jobId = button.getAttribute('data-jobidmua'); // Lấy jobId từ thuộc tính của nút
-                if (jobId) {
-                    jobIdInputHidden.value = jobId; // Gán giá trị jobId vào input hidden trong form
-                    jobIdDisplay.textContent = jobId; // Hiển thị jobId trên modal
-                    paymentModal.style.display = 'block'; // Hiển thị modal
-                    console.log("Đã gán jobId vào input hidden:", jobIdInputHidden.value);
-                } else {
-                    console.error("Không thể lấy Job ID từ nút.");
-                }
-            });
+    button.addEventListener('click', () => {
+        const jobId = button.getAttribute('data-jobid');
+        console.log("Job ID from button click:", jobId); // Kiểm tra jobId trong console
+        
+        if (jobId) {
+            jobIdInputHidden.value = jobId;  // Gán jobId vào input hidden
+            jobIdDisplay.textContent = jobId; // Hiển thị jobId trong modal
+            paymentModal.style.display = 'block'; // Hiển thị modal
+        } else {
+            console.error("Không thể lấy Job ID từ nút.");
+        }
+    });
+});
+
+        // Đóng modal khi nhấn nút đóng
+        document.querySelector('.close').addEventListener('click', () => {
+            paymentModal.style.display = 'none';
         });
 
-        paymentForm.addEventListener('submit', (event) => {
-            // Kiểm tra nếu jobId đã được gán đúng
-            if (!jobIdInputHidden.value) {
-                event.preventDefault();
-                console.error("Job ID không được gán. Dừng submit.");
-            } else {
-                console.log("Đã sẵn sàng submit với Job ID:", jobIdInputHidden.value);
-            }
-        });
-
+        // Đóng modal khi nhấn ngoài modal
         window.addEventListener('click', (event) => {
             if (event.target === paymentModal) {
-                closePaymentModalghim();
+                paymentModal.style.display = 'none';
             }
         });
     });
 
-    function closePaymentModalghim() {
-        const paymentModal = document.getElementById('paymentModalghim');
-        paymentModal.style.display = 'none';
-    }
-
-
-
+    
 
 </script>
 	<script
