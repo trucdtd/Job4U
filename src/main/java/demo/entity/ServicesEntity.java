@@ -41,12 +41,12 @@ public class ServicesEntity implements Serializable {
 	private Integer numberofjobsallowed;
 	
 	@NotNull
-	@Column(name = "durationindays") // thời hạn tính bằng tháng hoặc ngày
-    private Integer durationindays;
-	
-	@NotNull
 	@Column(name = "createdat", nullable = false)
 	private LocalDate createdat;
+	
+	@NotNull
+	@Column(name = "durationindays") // thời hạn tính bằng ngày
+    private Integer durationindays;
 
 	@NotNull
 	@Column(name = "updatedat", nullable = false)
