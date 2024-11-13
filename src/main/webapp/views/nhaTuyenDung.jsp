@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -179,89 +179,89 @@ pageEncoding="UTF-8"%>
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
 					<div class="card-body p-0">
-							<div class="table-responsive">
-								<table id="myTable" class="table align-items-center">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">Tên Công Việc</th>
-											<th scope="col">Vị Trí</th>
-											<th scope="col">Lương</th>
-											<th scope="col">Loại Công Việc</th>
-											<th scope="col">Ngày Đăng</th>
-											<!-- <th scope="col">Trạng Thái</th> -->
-											<th scope="col">Hành Động</th>
-											<th scope="col">Xem CV</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${jobPostings}" var="job">
-											<tr data-jobid="${job.jobid}">
-												<td>${job.jobtitle}</td>
-												<td>${job.joblocation}</td>
-												<td><c:choose>
-														<c:when test="${not empty job.salary}">
-															<span style="display: inline-flex; align-items: center;">
-																${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
-																VND </span>
-														</c:when>
-														<c:otherwise>
+						<div class="table-responsive">
+							<table id="myTable" class="table align-items-center">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col">Tên Công Việc</th>
+										<th scope="col">Vị Trí</th>
+										<th scope="col">Lương</th>
+										<th scope="col">Loại Công Việc</th>
+										<th scope="col">Ngày Đăng</th>
+										<!-- <th scope="col">Trạng Thái</th> -->
+										<th scope="col">Hành Động</th>
+										<th scope="col">Xem CV</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${jobPostings}" var="job">
+										<tr data-jobid="${job.jobid}">
+											<td>${job.jobtitle}</td>
+											<td>${job.joblocation}</td>
+											<td><c:choose>
+													<c:when test="${not empty job.salary}">
+														<span style="display: inline-flex; align-items: center;">
+															${job.salary.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+															VND </span>
+													</c:when>
+													<c:otherwise>
 												            Thỏa Thuận
 												        </c:otherwise>
-													</c:choose></td>
-												<td>${job.jobtype}</td>
-												<td class="formatted-date" data-date="${job.posteddate}"></td>
-												<%-- <td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td> --%>
-												<td>
-													<div class="d-flex align-items-center">
-														<button type="button" class="btn btn-sm btn-edit me-2"
-															title="Chỉnh sửa" data-jobid="${job.jobid}"
-															data-jobtitle="${job.jobtitle}"
-															data-joblocation="${job.joblocation}"
-															data-jobdescription="${job.jobdescription}"
-															data-jobrequirements="${job.jobrequirements}"
-															data-salary="${job.salary}" data-jobtype="${job.jobtype}"
-															data-posteddate="${job.posteddate}"
-															data-applicationdeadline="${job.applicationdeadline}">
-															<img alt="Chỉnh sửa" src="/img/icons8-edit-50.png"
+												</c:choose></td>
+											<td>${job.jobtype}</td>
+											<td class="formatted-date" data-date="${job.posteddate}"></td>
+											<%-- <td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td> --%>
+											<td>
+												<div class="d-flex align-items-center">
+													<button type="button" class="btn btn-sm btn-edit me-2"
+														title="Chỉnh sửa" data-jobid="${job.jobid}"
+														data-jobtitle="${job.jobtitle}"
+														data-joblocation="${job.joblocation}"
+														data-jobdescription="${job.jobdescription}"
+														data-jobrequirements="${job.jobrequirements}"
+														data-salary="${job.salary}" data-jobtype="${job.jobtype}"
+														data-posteddate="${job.posteddate}"
+														data-applicationdeadline="${job.applicationdeadline}">
+														<img alt="Chỉnh sửa" src="/img/icons8-edit-50.png"
+															height="25px" width="25px" />
+													</button>
+													<form action="/employers/delete" method="post"
+														style="display: inline;"
+														onsubmit="return confirmDelete();">
+														<input type="hidden" name="jobId" value="${job.jobid}">
+														<button type="submit" class="btn btn-sm" title="Xóa">
+															<img alt="Xóa" src="/img/icons8-delete-50.png"
 																height="25px" width="25px" />
 														</button>
-														<form action="/employers/delete" method="post"
-															style="display: inline;"
-															onsubmit="return confirmDelete();">
-															<input type="hidden" name="jobId" value="${job.jobid}">
-															<button type="submit" class="btn btn-sm" title="Xóa">
-																<img alt="Xóa" src="/img/icons8-delete-50.png"
-																	height="25px" width="25px" />
-															</button>
-														</form>
-														<!-- Nút mua dịch vụ lên top -->
-														<button type="button" class="btn btn-sm btn-mua"
-															title="Mua" data-jobid="${job.jobid}">
-															<img alt="Mua" src="/img/icons8-pin-50.png" height="25px"
-																width="25px">
-														</button>
-														<!-- Nút mua dịch vụ lên top -->
-													</div>
-												</td>
-												<!-- XEM CV -->
-												<td>
-													<form action="/employers/xemcv" method="get">
-														<!-- Chuyển từ POST sang GET -->
-														<!-- Ẩn input để truyền jobId vào request -->
-														<input type="hidden" name="jobId" value="${job.jobid}">
-														<button type="submit" class="btn btn-sm btn-detail"
-															title="Xem CV">
-															<img alt="Xem CV" src="/img/icons8-eye-48.png"
-																height="25px">
-														</button>
 													</form>
-												</td>
-												<!-- XEM CV -->
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
+													<!-- Nút mua dịch vụ lên top -->
+													<button type="button" class="btn btn-sm btn-mua"
+														title="Mua" data-jobidmua="${job.jobid}">
+														<img alt="Mua" src="/img/icons8-pin-50.png" height="25px"
+															width="25px">
+													</button>
+													<!-- Nút mua dịch vụ lên top -->
+												</div>
+											</td>
+											<!-- XEM CV -->
+											<td>
+												<form action="/employers/xemcv" method="get">
+													<!-- Chuyển từ POST sang GET -->
+													<!-- Ẩn input để truyền jobId vào request -->
+													<input type="hidden" name="jobId" value="${job.jobid}">
+													<button type="submit" class="btn btn-sm btn-detail"
+														title="Xem CV">
+														<img alt="Xem CV" src="/img/icons8-eye-48.png"
+															height="25px">
+													</button>
+												</form>
+											</td>
+											<!-- XEM CV -->
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 
 					</div>
 				</div>
@@ -576,7 +576,7 @@ pageEncoding="UTF-8"%>
                 <h3>Tóm tắt thanh toán</h3>
                 <ul>
                     <li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
-                    <li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>  <!-- Hiển thị Job ID -->
+                    <li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
                 </ul>
                 <div class="total-price">
                     <h2>Tổng Tiền</h2>
@@ -587,8 +587,7 @@ pageEncoding="UTF-8"%>
             <form action="/employers/pay" method="post" class="payment-form">
                 <input type="hidden" name="servicePrice" id="servicePriceInput" value="75000">
                 <input type="hidden" name="serviceId" id="serviceId" value="4">
-                <input type="hidden" name="jobId" id="jobId" value="${jobid}">
-
+                <input type="hidden" name="jobId" id="jobId" value="${jobId}">
                 <input type="hidden" name="userId" id="userId" value="${userId}">
                 <div class="payment-methods">
                     <button class="momo2-btn" type="submit">
@@ -600,6 +599,7 @@ pageEncoding="UTF-8"%>
         </div>
     </div>
 </div>
+
 
 
 
@@ -872,41 +872,43 @@ document.getElementById('logo').addEventListener('change', function(event) {
     }
     
     document.addEventListener('DOMContentLoaded', () => {
-        const buyButtons = document.querySelectorAll('.btn-mua');  // Các nút "Mua"
-        const paymentModal = document.getElementById('paymentModalghim');  // Modal thanh toán
-        const jobIdDisplay = document.getElementById('jobIdDisplay');  // Hiển thị jobId trong modal
-        const jobIdInputHidden = document.getElementById('jobId');  // Input hidden trong form
+        const buyButtons = document.querySelectorAll('.btn-mua');
+        const paymentModal = document.getElementById('paymentModalghim');
+        const jobIdInput = document.getElementById('jobId');
+        const jobIdDisplay = document.getElementById('jobIdDisplay');
+        const paymentForm = document.querySelector('.payment-form');
 
-        // Lặp qua các nút "Mua"
         buyButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const jobId = button.getAttribute('data-jobid');
-        console.log("Job ID from button click:", jobId); // Kiểm tra jobId trong console
-        
-        if (jobId) {
-            jobIdInputHidden.value = jobId;  // Gán jobId vào input hidden
-            jobIdDisplay.textContent = jobId; // Hiển thị jobId trong modal
-            paymentModal.style.display = 'block'; // Hiển thị modal
-        } else {
-            console.error("Không thể lấy Job ID từ nút.");
-        }
-    });
-});
+            button.addEventListener('click', () => {
+                // Lấy jobId từ thuộc tính data của nút bấm
+                const jobId = button.getAttribute('data-jobidmua');
+                
+                // Cập nhật giá trị jobId vào input ẩn và hiển thị trong modal
+                jobIdInput.value = jobId;  // Cập nhật input ẩn
+                jobIdDisplay.textContent = jobId;  // Hiển thị jobId trong modal
 
-        // Đóng modal khi nhấn nút đóng
-        document.querySelector('.close').addEventListener('click', () => {
-            paymentModal.style.display = 'none';
+                // Hiển thị modal
+                paymentModal.style.display = 'block';
+            });
         });
-
-        // Đóng modal khi nhấn ngoài modal
+        
+        // Đóng modal khi nhấn vào dấu X hoặc vùng bên ngoài modal
         window.addEventListener('click', (event) => {
             if (event.target === paymentModal) {
-                paymentModal.style.display = 'none';
+                closePaymentModalghim();
             }
         });
-    });
 
-    
+        // Kiểm tra dữ liệu form khi submit
+        paymentForm.addEventListener('submit', (event) => {
+            // Ghi lại dữ liệu trong console để xác nhận
+            console.log("Dữ liệu form gửi đi:");
+            console.log("Service Price:", document.getElementById('servicePriceInput').value);
+            console.log("Service ID:", document.getElementById('serviceId').value);
+            console.log("Job ID:", jobIdInput.value);  // In ra giá trị jobId
+            console.log("User ID:", document.getElementById('userId').value);
+        });
+    });
 
 </script>
 	<script
