@@ -23,6 +23,7 @@
 	font-family: Arial, sans-serif;
 }
 
+
 body {
 	background-color: #f4f4f4;
 	display: flex;
@@ -56,6 +57,10 @@ footer {
 	overflow: hidden;
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+h1 {
+	font-size: 24px;
+	color: #4d5c4b;
 }
 
 /* Decorative Header and Footer */
@@ -127,12 +132,13 @@ footer {
 }
 
 .right-column h1 {
-	padding-top: 53px;
-	font-size: 24px;
-	font-weight: bold;
-	color: #333;
-	margin-bottom: 5px;
-	padding-bottom: 50px;
+    font-size: 50px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    
+    margin-top: 15px;
+    border-radius: 5px;
 }
 
 .right-column h2 {
@@ -310,8 +316,8 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 		</div>
 
 		<div class="right-column">
-			<h1><input type="text" name="name" placeholder="Nguyễn Văn A"></h1>
-			<h2><input type="text" name="title" placeholder="Vị Tí Ứng Tuyển"></h2>
+			<h1 contenteditable="true">OLIVIA WILSON</h1>
+			<!-- <h2><input type="text" name="title" placeholder="Vị Tí Ứng Tuyển"></h2> -->
 
 			<div class="section">
 				<div class="section-title">Mục Tiêu Nghề Nghiệp</div>

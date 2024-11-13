@@ -13,58 +13,54 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    flex-direction: column; /* Cho phép header, container, và footer sắp xếp theo cột */
-    min-height: 100vh; /* Chiều cao tối thiểu cho toàn bộ trang */
-    
+body {
+	font-family: Arial, sans-serif;
+	margin: 4px;
+	padding: 0;
+	background-color: #f4f4f9;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
 .containerr {
-    width: 800px;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    flex-grow: 1; /* Đảm bảo container chiếm không gian còn lại giữa header và footer */
-   
+	width: 800px;
+	background-color: #ffffff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	flex-grow: 1;
 	margin-left: 357px;
-    
 }
 
-
-/* Header Section Styling */
 .header {
     display: flex;
     align-items: center;
     background-color: #e0e5ec;
     padding: 15px;
-    justify-content: center;
+    justify-content: flex-start; /* Align content to the left */
     height: 120px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 25px;
+    margin: 7px 20px;
 }
 
 .profile-photo {
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    margin-right: 15px;
+    margin-right: 15px; /* Optional: adjust the space between image and text */
     object-fit: cover;
+    float: left; /* Make sure the image aligns left */
 }
 
 .header-info {
-    text-align: center;
-    flex-grow: 1;
+    text-align: center;  /* Keep the text centered */
+    flex-grow: 1; /* Ensures the header text takes up remaining space */
 }
 
 .header-info h1 {
@@ -74,191 +70,245 @@
 }
 
 .header-info p {
-    font-size: 16px;
-    color: #555;
-    margin: 5px 0 0;
+	font-size: 16px;
+	color: #555;
+	margin: 5px 0 0;
 }
 
-/* Main Content Styling */
 .main-content {
-    display: flex;
-    flex-direction: row;
-    padding: 20px;
+	display: flex;
+	flex-direction: row;
+	padding: 20px;
 }
 
-/* Left Column Styling */
 .left-column {
-    width: 30%;
-    background-color: #e0e5ec;
-    padding: 20px;
-    box-sizing: border-box;
-    border-radius: 10px;
+	width: 30%;
+	background-color: #e0e5ec;
+	padding: 20px;
+	border-radius: 10px;
 }
 
 .left-content h2 {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
+	font-size: 16px;
+	color: #333;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
 }
 
-.left-content p,
-.left-content ul {
-    font-size: 14px;
-    color: #555;
-    list-style: none;
-    padding: 0;
-    margin: 5px 0;
+.left-content p, .left-content ul {
+	font-size: 14px;
+	color: #555;
+	list-style: none;
+	padding: 0;
+	margin: 5px;
 }
 
-.left-content ul {
-    padding-left: 15px;
-}
-
-/* Skills Section Styling */
-.skills {
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-}
-
-/* Right Column Styling */
 .right-column {
-    width: 70%;
-    padding: 20px;
-    box-sizing: border-box;
+	width: 70%;
+	padding: 20px;
+	margin-top: -41px;
 }
 
 .section {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .section h2 {
-    font-size: 18px;
-    color: #333;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+	font-size: 18px;
+	color: #333;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
 }
 
-.experience h3,
-.education p {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 5px 0;
-    color: #333;
+select:focus {
+	outline: none;
 }
 
-.experience p,
-.education span,
-.references ul li {
-    font-size: 14px;
-    color: #555;
+input, textarea, select {
+	width: 100%;
+	padding: 8px;
+	margin: 10px 0 5px; /* Adjust margin to 5px below the input fields */
+	border-radius: 5px;
+	border: 1px solid #ccc;
 }
 
-.references ul {
-    padding-left: 20px;
-    list-style: none;
+button {
+	padding: 8px 15px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 5px; /* Adds 5px gap between the input and button */
 }
-    </style>
+
+button:hover {
+	background-color: #45a049;
+}
+
+#experience input, #experience textarea {
+	margin-bottom: 10px; /* Adds space between input/textarea fields */
+}
+
+
+</style>
 </head>
 <body>
-<!-- header -->
+	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
 	<br>
-    <div class="containerr">
-        <!-- Header Section -->
-        <div class="header">
-            <img src="your-image-url.jpg" alt="Donna Stroupe" class="profile-photo">
-            <div class="header-info">
-                <h1>Donna Stroupe</h1>
-                <p>Sales Representative</p>
-            </div>
-        </div>
+	<div class="containerr">
+		<div class="header">
+			<img src="your-image-url.jpg" alt="Donna Stroupe"
+				class="profile-photo">
+			<div class="header-info">
+				<h1 contenteditable="true">OLIVIA WILSON</h1>
+			</div>
+		</div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Left Column -->
-            <div class="left-column">
-                <div class="left-content">
-                    <!-- Contact Info -->
-                    <h2>Contact Info</h2>
-                    <p>Email: feelgready@quickrx.com</p>
-                    <p>Phone: +123-456-7890</p>
-                    <p>Address: 123 Anywhere St., Any City</p>
-                    <p>Website: real.yourwebsite.com</p>
+		<div class="main-content">
+			<div class="left-column">
+				<div class="left-content">
+					<h2>Liên Hệ</h2>
+					<form id="contact-form">
+						<label>Email:</label> <input type="email" name="email" required>
+						<label>Điện Thoại:</label> <input type="text" name="phone"
+							required> <label>Ngày Sinh:</label> <input type="date"
+							name="dob" required> <label for="gender">Giới
+							Tính:</label> <select name="gender" id="gender" required>
+							<option value="nam">Nam</option>
+							<option value="nu">Nữ</option>
+						</select> <label>Quốc Tịch:</label> <input type="text" name="nationality"
+							required>
 
-                    <!-- Skills -->
-                    <div class="skill">
-                        <h2>Skill</h2>
-                        <ul>
-                            <li>Sales & Marketing</li>
-                            <li>Product Knowledge</li>
-                            <li>Customer Relationship Building</li>
-                        </ul>
-                    </div>
+						<h2>Kỹ Năng</h2>
+						<div id="skills">
+							<input type="text" name="skills[]" placeholder="Thêm kỹ năng"
+								required>
+						</div>
+						<button type="button" onclick="addSkill()">+ Thêm kỹ năng</button>
 
-                    <!-- Language -->
-                    <h2>Language</h2>
-                    <ul>
-                        <li>English</li>
-                        <li>French</li>
-                    </ul>
-                </div>
-            </div>
+						<h2>Chứng Chỉ</h2>
+						<div id="certificates">
+							<input type="text" name="certificates[]"
+								placeholder="Thêm chứng chỉ" required>
+						</div>
+						<button type="button" onclick="addCertificate()">+ Thêm
+							chứng chỉ</button>
+					</form>
+				</div>
+			</div>
 
-            <!-- Right Column -->
-            <div class="right-column">
-                <!-- About Me Section -->
-                <div class="section">
-                    <h2>About Me</h2>
-                    <p>I am a Sales Representative & a professional who initiates and manages relationships with
-                        customers to promote and sell consumer products. I am highly skilled in thought the meeting of
-                        all the latest goods for them to increase in their household.</p>
-                </div>
+			<div class="right-column">
+				<div class="section">
+					<h2>Mục Tiêu Nghề Nghiệp</h2>
+					<textarea name="career-objective"
+						placeholder="Mục tiêu nghề nghiệp của bạn..." required></textarea>
+				</div>
 
-                <!-- Work Experience Section -->
-                <div class="section experience">
-                    <h2>Work Experience</h2>
-                    <h3>Consumer Goods Seller</h3>
-                    <p>Aug 2018 - Present</p>
-                    <p>Global Goods Inc.</p>
-                    <p>Communicated with potential customers to explain the cost of their products and help them decide
-                        whether to make a purchase.</p>
+				<div class="section">
+					<h2>Học Vấn</h2>
+					<div id="education">
+						<input type="text" name="education[]" placeholder="Thêm học vấn"
+							required>
+					</div>
+					<button type="button" onclick="addEducation()">+ Thêm học
+						vấn</button>
+				</div>
 
-                    <h3>Insurance Agent</h3>
-                    <p>Aug 2015 - 2018</p>
-                    <p>ABC Insurance Agency</p>
-                    <p>Assisted clients in understanding policies to make good personal and business decisions.</p>
-                </div>
+				<div class="section experience">
+					<h2>Kinh Nghiệm Làm Việc</h2>
+					<div id="experience">
+						<input type="text" name="experience[]" placeholder="Tên Dự Án"
+							required> <input type="text" name="experience[]"
+							placeholder="Thời Gian" required>
+						<textarea name="career-objective" placeholder="Mô Tả" required></textarea>
+					</div>
+					<button type="button" onclick="addExperience()">+ Thêm
+						công việc</button>
+				</div>
 
-                <!-- Education Section -->
-                <div class="section education">
-                    <h2>Education</h2>
-                    <p>BA Sales and Commerce, Westdale University</p>
-                    <span>Graduated: 2015</span>
-                </div>
-
-                <!-- References Section -->
-                <div class="section references">
-                    <h2>References</h2>
-                    <ul>
-                        <li>Estelle Darcy, Workforce Inc. / CEO</li>
-                        <li>Harper Russo, Workforce Inc. / COO</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="section">
+					<h2>Sở Thích</h2>
+					<div id="hobbies">
+						<input type="text" name="hobbies[]" placeholder="Thêm sở thích"
+							required>
+					</div>
+					<button type="button" onclick="addHobby()">+ Thêm sở thích</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<br>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
+	<script>
+		function addSkill() {
+			let skillsDiv = document.getElementById("skills");
+			let input = document.createElement("input");
+			input.type = "text";
+			input.name = "skills[]";
+			input.placeholder = "Thêm kỹ năng";
+			skillsDiv.appendChild(input);
+		}
+
+		function addCertificate() {
+			let certificatesDiv = document.getElementById("certificates");
+			let input = document.createElement("input");
+			input.type = "text";
+			input.name = "certificates[]";
+			input.placeholder = "Thêm chứng chỉ";
+			certificatesDiv.appendChild(input);
+		}
+
+		function addEducation() {
+			let educationDiv = document.getElementById("education");
+			let input = document.createElement("input");
+			input.type = "text";
+			input.name = "education[]";
+			input.placeholder = "Thêm học vấn";
+			educationDiv.appendChild(input);
+		}
+
+		function addExperience() {
+			let experienceDiv = document.getElementById("experience");
+			let experienceContainer = document.createElement("div");
+			experienceContainer.classList.add("experience-container");
+
+			let projectNameInput = document.createElement("input");
+			projectNameInput.type = "text";
+			projectNameInput.name = "experience[]";
+			projectNameInput.placeholder = "Tên Dự Án";
+			experienceContainer.appendChild(projectNameInput);
+
+			let timeInput = document.createElement("input");
+			timeInput.type = "text";
+			timeInput.name = "experience[]";
+			timeInput.placeholder = "Thời Gian";
+			experienceContainer.appendChild(timeInput);
+
+			let descriptionTextarea = document.createElement("textarea");
+			descriptionTextarea.name = "experience[]";
+			descriptionTextarea.placeholder = "Mô Tả";
+			experienceContainer.appendChild(descriptionTextarea);
+
+			experienceDiv.appendChild(experienceContainer);
+		}
+
+		function addHobby() {
+			let hobbiesDiv = document.getElementById("hobbies");
+			let input = document.createElement("input");
+			input.type = "text";
+			input.name = "hobbies[]";
+			input.placeholder = "Thêm sở thích";
+			hobbiesDiv.appendChild(input);
+		}
+	</script>
 </body>
 </html>

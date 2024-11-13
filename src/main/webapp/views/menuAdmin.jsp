@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Menu Admin</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -18,6 +18,19 @@
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="/css/admin.css">
+<style>
+/* CSS cho menu con */
+.sub-menu {
+	display: none; /* Ẩn menu con khi không nhấn */
+	padding-left: 20px;
+	list-style: none;
+}
+
+/* Nếu bạn muốn thêm hiệu ứng */
+.sub-menu a {
+	padding-left: 15px;
+}
+</style>
 </head>
 <body>
 	<div class="col-lg-3 col-md-3 p-2 d-flex">
@@ -44,14 +57,22 @@
 						class="bi bi-grid me-2"></i> Quản Lý CV
 				</a></li>
 				<li><a href="#" class="navqlndung nav-link text-dark"
-					onclick="showTable(event, 'serviceManagement')"> <i
-						class="bi bi-house me-2"></i> Quản Lý Dịch Vụ
-				</a></li>
+					onclick="toggleSubMenu(event); showTable(event, 'serviceManagement')">
+						<i class="bi bi-house me-2"></i> Quản Lý Dịch Vụ
+				</a> <!-- Sub-menu for Quản Lý Dịch Vụ -->
+					<ul class="sub-menu"
+						style="display: none; list-style: none; padding-left: 20px;">
+						<li><a href="#" class="navqlndung nav-link text-dark"
+							onclick="showTable(event, 'serviceNew')"><img width="15"
+								height="15"
+								src="https://img.icons8.com/fluency-systems-regular/50/add-to-basket.png"
+								alt="add-to-basket" />Thêm dịch vụ</a></li>
+					</ul></li>
 				<li><a href="#" class="navqlndung nav-link text-dark"
 					onclick="showTable(event, 'servicesSold')"><img width="20"
 						height="20"
 						src="https://img.icons8.com/pulsar-line/48/buy-sign.png"
-						alt="buy-sign"/> Dịch Vụ Đã Bán </a></li>
+						alt="buy-sign" /> Dịch Vụ Đã Bán </a></li>
 				<li><a href="#" class="navqlndung nav-link text-dark"
 					onclick="showTable(event, 'statisticalManagement')"><img
 						width="20" height="20"
@@ -64,6 +85,23 @@
 		</div>
 	</div>
 
+
+	<script>
+		//code sổ menu con
+		function toggleSubMenu(event) {
+			event.preventDefault(); // Ngừng chuyển hướng của link
+
+			// Tìm menu con gần nhất của mục "Quản Lý Dịch Vụ"
+			const subMenu = event.target.closest('li').querySelector(
+					'.sub-menu');
+
+			// Kiểm tra và thay đổi trạng thái hiển thị của menu con
+			if (subMenu) {
+				const isVisible = subMenu.style.display === 'block';
+				subMenu.style.display = isVisible ? 'none' : 'block';
+			}
+		}
+	</script>
 	<!-- Bootstrap JavaScript Libraries -->
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>

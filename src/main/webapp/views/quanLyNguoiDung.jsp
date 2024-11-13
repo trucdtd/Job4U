@@ -305,6 +305,7 @@
 											<th scope="col">ID</th>
 											<th scope="col">Tên Dịch Vụ</th>
 											<th scope="col">Giá</th>
+											<th scope="col">Ngày chạy dịch vụ</th>
 											<th scope="col">Ngày Tạo</th>
 											<th scope="col">Hành Động</th>
 
@@ -316,6 +317,7 @@
 												<th scope="row">${dv.serviceid}</th>
 												<td>${dv.servicename}</td>
 												<td class="price">${dv.price}</td>
+												<td>${dv.durationindays}</td>
 												<td>${dv.createdat}</td>
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
@@ -333,6 +335,56 @@
 							</div>
 						</div>
 					</div>
+
+					<!-- thêm mới dịch vụ -->
+					<div id="serviceNew" class="card" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Thêm mới dịch vụ</div>
+						</div>
+						<div class="card-body p-3">
+							<form action="/admin/newDv" method="post">
+								<!-- Job ID and Deadline -->
+								<div class="row mb-3">
+									<div class="col-md-6">
+										<label for="">Tên Dịch Vụ:</label> <input
+											class="form-control" type="text" id="servicename"
+											name="servicename" >
+									</div>
+									<div class="col-md-6">
+										<label for="salary">Giá:</label> <input class="form-control"
+											type="text" id="price" name="price" >
+									</div>
+								</div>
+
+								<!-- Job Type and Description -->
+								<div class="row mb-3">
+								<div class="col-md-6">
+										<label for="">Số lượng bài viết</label> <input class="form-control"
+											type="text" id="numberofjobsallowed" name="numberofjobsallowed" >
+									</div>
+									<div class="col-md-6">
+										<label for="contactperson">Thời gian chạy dịch vụ: </label> <input
+											class="form-control" type="text" id="durationindays"
+											name="durationindays" >
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-md-12">
+										<label for="contactperson">Mô Tả:</label> <input
+											class="form-control" type="text" id="description"
+											name="description" >
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 d-flex justify-content-start">
+										<button type="submit" class="btn btn-success">Thêm mới</button>
+									</div>
+
+								</div>
+							</form>
+						</div>
+					</div>
+					<!--end thêm mới dịch vụ  -->
 
 					<div id="servicesSold" class="card" style="display: none;">
 						<div class="card-header">

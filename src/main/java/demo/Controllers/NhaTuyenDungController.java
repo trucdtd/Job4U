@@ -436,96 +436,68 @@ public class NhaTuyenDungController {
 
 	@GetMapping("/vnpay-payment")
 	public String vnpayPayment(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		HttpSession session = request.getSession();
-		Integer userId = (Integer) session.getAttribute("userId");
-		Integer serviceId = (Integer) session.getAttribute("serviceId");
-		Integer jobId = (Integer) session.getAttribute("jobId");
+	    HttpSession session = request.getSession();
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    Integer serviceId = (Integer) session.getAttribute("serviceId");
+	    Integer jobId = (Integer) session.getAttribute("jobId");
 
-		System.out.println("userId: " + userId);
-		System.out.println("serviceId: " + serviceId);
-		System.out.println("jobId: " + jobId);
+	    // Kiểm tra các tham số cần thiết
+	    if (userId == null || serviceId == null || (serviceId == 4 && jobId == null)) {
+	        redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
+	        return "redirect:/employers?error=missingParameters";
+	    }
 
-		// Kiểm tra các tham số cần thiết
-		if (userId == null || serviceId == null || (serviceId == 4 && jobId == null)) {
-			redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
-			return "redirect:/employers?error=missingParameters";
-		}
+	    int paymentStatus = vnPayService.orderReturn(request);
 
-		int paymentStatus = vnPayService.orderReturn(request);
+	    if (paymentStatus == 1) {
+	        UsersEntity user = userRepository.findById(userId).orElse(null);
+	        ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
+	        JoblistingsEntity job = (serviceId == 4 && jobId != null) ? joblistingsDao.findById(jobId).orElse(null) : null;
 
-		if (paymentStatus == 1) {
-			UsersEntity user = userRepository.findById(userId).orElse(null);
-			ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
-			JoblistingsEntity job = (serviceId == 4 && jobId != null) ? joblistingsDao.findById(jobId).orElse(null)
-					: null;
+	        if (user != null && service != null) {
+	            // Lưu thông tin thanh toán
+	            PaymentsEntity payment = new PaymentsEntity();
+	            payment.setUser(user);
+	            payment.setService(service);
+	            payment.setAmount(new BigDecimal(request.getParameter("vnp_Amount")).divide(new BigDecimal(100)));
+	            payment.setPaymentdate(LocalDate.now());
+	            payment.setStatus("Thanh toán thành công");
+	            payment.setPaymentmethod("VNPay");
+	            paymentDao.save(payment);
 
-			if (user != null && service != null) {
-				// Lưu thông tin thanh toán
-				PaymentsEntity payment = new PaymentsEntity();
-				payment.setUser(user);
-				payment.setService(service);
-				payment.setAmount(new BigDecimal(request.getParameter("vnp_Amount")).divide(new BigDecimal(100)));
-				payment.setPaymentdate(LocalDate.now());
-				payment.setStatus("Thanh toán thành công");
-				payment.setPaymentmethod("VNPay");
-				paymentDao.save(payment);
+	            // Tạo hoặc cập nhật UserServicesEntity
+	            UserServicesEntity userService = new UserServicesEntity();
+	            userService.setUser(user);
+	            userService.setService(service);
+	            userService.setPurchasedate(LocalDateTime.now());
 
-				// Tạo hoặc cập nhật UserServicesEntity
-				UserServicesEntity userService = new UserServicesEntity();
-				userService.setUser(user);
-				userService.setService(service);
-				userService.setPurchasedate(LocalDateTime.now());
+	            // Thiết lập ngày hết hạn và số bài đăng
+	            LocalDateTime expiryDate = LocalDateTime.now().plusDays(service.getDurationindays());
+	            userService.setExpirydate(expiryDate);
+	            userService.setNumberofjobsallowed(service.getNumberofjobsallowed());
 
-				if (serviceId == 4) {
-					// Xử lý logic đặc biệt cho gói "Lên Top"
-					userService.setExpirydate(LocalDateTime.now().plusDays(3));
-					userService.setNumberofjobsallowed(1); // Ví dụ chỉ 1 bài đăng lên top
-					userService.setNumberofjobsallowed(userService.getNumberofjobsallowed() - 1); // Trừ 1 ngay khi mua
-				} else {
-					// Xử lý logic chung cho các gói khác
-					switch (serviceId) {
-					case 1:
-						userService.setExpirydate(LocalDateTime.now().plusMonths(1));
-						userService.setNumberofjobsallowed(10);
-						break;
-					case 2:
-						userService.setExpirydate(LocalDateTime.now().plusMonths(6));
-						userService.setNumberofjobsallowed(30);
-						break;
-					case 3:
-						userService.setExpirydate(LocalDateTime.now().plusMonths(12));
-						userService.setNumberofjobsallowed(50);
-						break;
-					case 5:
-						userService.setExpirydate(LocalDateTime.now().plusMonths(1));
-						userService.setNumberofjobsallowed(5); // Cộng thêm 5 bài
-						break;
-					default:
-						redirectAttributes.addFlashAttribute("message", "Gói dịch vụ không hợp lệ.");
-						return "redirect:/employers?error=invalidService";
-					}
-				}
+	            // Lưu vào bảng UserServices
+	            userServiceDao.save(userService);
 
-				userServiceDao.save(userService);
+	            // Cập nhật bài đăng nếu cần thiết (chỉ cho gói "Lên Top")
+	            if (serviceId == 4 && job != null) {
+	                job.setUserservice(userService);
+	                job.setIsTop(true);
+	                joblistingsDao.save(job);
+	            }
 
-				// Cập nhật bài đăng nếu cần thiết (chỉ cho gói "Lên Top")
-				if (serviceId == 4 && job != null) {
-					job.setUserservice(userService);
-					job.setIsTop(true);
-					joblistingsDao.save(job);
-				}
+	            redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
+	        } else {
+	            redirectAttributes.addFlashAttribute("message", "Người dùng hoặc dịch vụ không hợp lệ.");
+	            return "redirect:/employers?error=invalidData";
+	        }
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");
+	    }
 
-				redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
-			} else {
-				redirectAttributes.addFlashAttribute("message", "Người dùng hoặc dịch vụ không hợp lệ.");
-				return "redirect:/employers?error=invalidData";
-			}
-		} else {
-			redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");
-		}
-
-		return "redirect:/employers";
+	    return "redirect:/employers";
 	}
+
 
 	// từ chối và chấp nhận cv
 	@PostMapping("/{jobseekerid}/accept")

@@ -54,21 +54,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	text-align: center;
-}
-
-.profile-photo {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	overflow: hidden;
-	margin-bottom: 20px;
-	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.profile-photo img {
-	width: 100%;
-	height: auto;
 }
 
 .section-title {
@@ -199,41 +184,6 @@ body {
 	margin-left: 70px; /* Nhích sang bên phải 20px */
 }
 
-.photo-container {
-	position: relative;
-}
-
-.cv-photo {
-	width: 100px; /* Chiều rộng của ảnh */
-	height: 133px; /* Chiều cao của ảnh */
-	border-radius: 5px; /* Bo tròn góc */
-	border: 2px solid #4CAF50; /* Đường viền màu xanh */
-	object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
-	width: 100px; /* Chiều rộng của ảnh */
-	height: 133px; /* Chiều cao của ảnh */
-	border-radius: 5px; /* Bo tròn góc */
-	border: 2px solid #1da868; /* Đường viền màu xanh */
-	object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
-}
-
-.placeholder-photo {
-	width: 100px; /* Chiều rộng của khung placeholder */
-	height: 133px; /* Chiều cao của khung placeholder */
-	border-radius: 5px; /* Bo tròn góc */
-	background-color: #f0f0f0; /* Màu nền cho khung */
-	display: flex; /* Để căn giữa hình ảnh trong khung */
-	justify-content: center; /* Căn giữa theo chiều ngang */
-	align-items: center; /* Căn giữa theo chiều dọc */
-	border: 2px solid #4CAF50; /* Đường viền màu xanh */
-}
-
-.placeholder {
-	width: 50px; /* Kích thước hình ảnh placeholder */
-	height: 50px; /* Kích thước hình ảnh placeholder */
-	border-radius: 50%; /* Để tạo hình tròn cho placeholder */
-	background-color: #a0a0a0; /* Màu nền cho placeholder */
-}
-
 /* Các phần khác */
 .cv-section {
 	margin-bottom: 25px;
@@ -294,42 +244,67 @@ textarea {
 	font-family: Arial, sans-serif;
 	/* Đảm bảo font trong ô nhập giống nhau */
 }
+
 .upload-label {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
 }
 
 .profile-photo {
-    width: 100px;
-    height: 133px;
-    border-radius: 5px;
-    border: 2px solid #4CAF50; /* Đường viền màu xanh */
-    overflow: hidden;
-    position: relative;
+	width: 100px; /* Đặt chiều rộng cố định */
+	height: 133px; /* Đặt chiều cao cố định */
+	border-radius: 5px;
+	border: 2px solid #4CAF50; /* Đường viền màu xanh */
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .cv-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
+	width: 100%; /* Đảm bảo ảnh luôn vừa khung */
+	height: 100%; /* Đảm bảo ảnh luôn vừa khung */
+	object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
 }
 
 .placeholder-photo {
-    width: 100%;
-    height: 100%;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
+	width: 100%;
+	height: 100%;
+	background-color: #f0f0f0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
 }
 
 .placeholder {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #a0a0a0;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #a0a0a0;
+}
+
+button {
+	padding: 8px 15px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-left: 40px
+}
+/* Ẩn nút thêm mặc định */
+.add-button {
+	display: none;
+}
+
+/* Hiển thị nút thêm khi hover vào vùng chứa */
+#skills-container:hover .add-button, #certifications-container:hover .add-button,
+	#experience-container:hover .add-button, #projects-container:hover .add-button
+	{
+	display: inline-block;
 }
 </style>
 </head>
@@ -341,64 +316,72 @@ textarea {
 		<div class="cv-container" id="cv-content">
 			<div class="left-column" id="sortable-left">
 				<div class="profile-photo">
-    <input type="file" id="profile-image" accept="image/*" style="display:none;" onchange="previewImage(event)">
-    <label for="profile-image" class="upload-label">
-        <img id="profile-img-preview" src="path/to/default-image.jpg" alt="Ảnh ứng viên" class="cv-photo"
-             onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
-        <div class="placeholder-photo" style="display:none;">
-            <div class="placeholder"></div> <!-- Biểu tượng placeholder -->
-        </div>
-    </label>
-</div>
+					<input type="file" id="profile-image" accept="image/*"
+						style="display: none;" onchange="previewImage(event)"> <label
+						for="profile-image" class="upload-label"> <img
+						id="profile-img-preview" src="path/to/default-image.jpg"
+						alt="Ảnh ứng viên" class="cv-photo">
+					</label>
+				</div>
 				<div class="contact section">
 					<div class="section-title">Liên Hệ</div>
 					<input type="text" placeholder="Số điện thoại" id="phonenumbercv"
 						class="input-field"> <input type="email"
 						placeholder="Email" id="emailcv" class="input-field"> <input
 						type="date" placeholder="Ngày sinh" id="dateOfbirth"
-						class="input-field"> <input type="text"
-						placeholder="Giới tính" id="gender" class="input-field">
+						class="input-field"> <input type="language"
+						placeholder="Ngôn Ngữ" id="languages" class="input-field">
+					<input type="text" placeholder="Giới tính" id="gender"
+						class="input-field">
 				</div>
 				<div class="skills section">
 					<div class="section-title">Kỹ Năng</div>
-					<input type="text" id="skills" class="input-field"
-						placeholder="Kỹ năng">
+					<div id="skills-container">
+						<input type="text" id="skills" class="input-field"
+							placeholder="Kỹ năng">
+						<button id="add-skill-button" class="add-button" type="button"
+							onclick="addSkillField()">+ Thêm Kỹ Năng</button>
+					</div>
 				</div>
-				<div class="language section">
-					<div class="section-title">Ngôn Ngữ</div>
-					<input type="text" id="languages" class="input-field"
-						placeholder="Ngôn ngữ">
+
+				<div class="certifications section">
+					<div class="section-title">Chứng chỉ</div>
+					<div id="certifications-container">
+						<input type="text" id="certifications" class="input-field"
+							placeholder="Chứng chỉ">
+						<button id="add-certification-button" class="add-button"
+							type="button" onclick="addCertificationField()">+ Thêm
+							Chứng Chỉ</button>
+					</div>
 				</div>
-				<div class="interests section">
-					<div class="section-title">Sở thích</div>
-					<input type="text" id="interests" class="input-field"
-						placeholder="Sở thích">
-				</div>
+
+				
 			</div>
 
 			<div class="right-column" id="sortable-right">
-				<input type="text" placeholder="Tên đầy đủ" id="fullnamecv"
-					class="input-field">
-
-				<div class="about section">
-					<div class="section-title">Giới thiệu</div>
-					<textarea id="profilesummary" class="input-area"
-						placeholder="Giới thiệu"></textarea>
-				</div>
+				<h1 contenteditable="true">OLIVIA WILSON</h1>
 				<div class="experience section">
-					<div class="section-title">Kinh Nghiệm Làm Việc</div>
-					<textarea id="experience" class="input-area"
-						placeholder="Kinh nghiệm làm việc"></textarea>
+					<div class="section-title">Kinh Nghiệm</div>
+					<div id="experience-container">
+						<textarea id="experience" class="input-area"
+							placeholder="Kinh nghiệm làm việc"></textarea>
+						<button id="add-experience-button" class="add-button"
+							type="button" onclick="addExperienceField()">+ Thêm Kinh
+							Nghiệm</button>
+					</div>
 				</div>
-				<div class="education section"> 
-					<div class="section-title">Học Vấn</div>
-					<input type="text" id="education" class="input-field"
-						placeholder="Học vấn">
-				</div>
-				<div class="certifications section">
-					<div class="section-title">Chứng chỉ</div>
-					<input type="text" id="certifications" class="input-field"
-						placeholder="Chứng chỉ">
+
+				<div class="projects section">
+					<div class="section-title">Dự Án Đã Tham Gia</div>
+					<div id="projects-container">
+						<div class="project-field">
+							<input type="text" class="input-field" placeholder="Tên Dự Án">
+							<input type="text" class="input-field" placeholder="Thời Gian">
+							<textarea class="input-area" placeholder="Mô Tả"></textarea>
+						</div>
+						<button id="add-project-button" class="add-button" type="button"
+							onclick="addProjectField()">+ Thêm Dự Án</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -407,23 +390,70 @@ textarea {
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-	
 	<script>
-	function previewImage(event) {
-	    const file = event.target.files[0];
-	    const reader = new FileReader();
-	    
-	    reader.onload = function() {
-	        const imgElement = document.getElementById('profile-img-preview');
-	        imgElement.src = reader.result;
-	        imgElement.style.display = 'block'; // Hiển thị ảnh đã chọn
-	        document.querySelector('.placeholder-photo').style.display = 'none'; // Ẩn placeholder
-	    }
+	function addSkillField() {
+	    const skillsContainer = document.getElementById('skills-container');
+	    const addSkillButton = document.getElementById('add-skill-button');
 
-	    if (file) {
-	        reader.readAsDataURL(file); // Đọc ảnh từ file
-	    }
+	    const newField = document.createElement('input');
+	    newField.type = 'text';
+	    newField.className = 'input-field';
+	    newField.placeholder = 'Kỹ năng';
+
+	    skillsContainer.insertBefore(newField, addSkillButton);
+	}
+
+	function addCertificationField() {
+	    const certificationsContainer = document.getElementById('certifications-container');
+	    const addCertificationButton = document.getElementById('add-certification-button');
+
+	    const newField = document.createElement('input');
+	    newField.type = 'text';
+	    newField.className = 'input-field';
+	    newField.placeholder = 'Chứng chỉ';
+
+	    certificationsContainer.insertBefore(newField, addCertificationButton);
+	}
+
+	function addExperienceField() {
+	    const experienceContainer = document.getElementById('experience-container');
+	    const addExperienceButton = document.getElementById('add-experience-button');
+
+	    const newField = document.createElement('textarea');
+	    newField.className = 'input-area';
+	    newField.placeholder = 'Kinh nghiệm làm việc';
+
+	    experienceContainer.insertBefore(newField, addExperienceButton);
+	}
+
+	function addProjectField() {
+	    const projectsContainer = document.getElementById('projects-container');
+	    const addProjectButton = document.getElementById('add-project-button');
+
+	    const newProjectField = document.createElement('div');
+	    newProjectField.classList.add('project-field');
+
+	    const projectName = document.createElement('input');
+	    projectName.type = 'text';
+	    projectName.className = 'input-field';
+	    projectName.placeholder = 'Tên Dự Án';
+
+	    const projectTime = document.createElement('input');
+	    projectTime.type = 'text';
+	    projectTime.className = 'input-field';
+	    projectTime.placeholder = 'Thời Gian';
+
+	    const projectDescription = document.createElement('textarea');
+	    projectDescription.className = 'input-area';
+	    projectDescription.placeholder = 'Mô Tả';
+
+	    newProjectField.appendChild(projectName);
+	    newProjectField.appendChild(projectTime);
+	    newProjectField.appendChild(projectDescription);
+
+	    projectsContainer.insertBefore(newProjectField, addProjectButton);
 	}
 	</script>
+
 </body>
 </html>

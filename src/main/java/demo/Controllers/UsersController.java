@@ -244,20 +244,20 @@ public class UsersController {
 	}
 
 	@PostMapping("/deleteCV")
-	public String deleteCV(@RequestParam("jobseekerId") Integer jobseekerId, Model model) {
+	public String deleteCV(@RequestParam("jobseekerId") Integer jobseekerId, RedirectAttributes redirectAttributes) {
 		// Kiểm tra xem JobSeeker có ứng dụng nào liên quan không
 		if (applicationsDao.existsByJobseeker_Jobseekerid(jobseekerId)) {
 			// Nếu có, trả về thông báo lỗi
-			model.addAttribute("errorMessage", "Không thể xóa vì JobSeeker này đang có đơn ứng tuyển.");
+			redirectAttributes.addFlashAttribute("message", "Không thể xóa vì cv này đang ứng tuyển.");
 			return "redirect:/user/cv/list2"; // Điều hướng lại view với thông báo
 		}
 
 		// Nếu không có, tiến hành xóa
 		try {
 			dao.deleteById(jobseekerId);
-			model.addAttribute("successMessage", "Xóa thành công!");
+			redirectAttributes.addFlashAttribute("message", "Xóa thành công!");
 		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Xóa thất bại.");
+			redirectAttributes.addFlashAttribute("error", "Xóa thất bại.");
 		}
 		return "redirect:/user/cv/list2";
 	}
