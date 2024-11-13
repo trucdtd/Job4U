@@ -20,6 +20,7 @@
 	padding: 20px 0; /* Thêm padding nếu cần thiết */
 	box-sizing: border-box;
 	/* Đảm bảo padding không làm tăng chiều rộng của footer */
+	margin-top: 20px; /* Add space above footer */
 }
 
 .footer a {
@@ -44,6 +45,13 @@
 
 .footer .social-icons a:hover {
 	color: #c0c0c0;
+}
+nav {
+	margin-bottom: 20px; /* Add space below navbar */
+}
+
+button, .nav-link {
+	margin-top: 5px; /* Ensure they are spaced properly */
 }
 </style>
 </head>
