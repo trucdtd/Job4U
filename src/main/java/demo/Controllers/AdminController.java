@@ -210,7 +210,7 @@ public class AdminController {
 			if (user.getRole() != null && user.getRole() == 0) {
 				redirectAttributes.addAttribute("error",
 						"Không thể khóa tài khoản Admin.");				
-				return "redirect:/admin";
+				return "redirect:/admin/detailUser/" + id;
 			}
 
 			// Cập nhật trạng thái khóa tài khoản
@@ -219,10 +219,10 @@ public class AdminController {
 
 			redirectAttributes.addAttribute("error",
 					"Tài khoản đã được khóa thành công!");	
-			return "redirect:/admin"; // Quay về trang admin
+			return "redirect:/admin/detailUser/" + id; // Quay về trang admin
 		} catch (Exception e) {
 			redirectAttributes.addAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
-			return "redirect:/admin"; // Quay về trang admin nếu có lỗi
+			return "redirect:/admin/detailUser/" + id; // Quay về trang admin nếu có lỗi
 		}
 	}
 
@@ -238,7 +238,7 @@ public class AdminController {
 
 			redirectAttributes.addAttribute("error", "Tài khoản đã được mở thành công!");
 
-			return "redirect:/admin"; // Quay về trang admin
+			return "redirect:/admin/detailUser/" + id; // Quay về trang admin
 		} catch (Exception e) {
 			redirectAttributes.addAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
 			System.out.println("Lỗi khi mở tài khoản: " + e.getMessage());
@@ -409,7 +409,8 @@ public class AdminController {
 	                       @RequestParam("servicename") String servicename,
 	                       @RequestParam("price") String price,
 	                       @RequestParam("description") String description,
-	                       @RequestParam("numberofjobsallowed") Integer numberofjobsallowed) {
+	                       @RequestParam("numberofjobsallowed") Integer numberofjobsallowed,
+	                       @RequestParam("durationindays") Integer durationindays) {
 	    // Tạo mới đối tượng dịch vụ
 	    ServicesEntity newDv = new ServicesEntity();
 	    
@@ -445,13 +446,23 @@ public class AdminController {
 	    // Lưu số lượng công việc vào đối tượng
 	    newDv.setNumberofjobsallowed(numberofjobsallowed);
 
+	    // Kiểm tra tính hợp lệ của durationindays
+	    if (durationindays <= 0) {
+	        redirectAttributes.addAttribute("error", "Số ngày không hợp lệ. Phải lớn hơn 0.");
+	        return "redirect:/admin"; // Trả về trang quản lý với thông báo lỗi
+	    }
+
+	    // Lưu durationindays vào đối tượng
+	    newDv.setDurationindays(durationindays);
+
 	    // Lưu dịch vụ mới vào cơ sở dữ liệu
 	    servicesDao.save(newDv);
 	    
 	    // Trả về trang với thông báo thành công
-	    redirectAttributes.addAttribute("message", "Thêm dịch vụ thành công!");
+	    redirectAttributes.addAttribute("error", "Thêm dịch vụ thành công!");
 	    return "redirect:/admin";
 	}
+
 
 
 }
