@@ -14,6 +14,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 		
 <style>
 * {
@@ -278,7 +279,7 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 		<div class="bottom-right-triangle"></div>
 
 		<!-- Left Column -->
-		<div class="left-column">
+		<div class="left-column" id="sortable-left">
 			<div class="profile-picture" onclick="document.getElementById('profile-picture-input').click()" style="background-image: url('your-image-url.jpg');"></div>
 			<input type="file" id="profile-picture-input" style="display: none;" accept="image/*" onchange="loadProfilePicture(event)">
 
@@ -315,7 +316,7 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 			</div>
 		</div>
 
-		<div class="right-column">
+		<div class="right-column" id="sortable-right">
 			<h1 placeholder="Nhập mục tiêu nghề nghiệp" contenteditable="true">OLIVIA WILSON</h1>
 			<!-- <h2><input type="text" name="title" placeholder="Vị Tí Ứng Tuyển"></h2> -->
 
@@ -400,23 +401,26 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="date"]:hover,
 		        });
 		    }, 50);
 		}
+		 document.addEventListener("DOMContentLoaded", function() {
+		        // Cho phép kéo-thả trong cột bên trái
+		        new Sortable(document.getElementById("sortable-left"), {
+		            animation: 150,
+		            group: "shared",  // Tùy chọn: Cho phép kéo-thả qua lại giữa các cột
+		            draggable: ".section",  // Các mục có thể kéo là những mục có lớp .section
+		            handle: ".section-title",  // Kéo bằng tiêu đề của phần
+		            ghostClass: "sortable-ghost"  // Thêm lớp cho phần tử đang kéo
+		        });
 
+		        // Cho phép kéo-thả trong cột bên phải
+		        new Sortable(document.getElementById("sortable-right"), {
+		            animation: 150,
+		            group: "shared",
+		            draggable: ".section",
+		            handle: ".section-title",
+		            ghostClass: "sortable-ghost"
+		        });
+		    });
 	</script>
-	<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Kích hoạt kéo thả cho các phần khác nhau
-        const sections = ['education-section', 'skills-section', 'projects-section', 'certificates-section', 'hobbies-section'];
-        
-        sections.forEach(sectionId => {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                new Sortable(section, {
-                    animation: 150,
-                    handle: '.section-title' // Bạn có thể thay đổi handle nếu cần
-                });
-            }
-        });
-    });
-</script>
+	
 </body>
 </html>
