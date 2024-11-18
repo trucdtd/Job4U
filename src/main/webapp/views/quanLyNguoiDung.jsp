@@ -408,7 +408,7 @@
 												<th scope="row">${nm.paymentid}</th>
 												<td>${nm.service.servicename}</td>
 												<td>${nm.user.fullname}</td>
-												<td class="price">${nm.service.price}</td>
+												<td class="price">${nm.amount}</td>
 												</td>
 
 												<td>${nm.paymentdate}</td>

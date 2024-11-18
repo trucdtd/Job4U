@@ -568,41 +568,40 @@
 		</div>
 
 		<!-- Modal Thanh Toán -->
-		<div id="paymentModalghim" class="modal" style="display: none;">
-			<div class="modal-content">
-				<span class="close" onclick="closePaymentModalghim()">&times;</span>
-				<div class="payment-container">
-					<div class="payment-summary">
-						<h3>Tóm tắt thanh toán</h3>
-						<ul>
-							<li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
-							<li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
-						</ul>
-						<div class="total-price">
-							<h2>Tổng Tiền</h2>
-							<h1>75.000 ₫</h1>
-							<p>Ghim Bài đăng lên top những công việc hàng đầu trong 3
-								ngày.</p>
-						</div>
-					</div>
-					<form action="/employers/pay" method="post" class="payment-form">
-						<input type="hidden" name="servicePrice" id="servicePriceInput"
-							value="75000"> <input type="hidden" name="serviceId"
-							id="serviceId" value="4"> <input type="hidden"
-							name="jobId" id="jobId">
-						<!-- Input ẩn để lưu jobId -->
-						<input type="hidden" name="userId" id="userId" value="${userId}">
-						<div class="payment-methods">
-							<button class="momo2-btn" type="submit">
-								<img src="/img/vnpay.png">
-							</button>
-						</div>
-						<button class="submit-btn" style="background: #198754"
-							type="submit">Thanh Toán</button>
-					</form>
-				</div>
-			</div>
-		</div>
+<div id="paymentModalghim" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closePaymentModalghim()">&times;</span>
+        <div class="payment-container">
+            <div class="payment-summary">
+                <h3>Tóm tắt thanh toán</h3>
+                <ul>
+                    <li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
+                    <li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
+                </ul>
+                <div class="total-price">
+                    <h2>Tổng Tiền</h2>
+                    <h1>75.000 ₫</h1>
+                    <p>Ghim Bài đăng lên top những công việc hàng đầu trong 3 ngày.</p>
+                </div>
+            </div>
+            <form action="/employers/pay" method="post" class="payment-form">
+                <input type="hidden" name="servicePrice" id="servicePriceInput" value="75000">
+                <input type="hidden" name="serviceId" id="serviceId" value="4">
+                <input type="hidden" name="jobId" id="jobId" value="${jobId}">
+                <input type="hidden" name="userId" id="userId" value="${userId}">
+                
+                <div class="payment-methods">
+                    <button class="momo2-btn" type="submit">
+                        <img src="/img/vnpay.png">
+                    </button>
+                </div>
+                <button class="submit-btn" style="background: #198754" type="submit">Thanh Toán</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 
 
@@ -872,47 +871,32 @@ document.getElementById('logo').addEventListener('change', function(event) {
     document.addEventListener('DOMContentLoaded', () => {
         const buyButtons = document.querySelectorAll('.btn-mua');
         const paymentModal = document.getElementById('paymentModalghim');
-        const jobIdDisplay = document.getElementById('jobIdDisplay');
-        const jobIdInputHidden = document.getElementById('jobId');
-        const paymentForm = document.querySelector('.payment-form');
+        const jobIdInput = document.getElementById('jobId');  // Hidden input for jobId
+        const jobIdDisplay = document.getElementById('jobIdDisplay');  // Display jobId in modal
+        const submitButton = document.querySelector('.submit-btn');  // "Thanh Toán" button
 
+        // Loop through each "Mua" button and attach click event
         buyButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const jobId = button.getAttribute('data-jobidmua'); // Lấy jobId từ thuộc tính của nút
-                if (jobId) {
-                    jobIdInputHidden.value = jobId; // Gán giá trị jobId vào input hidden trong form
-                    jobIdDisplay.textContent = jobId; // Hiển thị jobId trên modal
-                    paymentModal.style.display = 'block'; // Hiển thị modal
-                    console.log("Đã gán jobId vào input hidden:", jobIdInputHidden.value);
-                } else {
-                    console.error("Không thể lấy Job ID từ nút.");
-                }
+                const jobId = button.getAttribute('data-jobidmua');
+                jobIdInput.value = jobId;
+                jobIdDisplay.textContent = jobId;
+                paymentModal.style.display = 'block';
+
+                console.log("Job ID ngay khi mở modal:", jobIdInput.value);
             });
         });
 
-        paymentForm.addEventListener('submit', (event) => {
-            // Kiểm tra nếu jobId đã được gán đúng
-            if (!jobIdInputHidden.value) {
-                event.preventDefault();
-                console.error("Job ID không được gán. Dừng submit.");
-            } else {
-                console.log("Đã sẵn sàng submit với Job ID:", jobIdInputHidden.value);
-            }
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target === paymentModal) {
-                closePaymentModalghim();
-            }
+        // Confirm jobId before form submission
+        submitButton.addEventListener('click', () => {
+            console.log("Job ID khi nhấn thanh toán:", jobIdInput.value);  // Confirm jobId value
         });
     });
 
+    // Function to close the modal
     function closePaymentModalghim() {
-        const paymentModal = document.getElementById('paymentModalghim');
-        paymentModal.style.display = 'none';
+        document.getElementById('paymentModalghim').style.display = 'none';
     }
-
-
 
 
 </script>

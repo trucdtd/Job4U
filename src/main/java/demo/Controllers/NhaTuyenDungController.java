@@ -418,7 +418,7 @@ public class NhaTuyenDungController {
 
 		// Kiểm tra các tham số cần thiết
 		if (servicePrice == null || serviceId == null || userId == null || (serviceId == 4 && jobId == null)) {
-			return "redirect:/employers?error=missingParameters";
+			return "redirect:/employers";
 		}
 
 		// Lưu các tham số vào session
@@ -444,7 +444,7 @@ public class NhaTuyenDungController {
 	    // Kiểm tra các tham số cần thiết
 	    if (userId == null || serviceId == null || (serviceId == 4 && jobId == null)) {
 	        redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
-	        return "redirect:/employers?error=missingParameters";
+	        return "redirect:/employers";
 	    }
 
 	    int paymentStatus = vnPayService.orderReturn(request);
@@ -489,7 +489,7 @@ public class NhaTuyenDungController {
 	            redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
 	        } else {
 	            redirectAttributes.addFlashAttribute("message", "Người dùng hoặc dịch vụ không hợp lệ.");
-	            return "redirect:/employers?error=invalidData";
+	            return "redirect:/employers";
 	        }
 	    } else {
 	        redirectAttributes.addFlashAttribute("message", "Thanh toán thất bại!");

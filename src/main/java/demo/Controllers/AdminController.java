@@ -210,7 +210,7 @@ public class AdminController {
 			if (user.getRole() != null && user.getRole() == 0) {
 				redirectAttributes.addAttribute("error",
 						"Không thể khóa tài khoản Admin.");				
-				return "redirect:/admin";
+				return "redirect:/admin/detailUser/" + id;
 			}
 
 			// Cập nhật trạng thái khóa tài khoản
@@ -219,10 +219,10 @@ public class AdminController {
 
 			redirectAttributes.addAttribute("error",
 					"Tài khoản đã được khóa thành công!");	
-			return "redirect:/admin"; // Quay về trang admin
+			return "redirect:/admin/detailUser/" + id; // Quay về trang admin
 		} catch (Exception e) {
 			redirectAttributes.addAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
-			return "redirect:/admin"; // Quay về trang admin nếu có lỗi
+			return "redirect:/admin/detailUser/" + id; // Quay về trang admin nếu có lỗi
 		}
 	}
 
@@ -238,7 +238,7 @@ public class AdminController {
 
 			redirectAttributes.addAttribute("error", "Tài khoản đã được mở thành công!");
 
-			return "redirect:/admin"; // Quay về trang admin
+			return "redirect:/admin/detailUser/" + id; // Quay về trang admin
 		} catch (Exception e) {
 			redirectAttributes.addAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
 			System.out.println("Lỗi khi mở tài khoản: " + e.getMessage());
@@ -330,27 +330,33 @@ public class AdminController {
 	 */
 
 	@PostMapping("/hidePost/{jobid}")
-	public String hidePost(@PathVariable Integer jobid) {
-		// Lấy thông tin bài viết từ database
-		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
+	public String hidePost(@PathVariable Integer jobid, RedirectAttributes redirectAttributes) {
+	    // Lấy thông tin bài viết từ database
+	    JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
 
-		// Cập nhật trạng thái ẩn bài viết
-		job.setActive(false);
-		joblistingsDao.save(job);
+	    // Cập nhật trạng thái ẩn bài viết
+	    job.setActive(false);
+	    joblistingsDao.save(job);
 
-		return "redirect:/admin"; // Quay về trang admin sau khi ẩn bài viết
+	    // Thêm thông báo ẩn thành công
+	    redirectAttributes.addFlashAttribute("message", "Đã ẩn bài viết thành công!");
+	    
+	    return "redirect:/admin/detailPost/" + jobid; // Quay về trang admin
 	}
 
 	@PostMapping("/showPost/{jobid}")
-	public String showPost(@PathVariable Integer jobid) {
-		// Lấy thông tin bài viết từ database
-		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
+	public String showPost(@PathVariable Integer jobid, RedirectAttributes redirectAttributes) {
+	    // Lấy thông tin bài viết từ database
+	    JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
 
-		// Cập nhật trạng thái hiện bài viết
-		job.setActive(true);
-		joblistingsDao.save(job);
+	    // Cập nhật trạng thái hiện bài viết
+	    job.setActive(true);
+	    joblistingsDao.save(job);
 
-		return "redirect:/admin"; // Quay về trang admin sau khi hiện bài viết
+	    // Thêm thông báo hiện thành công
+	    redirectAttributes.addFlashAttribute("message", "Đã hiển thị bài viết thành công!");
+
+	    return "redirect:/admin/detailPost/" + jobid; // Quay về trang admin sau khi hiện bài viết
 	}
 
 	@GetMapping("/detailCV/{id}")
@@ -459,7 +465,7 @@ public class AdminController {
 	    servicesDao.save(newDv);
 	    
 	    // Trả về trang với thông báo thành công
-	    redirectAttributes.addAttribute("message", "Thêm dịch vụ thành công!");
+	    redirectAttributes.addAttribute("error", "Thêm dịch vụ thành công!");
 	    return "redirect:/admin";
 	}
 
