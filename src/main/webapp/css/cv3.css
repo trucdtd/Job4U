@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: #f4f4f9;
+}
+
+.resume-container {
+	display: flex;
+	width: 800px;
+	border: 1px solid #e0e0e0;
+	background-color: white;
+	margin: auto;
+	flex-grow: 1;
+}
+
+.left-column, .right-column {
+	padding: 20px;
+}
+
+.left-column {
+	width: 35%;
+	background-color: #d2e4d9;
+}
+
+.right-column {
+	width: 65%;
+}
+
+.section {
+	margin-bottom: 20px;
+}
+
+.photo-frame {
+	width: 150px;
+	height: 200px;
+	margin: auto;
+	overflow: hidden;
+	border: 2px solid #4d5c4b;
+	border-radius: 8px;
+	background-color: #ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.photo-frame img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: scale-down;
+	cursor: pointer;
+}
+
+h1, h2 {
+	font-size: 24px;
+	color: #4d5c4b;
+	margin-bottom: 10px;
+}
+
+.section-title {
+	font-size: 18px;
+	margin-top: 20px;
+	color: #4d5c4b;
+	border-bottom: 2px solid #4d5c4b;
+	padding-bottom: 5px;
+}
+
+input[type="text"], input[type="email"], input[type="date"], select {
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	font-size: 14px;
+	color: #333;
+}
+
+textarea {
+	width: 100%;
+	padding: 10px;
+	overflow: hidden; /* Ẩn thanh cuộn */
+	resize: none; /* Tắt tính năng thay đổi kích thước */
+}
+
+button {
+	padding: 8px 15px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.sortable-ghost {
+	opacity: 0.4;
+}
+button.hidden {
+    display: none;
+}
+
+/* Khi hover vào phần tử chứa ô nhập liệu, hiển thị nút Thêm */
+.section:hover button.hidden {
+    display: inline-block;
+}
+
+.hidden-input {
+  border: none;
+  outline: none;
+  background: none;
+  color: inherit;
+
+  /* Khi hover vào */
+  &:hover {
+    border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
+  }
+}
+
+.button-container {
+    display: flex;  /* Aligns buttons horizontally */
+    justify-content: center; /* Centers buttons */
+    gap: 10px;  /* Adds space between buttons */
+    margin-top: 20px;
+}

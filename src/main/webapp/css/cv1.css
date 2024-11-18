@@ -215,7 +215,6 @@ textarea {
     resize: none; /* Tắt tính năng thay đổi kích thước */
 }
 
-
 .upload-label {
 	cursor: pointer;
 	display: inline-block;
@@ -281,14 +280,13 @@ button {
     opacity: 0.7;
     background-color: #e0e0e0;  /* Đổi màu khi đang kéo */
 }
+
 .button-container {
     display: flex;  /* Aligns buttons horizontally */
     justify-content: center; /* Centers buttons */
     gap: 10px;  /* Adds space between buttons */
     margin-top: 20px;
 }
-
-
 
 .hidden-input {
   border: none;
