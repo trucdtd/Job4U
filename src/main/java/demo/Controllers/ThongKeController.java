@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import demo.dao.JoblistingsDao;
+import demo.dao.PaymentsDao;
 import demo.dao.ServicesDao;
 import demo.dao.UserServicesDao;
 import demo.dao.UsersDao;
@@ -41,7 +42,10 @@ public class ThongKeController {
 
 	@Autowired
 	ServicesDao svDao;
-
+	
+	@Autowired
+	PaymentsDao paymentDao;
+	
 	@GetMapping("")
 	public String getSoldServices(Model model) {
 		// Lấy danh sách dịch vụ đã bán từ userServicesDao

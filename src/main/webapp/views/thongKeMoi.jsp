@@ -18,12 +18,13 @@
 <link rel="stylesheet" href="/css/thongke.css">
 </head>
 <body>
+		<%@ include file="/views/headerNoPanner.jsp"%>
 	<div class="container mt-3">
+
 		<section class="section dashboard">
 			<div class="row">
 				<!-- Title Section -->
-				<div class="col-12 mb-2">
-					<h1>Thống Kê Hệ Thống</h1>
+				<div class="col-12 mb-2">	
 				</div>
 				<div class="container mb-2">
 					<form action="/thongke" method="post" class="d-flex pt-3 rounded-3">
@@ -35,11 +36,11 @@
 							<input type="date" class="form-control" name="enddate" id=""
 								aria-describedby="helpId" placeholder="" />
 						</div>
-						<div class="mb-3 me-2">
-							<button type="submit" class="btn btn-success">Thống kê</button>
+						<div class=" mb-3 me-2">
+							<button type="submit" class="btn btn-success mt-0">Thống kê</button>
 						</div>
 						<div class="mb-3">
-							<button type="button" class="btn btn-warning">Làm mới</button>
+							<a type="button" href="/thongke" class="btn btn-warning">Làm mới</a>
 						</div>
 
 					</form>
@@ -183,6 +184,8 @@
 		</section>
 	</div>
 	<!-- footer -->
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
