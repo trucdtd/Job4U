@@ -1,0 +1,323 @@
+@charset "UTF-8";
+body {
+	background-color: #f8f9fa; /* Màu nền nhạt */
+}
+
+.card-header {
+	background-color: #007bff; /* Màu xanh */
+	color: white; /* Chữ màu trắng */
+}
+
+.label {
+	font-weight: bold;
+	color: #007bff; /* Màu xanh cho các nhãn */
+}
+
+.info {
+	background-color: #e9ecef; /* Màu nền nhạt cho thông tin */
+	padding: 10px;
+	border-radius: 5px;
+}
+
+/* phần css cv */
+.cv-container {
+	width: 800px;
+	background-color: #ffffff;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	display: flex;
+	padding: 40px;
+	gap: 30px;
+}
+
+.left-column {
+	width: 35%;
+	background-color: #f7f7f7;
+	padding: 20px;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.section-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+	margin: 15px 0 10px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	border-bottom: 2px solid #333;
+	padding-bottom: 5px;
+	width: 100%; /* Đặt chiều rộng bằng với phần chứa */
+	text-align: center; /* Căn giữa văn bản */
+}
+
+.about p, .contact p, .skills ul, .language p {
+	font-size: 14px;
+	color: #555;
+	margin-bottom: 10px;
+	line-height: 1.6;
+}
+
+.contact, .skills, .language {
+	margin-bottom: 20px;
+}
+
+.skills ul, .language {
+	list-style: none;
+	padding-left: 0;
+}
+
+.right-column {
+	width: 65%;
+}
+
+.right-column h1 {
+	font-size: 36px;
+	font-weight: 700;
+	color: #444;
+	margin-bottom: 5px;
+}
+
+.right-column h2 {
+	font-size: 18px;
+	font-weight: 500;
+	color: #777;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+}
+
+.experience, .education, .references {
+	margin-bottom: 30px;
+}
+
+.job, .education-item, .reference-item {
+	margin-bottom: 20px;
+	padding: 10px 0;
+	border-left: 3px solid #888;
+	padding-left: 15px;
+}
+
+.job h3, .education-item h3, .reference-item h3 {
+	font-size: 16px;
+	font-weight: 600;
+	color: #333;
+}
+
+.job span, .education-item span, .reference-item span {
+	display: block;
+	font-size: 14px;
+	color: #888;
+	margin-top: 5px;
+}
+
+.description {
+	font-size: 13px;
+	color: #555;
+	margin-top: 8px;
+	line-height: 1.5;
+}
+
+.reference-item p {
+	font-size: 13px;
+	color: #555;
+}
+
+/* Container chính */
+.cv-container {
+	max-width: 800px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 30px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	font-family: 'Helvetica Neue', sans-serif;
+	color: #444;
+}
+
+.cv-header {
+	background-color: #1da868; /* Màu xanh lá nhạt hơn */
+	color: #ffffff; /* Màu chữ trắng */
+	padding: 20px 0; /* Khoảng cách bên trên và bên dưới */
+	margin-bottom: 30px; /* Khoảng cách dưới tiêu đề */
+}
+
+.cv-header h2 {
+	font-size: 36px;
+	margin: 0;
+}
+
+.cv-header h4 {
+	font-size: 18px;
+	font-weight: 400;
+	margin-top: 5px;
+}
+/* Body CV */
+.cv-body {
+	margin-top: 20px;
+}
+
+/* Phần thông tin cá nhân */
+.info-grid {
+	display: flex; /* Sử dụng flexbox để căn chỉnh */
+	align-items: center; /* Căn giữa theo chiều dọc */
+	gap: 20px; /* Khoảng cách giữa ảnh và thông tin */
+}
+
+.info-details {
+	margin-left: 70px; /* Nhích sang bên phải 20px */
+}
+
+/* Các phần khác */
+.cv-section {
+	margin-bottom: 25px;
+}
+
+.cv-section h3 {
+	font-size: 20px;
+	color: #1da868;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
+}
+
+.info-details {
+	flex: 1; /* Để thông tin chiếm toàn bộ không gian còn lại */
+}
+
+/* Văn bản trong các phần */
+p {
+	font-size: 16px;
+	line-height: 1.6;
+}
+
+/* Hiệu ứng khi in */
+@media print {
+	.cv-container {
+		box-shadow: none;
+	}
+}
+
+input[type="text"], input[type="email"], input[type="date"], select {
+	
+	
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	font-size: 14px;
+	color: #333;
+}
+
+textarea {
+	width: 100%;
+	padding: 10px;
+}
+
+
+.upload-label {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+}
+
+.profile-photo {
+	width: 100px;
+	height: 133px;
+	border-radius: 5px;
+	border: 1px solid #ccc; /* Light gray border for a subtle frame */
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cv-photo {
+	width: 100%; /* Đảm bảo ảnh luôn vừa khung */
+	height: 100%; /* Đảm bảo ảnh luôn vừa khung */
+	object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
+}
+
+.placeholder-photo {
+	width: 100%;
+	height: 100%;
+	background-color: #f0f0f0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+}
+
+.placeholder {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #a0a0a0;
+}
+
+button {
+	padding: 8px 15px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-left: 40px
+}
+/* Ẩn nút thêm mặc định */
+.add-button {
+	display: none;
+}
+
+/* Hiển thị nút thêm khi hover vào vùng chứa */
+#skills-container:hover .add-button, #certifications-container:hover .add-button,
+	#experience-container:hover .add-button, #projects-container:hover .add-button,
+	#hobbies-container:hover .add-button {
+	display: inline-block;
+}
+.sortable-ghost {
+    opacity: 0.7;
+    background-color: #e0e0e0;  /* Đổi màu khi đang kéo */
+}
+.button-container {
+    display: flex;  /* Aligns buttons horizontally */
+    justify-content: center; /* Centers buttons */
+    gap: 10px;  /* Adds space between buttons */
+    margin-top: 20px;
+}
+
+.save-button, .download-button {
+    padding: 6px 15px;  /* Smaller padding */
+    background-color: #1da868; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;  /* Smaller font size */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    width: 120px;  /* Smaller width */
+}
+
+.save-button:hover, .download-button:hover {
+    background-color: #158e52; 
+}
+
+.download-button {
+    background-color: #1d88a8; /* Different color for download button */
+}
+
+.download-button:hover {
+    background-color: #158c8a;
+}
+.hidden-input {
+  border: none;
+  outline: none;
+  background: none;
+  color: inherit;
+
+  /* Khi hover vào */
+  &:hover {
+    border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
+  }
+}
