@@ -11,7 +11,7 @@ import demo.entity.PaymentsEntity;
 import demo.entity.UserServicesEntity;
 
 public interface PaymentsDao extends JpaRepository<PaymentsEntity, Integer> {
-	@Query("SELECT j FROM PaymentsEntity j WHERE j.purchasedate >= :startDate AND j.purchasedate <= :endDate")
+	@Query("SELECT j FROM PaymentsEntity j WHERE j.paymentdate >= :startDate AND j.paymentdate <= :endDate")
 	List<PaymentsEntity> selectUSStartDateEndDateList(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
 }
