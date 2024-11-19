@@ -171,7 +171,7 @@
 	</div>
 
 
-	<script>
+	<!-- <script>
 	let selectedService = {};
 	let jobIdSelected = null;
 
@@ -263,6 +263,6 @@
 	    document.querySelector(".payment-form").submit();
 	}
 
-</script>
+</script> -->
 </body>
 </html>
