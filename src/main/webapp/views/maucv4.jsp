@@ -33,6 +33,7 @@
 					class="profile-photo">
 				<div class="header-info">
 					<h1 contenteditable="true">OLIVIA WILSON</h1>
+					<h5 contenteditable="true">Marketing</h5>
 				</div>
 			</div>
 

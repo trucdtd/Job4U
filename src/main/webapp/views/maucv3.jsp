@@ -88,6 +88,7 @@
 			<div class="section">
 				<div class="personal-info">
 					<h1 contenteditable="true">OLIVIA WILSON</h1>
+					<h4 contenteditable="true">Marketing</h4>
 					<textarea class="hidden-input" name="careerGoal"
 						placeholder="I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me."></textarea>
 				</div>

@@ -52,7 +52,7 @@
 				</label>
 			</div>
 			<div class="section">
-				<div class="section-title">Contact</div>
+				<div class="section-title">Liên Hệ</div>
 				<div class="contact-info">
 					<p>
 						Điện Thoại: <input type="text" class="hidden-input" name="phone"
@@ -88,6 +88,7 @@
 				<div class="add-button-container">
 					<button onclick="addField('education-section')">+ Thêm Học
 						Vấn</button>
+						
 				</div>
 			</div>
 
