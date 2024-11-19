@@ -106,7 +106,7 @@
 	<!-- Modal chọn công việc -->
 	<div id="jobSelectionModal" class="modal">
 		<div class="modal-content">
-			 <span class="close">&times;</span>
+			<span class="close" onclick="closeJobSelectionModal()">&times;</span>
 			<h3>Chọn Công Việc</h3>
 			<table class="table">
 				<thead>
@@ -139,7 +139,7 @@
 
 	<div id="paymentModal" class="modal" style="display: none;">
 		<div class="modal-content">
-			 <span class="close">&times;</span>
+			<span class="close" onclick="closePaymentModal()">&times;</span>
 			<div class="payment-container">
 				<div class="payment-summary">
 					<h3>Tóm tắt thanh toán</h3>
@@ -207,6 +207,36 @@
 	    }
 	}
 
+	// Đóng modal chọn công việc
+	function closeJobSelectionModal() {
+	    const modal = document.getElementById('jobSelectionModal');
+	    if (modal) {
+	        modal.style.display = 'none';
+
+	        // Reset trạng thái modal chọn công việc (nếu cần thiết)
+	        jobIdSelected = null;
+	        document.getElementById('jobId').value = "";
+	        document.getElementById('jobIdSelected').innerText = "";
+	    }
+	}
+
+	// Đóng modal thanh toán
+	function closePaymentModal() {
+	    const modal = document.getElementById('paymentModal');
+	    if (modal) {
+	        modal.style.display = 'none';
+
+	        // Reset trạng thái modal thanh toán
+	        jobIdSelected = null;
+	        selectedService = {};
+	        document.getElementById('jobId').value = "";
+	        document.getElementById('jobIdSelected').innerText = "";
+	        document.getElementById('serviceName').innerText = "";
+	        document.getElementById('servicePrice').innerText = "";
+	        document.getElementById('serviceDescription').innerText = "";
+	        document.getElementById('servicePriceInput').value = "";
+	    }
+	}
 
 	// Chọn bài viết và mở modal thanh toán
 	function selectJobPost(job) {
