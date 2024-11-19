@@ -434,7 +434,7 @@ p {
 	    })
 	    .then(response => {
 	        if (response.ok) {
-	            alert('Chấp nhận đơn ứng tuyển thành công!');
+	            alert('Chấp nhận đơn ứng tuyển thành công! Và đã gửi email thông báo cho ứng viên.');
 	            window.location.reload();
 	        } else {
 	            alert('Có lỗi xảy ra khi chấp nhận đơn ứng tuyển!');
@@ -459,7 +459,7 @@ p {
 	            alert('Đã từ chối đơn ứng tuyển!');
 	            window.location.reload();
 	        } else {
-	            alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
+	            alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển! Và đã gửi email thông báo cho ứng viên.');
 	        }
 	    })
 	    .catch(error => {
@@ -467,6 +467,6 @@ p {
 	        alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
 	    });
 	}
-    </script>
+    </script>'
 </body>
 </html>
