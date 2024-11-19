@@ -568,38 +568,41 @@
 		</div>
 
 		<!-- Modal Thanh Toán -->
-<div id="paymentModalghim" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close" onclick="closePaymentModalghim()">&times;</span>
-        <div class="payment-container">
-            <div class="payment-summary">
-                <h3>Tóm tắt thanh toán</h3>
-                <ul>
-                    <li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
-                    <li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
-                </ul>
-                <div class="total-price">
-                    <h2>Tổng Tiền</h2>
-                    <h1>75.000 ₫</h1>
-                    <p>Ghim Bài đăng lên top những công việc hàng đầu trong 3 ngày.</p>
-                </div>
-            </div>
-            <form action="/employers/pay" method="post" class="payment-form">
-                <input type="hidden" name="servicePrice" id="servicePriceInput" value="75000">
-                <input type="hidden" name="serviceId" id="serviceId" value="4">
-                <input type="hidden" name="jobId" id="jobid" value="${jobid}">
-                <input type="hidden" name="userId" id="userId" value="${userId}">
-                
-                <div class="payment-methods">
-                    <button class="momo2-btn" type="submit">
-                        <img src="/img/vnpay.png">
-                    </button>
-                </div>
-                <button class="submit-btn" style="background: #198754" type="submit">Thanh Toán</button>
-            </form>
-        </div>
-    </div>
-</div>
+		<div id="paymentModalghim" class="modal" style="display: none;">
+			<div class="modal-content">
+				 <span class="close">&times;</span>
+				<div class="payment-container">
+					<div class="payment-summary">
+						<h3>Tóm tắt thanh toán</h3>
+						<ul>
+							<li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
+							<li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
+						</ul>
+						<div class="total-price">
+							<h2>Tổng Tiền</h2>
+							<h1>75.000 ₫</h1>
+							<p>Ghim Bài đăng lên top những công việc hàng đầu trong 3
+								ngày.</p>
+						</div>
+					</div>
+					<form action="/employers/pay" method="post" class="payment-form">
+						<input type="hidden" name="servicePrice" id="servicePriceInput"
+							value="75000"> <input type="hidden" name="serviceId"
+							id="serviceId" value="4"> <input type="hidden"
+							name="jobId" id="jobid" value="${jobid}"> <input
+							type="hidden" name="userId" id="userId" value="${userId}">
+
+						<div class="payment-methods">
+							<button class="momo2-btn" type="submit">
+								<img src="/img/vnpay.png">
+							</button>
+						</div>
+						<button class="submit-btn" style="background: #198754"
+							type="submit">Thanh Toán</button>
+					</form>
+				</div>
+			</div>
+		</div>
 
 
 
@@ -896,24 +899,47 @@ document.getElementById('logo').addEventListener('change', function(event) {
             paymentForm.submit(); // Submit form
         });
 
-        // Xử lý sự kiện khi nhấp vào ngoài modal để đóng modal thanh toán
-        window.addEventListener('click', (event) => {
-            if (event.target === paymentModal) {
-                closePaymentModal();
+    });
+
+ // Đóng modal chung
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'none'; // Ẩn modal
+        }
+    }
+
+    // Lắng nghe sự kiện click ngoài modal để đóng modal
+    window.addEventListener('click', (event) => {
+        const paymentModal = document.getElementById('paymentModal');
+        const jobSelectionModal = document.getElementById('jobSelectionModal');
+        const paymentModalghim = document.getElementById('paymentModalghim');
+
+        // Kiểm tra nếu click ngoài modal thì đóng modal
+        if (event.target === paymentModal) {
+            closeModal('paymentModal');
+        }
+        
+     // Kiểm tra nếu click ngoài modal thì đóng modal
+        if (event.target === paymentModalghim) {
+            closeModal('paymentModalghim');
+        }
+
+        if (event.target === jobSelectionModal) {
+            closeModal('jobSelectionModal');
+        }
+    });
+
+    // Thêm sự kiện cho nút đóng modal (dấu "×")
+    document.querySelectorAll('.modal .close').forEach(closeButton => {
+        closeButton.addEventListener('click', (event) => {
+            const modal = event.target.closest('.modal');
+            if (modal) {
+                const modalId = modal.id; // Lấy id của modal đang được mở
+                closeModal(modalId); // Đóng modal
             }
         });
     });
-
-    // Hàm đóng modal thanh toán
-    function closePaymentModal() {
-        const paymentModal = document.getElementById('paymentModalghim');
-        paymentModal.style.display = 'none';
-    }
-
-
-
-
-
 
 </script>
 	<script

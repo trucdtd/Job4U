@@ -3,6 +3,7 @@ package demo.Controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -433,6 +434,7 @@ public class NhaTuyenDungController {
 
 		return "redirect:" + vnpayUrl;
 	}
+	
 
 	@GetMapping("/vnpay-payment")
 	public String vnpayPayment(HttpServletRequest request, RedirectAttributes redirectAttributes) {
