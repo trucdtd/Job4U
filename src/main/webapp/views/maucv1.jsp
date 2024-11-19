@@ -73,7 +73,7 @@
 				<h1 contenteditable="true">OLIVIA WILSON</h1>
 				<h5 contenteditable="true">Marketing</h5>
 				<div class="experience section">
-					<div contenteditable="true" class="section-title">Kinh Nghiệm</div>
+					<div class="section-title">Kinh Nghiệm</div>
 					<div id="experience-container">
 						<textarea class="hidden-input" id="experience" 
 							placeholder="I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me."></textarea>
