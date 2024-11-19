@@ -71,14 +71,13 @@
 
 			<div class="right-column" id="sortable-right">
 				<h1 contenteditable="true">OLIVIA WILSON</h1>
+				<h5 contenteditable="true">Marketing</h5>
 				<div class="experience section">
 					<div contenteditable="true" class="section-title">Kinh Nghiệm</div>
 					<div id="experience-container">
 						<textarea class="hidden-input" id="experience" 
-							placeholder="Kinh nghiệm làm việc"></textarea>
-						<button id="add-experience-button" class="add-button"
-							type="button" onclick="addExperienceField()">+ Thêm Kinh
-							Nghiệm</button>
+							placeholder="I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me."></textarea>
+						
 					</div>
 				</div>
 
@@ -98,7 +97,7 @@
 					<div class="section-title">Sở Thích</div>
 					<div id="hobbies-container">
 						<input class="hidden-input" type="text" id="hobbies" class="input-field"
-							placeholder="Chứng chỉ">
+							placeholder="Sở Thích">
 						<button id="add-hobbies-button" class="add-button" type="button"
 							onclick="addHobbiesField()">+ Thêm Sở Thích</button>
 					</div>
@@ -119,10 +118,11 @@
 		function addSkillField() {
 			const skillsContainer = document.getElementById('skills-container');
 			const addSkillButton = document.getElementById('add-skill-button');
-
+			
 			const newField = document.createElement('input');
+			
 			newField.type = 'text';
-			newField.className = 'input-field';
+			newField.className = 'input-field hidden-input';
 			newField.placeholder = 'Kỹ năng';
 
 			skillsContainer.insertBefore(newField, addSkillButton);
@@ -136,24 +136,11 @@
 
 			const newField = document.createElement('input');
 			newField.type = 'text';
-			newField.className = 'input-field';
+			newField.className = 'input-field hidden-input';
 			newField.placeholder = 'Chứng chỉ';
 
 			certificationsContainer.insertBefore(newField,
 					addCertificationButton);
-		}
-
-		function addExperienceField() {
-			const experienceContainer = document
-					.getElementById('experience-container');
-			const addExperienceButton = document
-					.getElementById('add-experience-button');
-
-			const newField = document.createElement('textarea');
-			newField.className = 'input-area';
-			newField.placeholder = 'Kinh nghiệm làm việc';
-
-			experienceContainer.insertBefore(newField, addExperienceButton);
 		}
 
 		function addHobbiesField() {
@@ -164,7 +151,7 @@
 
 			const newField = document.createElement('input');
 			newField.type = 'text';
-			newField.className = 'input-field';
+			newField.className = 'input-field hidden-input';
 			newField.placeholder = 'Sở Thích';
 
 			hobbiesContainer.insertBefore(newField, addHobbiesButton);
@@ -181,16 +168,16 @@
 
 			const projectName = document.createElement('input');
 			projectName.type = 'text';
-			projectName.className = 'input-field';
+			projectName.className = 'input-field hidden-input';
 			projectName.placeholder = 'Tên Dự Án';
 
 			const projectTime = document.createElement('input');
 			projectTime.type = 'text';
-			projectTime.className = 'input-field';
+			projectTime.className = 'input-field hidden-input';
 			projectTime.placeholder = 'Thời Gian';
 
 			const projectDescription = document.createElement('textarea');
-			projectDescription.className = 'input-area';
+			projectDescription.className = 'input-area hidden-input';
 			projectDescription.placeholder = 'Mô Tả';
 
 			newProjectField.appendChild(projectName);
@@ -246,5 +233,22 @@
 	    html2pdf().from(cvContent).set(options).save();
 	}
 	</script>
+		<script>
+// Hàm tự động thay đổi chiều cao
+function autoResizeTextarea(textarea) {
+  textarea.style.height = 'auto'; // Đặt chiều cao về auto để tính lại kích thước
+  textarea.style.height = textarea.scrollHeight + 'px'; // Gán chiều cao bằng chiều cao nội dung
+}
+
+// Gắn sự kiện cho textarea
+document.querySelectorAll('textarea').forEach((textarea) => {
+  textarea.addEventListener('input', function () {
+    autoResizeTextarea(this);
+  });
+
+  // Gọi hàm ngay khi tải trang (để điều chỉnh nếu có dữ liệu sẵn)
+  autoResizeTextarea(textarea);
+});
+</script>
 </body>
-</html>
+</html> 

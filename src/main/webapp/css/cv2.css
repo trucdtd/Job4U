@@ -168,11 +168,12 @@ h1 {
 	font-size: 14px;
 	margin: 2px 0;
 }
-
 textarea {
-	width: 100%;
-	padding: 10px;
-}
+    width: 100%;
+    padding: 10px;
+    overflow: hidden; /* Ẩn thanh cuộn */
+    resize: none; /* Tắt tính năng thay đổi kích thước */
+  }
 
 input[type="text"], input[type="email"], input[type="date"], select {
 	width: 100%;
@@ -231,4 +232,6 @@ button.add-field {
     border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
   }
 }
+
+
 

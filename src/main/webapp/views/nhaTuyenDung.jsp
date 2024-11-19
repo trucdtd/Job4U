@@ -196,7 +196,11 @@
 								<tbody>
 									<c:forEach items="${jobPostings}" var="job">
 										<tr data-jobid="${job.jobid}">
-											<td>${job.jobtitle}</td>
+											<td>${job.jobtitle}<!-- Hiển thị ngôi sao vàng nếu là công việc top -->
+												<c:if test="${job.isTop}">
+													<i class="bi bi-star-fill text-warning"></i>
+													<!-- Ngôi sao vàng -->
+												</c:if></td>
 											<td>${job.joblocation}</td>
 											<td><c:choose>
 													<c:when test="${not empty job.salary}">
@@ -571,6 +575,7 @@
 		<div id="paymentModalghim" class="modal" style="display: none;">
 			<div class="modal-content">
 				 <span class="close">&times;</span>
+				<span class="close" onclick="closePaymentModalghim()">&times;</span>
 				<div class="payment-container">
 					<div class="payment-summary">
 						<h3>Tóm tắt thanh toán</h3>
