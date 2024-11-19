@@ -467,6 +467,6 @@ p {
 	        alert('Có lỗi xảy ra khi từ chối đơn ứng tuyển!');
 	    });
 	}
-    </script>
+    </script>'
 </body>
 </html>
