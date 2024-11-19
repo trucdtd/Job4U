@@ -198,9 +198,9 @@
 					<!-- Nút Chat và Nút Form -->
     <div id="contact-widget">
         <!-- Nút bổ sung nằm trên nút chat -->
-        <button id="additional-button" class="form-button btn btn-secondary">
-            <i class="fas fa-info"></i> <!-- Biểu tượng cho nút bổ sung -->
-        </button>
+        <!-- <button id="additional-button" class="form-button btn btn-secondary">
+            <i class="fas fa-info"></i> Biểu tượng cho nút bổ sung
+        </button> -->
         <button id="contact-button" class="chat-button btn btn-success">
             <i class="fas fa-comments"></i> <!-- Biểu tượng chat -->
         </button>
@@ -216,9 +216,9 @@
     </div>
 
     <!-- Form Popup -->
-<div id="popup-form">
+<!-- <div id="popup-form">
         <div class="row justify-content-center">
-        	<!-- <div class="row justify-content-center"> -->
+        	<div class="row justify-content-center">
             <div style="float: right;">
                     <button type="button" class="btn-close" aria-label="Close"></button>
             </div>            
@@ -289,9 +289,9 @@
                     </div>
                 </div>
             </form>
-        <!-- </div> -->
+        </div>
     </div>
-</div>
+</div> -->
 	</div>
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
