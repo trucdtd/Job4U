@@ -29,11 +29,11 @@
 				<div class="container mb-2">
 					<form action="/thongke" method="post" class="d-flex pt-3 rounded-3">
 						<div class="mb-3 me-2">
-							<input type="date" class="form-control" name="startdate" id=""
+							<input type="date" class="form-control border-0 shadow" name="startdate" id=""
 								aria-describedby="helpId" placeholder="" />
 						</div>
 						<div class="mb-3 me-3">
-							<input type="date" class="form-control" name="enddate" id=""
+							<input type="date" class="form-control border-0 shadow" name="enddate" id=""
 								aria-describedby="helpId" placeholder="" />
 						</div>
 						<div class=" mb-3 me-2">
