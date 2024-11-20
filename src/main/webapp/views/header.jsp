@@ -20,9 +20,9 @@
 <body>
 	<header class="bg-white">
 		<!-- place navbar here -->
-		<nav class="navbar navbar-expand-lg navbar-light shadow">
+		<nav class="navbar navbar-expand-lg navbar-light shadow-sm">
 			<div class="container-fluid">
-				<div class="text-center text-success fw-bold">
+				<div class="text-center text-success fw-bold ms-5">
 					<a class="navbar-brand text-success" href="/job4u">JOB4U</a>
 					<p class="navbar-brand-text-p">Tìm việc làm - Tuyển nhân sự
 						online</p>
