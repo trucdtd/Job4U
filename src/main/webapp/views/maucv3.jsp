@@ -38,11 +38,12 @@
 	<div class="resume-container" id="cv-content">
 		<!-- Left Column -->
 		<div class="left-column" id="sortable-left">
-			<div class="section">
-				<div class="photo-frame">
-					<input type="file" accept="image/*" onchange="previewImage(event)">
-					<img id="profileImage" src="profile.jpg" alt="Profile Image">
-				</div>
+
+			<div class="photo-frame">
+				<input type="file" accept="image/*" onchange="previewImage(event)"
+					style="display: none;" id="fileInput"> <img
+					id="profileImage" src="profile.jpg" alt="Profile Image"
+					onclick="triggerFileInput()">
 			</div>
 			<div class="section">
 				<div class="contact-info">
@@ -85,7 +86,7 @@
 
 		<!-- Right Column -->
 		<div class="right-column" id="sortable-right">
-			<div class="section">
+			<div >
 				<div class="personal-info">
 					<h1 contenteditable="true">OLIVIA WILSON</h1>
 					<h4 contenteditable="true">Marketing</h4>
@@ -107,9 +108,9 @@
 			<div class="section" id="projectSection">
 				<h2 class="section-title">Dự Án Đã Tham Gia</h2>
 				<div class="input-group">
-					<input class="hidden-input" type="text"
-						placeholder="Nhập thời gian"> <input class="hidden-input"
-						type="text" placeholder="Tên dự án">
+					<input class="hidden-input project-name" type="text"
+						placeholder="Tên dự án"> <input class="hidden-input"
+						type="text" placeholder="Nhập thời gian">
 					<textarea class="hidden-input" placeholder="Mô tả dự án..."></textarea>
 				</div>
 				<button class="hidden" type="button" onclick="addProjectField()">+
@@ -127,7 +128,7 @@
 		</div>
 	</div>
 	<div class="button-container">
-		<button class="save-button" type="button">Lưu CV</button>
+		<!-- <button class="save-button" type="button">Lưu CV</button> -->
 		<button class="download-button" type="button"
 			onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
 	</div>
@@ -207,7 +208,7 @@
 		function addProjectField() {
 			var section = document.createElement("div");
 			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Dự án đã tham gia"><input class="hidden-input" type="text" placeholder="Tên dự án"><textarea class="hidden-input" placeholder="Mô tả dự án..."></textarea>';
+			section.innerHTML = '<input class="hidden-input project-name" type="text" placeholder="Tên dự án"><input class="hidden-input" type="text" placeholder="Dự án đã tham gia"><textarea class="hidden-input" placeholder="Mô tả dự án..."></textarea>';
 			// Thêm trường nhập liệu vào đầu danh sách
 			document.getElementById("projectSection").insertBefore(section,
 					document.querySelector("#projectSection button"));

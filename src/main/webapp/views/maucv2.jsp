@@ -30,16 +30,16 @@
 	<!-- header -->
 	<div class="cv-container" id="cv-content">
 		<!-- Decorative Header -->
-		<div class="header-decoration"></div>
+		<!-- <div class="header-decoration"></div>
 		<div class="inner-header-decoration"></div>
 
-		<!-- Decorative Footer -->
+		Decorative Footer
 		<div class="footer-decoration"></div>
 		<div class="inner-footer-decoration"></div>
 
-		<!-- Corner Triangles -->
+		Corner Triangles
 		<div class="top-left-triangle"></div>
-		<div class="bottom-right-triangle"></div>
+		<div class="bottom-right-triangle"></div> -->
 
 		<!-- Left Column -->
 		<div class="left-column" id="sortable-left">
@@ -134,7 +134,7 @@
 				<div class="section-title">Dự Án Đã Tham Gia</div>
 				<div id="projects-section" class="draggable-section">
 					<div class="work-experience-item">
-						<input class="hidden-input" type="text" name="projects[]"
+						<input class="hidden-input project-name" type="text" name="projects[]"
 							placeholder="Tên dự án - Công ty"> <input
 							class="hidden-input" type="text" name="project-dates[]"
 							placeholder="Thời gian">
@@ -160,7 +160,7 @@
 		</div>
 	</div>
 	<div class="button-container">
-		<button class="save-button" type="button">Lưu CV</button>
+		<!-- <button class="save-button" type="button">Lưu CV</button> -->
 		<button class="download-button" type="button"
 			onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
 	</div>
@@ -192,7 +192,7 @@
 			  div.className = "work-experience-item";
 
 			  div.innerHTML = `
-			      <input type="text" name="projects[]" placeholder="Tên dự án - Công ty" class="hidden-input" style="opacity: 0;">
+			      <input type="text" name="projects[]" placeholder="Tên dự án - Công ty" class="hidden-input project-name" style="opacity: 0;">
 			      <input type="text" name="project-dates[]" placeholder="Thời gian" class="hidden-input" style="opacity: 0;">
 			      <textarea name="project-descriptions[]" placeholder="Mô tả" class="hidden-input" style="opacity: 0;"></textarea>
 			  `;
