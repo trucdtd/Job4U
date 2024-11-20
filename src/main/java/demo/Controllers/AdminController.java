@@ -378,6 +378,7 @@ public class AdminController {
 	public String capnhatDv(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,
 	                        @RequestParam("servicename") String servicename,
 	                        @RequestParam("price") String price,
+		                    @RequestParam("numberofjobsallowed") Integer numberofjobsallowed,
 	                        @RequestParam("description") String description) {
 	    // Tìm dịch vụ theo id
 	    ServicesEntity updv = servicesDao.findById(id).orElse(null);
@@ -387,19 +388,25 @@ public class AdminController {
 	        updv.setServicename(servicename);
 	        updv.setDescription(description);
 	        
-	        // Chuyển đổi price từ String sang BigDecimal
-	        try {
-	            BigDecimal priceValue = new BigDecimal(price); // Chuyển đổi giá trị chuỗi sang BigDecimal
-	            updv.setPrice(priceValue); // Lưu giá trị đã chuyển đổi
-	        } catch (NumberFormatException e) {
-	            // Nếu không thể chuyển đổi, bạn có thể xử lý lỗi hoặc để giá trị mặc định
-	        	redirectAttributes.addAttribute("error", "Giá không hợp lệ!");
-	            return "quanLyNguoiDung"; // Trả về trang quản lý với thông báo lỗi
-	        }
+	     // Chuyển đổi price từ String sang BigDecimal
+		    try {
+		        BigDecimal priceValue = new BigDecimal(price); // Chuyển đổi giá trị chuỗi sang BigDecimal
+		        // Kiểm tra nếu giá tiền không hợp lệ (ví dụ: giá nhỏ hơn hoặc bằng 0)
+		        if (priceValue.compareTo(BigDecimal.ZERO) <= 0) {
+		            throw new NumberFormatException("Giá phải lớn hơn 0");
+		        }
+		        updv.setPrice(priceValue); // Lưu giá trị đã chuyển đổi
+		    } catch (NumberFormatException e) {
+		        // Nếu không thể chuyển đổi hoặc giá không hợp lệ, trả thông báo lỗi
+		        redirectAttributes.addAttribute("error", "Giá không hợp lệ! " + e.getMessage());
+		        return "redirect:/admin"; // Trả về trang quản lý với thông báo lỗi
+		    }
+		    // Lưu số lượng công việc vào đối tượng
+		    updv.setNumberofjobsallowed(numberofjobsallowed);
 	        
 	        // Lưu dịch vụ sau khi cập nhật
 	        servicesDao.save(updv);
-	        
+	        System.out.println("dich vu da them" + updv);
 	        // Trả về trang với thông báo thành công (có thể thêm thông báo vào model nếu cần)
 	        redirectAttributes.addAttribute("error", "Cập nhật dịch vụ thành công!");
 	        return "redirect:/admin";
@@ -463,6 +470,7 @@ public class AdminController {
 
 	    // Lưu dịch vụ mới vào cơ sở dữ liệu
 	    servicesDao.save(newDv);
+	    
 	    
 	    // Trả về trang với thông báo thành công
 	    redirectAttributes.addAttribute("error", "Thêm dịch vụ thành công!");

@@ -52,11 +52,12 @@
 				</label>
 			</div>
 			<div class="section">
-				<div class="section-title">Contact</div>
+				<div class="section-title">Liên Hệ</div>
 				<div class="contact-info">
 					<p>
-						Điện Thoại:  <input type="text" class="hidden-input" name="phone" placeholder="Nhập số điện thoại">
-						
+						Điện Thoại: <input type="text" class="hidden-input" name="phone"
+							placeholder="Nhập số điện thoại">
+
 					</p>
 					<p>
 						Email: <input type="email" class="hidden-input" name="email"
@@ -70,7 +71,8 @@
 							placeholder="Tiếng Việt">
 					</p>
 					<p>
-						Giới Tính: <select class="hidden-input" name="gender"><option value="male">Nam</option>
+						Giới Tính: <select class="hidden-input" name="gender"><option
+								value="male">Nam</option>
 							<option value="female">Nữ</option></select>
 					</p>
 				</div>
@@ -80,12 +82,13 @@
 			<div class="section">
 				<div class="section-title">Học Vấn</div>
 				<div id="education-section" class="draggable-section">
-					<input class="hidden-input" type="text" name="education[]" placeholder="FPT Polytechnic"
-						draggable="true" class="draggable">
+					<input class="hidden-input" type="text" name="education[]"
+						placeholder="FPT Polytechnic" draggable="true" class="draggable">
 				</div>
 				<div class="add-button-container">
 					<button onclick="addField('education-section')">+ Thêm Học
 						Vấn</button>
+						
 				</div>
 			</div>
 
@@ -105,19 +108,21 @@
 		<div class="right-column" id="sortable-right">
 			<h1 placeholder="Nhập mục tiêu nghề nghiệp" contenteditable="true">OLIVIA
 				WILSON</h1>
+			<h5 contenteditable="true">Marketing</h5>
 			<!-- <h2><input type="text" name="title" placeholder="Vị Tí Ứng Tuyển"></h2> -->
 
 			<div class="section">
 				<div class="section-title">Mục Tiêu Nghề Nghiệp</div>
-				<textarea class="hidden-input" name="careerGoal" placeholder="Nhập mục tiêu nghề nghiệp"></textarea>
+				<textarea class="hidden-input" name="careerGoal"
+					placeholder="I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me."></textarea>
 			</div>
 
 			<!-- Kỹ Năng -->
 			<div class="section">
 				<div class="section-title">Kỹ Năng</div>
 				<div id="skills-section" class="draggable-section">
-					<input class="hidden-input" type="text" name="skills[]" placeholder="Nhập kỹ năng"
-						draggable="true" class="draggable">
+					<input class="hidden-input" type="text" name="skills[]"
+						placeholder="Nhập kỹ năng" draggable="true" class="draggable">
 				</div>
 				<div class="add-button-container">
 					<button onclick="addField('skills-section')">+ Thêm Kỹ
@@ -130,9 +135,11 @@
 				<div id="projects-section" class="draggable-section">
 					<div class="work-experience-item">
 						<input class="hidden-input" type="text" name="projects[]"
-							placeholder="Tên dự án - Công ty"> <input class="hidden-input" type="text"
-							name="project-dates[]" placeholder="Thời gian">
-						<textarea class="hidden-input" name="project-descriptions[]" placeholder="Mô tả"></textarea>
+							placeholder="Tên dự án - Công ty"> <input
+							class="hidden-input" type="text" name="project-dates[]"
+							placeholder="Thời gian">
+						<textarea class="hidden-input" name="project-descriptions[]"
+							placeholder="Mô tả"></textarea>
 					</div>
 				</div>
 				<div class="add-button-container">
@@ -142,8 +149,8 @@
 			<div class="section">
 				<div class="section-title">Sở Thích</div>
 				<div id="hobbies-section" class="draggable-section">
-					<input class="hidden-input" type="text" name="hobbies[]" placeholder="Nhập Sở Thích"
-						draggable="true" class="draggable">
+					<input class="hidden-input" type="text" name="hobbies[]"
+						placeholder="Nhập Sở Thích" draggable="true" class="draggable">
 				</div>
 				<div class="add-button-container">
 					<button onclick="addField('hobbies-section')">+ Thêm Kỹ
@@ -250,10 +257,21 @@
 	}
 	</script>
 	<script>
-	textarea.addEventListener('input', function() {
-		  this.style.height = 'auto';
-		  this.style.height = (this.scrollHeight) + 'px';
+		// Hàm tự động thay đổi chiều cao
+		function autoResizeTextarea(textarea) {
+		  textarea.style.height = 'auto'; // Đặt chiều cao về auto để tính lại kích thước
+		  textarea.style.height = textarea.scrollHeight + 'px'; // Gán chiều cao bằng chiều cao nội dung
+		}
+		
+		// Gắn sự kiện cho textarea
+		document.querySelectorAll('textarea').forEach((textarea) => {
+		  textarea.addEventListener('input', function () {
+		    autoResizeTextarea(this);
+		  });
+		
+		  // Gọi hàm ngay khi tải trang (để điều chỉnh nếu có dữ liệu sẵn)
+		  autoResizeTextarea(textarea);
 		});
-</script>
+	</script>
 </body>
 </html>

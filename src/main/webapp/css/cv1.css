@@ -211,8 +211,9 @@ input[type="text"], input[type="email"], input[type="date"], select {
 textarea {
 	width: 100%;
 	padding: 10px;
+	overflow: hidden; /* Ẩn thanh cuộn */
+    resize: none; /* Tắt tính năng thay đổi kích thước */
 }
-
 
 .upload-label {
 	cursor: pointer;
@@ -279,6 +280,7 @@ button {
     opacity: 0.7;
     background-color: #e0e0e0;  /* Đổi màu khi đang kéo */
 }
+
 .button-container {
     display: flex;  /* Aligns buttons horizontally */
     justify-content: center; /* Centers buttons */
@@ -286,30 +288,6 @@ button {
     margin-top: 20px;
 }
 
-.save-button, .download-button {
-    padding: 6px 15px;  /* Smaller padding */
-    background-color: #1da868; 
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;  /* Smaller font size */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
-    width: 120px;  /* Smaller width */
-}
-
-.save-button:hover, .download-button:hover {
-    background-color: #158e52; 
-}
-
-.download-button {
-    background-color: #1d88a8; /* Different color for download button */
-}
-
-.download-button:hover {
-    background-color: #158c8a;
-}
 .hidden-input {
   border: none;
   outline: none;
@@ -321,3 +299,4 @@ button {
     border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
   }
 }
+
