@@ -12,7 +12,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-	<script
+<script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- html2pdf Library -->
@@ -29,8 +29,10 @@
 	<div class="container">
 		<div class="cv-container" id="cv-content">
 			<div class="header">
-				<img src="your-image-url.jpg" alt="Donna Stroupe"
-					class="profile-photo">
+				<div class="photo-frame">
+    <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)" style="display: none;">
+    <img id="profileImage" src="your-image-url.jpg" alt="Donna Stroupe" class="profile-photo" onclick="triggerFileInput()">
+</div>
 				<div class="header-info">
 					<h1 contenteditable="true">OLIVIA WILSON</h1>
 					<h5 contenteditable="true">Marketing</h5>
@@ -82,7 +84,7 @@
 					<div class="section">
 						<div class="section-title">Mục Tiêu Nghề Nghiệp</div>
 						<textarea class="hidden-input" name="career-objective"
-							placeholder="Mục tiêu nghề nghiệp của bạn..." required></textarea>
+							placeholder="I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me." required></textarea>
 					</div>
 
 					<div class="section">
@@ -96,10 +98,10 @@
 					</div>
 
 					<div class="section">
-						<div class="section-title">Kinh Nghiệm Làm Việc</div>
+						<div class="section-title">Dự Án Đã Tham Gia</div>
 						<div id="experience">
-							<input class="hidden-input" type="text" name="experience[]"
-								placeholder="Tên Dự Án" required> <input
+							<input class="hidden-input project-name" type="text"
+								name="experience[]" placeholder="Tên Dự Án" required> <input
 								class="hidden-input" type="text" name="experience[]"
 								placeholder="Thời Gian" required>
 							<textarea class="hidden-input" name="experience[]"
@@ -122,12 +124,12 @@
 			</div>
 		</div>
 		<div class="button-container">
-			<button class="save-button" type="button">Lưu CV</button>
+			<!-- <button class="save-button" type="button">Lưu CV</button> -->
 			<button class="download-button" type="button"
 				onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
 		</div>
 	</div>
-	
+
 	<br>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
@@ -167,32 +169,35 @@
 
 		// Add new experience input
 		function addExperience() {
-			let experienceDiv = document.getElementById("experience");
-			let experienceContainer = document.createElement("div");
-			experienceContainer.classList.add("experience-container");
+    let experienceDiv = document.getElementById("experience");
+    let experienceContainer = document.createElement("div");
+    experienceContainer.classList.add("experience-container");
 
-			let projectNameInput = document.createElement("input");
-			projectNameInput.type = "text";
-			projectNameInput.name = "experience[]";
-			input.className = "hidden-input";
-			projectNameInput.placeholder = "Tên Dự Án";
-			experienceContainer.appendChild(projectNameInput);
+    // Tên Dự Án
+    let projectNameInput = document.createElement("input");
+    projectNameInput.type = "text";
+    projectNameInput.name = "experience[]";
+    projectNameInput.className = "hidden-input project-name";
+    projectNameInput.placeholder = "Tên Dự Án";
+    experienceContainer.appendChild(projectNameInput);
 
-			let timeInput = document.createElement("input");
-			timeInput.type = "text";
-			timeInput.name = "experience[]";
-			input.className = "hidden-input";
-			timeInput.placeholder = "Thời Gian";
-			experienceContainer.appendChild(timeInput);
+    // Thời Gian
+    let timeInput = document.createElement("input");
+    timeInput.type = "text";
+    timeInput.name = "experience[]";
+    timeInput.className = "hidden-input";
+    timeInput.placeholder = "Thời Gian";
+    experienceContainer.appendChild(timeInput);
 
-			let descriptionTextarea = document.createElement("textarea");
-			descriptionTextarea.name = "experience[]";
-			input.className = "hidden-input";
-			descriptionTextarea.placeholder = "Mô Tả";
-			experienceContainer.appendChild(descriptionTextarea);
+    // Mô Tả
+    let descriptionTextarea = document.createElement("textarea");
+    descriptionTextarea.name = "experience[]";
+    descriptionTextarea.className = "hidden-input";
+    descriptionTextarea.placeholder = "Mô Tả";
+    experienceContainer.appendChild(descriptionTextarea);
 
-			experienceDiv.appendChild(experienceContainer);
-		}
+    experienceDiv.appendChild(experienceContainer);
+}
 
 		// Add new hobby input
 		function addHobby() {
@@ -260,5 +265,22 @@
 		  autoResizeTextarea(textarea);
 		});
 	</script>
+	<script>
+	function previewImage(event) {
+    const file = event.target.files[0]; // Lấy file từ input
+    if (file) {
+        const reader = new FileReader(); // Tạo FileReader để đọc file
+        reader.onload = function (e) {
+            const profileImage = document.getElementById("profileImage");
+            profileImage.src = e.target.result; // Gán ảnh đã chọn vào thẻ img
+        };
+        reader.readAsDataURL(file); // Đọc file dưới dạng Data URL
+    }
+}
+
+function triggerFileInput() {
+    document.getElementById("fileInput").click(); // Mở hộp chọn file khi nhấn vào ảnh
+}
+</script>
 </body>
 </html>

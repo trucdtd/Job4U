@@ -85,7 +85,7 @@
 					<div class="section-title">Dự Án Đã Tham Gia</div>
 					<div id="projects-container">
 						<div class="project-field">
-							<input class="hidden-input" type="text" class="input-field" placeholder="Tên Dự Án">
+							<input class="hidden-input project-name" type="text" class="input-field" placeholder="Tên Dự Án">
 							<input class="hidden-input" type="text" class="input-field" placeholder="Thời Gian">
 							<textarea class="hidden-input" class="input-area" placeholder="Mô Tả"></textarea>
 						</div>
@@ -105,7 +105,7 @@
 			</div>
 		</div>
 		<div class="button-container">
-			<button class="save-button" type="button">Lưu CV</button>
+			<!-- <button class="save-button" type="button">Lưu CV</button> -->
 			<button class="download-button" type="button"
 				onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
 		</div>
@@ -168,7 +168,7 @@
 
 			const projectName = document.createElement('input');
 			projectName.type = 'text';
-			projectName.className = 'input-field hidden-input';
+			projectName.className = 'input-field hidden-input project-name';
 			projectName.placeholder = 'Tên Dự Án';
 
 			const projectTime = document.createElement('input');

@@ -46,13 +46,26 @@ body {
 }
 
 .profile-photo {
-	width: 90px;
-	height: 90px;
-	border-radius: 50%;
-	margin-right: 15px;
-	object-fit: cover;
-	float: left;
+    width: 120px; /* Tăng kích thước ảnh */
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover; /* Cắt ảnh để vừa khung tròn */
+    cursor: pointer; /* Con trỏ thay đổi khi người dùng hover */
 }
+
+.photo-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 105px;
+    height: 105px;
+    border: 2px solid #4d5c4b;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #ffffff;
+    margin-left: 35px;
+}
+
 
 .header-info {
 	text-align: center;
@@ -161,4 +174,9 @@ button {
 .save-button, .download-button {
     display: inline-block;  /* Hiển thị nút theo dòng ngang */
     margin: 0 10px;  /* Thêm khoảng cách giữa các nút */
+}
+.project-name {
+    font-size: 18px; /* Kích thước chữ lớn hơn */
+    font-weight: bold; /* Chữ đậm hơn */
+    color: #333; /* Tùy chỉnh màu sắc (tùy chọn) */
 }

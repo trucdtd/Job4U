@@ -61,10 +61,10 @@
     </c:if>
             <h3 style="color: #00688b;">Gửi yêu cầu liên hệ </h3>
             <form id="contactForm" method="POST" action="/lienhe/sendEmail">
-                <input type="text" name="name" placeholder="* Họ & tên" required>
-                <input type="text" name="phone" placeholder="* Điện thoại" required>
+                <input type="text" name="fullname" placeholder="* Họ & tên" required>
+                <input type="text" name="phonenumber" placeholder="* Điện thoại" required>
                 <input type="email" name="email" placeholder="* Email" required>
-                <textarea placeholder="Nội dung liên hệ" name="message" ></textarea>
+                <textarea placeholder="Nội dung liên hệ" name="content" ></textarea>
                 <button style="background-color: #00688b;" type="submit">Liên hệ</button>
             </form>
         </div>
