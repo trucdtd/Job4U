@@ -39,7 +39,6 @@ public class ContactEntity {
 	private String email;
 
 	@NotBlank
-	@Size(max = 1000)
-	@Column(name = "Content", nullable = false)
-	private String Content;
+	@Column(name = "content", nullable = false)
+	private String content;
 }
