@@ -31,6 +31,7 @@
 			<thead>
 				<tr>
 					<th>Email ứng viên</th>
+					<th>Số điện thoại</th>
 					<th>Ngày Ứng Tuyển</th>
 					<th>Trạng thái</th>
 					<th>Xem cv</th>
@@ -40,6 +41,7 @@
 				<c:forEach items="${dsCV}" var="application">
 					<tr>
 						<td>${application.jobseeker.emailcv}</td>
+						<td>${application.jobseeker.phonenumbercv}</td>
 						<!-- Định dạng ngày tháng từ trường createdat -->
 						<td class="formatted-date" data-date="${application.createdat}"></td>
 						<td><c:choose>

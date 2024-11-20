@@ -88,4 +88,17 @@ public class JoblistingsService {
         LocalDateTime now = LocalDateTime.now();
 //        UserServicesDao.updateExpiredServices(now);
     }
+	
+	
+	//lành
+	 /**
+     * Kiểm tra xem bài viết đã mua gói "Lên Top" còn hiệu lực hay không
+     */
+    public boolean canPurchaseTopService(Integer serviceId, Integer jobId) {
+        if (serviceId == 4 && jobId != null) {
+            // Gọi DAO kiểm tra trạng thái "Lên Top"
+            return !joblistingsDao.isTopServiceActive(serviceId, jobId);
+        }
+        return true; // Các dịch vụ khác không cần kiểm tra
+    }
 }
