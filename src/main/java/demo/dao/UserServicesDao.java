@@ -24,7 +24,6 @@ public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integ
 			@Param("endDate") LocalDateTime endDate);
 
 	// Các dịch vụ đã mua của người dùng dựa trên UsersEntity
-
 	@Query("SELECT u FROM UserServicesEntity u WHERE u.user = :user")
 	List<UserServicesEntity> findByUser(@Param("user") UsersEntity user);
 
