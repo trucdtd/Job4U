@@ -23,10 +23,12 @@
 <body>
 	<div class="container">
 		<div class="row mt-3 justify-content-center">
+			Từ Ngày
 			<div class="col-12 col-md-3 mb-2">
 				<input type="date" class="form-control" name="startdate"
 					aria-describedby="helpId" placeholder="" />
 			</div>
+			Đến Ngày
 			<div class="col-12 col-md-3 mb-2">
 				<input type="date" class="form-control" name="enddate"
 					aria-describedby="helpId" placeholder="" />
@@ -36,6 +38,7 @@
 			</div>
 		</div>
 
+
 		<!-- Row for the 3 Cards -->
 		<div class="row mt-3 justify-content-between">
 			<div class="col-md-4">
@@ -43,12 +46,10 @@
 					<div class="pricing-header">
 						<h4 class="text-center">Bài Đăng</h4>
 					</div>
-					<div class="pricing-body text-center " style="height: 80px;">
-						<i class="bi bi-file-text" style="color: green; font-size: 3rem;"></i>
-						<!-- Màu xanh và kích thước lớn -->
-						<div class="ps-3">
-							<h6 id="post-count">${countJoblisting}</h6>
-						</div>
+					<div class="pricing-body text-center d-flex align-items-center justify-content-center"
+					style="height: 80px;">
+						<i class="bi bi-file-text me-2" style="color: green; font-size: 3rem;"></i>
+							<h2  style="margin-bottom: 0;">${jobPostings.size()}</h2>
 					</div>
 				</div>
 			</div>
@@ -58,8 +59,11 @@
 					<div class="pricing-header">
 						<h4 class="text-center">CV Ứng tuyển</h4>
 					</div>
-					<div class="pricing-body text-center" style="height: 80px;">
-						<i class="bi bi-people" style="color: green; font-size: 3rem;"></i>
+					<div class="pricing-body text-center d-flex align-items-center justify-content-center"
+
+					style="height: 80px;">
+						<i class="bi bi-people me-2" style="color: green; font-size: 3rem;"></i>
+							<h2  style="margin-bottom: 0;">${dsCV.size()}</h2>
 						<!-- Màu xanh và kích thước lớn -->
 
 					</div>
@@ -72,10 +76,15 @@
 						<h4 class="text-center">Dịch Vụ Đã Mua</h4>
 					</div>
 					<div class="pricing-body text-center" style="height: 80px;">
-						<i class="bi bi-bag-heart me-2"
-							style="color: green; font-size: 3rem;"></i>
-						<!-- Màu xanh và kích thước lớn -->
-
+						<div
+							class="pricing-body text-center d-flex align-items-center justify-content-center"
+							style="height: 80px;">
+							<!-- Sử dụng Flexbox để căn chỉnh icon và số lượng trên cùng một hàng -->
+							<i class="bi bi-bag-heart me-2"
+								style="color: green; font-size: 3rem;"></i>
+							<h2  style="margin-bottom: 0;">${dsDV.size()}</h2>
+							<!-- Xóa margin dưới của h6 để căn chỉnh đúng -->
+						</div>
 					</div>
 				</div>
 			</div>
