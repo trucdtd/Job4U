@@ -92,9 +92,6 @@ public class dangkyController {
 		if (fullname.isEmpty()) {
 			model.addAttribute("fullnameError", "Họ và tên không được để trống");
 			hasErrors = true;
-		} else if (!isValidFullname(fullname)) {
-			model.addAttribute("fullnameError", "Họ và tên chỉ được chứa chữ cái");
-			hasErrors = true;
 		}
 
 		// Kiểm tra Mật khẩu
@@ -160,6 +157,23 @@ public class dangkyController {
 			}
 
 		}
+		
+		// Kiểm tra và lưu logo
+		String logoFilename = null;
+		if (logo != null && !logo.isEmpty()) {
+			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+			try {
+				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+				if (!uploadsDir.exists()) {
+					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+				}
+				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+				Files.write(path, logo.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "error"; // Xử lý lỗi tải lên
+			}
+		} // Có thể bổ sung logic để upload logo
 
 		try {
 			// Tạo đối tượng người dùng mới
@@ -187,22 +201,9 @@ public class dangkyController {
 				employerDetails.setIndustry(industry);
 				employerDetails.setContactperson(contactPerson);
 				employerDetails.setCompanydescription(companyDescription);
-				// Kiểm tra và lưu logo
-				String logoFilename = null;
-				if (logo != null && !logo.isEmpty()) {
-					logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
-					try {
-						File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
-						if (!uploadsDir.exists()) {
-							uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
-						}
-						Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
-						Files.write(path, logo.getBytes());
-					} catch (IOException e) {
-						e.printStackTrace();
-						return "error"; // Xử lý lỗi tải lên
-					}
-				} // Có thể bổ sung logic để upload logo
+				if (logoFilename != null) {
+					employerDetails.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
+				}
 				employerDetails.setTaxid(taxid);
 
 				employerDetails.setUser(newUser);
@@ -245,11 +246,6 @@ public class dangkyController {
 		// Kiểm tra tên đăng nhập có ít nhất một số, chỉ chứa chữ cái và số, và độ dài
 		// từ 3 đến 15 ký tự
 		return username.matches("^(?=.*\\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{3,15}$");
-	}
-
-	private boolean isValidFullname(String fullname) {
-		// Kiểm tra xem họ và tên chỉ chứa chữ cái và khoảng trắng
-		return fullname.matches("[a-zA-Z\\s]+");
 	}
 
 	private boolean isValidPhoneNumber(String phonenumber) {

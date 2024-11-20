@@ -3,7 +3,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Forgot Password</title>
+<title>Quên Mật Khẩu</title>
 <!-- Required meta tags -->
 <meta charset="utf-8" />
 <meta name="viewport"

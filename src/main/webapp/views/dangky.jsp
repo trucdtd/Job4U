@@ -3,7 +3,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Registration Form</title>
+<title>Đăng Ký</title>
 <!-- Required meta tags -->
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -437,6 +437,20 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault(); // Ngăn chặn submit nếu còn lỗi
         }
     });
+});
+</script>
+
+<script>
+document.getElementById('logo').addEventListener('change', function(event) {
+    const file = event.target.files[0]; // Lấy tệp được chọn
+    if (file) {
+        const reader = new FileReader(); // Tạo đối tượng FileReader
+        reader.onload = function(e) {
+            // Cập nhật src của img với dữ liệu ảnh
+            document.getElementById('logoPreview').src = e.target.result;
+        }
+        reader.readAsDataURL(file); // Đọc tệp ảnh dưới dạng URL
+    }
 });
 </script>
 
