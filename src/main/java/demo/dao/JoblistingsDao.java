@@ -165,4 +165,13 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	
 	@Query("SELECT COUNT(j.jobid) FROM JoblistingsEntity j WHERE j.posteddate >= :startDate AND j.posteddate <= :endDate")
 	Long countJobStartDateEndDate(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+	
+	//lành
+	@Query("SELECT COUNT(j) > 0 FROM JoblistingsEntity j " +
+	           "JOIN j.userservice us " +
+	           "WHERE us.service.id = :serviceId " +
+	           "AND j.id = :jobId " +
+	           "AND us.expirydate > CURRENT_TIMESTAMP")
+	    boolean isTopServiceActive(@Param("serviceId") Integer serviceId, @Param("jobId") Integer jobId);
+
 }
