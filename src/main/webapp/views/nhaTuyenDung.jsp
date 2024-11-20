@@ -166,9 +166,8 @@
 								alt="card-in-use" /> Mua Dịch Vụ
 						</a></li>
 						<li><a href="#" class="navnhatuyendung nav-link text-dark"
-							onclick="showTable(event, 'statistical')"> <img
-								width="20" height="20"
-								src="https://img.icons8.com/ios/50/card-in-use.png"
+							onclick="showTable(event, 'statistical')"> <img width="20"
+								height="20" src="https://img.icons8.com/ios/50/card-in-use.png"
 								alt="card-in-use" /> Thống Kê
 						</a></li>
 					</ul>
@@ -511,7 +510,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- Thống kê nhà tuyển dụng-->
 				<div id="statistical" class="card" style="display: none;">
 					<div class="card-header">
@@ -522,7 +521,7 @@
 						<%@ include file="/views/thongKeNhaTuyenDung.jsp"%>
 					</div>
 				</div>
-				
+
 			</div>
 			<!-- article -->
 		</div>
@@ -1077,8 +1076,7 @@ document.getElementById('logo').addEventListener('change', function(event) {
     });
 
 </script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- JS for DataTables -->
 	<script
