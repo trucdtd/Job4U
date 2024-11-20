@@ -192,9 +192,8 @@
 										<th scope="col">Tên Công Việc</th>
 										<th scope="col">Vị Trí</th>
 										<th scope="col">Lương</th>
-										<th scope="col">Loại Công Việc</th>
 										<th scope="col">Ngày Đăng</th>
-										<!-- <th scope="col">Trạng Thái</th> -->
+										<th scope="col">Trạng Thái Top</th>
 										<th scope="col">Hành Động</th>
 										<th scope="col">Xem CV</th>
 									</tr>
@@ -218,9 +217,8 @@
 												            Thỏa Thuận
 												        </c:otherwise>
 												</c:choose></td>
-											<td>${job.jobtype}</td>
 											<td class="formatted-date" data-date="${job.posteddate}"></td>
-											<%-- <td>${job.active ? 'Hoạt Động' : 'Không Hoạt Động'}</td> --%>
+											<td>${job.isTop ? 'Đang chạy' : 'Chưa mua Top'}</td>
 											<td>
 												<div class="d-flex align-items-center">
 													<button type="button" class="btn btn-sm btn-edit me-2"
