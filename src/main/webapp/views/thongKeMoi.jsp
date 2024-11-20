@@ -18,29 +18,29 @@
 <link rel="stylesheet" href="/css/thongke.css">
 </head>
 <body>
-		<%@ include file="/views/headerNoPanner.jsp"%>
-	<div class="container mt-3">
+	<%@ include file="/views/headerNoPanner.jsp"%>
+	<div class="container">
 
 		<section class="section dashboard">
 			<div class="row">
 				<!-- Title Section -->
-				<div class="col-12 mb-2">	
-				</div>
 				<div class="container mb-2">
-					<form action="/thongke" method="post" class="d-flex pt-3 rounded-3">
+				<div class="alert alert-danger ${status}" role="alert">${text}</div>
+					<form action="/thongke" method="post" class="d-flex rounded-3">
 						<div class="mb-3 me-2">
-							<input type="date" class="form-control border-0 shadow" name="startdate" id=""
-								aria-describedby="helpId" placeholder="" />
+							<input type="date" class="form-control border-0 shadow"
+								name="startdate" id="" aria-describedby="helpId" placeholder="" />
 						</div>
 						<div class="mb-3 me-3">
-							<input type="date" class="form-control border-0 shadow" name="enddate" id=""
-								aria-describedby="helpId" placeholder="" />
+							<input type="date" class="form-control border-0 shadow"
+								name="enddate" id="" aria-describedby="helpId" placeholder="" />
 						</div>
 						<div class=" mb-3 me-2">
-							<button type="submit" class="btn btn-success mt-0">Thống kê</button>
+							<button type="submit" class="btn btn-success mt-0 shadow">Thống
+								kê</button>
 						</div>
 						<div class="mb-3">
-							<a type="button" href="/thongke" class="btn btn-warning">Làm mới</a>
+							<a type="button" href="/thongke" class="btn btn-warning shadow">Thống kê tất cả</a>
 						</div>
 
 					</form>

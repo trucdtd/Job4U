@@ -3,6 +3,8 @@ package demo.dao;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -164,7 +166,7 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 			@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 	
 	@Query("SELECT COUNT(j.jobid) FROM JoblistingsEntity j WHERE j.posteddate >= :startDate AND j.posteddate <= :endDate")
-	Long countJobStartDateEndDate(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+	Long countJobStartDateEndDate(@Param("startDate") Optional<LocalDate> startDate, @Param("endDate") Optional<LocalDate> endDate);
 	
 	//lành
 	@Query("SELECT COUNT(j) > 0 FROM JoblistingsEntity j " +
