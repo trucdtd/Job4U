@@ -180,7 +180,7 @@
 			<!-- article -->
 			<!-- Quản Lý Tuyển Dụng -->
 			<div class="col-lg-9 col-md-9 p-2">
-				<div id="employersManagement" class="card">
+				<div id="employersManagement" class="card p-2">
 					<div class="card-header">
 						<div class="card-title">Quản Lý Bài Đăng Tuyển Dụng</div>
 					</div>
