@@ -165,6 +165,12 @@
 								src="https://img.icons8.com/ios/50/card-in-use.png"
 								alt="card-in-use" /> Mua Dịch Vụ
 						</a></li>
+						<li><a href="#" class="navnhatuyendung nav-link text-dark"
+							onclick="showTable(event, 'statistical')"> <img
+								width="20" height="20"
+								src="https://img.icons8.com/ios/50/card-in-use.png"
+								alt="card-in-use" /> Thống Kê
+						</a></li>
 					</ul>
 					<hr>
 				</div>
@@ -507,6 +513,18 @@
 						</div>
 					</div>
 				</div>
+				
+				<!-- Thống kê nhà tuyển dụng-->
+				<div id="statistical" class="card" style="display: none;">
+					<div class="card-header">
+						<div class="card-title">Bảng Thống Kê Nhà Tuyển Dụng</div>
+					</div>
+					<br>
+					<div class="card-body p-2">
+						<%@ include file="/views/thongKeNhaTuyenDung.jsp"%>
+					</div>
+				</div>
+				
 			</div>
 			<!-- article -->
 		</div>

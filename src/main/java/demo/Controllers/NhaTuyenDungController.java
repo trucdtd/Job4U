@@ -558,5 +558,13 @@ public class NhaTuyenDungController {
 		// Điều hướng đến trang chi tiết ứng viên
 		return giaoDien; // Trả về trang JSP
 	}
+	
+	
+	@RequestMapping("/thongke")
+	public String chiTietThongKe(@RequestParam Integer employerid, Model model) {
+		
+       
+		return "thongKeNhaTuyenDung";
+	}
 
 }
