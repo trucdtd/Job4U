@@ -196,7 +196,11 @@
 								<tbody>
 									<c:forEach items="${jobPostings}" var="job">
 										<tr data-jobid="${job.jobid}">
-											<td>${job.jobtitle}</td>
+											<td>${job.jobtitle}<!-- Hiển thị ngôi sao vàng nếu là công việc top -->
+												<c:if test="${job.isTop}">
+													<i class="bi bi-star-fill text-warning"></i>
+													<!-- Ngôi sao vàng -->
+												</c:if></td>
 											<td>${job.joblocation}</td>
 											<td><c:choose>
 													<c:when test="${not empty job.salary}">
@@ -421,6 +425,7 @@
 									<tr>
 										<th scope="col">Tiêu để bài viết</th>
 										<th scope="col">Thông tin người ứng tuyển</th>
+										<th scope="col">Số điện thoại người ứng tuyển</th>
 										<th scope="col">Tên CV ứng tuyển</th>
 										<th scope="col">Thời gian nộp hồ sơ</th>
 										<th scope="col">Trạng thái</th>
@@ -432,6 +437,7 @@
 										<tr>
 											<th>${cv.job.jobtitle}</th>
 											<td>${cv.jobseeker.fullnamecv}</td>
+											<td>${cv.jobseeker.phonenumbercv}</td>
 											<th>${cv.resume}</th>
 											<td class="formatted-date" data-date="${cv.applicationdate}"></td>
 											<td><c:choose>
@@ -568,38 +574,41 @@
 		</div>
 
 		<!-- Modal Thanh Toán -->
-<div id="paymentModalghim" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close" onclick="closePaymentModalghim()">&times;</span>
-        <div class="payment-container">
-            <div class="payment-summary">
-                <h3>Tóm tắt thanh toán</h3>
-                <ul>
-                    <li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
-                    <li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
-                </ul>
-                <div class="total-price">
-                    <h2>Tổng Tiền</h2>
-                    <h1>75.000 ₫</h1>
-                    <p>Ghim Bài đăng lên top những công việc hàng đầu trong 3 ngày.</p>
-                </div>
-            </div>
-            <form action="/employers/pay" method="post" class="payment-form">
-                <input type="hidden" name="servicePrice" id="servicePriceInput" value="75000">
-                <input type="hidden" name="serviceId" id="serviceId" value="4">
-                <input type="hidden" name="jobId" id="jobid" value="${jobid}">
-                <input type="hidden" name="userId" id="userId" value="${userId}">
-                
-                <div class="payment-methods">
-                    <button class="momo2-btn" type="submit">
-                        <img src="/img/vnpay.png">
-                    </button>
-                </div>
-                <button class="submit-btn" style="background: #198754" type="submit">Thanh Toán</button>
-            </form>
-        </div>
-    </div>
-</div>
+		<div id="paymentModalghim" class="modal" style="display: none;">
+			<div class="modal-content">
+				<span class="close" onclick="closePaymentModalghim()">&times;</span>
+				<div class="payment-container">
+					<div class="payment-summary">
+						<h3>Tóm tắt thanh toán</h3>
+						<ul>
+							<li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
+							<li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
+						</ul>
+						<div class="total-price">
+							<h2>Tổng Tiền</h2>
+							<h1>75.000 ₫</h1>
+							<p>Ghim Bài đăng lên top những công việc hàng đầu trong 3
+								ngày.</p>
+						</div>
+					</div>
+					<form action="/employers/pay" method="post" class="payment-form">
+						<input type="hidden" name="servicePrice" id="servicePriceInput"
+							value="75000"> <input type="hidden" name="serviceId"
+							id="serviceId" value="4"> <input type="hidden"
+							name="jobId" id="jobid" value="${jobid}"> <input
+							type="hidden" name="userId" id="userId" value="${userId}">
+
+						<div class="payment-methods">
+							<button class="momo2-btn" type="submit">
+								<img src="/img/vnpay.png">
+							</button>
+						</div>
+						<button class="submit-btn" style="background: #198754"
+							type="submit">Thanh Toán</button>
+					</form>
+				</div>
+			</div>
+		</div>
 
 
 
@@ -938,7 +947,7 @@ document.getElementById('logo').addEventListener('change', function(event) {
 
 </script>
 
-<script>
+	<script>
 	let selectedService = {};
 	let jobIdSelected = null;
 
