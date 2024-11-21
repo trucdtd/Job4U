@@ -46,10 +46,12 @@
 					<div class="pricing-header">
 						<h4 class="text-center">Bài Đăng</h4>
 					</div>
-					<div class="pricing-body text-center d-flex align-items-center justify-content-center"
-					style="height: 80px;">
-						<i class="bi bi-file-text me-2" style="color: green; font-size: 3rem;"></i>
-							<h2  style="margin-bottom: 0;">${jobPostings.size()}</h2>
+					<div
+						class="pricing-body text-center d-flex align-items-center justify-content-center"
+						style="height: 80px;">
+						<i class="bi bi-file-text me-2"
+							style="color: green; font-size: 3rem;"></i>
+						<h2 style="margin-bottom: 0;">${jobPostings.size()}</h2>
 					</div>
 				</div>
 			</div>
@@ -59,11 +61,12 @@
 					<div class="pricing-header">
 						<h4 class="text-center">CV Ứng tuyển</h4>
 					</div>
-					<div class="pricing-body text-center d-flex align-items-center justify-content-center"
-
-					style="height: 80px;">
-						<i class="bi bi-people me-2" style="color: green; font-size: 3rem;"></i>
-							<h2  style="margin-bottom: 0;">${dsCV.size()}</h2>
+					<div
+						class="pricing-body text-center d-flex align-items-center justify-content-center"
+						style="height: 80px;">
+						<i class="bi bi-people me-2"
+							style="color: green; font-size: 3rem;"></i>
+						<h2 style="margin-bottom: 0;">${dsCV.size()}</h2>
 						<!-- Màu xanh và kích thước lớn -->
 
 					</div>
@@ -82,7 +85,7 @@
 							<!-- Sử dụng Flexbox để căn chỉnh icon và số lượng trên cùng một hàng -->
 							<i class="bi bi-bag-heart me-2"
 								style="color: green; font-size: 3rem;"></i>
-							<h2  style="margin-bottom: 0;">${dsDV.size()}</h2>
+							<h2 style="margin-bottom: 0;">${dsDV.size()}</h2>
 							<!-- Xóa margin dưới của h6 để căn chỉnh đúng -->
 						</div>
 					</div>
@@ -93,6 +96,7 @@
 
 
 		<!-- Bảng thống kê bài viết chấp nhận và từ chối -->
+		<!-- Bảng thống kê bài viết chấp nhận và từ chối -->
 		<div class="table-responsive">
 			<table id="statisticalTable" class="table align-items-center">
 				<thead class="thead-light">
@@ -101,24 +105,27 @@
 						<th scope="col">Số Lượng CV</th>
 						<th scope="col">Chấp Nhận</th>
 						<th scope="col">Từ chối</th>
-					</tr>
+						<th scope="col">Chờ xem</th>
 				</thead>
 				<tbody>
-					<!-- Lặp qua joblistings và hiển thị thông tin -->
-					<c:forEach items="${joblistings}" var="joblist">
+					<!-- Lặp qua từng bài đăng -->
+					<c:forEach items="${jobPostings}" var="jobPosting">
 						<tr>
 							<!-- Lấy tên bài viết -->
-							<td>${joblist[0].jobtitle}</td>
-							<!-- joblist[0] là đối tượng JoblistingsEntity -->
-							<!-- Lấy tổng số CV -->
-							<td>${joblist[1]}</td>
-							<!-- joblist[1] là số lượng ứng tuyển -->
-							<!-- Lấy số lượng chấp nhận -->
-							<td>${joblist[2]}</td>
-							<!-- joblist[2] là số lượng ứng tuyển đã chấp nhận -->
-							<!-- Lấy số lượng từ chối -->
-							<td>${joblist[3]}</td>
-							<!-- joblist[3] là số lượng ứng tuyển bị từ chối -->
+							<td>${jobPosting.jobtitle}</td>
+
+							<!-- Hiển thị tổng số CV đã ứng tuyển cho bài viết này -->
+							<td>${totalApplicationsMap[jobPosting.jobid]}</td>
+							<!-- Truy xuất số lượng ứng tuyển từ Map -->
+
+							<!-- Hiển thị số lượng CV đã chấp nhận -->
+							<td>${acceptedApplicationsMap[jobPosting.jobid]}</td>
+
+							<!-- Hiển thị số lượng CV đã từ chối -->
+							<td>${rejectedApplicationsMap[jobPosting.jobid]}</td>
+							
+							<!-- Hiển thị số lượng CV đang chờ -->
+                			<td>${pendingApplicationsMap[jobPosting.jobid]}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
