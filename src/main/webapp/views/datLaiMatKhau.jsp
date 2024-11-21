@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Đặt lại mật khẩu</title>
 </head>
 <body>
 	<%@ include file="/views/headerNoPanner.jsp"%>

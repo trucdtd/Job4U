@@ -12,73 +12,85 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- DataTables CSS -->
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<script
+	src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 <link rel="stylesheet" href="/css/thongke.css">
 </head>
 <body>
-	<div class="container mt-3">
+	<%@ include file="/views/headerNoPanner.jsp"%>
+	<div class="container">
+
 		<section class="section dashboard">
 			<div class="row">
 				<!-- Title Section -->
-				<div class="col-12 mb-2">
-					<h1>Thống Kê Hệ Thống</h1>
-				</div>
 				<div class="container mb-2">
-					<form action="/thongke" method="post" class="d-flex pt-3 rounded-3">
+					<div class="alert alert-danger ${status}" role="alert">${text}</div>
+					<div class="d-flex align-items-center">
+						<form action="/thongke" method="post" class="d-flex rounded-3">
+							<div class="mb-3 me-2">
+								<input type="date" class="form-control border-0 shadow"
+									name="startdate" id="" aria-describedby="helpId" placeholder="" />
+							</div>
+							<div class="mb-3 me-3">
+								<input type="date" class="form-control border-0 shadow"
+									name="enddate" id="" aria-describedby="helpId" placeholder="" />
+							</div>
+							<div class="mb-3 me-2">
+								<button type="submit" class="btn btn-success mt-0 shadow">Thống
+									kê</button>
+							</div>
+							<div class="mb-3 me-2">
+								<a type="button" href="/thongke" class="btn btn-warning shadow">Thống
+									kê tất cả</a>
+							</div>
+						</form>
 						<div class="mb-3 me-2">
-							<input type="date" class="form-control" name="startdate" id=""
-								aria-describedby="helpId" placeholder="" />
+							<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
+								Excel</button>
 						</div>
-						<div class="mb-3 me-3">
-							<input type="date" class="form-control" name="enddate" id=""
-								aria-describedby="helpId" placeholder="" />
-						</div>
-						<div class="mb-3 me-2">
-							<button type="submit" class="btn btn-success">Thống kê</button>
-						</div>
-						<div class="mb-3">
-							<button type="button" class="btn btn-warning">Làm mới</button>
-						</div>
+					</div>
 
-					</form>
-				</div>
-				<div class="row text-center">
-					<!-- Sales Card -->
-					<div class="col-xxl-4 col-md-6 mb-4">
-						<div class="card info-card sales-card shadow border-0">
-							<div class="card-body">
-								<h5 class="card-title">
-									Bài Viết <br>
-									<!--<small class="text-muted">
+					
+					<div class="row text-center">
+						<!-- Sales Card -->
+						<div class="col-xxl-4 col-md-6 mb-4">
+							<div class="card info-card sales-card shadow border-0">
+								<div class="card-body">
+									<h5 class="card-title">
+										Bài Viết <br>
+										<!--<small class="text-muted">
 										<!-- <div class="d-flex align-items-center">
 											<input type="date" id="post-start-date"
 												class="form-control me-2" style="width: 150px;"> <input
 												type="date" id="post-end-date" class="form-control"
 												style="width: 150px;">
 										</div> -->
-									<!-- </small> -->
-								</h5>
-								<div class="d-flex align-items-center justify-content-center">
-									<div
-										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-										<i class="bi bi-file-text"></i>
-									</div>
-									<div class="ps-3">
-										<h6 id="post-count">${countJoblisting}</h6>
+										<!-- </small> -->
+									</h5>
+									<div class="d-flex align-items-center justify-content-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<i class="bi bi-file-text"></i>
+										</div>
+										<div class="ps-3">
+											<h6 id="post-count">${countJoblisting}</h6>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="col-xxl-4 col-md-6 mb-2">
-						<div class="card info-card customers-card shadow border-0">
-							<div class="card-body">
-								<h5 class="card-title">
-									Người Dùng <br>
-									<!-- <small class="text-muted">
+						<div class="col-xxl-4 col-md-6 mb-2">
+							<div class="card info-card customers-card shadow border-0">
+								<div class="card-body">
+									<h5 class="card-title">
+										Người Dùng <br>
+										<!-- <small class="text-muted">
 										<div class="d-flex align-items-center">
 											<input type="date" id="user-start-date"
 												class="form-control me-2" style="width: 150px;"> <input
@@ -86,26 +98,26 @@
 												style="width: 150px;">
 										</div>
 									</small> -->
-								</h5>
-								<div class="d-flex align-items-center justify-content-center">
-									<div
-										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-										<i class="bi bi-people"></i>
-									</div>
-									<div class="ps-3">
-										<h6 id="user-count">${countUser}</h6>
+									</h5>
+									<div class="d-flex align-items-center justify-content-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<i class="bi bi-people"></i>
+										</div>
+										<div class="ps-3">
+											<h6 id="user-count">${countUser}</h6>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="col-xxl-4 col-md-6 mb-2">
-						<div class="card info-card sales-card shadow border-0">
-							<div class="card-body">
-								<h5 class="card-title">
-									Dịch Vụ <br>
-									<!--  <small class="text-muted">
+						<div class="col-xxl-4 col-md-6 mb-2">
+							<div class="card info-card sales-card shadow border-0">
+								<div class="card-body">
+									<h5 class="card-title">
+										Dịch Vụ <br>
+										<!--  <small class="text-muted">
 										<div class="d-flex align-items-center">
 											<input type="date" id="service-start-date"
 												class="form-control me-2" style="width: 150px;"> <input
@@ -113,76 +125,78 @@
 												style="width: 150px;">
 										</div>
 									</small> -->
-								</h5>
-								<div class="d-flex align-items-center justify-content-center">
-									<div
-										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-										<i class="bi bi-cart" style="color: green;"></i>
-									</div>
-									<div class="ps-3">
-										<h6 id="sales-count">${countService}</h6>
+									</h5>
+									<div class="d-flex align-items-center justify-content-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<i class="bi bi-cart" style="color: green;"></i>
+										</div>
+										<div class="ps-3">
+											<h6 id="sales-count">${countService}</h6>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Table for Sold Services -->
-					<div class="col-12">
-						<div class="card recent-sales shadow border-0">
-							<div class="card-body">
-								<h5 class="card-title">Dịch Vụ Đã Bán</h5>
-								<table id="tkTable" class="table table-borderless datatable">
-									<thead>
-										<tr>
-											<th>Tên Dịch Vụ</th>
-											<th>Tên Người Mua</th>
-											<th>Ngày Mua</th>
-											<th>Giá Tiền</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:set var="totalRevenue" value="0" />
-										<c:forEach items="${qlTK}" var="tk">
+						<!-- Table for Sold Services -->
+						<div class="col-12">
+							<div class="card recent-sales shadow border-0">
+								<div class="card-body">
+									<h5 class="card-title">Dịch Vụ Đã Bán</h5>
+									<table id="tkTable" class="table table-borderless datatable">
+										<thead>
 											<tr>
-												<th scope="row">${tk.service.servicename}</th>
-												<td>${tk.user.fullname}</td>
-												<td class="purchaseDate">${tk.purchasedate}</td>
-												<td><c:choose>
-														<c:when test="${tk.service.price != null}">
+												<th>Tên Dịch Vụ</th>
+												<th>Tên Người Mua</th>
+												<th>Ngày Mua</th>
+												<th>Giá Tiền</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:set var="totalRevenue" value="0" />
+											<c:forEach items="${qlTK}" var="tk">
+												<tr>
+													<th scope="row">${tk.service.servicename}</th>
+													<td>${tk.user.fullname}</td>
+													<td class="purchaseDate">${tk.purchasedate}</td>
+													<td><c:choose>
+															<c:when test="${tk.service.price != null}">
+																<span style="display: inline-flex; align-items: center;">
+																	${tk.service.price.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+																	VND </span>
+															</c:when>
+														</c:choose></td>
+												</tr>
+												<c:set var="totalRevenue"
+													value="${totalRevenue + tk.service.price}" />
+											</c:forEach>
+											<tr>
+												<th style="color: red;" scope="row"><strong>Tổng
+														Doanh Thu:</strong></th>
+												<td></td>
+												<td></td>
+												<td style="color: red;"><c:choose>
+														<c:when test="${totalRevenue != null}">
 															<span style="display: inline-flex; align-items: center;">
-																${tk.service.price.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
+																${totalRevenue.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
 																VND </span>
 														</c:when>
 													</c:choose></td>
 											</tr>
-											<c:set var="totalRevenue"
-												value="${totalRevenue + tk.service.price}" />
-										</c:forEach>
-										<tr>
-											<th style="color: red;" scope="row"><strong>Tổng
-													Doanh Thu:</strong></th>
-											<td></td>
-											<td></td>
-											<td style="color: red;"><c:choose>
-													<c:when test="${totalRevenue != null}">
-														<span style="display: inline-flex; align-items: center;">
-															${totalRevenue.toString().replaceAll("(\\d)(?=(\\d{3})+(?!\\d))", "$1,")}
-															VND </span>
-													</c:when>
-												</c:choose></td>
-										</tr>
-									</tbody>
-								</table>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
-					</div>
 
+					</div>
 				</div>
-			</div>
 		</section>
 	</div>
 	<!-- footer -->
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -308,6 +322,19 @@
             }
         });
     });
+</script>
+	<script>
+document.getElementById("exportExcel").addEventListener("click", function () {
+    const table = document.getElementById("tkTable"); // ID của bảng
+    const wb = XLSX.utils.book_new(); // Tạo workbook mới
+    const ws = XLSX.utils.table_to_sheet(table); // Tạo worksheet từ bảng
+
+    // Thêm worksheet vào workbook
+    XLSX.utils.book_append_sheet(wb, ws, "DichVuDaBan");
+
+    // Xuất workbook ra file Excel
+    XLSX.writeFile(wb, "ThongKeDichVuDaBan.xlsx");
+});
 </script>
 </body>
 </html>

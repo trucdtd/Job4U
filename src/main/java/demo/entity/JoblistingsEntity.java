@@ -1,10 +1,6 @@
 package demo.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-
-import java.time.LocalDateTime;
-
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;

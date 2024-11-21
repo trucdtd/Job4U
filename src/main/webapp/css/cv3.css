@@ -41,23 +41,23 @@ body {
 }
 
 .photo-frame {
-	width: 150px;
-	height: 200px;
-	margin: auto;
-	overflow: hidden;
-	border: 2px solid #4d5c4b;
-	border-radius: 8px;
-	background-color: #ffffff;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    width: 150px;
+    height: 200px;
+    margin: auto;
+    overflow: hidden;
+    border: 2px solid #4d5c4b;
+    border-radius: 8px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .photo-frame img {
-	max-width: 100%;
-	max-height: 100%;
-	object-fit: scale-down;
-	cursor: pointer;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: scale-down;
+    cursor: pointer;
 }
 
 h1, h2 {
@@ -127,4 +127,10 @@ button.hidden {
     justify-content: center; /* Centers buttons */
     gap: 10px;  /* Adds space between buttons */
     margin-top: 20px;
+}
+
+.project-name {
+    font-size: 18px; /* Kích thước chữ lớn hơn */
+    font-weight: bold; /* Chữ đậm hơn */
+    color: #333; /* Tùy chỉnh màu sắc (tùy chọn) */
 }

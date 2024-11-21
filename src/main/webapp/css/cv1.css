@@ -299,4 +299,9 @@ button {
     border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
   }
 }
+.project-name {
+    font-size: 18px; /* Kích thước chữ lớn hơn */
+    font-weight: bold; /* Chữ đậm hơn */
+    color: #333; /* Tùy chỉnh màu sắc (tùy chọn) */
+}
 

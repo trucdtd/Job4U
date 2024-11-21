@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import demo.services.ApplicationService;
+import demo.services.JoblistingsService;
 import demo.services.SessionService;
 import demo.services.UserRepository;
 import demo.services.VNPayService;
@@ -60,6 +61,9 @@ public class NhaTuyenDungController {
 
 	@Autowired
 	private SessionService sessionService;
+	
+	@Autowired
+    private JoblistingsService joblistingsService;
 
 	@Autowired
 	private VNPayService vnPayService;
@@ -482,6 +486,12 @@ public class NhaTuyenDungController {
 	    // Kiểm tra các tham số cần thiết
 	    if (userId == null || serviceId == null || (serviceId == 4 && jobId == null)) {
 	        redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
+	        return "redirect:/employers";
+	    }
+
+	    // Gọi JoblistingsService để kiểm tra dịch vụ "Lên Top"
+	    if (!joblistingsService.canPurchaseTopService(serviceId, jobId)) {
+	        redirectAttributes.addFlashAttribute("message", "Bài viết này đã sử dụng dịch vụ 'Lên Top'. Vui lòng đợi đến khi hết hạn.");
 	        return "redirect:/employers";
 	    }
 
