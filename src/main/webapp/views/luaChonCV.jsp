@@ -37,7 +37,7 @@
 			<div class="image-container">
 				<img src="/img/cv44.jpg" alt="CV 1">
 				<div class="buttons">
-					<button class="preview-btn">Xem trước</button>
+					<a style="text-decoration: none;" href="/luaCV/truocCV2" class="preview-btn">Xem trước</a>
 					<a style="text-decoration: none;" href="/luaCV/mauCV2" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
@@ -50,7 +50,7 @@
 			<div class="image-container">
 				<img src="/img/cv33.jpg" alt="CV 1">
 				<div class="buttons">
-					<button class="preview-btn">Xem trước</button>
+					<a style="text-decoration: none;" href="/luaCV/truocCV3" class="preview-btn">Xem trước</a>
 					<a style="text-decoration: none;" href="/luaCV/mauCV3" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
@@ -63,7 +63,7 @@
 			<div class="image-container">
 				<img src="/img/cv22.jpg" alt="CV 1">
 				<div class="buttons">
-					<button class="preview-btn">Xem trước</button>
+					<a style="text-decoration: none;" href="/luaCV/truocCV4" class="preview-btn">Xem trước</a>
 					<a style="text-decoration: none;" href="/luaCV/mauCV4" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
