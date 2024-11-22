@@ -51,8 +51,7 @@
 							href="/Login" role="button">Đăng nhập</a> <a name="" id=""
 							class="btn btn-success me-2 mb-3" href="/DangKy" role="button">Đăng
 							ký</a>
-						<div>
-							<p class="mb-1 text-reponsive">Dành cho nhà tuyển dụng</p>
+						<div>						
 							<a name="" id="" class="btn btn-dark me-2" href="/employers" role="button">Dành cho nhà tuyển dụng</a>
 						</div>
 					</div>
