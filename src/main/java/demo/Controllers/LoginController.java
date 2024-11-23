@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import demo.dao.UsersDao;
 import demo.entity.UsersEntity;
 import demo.services.SessionService;
+import demo.util.MaHoa;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
@@ -37,6 +38,7 @@ public class LoginController {
 	@PostMapping("/submit")
 	public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
 			Model model, HttpSession session) {
+		password = MaHoa.toSHA1(password);
 		List<UsersEntity> users = userDao.findByUsername(username);
 
 		if (!users.isEmpty()) {
