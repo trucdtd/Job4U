@@ -385,7 +385,7 @@ body {
 	padding-bottom: 40px;
 }
 
-.right-column h1 {
+.right-column h1 h2 {
 	padding-top: 53px;
 	/* Điều chỉnh khoảng cách phù hợp */
 	font-size: 24px;
@@ -473,7 +473,7 @@ body {
 
 			<!-- Right Column -->
 			<div class="right-column">
-				<h1 id="nameText">Alfredo Torres</h1>
+				<h1 id="nameText">NGUYỄN VĂN A</h1>
 				<h2 id="positionText">Marketing Manager</h2>
 
 				<div class="section">
@@ -583,7 +583,7 @@ body {
 				skillsText1 : "Quản lý dự án",
 				skillsText2 : "Nghiên cứu thị trường",
 				skillsText3 : "Quan hệ khách hàng",
-				nameText : "Alfredo Torres",
+				nameText : "NGUYỄN VĂN A",
 				positionText : "Quản lý Marketing",
 				profileTitle : "Giới thiệu",
 				profileText : "Tôi là một người sáng tạo chăm chỉ, luôn cố gắng đạt sự xuất sắc trong mọi việc tôi làm. Tôi thích học hỏi và tìm cách cải thiện cuộc sống của những người xung quanh.",

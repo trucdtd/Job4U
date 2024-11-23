@@ -303,7 +303,7 @@ li {
 			<!-- Right Column -->
 			<div class="right-column">
 				<div class="personal-info">
-					<h1 data-key="name">OLIVIA WILSON</h1>
+					<h1 data-key="name">NGUYỄN VĂN A</h1>
 					<h2 data-key="job-title">Nhà thiết kế đồ họa</h2>
 					<p data-key="summary">Tôi là một người sáng tạo chăm chỉ, luôn
 						cố gắng đạt sự xuất sắc trong mọi việc tôi làm. Tôi thích học hỏi
@@ -400,7 +400,7 @@ li {
                 reference3: "Lee Landra, Inc.",
                 reference4: "Giám đốc Landra, Inc.",
                 "reference-phone": "Điện thoại: +1 555 234 5678",
-                name: "OLIVIA WILSON",
+                name: "NGUYỄN VĂN A",
                 "job-title": "Nhà thiết kế đồ họa",
                 summary: "Tôi là một người sáng tạo chăm chỉ, luôn cố gắng đạt sự xuất sắc trong mọi việc tôi làm. Tôi thích học hỏi và tìm cách cải thiện cuộc sống của những người xung quanh.",
                 "education-title": "Học vấn",

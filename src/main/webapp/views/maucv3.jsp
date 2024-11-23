@@ -89,7 +89,7 @@
 			<div >
 				<div class="personal-info">
 					<h1 contenteditable="true">NGUYỄN VĂN A</h1>
-					<h4 contenteditable="true">Marketing</h4>
+					<h4 contenteditable="true">Quản Lý Tiếp Thị</h4>
 					<textarea class="hidden-input" name="careerGoal"
 						placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh."></textarea>
 				</div>

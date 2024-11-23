@@ -268,8 +268,8 @@ body {
 				<img src="your-image-url.jpg" alt="Donna Stroupe"
 					class="profile-photo">
 				<div class="header-info">
-					<h1 id="name">Donna Stroupe</h1>
-					<p id="job-title">Sales Representative</p>
+					<h1 id="name">Nguyễn Văn A</h1>
+					<p id="job-title">Đại diện Bán hàng</p>
 				</div>
 			</div>
 
@@ -283,16 +283,16 @@ body {
 						<p id="website">Website: real.yourwebsite.com</p>
 
 						<div class="skills">
-							<h2>Kỹ Năng</h2>
-							<ul>
+							<h2 id="skills-title">Kỹ Năng</h2>
+							<ul id="skills-list">
 								<li>Bán Hàng & Tiếp Thị</li>
 								<li>Kiến Thức Sản Phẩm</li>
 								<li>Xây Dựng Mối Quan Hệ Khách Hàng</li>
 							</ul>
 						</div>
 
-						<h2>Ngôn Ngữ</h2>
-						<ul>
+						<h2 id="languages-title">Ngôn Ngữ</h2>
+						<ul id="languages-list">
 							<li>Tiếng Anh</li>
 							<li>Tiếng Pháp</li>
 						</ul>
@@ -303,12 +303,12 @@ body {
 
 				<div class="right-column">
 					<div class="about-me">
-						<h3>Giới Thiệu Về Tôi</h3>
+						<h3 id="aboutmee">Giới Thiệu Về Tôi</h3>
 						<p id="aboutme">Tôi là một Nhân Viên Bán Hàng và chuyên gia
 							trong việc xây dựng mối quan hệ khách hàng...</p>
 					</div>
 					<div class="work-experience">
-						<h2>Kinh Nghiệm Làm Việc</h2>
+						<h2 >Kinh Nghiệm Làm Việc</h2>
 
 						<!-- Work Experience Item 1 -->
 						<div class="work-experience-item">
@@ -358,65 +358,118 @@ body {
 	</div>
 
 	<script>
-        const translations = {
-            en: {
-                name: "Donna Stroupe",
-                jobTitle: "Sales Representative",
-                email: "Email: feelgready@quickrx.com",
-                phone: "Phone: +123-456-7890",
-                address: "Address: 123 Anywhere St., Any City",
-                website: "Website: real.yourwebsite.com",
-                aboutMe: "I am a Sales Representative & a customer relationship expert...",
-                job1Title: "Consumer Goods Seller",
-                job1Time: "Aug 2018 - Present",
-                job1Desc: "Communicated with potential customers to increase sales, managed accounts, and provided after-sales support to ensure customer satisfaction.",
-                job2Title: "Sales Executive",
-                job2Time: "Jan 2016 - Jul 2018",
-                job2Desc: "Led a team of junior sales staff, organized promotional campaigns, and developed new sales strategies for market penetration.",
-                job3Title: "Marketing Coordinator",
-                job3Time: "Mar 2013 - Dec 2015",
-                job3Desc: "Coordinated marketing events, managed social media accounts, and collaborated with the sales team to improve customer engagement."
-            },
-            vi: {
-                name: "Nguyễn Văn A",
-                jobTitle: "Đại diện Bán hàng",
-                email: "Email: nguyenvana@example.com",
-                phone: "Điện thoại: +84-123-456-789",
-                address: "Địa chỉ: Số 123, Phố Bất kỳ, Thành phố",
-                website: "Website: thucte.trangwebcuaban.com",
-                aboutMe: "Tôi là Đại diện Bán hàng chuyên quản lý mối quan hệ khách hàng...",
-                job1Title: "Người bán Hàng Tiêu dùng",
-                job1Time: "Tháng 8/2018 - Nay",
-                job1Desc: "Giao tiếp với khách hàng tiềm năng để tăng doanh số, quản lý tài khoản và cung cấp hỗ trợ sau bán hàng để đảm bảo sự hài lòng của khách hàng.",
-                job2Title: "Chuyên viên Bán hàng",
-                job2Time: "Tháng 1/2016 - Tháng 7/2018",
-                job2Desc: "Lãnh đạo đội ngũ bán hàng trẻ, tổ chức các chiến dịch quảng cáo, phát triển chiến lược bán hàng mới để xâm nhập thị trường.",
-                job3Title: "Điều phối viên Marketing",
-                job3Time: "Tháng 3/2013 - Tháng 12/2015",
-                job3Desc: "Điều phối các sự kiện marketing, quản lý tài khoản mạng xã hội, hợp tác với đội ngũ bán hàng để nâng cao sự tương tác với khách hàng."
-            }
-        };
+	const translations = {
+		    en: {
+		        name: "Donna Stroupe",
+		        jobTitle: "Sales Representative",
+		        email: "Email: feelgready@quickrx.com",
+		        phone: "Phone: +123-456-7890",
+		        address: "Address: 123 Anywhere St., Any City",
+		        website: "Website: real.yourwebsite.com",
+		        aboutMee: "About Me",
+		        aboutMe: "I am a Sales Representative & a customer relationship expert...",
+		        job1Title: "Consumer Goods Seller",
+		        job1Time: "Aug 2018 - Present",
+		        job1Desc: "Communicated with potential customers to increase sales, managed accounts, and provided after-sales support to ensure customer satisfaction.",
+		        job2Title: "Sales Executive",
+		        job2Time: "Jan 2016 - Jul 2018",
+		        job2Desc: "Led a team of junior sales staff, organized promotional campaigns, and developed new sales strategies for market penetration.",
+		        job3Title: "Marketing Coordinator",
+		        job3Time: "Mar 2013 - Dec 2015",
+		        job3Desc: "Coordinated marketing events, managed social media accounts, and collaborated with the sales team to improve customer engagement.",
+		        workExperience: "Work Experience", // Dịch tiêu đề
+		        skillsTitle: "Skills",
+		        skills: [
+		            "Sales & Marketing",
+		            "Product Knowledge",
+		            "Customer Relationship Building"
+		        ],
+		        languagesTitle: "Languages",
+		        languages: [
+		            "English",
+		            "French"
+		        ]
+		    },
+		    vi: {
+		        name: "Nguyễn Văn A",
+		        jobTitle: "Đại diện Bán hàng",
+		        email: "Email: nguyenvana@example.com",
+		        phone: "Điện thoại: +84-123-456-789",
+		        address: "Địa chỉ: Số 123, Phố Bất kỳ, Thành phố",
+		        website: "Website: thucte.trangwebcuaban.com",
+		        aboutMee: "Giới Thiệu Về Tôi",
+		        aboutMe: "Tôi là Đại diện Bán hàng chuyên quản lý mối quan hệ khách hàng...",
+		        job1Title: "Người bán Hàng Tiêu dùng",
+		        job1Time: "Tháng 8/2018 - Nay",
+		        job1Desc: "Giao tiếp với khách hàng tiềm năng để tăng doanh số, quản lý tài khoản và cung cấp hỗ trợ sau bán hàng để đảm bảo sự hài lòng của khách hàng.",
+		        job2Title: "Chuyên viên Bán hàng",
+		        job2Time: "Tháng 1/2016 - Tháng 7/2018",
+		        job2Desc: "Lãnh đạo đội ngũ bán hàng trẻ, tổ chức các chiến dịch quảng cáo, phát triển chiến lược bán hàng mới để xâm nhập thị trường.",
+		        job3Title: "Điều phối viên Marketing",
+		        job3Time: "Tháng 3/2013 - Tháng 12/2015",
+		        job3Desc: "Điều phối các sự kiện marketing, quản lý tài khoản mạng xã hội, hợp tác với đội ngũ bán hàng để nâng cao sự tương tác với khách hàng.",
+		        workExperience: "Kinh Nghiệm Làm Việc", // Tiêu đề gốc
+		        skillsTitle: "Kỹ Năng",
+		        skills: [
+		            "Bán Hàng & Tiếp Thị",
+		            "Kiến Thức Sản Phẩm",
+		            "Xây Dựng Mối Quan Hệ Khách Hàng"
+		        ],
+		        languagesTitle: "Ngôn Ngữ",
+		        languages: [
+		            "Tiếng Anh",
+		            "Tiếng Pháp"
+		        ]
+		    }
+		};
 
-        document.getElementById('language').addEventListener('change', (e) => {
-            const lang = e.target.value;
-            const content = translations[lang];
-            document.getElementById('name').textContent = content.name;
-            document.getElementById('job-title').textContent = content.jobTitle;
-            document.getElementById('email').textContent = content.email;
-            document.getElementById('phone').textContent = content.phone;
-            document.getElementById('address').textContent = content.address;
-            document.getElementById('website').textContent = content.website;
-            document.getElementById('aboutme').textContent = content.aboutMe;
-            document.getElementById('job1-title').textContent = content.job1Title;
-            document.getElementById('job1-time').textContent = content.job1Time;
-            document.getElementById('job1-desc').textContent = content.job1Desc;
-            document.getElementById('job2-title').textContent = content.job2Title;
-            document.getElementById('job2-time').textContent = content.job2Time;
-            document.getElementById('job2-desc').textContent = content.job2Desc;
-            document.getElementById('job3-title').textContent = content.job3Title;
-            document.getElementById('job3-time').textContent = content.job3Time;
-            document.getElementById('job3-desc').textContent = content.job3Desc;
-        });
+		document.getElementById('language').addEventListener('change', (e) => {
+		    const lang = e.target.value;
+		    const content = translations[lang];
+
+		    // Cập nhật thông tin cơ bản
+		    document.getElementById('name').textContent = content.name;
+		    document.getElementById('job-title').textContent = content.jobTitle;
+		    document.getElementById('email').textContent = content.email;
+		    document.getElementById('phone').textContent = content.phone;
+		    document.getElementById('address').textContent = content.address;
+		    document.getElementById('website').textContent = content.website;
+		    document.getElementById('aboutmee').textContent = content.aboutMee;
+		    document.getElementById('aboutme').textContent = content.aboutMe;
+
+		    // Cập nhật kinh nghiệm làm việc
+		    document.getElementById('job1-title').textContent = content.job1Title;
+		    document.getElementById('job1-time').textContent = content.job1Time;
+		    document.getElementById('job1-desc').textContent = content.job1Desc;
+		    document.getElementById('job2-title').textContent = content.job2Title;
+		    document.getElementById('job2-time').textContent = content.job2Time;
+		    document.getElementById('job2-desc').textContent = content.job2Desc;
+		    document.getElementById('job3-title').textContent = content.job3Title;
+		    document.getElementById('job3-time').textContent = content.job3Time;
+		    document.getElementById('job3-desc').textContent = content.job3Desc;
+		    document.querySelector('.work-experience h2').textContent = content.workExperience;
+
+		    // Cập nhật kỹ năng
+		    document.getElementById('skills-title').textContent = content.skillsTitle;
+		    const skillsList = document.getElementById('skills-list');
+		    skillsList.innerHTML = ''; // Xóa các mục hiện tại
+		    content.skills.forEach(skill => {
+		        const li = document.createElement('li');
+		        li.textContent = skill;
+		        skillsList.appendChild(li);
+		    });
+
+		    // Cập nhật ngôn ngữ
+		    document.getElementById('languages-title').textContent = content.languagesTitle;
+		    const languagesList = document.getElementById('languages-list');
+		    languagesList.innerHTML = ''; // Xóa các mục hiện tại
+		    content.languages.forEach(language => {
+		        const li = document.createElement('li');
+		        li.textContent = language;
+		        languagesList.appendChild(li);
+		    });
+		});
+
     </script>
 	<script>
     // Lắng nghe sự thay đổi trong lựa chọn ngôn ngữ

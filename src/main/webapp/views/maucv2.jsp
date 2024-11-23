@@ -106,9 +106,9 @@
 		</div>
 
 		<div class="right-column" id="sortable-right">
-			<h1 placeholder="Nhập mục tiêu nghề nghiệp" contenteditable="true">OLIVIA
-				WILSON</h1>
-			<h5 contenteditable="true">Marketing</h5>
+			<h1 placeholder="Nhập mục tiêu nghề nghiệp" contenteditable="true">NGUYỄN VĂN A</h1>
+			<h5 contenteditable="true">Quản Lý Tiếp Thị</h5>
+			
 			<!-- <h2><input type="text" name="title" placeholder="Vị Tí Ứng Tuyển"></h2> -->
 
 			<div class="section">

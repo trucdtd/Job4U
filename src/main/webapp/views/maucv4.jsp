@@ -34,8 +34,8 @@
     <img id="profileImage" src="your-image-url.jpg" alt="Donna Stroupe" class="profile-photo" onclick="triggerFileInput()">
 </div>
 				<div class="header-info">
-					<h1 contenteditable="true">OLIVIA WILSON</h1>
-					<h5 contenteditable="true">Marketing</h5>
+					<h1 contenteditable="true">NGUYỄN VĂN A</h1>
+					<h5 contenteditable="true">Quản Lý Tiếp Thị</h5>
 				</div>
 			</div>
 
