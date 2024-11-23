@@ -20,6 +20,7 @@ import demo.entity.UsersEntity;
 import demo.services.SessionService;
 import demo.services.UserRepository;
 import demo.services.UserService;
+import demo.util.MaHoa;
 import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -181,7 +182,7 @@ public class quenMatKhauController {
 		// Mã hóa mật khẩu trước khi lưu (nếu cần)
 		// String encodedPassword = passwordEncoder.encode(newPassword);
 		// user.setPassword(encodedPassword);
-
+		newPassword = MaHoa.toSHA1(newPassword);
 		user.setPassword(newPassword); // Nếu không mã hóa mật khẩu, chỉ lưu mật khẩu mới
 		user.setToken(null); // Hủy token sau khi mật khẩu đã được đặt lại
 		userRepository.save(user); // Lưu thông tin vào cơ sở dữ liệu

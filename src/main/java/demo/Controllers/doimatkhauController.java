@@ -61,7 +61,7 @@ public class doimatkhauController {
 			}
 
 			// Kiểm tra mật khẩu cũ
-			oldPassword = MaHoa.toSHA1(oldPassword);
+				oldPassword = MaHoa.toSHA1(oldPassword);
 			if (!oldPassword.equals(user.getPassword())) {
 				redirectAttributes.addFlashAttribute("error", "Mật khẩu cũ không chính xác");
 				return "redirect:/changePass";
