@@ -65,6 +65,6 @@ public interface UsersDao extends JpaRepository<UsersEntity, Integer> {
 			@Param("endDate") LocalDateTime endDate);
 	@Query("SELECT COUNT(j.userid) FROM UsersEntity j WHERE j.createdat >= :startDate AND j.createdat <= :endDate")
 	Long countUserStartDateEndDate(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
-
-
+	@Query("SELECT u FROM UsersEntity u WHERE u.username = :username")
+	UsersEntity findBy1User(String username);
 }
