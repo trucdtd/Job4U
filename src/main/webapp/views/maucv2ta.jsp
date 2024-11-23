@@ -27,108 +27,95 @@
 	<!-- header -->
 
 	<div class="container">
-		<div class="cv-container" id="cv-content">
-			<div class="header">
-				<div class="photo-frame">
-    <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)" style="display: none;">
-    <img id="profileImage" src="your-image-url.jpg" alt="Donna Stroupe" class="profile-photo" onclick="triggerFileInput()">
+    <div class="cv-container" id="cv-content">
+        <div class="header">
+            <div class="photo-frame">
+                <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)" style="display: none;"> 
+                <img id="profileImage" src="your-image-url.jpg" alt="Donna Stroupe" class="profile-photo" onclick="triggerFileInput()">
+            </div>
+            <div class="header-info">
+                <h1 contenteditable="true">OLIVIA WILSON</h1>
+                <h5 contenteditable="true">Marketing</h5>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column" id="sortable-left">
+                <div class="section">
+                    <div class="section-title">Contact</div>
+                    <label>Email:</label> 
+                    <input class="hidden-input" type="email" name="email" required value="hello@reallygreatsite.com">
+                    <label>Phone:</label> 
+                    <input class="hidden-input" type="text" name="phone" required value="099876554"> 
+                    <label>Date of Birth:</label> 
+                    <input class="hidden-input" type="date" name="dob" required>
+                    <label for="gender">Gender:</label> 
+                    <select class="hidden-input" name="gender" id="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select> 
+                    <label>Nationality:</label> 
+                    <input class="hidden-input" type="text" name="nationality" required value="Nationality">
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Skills</div>
+                    <div id="skills-container">
+                        <input class="hidden-input" type="text" name="skills[]" placeholder="Add Skill" required>
+                    </div>
+                    <button type="button" onclick="addSkill()">+ Add Skill</button>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Certificates</div>
+                    <div id="certificates-container">
+                        <input class="hidden-input" type="text" name="certificates[]" placeholder="Add Certificate" required>
+                    </div>
+                    <button type="button" onclick="addCertificate()">+ Add Certificate</button>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column" id="sortable-right">
+                <div class="section">
+                    <div class="section-title">Career Objective</div>
+                    <textarea class="hidden-input" name="career-objective" placeholder="I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me." required></textarea>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Education</div>
+                    <div id="education">
+                        <input class="hidden-input" type="text" name="education[]" placeholder="Add Education" required>
+                    </div>
+                    <button type="button" onclick="addEducation()">+ Add Education</button>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Projects</div>
+                    <div id="experience">
+                        <input class="hidden-input project-name" type="text" name="experience[]" placeholder="Project Name" required> 
+                        <input class="hidden-input" type="text" name="experience[]" placeholder="Time Period" required>
+                        <textarea class="hidden-input" name="experience[]" placeholder="Description" required></textarea>
+                    </div>
+                    <button type="button" onclick="addExperience()">+ Add Project</button>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Hobbies</h2>
+                    <div id="hobbies">
+                        <input class="hidden-input" type="text" name="hobbies[]" placeholder="Add Hobby" required>
+                    </div>
+                    <button type="button" onclick="addHobby()">+ Add Hobby</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button-container">
+        <!-- <button class="save-button" type="button">Save CV</button> -->
+        <button class="download-button" type="button" onclick="downloadCVAsPDF()">Download CV as PDF</button>
+    </div>
 </div>
-				<div class="header-info">
-					<h1 contenteditable="true">NGUYỄN VĂN A</h1>
-					<h5 contenteditable="true">Quản Lý Tiếp Thị</h5>
-				</div>
-			</div>
-
-			<div class="main-content">
-				<!-- Left Column -->
-				<div class="left-column" id="sortable-left">
-					<div class="section">
-						<div class="section-title">Liên Hệ</div>
-						<label>Email:</label> <input class="hidden-input" type="email"
-							name="email" required value="hello@reallygreatsite.com">
-						<label>Điện Thoại:</label> <input class="hidden-input" type="text"
-							name="phone" required value="099876554"> <label>Ngày
-							Sinh:</label> <input class="hidden-input" type="date" name="dob" required>
-						<label for="gender">Giới Tính:</label> <select
-							class="hidden-input" name="gender" id="gender" required>
-							<option value="nam">Nam</option>
-							<option value="nu">Nữ</option>
-						</select> <label>Quốc Tịch:</label> <input class="hidden-input" type="text"
-							name="nationality" required value="Quốc Tịch">
-					</div>
-
-					<div class="section">
-						<div class="section-title">Kỹ Năng</div>
-						<div id="skills-container">
-							<input class="hidden-input" type="text" name="skills[]"
-								placeholder="Thêm kỹ năng" required>
-						</div>
-						<button type="button" onclick="addSkill()">+ Thêm kỹ năng</button>
-					</div>
-
-					<div class="section">
-						<div class="section-title">Chứng Chỉ</div>
-						<div id="certificates-container">
-							<input class="hidden-input" type="text" name="certificates[]"
-								placeholder="Thêm chứng chỉ" required>
-						</div>
-						<button type="button" onclick="addCertificate()">+ Thêm
-							chứng chỉ</button>
-					</div>
-				</div>
-
-
-
-				<!-- Right Column -->
-				<div class="right-column" id="sortable-right">
-					<div class="section">
-						<div class="section-title">Mục Tiêu Nghề Nghiệp</div>
-						<textarea class="hidden-input" name="career-objective"
-							placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh." required></textarea>
-					</div>
-
-					<div class="section">
-						<div class="section-title">Học Vấn</div>
-						<div id="education">
-							<input class="hidden-input" type="text" name="education[]"
-								placeholder="Thêm học vấn" required>
-						</div>
-						<button type="button" onclick="addEducation()">+ Thêm học
-							vấn</button>
-					</div>
-
-					<div class="section">
-						<div class="section-title">Dự Án Đã Tham Gia</div>
-						<div id="experience">
-							<input class="hidden-input project-name" type="text"
-								name="experience[]" placeholder="Tên Dự Án" required> <input
-								class="hidden-input" type="text" name="experience[]"
-								placeholder="Thời Gian" required>
-							<textarea class="hidden-input" name="experience[]"
-								placeholder="Mô Tả" required></textarea>
-						</div>
-						<button type="button" onclick="addExperience()">+ Thêm
-							công việc</button>
-					</div>
-
-					<div class="section">
-						<h2 class="section-title">Sở Thích</h2>
-						<div id="hobbies">
-							<input class="hidden-input" type="text" name="hobbies[]"
-								placeholder="Thêm sở thích" required>
-						</div>
-						<button type="button" onclick="addHobby()">+ Thêm sở
-							thích</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="button-container">
-			<!-- <button class="save-button" type="button">Lưu CV</button> -->
-			<button class="download-button" type="button"
-				onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
-		</div>
-	</div>
 
 	<br>
 	<!-- footer -->
@@ -141,7 +128,7 @@
 			input.type = "text";
 			input.name = "skills[]";
 			input.className = "hidden-input";
-			input.placeholder = "Thêm kỹ năng";
+			input.placeholder = "Add Skill";
 			skillsContainer.appendChild(input);
 		}
 
@@ -152,7 +139,7 @@
 			input.type = "text";
 			input.name = "certificates[]";
 			input.className = "hidden-input";
-			input.placeholder = "Thêm chứng chỉ";
+			input.placeholder = "Add Certificate";
 			certificatesContainer.appendChild(input);
 		}
 
@@ -163,7 +150,7 @@
 			input.type = "text";
 			input.name = "education[]";
 			input.className = "hidden-input";
-			input.placeholder = "Thêm học vấn";
+			input.placeholder = "Add Education";
 			educationDiv.appendChild(input);
 		}
 
@@ -178,7 +165,7 @@
     projectNameInput.type = "text";
     projectNameInput.name = "experience[]";
     projectNameInput.className = "hidden-input project-name";
-    projectNameInput.placeholder = "Tên Dự Án";
+    projectNameInput.placeholder = "Project Name";
     experienceContainer.appendChild(projectNameInput);
 
     // Thời Gian
@@ -186,14 +173,14 @@
     timeInput.type = "text";
     timeInput.name = "experience[]";
     timeInput.className = "hidden-input";
-    timeInput.placeholder = "Thời Gian";
+    timeInput.placeholder = "Time Period";
     experienceContainer.appendChild(timeInput);
 
     // Mô Tả
     let descriptionTextarea = document.createElement("textarea");
     descriptionTextarea.name = "experience[]";
     descriptionTextarea.className = "hidden-input";
-    descriptionTextarea.placeholder = "Mô Tả";
+    descriptionTextarea.placeholder = "Description";
     experienceContainer.appendChild(descriptionTextarea);
 
     experienceDiv.appendChild(experienceContainer);
@@ -206,7 +193,7 @@
 			input.type = "text";
 			input.name = "hobbies[]";
 			input.className = "hidden-input";
-			input.placeholder = "Thêm sở thích";
+			input.placeholder = "Add Hobby";
 			hobbiesDiv.appendChild(input);
 		}
 

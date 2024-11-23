@@ -51,26 +51,11 @@
 							href="/Login" role="button">Đăng nhập</a> <a name="" id=""
 							class="btn btn-success me-2 mb-3" href="/DangKy" role="button">Đăng
 							ký</a>
-						<div>
-							<p class="mb-1 text-reponsive">Dành cho nhà tuyển dụng</p>
+						<div>						
 							<a name="" id="" class="btn btn-dark me-2" href="/employers" role="button">Dành cho nhà tuyển dụng</a>
 						</div>
 					</div>
 					<div class="logined" id="logined">
-						<!-- <div class="btn-group me-3">
-							<button class="btn btn-light dropdown-toggle rounded-pill shadow"
-								type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								<img src="/img/icons8-bell-48.png" height="25" alt="" />
-							</button>
-							<ul class="dropdown-menu dropdown-menu-end mt-3 border-0 shadow"
-								aria-labelledby="dropdownMenuButton">
-								<li><a class="dropdown-item" href="#">Thoong bao 1</a></li>
-							</ul>
-						</div>
-						<a name="" id="" class="btn rounded-circle me-3 shadow" href="#"
-							role="button"><img
-							src="/img/icons8-chat-60.png" height="25" alt="" /></a> -->
 						<div class="btn-group me-3">
 							<button class="btn btn-white dropdown-toggle rounded-pill shadow"
 								type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"

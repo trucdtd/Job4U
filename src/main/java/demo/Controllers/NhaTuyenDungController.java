@@ -49,7 +49,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/employers")
@@ -110,44 +112,77 @@ public class NhaTuyenDungController {
 
 	@RequestMapping("")
 	public String nhaTuyenDung(Model model) {
-		Integer userId = sessionService.getCurrentUserId();
+	    Integer userId = sessionService.getCurrentUserId();
 
-//	    System.out.println("Current User ID: " + userId);
+	    List<ServicesEntity> service = servicesDao.findAll();
+	    model.addAttribute("service", service);
 
-		List<ServicesEntity> service = servicesDao.findAll();
-		model.addAttribute("service", service);
+	    if (userId != null) {
+	        EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
-		if (userId != null) {
-			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
+	        if (employer != null) {
+	            // Chỉ lấy những bài đăng có active = true
+	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
+	            model.addAttribute("jobPostings", jobPostings);
 
-			if (employer != null) {
-				// Chỉ lấy những bài đăng có active = true
-				List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
-				model.addAttribute("jobPostings", jobPostings);
+	            // Khởi tạo một Map để lưu trữ số lượng ứng tuyển cho từng job
+	            Map<Integer, Integer> totalApplicationsMap = new HashMap<>();
+	            Map<Integer, Integer> acceptedApplicationsMap = new HashMap<>();
+	            Map<Integer, Integer> rejectedApplicationsMap = new HashMap<>();
+	            Map<Integer, Integer> pendingApplicationsMap = new HashMap<>();
 
-				// Lấy danh sách CV ứng tuyển
-				List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
-				model.addAttribute("dsCV", cv); // Thêm danh sách CV vào model
 
-				// Lấy danh sách dịch vụ đã mua của nhà tuyển dụng
-				List<UserServicesEntity> dv = userservicesDao.findByUser(employer.getUser());
-				model.addAttribute("dsDV", dv); // Thêm danh sách DV vào model
+	            for (JoblistingsEntity jobPosting : jobPostings) {
+	                // Lấy danh sách ứng tuyển cho bài đăng này
+	                List<ApplicationsEntity> jobApplicationsList = applicationsDao.findApplicationsByJoblistingId(jobPosting.getJobid());
+	                // Lưu số lượng ứng tuyển vào Map với key là jobPosting.jobid
+	                totalApplicationsMap.put(jobPosting.getJobid(), jobApplicationsList.size());
+	                
+	                // Lọc ứng tuyển đã chấp nhận (status == 1) và từ chối (status == 2)
+	                long acceptedCount = jobApplicationsList.stream()
+	                        .filter(application -> application.getStatus() == 1)
+	                        .count();
+	                long rejectedCount = jobApplicationsList.stream()
+	                        .filter(application -> application.getStatus() == 2)
+	                        .count();
+	                long pendingCount = jobApplicationsList.stream()
+	                        .filter(application -> application.getStatus() == 0)
+	                        .count();
 
-				for (JoblistingsEntity jobPosting : jobPostings) {
-					List<ApplicationsEntity> applications = applicationsDao.findByJob(jobPosting);
-					model.addAttribute("applications" + jobPosting.getJobid(), applications);
-				}
+	                // Lưu số lượng đã chấp nhận và đã từ chối vào Map
+	                acceptedApplicationsMap.put(jobPosting.getJobid(), (int) acceptedCount);
+	                rejectedApplicationsMap.put(jobPosting.getJobid(), (int) rejectedCount);
+	                pendingApplicationsMap.put(jobPosting.getJobid(), (int) pendingCount);
 
-				model.addAttribute("employer", employer);
-			} else {
-				model.addAttribute("error", "Không tìm thấy nhà tuyển dụng.");
-			}
-		} else {
-			model.addAttribute("error", "Vui lòng đăng nhập để tiếp tục.");
-		}
+	                // Thêm danh sách ứng tuyển vào model để sử dụng trong JSP
+	                model.addAttribute("applications" + jobPosting.getJobid(), jobApplicationsList);
+	            }
 
-		return "nhaTuyenDung";
+	            // Truyền Map vào model
+	            model.addAttribute("totalApplicationsMap", totalApplicationsMap);
+	            model.addAttribute("acceptedApplicationsMap", acceptedApplicationsMap);
+	            model.addAttribute("rejectedApplicationsMap", rejectedApplicationsMap);
+	            model.addAttribute("pendingApplicationsMap", pendingApplicationsMap);
+
+	            // Lấy danh sách CV ứng tuyển
+	            List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
+	            model.addAttribute("dsCV", cv);
+
+	            // Lấy danh sách dịch vụ đã mua của nhà tuyển dụng
+	            List<UserServicesEntity> dv = userservicesDao.findByUser(employer.getUser());
+	            model.addAttribute("dsDV", dv);
+
+	            model.addAttribute("employer", employer);
+	        } else {
+	            model.addAttribute("error", "Không tìm thấy nhà tuyển dụng.");
+	        }
+	    } else {
+	        model.addAttribute("error", "Vui lòng đăng nhập để tiếp tục.");
+	    }
+
+	    return "nhaTuyenDung";
 	}
+
 
 	@RequestMapping("/chitietCV")
 	public String cvUngTuyen() {
@@ -393,7 +428,8 @@ public class NhaTuyenDungController {
 		// In ra số lượng ứng tuyển tìm thấy
 		System.out.println("Số lượng CV được tìm thấy: " + jobApplicationsList.size());
 
-		model.addAttribute("dsCV", jobApplicationsList); // Thêm danh sách CV vào model
+	    // Truyền danh sách CV và số lượng CV vào model để sử dụng trong JSP
+	    model.addAttribute("dsCV", jobApplicationsList);
 
 		// Kiểm tra xem có ứng tuyển nào không
 		if (!jobApplicationsList.isEmpty()) {

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import demo.dao.JoblistingsDao;
+import demo.dao.PaymentsDao;
 import demo.dao.ServicesDao;
 import demo.dao.UserServicesDao;
 import demo.dao.UsersDao;
@@ -42,6 +44,9 @@ public class ThongKeController {
 	@Autowired
 	ServicesDao svDao;
 
+	@Autowired
+	PaymentsDao paymentDao;
+
 	@GetMapping("")
 	public String getSoldServices(Model model) {
 		// Lấy danh sách dịch vụ đã bán từ userServicesDao
@@ -54,33 +59,66 @@ public class ThongKeController {
 		model.addAttribute("countJoblisting", countJoblisting);
 		model.addAttribute("countUser", countUser);
 		model.addAttribute("countService", countService);
+		model.addAttribute("status", "d-none");
 		// Trả về tên view (ví dụ "thongke" là tên của file HTML)
 		return "thongKeMoi";
 	}
 
 	@PostMapping("")
-	public String thongKe(Model model, @RequestParam("startdate") LocalDate startDate,
-			@RequestParam("enddate") LocalDate endDate) {
+	public String thongKe(Model model, @RequestParam("startdate") Optional<LocalDate> startDate,
+			@RequestParam("enddate") Optional<LocalDate> endDate) {
 		// TODO: process POST request
 		// lay du lieu
-		Long demBaiViet = joblistingsDao.countJobStartDateEndDate(startDate, endDate);
-		LocalDateTime startDateLocalDateTime = LocalDateTime.of(startDate.getYear(), startDate.getMonth(),
-				startDate.getDayOfMonth(), 23, 59);
-		LocalDateTime endDateLocalDateTime = LocalDateTime.of(endDate.getYear(), endDate.getMonth(),
-				endDate.getDayOfMonth(), 23, 59);
+		LocalDate starDateLocalDate = null;
+		LocalDate endDateLocalDate = null;
+		if (!startDate.isEmpty() && !endDate.isEmpty()) {
+			Integer yearOfStartDate = Integer.parseInt(startDate.toString().substring(9, 13));
+			Integer monthOfStartDate = Integer.parseInt(startDate.toString().substring(14, 16));
+			if (Integer.parseInt(startDate.toString().substring(14, 15)) == 0) {
+				monthOfStartDate = Integer.parseInt(startDate.toString().substring(15, 16));
+			}
+			Integer dayOfStartDate = Integer.parseInt(startDate.toString().substring(17, 19));
+			if (Integer.parseInt(startDate.toString().substring(17, 18)) == 0) {
+				dayOfStartDate = Integer.parseInt(startDate.toString().substring(18, 19));
+			}
 
-		Long demNguoiDung = userDao.countUserStartDateEndDate(startDateLocalDateTime, endDateLocalDateTime);
-		// ép kiểu
+			starDateLocalDate = LocalDate.of(yearOfStartDate, monthOfStartDate, dayOfStartDate);
 
-		// dem dich vu
-		System.out.println(startDateLocalDateTime);
-		Long demDichVu = userServicesDao.countUSStartDateEndDate(startDateLocalDateTime, endDateLocalDateTime);
-		List<UserServicesEntity> list = userServicesDao.selectUSStartDateEndDateList(startDateLocalDateTime,
-				endDateLocalDateTime);
-		model.addAttribute("countService", demDichVu);
-		model.addAttribute("countJoblisting", demBaiViet);
-		model.addAttribute("countUser", demNguoiDung);
-		model.addAttribute("qlTK", list);
+			Integer yearOfEndDate = Integer.parseInt(endDate.toString().substring(9, 13));
+			Integer monthOfEndDate = Integer.parseInt(endDate.toString().substring(14, 16));
+			if (Integer.parseInt(endDate.toString().substring(14, 15)) == 0) {
+				monthOfEndDate = Integer.parseInt(endDate.toString().substring(15, 16));
+			}
+			Integer dayOfEndDate = Integer.parseInt(endDate.toString().substring(17, 19));
+			if (Integer.parseInt(endDate.toString().substring(17, 18)) == 0) {
+				dayOfEndDate = Integer.parseInt(endDate.toString().substring(18, 19));
+			}
+			LocalDateTime startDateLocalDateTime = LocalDateTime.of(yearOfStartDate, monthOfStartDate, dayOfStartDate,
+					23, 59);
+			LocalDateTime endDateLocalDateTime = LocalDateTime.of(yearOfEndDate, monthOfEndDate, dayOfEndDate, 23, 59);
+			endDateLocalDate = LocalDate.of(yearOfEndDate, monthOfEndDate, dayOfEndDate);
+			if(!starDateLocalDate.isBefore(endDateLocalDate)) {
+				model.addAttribute("status", "d-block");
+				model.addAttribute("text", "Lỗi! ngày kết thúc phải lớn hơn ngày bắt đầu.");
+			}else {
+				Long demBaiViet = joblistingsDao.countJobStartDateEndDate(startDate, endDate);
+				Long demNguoiDung = userDao.countUserStartDateEndDate(startDateLocalDateTime, endDateLocalDateTime);
+
+				Long demDichVu = userServicesDao.countUSStartDateEndDate(startDateLocalDateTime, endDateLocalDateTime);
+				List<UserServicesEntity> list = userServicesDao.selectUSStartDateEndDateList(startDateLocalDateTime,
+						endDateLocalDateTime);
+				model.addAttribute("countService", demDichVu);
+				model.addAttribute("countJoblisting", demBaiViet);
+				model.addAttribute("countUser", demNguoiDung);
+				model.addAttribute("qlTK", list);
+				model.addAttribute("status", "d-none");
+				model.addAttribute("text", "Vui lòng chọn ngày bắt đầu và ngày kết thúc để thống kê!");
+			}		
+		} else if (starDateLocalDate == null || endDateLocalDate == null) {
+			model.addAttribute("status", "d-block");
+			model.addAttribute("text", "Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc để thống kê!");
+		}
+
 		return "thongKeMoi";
 	}
 

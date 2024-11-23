@@ -32,6 +32,7 @@ import demo.entity.EmployersEntity;
 import demo.entity.UserAgreementsEntity;
 import demo.entity.UsersEntity;
 import demo.services.UserService;
+import demo.util.MaHoa;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -157,7 +158,7 @@ public class dangkyController {
 			}
 
 		}
-		
+
 		// Kiểm tra và lưu logo
 		String logoFilename = null;
 		if (logo != null && !logo.isEmpty()) {
@@ -181,7 +182,7 @@ public class dangkyController {
 			Integer role = "employer".equals(usertype) ? 2 : 1;
 			newUser.setUsername(username);
 			newUser.setFullname(fullname);
-			newUser.setPassword(password); // Mã hóa mật khẩu
+			newUser.setPassword(MaHoa.toSHA1(password)); // Mã hóa mật khẩu
 			newUser.setEmail(email);
 			newUser.setPhonenumber(phonenumber);
 			newUser.setRole(role);

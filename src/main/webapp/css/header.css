@@ -50,6 +50,23 @@ display: none;
 .dropdown-item {
     color: #198754; /* Màu chữ mặc định */
 }
+/* Đảm bảo rằng dropdown-menu luôn hiển thị trên các phần tử khác */
+.dropdown-menu {
+    position: absolute;
+    z-index: 1050; /* Tăng giá trị z-index để dropdown luôn ở trên */
+}
+
+/* Đảm bảo button dropdown có z-index thấp hơn */
+.dropdown-toggle {
+    position: relative;
+    z-index: 1040; /* Z-index thấp hơn dropdown để nó không bị che */
+}
+
+/* Tăng z-index của navbar-collapse khi mở để không bị che */
+.navbar-collapse {
+    z-index: 1050; /* Đảm bảo navbar-collapse có z-index cao hơn các phần tử khác */
+}
+
 @media (max-width: 991px) {
   .navbar-brand-text-p {
     display: none;

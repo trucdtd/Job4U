@@ -31,139 +31,143 @@
 	<div class="cv-container" id="cv-content">
 		<!-- Decorative Header -->
 		<!-- <div class="header-decoration"></div>
-		<div class="inner-header-decoration"></div>
+    <div class="inner-header-decoration"></div>
 
-		Decorative Footer
-		<div class="footer-decoration"></div>
-		<div class="inner-footer-decoration"></div>
+    Decorative Footer
+    <div class="footer-decoration"></div>
+    <div class="inner-footer-decoration"></div>
 
-		Corner Triangles
-		<div class="top-left-triangle"></div>
-		<div class="bottom-right-triangle"></div> -->
+    Corner Triangles
+    <div class="top-left-triangle"></div>
+    <div class="bottom-right-triangle"></div> -->
 
 		<!-- Left Column -->
 		<div class="left-column" id="sortable-left">
 			<div class="profile-photo">
-				<!-- Ẩn input file và bấm vào bất kỳ chỗ nào trong khung để chọn ảnh -->
+				<!-- Hide file input and click anywhere in the box to select a photo -->
 				<input class="an" type="file" id="profile-image" accept="image/*"
 					onchange="previewImage(event)"> <label for="profile-image"
 					class="upload-label"> <img id="profile-img-preview"
-					src="path/to/default-image.jpg" alt="Ảnh ứng viên">
+					src="path/to/default-image.jpg" alt="Candidate Photo">
 				</label>
 			</div>
 			<div class="section">
-				<div class="section-title">Liên Hệ</div>
+				<div class="section-title">Contact</div>
 				<div class="contact-info">
 					<p>
-						Điện Thoại: <input type="text" class="hidden-input" name="phone"
-							placeholder="Nhập số điện thoại">
-
+						Phone: <input type="text" class="hidden-input" name="phone"
+							placeholder="Enter phone number">
 					</p>
 					<p>
 						Email: <input type="email" class="hidden-input" name="email"
 							placeholder="alfredo@example.com">
 					</p>
 					<p>
-						Ngày Sinh: <input class="hidden-input" type="date" name="dob">
+						Date of Birth: <input class="hidden-input" type="date" name="dob">
 					</p>
 					<p>
-						Ngôn Ngữ: <input class="hidden-input" type="text" name="language"
-							placeholder="Tiếng Việt">
+						Language: <input class="hidden-input" type="text" name="language"
+							placeholder="Vietnamese">
 					</p>
 					<p>
-						Giới Tính: <select class="hidden-input" name="gender"><option
-								value="male">Nam</option>
-							<option value="female">Nữ</option></select>
+						Gender: <select class="hidden-input" name="gender">
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+						</select>
 					</p>
 				</div>
 			</div>
 
-			<!-- Học Vấn -->
+			<!-- Education -->
 			<div class="section">
-				<div class="section-title">Học Vấn</div>
+				<div class="section-title">Education</div>
 				<div id="education-section" class="draggable-section">
 					<input class="hidden-input" type="text" name="education[]"
 						placeholder="FPT Polytechnic" draggable="true" class="draggable">
 				</div>
 				<div class="add-button-container">
-					<button onclick="addField('education-section')">+ Thêm Học
-						Vấn</button>
-						
+					<button onclick="addField('education-section')">+ Add
+						Education</button>
 				</div>
 			</div>
 
+			<!-- Certifications -->
 			<div class="section">
-				<div class="section-title">Chứng Chỉ</div>
+				<div class="section-title">Certifications</div>
 				<div id="certificates-section">
 					<input class="hidden-input" type="text" name="certificates[]"
-						placeholder="Nhập chứng chỉ" draggable="true" class="draggable">
+						placeholder="Enter certification" draggable="true"
+						class="draggable">
 				</div>
 				<div class="add-button-container">
-					<button onclick="addField('certificates-section')">+ Thêm
-						Chứng Chỉ</button>
+					<button onclick="addField('certificates-section')">+ Add
+						Certification</button>
 				</div>
 			</div>
 		</div>
 
 		<div class="right-column" id="sortable-right">
-			<h1 placeholder="Nhập mục tiêu nghề nghiệp" contenteditable="true">NGUYỄN VĂN A</h1>
-			<h5 contenteditable="true">Quản Lý Tiếp Thị</h5>
-			
-			<!-- <h2><input type="text" name="title" placeholder="Vị Tí Ứng Tuyển"></h2> -->
+			<h1 placeholder="Enter career goal" contenteditable="true">OLIVIA
+				WILSON</h1>
+			<h5 contenteditable="true">Marketing</h5>
+			<!-- <h2><input type="text" name="title" placeholder="Job Position"></h2> -->
 
 			<div class="section">
-				<div class="section-title">Mục Tiêu Nghề Nghiệp</div>
+				<div class="section-title">Career Goal</div>
 				<textarea class="hidden-input" name="careerGoal"
-					placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh."></textarea>
+					placeholder="I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me."></textarea>
 			</div>
 
-			<!-- Kỹ Năng -->
+			<!-- Skills -->
 			<div class="section">
-				<div class="section-title">Kỹ Năng</div>
+				<div class="section-title">Skills</div>
 				<div id="skills-section" class="draggable-section">
 					<input class="hidden-input" type="text" name="skills[]"
-						placeholder="Nhập kỹ năng" draggable="true" class="draggable">
+						placeholder="Enter skills" draggable="true" class="draggable">
 				</div>
 				<div class="add-button-container">
-					<button onclick="addField('skills-section')">+ Thêm Kỹ
-						Năng</button>
+					<button onclick="addField('skills-section')">+ Add Skill</button>
 				</div>
 			</div>
 
+			<!-- Projects -->
 			<div class="section">
-				<div class="section-title">Dự Án Đã Tham Gia</div>
+				<div class="section-title">Projects</div>
 				<div id="projects-section" class="draggable-section">
 					<div class="work-experience-item">
-						<input class="hidden-input project-name" type="text" name="projects[]"
-							placeholder="Tên dự án - Công ty"> <input
+						<input class="hidden-input project-name" type="text"
+							name="projects[]" placeholder="Project Name - Company"> <input
 							class="hidden-input" type="text" name="project-dates[]"
-							placeholder="Thời gian">
+							placeholder="Date Range">
 						<textarea class="hidden-input" name="project-descriptions[]"
-							placeholder="Mô tả"></textarea>
+							placeholder="Description"></textarea>
 					</div>
 				</div>
 				<div class="add-button-container">
-					<button onclick="addProjectField()">+ Thêm Dự Án</button>
+					<button onclick="addProjectField()">+ Add Project</button>
 				</div>
 			</div>
+
+			<!-- Hobbies -->
 			<div class="section">
-				<div class="section-title">Sở Thích</div>
+				<div class="section-title">Hobbies</div>
 				<div id="hobbies-section" class="draggable-section">
 					<input class="hidden-input" type="text" name="hobbies[]"
-						placeholder="Nhập Sở Thích" draggable="true" class="draggable">
+						placeholder="Enter hobbies" draggable="true" class="draggable">
 				</div>
 				<div class="add-button-container">
-					<button onclick="addField('hobbies-section')">+ Thêm Kỹ
-						Năng</button>
+					<button onclick="addField('hobbies-section')">+ Add Hobby</button>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="button-container">
-		<!-- <button class="save-button" type="button">Lưu CV</button> -->
+		<!-- <button class="save-button" type="button">Save CV</button> -->
 		<button class="download-button" type="button"
-			onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
+			onclick="downloadCVAsPDF()">Download CV as PDF</button>
 	</div>
+
 	<br>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
@@ -176,7 +180,7 @@
 		  const input = document.createElement("input");
 		  input.type = "text";
 		  input.name = sectionId.replace('-section', '') + "[]";
-		  input.placeholder = "Nhập thông tin";
+		  input.placeholder = "Enter information";
 		  input.classList.add("hidden-input"); // Thêm class "hidden-input"
 		  section.appendChild(input);
 

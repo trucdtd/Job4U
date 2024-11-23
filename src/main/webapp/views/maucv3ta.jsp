@@ -30,108 +30,99 @@
 <link rel="stylesheet" href="/css/cv3.css">
 </head>
 <body>
-	<!-- header -->
-	<%@ include file="/views/headerNoPanner.jsp"%>
-	<!-- header -->
-	<br>
+<!-- header -->
+<%@ include file="/views/headerNoPanner.jsp"%>
+<!-- header -->
+<br>
 
-	<div class="resume-container" id="cv-content">
-		<!-- Left Column -->
-		<div class="left-column" id="sortable-left">
+<div class="resume-container" id="cv-content">
+    <!-- Left Column -->
+    <div class="left-column" id="sortable-left">
 
-			<div class="photo-frame">
-				<input type="file" accept="image/*" onchange="previewImage(event)"
-					style="display: none;" id="fileInput"> <img
-					id="profileImage" src="profile.jpg" alt="Profile Image"
-					onclick="triggerFileInput()">
-			</div>
-			<div class="section">
-				<div class="contact-info">
-					<h2 class="section-title">Thông Tin</h2>
-					<label for="email">Email:</label> <input class="hidden-input"
-						type="email" id="email" value="hello@reallygreatsite.com">
-					<label for="phone">Phone:</label> <input class="hidden-input"
-						type="text" id="phone" value="+1 234 567 8910"> <label
-						for="dob">Ngày Sinh:</label> <input class="hidden-input"
-						type="date" id="dob" value="2004-09-28"> <label
-						for="gender">Giới Tính:</label> <select class="hidden-input"
-						id="gender">
-						<option value="male" selected>Nam</option>
-						<option value="female">Nữ</option>
-						<option value="other">Khác</option>
-					</select> <label for="language">Ngôn Ngữ:</label> <input
-						class="hidden-input" type="text" id="language" value="Việt Nam">
-				</div>
-			</div>
+        <div class="photo-frame">
+            <input type="file" accept="image/*" onchange="previewImage(event)" style="display: none;" id="fileInput"> 
+            <img id="profileImage" src="profile.jpg" alt="Profile Image" onclick="triggerFileInput()">
+        </div>
+        <div class="section">
+            <div class="contact-info">
+                <h2 class="section-title">Contact Information</h2>
+                <label for="email">Email:</label> 
+                <input class="hidden-input" type="email" id="email" value="hello@reallygreatsite.com">
+                <label for="phone">Phone:</label> 
+                <input class="hidden-input" type="text" id="phone" value="+1 234 567 8910"> 
+                <label for="dob">Date of Birth:</label> 
+                <input class="hidden-input" type="date" id="dob" value="2004-09-28"> 
+                <label for="gender">Gender:</label> 
+                <select class="hidden-input" id="gender">
+                    <option value="male" selected>Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select> 
+                <label for="language">Language:</label> 
+                <input class="hidden-input" type="text" id="language" value="Vietnamese">
+            </div>
+        </div>
 
-			<div class="section" id="educationSection">
-				<h2 class="section-title">Học Vấn</h2>
-				<div class="input-group">
-					<input class="hidden-input" type="text" placeholder="Nhập học vấn">
-				</div>
-				<button class="hidden" type="button" onclick="addEducationField()">+
-					Thêm Học Vấn</button>
-			</div>
+        <div class="section" id="educationSection">
+            <h2 class="section-title">Education</h2>
+            <div class="input-group">
+                <input class="hidden-input" type="text" placeholder="Enter education">
+            </div>
+            <button class="hidden" type="button" onclick="addEducationField()">+ Add Education</button>
+        </div>
 
-			<div class="section" id="certificateSection">
-				<h2 class="section-title">Chứng Chỉ</h2>
-				<div class="input-group">
-					<input class="hidden-input" type="text"
-						placeholder="Nhập chứng chỉ">
-				</div>
-				<button class="hidden" type="button" onclick="addCertificateField()">+
-					Thêm Chứng Chỉ</button>
-			</div>
-		</div>
+        <div class="section" id="certificateSection">
+            <h2 class="section-title">Certificates</h2>
+            <div class="input-group">
+                <input class="hidden-input" type="text" placeholder="Enter certificate">
+            </div>
+            <button class="hidden" type="button" onclick="addCertificateField()">+ Add Certificate</button>
+        </div>
+    </div>
 
-		<!-- Right Column -->
-		<div class="right-column" id="sortable-right">
-			<div >
-				<div class="personal-info">
-					<h1 contenteditable="true">NGUYỄN VĂN A</h1>
-					<h4 contenteditable="true">Quản Lý Tiếp Thị</h4>
-					<textarea class="hidden-input" name="careerGoal"
-						placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh."></textarea>
-				</div>
-			</div>
+    <!-- Right Column -->
+    <div class="right-column" id="sortable-right">
+        <div>
+            <div class="personal-info">
+                <h1 contenteditable="true">OLIVIA WILSON</h1>
+                <h4 contenteditable="true">Marketing</h4>
+                <textarea class="hidden-input" name="careerGoal" placeholder="I am a creative, hardworking individual who strives for excellence in everything I do. I am a quick learner and always find ways to enhance the lives of those around me."></textarea>
+            </div>
+        </div>
 
-			<div class="section" id="experienceSection">
-				<h2 class="section-title">Kinh Nghiệm</h2>
-				<div class="input-group">
-					<input class="hidden-input" type="text"
-						placeholder="Nhập kinh nghiệm">
-				</div>
-				<button class="hidden" type="button" onclick="addExperienceField()">+
-					Thêm Kinh Nghiệm</button>
-			</div>
+        <div class="section" id="experienceSection">
+            <h2 class="section-title">Experience</h2>
+            <div class="input-group">
+                <input class="hidden-input" type="text" placeholder="Enter experience">
+            </div>
+            <button class="hidden" type="button" onclick="addExperienceField()">+ Add Experience</button>
+        </div>
 
-			<div class="section" id="projectSection">
-				<h2 class="section-title">Dự Án Đã Tham Gia</h2>
-				<div class="input-group">
-					<input class="hidden-input project-name" type="text"
-						placeholder="Tên dự án"> <input class="hidden-input"
-						type="text" placeholder="Nhập thời gian">
-					<textarea class="hidden-input" placeholder="Mô tả dự án..."></textarea>
-				</div>
-				<button class="hidden" type="button" onclick="addProjectField()">+
-					Thêm Dự Án</button>
-			</div>
+        <div class="section" id="projectSection">
+            <h2 class="section-title">Projects</h2>
+            <div class="input-group">
+                <input class="hidden-input project-name" type="text" placeholder="Project Name"> 
+                <input class="hidden-input" type="text" placeholder="Enter time period">
+                <textarea class="hidden-input" placeholder="Project description..."></textarea>
+            </div>
+            <button class="hidden" type="button" onclick="addProjectField()">+ Add Project</button>
+        </div>
 
-			<div class="section" id="hobbiesSection">
-				<h2 class="section-title">Sở Thích</h2>
-				<div class="input-group">
-					<input class="hidden-input" type="text" placeholder="Sở Thích">
-				</div>
-				<button class="hidden" type="button" onclick="addHobbiesField()">+
-					Thêm Sở Thích</button>
-			</div>
-		</div>
-	</div>
-	<div class="button-container">
-		<!-- <button class="save-button" type="button">Lưu CV</button> -->
-		<button class="download-button" type="button"
-			onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
-	</div>
+        <div class="section" id="hobbiesSection">
+            <h2 class="section-title">Hobbies</h2>
+            <div class="input-group">
+                <input class="hidden-input" type="text" placeholder="Hobbies">
+            </div>
+            <button class="hidden" type="button" onclick="addHobbiesField()">+ Add Hobby</button>
+        </div>
+    </div>
+</div>
+
+<div class="button-container">
+    <!-- <button class="save-button" type="button">Save CV</button> -->
+    <button class="download-button" type="button" onclick="downloadCVAsPDF()">Download CV as PDF</button>
+</div>
+
 	<br>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
@@ -182,7 +173,7 @@
 		function addEducationField() {
 			var section = document.createElement("div");
 			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Nhập học vấn">';
+			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Enter education">';
 			document.getElementById("educationSection").insertBefore(section,
 					document.querySelector("#educationSection button"));
 		}
@@ -190,7 +181,7 @@
 		function addCertificateField() {
 			var section = document.createElement("div");
 			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Nhập chứng chỉ">';
+			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Enter certificate">';
 			// Thêm trường nhập liệu vào đầu danh sách
 			document.getElementById("certificateSection").insertBefore(section,
 					document.querySelector("#certificateSection button"));
@@ -199,7 +190,7 @@
 		function addExperienceField() {
 			var section = document.createElement("div");
 			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Nhập kinh nghiệm">';
+			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Enter experience">';
 			// Thêm trường nhập liệu vào đầu danh sách
 			document.getElementById("experienceSection").insertBefore(section,
 					document.querySelector("#experienceSection button"));
@@ -208,7 +199,7 @@
 		function addProjectField() {
 			var section = document.createElement("div");
 			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input project-name" type="text" placeholder="Tên dự án"><input class="hidden-input" type="text" placeholder="Dự án đã tham gia"><textarea class="hidden-input" placeholder="Mô tả dự án..."></textarea>';
+			section.innerHTML = '<input class="hidden-input project-name" type="text" placeholder="Project Name"><input class="hidden-input" type="text" placeholder="Enter time period"><textarea class="hidden-input" placeholder="Project description..."></textarea>';
 			// Thêm trường nhập liệu vào đầu danh sách
 			document.getElementById("projectSection").insertBefore(section,
 					document.querySelector("#projectSection button"));
@@ -217,7 +208,7 @@
 		function addHobbiesField() {
 			var section = document.createElement("div");
 			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Sở Thích">';
+			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Hobbies">';
 			// Thêm trường nhập liệu vào đầu danh sách
 			document.getElementById("hobbiesSection").insertBefore(section,
 					document.querySelector("#hobbiesSection button"));

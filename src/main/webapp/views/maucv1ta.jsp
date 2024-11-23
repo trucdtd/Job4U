@@ -34,82 +34,82 @@
 						style="display: none;" onchange="previewImage(event)"> <label
 						for="profile-image" class="upload-label"> <img
 						id="profile-img-preview" src="path/to/default-image.jpg"
-						alt="Ảnh ứng viên" class="cv-photo">
+						alt="Candidate Photo" class="cv-photo">
 					</label>
 				</div>
 				<div class="contact section">
-					<div  class="section-title">Liên Hệ</div>
-					<input class="hidden-input" type="text" class="input-field" placeholder="Số điện thoại" /> <input class="hidden-input" type="email"
+					<div class="section-title">Contact</div>
+					<input class="hidden-input" type="text" class="input-field" placeholder="Phone Number" /> <input class="hidden-input" type="email"
 						placeholder="Email" id="emailcv" class="input-field"> <input class="hidden-input"
-						type="date" placeholder="Ngày sinh" id="dateOfbirth"
+						type="date" placeholder="Date of Birth" id="dateOfbirth"
 						class="input-field"> <input class="hidden-input" type="text"
-						placeholder="Ngôn Ngữ" id="languages" class="input-field">
-					<input class="hidden-input" type="text" placeholder="Giới tính" id="gender"
+						placeholder="Languages" id="languages" class="input-field">
+					<input class="hidden-input" type="text" placeholder="Gender" id="gender"
 						class="input-field">
 				</div>
 				<div class="skills section">
-					<div class="section-title">Kỹ Năng</div>
+					<div class="section-title">Skills</div>
 					<div id="skills-container">
 						<input class="hidden-input" type="text" id="skills" class="input-field"
-							placeholder="Kỹ năng">
+							placeholder="Skills">
 						<button id="add-skill-button" class="add-button" type="button"
-							onclick="addSkillField()">+ Thêm Kỹ Năng</button>
+							onclick="addSkillField()">+ Add Skill</button>
 					</div>
 				</div>
 
 				<div class="certifications section">
-					<div class="section-title">Chứng chỉ</div>
+					<div class="section-title">Certifications</div>
 					<div id="certifications-container">
 						<input class="hidden-input" type="text" id="certifications" class="input-field"
-							placeholder="Chứng chỉ">
+							placeholder="Certification">
 						<button id="add-certification-button" class="add-button"
-							type="button" onclick="addCertificationField()">+ Thêm
-							Chứng Chỉ</button>
+							type="button" onclick="addCertificationField()">+ Add Certification</button>
 					</div>
 				</div>
 			</div>
 
 			<div class="right-column" id="sortable-right">
-				<h1 contenteditable="true">NGUYỄN VĂN A</h1>
-                <p contenteditable="true">Quản Lý Tiếp Thị</p>
+				<h1 contenteditable="true">OLIVIA WILSON</h1>
+				<h5 contenteditable="true">Marketing</h5>
 				<div class="experience section">
-					<div class="section-title">Kinh Nghiệm</div>
+					<div class="section-title">Experience</div>
 					<div id="experience-container">
 						<textarea class="hidden-input" id="experience" 
-							placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh."></textarea>
+							placeholder="I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me."></textarea>
 						
 					</div>
 				</div>
 
 				<div class="projects section">
-					<div class="section-title">Dự Án Đã Tham Gia</div>
+					<div class="section-title">Projects</div>
 					<div id="projects-container">
 						<div class="project-field">
-							<input class="hidden-input project-name" type="text" class="input-field" placeholder="Tên Dự Án">
-							<input class="hidden-input" type="text" class="input-field" placeholder="Thời Gian">
-							<textarea class="hidden-input" class="input-area" placeholder="Mô Tả"></textarea>
+							<input class="hidden-input project-name" type="text" class="input-field" placeholder="Project Name">
+							<input class="hidden-input" type="text" class="input-field" placeholder="Time Period">
+							<textarea class="hidden-input" class="input-area" placeholder="Description"></textarea>
 						</div>
 						<button id="add-project-button" class="add-button" type="button"
-							onclick="addProjectField()">+ Thêm Dự Án</button>
+							onclick="addProjectField()">+ Add Project</button>
 					</div>
 				</div>
 				<div class="hobbies section">
-					<div class="section-title">Sở Thích</div>
+					<div class="section-title">Hobbies</div>
 					<div id="hobbies-container">
 						<input class="hidden-input" type="text" id="hobbies" class="input-field"
-							placeholder="Sở Thích">
+							placeholder="Hobbies">
 						<button id="add-hobbies-button" class="add-button" type="button"
-							onclick="addHobbiesField()">+ Thêm Sở Thích</button>
+							onclick="addHobbiesField()">+ Add Hobby</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="button-container">
-			<!-- <button class="save-button" type="button">Lưu CV</button> -->
+			<!-- <button class="save-button" type="button">Save CV</button> -->
 			<button class="download-button" type="button"
-				onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
+				onclick="downloadCVAsPDF()">Download CV as PDF</button>
 		</div>
 	</div>
+
 	<br>
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
@@ -123,7 +123,7 @@
 			
 			newField.type = 'text';
 			newField.className = 'input-field hidden-input';
-			newField.placeholder = 'Kỹ năng';
+			newField.placeholder = 'Skills';
 
 			skillsContainer.insertBefore(newField, addSkillButton);
 		}
@@ -137,7 +137,7 @@
 			const newField = document.createElement('input');
 			newField.type = 'text';
 			newField.className = 'input-field hidden-input';
-			newField.placeholder = 'Chứng chỉ';
+			newField.placeholder = 'Certification';
 
 			certificationsContainer.insertBefore(newField,
 					addCertificationButton);
@@ -152,7 +152,7 @@
 			const newField = document.createElement('input');
 			newField.type = 'text';
 			newField.className = 'input-field hidden-input';
-			newField.placeholder = 'Sở Thích';
+			newField.placeholder = 'Hobbies';
 
 			hobbiesContainer.insertBefore(newField, addHobbiesButton);
 		}
@@ -169,16 +169,16 @@
 			const projectName = document.createElement('input');
 			projectName.type = 'text';
 			projectName.className = 'input-field hidden-input project-name';
-			projectName.placeholder = 'Tên Dự Án';
+			projectName.placeholder = 'Project Name';
 
 			const projectTime = document.createElement('input');
 			projectTime.type = 'text';
 			projectTime.className = 'input-field hidden-input';
-			projectTime.placeholder = 'Thời Gian';
+			projectTime.placeholder = 'Time Period';
 
 			const projectDescription = document.createElement('textarea');
 			projectDescription.className = 'input-area hidden-input';
-			projectDescription.placeholder = 'Mô Tả';
+			projectDescription.placeholder = 'Description';
 
 			newProjectField.appendChild(projectName);
 			newProjectField.appendChild(projectTime);
