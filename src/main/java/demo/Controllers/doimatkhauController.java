@@ -12,6 +12,7 @@ import demo.dao.UsersDao;
 import demo.entity.UsersEntity;
 import demo.services.SessionService;
 import demo.services.UserService;
+import demo.util.MaHoa;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -60,11 +61,11 @@ public class doimatkhauController {
 			}
 
 			// Kiểm tra mật khẩu cũ
+			oldPassword = MaHoa.toSHA1(oldPassword);
 			if (!oldPassword.equals(user.getPassword())) {
 				redirectAttributes.addFlashAttribute("error", "Mật khẩu cũ không chính xác");
 				return "redirect:/changePass";
 			}
-
 			// Kiểm tra mật khẩu mới có ít nhất 8 ký tự và chứa ký tự số
 			if (newPassword.length() < 8 || !newPassword.matches(".*\\d.*")) {
 				redirectAttributes.addFlashAttribute("error",
@@ -85,6 +86,7 @@ public class doimatkhauController {
 			}
 
 			// Cập nhật mật khẩu mới
+			newPassword = MaHoa.toSHA1(newPassword);
 			user.setPassword(newPassword);
 			userService.save(user);
 			userDao.save(user);
