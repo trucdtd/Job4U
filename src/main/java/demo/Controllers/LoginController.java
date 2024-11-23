@@ -14,8 +14,10 @@ import demo.services.SessionService;
 import demo.util.MaHoa;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,9 +40,10 @@ public class LoginController {
 	@PostMapping("/submit")
 	public String submitForm(@RequestParam("username") String username, @RequestParam("password") String password,
 			Model model, HttpSession session) {
-		password = MaHoa.toSHA1(password);
+		
 		List<UsersEntity> users = userDao.findByUsername(username);
-
+		
+	
 		if (!users.isEmpty()) {
 			UsersEntity user = users.get(0);
 			logger.info("Đăng nhập với tài khoản: " + username + ", Vai trò: " + user.getRole());
@@ -49,6 +52,10 @@ public class LoginController {
 			if (!user.isStatus()) { // Nếu status là false (khóa)
 				model.addAttribute("message", "Tài khoản đã bị khóa do vi phạm điều khoản");
 				return "dangnhap";
+			}
+			UsersEntity userEntity = userDao.findBy1User(username);
+			if(userEntity.getRole() != 0) {
+				password = MaHoa.toSHA1(password);
 			}
 
 			if (user.getPassword().equals(password)) {
