@@ -21,25 +21,28 @@
 					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 						<div class="form-container">
 							<div class="form-container">
-								<div class="alert alert-danger" 
+								<div class="alert alert-danger"
 									style="display: ${error != null ? 'block' : 'none'};">
 									${error}</div>
 								<form method="POST" action="/QuenMatKhau/DatLaiMatKhau">
-    <!-- Hidden field to include the token -->
-    <input type="hidden" name="token" value="${token}" />
+									<!-- Hidden field to include the token -->
+									<input type="hidden" name="token" value="${token}" />
 
-    <div class="form-outline mb-4">
-        <label class="form-label" for="newPassword">Mật khẩu mới</label>
-        <input type="password" id="newPassword" name="newPassword" class="form-control" />
-    </div>
+									<div class="form-outline mb-4">
+										<label class="form-label" for="newPassword">Mật khẩu
+											mới</label> <input type="password" id="newPassword"
+											name="newPassword" class="form-control" />
+									</div>
 
-    <div class="form-outline mb-4">
-        <label class="form-label" for="confirmPassword">Xác nhận mật khẩu</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" />
-    </div>
+									<div class="form-outline mb-4">
+										<label class="form-label" for="confirmPassword">Xác
+											nhận mật khẩu</label> <input type="password" id="confirmPassword"
+											name="confirmPassword" class="form-control" />
+									</div>
 
-    <button type="submit" class="btn btn-success">Đặt lại mật khẩu</button>
-</form>
+									<button type="submit" class="btn btn-success">Đặt lại
+										mật khẩu</button>
+								</form>
 							</div>
 						</div>
 					</div>
