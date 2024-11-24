@@ -175,7 +175,7 @@
 										</c:if>${job.jobtitle}										
 									</h5>
 									<p class="text-muted">${job.employer.companyname}</p>
-									<p class="card-text">${job.jobdescription}</p>
+									<p class="card-text">${job.jobdescription}</p>									
 								</div>
 							</div>
 							<div class="card-footer">
