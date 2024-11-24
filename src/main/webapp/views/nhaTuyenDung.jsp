@@ -402,6 +402,18 @@
 												name="posteddate" required>
 										</div>
 										<div class="col-md-6 p-2">
+											<label for="jobcategories" class="form-label"
+												style="font-weight: bold; color: #198754;">Nghề
+												nghiệp</label> <select id="jobcategories" name="jobcategories"
+												class="form-select" required>
+												<option value="" disabled selected>Chọn nghề nghiệp</option>
+												<!-- Giúp hiển thị giá trị mặc định -->
+												<c:forEach var="jobCategory" items="${dsnghe}">
+													<option value="${jobCategory.jobcategoryid}">${jobCategory.jobcategoryname}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="col-md-6 p-2">
 											<label for="applicationdeadline" class="form-label">Hạn
 												nộp hồ sơ</label> <input type="date" class="form-control"
 												id="applicationdeadline" name="applicationdeadline" required>
