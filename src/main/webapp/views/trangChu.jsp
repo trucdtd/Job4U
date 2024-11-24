@@ -41,7 +41,7 @@
 
 						<!-- Ngành nghề -->
 						<div class="flex-fill mb-3">
-							<label for="industry" class="form-label">Danh mục nghê</label> <select
+							<label for="industry" class="form-label">Danh mục nghề</label> <select
 								class="form-select rounded-3" id="industry" name="industry">
 								<option value="" disabled selected>Chọn ngành nghề</option>
 								<option value="Nông nghiệp">Nông nghiệp</option>
