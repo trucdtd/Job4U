@@ -470,7 +470,7 @@
 										<c:forEach items="${qlvp}" var="vp">
 											<tr>
 												<th scope="row">${vp.user.username}</th>
-												<td>${vp.employer.companyname}</td>
+												<td>Tài khoàn: ${vp.employer.employerid} <br> Tên TK: ${vp.employer.companyname}</td>
 												<td>${vp.job.jobtitle}</td>
 												<td>${vp.reason}</td>
 												<td><div
