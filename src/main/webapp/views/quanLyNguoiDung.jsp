@@ -47,7 +47,7 @@
 				<!-- aside -->
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 ">
-					<div id="userManagement" class="card">
+					<div id="userManagement" class="card p-2">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
@@ -181,7 +181,7 @@
 					</c:if> --%>
 
 					<!-- Post Management table -->
-					<div id="postManagement" class="card" style="display: none;">
+					<div id="postManagement" class="card p-2" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Bài Viết</div>
 						</div>
@@ -249,7 +249,7 @@
 
 					<!-- CV Management table -->
 
-					<div id="cvManagement" class="card" style="display: none;">
+					<div id="cvManagement" class="card p-2" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý CV</div>
 						</div>
@@ -293,7 +293,7 @@
 						</div>
 					</div>
 
-					<div id="serviceManagement" class="card" style="display: none;">
+					<div id="serviceManagement" class="card p-2" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Dịch Vụ</div>
 						</div>
@@ -387,7 +387,7 @@
 					</div>
 					<!--end thêm mới dịch vụ  -->
 
-					<div id="servicesSold" class="card" style="display: none;">
+					<div id="servicesSold" class="card p-2" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Dịch Vụ Đã Bán</div>
 						</div>
@@ -449,7 +449,7 @@
 						</div>
 					</div>
 
-					<div id="violationManagement" class="card" style="display: none;">
+					<div id="violationManagement" class="card p-2" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Vi Phạm</div>
 						</div>
@@ -480,8 +480,7 @@
 							</div>
 						</div>
 					</div>
-
-
+					
 				</div>
 			</div>
 		</div>
