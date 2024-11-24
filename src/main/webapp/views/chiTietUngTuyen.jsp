@@ -126,7 +126,8 @@ body {
 										trí:</strong> ${job.jobtitle}
 								</div>
 								<div class="info-detail">
-									<i class="bi bi-briefcase text-success"></i> <strong>Nghề nghiệp:</strong> ${job.jobcategories.jobcategoryname}
+									<i class="bi bi-briefcase text-success"></i> <strong>Nghề
+										nghiệp:</strong> ${job.jobcategories.jobcategoryname}
 								</div>
 								<div class="info-detail">
 									<i class="bi bi-geo-alt text-success"></i> <strong>Địa
@@ -179,6 +180,11 @@ body {
 												</button>
 											</c:otherwise>
 										</c:choose>
+										<!-- Nút báo cáo, hiển thị cho người dùng đã đăng nhập -->
+										<button type="button" class="btn btn-danger btn-report"
+											data-bs-toggle="modal" data-bs-target="#reportModal">
+											<i class="bi bi-flag text-light"></i> Báo cáo bài viết
+										</button>
 									</c:when>
 									<c:otherwise>
 										<!-- Nếu người dùng chưa đăng nhập -->
@@ -299,6 +305,32 @@ body {
 						</div>
 					</div>
 				</form>
+			</div>
+		</div>
+
+		<!-- Modal Báo cáo -->
+		<div class="modal fade" id="reportModal" tabindex="-1"
+			aria-labelledby="reportModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="reportModalLabel">Báo cáo bài
+							viết</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form action="/report" method="post">
+							<div class="mb-3">
+								<label for="reportReason" class="form-label">Lý do báo
+									cáo</label>
+								<textarea class="form-control" id="reportReason"
+									name="reportReason" rows="3" required></textarea>
+							</div>
+							<button type="submit" class="btn btn-danger">Gửi báo cáo</button>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 
