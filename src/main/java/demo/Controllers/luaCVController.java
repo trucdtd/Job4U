@@ -74,5 +74,23 @@ public class luaCVController {
 	public String xtruocCV4() {
 		return "xemtruoccv4";
 	}
+	
+	/* cv5 */
+	@RequestMapping("/mauCV5")
+	public String luaChonCV5() {
+		return "maucv5";
+	}
+	
+	/* cv6 */
+	@RequestMapping("/mauCV6")
+	public String luaChonCV6() {
+		return "maucv6";
+	}
+	
+	/* cv7 */
+	@RequestMapping("/mauCV7")
+	public String luaChonCV7() {
+		return "maucv7";
+	}
 
 }
