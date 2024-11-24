@@ -23,13 +23,14 @@ public class TopJobController {
 
 	@RequestMapping("job4u/topjob")
 	public String main(Model model, @RequestParam("page") Optional<Integer> page) {
-		// Sắp xếp giảm dần theo ngày và thời gian đăng (bao gồm giờ, phút, giây nếu có)
-		Pageable pageable = PageRequest.of(page.orElse(0), 6, Sort.by("posteddate").descending());
-//		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAll(pageable);
-		// Lấy danh sách các bài viết chưa hết hạn
-		Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrueOrderByIsTopAndApplicationDeadline(LocalDate.now(), pageable);
-		model.addAttribute("dsSP", dsSP);
-		return "congViecMoi";
+	    // Sắp xếp giảm dần theo id
+	    Pageable pageable = PageRequest.of(page.orElse(0), 6, Sort.by("jobid").descending());
+	    
+	    // Lấy danh sách các bài viết chưa hết hạn và còn hoạt động
+	    Page<JoblistingsEntity> dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate.now(), pageable);
+	    
+	    model.addAttribute("dsSP", dsSP);
+	    return "congViecMoi"; // Trả về trang web hiển thị kết quả
 	}
 
 	@RequestMapping("/job4u/topjob/findJob")
@@ -37,9 +38,8 @@ public class TopJobController {
 			@RequestParam("joblocation") Optional<String> joblocation,
 			@RequestParam("industry") Optional<String> industry, @RequestParam("jobtitle") Optional<String> jobtitle) {
 
-		Pageable pageable = PageRequest.of(page.orElse(0), 6, Sort.by("posteddate").descending()); // Sắp xếp giảm dần
-																									// theo ngày đăng và
-																									// thời gian
+		// Sắp xếp giảm dần theo id
+	    Pageable pageable = PageRequest.of(page.orElse(0), 6, Sort.by("jobid").descending());
 		Page<JoblistingsEntity> dsSP;
 
 		// Thực hiện tìm kiếm dựa trên các tham số đầu vào và sắp xếp theo ngày và thời
@@ -69,7 +69,7 @@ public class TopJobController {
 				&& !"All".equalsIgnoreCase(joblocation.get())) {
 			dsSP = danhSachViecLamDao.findByJobLocation(joblocation.get(), pageable);
 		} else {
-			dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrueOrderByIsTopAndApplicationDeadline(LocalDate.now(), pageable);
+			dsSP = danhSachViecLamDao.findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate.now(), pageable);
 		}
 
 		if (dsSP.isEmpty()) {

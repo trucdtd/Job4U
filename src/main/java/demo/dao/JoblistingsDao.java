@@ -120,10 +120,9 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	int countNewPostsSince(@Param("since") LocalDate since);
 
 	// Tìm kiếm bài viết chưa hết hạn nộp hồ sơ (Trinh)
-	// Page<JoblistingsEntity> findAllByApplicationdeadlineAfter(LocalDate deadline,
-	// Pageable pageable);
+	Page<JoblistingsEntity> findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate deadline, Pageable pageable);
 
-	// Phương thức truy vấn lấy tất cả các bài viết có deadline chưa hết hạn nộp hồ sơ và có trạng thái hợp lệ (isActive = true)và đưa top lên trước (Trúc)
+	// Phương thức truy vấn lấy tất cả các bài viết có deadline chưa hết hạn nộp hồ sơ và có trạng thái hợp lệ (Active = true)và đưa top lên trước (Trúc)
 //	Page<JoblistingsEntity> findAllByApplicationdeadlineAfterAndActiveTrue(LocalDate deadline, Pageable pageable);
 	@Query("SELECT j FROM JoblistingsEntity j WHERE j.applicationdeadline > :deadline AND j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	Page<JoblistingsEntity> findAllByApplicationdeadlineAfterAndActiveTrueOrderByIsTopAndApplicationDeadline(
