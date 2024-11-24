@@ -469,9 +469,9 @@
 									<tbody>
 										<c:forEach items="${qlvp}" var="vp">
 											<tr>
-												<th scope="row">${vp.user.userid}</th>
-												<td>${vp.employer.employerid}</td>
-												<td>${vp.job.jobid}</td>
+												<th scope="row">${vp.user.username}</th>
+												<td>${vp.employer.companyname}</td>
+												<td>${vp.job.jobtitle}</td>
 												<td>${vp.reason}</td>
 												<td><div
 														style="display: flex; align-items: center; gap: 10px;">
