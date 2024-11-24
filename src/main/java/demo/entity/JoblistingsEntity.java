@@ -61,6 +61,10 @@ public class JoblistingsEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "EmployerID", referencedColumnName = "EmployerID", nullable = false)
 	private EmployersEntity employer;
+	
+	@ManyToOne
+	@JoinColumn(name = "JobcategoryID", referencedColumnName = "JobcategoryID", nullable = false)
+	private JobCategoriesEntity jobcategories;
 
 	@ManyToOne
 	@JoinColumn(name = "userserviceid")
