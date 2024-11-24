@@ -34,7 +34,7 @@ public class ReportEntity {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "employerid", nullable = false)
-	private JobSeekersEntity employer;
+	private EmployersEntity employer;
 	
 	@Column(name = "reason")
     private String reason; // Lý do báo cáo

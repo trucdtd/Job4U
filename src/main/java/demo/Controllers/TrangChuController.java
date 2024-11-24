@@ -138,7 +138,8 @@ public class TrangChuController {
 			} else {
 				dsSP = danhSachViecLamDao.findByJobTitle(jobtitle.get(), pageable);
 				// lay ngau nhien bai viet da mua dich vu len top
-				List<JoblistingsEntity> top20 = jlsDAO.findTop20();
+				List<JoblistingsEntity> top20 = jlsDAO.findTop20()
+						;
 				Collections.shuffle(top20);
 				model.addAttribute("latestJobs", top20);
 			}

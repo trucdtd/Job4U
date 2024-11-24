@@ -449,7 +449,8 @@
 						</div>
 					</div>
 
-					<div id="violationManagement" class="card p-2" style="display: none;">
+					<div id="violationManagement" class="card p-2"
+						style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Vi Phạm</div>
 						</div>
@@ -468,11 +469,18 @@
 									<tbody>
 										<c:forEach items="${qlvp}" var="vp">
 											<tr>
-												<th scope="row">${nm.paymentid}</th>
-												<td>${nm.service.servicename}</td>
-												<td>${nm.user.fullname}</td>
-												<td>${nm.amount}</td>
-												<td>${nm.paymentdate}</td>
+												<th scope="row">${vp.user.userid}</th>
+												<td>${vp.employer.employerid}</td>
+												<td>${vp.job.jobid}</td>
+												<td>${vp.reason}</td>
+												<td><div
+														style="display: flex; align-items: center; gap: 10px;">
+														<a href="/admin/.." class="btn"
+															type="button" title="Xem Chi Tiết"> <img
+															src="/img/detail-icon.png" style="padding-bottom: 7px;"
+															width="25px" height="30px" alt="Detail">
+														</a>
+													</div></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -480,7 +488,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>

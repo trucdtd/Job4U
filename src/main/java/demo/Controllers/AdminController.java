@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +22,12 @@ import demo.dao.EmployersDao;
 import demo.dao.JobSeekersDao;
 import demo.dao.JoblistingsDao;
 import demo.dao.PaymentsDao;
+import demo.dao.ReportDao;
 import demo.dao.ServicesDao;
 import demo.dao.UsersDao;
 import demo.entity.JoblistingsEntity;
 import demo.entity.PaymentsEntity;
+import demo.entity.ReportEntity;
 import demo.entity.ServicesEntity;
 import demo.entity.UsersEntity;
 import demo.services.UserService;
@@ -59,6 +62,9 @@ public class AdminController {
 	@Autowired
 	PaymentsDao paymentsDao;
 
+	@Autowired
+	ReportDao reportDao;
+	
 	@RequestMapping("")
 	public String adminPage(HttpSession session, @RequestParam(value = "page", required = false) String page,
 			Model model) {
@@ -85,6 +91,9 @@ public class AdminController {
 			
 			List<PaymentsEntity> qlnm = paymentsDao.findAll();
 			model.addAttribute("qlnm", qlnm);
+			
+			List<ReportEntity> qlvp = reportDao.findAll();
+			model.addAttribute("qlvp", qlvp);
 		}
 		return "quanLyNguoiDung"; // Trang admin
 	}
