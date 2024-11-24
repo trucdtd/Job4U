@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class="info">
-				<b>Trang trọng</b>
+				<b>Thanh Lịch</b>
 			</div>
 		</div>
 
@@ -55,7 +55,7 @@
 				</div>
 			</div>
 			<div class="info">
-				<b>Thanh Lịch</b>
+				<b>Nghệ Thuật</b>
 			</div>
 		</div>
 
@@ -81,7 +81,7 @@
 				</div>
 			</div>
 			<div class="info">
-				<b>Màu Sắc</b>
+				<b>Hiện Đại</b>
 			</div>
 		</div>
 		
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 			<div class="info">
-				<b>Màu Sắc</b>
+				<b>Đơn Giản</b>
 			</div>
 		</div>
 		
@@ -107,7 +107,7 @@
 				</div>
 			</div>
 			<div class="info">
-				<b>Màu Sắc</b>
+				<b>Tinh Tế</b>
 			</div>
 		</div>
 		
@@ -120,7 +120,7 @@
 				</div>
 			</div>
 			<div class="info">
-				<b>Màu Sắc</b>
+				<b>Tiêu Chuẩn</b>
 			</div>
 		</div>
 		
@@ -133,7 +133,7 @@
 				</div>
 			</div>
 			<div class="info">
-				<b>Màu Sắc</b>
+				<b>Ấn Tượng</b>
 			</div>
 		</div>
 		
@@ -146,7 +146,7 @@
 				</div>
 			</div>
 			<div class="info">
-				<b>Màu Sắc</b>
+				<b>Đêm Mê</b>
 			</div>
 		</div>
 		<!-- Add more templates similarly -->
