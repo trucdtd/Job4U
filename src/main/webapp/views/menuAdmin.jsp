@@ -77,8 +77,13 @@
 					onclick="showTable(event, 'statisticalManagement')"><img
 						width="20" height="20"
 						src="https://img.icons8.com/ios/50/card-in-use.png"
-						alt="card-in-use" /> Quản Lý Thống Kê </a></li>
-
+						alt="card-in-use" />Thống Kê </a></li>
+				<li><a href="#" class="navqlndung nav-link text-dark"
+					onclick="showTable(event, 'violationManagement')"><img
+						width="20" height="20"
+						src="https://img.icons8.com/ios/50/card-in-use.png"
+						alt="card-in-use" /> Quản Lý Vi Phạm </a></li>
+				
 			</ul>
 			<hr>
 

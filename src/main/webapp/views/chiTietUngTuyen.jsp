@@ -126,6 +126,9 @@ body {
 										trí:</strong> ${job.jobtitle}
 								</div>
 								<div class="info-detail">
+									<i class="bi bi-briefcase text-success"></i> <strong>Nghề nghiệp:</strong> ${job.jobcategories.jobcategoryname}
+								</div>
+								<div class="info-detail">
 									<i class="bi bi-geo-alt text-success"></i> <strong>Địa
 										điểm làm việc:</strong> ${job.joblocation}
 								</div>

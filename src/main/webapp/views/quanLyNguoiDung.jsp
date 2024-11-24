@@ -47,7 +47,7 @@
 				<!-- aside -->
 				<!-- article -->
 				<div class="col-lg-9 col-md-9 ">
-					<div id="userManagement" class="card">
+					<div id="userManagement" class="card p-2">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Tài Khoản</div>
 						</div>
@@ -181,7 +181,7 @@
 					</c:if> --%>
 
 					<!-- Post Management table -->
-					<div id="postManagement" class="card" style="display: none;">
+					<div id="postManagement" class="card p-2" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Bài Viết</div>
 						</div>
@@ -249,7 +249,7 @@
 
 					<!-- CV Management table -->
 
-					<div id="cvManagement" class="card" style="display: none;">
+					<div id="cvManagement" class="card p-2" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý CV</div>
 						</div>
@@ -293,7 +293,7 @@
 						</div>
 					</div>
 
-					<div id="serviceManagement" class="card" style="display: none;">
+					<div id="serviceManagement" class="card p-2" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Quản Lý Dịch Vụ</div>
 						</div>
@@ -346,38 +346,39 @@
 								<!-- Job ID and Deadline -->
 								<div class="row mb-3">
 									<div class="col-md-6">
-										<label for="">Tên Dịch Vụ:</label> <input
-											class="form-control" type="text" id="servicename"
-											name="servicename" >
+										<label for="">Tên Dịch Vụ:</label> <input class="form-control"
+											type="text" id="servicename" name="servicename">
 									</div>
 									<div class="col-md-6">
 										<label for="salary">Giá:</label> <input class="form-control"
-											type="text" id="price" name="price" >
+											type="text" id="price" name="price">
 									</div>
 								</div>
 
 								<!-- Job Type and Description -->
 								<div class="row mb-3">
-								<div class="col-md-6">
-										<label for="">Số lượng bài viết</label> <input class="form-control"
-											type="text" id="numberofjobsallowed" name="numberofjobsallowed" >
+									<div class="col-md-6">
+										<label for="">Số lượng bài viết</label> <input
+											class="form-control" type="text" id="numberofjobsallowed"
+											name="numberofjobsallowed">
 									</div>
 									<div class="col-md-6">
 										<label for="contactperson">Thời gian chạy dịch vụ: </label> <input
 											class="form-control" type="text" id="durationindays"
-											name="durationindays" >
+											name="durationindays">
 									</div>
 								</div>
 								<div class="row mb-3">
 									<div class="col-md-12">
 										<label for="contactperson">Mô Tả:</label> <input
 											class="form-control" type="text" id="description"
-											name="description" >
+											name="description">
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12 d-flex justify-content-start">
-										<button type="submit" class="btn btn-success">Thêm mới</button>
+										<button type="submit" class="btn btn-success">Thêm
+											mới</button>
 									</div>
 
 								</div>
@@ -386,7 +387,7 @@
 					</div>
 					<!--end thêm mới dịch vụ  -->
 
-					<div id="servicesSold" class="card" style="display: none;">
+					<div id="servicesSold" class="card p-2" style="display: none;">
 						<div class="card-header">
 							<div class="card-title">Dịch Vụ Đã Bán</div>
 						</div>
@@ -447,8 +448,40 @@
 							</h6>
 						</div>
 					</div>
+
+					<div id="violationManagement" class="card p-2" style="display: none;">
+						<div class="card-header">
+							<div class="card-title">Quản Lý Vi Phạm</div>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<table id="vpTable" class="table align-items-center mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">TK Báo Cáo</th>
+											<th scope="col">TK Bị Báo Cáo</th>
+											<th scope="col">Bài Viết Bị Báo Cáo</th>
+											<th scope="col">Nội Dung Báo Cáo</th>
+											<th scope="col">Hành Động</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${qlvp}" var="vp">
+											<tr>
+												<th scope="row">${nm.paymentid}</th>
+												<td>${nm.service.servicename}</td>
+												<td>${nm.user.fullname}</td>
+												<td>${nm.amount}</td>
+												<td>${nm.paymentdate}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					
 				</div>
-				<!--  -->
 			</div>
 		</div>
 	</div>
@@ -588,6 +621,25 @@ $(document).ready(function() {
     });
     
     $('#nmTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+            "paginate": {
+                "next": "Tiếp theo",
+                "previous": "Trước đó"
+            },
+            "lengthMenu": "Hiển thị _MENU_ mục",
+            "info": "Hiển thị từ _START_ đến _END_ trong tổng số _TOTAL_ mục",
+            "zeroRecords": "Không tìm thấy kết quả nào", // Thông báo khi không có dữ liệu
+            "infoEmpty": "Không có dữ liệu", // Thông báo khi không có hàng
+            "infoFiltered": "(lọc từ _MAX_ mục)", // Thông báo về số lượng mục đã lọc
+            "search": "Tìm kiếm:", // Nhãn cho ô tìm kiếm
+        }
+    });
+    
+    $('#vpTable').DataTable({
         "paging": true,
         "searching": true,
         "ordering": true,
