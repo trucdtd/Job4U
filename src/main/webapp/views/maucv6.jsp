@@ -297,27 +297,26 @@ textarea {
 	<!-- footer -->
 
 	<script>
-	$(document).ready(function() {
-	    // Thêm trường Education
-	    $('#add-education').click(function() {
-	        $('#education-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Học Vấn"></li>');
-	    });
-
-	    // Thêm trường Language
-	    $('#add-language').click(function() {
-	        $('#languages-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Ngôn Ngữ"></li>');
-	    });
-
-	    // Thêm trường Sở Thích
-	    $('#add-hobby').click(function() {
-	        $('#hobbies-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Sở thích"></li>');
-	    });
-
-	    // Thêm trường Work Experience
-	    $('#add-experience').click(function() {
-	        $('#experience-list').children('li').last().before('<li><input class="hidden-input project-name" type="text" placeholder="Tên Dự Án"><input class="hidden-input" type="text" placeholder="Thời Gian"><input class="hidden-input" type="text" placeholder="Mô Tả"></li>');
-	    });
+	// Thêm trường Education
+	$('#add-education').click(function() {
+	    $('#education-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Học Vấn"></li>');
 	});
+
+	// Thêm trường Language
+	$('#add-language').click(function() {
+	    $('#languages-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Ngôn Ngữ"></li>');
+	});
+
+	// Thêm trường Sở Thích
+	$('#add-hobby').click(function() {
+	    $('#hobbies-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Sở thích"></li>');
+	});
+
+	// Thêm trường Work Experience
+	$('#add-experience').click(function() {
+	    $('#experience-list').children('li').last().before('<li><input class="hidden-input project-name" type="text" placeholder="Tên Dự Án"><input class="hidden-input" type="text" placeholder="Thời Gian"><input class="hidden-input" type="text" placeholder="Mô Tả"></li>');
+	});
+
 	</script>
 	<script>
 	function downloadCVAsPDF() {
