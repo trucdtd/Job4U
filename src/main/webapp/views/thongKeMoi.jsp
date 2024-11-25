@@ -23,6 +23,8 @@
 </head>
 <body>
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<div class="container">
 
 		<section class="section dashboard">

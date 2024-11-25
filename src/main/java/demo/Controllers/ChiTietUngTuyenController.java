@@ -21,11 +21,18 @@ import demo.services.JoblistingsService;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 import demo.dao.ApplicationsDao;
+import demo.dao.EmployersDao;
 import demo.dao.JobSeekersDao;
+import demo.dao.JoblistingsDao;
+import demo.dao.ReportDao;
 import demo.dao.UsersDao;
 import demo.entity.ApplicationsEntity;
+import demo.entity.EmployersEntity;
 import demo.entity.JobSeekersEntity;
 import demo.entity.JoblistingsEntity;
+import demo.entity.ReportEntity;
+import demo.entity.UsersEntity;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -40,9 +47,18 @@ public class ChiTietUngTuyenController {
 
 	@Autowired
 	UsersDao userDao;
+	
+	@Autowired
+	JoblistingsDao joblistingsDao;
+	
+	@Autowired
+	EmployersDao employersDao;
 
 	@Autowired
 	HttpSession ss;
+	
+	@Autowired
+	ReportDao reportdao;
 
 	@Autowired
 	ApplicationsDao appDao;
@@ -150,6 +166,54 @@ public class ChiTietUngTuyenController {
 			redirectAttributes.addFlashAttribute("message", "Ứng tuyển thất bại");
 		}
 		return "redirect:/chiTiet/" + jobid; // Chuyển hướng đến trang chi tiết
+	}
+	
+	@PostMapping("/{jobid}/report")
+	public String reportPost(
+	        @PathVariable("jobid") Integer jobid, Model model,
+	        @RequestParam("employerId") Integer employerId,
+	        @RequestParam("reportReason") String reason,  // Lý do báo cáo
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes // Để thêm thông báo
+	) {
+	    // Lấy thông tin user từ session
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    if (userId == null) {
+	        return "redirect:/login"; // Nếu chưa đăng nhập, chuyển hướng đến trang login
+	    }
+
+	    // Tìm kiếm các đối tượng liên quan từ cơ sở dữ liệu
+	    UsersEntity user = userDao.findById(userId).orElse(null);
+	    JoblistingsEntity job = joblistingsDao.findById(jobid).orElse(null);
+	    EmployersEntity employer = employersDao.findById(employerId).orElse(null);
+
+	    // Kiểm tra dữ liệu hợp lệ
+	    if (user == null || job == null || employer == null || reason == null || reason.trim().isEmpty()) {
+	        redirectAttributes.addFlashAttribute("error", "Báo cáo thất bại, dữ liệu không hợp lệ.");
+	        return "chiTietUngTuyen"; // Chuyển hướng về trang chi tiết bài viết
+	    }
+
+	    try {
+	        // Tạo đối tượng ReportEntity
+	        ReportEntity report = new ReportEntity();
+	        report.setUser(user);
+	        report.setJob(job);
+	        report.setEmployer(employer);
+	        report.setReason(reason);
+	        report.setReportedat(LocalDate.now());
+
+	        // Lưu vào cơ sở dữ liệu
+	        reportdao.save(report);
+
+	        // Thêm thông báo thành công
+	        redirectAttributes.addFlashAttribute("message", "Đã báo cáo bài viết thành công!");
+	    } catch (Exception e) {
+	        // Thêm thông báo lỗi nếu xảy ra ngoại lệ
+	        redirectAttributes.addFlashAttribute("error", "Báo cáo thất bại, vui lòng thử lại.");
+	    }
+
+	    // Chuyển hướng về trang chi tiết bài viết
+	    return "chiTietUngTuyen";
 	}
 
 }

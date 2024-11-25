@@ -202,7 +202,7 @@
             <i class="fas fa-info"></i> Biểu tượng cho nút bổ sung
         </button> -->
         <button id="contact-button" class="chat-button btn btn-success">
-            <i class="fas fa-comments"></i> <!-- Biểu tượng chat -->
+            	<img src="/img/icons8-chat-26.png"> <!-- Biểu tượng chat -->
         </button>
         <div id="message">
             <button type="button" class="btn-close" aria-label="Close"></button>
@@ -210,13 +210,13 @@
                 <a href="/lienhe" class="list-group-item list-group-item-success" aria-current="true">Trung tâm hỗ trợ</a>
                 <a href="/lienhe" class="list-group-item list-group-item-action">Hướng dẫn quản lý tài khoản</a>
                 <a href="/lienhe" class="list-group-item list-group-item-action">Yêu cầu hỗ trợ</a>
-                <a href="/lienhe" class="list-group-item list-group-item-action disabled" aria-disabled="true">Liên Hệ Job4u</a>
+                <a href="/lienhe" class="list-group-item list-group-item-action">Liên Hệ Job4u</a>
             </div>
         </div>
     </div>
 
-    <!-- Form Popup -->
-<!-- <div id="popup-form">
+<!--     Form Popup -->
+<div id="popup-form">
         <div class="row justify-content-center">
         	<div class="row justify-content-center">
             <div style="float: right;">
@@ -291,7 +291,7 @@
             </form>
         </div>
     </div>
-</div> -->
+</div>
 	</div>
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
@@ -323,8 +323,8 @@
 	</script>
 </body>
 </html>
-
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>

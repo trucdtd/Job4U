@@ -24,6 +24,8 @@
 
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
 
 	<div class="container">

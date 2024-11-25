@@ -41,6 +41,4 @@ public class ReportEntity {
 	
 	@Column(name = "reportedat", nullable = false)
 	private LocalDate reportedat;
-
-
 }

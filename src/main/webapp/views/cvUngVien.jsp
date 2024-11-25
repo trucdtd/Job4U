@@ -10,6 +10,8 @@
 <div class="container">
 		<!-- header -->
 		<%@ include file="/views/header.jsp"%>
+		
+		<%@ include file="/views/chat.jsp"%>
 		<!-- header -->
 		<div class="container">
 			<div class="row">

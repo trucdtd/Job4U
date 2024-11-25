@@ -92,6 +92,7 @@
 <body>
 	<!-- Include header -->
 	<%@ include file="/views/header.jsp"%>
+	
 
 	<!-- Include top employers -->
 	<%-- <%@ include file="/views/nhaTuyenDungHangDau.jsp"%> --%>
@@ -281,6 +282,10 @@
 
 			</div>
 		</div>
+		
+		<%@ include file="/views/chat.jsp"%>
+		
+		
 	</section>
 
 	<!-- Pagination -->

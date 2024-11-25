@@ -30,6 +30,8 @@
 </head>
 <body>
 	<%@ include file="/views/header.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<div class="container mt-5">
 		<div class="card shadow">
 			<div class="card-header">

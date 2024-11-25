@@ -75,6 +75,7 @@ input:focus, textarea:focus {
 </style>
 </head>
 <body>
+
 	<div class="container mt-5 pdf-style shadow p-4">
 		<h4 class="text-center text-success">CẬP NHẬT HÌNH ẢNH & THÔNG
 			TIN CV</h4>

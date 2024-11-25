@@ -78,6 +78,8 @@
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<!-- /header -->
 	<!-- Thanh tìm kiếm chính -->
 	<div class="container-fluid navfind">
