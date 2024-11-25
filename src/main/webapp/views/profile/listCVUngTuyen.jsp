@@ -25,7 +25,7 @@
 					<th>ID</th>
 					<th>Tóm tắt hồ sơ</th>
 					<th>Tên Cty đã nộp</th>
-					<th>Ngày cập nhật</th>
+					<th>Ngày nộp</th>
 					<th>Trạng Thái</th>
 				</tr>
 			</thead>
@@ -35,7 +35,7 @@
 						<td>${cv.jobseeker.jobseekerid}</td>
 						<td>${cv.jobseeker.profilesummary}</td>
 						<td>${cv.job.jobtitle}</td>
-						<td class="formatted-date" data-date="${cv.jobseeker.createdat}"></td>
+						<td class="formatted-date" data-date="${cv.applicationdate}"></td>
 						<td><c:choose>
 								<c:when test="${cv.status == 0}">Đang chờ</c:when>
 								<c:when test="${cv.status == 1}">Được chấp nhận</c:when>
