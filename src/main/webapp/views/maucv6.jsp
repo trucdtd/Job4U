@@ -59,7 +59,7 @@ body {
 	color: #777;
 }
 
-.header input[type="tel"], .header input[type="email"], .header input[type="url"],
+.header input[type="tel"], .header input[type="email"], .header input[type="date"],
 	.header input[type="text"] {
 	font-size: 12px; /* Giảm kích thước font */
 	width: 46%; /* Giảm chiều rộng */
@@ -220,12 +220,12 @@ textarea {
 				<div>
 					<input class="hidden-input" type="tel"
 						placeholder="Enter Phone Number" value="+123 456 7890"> <input
-						class="hidden-input" type="email" placeholder="Enter Email"
+						class="hidden-input" type="email" placeholder="Email"
 						value="olivia@email.com"> <input class="hidden-input"
-						type="url" placeholder="Enter Portfolio URL"
+						type="date" placeholder="Enter Portfolio URL"
 						value="https://www.oliviaportfolio.com"> <input
-						class="hidden-input" type="text" placeholder="Enter Gender"
-						value="Female">
+						class="hidden-input" type="text" placeholder="Giới Tính"
+						value="Giới Tính">
 				</div>
 			</div>
 		</div>
@@ -233,20 +233,20 @@ textarea {
 		<div class="content">
 			<div class="left-column" id="sortable-left">
 				<div class="section">
-					<h3 class="section-title">Education</h3>
+					<h3 class="section-title">Học Vấn</h3>
 					<ul id="education-list">
 						<li><input class="hidden-input" type="text"
-							placeholder="Degree">
+							placeholder="Nhập Học Vấn">
 							<button class="add-button" id="add-education">Thêm
 								Trường</button></li>
 					</ul>
 				</div>
 
 				<div class="section">
-					<h3 class="section-title">Languages</h3>
+					<h3 class="section-title">Ngôn Ngữ</h3>
 					<ul id="languages-list">
 						<li><input class="hidden-input" type="text"
-							placeholder="Language">
+							placeholder="Ngôn Ngữ">
 							<button class="add-button" id="add-language">Thêm Trường</button>
 						</li>
 					</ul>
@@ -265,19 +265,19 @@ textarea {
 
 			<div class="right-column" id="sortable-right">
 				<div class="section">
-					<h3 class="section-title">Profile</h3>
+					<h3 class="section-title">Mục Tiêu Nghề Ngiệp</h3>
 					<textarea class="hidden-input"
-						placeholder="Enter Profile Description" rows="4"
+						placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh." rows="4"
 						style="width: 100%;"></textarea>
 				</div>
 
 				<div class="section">
-					<h3 class="section-title">Work Experience</h3>
+					<h3 class="section-title">Dự Án Đã Tham Gia</h3>
 					<ul id="experience-list">
 						<li><input class="hidden-input project-name" type="text"
-							placeholder="Job Title"> <input class="hidden-input"
-							type="text" placeholder="Year Range"> <textarea
-								class="hidden-input" placeholder="Company" rows="4" style="width: 100%;"></textarea>
+							placeholder="Tên Dự Án"> <input class="hidden-input"
+							type="text" placeholder="Thời Gian"> <textarea
+								class="hidden-input" placeholder="Mô Tả" rows="4" style="width: 100%;"></textarea>
 							<!-- Thay đổi từ input thành textarea -->
 							<button class="add-button" id="add-experience">Thêm
 								Trường</button></li>
@@ -300,12 +300,12 @@ textarea {
 	$(document).ready(function() {
 	    // Thêm trường Education
 	    $('#add-education').click(function() {
-	        $('#education-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Degree"></li>');
+	        $('#education-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Học Vấn"></li>');
 	    });
 
 	    // Thêm trường Language
 	    $('#add-language').click(function() {
-	        $('#languages-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Language"></li>');
+	        $('#languages-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Ngôn Ngữ"></li>');
 	    });
 
 	    // Thêm trường Sở Thích
@@ -315,7 +315,7 @@ textarea {
 
 	    // Thêm trường Work Experience
 	    $('#add-experience').click(function() {
-	        $('#experience-list').children('li').last().before('<li><input class="hidden-input project-name" type="text" placeholder="Job Title"><input class="hidden-input" type="text" placeholder="Company"><input class="hidden-input" type="text" placeholder="Year Range"></li>');
+	        $('#experience-list').children('li').last().before('<li><input class="hidden-input project-name" type="text" placeholder="Tên Dự Án"><input class="hidden-input" type="text" placeholder="Thời Gian"><input class="hidden-input" type="text" placeholder="Mô Tả"></li>');
 	    });
 	});
 	</script>
