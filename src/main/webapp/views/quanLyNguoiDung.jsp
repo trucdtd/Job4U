@@ -349,11 +349,11 @@
 								<div class="row mb-3">
 									<div class="col-md-6">
 										<label for="">Tên Dịch Vụ:</label> <input class="form-control"
-											type="text" id="servicename" name="servicename">
+											type="text" id="servicename" name="servicename" placeholder="Nhập tên goi dịch vụ">
 									</div>
 									<div class="col-md-6">
 										<label for="salary">Giá:</label> <input class="form-control"
-											type="text" id="price" name="price">
+											type="text" id="price" name="price" placeholder="Giá dịch vụ">
 									</div>
 								</div>
 
@@ -362,19 +362,19 @@
 									<div class="col-md-6">
 										<label for="">Số lượng bài viết</label> <input
 											class="form-control" type="text" id="numberofjobsallowed"
-											name="numberofjobsallowed">
+											name="numberofjobsallowed" placeholder="Tổng số lượng bài viết">
 									</div>
 									<div class="col-md-6">
 										<label for="contactperson">Thời gian chạy dịch vụ: </label> <input
 											class="form-control" type="text" id="durationindays"
-											name="durationindays">
+											name="durationindays" placeholder="Theo ngày">
 									</div>
 								</div>
 								<div class="row mb-3">
 									<div class="col-md-12">
 										<label for="contactperson">Mô Tả:</label> <input
 											class="form-control" type="text" id="description"
-											name="description">
+											name="description" placeholder="Mô tả dịch vụ">
 									</div>
 								</div>
 								<div class="row">

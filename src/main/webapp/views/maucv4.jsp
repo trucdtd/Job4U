@@ -31,9 +31,11 @@
 		<div class="cv-container" id="cv-content">
 			<div class="header">
 				<div class="photo-frame">
-    <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)" style="display: none;">
-    <img id="profileImage" src="your-image-url.jpg" alt="Donna Stroupe" class="profile-photo" onclick="triggerFileInput()">
-</div>
+					<input type="file" id="fileInput" accept="image/*"
+						onchange="previewImage(event)" style="display: none;"> <img
+						id="profileImage" src="your-image-url.jpg" alt="Donna Stroupe"
+						class="profile-photo" onclick="triggerFileInput()">
+				</div>
 				<div class="header-info">
 					<h1 contenteditable="true">NGUYỄN VĂN A</h1>
 					<h5 contenteditable="true">Quản Lý Tiếp Thị</h5>
@@ -85,7 +87,8 @@
 					<div class="section">
 						<div class="section-title">Mục Tiêu Nghề Nghiệp</div>
 						<textarea class="hidden-input" name="career-objective"
-							placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh." required></textarea>
+							placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh."
+							required></textarea>
 					</div>
 
 					<div class="section">
