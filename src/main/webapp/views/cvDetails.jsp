@@ -325,8 +325,7 @@ p {
 				<div class="education section">
 					<div class="section-title">Học Vấn</div>
 					<div class="education-item">
-						<h3 contenteditable="true" id="education">${cv.education}</h3>
-						
+						<h3 contenteditable="true" id="education">${cv.education}</h3>	
 					</div>
 				</div>
 				<div class="certifications section">
