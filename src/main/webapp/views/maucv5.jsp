@@ -22,183 +22,7 @@
 <!-- html2pdf Library -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
-<style>
-body {
-	font-family: 'Arial', sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f7f7f7;
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-}
-
-.cv-container {
-	width: 800px;
-	background: white;
-	display: flex;
-	overflow: hidden;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-	font-size: 16px;
-	margin: 20px auto;
-}
-
-.personal-info {
-	background-color: #f0e9e6;
-	padding: 20px;
-	margin-bottom: 20px;
-}
-
-.personal-info h2 {
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.personal-info h4 {
-	font-size: 18px;
-	font-weight: 600;
-}
-
-.left-panel {
-	width: 30%;
-	background: #b48b7f;
-	padding: 30px;
-	color: #333;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.image-container {
-	position: relative;
-	width: 150px;
-	height: 150px;
-	border-radius: 50%;
-	overflow: hidden;
-	margin-bottom: 20px;
-}
-
-/* The input to select the file, styled to fit within the circular image */
-.image-input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	opacity: 0; /* Hide the file input */
-	cursor: pointer;
-}
-
-/* Profile image preview */
-#profilePreview {
-	width: 100%;
-	height: 100%;
-	object-fit: cover; /* Makes sure the image covers the entire circle */
-	border-radius: 50%; /* Keeps the image round */
-}
-
-.right-panel {
-	padding: 0px 20px;
-	width: 70%;
-}
-
-textarea {
-	width: 100%;
-	padding: 10px;
-	overflow: hidden;
-	resize: none; /* Tắt tính năng thay đổi kích thước */
-}
-
-h3 {
-	font-size: 20px;
-	margin: 25px 0 15px 0;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	border-bottom: 2px solid #ccc;
-	padding-bottom: 5px;
-}
-
-.section {
-	margin-bottom: 25px;
-}
-
-input, select {
-	width: 100%;
-	padding: 8px;
-	margin: 5px 0;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 14px;
-	box-sizing: border-box;
-}
-
-select {
-	background-color: white;
-	color: #555;
-	appearance: none;
-}
-
-select:focus {
-	outline: none;
-	border-color: #66afe9;
-	box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
-}
-
-.button-container {
-    display: flex; /* Aligns buttons horizontally */
-    justify-content: center; /* Centers buttons */
-    gap: 10px; /* Adds space between buttons */
-    margin-top: 20px;
-}
-
-.download-button {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    border: none; /* Remove border */
-    padding: 10px 20px; /* Add padding */
-    font-size: 14px; /* Adjust font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    border-radius: 4px; /* Rounded corners */
-    transition: background-color 0.3s; /* Smooth transition on hover */
-}
-.hidden-input {
-  border: none;
-  outline: none;
-  background: none;
-  color: inherit;
-
-  /* Khi hover vào */
-  &:hover {
-    border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
-  }
-}
-/* Initially hide the Add button */
-.add-button {
-    display: none;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 10px;
-    border-radius: 4px;
-}
-
-/* Show the Add button when hovering over the section */
-#education-section:hover .add-button,
-#skills-section:hover .add-button,
-#certifications-section:hover .add-button,
-#projects-section:hover .add-button,
-#hobbies-section:hover .add-button {
-    display: block;
-}
-.project-name {
-    
-    font-weight: bold; /* Chữ đậm hơn */
-    
-}
-</style>
+<link rel="stylesheet" href="/css/cv5.css">
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
@@ -249,7 +73,7 @@ select:focus {
         <div class="personal-info">
             <h2 contenteditable="true">NGUYỄN VĂN A</h2>
             <h4 contenteditable="true">Quản Lý Tiếp Thị</h4>
-            <textarea class="hidden-input" name="career-objective" placeholder="Career Objective" required></textarea>
+            <textarea class="hidden-input" name="career-objective" placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh." required></textarea>
         </div>
          <div class="section" id="education-section">
             <h3 class="section-title">Học Vấn</h3>
@@ -388,6 +212,23 @@ function previewImage(event) {
 	    // Use html2pdf to convert HTML to PDF
 	    html2pdf().from(cvContent).set(options).save();
 	}
+	</script>
+	<script>
+		// Hàm tự động thay đổi chiều cao
+		function autoResizeTextarea(textarea) {
+		  textarea.style.height = 'auto'; // Đặt chiều cao về auto để tính lại kích thước
+		  textarea.style.height = textarea.scrollHeight + 'px'; // Gán chiều cao bằng chiều cao nội dung
+		}
+		
+		// Gắn sự kiện cho textarea
+		document.querySelectorAll('textarea').forEach((textarea) => {
+		  textarea.addEventListener('input', function () {
+		    autoResizeTextarea(this);
+		  });
+		
+		  // Gọi hàm ngay khi tải trang (để điều chỉnh nếu có dữ liệu sẵn)
+		  autoResizeTextarea(textarea);
+		});
 	</script>
 </body>
 </html>
