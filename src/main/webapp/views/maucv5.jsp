@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,208 +16,378 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- html2pdf Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
- <style>
-    /* Reset body */
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<style>
 body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f7f7f7;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Đảm bảo chiều cao tối thiểu chiếm toàn màn hình */
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f7f7f7;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
-/* Container chung */
 .cv-container {
-  width: 800px;
-  background: white;
-  display: flex;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
-  margin: 20px auto; /* Đảm bảo căn giữa nội dung */
-}
-
-/* Header */
-header {
-  width: 100%;
-  background-color: #198754;
-  color: #f8f9fa;
- 
-}
-
-/* Left Panel */
-.left-panel {
-  width: 30%;
-  background: #d9cbc7;
-  padding: 30px;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.left-panel img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 20px;
-}
-
-.left-panel h3 {
-  border-bottom: 2px solid #000000;
-}
-
-.contact-info {
-  width: 100%;
-  margin-top: 20px;
-}
-
-.contact-info p {
-  display: flex;
-  align-items: center;
-  margin: 12px 0;
-  font-size: 14px;
-}
-
-.contact-info p span {
-  font-size: 20px;
-  margin-right: 10px;
-}
-
-.skill,
-.language {
-  margin-top: 20px;
-  width: 100%;
-}
-
-/* Right Panel */
-.right-panel {
-  padding: 30px 40px;
+	width: 800px;
+	background: white;
+	display: flex;
+	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	font-size: 16px;
+	margin: 20px auto;
 }
 
 .personal-info {
-  background-color: #f0e9e6;
-  padding: 12px;
-  margin-bottom: 20px;
+	background-color: #f0e9e6;
+	padding: 20px;
+	margin-bottom: 20px;
 }
 
 .personal-info h2 {
-  font-size: 28px;
-  font-weight: bold;
-  margin: 0 0 10px 0;
+	font-size: 28px;
+	font-weight: bold;
 }
 
 .personal-info h4 {
-  font-size: 18px;
-  margin: 0 0 15px 0;
-  color: #555;
+	font-size: 18px;
+	font-weight: 600;
 }
 
-.personal-info p {
-  font-size: 14px;
-  line-height: 1.6;
+.left-panel {
+	width: 30%;
+	background: #b48b7f;
+	padding: 30px;
+	color: #333;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.right-panel h3 {
-  font-size: 20px;
-  margin: 25px 0 15px 0;
-  color: #333;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 5px;
+.image-container {
+	position: relative;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+/* The input to select the file, styled to fit within the circular image */
+.image-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0; /* Hide the file input */
+	cursor: pointer;
+}
+
+/* Profile image preview */
+#profilePreview {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Makes sure the image covers the entire circle */
+	border-radius: 50%; /* Keeps the image round */
+}
+
+.right-panel {
+	padding: 0px 20px;
+	width: 70%;
+}
+
+textarea {
+	width: 100%;
+	padding: 10px;
+	overflow: hidden;
+	resize: none; /* Tắt tính năng thay đổi kích thước */
+}
+
+h3 {
+	font-size: 20px;
+	margin: 25px 0 15px 0;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	border-bottom: 2px solid #ccc;
+	padding-bottom: 5px;
 }
 
 .section {
-  margin-bottom: 25px;
+	margin-bottom: 25px;
 }
 
-.section p {
-  font-size: 16px;
-  margin: 6px 0;
-  line-height: 1.8;
+input, select {
+	width: 100%;
+	padding: 8px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	box-sizing: border-box;
 }
 
-.section p strong {
-  font-weight: bold;
+select {
+	background-color: white;
+	color: #555;
+	appearance: none;
 }
 
-/* Footer */
-.footer {
-  background-color: #198754;
-  color: #f8f9fa;
-  width: 100%;
-  padding: 20px 0;
-  text-align: center;
-  margin-top: auto; /* Đảm bảo footer luôn ở cuối */
-  font-size: 14px;
+select:focus {
+	outline: none;
+	border-color: #66afe9;
+	box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
-  </style>
-</head>
+.button-container {
+    display: flex; /* Aligns buttons horizontally */
+    justify-content: center; /* Centers buttons */
+    gap: 10px; /* Adds space between buttons */
+    margin-top: 20px;
+}
+
+.download-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Add padding */
+    font-size: 14px; /* Adjust font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition on hover */
+}
+.hidden-input {
+  border: none;
+  outline: none;
+  background: none;
+  color: inherit;
+
+  /* Khi hover vào */
+  &:hover {
+    border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
+  }
+}
+/* Initially hide the Add button */
+.add-button {
+    display: none;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+/* Show the Add button when hovering over the section */
+#education-section:hover .add-button,
+#skills-section:hover .add-button,
+#certifications-section:hover .add-button,
+#projects-section:hover .add-button,
+#hobbies-section:hover .add-button {
+    display: block;
+}
+.project-name {
+    
+    font-weight: bold; /* Chữ đậm hơn */
+    
+}
+</style>
 <body>
-<!-- header -->
+	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<!-- header -->
- <div class="cv-container">
+	<div class="cv-container" id="cv-content">
     <!-- Left Panel -->
-    <div class="left-panel">
-      <img src="https://via.placeholder.com/150" alt="Profile Picture">
-      <div class="contact-info">
-        <h3>Contact</h3>
-        <p><span>📞</span> +1-234-567-890</p>
-        <p><span>📧</span> donna@example.com</p>
-        <p><span>📍</span> 123 Avenue St, ABC City, ST 12345</p>
-      </div>
-      <div class="language">
-        <h3>Language</h3>
-        <p>Native English</p>
-        <p>Advanced Spanish</p>
-      </div>
-      <div class="skill">
-        <h3>Computer Skills</h3>
-        <p>- Text Processor</p>
-        <p>- Spreadsheet</p>
-        <p>- Slide Presentation</p>
-      </div>
+    <div class="left-panel" id="sortable-left">
+        <div class="image-container">
+            <input type="file" id="profileImage" accept="image/*" onchange="previewImage(event)" class="image-input">
+            <img id="profilePreview" src="https://via.placeholder.com/150" alt="Profile Picture" class="img-fluid rounded-circle" width="150" height="150">
+        </div>
+        <div class="section" class="contact-info">
+            <h3 class="section-title">Liên Hệ</h3>
+            <input class="hidden-input" type="text" name="phone" placeholder="Phone Number">
+            <input class="hidden-input" type="email" name="email" placeholder="Email">
+            <input type="text" class="hidden-input" name="address" placeholder="Address">
+            <select class="hidden-input" name="gender">
+                <option value="" disabled selected>Giới Tính</option>
+                <option value="male">Nam</option>
+                <option value="female">Nữ</option>
+                <option value="other">Khác</option>
+            </select>
+            <input class="hidden-input" type="text" name="language" placeholder="Ngôn Ngữ">
+        </div>
+        <div class="section" class="skill" id="skills-section">
+            <h3 class="section-title">Kỹ Năng</h3>
+            <div id="skills-list">
+                <div class="input-group">
+                    <input class="hidden-input" type="text" name="skills[]" placeholder="Nhập Kỹ Năng">
+                </div>
+            </div>
+            <button type="button" class="add-button" onclick="addSkill()">Thêm Kỹ Năng</button>
+        </div>
+
+        <div class="section" class="certification" id="certifications-section">
+            <h3 class="section-title">Chứng Chỉ</h3>
+            <div id="certifications-list">
+                <div class="input-group">
+                    <input class="hidden-input" type="text" name="certification[]" placeholder="Nhập Chứng Chỉ">
+                </div>
+            </div>
+            <button type="button" class="add-button" onclick="addCertification()">Thêm Chứng Chỉ</button>
+        </div>
     </div>
 
     <!-- Right Panel -->
-    <div class="right-panel">
-      <div class="personal-info">
-        <h2>Donna Stroupe</h2>
-        <h4>Student</h4>
-        <p>
-          Business Administration student, I consider myself a responsible and
-          orderly person. I am looking forward to my first work experience.
-        </p>
-      </div>
-      <div class="section">
-        <h3>Education</h3>
-        <p><strong>Borcellu University</strong><br> Business Administration career (in progress)</p>
-        <p><strong>Fauget College</strong><br> 2018–2022</p>
-      </div>
-      <div class="section">
-        <h3>Volunteer Experience</h3>
-        <p><strong>InGuide Company</strong><br> Participation in collections to distribute in low-income schools.</p>
-      </div>
-      <div class="section">
-        <h3>Hobbies</h3>
-        <p>Reading</p>
-        <p>Traveling</p>
-        <p>Painting</p>
-      </div>
+    <div class="right-panel" id="sortable-right">
+        <div class="personal-info">
+            <h2 contenteditable="true">NGUYỄN VĂN A</h2>
+            <h4 contenteditable="true">Quản Lý Tiếp Thị</h4>
+            <textarea class="hidden-input" name="career-objective" placeholder="Career Objective" required></textarea>
+        </div>
+         <div class="section" id="education-section">
+            <h3 class="section-title">Học Vấn</h3>
+            <div id="education-list">
+                <div class="input-group">
+                    <input class="hidden-input" type="text" name="education[]" placeholder="Nhập Học Vấn">
+                </div>
+            </div>
+            <button type="button" class="add-button" onclick="addEducation()">Thêm Học Vấn</button>
+        </div>
+        <div class="section" id="projects-section">
+            <h3 class="section-title">Dự Án Đã Tham Gia</h3>
+            <div id="projects-list">
+                <div class="input-group">
+                    <input class="hidden-input project-name" type="text" name="project_name[]" placeholder="Tên Dự Án">
+                    <input class="hidden-input" type="text" name="project_time[]" placeholder="Thời Gian">
+                    <textarea class="hidden-input" name="project_description[]" placeholder="Mô Tả Dự Án" rows="3"></textarea>
+                </div>
+            </div>
+            <button type="button" class="add-button" onclick="addProject()">Thêm Dự Án</button>
+        </div>
+        <div class="section" id="hobbies-section">
+            <h3 class="section-title">Sở Thích</h3>
+            <div id="hobbies-list">
+                <div class="input-group">
+                    <input class="hidden-input" type="text" name="hobbies[]" placeholder="Nhập Sỏ Thích">
+                </div>
+            </div>
+            <button type="button" class="add-button" onclick="addHobby()">Thêm Sở Thích</button>
+        </div>
     </div>
-  </div>
-  <!-- footer -->
+</div>
+	<div class="button-container">
+		<!-- <button class="save-button" type="button">Lưu CV</button> -->
+		<button class="download-button" type="button"
+			onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
+	</div>
+	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
+
+<script>
+    function addSkill() {
+        let skillList = document.getElementById('skills-list');
+        let newSkill = document.createElement('div');
+        newSkill.classList.add('input-group');
+        newSkill.innerHTML = '<input class="hidden-input" type="text" name="skills[]" placeholder="Nhập Kỹ Năng">';
+        skillList.appendChild(newSkill);
+    }
+
+    function addCertification() {
+        let certificationList = document.getElementById('certifications-list');
+        let newCertification = document.createElement('div');
+        newCertification.classList.add('input-group');
+        newCertification.innerHTML = '<input class="hidden-input" type="text" name="certification[]" placeholder="Nhập Chứng Chỉ">';
+        certificationList.appendChild(newCertification);
+    }
+
+    function addEducation() {
+        let educationList = document.getElementById('education-list');
+        let newEducation = document.createElement('div');
+        newEducation.classList.add('input-group');
+        newEducation.innerHTML = '<input class="hidden-input" type="text" name="education[]" placeholder="Nhập Học Vấn">';
+        educationList.appendChild(newEducation);
+    }
+    
+    function addProject() {
+        let projectList = document.getElementById('projects-list');
+        let newProject = document.createElement('div');
+        newProject.classList.add('input-group');
+        newProject.innerHTML = `
+            <input class="hidden-input project-name" type="text" name="project_name[]" placeholder="Tên Dự Án">
+            <input class="hidden-input" type="text" name="project_time[]" placeholder="Thời Gian">
+            <textarea class="hidden-input" name="project_description[]" placeholder="Mô Tả Dự Án" rows="3"></textarea>
+        `;
+        projectList.appendChild(newProject);
+    }
+
+    function addHobby() {
+        let hobbyList = document.getElementById('hobbies-list');
+        let newHobby = document.createElement('div');
+        newHobby.classList.add('input-group');
+        newHobby.innerHTML = '<input class="hidden-input" type="text" name="hobbies[]" placeholder="Nhập Sỏ Thích">';
+        hobbyList.appendChild(newHobby);
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cho phép kéo-thả trong cột bên trái
+        new Sortable(document.getElementById("sortable-left"), {
+            animation: 150,
+            group: "shared",  // Tùy chọn: Cho phép kéo-thả qua lại giữa các cột
+            draggable: ".section",  // Các mục có thể kéo là những mục có lớp .section
+            handle: ".section-title",  // Kéo bằng tiêu đề của phần
+            ghostClass: "sortable-ghost"  // Thêm lớp cho phần tử đang kéo
+        });
+
+        // Cho phép kéo-thả trong cột bên phải
+        new Sortable(document.getElementById("sortable-right"), {
+            animation: 150,
+            group: "shared",
+            draggable: ".section",
+            handle: ".section-title",
+            ghostClass: "sortable-ghost"
+        });
+    });
+</script>
+	<script>
+// Function to handle image preview after selection
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const preview = document.getElementById('profilePreview');
+            preview.src = e.target.result;  // Update the image source with the selected file
+        };
+        
+        reader.readAsDataURL(file);  // Read the selected file as a data URL
+    }
+}
+</script>
+	<script>
+	function downloadCVAsPDF() {
+	    const { jsPDF } = window.jspdf;
+	    const cvContent = document.getElementById('cv-content'); // Your CV container
+
+	    // Ensure html2pdf is loaded correctly
+	    const options = {
+	        margin: [10, 10, 10, 10], // Set margins
+	        filename: 'CV.pdf', // The filename of the PDF
+	        html2canvas: { scale: 2 }, // Increase the scale for better quality
+	        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
+	    };
+
+	    // Use html2pdf to convert HTML to PDF
+	    html2pdf().from(cvContent).set(options).save();
+	}
+	</script>
 </body>
 </html>
