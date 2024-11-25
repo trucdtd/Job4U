@@ -19,6 +19,8 @@
 <body>
 <!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<br>
 	<div class="container">
 		<div class="cv-template">

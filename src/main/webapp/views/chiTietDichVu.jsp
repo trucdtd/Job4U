@@ -17,6 +17,7 @@
 <body>
 	<!-- header -->
 	<%@ include file="/views/header.jsp"%>
+	<%@ include file="/views/chat.jsp"%>
 	<!-- /header -->
 	<div class="container">
 		<br>

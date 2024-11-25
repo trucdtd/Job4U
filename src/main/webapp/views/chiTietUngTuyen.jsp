@@ -100,6 +100,9 @@ body {
 				<c:if test="${not empty message}">
 					<div class="alert alert-info">${message}</div>
 				</c:if>
+				<c:if test="${not empty error}">
+					<div class="alert alert-info">${error}</div>
+				</c:if>
 			</div>
 
 			<div class="row">
@@ -181,8 +184,15 @@ body {
 											</c:otherwise>
 										</c:choose>
 										<!-- Nút báo cáo, hiển thị cho người dùng đã đăng nhập -->
-										<button type="button" class="btn btn-danger btn-report"
+										<!-- <button type="button" class="btn btn-danger btn-report"
 											data-bs-toggle="modal" data-bs-target="#reportModal">
+											<i class="bi bi-flag text-light"></i> Báo cáo bài viết
+										</button> -->
+										<!-- Nút báo cáo, hiển thị cho người dùng đã đăng nhập Lành -->
+										<button type="button" class="btn btn-danger btn-report"
+											data-bs-toggle="modal" data-bs-target="#reportModal"
+											data-job-id="123" data-employer-id="456">
+											<!-- Giá trị này sẽ được cập nhật động -->
 											<i class="bi bi-flag text-light"></i> Báo cáo bài viết
 										</button>
 									</c:when>
@@ -309,7 +319,7 @@ body {
 		</div>
 
 		<!-- Modal Báo cáo -->
-		<div class="modal fade" id="reportModal" tabindex="-1"
+		<!-- <div class="modal fade" id="reportModal" tabindex="-1"
 			aria-labelledby="reportModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -332,7 +342,36 @@ body {
 					</div>
 				</div>
 			</div>
+		</div> -->
+
+		<!-- Modal Báo cáo -->
+		<div class="modal fade" id="reportModal" tabindex="-1"
+			aria-labelledby="reportModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="reportModalLabel">Báo cáo bài
+							viết</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="reportForm" action="" method="post">
+							<input type="hidden" id="jobId" name="jobId"> <input
+								type="hidden" id="employerId" name="employerId">
+							<div class="mb-3">
+								<label for="reportReason" class="form-label">Lý do báo
+									cáo</label>
+								<textarea class="form-control" id="reportReason"
+									name="reportReason" rows="3"></textarea>
+							</div>
+							<button type="submit" class="btn btn-danger">Gửi báo cáo</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
+
 
 		<%@ include file="/views/footer.jsp"%>
 		${script}
@@ -431,6 +470,24 @@ body {
 				fileName.textContent = ""; // Nếu không có file nào được chọn, để trống
 			}
 		}
+	</script>
+
+	<script>
+	// Gắn dữ liệu động vào modal khi mở
+	const reportModal = document.getElementById('reportModal');
+	reportModal.addEventListener('show.bs.modal', function(event) {
+	    const button = event.relatedTarget;
+	    const jobId = button.getAttribute('data-job-id');
+	    const employerId = button.getAttribute('data-employer-id');
+
+	    // Đặt giá trị cho hidden inputs
+	    document.getElementById('jobId').value = jobId;
+	    document.getElementById('employerId').value = employerId;
+
+	    // Cập nhật đường dẫn form động
+	    const reportForm = document.getElementById('reportForm');
+	    reportForm.action = `/${jobId}/report`; // Đảm bảo đúng đường dẫn
+	});
 	</script>
 
 </body>

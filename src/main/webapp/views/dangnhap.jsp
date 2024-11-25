@@ -26,6 +26,8 @@
 
 <body>
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<header>
 		<!-- Thông báo -->
 		<div class="d-flex justify-content-center align-items-center mt-4">

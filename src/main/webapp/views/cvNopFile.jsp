@@ -143,6 +143,8 @@ p {
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
 	<div class="container">
 		<%-- <h2 class="text-center mb-4">Chi Tiết CV của ${cv.user.fullname}</h2> --%>

@@ -8,6 +8,8 @@
 </head>
 <body>
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<footer>
 		<section class="vh-100" style="background-color: #f8f9fa;">
 			<div class="container-fluid h-custom">

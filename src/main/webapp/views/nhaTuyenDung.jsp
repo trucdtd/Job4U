@@ -109,6 +109,7 @@
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	
 	<!-- header -->
 
 	<!-- Modal Hiển Thị Thông Báo Thanh Toán -->

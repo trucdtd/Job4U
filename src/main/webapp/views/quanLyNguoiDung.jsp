@@ -21,6 +21,8 @@
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<br>
 	<!-- header -->
 	<c:if test="${not empty message}">

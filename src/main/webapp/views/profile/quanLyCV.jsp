@@ -39,6 +39,7 @@
 </style>
 </head>
 <body>
+<%@ include file="/views/chat.jsp"%>
 	<div>
 		<div class="container mt-4">
 			<!-- Thông báo thành công -->

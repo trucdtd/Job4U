@@ -35,6 +35,8 @@ body {
 </head>
 <body>
 	<%@ include file="/views/header.jsp"%>
+	
+	<%@ include file="/views/chat.jsp"%>
 	<div class="container mb-5">
 		<h2 class="text-center my-4">Thông tin cá nhân</h2>
 		<div class="inf-content">

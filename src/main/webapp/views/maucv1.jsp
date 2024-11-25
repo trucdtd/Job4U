@@ -25,6 +25,7 @@
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
+	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
 	<div class="container mt-4">
 		<div class="cv-container" id="cv-content">
