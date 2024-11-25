@@ -321,16 +321,14 @@ p {
 						<div class="section-title">Kinh Nghiệm Làm Việc</div>
 						<div class="job">
 							<h3 contenteditable="true">${cv.experience}</h3>
-							<span>Aerowell Industries | 2022 - 2023</span>
-							<p class="description">Lãnh đạo các sáng kiến tiếp thị...</p>
+							
 						</div>
 					</div>
 					<div class="education section">
 						<div class="section-title">Học Vấn</div>
 						<div class="education-item">
 							<h3 contenteditable="true" id="education">${cv.education}</h3>
-							<span contenteditable="true">Cử nhân Quản trị Kinh doanh |
-								2019 - 2023</span>
+							
 						</div>
 					</div>
 					<div class="certifications section">
