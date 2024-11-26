@@ -166,7 +166,7 @@ body {
 							<div class="mt-4">
 								<c:choose>
 									<c:when test="${not empty userid}">
-										<c:choose>
+										<%-- <c:choose>
 											<c:when test="${not hasApplied}">
 												<!-- Nếu người dùng chưa ứng tuyển và role không phải là 2 và 0 -->
 												<c:if test="${userRole != 2 && userRole != 0}">
@@ -182,12 +182,29 @@ body {
 													<i class="bi bi-check text-light"></i> Đã ứng tuyển
 												</button>
 											</c:otherwise>
+										</c:choose> --%>
+										<c:choose>
+											<c:when test="${not hasApplied}">
+												<!-- Nếu người dùng chưa ứng tuyển và role không phải là 2 và 0 -->
+												<c:if test="${userRole != 2 && userRole != 0}">
+													<button type="button"
+														class="btn btn-success btn-apply btn-sm w-50"
+														data-bs-toggle="modal" data-bs-target="#uploadCvModal">
+														<i class="bi bi-upload text-light"></i> Ứng tuyển ngay
+													</button>
+												</c:if>
+											</c:when>
+											<c:otherwise>
+												<!-- Nếu người dùng đã ứng tuyển rồi -->
+												<button type="button"
+													class="btn btn-secondary btn-apply btn-sm w-50"
+													data-bs-toggle="modal" data-bs-target="#uploadCvModal">
+													<i class="bi bi-upload text-light"></i> Đã ứng tuyển, Bạn
+													có muốn Ứng tuyển lại?
+												</button>
+											</c:otherwise>
 										</c:choose>
-										<!-- Nút báo cáo, hiển thị cho người dùng đã đăng nhập -->
-										<!-- <button type="button" class="btn btn-danger btn-report"
-											data-bs-toggle="modal" data-bs-target="#reportModal">
-											<i class="bi bi-flag text-light"></i> Báo cáo bài viết
-										</button> -->
+
 										<!-- Nút báo cáo, hiển thị cho người dùng đã đăng nhập Lành -->
 										<button type="button" class="btn btn-danger btn-report"
 											data-bs-toggle="modal" data-bs-target="#reportModal"
@@ -473,21 +490,21 @@ body {
 	</script>
 
 	<script>
-	// Gắn dữ liệu động vào modal khi mở
-	const reportModal = document.getElementById('reportModal');
-	reportModal.addEventListener('show.bs.modal', function(event) {
-	    const button = event.relatedTarget;
-	    const jobId = button.getAttribute('data-job-id');
-	    const employerId = button.getAttribute('data-employer-id');
+		// Gắn dữ liệu động vào modal khi mở
+		const reportModal = document.getElementById('reportModal');
+		reportModal.addEventListener('show.bs.modal', function(event) {
+			const button = event.relatedTarget;
+			const jobId = button.getAttribute('data-job-id');
+			const employerId = button.getAttribute('data-employer-id');
 
-	    // Đặt giá trị cho hidden inputs
-	    document.getElementById('jobId').value = jobId;
-	    document.getElementById('employerId').value = employerId;
+			// Đặt giá trị cho hidden inputs
+			document.getElementById('jobId').value = jobId;
+			document.getElementById('employerId').value = employerId;
 
-	    // Cập nhật đường dẫn form động
-	    const reportForm = document.getElementById('reportForm');
-	    reportForm.action = `/${jobId}/report`; // Đảm bảo đúng đường dẫn
-	});
+			// Cập nhật đường dẫn form động
+			const reportForm = document.getElementById('reportForm');
+			reportForm.action = `/${jobId}/report`; // Đảm bảo đúng đường dẫn
+		});
 	</script>
 
 </body>
