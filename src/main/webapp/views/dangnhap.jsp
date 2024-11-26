@@ -98,12 +98,21 @@
 							class="img-fluid" alt="Sample image">
 					</div>
 					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+						<a
+							href="https://accounts.google.com/o/oauth2/v2/auth?
+scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&
+response_type=code&
+redirect_uri=http://localhost:8080/Job4U/DangNhapGoogle&
+client_id=
+838367854070-u22cunk470biafaufj4rp9l5nuu9nfah.apps.googleusercontent.com
+">Login
+							With Google</a>
 						<form action="/Login/submit" method="post">
-							<div
+							<!-- <div
 								class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
 								<p class="lead fw-normal mb-0 me-3">Đăng nhập bằng</p>
-								<div class="g-signin2" data-onsuccess="onSignIn"></div>
-							</div>
+								<a href="#"><div class="g-signin2" data-onsuccess="onSignIn"></div></a>
+							</div> -->
 
 							<div class="divider d-flex align-items-center my-4">
 								<p class="text-center fw-bold mx-3 mb-0">hoặc</p>
