@@ -186,8 +186,9 @@
 									khoản</button>
 							</form>
 
-							<!-- Nút Quay lại -->
-							<a href="/admin" class="btn btn-secondary">Quay lại</a>
+							<form action="/admin">
+								<button type="submit" class="btn btn-secondary">Quay lại</button>
+							</form>
 
 						</div>
 					</div>

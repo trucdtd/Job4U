@@ -253,7 +253,10 @@
 								<button type="submit" class="btn btn-success">Hiện Bài
 									Viết</button>
 							</form>
-							<a href="/admin" class="btn btn-danger">Quay Về</a>
+							<form action="/admin">
+								<button type="submit" class="btn btn-danger">Quay lại</button>
+							</form>
+							
 						</div>
 					</div>
 				</div>

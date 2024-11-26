@@ -81,16 +81,44 @@ public class luaCVController {
 		return "maucv5";
 	}
 	
+	@RequestMapping("/mauCV5ta")
+	public String luaChonCV5TA() {
+		return "maucv5ta";
+	}
+	
+	@RequestMapping("/truocCV5")
+	public String xtruocCV5() {
+		return "xemtruoccv5";
+	}
+	
 	/* cv6 */
 	@RequestMapping("/mauCV6")
 	public String luaChonCV6() {
 		return "maucv6";
+	}
+	@RequestMapping("/mauCV6ta")
+	public String luaChonCV6TA() {
+		return "maucv6ta";
+	}
+	
+	@RequestMapping("/truocCV6")
+	public String xtruocCV6() {
+		return "xemtruoccv6";
 	}
 	
 	/* cv7 */
 	@RequestMapping("/mauCV7")
 	public String luaChonCV7() {
 		return "maucv7";
+	}
+	@RequestMapping("/mauCV7ta")
+	public String luaChonCV7TA() {
+		return "maucv7ta";
+	}
+	
+	@RequestMapping("/truocCV7")
+	public String xtruocCV7() {
+		return "xemtruoccv7";
 	}
 
 }

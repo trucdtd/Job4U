@@ -37,92 +37,91 @@
             <img id="profilePreview" src="https://via.placeholder.com/150" alt="Profile Picture" class="img-fluid rounded-circle" width="150" height="150">
         </div>
         <div class="section" class="contact-info">
-            <h3 class="section-title">Liên Hệ</h3>
-            <input class="hidden-input" type="text" name="phone" placeholder="Số Điện Thoại">
+            <h3 class="section-title">Contact</h3>
+            <input class="hidden-input" type="text" name="phone" placeholder="Phone Number">
             <input class="hidden-input" type="email" name="email" placeholder="Email">
-            <input type="text" class="hidden-input" name="address" placeholder="Địa Chỉ">
+            <input type="text" class="hidden-input" name="address" placeholder="Address">
             <select class="hidden-input" name="gender">
-                <option value="" disabled selected>Giới Tính</option>
-                <option value="male">Nam</option>
-                <option value="female">Nữ</option>
-                <option value="other">Khác</option>
+                <option value="" disabled selected>Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
             </select>
-            <input class="hidden-input" type="text" name="language" placeholder="Ngôn Ngữ">
+            <input class="hidden-input" type="text" name="language" placeholder="Language">
         </div>
         <div class="section" class="skill" id="skills-section">
-            <h3 class="section-title">Kỹ Năng</h3>
+            <h3 class="section-title">Skills</h3>
             <div id="skills-list">
                 <div class="input-group">
-                    <input class="hidden-input" type="text" name="skills[]" placeholder="Nhập Kỹ Năng">
+                    <input class="hidden-input" type="text" name="skills[]" placeholder="Enter Skills">
                 </div>
             </div>
-            <button type="button" class="add-button" onclick="addSkill()">Thêm Kỹ Năng</button>
+            <button type="button" class="add-button" onclick="addSkill()">Add Skill</button>
         </div>
 
         <div class="section" class="certification" id="certifications-section">
-            <h3 class="section-title">Chứng Chỉ</h3>
+            <h3 class="section-title">Certifications</h3>
             <div id="certifications-list">
                 <div class="input-group">
-                    <input class="hidden-input" type="text" name="certification[]" placeholder="Nhập Chứng Chỉ">
+                    <input class="hidden-input" type="text" name="certification[]" placeholder="Enter Certification">
                 </div>
             </div>
-            <button type="button" class="add-button" onclick="addCertification()">Thêm Chứng Chỉ</button>
+            <button type="button" class="add-button" onclick="addCertification()">Add Certification</button>
         </div>
     </div>
 
     <!-- Right Panel -->
     <div class="right-panel" id="sortable-right">
         <div class="personal-info">
-            <h2 contenteditable="true">NGUYỄN VĂN A</h2>
-            <h4 contenteditable="true">Quản Lý Tiếp Thị</h4>
-            <textarea class="hidden-input" name="career-objective" placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh." required></textarea>
+            <h2 contenteditable="true">OLIVIA WILSON</h2>
+            <h4 contenteditable="true">Marketing Manager</h4>
+            <textarea class="hidden-input" name="career-objective" placeholder="I am a creative, hardworking person who always strives for excellence in everything I do. I am eager to learn and always find ways to improve the lives of those around me." required></textarea>
         </div>
          <div class="section" id="education-section">
-            <h3 class="section-title">Học Vấn</h3>
+            <h3 class="section-title">Education</h3>
             <div id="education-list">
                 <div class="input-group">
-                    <input class="hidden-input" type="text" name="education[]" placeholder="Nhập Học Vấn">
+                    <input class="hidden-input" type="text" name="education[]" placeholder="Enter Education">
                 </div>
             </div>
-            <button type="button" class="add-button" onclick="addEducation()">Thêm Học Vấn</button>
+            <button type="button" class="add-button" onclick="addEducation()">Add Education</button>
         </div>
         <div class="section" id="projects-section">
-            <h3 class="section-title">Dự Án Đã Tham Gia</h3>
+            <h3 class="section-title">Projects</h3>
             <div id="projects-list">
                 <div class="input-group">
-                    <input class="hidden-input project-name" type="text" name="project_name[]" placeholder="Tên Dự Án">
-                    <input class="hidden-input" type="text" name="project_time[]" placeholder="Thời Gian">
-                    <textarea class="hidden-input" name="project_description[]" placeholder="Mô Tả Dự Án" rows="3"></textarea>
+                    <input class="hidden-input project-name" type="text" name="project_name[]" placeholder="Project Name">
+                    <input class="hidden-input" type="text" name="project_time[]" placeholder="Time Period">
+                    <textarea class="hidden-input" name="project_description[]" placeholder="Project Description" rows="3"></textarea>
                 </div>
             </div>
-            <button type="button" class="add-button" onclick="addProject()">Thêm Dự Án</button>
+            <button type="button" class="add-button" onclick="addProject()">Add Project</button>
         </div>
         <div class="section" id="hobbies-section">
-            <h3 class="section-title">Sở Thích</h3>
+            <h3 class="section-title">Hobbies</h3>
             <div id="hobbies-list">
                 <div class="input-group">
-                    <input class="hidden-input" type="text" name="hobbies[]" placeholder="Nhập Sở Thích">
+                    <input class="hidden-input" type="text" name="hobbies[]" placeholder="Enter Hobbies">
                 </div>
             </div>
-            <button type="button" class="add-button" onclick="addHobby()">Thêm Sở Thích</button>
+            <button type="button" class="add-button" onclick="addHobby()">Add Hobby</button>
         </div>
     </div>
 </div>
-	<div class="button-container">
-		<!-- <button class="save-button" type="button">Lưu CV</button> -->
-		<button class="download-button" type="button"
-			onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
-	</div>
-	<!-- footer -->
-	<%@ include file="/views/footer.jsp"%>
-	<!-- footer -->
+<div class="button-container">
+    <!-- <button class="save-button" type="button">Save CV</button> -->
+    <button class="download-button" type="button" onclick="downloadCVAsPDF()">Download CV as PDF</button>
+</div>
+<!-- footer -->
+<%@ include file="/views/footer.jsp"%>
+<!-- footer -->
 
 <script>
     function addSkill() {
         let skillList = document.getElementById('skills-list');
         let newSkill = document.createElement('div');
         newSkill.classList.add('input-group');
-        newSkill.innerHTML = '<input class="hidden-input" type="text" name="skills[]" placeholder="Nhập Kỹ Năng">';
+        newSkill.innerHTML = '<input class="hidden-input" type="text" name="skills[]" placeholder="Enter Skills">';
         skillList.appendChild(newSkill);
     }
 
@@ -130,7 +129,7 @@
         let certificationList = document.getElementById('certifications-list');
         let newCertification = document.createElement('div');
         newCertification.classList.add('input-group');
-        newCertification.innerHTML = '<input class="hidden-input" type="text" name="certification[]" placeholder="Nhập Chứng Chỉ">';
+        newCertification.innerHTML = '<input class="hidden-input" type="text" name="certification[]" placeholder="Enter Certification">';
         certificationList.appendChild(newCertification);
     }
 
@@ -138,7 +137,7 @@
         let educationList = document.getElementById('education-list');
         let newEducation = document.createElement('div');
         newEducation.classList.add('input-group');
-        newEducation.innerHTML = '<input class="hidden-input" type="text" name="education[]" placeholder="Nhập Học Vấn">';
+        newEducation.innerHTML = '<input class="hidden-input" type="text" name="education[]" placeholder="Enter Education">';
         educationList.appendChild(newEducation);
     }
     
@@ -147,9 +146,9 @@
         let newProject = document.createElement('div');
         newProject.classList.add('input-group');
         newProject.innerHTML = `
-            <input class="hidden-input project-name" type="text" name="project_name[]" placeholder="Tên Dự Án">
-            <input class="hidden-input" type="text" name="project_time[]" placeholder="Thời Gian">
-            <textarea class="hidden-input" name="project_description[]" placeholder="Mô Tả Dự Án" rows="3"></textarea>
+            <input class="hidden-input project-name" type="text" name="project_name[]" placeholder="Project Name">
+            <input class="hidden-input" type="text" name="project_time[]" placeholder="Time Period">
+            <textarea class="hidden-input" name="project_description[]" placeholder="Project Description" rows="3"></textarea>
         `;
         projectList.appendChild(newProject);
     }
@@ -158,21 +157,21 @@
         let hobbyList = document.getElementById('hobbies-list');
         let newHobby = document.createElement('div');
         newHobby.classList.add('input-group');
-        newHobby.innerHTML = '<input class="hidden-input" type="text" name="hobbies[]" placeholder="Nhập Sở Thích">';
+        newHobby.innerHTML = '<input class="hidden-input" type="text" name="hobbies[]" placeholder="Enter Hobbies">';
         hobbyList.appendChild(newHobby);
     }
     
     document.addEventListener("DOMContentLoaded", function() {
-        // Cho phép kéo-thả trong cột bên trái
+        // Allow dragging in the left column
         new Sortable(document.getElementById("sortable-left"), {
             animation: 150,
-            group: "shared",  // Tùy chọn: Cho phép kéo-thả qua lại giữa các cột
-            draggable: ".section",  // Các mục có thể kéo là những mục có lớp .section
-            handle: ".section-title",  // Kéo bằng tiêu đề của phần
-            ghostClass: "sortable-ghost"  // Thêm lớp cho phần tử đang kéo
+            group: "shared",  // Option: Allow dragging between columns
+            draggable: ".section",  // Items that can be dragged have the .section class
+            handle: ".section-title",  // Drag by the section title
+            ghostClass: "sortable-ghost"  // Add a class to the item being dragged
         });
 
-        // Cho phép kéo-thả trong cột bên phải
+        // Allow dragging in the right column
         new Sortable(document.getElementById("sortable-right"), {
             animation: 150,
             group: "shared",

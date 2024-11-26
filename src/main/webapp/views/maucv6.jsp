@@ -22,191 +22,12 @@
 <!-- html2pdf Library -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
-<style>
-body {
-	font-family: 'Arial', sans-serif;
-	background-color: #f4f4f4;
-	margin: 0;
-	padding: 0;
-}
-
-.containerr {
-	width: 750px;
-	margin: 30px auto;
-	background-color: #ffffff;
-	padding: 30px;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-.header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding-bottom: 15px;
-	border-bottom: 2px solid #ddd;
-	margin-bottom: 15px;
-}
-
-.header h1 {
-	font-size: 20px; /* Giảm kích thước font */
-	margin: 0;
-	color: #333;
-}
-
-.header h5 {
-	font-size: 14px; /* Giảm kích thước font */
-	margin: 5px 0;
-	color: #777;
-}
-
-.header input[type="tel"], .header input[type="email"], .header input[type="date"],
-	.header input[type="text"] {
-	font-size: 12px; /* Giảm kích thước font */
-	width: 46%; /* Giảm chiều rộng */
-	padding: 6px; /* Giảm padding */
-	border-radius: 5px;
-}
-
-.profile-pic {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  background-color: #b3acac;
-  margin-right: 100px;
-  margin-left: 55px;
-  cursor: pointer;
-}
-
-#profile-pic-preview {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.header div {
-	flex: 1;
-}
-
-.content {
-	display: flex;
-	justify-content: space-between;
-}
-
-.left-column, .right-column {
-	padding: 10px;
-}
-
-.left-column {
-	width: 30%;
-	border-right: 2px solid #ddd;
-}
-
-.right-column {
-	width: 65%;
-}
-
-.section {
-	margin-bottom: 30px;
-}
-
-.section h3 {
-	font-size: 22px;
-	color: #333;
-	border-bottom: 2px solid #ddd;
-	padding-bottom: 5px;
-}
-
-.section ul {
-	list-style-type: none;
-	padding-left: 0;
-}
-
-.section ul li {
-	position: relative;
-}
-
-.section ul li input {
-	font-size: 14px;
-	width: 100%;
-	padding: 8px;
-	border-radius: 5px;
-}
-.section textarea {
-	font-size: 14px;
-	width: 100%;
-	padding: 8px;
-	border-radius: 5px;
-}
-
-.add-button {
-	background-color: #28a745; /* Màu xanh lá */
-	color: white;
-	border: none;
-	padding: 5px 15px;
-	border-radius: 5px;
-	cursor: pointer;
-	display: none; /* Ẩn nút thêm mặc định */
-}
-
-.add-button:hover {
-	background-color: #218838; /* Màu xanh lá đậm hơn khi hover */
-}
-
-/* Hiện nút thêm khi người dùng hover vào ô nhập liệu */
-.section ul li:hover .add-button {
-	display: inline-block;
-}
-
-.hidden-input {
-  border: none;
-  outline: none;
-  background: none;
-  color: inherit;
-
-  /* Khi hover vào */
-  &:hover {
-    border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
-  }
-}
-
-}
-textarea {
-	width: 100%;
-	padding: 10px;
-	overflow: hidden; /* Ẩn thanh cuộn */
-	resize: none; /* Tắt tính năng thay đổi kích thước */
-}
-
-.project-name {
-	font-size: 18px; /* Kích thước chữ lớn hơn */
-	font-weight: bold; /* Chữ đậm hơn */
-	color: #333; /* Tùy chỉnh màu sắc (tùy chọn) */
-}
-
-.button-container {
-	display: flex; /* Aligns buttons horizontally */
-	justify-content: center; /* Centers buttons */
-	gap: 10px; /* Adds space between buttons */
-	margin-top: 20px;
-}
-
-.download-button {
-	background-color: #4CAF50; /* Green background */
-	color: white; /* White text */
-	border: none; /* Remove border */
-	padding: 10px 20px; /* Add padding */
-	font-size: 14px; /* Adjust font size */
-	cursor: pointer; /* Pointer cursor on hover */
-	border-radius: 4px; /* Rounded corners */
-	transition: background-color 0.3s; /* Smooth transition on hover */
-}
-</style>
+<link rel="stylesheet" href="/css/cv6.css">
 </head>
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
-	
+
 	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
 
@@ -224,8 +45,7 @@ textarea {
 						placeholder="Enter Phone Number" value="+123 456 7890"> <input
 						class="hidden-input" type="email" placeholder="Email"
 						value="olivia@email.com"> <input class="hidden-input"
-						type="date" placeholder="Enter Portfolio URL"
-						value="https://www.oliviaportfolio.com"> <input
+						type="date" value="https://www.oliviaportfolio.com"> <input
 						class="hidden-input" type="text" placeholder="Giới Tính"
 						value="Giới Tính">
 				</div>
@@ -238,20 +58,25 @@ textarea {
 					<h3 class="section-title">Học Vấn</h3>
 					<ul id="education-list">
 						<li><input class="hidden-input" type="text"
-							placeholder="Nhập Học Vấn">
-							<button class="add-button" id="add-education">Thêm
-								Trường</button></li>
+							placeholder="Trường Học"> <input class="hidden-input"
+							type="text" placeholder="Chuyên Ngành"> <input
+							class="hidden-input" type="text" placeholder="Thời Gian">
+							<button class="add-button" onclick="addEducation()">Thêm</button>
+						</li>
 					</ul>
+
 				</div>
 
+				<!-- Ngôn Ngữ -->
 				<div class="section">
 					<h3 class="section-title">Ngôn Ngữ</h3>
 					<ul id="languages-list">
 						<li><input class="hidden-input" type="text"
 							placeholder="Ngôn Ngữ">
-							<button class="add-button" id="add-language">Thêm Trường</button>
-						</li>
+							<button class="add-button" onclick="addLanguage()">Thêm</button></li>
+
 					</ul>
+
 				</div>
 
 				<!-- Sở Thích -->
@@ -260,8 +85,18 @@ textarea {
 					<ul id="hobbies-list">
 						<li><input class="hidden-input" type="text"
 							placeholder="Sở thích">
-							<button class="add-button" id="add-hobby">Thêm Trường</button></li>
+							<button class="add-button" onclick="addHobby()">Thêm</button></li>
 					</ul>
+
+				</div>
+				<div class="section">
+					<h3 class="section-title">Kỹ Năng</h3>
+					<ul id="skills-list">
+						<li><input class="hidden-input" type="text"
+							placeholder="Kỹ Năng">
+							<button class="add-button" onclick="addSkill()">Thêm</button></li>
+					</ul>
+
 				</div>
 			</div>
 
@@ -269,21 +104,24 @@ textarea {
 				<div class="section">
 					<h3 class="section-title">Mục Tiêu Nghề Ngiệp</h3>
 					<textarea class="hidden-input"
-						placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh." rows="4"
-						style="width: 100%;"></textarea>
+						placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh."
+						rows="4" style="width: 100%;"></textarea>
 				</div>
 
+
+
+				<!-- Dự Án Đã Tham Gia -->
 				<div class="section">
 					<h3 class="section-title">Dự Án Đã Tham Gia</h3>
 					<ul id="experience-list">
 						<li><input class="hidden-input project-name" type="text"
 							placeholder="Tên Dự Án"> <input class="hidden-input"
 							type="text" placeholder="Thời Gian"> <textarea
-								class="hidden-input" placeholder="Mô Tả" rows="4" style="width: 100%;"></textarea>
-							<!-- Thay đổi từ input thành textarea -->
-							<button class="add-button" id="add-experience">Thêm
-								Trường</button></li>
+								class="hidden-input" placeholder="Mô Tả" rows="4"
+								style="width: 100%;"></textarea>
+							<button class="add-button" onclick="addExperience()">Thêm</button></li>
 					</ul>
+
 				</div>
 			</div>
 		</div>
@@ -297,28 +135,52 @@ textarea {
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
-
 	<script>
-	// Thêm trường Education
-	$('#add-education').click(function() {
-	    $('#education-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Học Vấn"></li>');
-	});
+	function addEducation() {
+	    const educationList = document.getElementById('education-list');
+	    const newEducation = document.createElement('li');
+	    newEducation.innerHTML = `
+	        <input class="hidden-input" type="text" placeholder="Trường Học">
+	        <input class="hidden-input" type="text" placeholder="Chuyên Ngành">
+	        <input class="hidden-input" type="text" placeholder="Thời Gian">
+	    `;
+	    educationList.insertBefore(newEducation, educationList.firstChild); // Thêm vào đầu danh sách
+	}
 
-	// Thêm trường Language
-	$('#add-language').click(function() {
-	    $('#languages-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Ngôn Ngữ"></li>');
-	});
+	function addLanguage() {
+	    const languageList = document.getElementById('languages-list');
+	    const newLanguage = document.createElement('li');
+	    newLanguage.innerHTML = `
+	        <input class="hidden-input" type="text" placeholder="Ngôn Ngữ">
+	        
+	    `;
+	    languageList.insertBefore(newLanguage, languageList.firstChild); // Thêm vào đầu danh sách
+	}
 
-	// Thêm trường Sở Thích
-	$('#add-hobby').click(function() {
-	    $('#hobbies-list').children('li').last().before('<li><input class="hidden-input" type="text" placeholder="Sở thích"></li>');
-	});
+	function addHobby() {
+	    const hobbyList = document.getElementById('hobbies-list');
+	    const newHobby = document.createElement('li');
+	    newHobby.innerHTML = '<input class="hidden-input" type="text" placeholder="Sở thích">';
+	    hobbyList.insertBefore(newHobby, hobbyList.firstChild); // Thêm vào đầu danh sách
+	}
 
-	// Thêm trường Work Experience
-	$('#add-experience').click(function() {
-	    $('#experience-list').children('li').last().before('<li><input class="hidden-input project-name" type="text" placeholder="Tên Dự Án"><input class="hidden-input" type="text" placeholder="Thời Gian"><input class="hidden-input" type="text" placeholder="Mô Tả"></li>');
-	});
+	function addSkill() {
+	    const skillList = document.getElementById('skills-list');
+	    const newSkill = document.createElement('li');
+	    newSkill.innerHTML = '<input class="hidden-input" type="text" placeholder="Kỹ Năng">';
+	    skillList.insertBefore(newSkill, skillList.firstChild); // Thêm vào đầu danh sách
+	}
 
+	function addExperience() {
+	    const experienceList = document.getElementById('experience-list');
+	    const newExperience = document.createElement('li');
+	    newExperience.innerHTML = `
+	        <input class="hidden-input project-name" type="text" placeholder="Tên Dự Án">
+	        <input class="hidden-input" type="text" placeholder="Thời Gian">
+	        <textarea class="hidden-input" placeholder="Mô Tả" rows="4" style="width: 100%;"></textarea>
+	    `;
+	    experienceList.insertBefore(newExperience, experienceList.firstChild); // Thêm vào đầu danh sách
+	}
 	</script>
 	<script>
 	function downloadCVAsPDF() {
@@ -376,7 +238,7 @@ textarea {
 			});
 		});
 		</script>
-		<script>
+	<script>
 		document.getElementById('profile-pic-input').addEventListener('change', function(event) {
     const file = event.target.files[0];
     const preview = document.getElementById('profile-pic-preview');
