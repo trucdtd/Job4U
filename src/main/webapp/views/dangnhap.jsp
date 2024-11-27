@@ -19,9 +19,6 @@
 <script src="https://kit.fontawesome.com/c5fd529f32.js"
 	crossorigin="anonymous"></script>
 <!-- Google Sign-In -->
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id"
-	content="YOUR_CLIENT_ID.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -97,14 +94,12 @@
 							src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
 							class="img-fluid" alt="Sample image">
 					</div>
+					
+               
 					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+					 <a href="https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:8080/LoginGoogle/LoginGoogleHandler&response_type=code
+		   &client_id=838367854070-7dtqpoqeacmk2s959ks3pmvdccs2gshk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
 						<form action="/Login/submit" method="post">
-							<div
-								class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-								<p class="lead fw-normal mb-0 me-3">Đăng nhập bằng</p>
-								<div class="g-signin2" data-onsuccess="onSignIn"></div>
-							</div>
-
 							<div class="divider d-flex align-items-center my-4">
 								<p class="text-center fw-bold mx-3 mb-0">hoặc</p>
 							</div>
