@@ -33,7 +33,7 @@
 </style>
 </head>
 <body>
-	<div class="col-lg-3 col-md-3 p-2 d-flex">
+	<div class="col-lg-3 col-md-3 d-flex">
 		<div class="card p-3 text-dark" style="width: 100%;">
 
 			<a href="#"

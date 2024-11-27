@@ -16,12 +16,10 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- html2pdf Library -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <link rel="stylesheet" href="/css/cv6.css">
 </head>
 <body>
@@ -32,108 +30,109 @@
 	<!-- header -->
 
 	<div class="containerr" id="cv-content">
-    <div class="header">
-        <input type="file" id="profile-pic-input" class="profile-pic"
-            title="Upload profile picture" /> <img id="profile-pic-preview"
-            class="profile-pic" style="display: none;" />
+		<div class="header">
+			<input type="file" id="profile-pic-input" class="profile-pic"
+				title="Upload profile picture" /> <img id="profile-pic-preview"
+				class="profile-pic" style="display: none;" />
 
-        <div>
-            <h1 contenteditable="true">Olivia Wilson</h1>
-            <h5 contenteditable="true">Marketing Manager</h5>
-            <div>
-                <input class="hidden-input" type="tel"
-                    placeholder="Enter Phone Number" value="+123 456 7890"> <input
-                    class="hidden-input" type="email" placeholder="Email"
-                    value="olivia@email.com"> <input class="hidden-input"
-                    type="date" value="https://www.oliviaportfolio.com"> <input
-                    class="hidden-input" type="text" placeholder="Gender"
-                    value="Gender">
-            </div>
-        </div>
-    </div>
+			<div>
+				<h1 contenteditable="true">Olivia Wilson</h1>
+				<h5 contenteditable="true">Marketing Manager</h5>
+				<div>
+					<input class="hidden-input" type="tel"
+						placeholder="Enter Phone Number" value="+123 456 7890"> <input
+						class="hidden-input" type="email" placeholder="Email"
+						value="olivia@email.com"> <input class="hidden-input"
+						type="date" value="https://www.oliviaportfolio.com"> <input
+						class="hidden-input" type="text" placeholder="Gender"
+						value="Gender">
+				</div>
+			</div>
+		</div>
 
-    <div class="content">
-        <div class="left-column" id="sortable-left">
-            <div class="section">
-                <h3 class="section-title">Education</h3>
-                <ul id="education-list">
-                    <li><input class="hidden-input" type="text"
-                        placeholder="School"> <input class="hidden-input"
-                        type="text" placeholder="Major"> <input
-                        class="hidden-input" type="text" placeholder="Time">
-                        <button class="add-button" onclick="addEducation()">Add</button>
-                    </li>
-                </ul>
+		<div class="content">
+			<div class="left-column" id="sortable-left">
+				<div class="section">
+					<h3 class="section-title">Education</h3>
+					<ul id="education-list">
+						<li><input class="hidden-input" type="text"
+							placeholder="School"> <input class="hidden-input"
+							type="text" placeholder="Major"> <input
+							class="hidden-input" type="text" placeholder="Time">
+							<button class="add-button" onclick="addEducation()">Add</button>
+						</li>
+					</ul>
 
-            </div>
+				</div>
 
-            <!-- Languages -->
-            <div class="section">
-                <h3 class="section-title">Languages</h3>
-                <ul id="languages-list">
-                    <li><input class="hidden-input" type="text"
-                        placeholder="Language">
-                        <button class="add-button" onclick="addLanguage()">Add</button></li>
+				<!-- Languages -->
+				<div class="section">
+					<h3 class="section-title">Languages</h3>
+					<ul id="languages-list">
+						<li><input class="hidden-input" type="text"
+							placeholder="Language">
+							<button class="add-button" onclick="addLanguage()">Add</button></li>
 
-                </ul>
+					</ul>
 
-            </div>
+				</div>
 
-            <!-- Hobbies -->
-            <div class="section">
-                <h3 class="section-title">Hobbies</h3>
-                <ul id="hobbies-list">
-                    <li><input class="hidden-input" type="text"
-                        placeholder="Hobby">
-                        <button class="add-button" onclick="addHobby()">Add</button></li>
-                </ul>
+				<!-- Hobbies -->
+				<div class="section">
+					<h3 class="section-title">Hobbies</h3>
+					<ul id="hobbies-list">
+						<li><input class="hidden-input" type="text"
+							placeholder="Hobby">
+							<button class="add-button" onclick="addHobby()">Add</button></li>
+					</ul>
 
-            </div>
-            <div class="section">
-                <h3 class="section-title">Skills</h3>
-                <ul id="skills-list">
-                    <li><input class="hidden-input" type="text"
-                        placeholder="Skill">
-                        <button class="add-button" onclick="addSkill()">Add</button></li>
-                </ul>
+				</div>
+				<div class="section">
+					<h3 class="section-title">Skills</h3>
+					<ul id="skills-list">
+						<li><input class="hidden-input" type="text"
+							placeholder="Skill">
+							<button class="add-button" onclick="addSkill()">Add</button></li>
+					</ul>
 
-            </div>
-        </div>
+				</div>
+			</div>
 
-        <div class="right-column" id="sortable-right">
-            <div class="section">
-                <h3 class="section-title">Career Objective</h3>
-                <textarea class="hidden-input"
-                    placeholder="I am a creative, hardworking person, always striving for excellence in everything I do. I am eager to learn and always look for ways to improve the lives of those around me."
-                    rows="4" style="width: 100%;"></textarea>
-            </div>
+			<div class="right-column" id="sortable-right">
+				<div class="section">
+					<h3 class="section-title">Career Objective</h3>
+					<textarea class="hidden-input"
+						placeholder="I am a creative, hardworking person, always striving for excellence in everything I do. I am eager to learn and always look for ways to improve the lives of those around me."
+						rows="4" style="width: 100%;"></textarea>
+				</div>
 
-            <!-- Projects -->
-            <div class="section">
-                <h3 class="section-title">Projects Involved</h3>
-                <ul id="experience-list">
-                    <li><input class="hidden-input project-name" type="text"
-                        placeholder="Project Name"> <input class="hidden-input"
-                        type="text" placeholder="Time"> <textarea
-                            class="hidden-input" placeholder="Description" rows="4"
-                            style="width: 100%;"></textarea>
-                        <button class="add-button" onclick="addExperience()">Add</button></li>
-                </ul>
+				<!-- Projects -->
+				<div class="section">
+					<h3 class="section-title">Projects Involved</h3>
+					<ul id="experience-list">
+						<li><input class="hidden-input project-name" type="text"
+							placeholder="Project Name"> <input class="hidden-input"
+							type="text" placeholder="Time">
+						<textarea class="hidden-input" placeholder="Description" rows="4"
+								style="width: 100%;"></textarea>
 
-            </div>
-        </div>
-    </div>
-</div>
-<div class="button-container">
-    <!-- <button class="save-button" type="button">Save CV</button> -->
-    <button class="download-button" type="button"
-        onclick="downloadCVAsPDF()">Download CV as PDF</button>
-</div>
-<br>
-<!-- footer -->
-<%@ include file="/views/footer.jsp"%>
-<!-- footer -->
-<script>
+							<button class="add-button" onclick="addExperience()">Add</button></li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="button-container">
+		<!-- <button class="save-button" type="button">Save CV</button> -->
+		<button class="download-button" type="button"
+			onclick="downloadCVAsPDF()">Download CV as PDF</button>
+	</div>
+	<br>
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
+	<script>
 function addEducation() {
     const educationList = document.getElementById('education-list');
     const newEducation = document.createElement('li');

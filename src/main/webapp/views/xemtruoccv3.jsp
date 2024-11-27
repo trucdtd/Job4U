@@ -345,7 +345,7 @@ li {
 			<a style="text-decoration: none;" id="useTemplateLink">
 				<button class="btn btn-primary">Dùng mẫu này</button>
 			</a>
-			<button class="btn btn-secondary">Đóng lại</button>
+			<button class="btn btn-secondary" onclick="goToHomePage()">Đóng lại</button>
 		</div>
 
 	</div>
@@ -454,6 +454,11 @@ li {
         } else if (selectedLanguage === "en") {
             link.href = "/luaCV/mauCV3ta";  // Mẫu CV tiếng Anh
         }
+    }
+</script>
+<script>
+    function goToHomePage() {
+        window.location.href = '/luaCV'; // Đường dẫn trang chủ
     }
 </script>
 </body>
