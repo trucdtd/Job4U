@@ -269,8 +269,6 @@ p {
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
-	
-	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
 	<div class="container mt-4">
 
@@ -317,20 +315,21 @@ p {
 						<div class="education-item">
 							<p contenteditable="true" id="profilesummary">${cv.profilesummary}</p>
 							<span contenteditable="true" id="profilesummary"></span>
+
 						</div>
 					</div>
 					<div class="experience section">
 						<div class="section-title">Kinh Nghiệm Làm Việc</div>
 						<div class="job">
 							<p contenteditable="true">${cv.experience}</p>
-							
+
 						</div>
 					</div>
 					<div class="education section">
 						<div class="section-title">Học Vấn</div>
 						<div class="education-item">
 							<p contenteditable="true" id="education">${cv.education}</p>
-							
+
 						</div>
 					</div>
 					<div class="certifications section">
@@ -356,20 +355,20 @@ p {
 
 			</div>
 		</form>
-</div>
+	</div>
 
 
-		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
-		<!-- footer -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 
-		<script>
+	<script>
 	
     function downloadPDF() {
         var element = document.getElementById('cv-content'); // Chọn nội dung form
@@ -394,8 +393,8 @@ p {
 </script>
 
 
-		<!--di chuyển các class lớn của form -->
-		<script>
+	<!--di chuyển các class lớn của form -->
+	<script>
 	document.addEventListener("DOMContentLoaded", function() {
     // Kích hoạt SortableJS trên left-column
     Sortable.create(document.getElementById('sortable-left'), {
