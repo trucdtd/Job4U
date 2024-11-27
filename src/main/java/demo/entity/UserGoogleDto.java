@@ -1,4 +1,4 @@
-package demo.classes;
+package demo.entity;
 
 public class UserGoogleDto {
 
