@@ -97,7 +97,7 @@
 					
                
 					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-					 <a href="https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:8080/LoginGoogle/LoginGoogleHandler&response_type=code
+					 <a href="https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:8080/DangNhapGoogle&response_type=code
 		   &client_id=838367854070-7dtqpoqeacmk2s959ks3pmvdccs2gshk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
 						<form action="/Login/submit" method="post">
 							<div class="divider d-flex align-items-center my-4">

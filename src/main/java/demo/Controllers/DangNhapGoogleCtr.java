@@ -3,7 +3,6 @@ package demo.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
@@ -15,12 +14,12 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Form;
 
 @Controller
-public class DangNhapGoogleCtrl {
+public class DangNhapGoogleCtr{
 	@RequestMapping("/DangNhapGoogle")
 	public String requestMethodName(@RequestParam String code) {
 		String accessToken = getToken(code);
 		UserGoogleDto user = getUserInfo(accessToken);
-		System.out.println(user.getName());
+		System.out.println(user.getEmail());
 		return "";
 	}
 
