@@ -356,17 +356,24 @@ body {
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form id="reportForm" action="" method="post">
-							<input type="hidden" id="jobId" name="jobId"> <input
-								type="hidden" id="employerId" name="employerId">
+						<form id="reportForm" action="/chiTiet/${jobid}/report"
+							method="post">
+							<!-- Hidden inputs -->
+							<input type="hidden" id="jobid" name="jobid" value="${jobid}">
+							<input type="hidden" id="employerid" name="employerid" value="${employer.employerid}">
+							<!-- Sửa giá trị tại đây -->
+
+							<!-- Reason input -->
 							<div class="mb-3">
-								<label for="reportReason" class="form-label">Lý do báo
-									cáo</label>
-								<textarea class="form-control" id="reportReason"
-									name="reportReason" rows="3"></textarea>
+								<label for="reason" class="form-label">Lý do báo cáo:</label>
+								<textarea class="form-control" id="reason" name="reason"
+									rows="3" required></textarea>
 							</div>
+
+							<!-- Submit button -->
 							<button type="submit" class="btn btn-danger">Gửi báo cáo</button>
 						</form>
+
 					</div>
 				</div>
 			</div>
@@ -472,23 +479,6 @@ body {
 		}
 	</script>
 
-	<script>
-	// Gắn dữ liệu động vào modal khi mở
-	const reportModal = document.getElementById('reportModal');
-	reportModal.addEventListener('show.bs.modal', function(event) {
-	    const button = event.relatedTarget;
-	    const jobId = button.getAttribute('data-job-id');
-	    const employerId = button.getAttribute('data-employer-id');
-
-	    // Đặt giá trị cho hidden inputs
-	    document.getElementById('jobId').value = jobId;
-	    document.getElementById('employerId').value = employerId;
-
-	    // Cập nhật đường dẫn form động
-	    const reportForm = document.getElementById('reportForm');
-	    reportForm.action = `/${jobId}/report`; // Đảm bảo đúng đường dẫn
-	});
-	</script>
 
 </body>
 </html>

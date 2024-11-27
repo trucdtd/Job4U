@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import demo.services.JoblistingsService;
+import demo.services.SessionService;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 import demo.dao.ApplicationsDao;
@@ -47,16 +48,19 @@ public class ChiTietUngTuyenController {
 
 	@Autowired
 	UsersDao userDao;
-	
+
+	@Autowired
+	SessionService sessionService;
+
 	@Autowired
 	JoblistingsDao joblistingsDao;
-	
+
 	@Autowired
 	EmployersDao employersDao;
 
 	@Autowired
 	HttpSession ss;
-	
+
 	@Autowired
 	ReportDao reportdao;
 
@@ -68,29 +72,29 @@ public class ChiTietUngTuyenController {
 
 	@RequestMapping("/{jobid}")
 	public String chiTietUngTuyen(@PathVariable("jobid") Integer jobid, Model model) {
-	    // Lấy thông tin chi tiết công việc
-	    JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
+		// Lấy thông tin chi tiết công việc
+		JoblistingsEntity chiTietUngTuyen = joblistingsService.getJoblistingById(jobid);
 
-	    // Lấy ID người dùng đã đăng nhập
-	    Integer userId = (Integer) ss.getAttribute("userid");
+		// Lấy ID người dùng đã đăng nhập
+		Integer userId = (Integer) ss.getAttribute("userid");
 
-	    // Lấy vai trò (role) người dùng từ session (giả sử role là Integer)
-	    Integer userRole = (Integer) ss.getAttribute("role");  // Đổi kiểu thành Integer
+		// Lấy vai trò (role) người dùng từ session (giả sử role là Integer)
+		Integer userRole = (Integer) ss.getAttribute("role"); // Đổi kiểu thành Integer
 
-	    // Lấy danh sách CV của người dùng
-	    List<JobSeekersEntity> listCV = dao.findByUsername(userId);
+		// Lấy danh sách CV của người dùng
+		List<JobSeekersEntity> listCV = dao.findByUsername(userId);
 
-	    // Lấy danh sách các công việc mà người dùng đã ứng tuyển
-	    List<JoblistingsEntity> appliedJobs = appDao.findJobsAppliedByUserId(userId);
-	    boolean hasApplied = appliedJobs.stream().anyMatch(job -> job.getJobid().equals(jobid));
+		// Lấy danh sách các công việc mà người dùng đã ứng tuyển
+		List<JoblistingsEntity> appliedJobs = appDao.findJobsAppliedByUserId(userId);
+		boolean hasApplied = appliedJobs.stream().anyMatch(job -> job.getJobid().equals(jobid));
 
-	    // Thêm các thuộc tính vào model để truyền sang view
-	    model.addAttribute("job", chiTietUngTuyen);
-	    model.addAttribute("listCV", listCV);
-	    model.addAttribute("hasApplied", hasApplied); // Thêm thuộc tính kiểm tra vào model
-	    model.addAttribute("userRole", userRole);    // Truyền userRole vào model
+		// Thêm các thuộc tính vào model để truyền sang view
+		model.addAttribute("job", chiTietUngTuyen);
+		model.addAttribute("listCV", listCV);
+		model.addAttribute("hasApplied", hasApplied); // Thêm thuộc tính kiểm tra vào model
+		model.addAttribute("userRole", userRole); // Truyền userRole vào model
 
-	    return "chiTietUngTuyen";
+		return "chiTietUngTuyen";
 	}
 
 	@PostMapping("/{jobid}")
@@ -167,38 +171,50 @@ public class ChiTietUngTuyenController {
 		}
 		return "redirect:/chiTiet/" + jobid; // Chuyển hướng đến trang chi tiết
 	}
-	
+
 	@PostMapping("/{jobid}/report")
-	public String reportPost(
-	        @PathVariable("jobid") Integer jobid, Model model,
-	        @RequestParam("employerId") Integer employerId,
-	        @RequestParam("reportReason") String reason,  // Lý do báo cáo
-	        HttpSession session,
-	        RedirectAttributes redirectAttributes // Để thêm thông báo
+	public String reportPost(@PathVariable(value = "jobid", required = false) Integer jobid, 
+	                         Model model,
+	                         @RequestParam(value = "employerid", required = false) Integer employerid,
+	                         @RequestParam("reason") String reason, // Lý do báo cáo
+	                         HttpSession session, 
+	                         RedirectAttributes redirectAttributes // Để thêm thông báo
 	) {
-	    // Lấy thông tin user từ session
-	    Integer userId = (Integer) session.getAttribute("userId");
-	    if (userId == null) {
-	        return "redirect:/login"; // Nếu chưa đăng nhập, chuyển hướng đến trang login
+	    System.out.println("jobid: " + jobid);
+	    System.out.println("Employerid: " + employerid);
+	    System.out.println("reason: " + reason);
+	    
+	    // Kiểm tra các tham số không được null
+	    if (jobid == null || employerid == null || reason == null || reason.trim().isEmpty()) {
+	        redirectAttributes.addFlashAttribute("error", "Báo cáo thất bại, dữ liệu không hợp lệ.");
+	        return "redirect:/chiTiet/" + jobid; // Chuyển hướng về trang chi tiết bài viết
 	    }
 
-	    // Tìm kiếm các đối tượng liên quan từ cơ sở dữ liệu
-	    UsersEntity user = userDao.findById(userId).orElse(null);
-	    JoblistingsEntity job = joblistingsDao.findById(jobid).orElse(null);
-	    EmployersEntity employer = employersDao.findById(employerId).orElse(null);
-
-	    // Kiểm tra dữ liệu hợp lệ
-	    if (user == null || job == null || employer == null || reason == null || reason.trim().isEmpty()) {
-	        redirectAttributes.addFlashAttribute("error", "Báo cáo thất bại, dữ liệu không hợp lệ.");
-	        return "chiTietUngTuyen"; // Chuyển hướng về trang chi tiết bài viết
+	    // Lấy userId từ session
+	    Integer userId = sessionService.getCurrentUser();
+	    System.out.println("userId: " + userId);
+	    if (userId == null) {
+	        redirectAttributes.addFlashAttribute("error", "Người dùng chưa đăng nhập");
+	        return "redirect:/Login"; // Nếu chưa đăng nhập, chuyển hướng đến trang login
 	    }
 
 	    try {
+	        // Tìm kiếm các đối tượng liên quan từ cơ sở dữ liệu
+	        UsersEntity user = userDao.findById(userId).orElse(null);
+	        JoblistingsEntity job = joblistingsDao.findById(jobid).orElse(null);
+	        EmployersEntity employers = employersDao.findById(employerid).orElse(null); // Đảm bảo tìm đúng employer
+
+	        // Kiểm tra nếu các đối tượng tìm được là null
+	        if (user == null || job == null || employers == null) {
+	            redirectAttributes.addFlashAttribute("error", "Báo cáo thất bại, không tìm thấy dữ liệu.");
+	            return "redirect:/chiTiet/" + jobid; // Chuyển hướng về trang chi tiết bài viết
+	        }
+
 	        // Tạo đối tượng ReportEntity
 	        ReportEntity report = new ReportEntity();
 	        report.setUser(user);
 	        report.setJob(job);
-	        report.setEmployer(employer);
+	        report.setEmployers(employers);
 	        report.setReason(reason);
 	        report.setReportedat(LocalDate.now());
 
@@ -213,7 +229,7 @@ public class ChiTietUngTuyenController {
 	    }
 
 	    // Chuyển hướng về trang chi tiết bài viết
-	    return "chiTietUngTuyen";
+	    return "redirect:/chiTiet/" + jobid;
 	}
 
 }
