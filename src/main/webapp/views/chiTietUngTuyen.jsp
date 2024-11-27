@@ -362,39 +362,50 @@ body {
 		</div> -->
 
 		<!-- Modal Báo cáo -->
-		<div class="modal fade" id="reportModal" tabindex="-1"
-			aria-labelledby="reportModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="reportModalLabel">Báo cáo bài
-							viết</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<form id="reportForm" action="/chiTiet/${jobid}/report"
-							method="post">
-							<!-- Hidden inputs -->
-							<input type="hidden" id="jobid" name="jobid" value="${jobid}">
-							<input type="hidden" id="employerid" name="employerid" value="${employer.employerid}">
-							<!-- Sửa giá trị tại đây -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">Báo cáo bài viết</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="reportForm" action="/chiTiet/${jobid}/report" method="post">
+                    <!-- Hidden inputs -->
+                    <input type="hidden" id="jobid" name="jobid" value="${jobid}">
+                    <input type="hidden" id="employerid" name="employerid" value="${employer.employerid}">
 
-							<!-- Reason input -->
-							<div class="mb-3">
-								<label for="reason" class="form-label">Lý do báo cáo:</label>
-								<textarea class="form-control" id="reason" name="reason"
-									rows="3" required></textarea>
-							</div>
+                    <!-- Lý do báo cáo -->
+                    <div class="mb-3">
+                        <label for="reason" class="form-label">Lý do báo cáo:</label>
+                        <textarea class="form-control" id="reason" name="reason" rows="3" placeholder="Nhập lý do báo cáo ở đây"></textarea>
+                    </div>
 
-							<!-- Submit button -->
-							<button type="submit" class="btn btn-danger">Gửi báo cáo</button>
-						</form>
+                    <!-- Các lựa chọn lý do báo cáo (checkboxes) -->
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="reason1" name="reason" value="Bài viết tuyển dụng chứa thông tin sai lệch, không chính xác, gây nhầm lẫn cho ứng viên.">
+                        <label class="form-check-label" for="reason1">Bài viết tuyển dụng chứa thông tin sai lệch, không chính xác, gây nhầm lẫn cho ứng viên.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="reason2" name="reason" value="Công việc hoặc công ty được mô tả không có thật hoặc lừa đảo.">
+                        <label class="form-check-label" for="reason2">Công việc hoặc công ty được mô tả không có thật hoặc lừa đảo.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="reason3" name="reason" value="Tài khoản hoặc công ty giả mạo lừa đảo trên Job4U.">
+                        <label class="form-check-label" for="reason3">Tài khoản hoặc công ty giả mạo lừa đảo trên Job4U.</label>
+                    </div>
 
-					</div>
-				</div>
-			</div>
-		</div>
+                    <!-- Thêm thông báo thành công hoặc lỗi -->
+                    <div id="reportMessage" class="alert" style="display: none;"></div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-danger w-100 mt-3">Gửi báo cáo</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 		<%@ include file="/views/footer.jsp"%>
