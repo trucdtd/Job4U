@@ -125,7 +125,7 @@ body {
 	padding-left: 15px;
 }
 
-.job h3, .education-item h3, .reference-item h3 {
+.job, .education-item h3, .reference-item h3 {
 	font-size: 16px;
 	font-weight: 600;
 	color: #333;
@@ -313,27 +313,26 @@ p {
 				<div class="about section">
 					<div class="section-title">Giới thiệu</div>
 					<div class="education-item">
-						<h3 contenteditable="true" id="profilesummary">${cv.profilesummary}</h3>
+						<p contenteditable="true" id="profilesummary">${cv.profilesummary}</p>
 						<span contenteditable="true" id="profilesummary"></span>
 					</div>
 				</div>
 				<div class="experience section">
 					<div class="section-title">Kinh Nghiệm Làm Việc</div>
-					<div class="job">
-						<h3 contenteditable="true">${cv.experience}</h3>
-						
+					<div class="education-item">
+						<p contenteditable="true">${cv.experience}</p>
 					</div>
 				</div>
 				<div class="education section">
 					<div class="section-title">Học Vấn</div>
 					<div class="education-item">
-						<h3 contenteditable="true" id="education">${cv.education}</h3>	
+						<p contenteditable="true" id="education">${cv.education}</p>	
 					</div>
 				</div>
 				<div class="certifications section">
 					<div class="section-title">Chứng chỉ</div>
 					<div class="education-item">
-						<h3 contenteditable="true" id="certifications">${cv.certifications}</h3>
+						<p contenteditable="true" id="certifications">${cv.certifications}</p>
 						<span contenteditable="true"></span>
 					</div>
 				</div>
