@@ -41,78 +41,78 @@
 			<ul>
 				<li><input class="hidden-input" type="text" placeholder="Email"></li>
 				<li><input class="hidden-input" type="text"
-					placeholder="Số Điện Thoại"></li>
+					placeholder="Phone Number"></li>
 				<li><input class="hidden-input" type="text"
-					placeholder="Giới Tính"></li>
+					placeholder="Gender"></li>
 				<li><input class="hidden-input" type="date"
-					placeholder="Ngày Sinh"></li>
+					placeholder="Date of Birth"></li>
 				<li><input class="hidden-input" type="text"
-					placeholder="Địa Chỉ"></li>
+					placeholder="Address"></li>
 
 			</ul>
 		</div>
 
 		<div class="section">
-			<h3 class="section-title">Kỹ Năng</h3>
+			<h3 class="section-title">Skills</h3>
 			<ul id="skills-list">
 				<li><input class="hidden-input" type="text"
-					placeholder="Kỹ Năng"></li>
+					placeholder="Skills"></li>
 			</ul>
-			<button class="add-button" onclick="addSkill()">Thêm</button>
+			<button class="add-button" onclick="addSkill()">Add</button>
 		</div>
 
 		<div class="section">
-			<h3 class="section-title">Học Vấn</h3>
+			<h3 class="section-title">Education</h3>
 			<ul id="education-list">
 				<li><input class="hidden-input" type="text"
-					placeholder="Tên Trường"> <input class="hidden-input"
-					type="text" placeholder="Thời Gian Học"> <textarea
+					placeholder="School Name"> <input class="hidden-input"
+					type="text" placeholder="Study Duration"> <textarea
 						style="width: 100%;" class="hidden-input"
-						placeholder="Mô Tả Ngành Học"></textarea></li>
+						placeholder="Description of Major"></textarea></li>
 			</ul>
-			<button class="add-button" onclick="addEducation()">Thêm</button>
+			<button class="add-button" onclick="addEducation()">Add</button>
 		</div>
 	</div>
 
 	<!-- Main Content -->
 	<div class="main-content" id="sortable-right">
 		<div class="main-header">
-			<h1 contenteditable="true">NGUYỄN VĂN A</h1>
-			<h4 contenteditable="true">Quản Lý Tiếp Thị</h4>
+			<h1 contenteditable="true">Olivia Schumacher</h1>
+			<h4 contenteditable="true">Marketing Manager</h4>
 		</div>
 
 		<div class="section">
-			<h3 class="section-title">Giới Thiệu Bản Thân</h3>
+			<h3 class="section-title">About Me</h3>
 			<textarea class="hidden-input"
 				placeholder="Write something about yourself..."></textarea>
 		</div>
 
 		<div class="section">
-			<h3 class="section-title">Dự Án Đã Tham Gia</h3>
+			<h3 class="section-title">Projects Participated</h3>
 			<div class="experience">
 				<ul id="projects-list">
 					<li><input class="hidden-input" type="text"
-						placeholder="Tên Dự Án"> <input class="hidden-input"
-						type="text" placeholder="Thời Gian"> <textarea
-							class="hidden-input" placeholder="Mô Tả"></textarea></li>
+						placeholder="Project Name"> <input class="hidden-input"
+						type="text" placeholder="Duration"> <textarea
+							class="hidden-input" placeholder="Description"></textarea></li>
 				</ul>
-				<button class="add-button" onclick="addProject()">Thêm</button>
+				<button class="add-button" onclick="addProject()">Add</button>
 			</div>
 		</div>
 
 		<div class="section references">
-			<h3 class="section-title">Sở Thích</h3>
+			<h3 class="section-title">Hobbies</h3>
 			<ul id="hobbies-list">
 				<li><input class="hidden-input" type="text"
-					placeholder="Sở Thích"></li>
+					placeholder="Hobbies"></li>
 			</ul>
-			<button class="add-button" onclick="addHobby()">Thêm</button>
+			<button class="add-button" onclick="addHobby()">Add</button>
 		</div>
 	</div>
 </div>
 <div class="button-container">
 	<button class="download-button" type="button"
-		onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
+		onclick="downloadCVAsPDF()">Download CV as PDF</button>
 </div>
 <!-- footer -->
 <%@ include file="/views/footer.jsp"%>
@@ -121,7 +121,7 @@
 function addSkill() {
     const skillsList = document.getElementById("skills-list");
     const newSkill = document.createElement("li");
-    newSkill.innerHTML = `<input class="hidden-input" type="text" placeholder="Kỹ Năng">`;
+    newSkill.innerHTML = `<input class="hidden-input" type="text" placeholder="Skills">`;
     skillsList.appendChild(newSkill);
 }
 
@@ -129,9 +129,9 @@ function addEducation() {
     const educationList = document.getElementById("education-list");
     const newEducation = document.createElement("li");
     newEducation.innerHTML = `
-        <input class="hidden-input" type="text" placeholder="Tên Trường">
-        <input class="hidden-input" type="text" placeholder="Thời Gian Học">
-        <textarea class="hidden-input" placeholder="Mô Tả Ngành Học"></textarea>
+        <input class="hidden-input" type="text" placeholder="School Name">
+        <input class="hidden-input" type="text" placeholder="Study Duration">
+        <textarea class="hidden-input" placeholder="Description of Major"></textarea>
     `;
     educationList.appendChild(newEducation);
 }
@@ -140,9 +140,9 @@ function addProject() {
     const projectsList = document.getElementById("projects-list");
     const newProject = document.createElement("li");
     newProject.innerHTML = `
-        <input class="hidden-input" type="text" placeholder="Tên Dự Án">
-        <input class="hidden-input" type="text" placeholder="Thời Gian">
-        <textarea class="hidden-input" placeholder="Mô Tả"></textarea>
+        <input class="hidden-input" type="text" placeholder="Project Name">
+        <input class="hidden-input" type="text" placeholder="Duration">
+        <textarea class="hidden-input" placeholder="Description"></textarea>
     `;
     projectsList.appendChild(newProject);
 }
@@ -150,7 +150,7 @@ function addProject() {
 function addHobby() {
     const hobbiesList = document.getElementById("hobbies-list");
     const newHobby = document.createElement("li");
-    newHobby.innerHTML = `<input class="hidden-input" type="text" placeholder="Sở Thích">`;
+    newHobby.innerHTML = `<input class="hidden-input" type="text" placeholder="Hobbies">`;
     hobbiesList.appendChild(newHobby);
 }
 //Enable drag-and-drop functionality for sections in both columns
@@ -177,11 +177,12 @@ function previewImage(event) {
     var reader = new FileReader();
     reader.onload = function() {
         var output = document.getElementById('profileImage');
-        output.src = reader.result;  // Cập nhật ảnh sau khi chọn
+        output.src = reader.result;  // Update image after selection
     };
-    reader.readAsDataURL(event.target.files[0]);  // Đọc ảnh đã chọn
+    reader.readAsDataURL(event.target.files[0]);  // Read the selected image
 }
 </script>
+
 <script>
 	function downloadCVAsPDF() {
 	    const { jsPDF } = window.jspdf;
