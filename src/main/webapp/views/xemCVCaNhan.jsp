@@ -269,8 +269,6 @@ p {
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
-	
-	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
 	<div class="container mt-4">
 
@@ -316,21 +314,18 @@ p {
 						<div class="section-title">Giới thiệu</div>
 						<div class="education-item">
 							<h3 contenteditable="true" id="profilesummary">${cv.profilesummary}</h3>
-							<span contenteditable="true" id="profilesummary"></span>
 						</div>
 					</div>
 					<div class="experience section">
 						<div class="section-title">Kinh Nghiệm Làm Việc</div>
 						<div class="job">
 							<h3 contenteditable="true">${cv.experience}</h3>
-							
 						</div>
 					</div>
 					<div class="education section">
 						<div class="section-title">Học Vấn</div>
 						<div class="education-item">
 							<h3 contenteditable="true" id="education">${cv.education}</h3>
-							
 						</div>
 					</div>
 					<div class="certifications section">
