@@ -267,34 +267,30 @@ public class AdminController {
 	@PostMapping("/deletePost")
 	public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
 
-		// Câu truy vấn để kiểm tra xem bài viết có liên quan đến dịch vụ đang hoạt động
-		// không
-		String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
-		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
-		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
-		try {
-			int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
-			if (serviceCount > 0) {
-				// Nếu bài viết đang mua dịch vụ, cập nhật trạng thái bài viết thành ẩn (active
-				// = false)
-				joblistingsDao.updatePostActiveStatus(id, false); // Cập nhật bài viết thành "Đang ẩn"
-				redirectAttributes.addFlashAttribute("message",
-						"Bài viết không thể xóa vì đang mua dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
-				return "redirect:/admin";
-			}
+		 // Câu truy vấn để kiểm tra xem bài viết có liên quan đến dịch vụ đang hoạt động không
+	    String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
+	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
+	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
+	    try {
+	        int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
+	        if (serviceCount > 0) {
+	            // Nếu bài viết đang mua dịch vụ, cập nhật trạng thái bài viết thành ẩn (active = false)
+	            joblistingsDao.updatePostActiveStatus(id, false);  // Cập nhật bài viết thành "Đang ẩn"
+	            redirectAttributes.addFlashAttribute("message", "Bài viết không thể xóa vì đang mua dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
+	            return "redirect:/admin";
+	        }
 
-			// Nếu không có dịch vụ, xóa các bản ghi liên quan trong bảng Applications và
-			// Joblistings
-			jdbcTemplate.update(deleteApplicationsSql, id);
-			jdbcTemplate.update(deleteJobListingsSql, id);
+	        // Nếu không có dịch vụ, xóa các bản ghi liên quan trong bảng Applications và Joblistings
+	        jdbcTemplate.update(deleteApplicationsSql, id);
+	        jdbcTemplate.update(deleteJobListingsSql, id);
 
-			redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
-		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
-			e.printStackTrace();
-		}
+	        redirectAttributes.addFlashAttribute("message", "Xóa bài viết thành công.");
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("error", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 
-		return "redirect:/admin";
+	    return "redirect:/admin";
 	}
 
 
