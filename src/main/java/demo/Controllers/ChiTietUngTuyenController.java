@@ -173,73 +173,71 @@ public class ChiTietUngTuyenController {
 	}
 
 	@PostMapping("/{jobid}/report")
-	public String reportPost(@PathVariable(value = "jobid", required = false) Integer jobid, 
-	                         Model model,
-	                         @RequestParam("reason") String reason, // Lý do báo cáo
-	                         HttpSession session, 
-	                         RedirectAttributes redirectAttributes // Để thêm thông báo
+	public String reportPost(@PathVariable(value = "jobid", required = false) Integer jobid, Model model,
+			@RequestParam("reason") String reason, // Lý do báo cáo
+			HttpSession session, RedirectAttributes redirectAttributes // Để thêm thông báo
 	) {
-	    // Tìm kiếm đối tượng JoblistingsEntity từ cơ sở dữ liệu
-	    JoblistingsEntity job = joblistingsDao.findById(jobid).orElse(null);
+		// Tìm kiếm đối tượng JoblistingsEntity từ cơ sở dữ liệu
+		JoblistingsEntity job = joblistingsDao.findById(jobid).orElse(null);
 
-	    // Kiểm tra nếu job là null
-	    if (job == null) {
-	        redirectAttributes.addFlashAttribute("error", "Bài viết không tồn tại.");
-	        return "redirect:/chiTiet/" + jobid; // Chuyển hướng về trang chi tiết bài viết
-	    }
+		// Kiểm tra nếu job là null
+		if (job == null) {
+			redirectAttributes.addFlashAttribute("error", "Bài viết không tồn tại.");
+			return "redirect:/chiTiet/" + jobid; // Chuyển hướng về trang chi tiết bài viết
+		}
 
-	    // Lấy employer từ đối tượng job và employerid
-	    EmployersEntity employer = job.getEmployer();
-	    Integer employerid = employer != null ? employer.getEmployerid() : null;
+		// Lấy employer từ đối tượng job và employerid
+		EmployersEntity employer = job.getEmployer();
+		Integer employerid = employer != null ? employer.getEmployerid() : null;
 
-	    System.out.println("jobid: " + jobid);
-	    System.out.println("Employerid: " + employerid);
-	    System.out.println("Reason: " + reason);
+		System.out.println("jobid: " + jobid);
+		System.out.println("Employerid: " + employerid);
+		System.out.println("Reason: " + reason);
 
-	    // Kiểm tra các tham số không được null
-	    if (reason == null || reason.trim().isEmpty()) {
-	        redirectAttributes.addFlashAttribute("error", "Lý do báo cáo không hợp lệ.");
-	        return "redirect:/chiTiet/" + jobid; // Chuyển hướng về trang chi tiết bài viết
-	    }
+		// Kiểm tra các tham số không được null
+		if (reason == null || reason.trim().isEmpty()) {
+			redirectAttributes.addFlashAttribute("error", "Lý do báo cáo không hợp lệ.");
+			return "redirect:/chiTiet/" + jobid; // Chuyển hướng về trang chi tiết bài viết
+		}
 
-	    // Lấy userId từ session
-	    Integer userId = sessionService.getCurrentUser();
-	    System.out.println("userId: " + userId);
-	    if (userId == null) {
-	        redirectAttributes.addFlashAttribute("error", "Người dùng chưa đăng nhập.");
-	        return "redirect:/Login"; // Nếu chưa đăng nhập, chuyển hướng đến trang login
-	    }
+		// Lấy userId từ session
+		Integer userId = sessionService.getCurrentUser();
+		System.out.println("userId: " + userId);
+		if (userId == null) {
+			redirectAttributes.addFlashAttribute("error", "Người dùng chưa đăng nhập.");
+			return "redirect:/Login"; // Nếu chưa đăng nhập, chuyển hướng đến trang login
+		}
 
-	    try {
-	        // Tìm kiếm các đối tượng liên quan từ cơ sở dữ liệu
-	        UsersEntity user = userDao.findById(userId).orElse(null);
+		try {
+			// Tìm kiếm các đối tượng liên quan từ cơ sở dữ liệu
+			UsersEntity user = userDao.findById(userId).orElse(null);
 
-	        // Kiểm tra nếu các đối tượng tìm được là null
-	        if (user == null || employer == null) {
-	            redirectAttributes.addFlashAttribute("error", "Báo cáo thất bại, không tìm thấy dữ liệu.");
-	            return "redirect:/chiTiet/" + jobid; // Chuyển hướng về trang chi tiết bài viết
-	        }
+			// Kiểm tra nếu các đối tượng tìm được là null
+			if (user == null || employer == null) {
+				redirectAttributes.addFlashAttribute("error", "Báo cáo thất bại, không tìm thấy dữ liệu.");
+				return "redirect:/chiTiet/" + jobid; // Chuyển hướng về trang chi tiết bài viết
+			}
 
-	        // Tạo đối tượng ReportEntity
-	        ReportEntity report = new ReportEntity();
-	        report.setUser(user);
-	        report.setJob(job);
-	        report.setEmployers(employer); // Sử dụng employer từ job
-	        report.setReason(reason);
-	        report.setReportedat(LocalDate.now());
+			// Tạo đối tượng ReportEntity
+			ReportEntity report = new ReportEntity();
+			report.setUser(user);
+			report.setJob(job);
+			report.setEmployers(employer); // Sử dụng employer từ job
+			report.setReason(reason);
+			report.setReportedat(LocalDate.now());
 
-	        // Lưu vào cơ sở dữ liệu
-	        reportdao.save(report);
+			// Lưu vào cơ sở dữ liệu
+			reportdao.save(report);
 
-	        // Thêm thông báo thành công
-	        redirectAttributes.addFlashAttribute("message", "Đã báo cáo bài viết thành công!");
-	    } catch (Exception e) {
-	        // Thêm thông báo lỗi nếu xảy ra ngoại lệ
-	        redirectAttributes.addFlashAttribute("error", "Báo cáo thất bại, vui lòng thử lại.");
-	    }
+			// Thêm thông báo thành công
+			redirectAttributes.addFlashAttribute("message", "Đã báo cáo bài viết thành công!");
+		} catch (Exception e) {
+			// Thêm thông báo lỗi nếu xảy ra ngoại lệ
+			redirectAttributes.addFlashAttribute("error", "Báo cáo thất bại, vui lòng thử lại.");
+		}
 
-	    // Chuyển hướng về trang chi tiết bài viết
-	    return "redirect:/chiTiet/" + jobid;
+		// Chuyển hướng về trang chi tiết bài viết
+		return "redirect:/chiTiet/" + jobid;
 	}
 
 }
