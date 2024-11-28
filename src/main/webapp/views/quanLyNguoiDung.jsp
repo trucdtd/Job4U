@@ -555,11 +555,11 @@
 															type="button" title="Xem Chi Tiết"> <img
 															src="/img/detail-icon.png" style="padding-bottom: 7px;"
 															width="25px" height="30px" alt="Detail">
-														<a href="/admin/.." class="btn" type="button"
+														<!-- <a href="/admin/.." class="btn" type="button"
 															title="Xem Chi Tiết"> <img src="/img/detail-icon.png"
 															style="padding-bottom: 7px;" width="25px" height="30px"
 															alt="Detail">
-														</a>
+														</a> -->
 													</div></td>
 													
 											</tr>
