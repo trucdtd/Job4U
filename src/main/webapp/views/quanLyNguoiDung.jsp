@@ -457,6 +457,7 @@
 							<div class="card-title">Quản Lý Vi Phạm</div>
 						</div>
 						<div class="card-body p-0">
+						
 							<div class="table-responsive">
 								<table id="vpTable" class="table align-items-center mb-0">
 									<thead class="thead-light">
@@ -465,6 +466,7 @@
 											<th scope="col">TK Bị Báo Cáo</th>
 											<th scope="col">Bài Viết Bị Báo Cáo</th>
 											<th scope="col">Nội Dung Báo Cáo</th>
+											<th scope="col">Trạng Thái</th>
 											<th scope="col">Hành Động</th>
 										</tr>
 									</thead>
@@ -475,14 +477,16 @@
 												<td>Tài khoàn: ${vp.employers.employerid} <br> Tên TK: ${vp.employers.companyname}</td>
 												<td>${vp.job.jobtitle}</td>
 												<td>${vp.reason}</td>
+												<td>${vp.job.active ? 'Đang hoạt động' : 'Đã Xóa'}</td>
 												<td><div
 														style="display: flex; align-items: center; gap: 10px;">
-														<a href="/admin/.." class="btn"
+														<a href="/admin/detailPost/${vp.job.jobid}" class="btn"
 															type="button" title="Xem Chi Tiết"> <img
 															src="/img/detail-icon.png" style="padding-bottom: 7px;"
 															width="25px" height="30px" alt="Detail">
 														</a>
 													</div></td>
+													
 											</tr>
 										</c:forEach>
 									</tbody>
