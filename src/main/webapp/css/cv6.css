@@ -43,21 +43,27 @@ body {
 	border-radius: 5px;
 }
 
+/* Vùng tải ảnh */
 .profile-pic {
-	border-radius: 50%;
-	width: 100px;
-	height: 100px;
-	background-color: #b3acac;
-	margin-right: 100px;
-	margin-left: 55px;
-	cursor: pointer;
+    border-radius: 50%; /* Vòng tròn */
+    width: 100px;
+    height: 100px;
+    background-color: #b3acac; /* Nền xám nếu chưa có ảnh */
+    margin-right: 100px;
+    margin-left: 55px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ẩn phần ảnh vượt ra ngoài */
 }
 
+/* Ảnh hiển thị */
 #profile-pic-preview {
-	width: 100px;
-	height: 100px;
-	object-fit: cover;
-	border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* Đảm bảo ảnh vừa khít */
+    border-radius: 50%;
 }
 
 .header div {
@@ -175,6 +181,6 @@ textarea {
 	margin-top: 10px;
 }
 
-.add-button:hover {
-	background-color: #45a049; /* Màu xanh lá nhạt hơn khi hover */
+.section:hover .add-button {
+    display: inline-block; /* Hiển thị nút "Thêm" khi hover vào phần `.section` */
 }

@@ -16,10 +16,12 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- html2pdf Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <link rel="stylesheet" href="/css/cv6.css">
 </head>
 <body>
@@ -55,14 +57,13 @@
 				<div class="section">
 					<h3 class="section-title">Học Vấn</h3>
 					<ul id="education-list">
-						<li><input class="hidden-input" type="text"
+						<li><input class="hidden-input project-name" type="text"
 							placeholder="Trường Học"> <input class="hidden-input"
 							type="text" placeholder="Chuyên Ngành"> <input
 							class="hidden-input" type="text" placeholder="Thời Gian">
-							<button class="add-button" onclick="addEducation()">Thêm</button>
 						</li>
 					</ul>
-
+					<button class="add-button" onclick="addEducation()">Thêm</button>
 				</div>
 
 				<!-- Ngôn Ngữ -->
@@ -70,11 +71,9 @@
 					<h3 class="section-title">Ngôn Ngữ</h3>
 					<ul id="languages-list">
 						<li><input class="hidden-input" type="text"
-							placeholder="Ngôn Ngữ">
-							<button class="add-button" onclick="addLanguage()">Thêm</button></li>
-
+							placeholder="Ngôn Ngữ"></li>
 					</ul>
-
+					<button class="add-button" onclick="addLanguage()">Thêm</button>
 				</div>
 
 				<!-- Sở Thích -->
@@ -82,19 +81,18 @@
 					<h3 class="section-title">Sở Thích</h3>
 					<ul id="hobbies-list">
 						<li><input class="hidden-input" type="text"
-							placeholder="Sở thích">
-							<button class="add-button" onclick="addHobby()">Thêm</button></li>
+							placeholder="Sở thích"></li>
 					</ul>
-
+					<button class="add-button" onclick="addHobby()">Thêm</button>
 				</div>
 				<div class="section">
 					<h3 class="section-title">Kỹ Năng</h3>
 					<ul id="skills-list">
 						<li><input class="hidden-input" type="text"
-							placeholder="Kỹ Năng">
-							<button class="add-button" onclick="addSkill()">Thêm</button></li>
+							placeholder="Kỹ Năng"></li>
 					</ul>
-
+					<!-- Nút Thêm nằm ngoài thẻ <ul> -->
+					<button class="add-button" onclick="addSkill()">Thêm</button>
 				</div>
 			</div>
 
@@ -116,10 +114,9 @@
 							placeholder="Tên Dự Án"> <input class="hidden-input"
 							type="text" placeholder="Thời Gian"> <textarea
 								class="hidden-input" placeholder="Mô Tả" rows="4"
-								style="width: 100%;"></textarea>
-							<button class="add-button" onclick="addExperience()">Thêm</button></li>
+								style="width: 100%;"></textarea></li>
 					</ul>
-
+					<button class="add-button" onclick="addExperience()">Thêm</button>
 				</div>
 			</div>
 		</div>
@@ -134,52 +131,56 @@
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
 	<script>
-	function addEducation() {
-	    const educationList = document.getElementById('education-list');
-	    const newEducation = document.createElement('li');
-	    newEducation.innerHTML = `
-	        <input class="hidden-input" type="text" placeholder="Trường Học">
-	        <input class="hidden-input" type="text" placeholder="Chuyên Ngành">
-	        <input class="hidden-input" type="text" placeholder="Thời Gian">
-	    `;
-	    educationList.insertBefore(newEducation, educationList.firstChild); // Thêm vào đầu danh sách
-	}
+    // Thêm mới trường học
+    function addEducation() {
+        const educationList = document.getElementById('education-list');
+        const newEducation = document.createElement('li');
+        newEducation.innerHTML = `
+            <input class="hidden-input project-name" type="text" placeholder="Trường Học">
+            <input class="hidden-input" type="text" placeholder="Chuyên Ngành">
+            <input class="hidden-input" type="text" placeholder="Thời Gian">
+        `;
+        educationList.appendChild(newEducation); // Thêm vào cuối danh sách
+    }
 
-	function addLanguage() {
-	    const languageList = document.getElementById('languages-list');
-	    const newLanguage = document.createElement('li');
-	    newLanguage.innerHTML = `
-	        <input class="hidden-input" type="text" placeholder="Ngôn Ngữ">
-	        
-	    `;
-	    languageList.insertBefore(newLanguage, languageList.firstChild); // Thêm vào đầu danh sách
-	}
+    // Thêm mới ngôn ngữ
+    function addLanguage() {
+        const languageList = document.getElementById('languages-list');
+        const newLanguage = document.createElement('li');
+        newLanguage.innerHTML = `
+            <input class="hidden-input" type="text" placeholder="Ngôn Ngữ">
+        `;
+        languageList.appendChild(newLanguage); // Thêm vào cuối danh sách
+    }
 
-	function addHobby() {
-	    const hobbyList = document.getElementById('hobbies-list');
-	    const newHobby = document.createElement('li');
-	    newHobby.innerHTML = '<input class="hidden-input" type="text" placeholder="Sở thích">';
-	    hobbyList.insertBefore(newHobby, hobbyList.firstChild); // Thêm vào đầu danh sách
-	}
+    // Thêm mới sở thích
+    function addHobby() {
+        const hobbyList = document.getElementById('hobbies-list');
+        const newHobby = document.createElement('li');
+        newHobby.innerHTML = '<input class="hidden-input" type="text" placeholder="Sở Thích">';
+        hobbyList.appendChild(newHobby); // Thêm vào cuối danh sách
+    }
 
-	function addSkill() {
-	    const skillList = document.getElementById('skills-list');
-	    const newSkill = document.createElement('li');
-	    newSkill.innerHTML = '<input class="hidden-input" type="text" placeholder="Kỹ Năng">';
-	    skillList.insertBefore(newSkill, skillList.firstChild); // Thêm vào đầu danh sách
-	}
+    // Thêm mới kỹ năng
+    function addSkill() {
+        const skillList = document.getElementById('skills-list');
+        const newSkill = document.createElement('li');
+        newSkill.innerHTML = '<input class="hidden-input" type="text" placeholder="Kỹ Năng">';
+        skillList.appendChild(newSkill); // Thêm vào cuối danh sách
+    }
 
-	function addExperience() {
-	    const experienceList = document.getElementById('experience-list');
-	    const newExperience = document.createElement('li');
-	    newExperience.innerHTML = `
-	        <input class="hidden-input project-name" type="text" placeholder="Tên Dự Án">
-	        <input class="hidden-input" type="text" placeholder="Thời Gian">
-	        <textarea class="hidden-input" placeholder="Mô Tả" rows="4" style="width: 100%;"></textarea>
-	    `;
-	    experienceList.insertBefore(newExperience, experienceList.firstChild); // Thêm vào đầu danh sách
-	}
-	</script>
+    // Thêm mới kinh nghiệm làm việc
+    function addExperience() {
+        const experienceList = document.getElementById('experience-list');
+        const newExperience = document.createElement('li');
+        newExperience.innerHTML = `
+            <input class="hidden-input project-name" type="text" placeholder="Tên Dự Án">
+            <input class="hidden-input" type="text" placeholder="Thời Gian">
+            <textarea class="hidden-input" placeholder="Mô Tả" rows="4" style="width: 100%;"></textarea>
+        `;
+        experienceList.appendChild(newExperience); // Thêm vào cuối danh sách
+    }
+</script>
 	<script>
 	function downloadCVAsPDF() {
 	    const { jsPDF } = window.jspdf;
