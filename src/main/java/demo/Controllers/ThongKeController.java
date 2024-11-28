@@ -49,20 +49,27 @@ public class ThongKeController {
 
 	@GetMapping("")
 	public String getSoldServices(Model model) {
-		// Lấy danh sách dịch vụ đã bán từ userServicesDao
-		List<UserServicesEntity> qlTK = userServicesDao.selectServiceSold(LocalDate.now());
-		//thống kê trong ngày
-		Long countJoblisting = joblistingsDao.countJobToDay(LocalDate.now());
-		Long countUser = userDao.count();
-		Long countService = userServicesDao.countServiceSold(LocalDate.now());
-		// Đưa danh sách vào model để sử dụng trong view
-		model.addAttribute("qlTK", qlTK);
-		model.addAttribute("countJoblisting", countJoblisting);
-		model.addAttribute("countUser", countUser);
-		model.addAttribute("countService", countService);
-		model.addAttribute("status", "d-none");
-		System.out.println("job" +countJoblisting);
-		return "thongKeMoi";
+	    // Chuyển đổi LocalDate thành LocalDateTime (bắt đầu ngày hôm nay)
+	    LocalDateTime startOfDay = LocalDate.now().atStartOfDay();  // 00:00:00 hôm nay
+	    LocalDateTime endOfDay = LocalDate.now().atTime(23, 59, 59);  // 23:59:59 hôm nay
+
+	    // Lấy danh sách dịch vụ đã bán từ userServicesDao
+	    List<UserServicesEntity> qlTK = userServicesDao.selectServiceSold(startOfDay, endOfDay);
+
+	    // Thống kê trong ngày
+	    Long countJoblisting = joblistingsDao.countJobToDay(LocalDate.now());
+	    Long countUser = userDao.count();
+	    Long countService = userServicesDao.countServiceSold(startOfDay, endOfDay);
+
+	    // Đưa danh sách vào model để sử dụng trong view
+	    model.addAttribute("qlTK", qlTK);
+	    model.addAttribute("countJoblisting", countJoblisting);
+	    model.addAttribute("countUser", countUser);
+	    model.addAttribute("countService", countService);
+	    model.addAttribute("status", "d-none");
+
+	    System.out.println("job" + countJoblisting);
+	    return "thongKeMoi";
 	}
 
 	@PostMapping("")

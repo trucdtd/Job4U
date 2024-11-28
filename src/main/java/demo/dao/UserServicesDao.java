@@ -44,10 +44,10 @@ public interface UserServicesDao extends JpaRepository<UserServicesEntity, Integ
 	@Query("SELECT j FROM UserServicesEntity j WHERE j.purchasedate >= :startDate AND j.purchasedate <= :endDate")
 	List<UserServicesEntity> selectUSStartDateEndDateList(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
-	@Query("SELECT FROM UserServicesEntity j WHERE j.purchasedate = :toDay")
-	List<UserServicesEntity> selectServiceSold(@Param("toDay") LocalDate toDay);
-	
-	@Query("SELECT COUNT(j.userserviceid) FROM UserServicesEntity j WHERE j.purchasedate = :toDay")
-	Long countServiceSold(@Param("toDay") LocalDate toDay);
+	@Query("SELECT j FROM UserServicesEntity j WHERE j.purchasedate >= :startOfDay AND j.purchasedate <= :endOfDay")
+	List<UserServicesEntity> selectServiceSold(@Param("startOfDay") LocalDateTime startOfDay, @Param("endOfDay") LocalDateTime endOfDay);
+
+	@Query("SELECT COUNT(j.userserviceid) FROM UserServicesEntity j WHERE j.purchasedate >= :startOfDay AND j.purchasedate <= :endOfDay")
+	Long countServiceSold(@Param("startOfDay") LocalDateTime startOfDay, @Param("endOfDay") LocalDateTime endOfDay);
 	
 }
