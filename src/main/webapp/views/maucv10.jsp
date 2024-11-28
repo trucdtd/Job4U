@@ -20,8 +20,199 @@
 
 <!-- html2pdf Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
-</head>
+<link rel="stylesheet" href="/css/cv10.css">
 <body>
+<html>
+<!-- header -->
+<%@ include file="/views/headerNoPanner.jsp"%>
+<%@ include file="/views/chat.jsp"%>
+<div class="cv-container" id="cv-content">
 
+	<div class="sidebar" id="sortable-left">
+		<input type="file" id="fileInput" onchange="previewImage(event)"
+			accept="image/*" style="display: none;"> <img
+			id="profileImage" src="https://via.placeholder.com/150"
+			alt="Profile Photo" class="sidebar-img"
+			onclick="document.getElementById('fileInput').click();">
+		<div class="section">
+			<h3 class="section-title">Contact</h3>
+			<ul>
+				<li><input class="hidden-input" type="text" placeholder="Email"></li>
+				<li><input class="hidden-input" type="text"
+					placeholder="Số Điện Thoại"></li>
+				<li><input class="hidden-input" type="text"
+					placeholder="Giới Tính"></li>
+				<li><input class="hidden-input" type="date"
+					placeholder="Ngày Sinh"></li>
+				<li><input class="hidden-input" type="text"
+					placeholder="Địa Chỉ"></li>
+
+			</ul>
+		</div>
+
+		<div class="section">
+			<h3 class="section-title">Kỹ Năng</h3>
+			<ul id="skills-list">
+				<li><input class="hidden-input" type="text"
+					placeholder="Kỹ Năng"></li>
+			</ul>
+			<button class="add-button" onclick="addSkill()">Thêm</button>
+		</div>
+
+		<div class="section">
+			<h3 class="section-title">Học Vấn</h3>
+			<ul id="education-list">
+				<li><input class="hidden-input" type="text"
+					placeholder="Tên Trường"> <input class="hidden-input"
+					type="text" placeholder="Thời Gian Học"> <textarea
+						style="width: 100%;" class="hidden-input"
+						placeholder="Mô Tả Ngành Học"></textarea></li>
+			</ul>
+			<button class="add-button" onclick="addEducation()">Thêm</button>
+		</div>
+	</div>
+
+	<!-- Main Content -->
+	<div class="main-content" id="sortable-right">
+		<div class="main-header">
+			<h1 contenteditable="true">NGUYỄN VĂN A</h1>
+			<h4 contenteditable="true">Quản Lý Tiếp Thị</h4>
+		</div>
+
+		<div class="section">
+			<h3 class="section-title">Giới Thiệu Bản Thân</h3>
+			<textarea class="hidden-input"
+				placeholder="Write something about yourself..."></textarea>
+		</div>
+
+		<div class="section">
+			<h3 class="section-title">Dự Án Đã Tham Gia</h3>
+			<div class="experience">
+				<ul id="projects-list">
+					<li><input class="hidden-input" type="text"
+						placeholder="Tên Dự Án"> <input class="hidden-input"
+						type="text" placeholder="Thời Gian"> <textarea
+							class="hidden-input" placeholder="Mô Tả"></textarea></li>
+				</ul>
+				<button class="add-button" onclick="addProject()">Thêm</button>
+			</div>
+		</div>
+
+		<div class="section references">
+			<h3 class="section-title">Sở Thích</h3>
+			<ul id="hobbies-list">
+				<li><input class="hidden-input" type="text"
+					placeholder="Sở Thích"></li>
+			</ul>
+			<button class="add-button" onclick="addHobby()">Thêm</button>
+		</div>
+	</div>
+</div>
+<div class="button-container">
+	<button class="download-button" type="button"
+		onclick="downloadCVAsPDF()">Tải CV Dưới Dạng PDF</button>
+</div>
+<!-- footer -->
+<%@ include file="/views/footer.jsp"%>
+<!-- footer -->
+<script>
+function addSkill() {
+    const skillsList = document.getElementById("skills-list");
+    const newSkill = document.createElement("li");
+    newSkill.innerHTML = `<input class="hidden-input" type="text" placeholder="Kỹ Năng">`;
+    skillsList.appendChild(newSkill);
+}
+
+function addEducation() {
+    const educationList = document.getElementById("education-list");
+    const newEducation = document.createElement("li");
+    newEducation.innerHTML = `
+        <input class="hidden-input" type="text" placeholder="Tên Trường">
+        <input class="hidden-input" type="text" placeholder="Thời Gian Học">
+        <textarea class="hidden-input" placeholder="Mô Tả Ngành Học"></textarea>
+    `;
+    educationList.appendChild(newEducation);
+}
+
+function addProject() {
+    const projectsList = document.getElementById("projects-list");
+    const newProject = document.createElement("li");
+    newProject.innerHTML = `
+        <input class="hidden-input" type="text" placeholder="Tên Dự Án">
+        <input class="hidden-input" type="text" placeholder="Thời Gian">
+        <textarea class="hidden-input" placeholder="Mô Tả"></textarea>
+    `;
+    projectsList.appendChild(newProject);
+}
+
+function addHobby() {
+    const hobbiesList = document.getElementById("hobbies-list");
+    const newHobby = document.createElement("li");
+    newHobby.innerHTML = `<input class="hidden-input" type="text" placeholder="Sở Thích">`;
+    hobbiesList.appendChild(newHobby);
+}
+//Enable drag-and-drop functionality for sections in both columns
+document.addEventListener("DOMContentLoaded", function() {
+	// Enable dragging within left column
+	new Sortable(document.getElementById("sortable-left"), {
+		animation : 150,
+		group : "shared",
+		draggable : ".section",
+		handle : ".section-title",
+		ghostClass : "sortable-ghost"
+	});
+
+	// Enable dragging within right column
+	new Sortable(document.getElementById("sortable-right"), {
+		animation : 150,
+		group : "shared",
+		draggable : ".section",
+		handle : ".section-title",
+		ghostClass : "sortable-ghost"
+	});
+});
+function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        var output = document.getElementById('profileImage');
+        output.src = reader.result;  // Cập nhật ảnh sau khi chọn
+    };
+    reader.readAsDataURL(event.target.files[0]);  // Đọc ảnh đã chọn
+}
+</script>
+<script>
+	function downloadCVAsPDF() {
+	    const { jsPDF } = window.jspdf;
+	    const cvContent = document.getElementById('cv-content'); // Your CV container
+
+	    // Ensure html2pdf is loaded correctly
+	    const options = {
+	        margin: [10, 10, 10, 10], // Set margins
+	        filename: 'CV.pdf', // The filename of the PDF
+	        html2canvas: { scale: 2 }, // Increase the scale for better quality
+	        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
+	    };
+
+	    // Use html2pdf to convert HTML to PDF
+	    html2pdf().from(cvContent).set(options).save();
+	}
+	</script>
+<script>
+		// Hàm tự động thay đổi chiều cao
+		function autoResizeTextarea(textarea) {
+		  textarea.style.height = 'auto'; // Đặt chiều cao về auto để tính lại kích thước
+		  textarea.style.height = textarea.scrollHeight + 'px'; // Gán chiều cao bằng chiều cao nội dung
+		}
+		
+		// Gắn sự kiện cho textarea
+		document.querySelectorAll('textarea').forEach((textarea) => {
+		  textarea.addEventListener('input', function () {
+		    autoResizeTextarea(this);
+		  });
+		
+		  // Gọi hàm ngay khi tải trang (để điều chỉnh nếu có dữ liệu sẵn)
+		  autoResizeTextarea(textarea);
+		});
+	</script>
 </body>
 </html>

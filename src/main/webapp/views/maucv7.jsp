@@ -36,7 +36,7 @@
 			onclick="document.getElementById('fileInput').click();">
 		<div class="section">
 			<h3 class="section-title">Contact</h3>
-			<ul>
+			<ul id="contact-list">
 				<li><input class="hidden-input" type="text" placeholder="Email"></li>
 				<li><input class="hidden-input" type="text"
 					placeholder="Số Điện Thoại"></li>
@@ -82,7 +82,7 @@
 		<div class="section">
 			<h3 class="section-title">Giới Thiệu Bản Thân</h3>
 			<textarea class="hidden-input"
-				placeholder="Write something about yourself..."></textarea>
+				placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh.""></textarea>
 		</div>
 
 		<div class="section">
