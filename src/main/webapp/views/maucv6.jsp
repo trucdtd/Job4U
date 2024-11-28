@@ -238,23 +238,23 @@
 		});
 		</script>
 	<script>
-		document.getElementById('profile-pic-input').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    const preview = document.getElementById('profile-pic-preview');
-    const input = document.getElementById('profile-pic-input');
-
-    if (file) {
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            preview.style.display = 'block'; // Hiển thị ảnh preview
-            preview.src = e.target.result; // Đặt nguồn cho ảnh preview
-            input.style.display = 'none'; // Ẩn nút chọn ảnh
-        }
-
-        reader.readAsDataURL(file); // Đọc ảnh đã chọn
-    }
-});
+			document.getElementById('profile-pic-input').addEventListener('change', function(event) {
+	    const file = event.target.files[0];
+	    const preview = document.getElementById('profile-pic-preview');
+	    const input = document.getElementById('profile-pic-input');
+	
+	    if (file) {
+	        const reader = new FileReader();
+	        
+	        reader.onload = function(e) {
+	            preview.style.display = 'block'; // Hiển thị ảnh preview
+	            preview.src = e.target.result; // Đặt nguồn cho ảnh preview
+	            input.style.display = 'none'; // Ẩn nút chọn ảnh
+	        }
+	
+	        reader.readAsDataURL(file); // Đọc ảnh đã chọn
+	    }
+	});
 		</script>
 </body>
 </html>
