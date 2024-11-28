@@ -14,6 +14,7 @@
 <!-- jQuery -->
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="/css/thongke.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
 
@@ -21,7 +22,7 @@
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
-	
+
 	<%@ include file="/views/chat.jsp"%>
 	<br>
 	<!-- header -->
@@ -349,7 +350,8 @@
 								<div class="row mb-3">
 									<div class="col-md-6">
 										<label for="">Tên Dịch Vụ:</label> <input class="form-control"
-											type="text" id="servicename" name="servicename" placeholder="Nhập tên goi dịch vụ">
+											type="text" id="servicename" name="servicename"
+											placeholder="Nhập tên goi dịch vụ">
 									</div>
 									<div class="col-md-6">
 										<label for="salary">Giá:</label> <input class="form-control"
@@ -362,7 +364,8 @@
 									<div class="col-md-6">
 										<label for="">Số lượng bài viết</label> <input
 											class="form-control" type="text" id="numberofjobsallowed"
-											name="numberofjobsallowed" placeholder="Tổng số lượng bài viết">
+											name="numberofjobsallowed"
+											placeholder="Tổng số lượng bài viết">
 									</div>
 									<div class="col-md-6">
 										<label for="contactperson">Thời gian chạy dịch vụ: </label> <input
@@ -433,23 +436,89 @@
 					</div>
 
 					<!--statisticalManagement table -->
-					<div id="statisticalManagement"
+					<%-- <div id="statisticalManagement"
 						class="card shadow-sm rounded-4 border-0"
 						style="display: none; background-color: #eafaf1;">
 						<div
 							class="card-header bg-success text-white d-flex align-items-center rounded-top">
-							<h5 class="card-title mb-0">Quản Lý Thống Kê</h5>
+							<h5 class="card-title mb-0">
+								Thống Kê <i class="bi bi-graph-up ms-2"></i>
+							</h5>
 						</div>
 						<div class="card-body">
-							<h6 class="mb-3 text-secondary">
-								<ol class="breadcrumb bg-transparent p-0 m-0">
-									<li class="breadcrumb-item"><a href="/thongke"
-										class="text-decoration-none text-success">Thống kê chi
-											tiết</a> <i class="bi bi-graph-up ms-2"></i></li>
-								</ol>
-							</h6>
+							<div class="alert alert-danger ${status}" role="alert">${text}</div>
+							<div class="d-flex align-items-center">
+								<form action="/thongke" method="post" class="d-flex rounded-3">
+									<div class="mb-3 me-2">
+										<input type="date" class="form-control border-0 shadow"
+											name="startdate" id="" aria-describedby="helpId"
+											placeholder="" />
+									</div>
+									<div class="mb-3 me-3">
+										<input type="date" class="form-control border-0 shadow"
+											name="enddate" id="" aria-describedby="helpId" placeholder="" />
+									</div>
+									<div class="mb-3 me-2">
+										<button type="submit" class="btn btn-success mt-0 shadow">Thống
+											kê</button>
+									</div>
+									<div class="mb-3 me-2">
+										<a type="button" href="/thongke"
+											class="btn btn-warning shadow">Thống kê tất cả</a>
+									</div>
+								</form>
+								<div class="mb-3 me-2">
+									<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
+										Excel</button>
+								</div>
+							</div>
+							<hr>
+							<div class="container-fluid row d-flex justify-content-around">
+								<div class="col-12 col-sm-3 bg-white shadow rounded-2">
+									<h5 class="text-center">
+										Người dùng
+									</h5>
+									<div class="d-flex align-items-center justify-content-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<i class="bi bi-people"></i>
+										</div>
+										<div class="ps-3">
+											<h6 id="user-count">${countUser}</h6>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-sm-3 bg-white shadow rounded-2">
+									<h5 class="text-center">
+										Bài viết
+									</h5>
+									<div class="d-flex align-items-center justify-content-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<i class="bi bi-file-text"></i>
+										</div>
+										<div class="ps-3">
+											<h6 id="user-count">${countJoblisting}</h6>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-sm-3 bg-white shadow rounded-2">
+									<h5 class="text-center">
+										Dịch vụ đã bán
+									</h5>
+									<div class="d-flex align-items-center justify-content-center">
+										<div
+											class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+											<i class="bi bi-cart"></i>
+										</div>
+										<div class="ps-3">
+											<p>${countService }</p>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
+					</div> --%>
 
 					<div id="violationManagement" class="card p-2"
 						style="display: none;">
@@ -472,15 +541,17 @@
 										<c:forEach items="${qlvp}" var="vp">
 											<tr>
 												<th scope="row">${vp.user.username}</th>
-												<td>Tài khoàn: ${vp.employers.employerid} <br> Tên TK: ${vp.employers.companyname}</td>
+												<td>Tài khoàn: ${vp.employers.employerid} <br> Tên
+													TK: ${vp.employers.companyname}
+												</td>
 												<td>${vp.job.jobtitle}</td>
 												<td>${vp.reason}</td>
 												<td><div
 														style="display: flex; align-items: center; gap: 10px;">
-														<a href="/admin/.." class="btn"
-															type="button" title="Xem Chi Tiết"> <img
-															src="/img/detail-icon.png" style="padding-bottom: 7px;"
-															width="25px" height="30px" alt="Detail">
+														<a href="/admin/.." class="btn" type="button"
+															title="Xem Chi Tiết"> <img src="/img/detail-icon.png"
+															style="padding-bottom: 7px;" width="25px" height="30px"
+															alt="Detail">
 														</a>
 													</div></td>
 											</tr>

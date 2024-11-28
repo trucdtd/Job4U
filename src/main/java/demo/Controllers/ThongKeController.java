@@ -50,17 +50,18 @@ public class ThongKeController {
 	@GetMapping("")
 	public String getSoldServices(Model model) {
 		// Lấy danh sách dịch vụ đã bán từ userServicesDao
-		List<UserServicesEntity> qlTK = userServicesDao.findAll();
-		Long countJoblisting = joblistingsDao.count();
+		List<UserServicesEntity> qlTK = userServicesDao.selectServiceSold(LocalDate.now());
+		//thống kê trong ngày
+		Long countJoblisting = joblistingsDao.countJobToDay(LocalDate.now());
 		Long countUser = userDao.count();
-		Long countService = userServicesDao.count();
+		Long countService = userServicesDao.countServiceSold(LocalDate.now());
 		// Đưa danh sách vào model để sử dụng trong view
 		model.addAttribute("qlTK", qlTK);
 		model.addAttribute("countJoblisting", countJoblisting);
 		model.addAttribute("countUser", countUser);
 		model.addAttribute("countService", countService);
 		model.addAttribute("status", "d-none");
-		// Trả về tên view (ví dụ "thongke" là tên của file HTML)
+		System.out.println("job" +countJoblisting);
 		return "thongKeMoi";
 	}
 
