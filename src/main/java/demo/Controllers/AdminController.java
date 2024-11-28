@@ -30,6 +30,7 @@ import demo.entity.PaymentsEntity;
 import demo.entity.ReportEntity;
 import demo.entity.ServicesEntity;
 import demo.entity.UsersEntity;
+import demo.services.EmailService;
 import demo.services.UserService;
 import demo.entity.EmployersEntity;
 import demo.entity.JobSeekersEntity;
@@ -58,6 +59,9 @@ public class AdminController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	PaymentsDao paymentsDao;
@@ -342,18 +346,28 @@ public class AdminController {
 
 	@PostMapping("/hidePost/{jobid}")
 	public String hidePost(@PathVariable Integer jobid, RedirectAttributes redirectAttributes) {
-		// Lấy thông tin bài viết từ database
-		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
+	    // Lấy thông tin bài viết từ database
+	    JoblistingsEntity job = joblistingsDao.findById(jobid)
+	            .orElseThrow(() -> new RuntimeException("Job not found"));
 
-		// Cập nhật trạng thái ẩn bài viết
-		job.setActive(false);
-		joblistingsDao.save(job);
+	    // Lấy thông tin nhà tuyển dụng từ bài viết
+	    EmployersEntity employer = job.getEmployer();
+	    UsersEntity user = employer.getUser(); // Lấy thông tin người dùng liên kết
 
-		// Thêm thông báo ẩn thành công
-		redirectAttributes.addFlashAttribute("message", "Đã ẩn bài viết thành công!");
+	    // Cập nhật trạng thái ẩn bài viết
+	    job.setActive(false);
+	    joblistingsDao.save(job);
 
-		return "redirect:/admin/detailPost/" + jobid; // Quay về trang admin
+	    String reason = "Bài viết vi phạm các quy định của chúng tôi"; // Ví dụ lý do xóa bài viết
+	    emailService.sendDeletionNotificationEmail(user.getEmail(), job.getJobtitle(), reason); // Gọi phương thức gửi email
+
+	    // Thêm thông báo ẩn thành công
+	    redirectAttributes.addFlashAttribute("message", "Đã ẩn bài viết thành công và gửi email thông báo!");
+
+	    return "redirect:/admin/detailPost/" + jobid; // Quay về trang admin
 	}
+	
+	
 
 	@PostMapping("/showPost/{jobid}")
 	public String showPost(@PathVariable Integer jobid, RedirectAttributes redirectAttributes) {

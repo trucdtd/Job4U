@@ -41,6 +41,21 @@ public class EmailService {
 
 	    mailSender.send(message);
 	}
+	
+	public void sendDeletionNotificationEmail(String toEmail, String jobTitle, String reason) {
+	    SimpleMailMessage message = new SimpleMailMessage();
+	    message.setTo(toEmail);
+	    message.setSubject("Thông báo về việc xóa bài viết");
 
+	    // Chèn thông tin tiêu đề công việc và lý do xóa bài viết vào nội dung email
+	    message.setText("Kính gửi Quý công ty,\n\n" +
+	                    "Chúng tôi rất tiếc phải thông báo rằng bài viết của bạn về công việc \"" + jobTitle + 
+	                    "\" đã bị xóa vì lý do: " + reason + ".\n\n" +
+	                    "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi.\n\n" +
+	                    "Trân trọng,\nĐội ngũ quản trị");
+
+	    mailSender.send(message);
 	}
+
+}
 
