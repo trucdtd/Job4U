@@ -543,7 +543,7 @@
 										<c:forEach items="${qlvp}" var="vp">
 											<tr>
 												<th scope="row">${vp.user.username}</th>
-												<td>Tài khoàn: ${vp.employers.employerid} <br> Tên
+												<td>Tài khoản: ${vp.employers.employerid} <br> Tên
 													TK: ${vp.employers.companyname}
 												</td>
 												<td>${vp.job.jobtitle}</td>
@@ -554,12 +554,7 @@
 														<a href="/admin/detailPost/${vp.job.jobid}" class="btn"
 															type="button" title="Xem Chi Tiết"> <img
 															src="/img/detail-icon.png" style="padding-bottom: 7px;"
-															width="25px" height="30px" alt="Detail">
-														<!-- <a href="/admin/.." class="btn" type="button"
-															title="Xem Chi Tiết"> <img src="/img/detail-icon.png"
-															style="padding-bottom: 7px;" width="25px" height="30px"
-															alt="Detail">
-														</a> -->
+															width="25px" height="30px" alt="Detail">														
 													</div></td>
 													
 											</tr>
