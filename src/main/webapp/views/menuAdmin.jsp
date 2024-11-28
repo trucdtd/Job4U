@@ -33,7 +33,7 @@
 </style>
 </head>
 <body>
-	<div class="col-lg-3 col-md-3 p-2 d-flex">
+	<div class="col-lg-3 col-md-3 d-flex">
 		<div class="card p-3 text-dark" style="width: 100%;">
 
 			<a href="#"
@@ -78,8 +78,8 @@
 						width="20" height="20"
 						src="https://img.icons8.com/material-outlined/24/error--v1.png"
 						alt="card-in-use" /> Quản Lý Vi Phạm </a></li>
-				<li><a href="#" class="navqlndung nav-link text-dark"
-					onclick="showTable(event, 'statisticalManagement')"><img
+				<li><a href="/thongke" class="navqlndung nav-link text-dark"
+					><img
 						width="20" height="20"
 						src="https://img.icons8.com/ios/50/card-in-use.png"
 						alt="card-in-use" />Thống Kê </a></li>

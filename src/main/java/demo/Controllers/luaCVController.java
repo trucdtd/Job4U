@@ -120,5 +120,23 @@ public class luaCVController {
 	public String xtruocCV7() {
 		return "xemtruoccv7";
 	}
+	
+	/* cv8 */
+	@RequestMapping("/mauCV8")
+	public String luaChonCV8() {
+		return "maucv8";
+	}
+	
+	/* cv9 */
+	@RequestMapping("/mauCV9")
+	public String luaChonCV9() {
+		return "maucv9";
+	}
+	
+	/* cv10 */
+	@RequestMapping("/mauCV10")
+	public String luaChonCV10() {
+		return "maucv10";
+	}
 
 }
