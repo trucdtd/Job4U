@@ -1,9 +1,9 @@
 package demo.classes;
 
 public class Constants {
-	public static String GOOGLE_CLIENT_ID = "838367854070-u22cunk470biafaufj4rp9l5nuu9nfah.apps.googleusercontent.com";
+	public static String GOOGLE_CLIENT_ID = "188682304734-rvoadilphku9jsuanh1jvdomglpnpd0r.apps.googleusercontent.com";
 
-	public static String GOOGLE_CLIENT_SECRET = "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";
+	public static String GOOGLE_CLIENT_SECRET = "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";
 
 	public static String GOOGLE_REDIRECT_URI = "http://localhost:8080/Job4U/DangNhapGoogle";
 
