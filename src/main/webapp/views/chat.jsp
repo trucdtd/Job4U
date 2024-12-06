@@ -35,7 +35,7 @@
 }
 
 #additional-button {
-	background-color: #6c757d;
+	
 	border-radius: 50%;
 	color: white;
 	bottom: 70px; /* Đặt cách nút chat một khoảng */
@@ -67,7 +67,7 @@
 	display: flex;
 	align-items: center;
 	color: white;
-	background-color: #007bff;
+	
 	border-radius: 50px;
 	padding: 10px;
 	margin-left: 10px;

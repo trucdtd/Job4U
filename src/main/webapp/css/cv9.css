@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f9f9f9;
+}
+
+.containerr {
+	max-width: 900px;
+	margin: 20px auto;
+	padding: 20px;
+	background: white;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.header {
+	text-align: center;
+	padding: 40px 0;
+	border-bottom: 2px solid #ddd;
+	background-color: #e3f2fd;
+}
+
+.header input {
+	font-size: 24px;
+	text-align: center;
+	border: none;
+	border-bottom: 2px solid #ddd;
+	margin-bottom: 10px;
+	outline: none;
+	padding: 5px;
+	width: 100%;
+}
+
+.content {
+	display: flex;
+	gap: 20px;
+}
+
+.left-column {
+	flex: 3;
+	border-right: 2px solid #ddd;
+	padding-right: 20px;
+}
+
+.right-column {
+	flex: 7;
+	padding-left: 20px;
+}
+
+.section {
+	margin-bottom: 20px;
+}
+
+.section h2 {
+	font-size: 20px;
+	color: #333;
+	border-bottom: 2px solid #ddd;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+input{
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+textarea {
+	width: 100%;
+	padding: 10px;
+	overflow: hidden; /* Ẩn thanh cuộn */
+	resize: none; /* Tắt tính năng thay đổi kích thước */
+}
+
+/* Thêm style cho nút "Thêm" */
+.add-button {
+	display: none; /* Ẩn mặc định */
+	padding: 10px 20px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: background-color 0.3s ease;
+	margin-top: 10px;
+}
+
+.section:hover .add-button {
+	display: inline-block;
+	/* Hiển thị nút "Thêm" khi hover vào phần `.section` */
+}
+
+.hidden-input {
+  border: none;
+  outline: none;
+  background: none;
+  color: inherit;
+
+  /* Khi hover vào */
+  &:hover {
+    border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
+  }
+}
+.project-name {
+	font-size: 18px; /* Kích thước chữ lớn hơn */
+	font-weight: bold; /* Chữ đậm hơn */
+	color: #333; /* Tùy chỉnh màu sắc (tùy chọn) */
+}
+
+.button-container {
+	display: flex; /* Aligns buttons horizontally */
+	justify-content: center; /* Centers buttons */
+	gap: 10px; /* Adds space between buttons */
+	margin-top: 20px;
+}
+
+.download-button {
+	background-color: #4CAF50; /* Green background */
+	color: white; /* White text */
+	border: none; /* Remove border */
+	padding: 10px 20px; /* Add padding */
+	font-size: 14px; /* Adjust font size */
+	cursor: pointer; /* Pointer cursor on hover */
+	border-radius: 4px; /* Rounded corners */
+	transition: background-color 0.3s; /* Smooth transition on hover */
+}

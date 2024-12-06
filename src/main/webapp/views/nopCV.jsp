@@ -80,6 +80,9 @@
 			</div>
 		</div>
 	</div>
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
 	${script}
 	<script>
 		document.getElementById('cvOptions').addEventListener(
