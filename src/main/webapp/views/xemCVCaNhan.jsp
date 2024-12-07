@@ -273,7 +273,7 @@ p {
 	<div class="container mt-4">
 
 		<form action="/user/updateCv/${cv.jobseekerid}" method="post"
-		enctype="multipart/form-data">
+			enctype="multipart/form-data">
 			<div class="cv-container" id="cv-content">
 				<div class="left-column" id="sortable-left">
 					<div class="profile-photo">
@@ -352,10 +352,9 @@ p {
 			</div>
 
 
+
 			<!-- </div> -->
 			<div class="text-center mt-4 mb-4">
-				<button class="btn btn-primary" onclick="downloadPDF()">Tải
-					CV Dưới Dạng PDF</button>
 				<!-- Nút Cập Nhật -->
 				<div class="text-center mt-4 mb-4">
 					<button type="submit" class="btn btn-success">Cập nhật</button>
@@ -363,6 +362,12 @@ p {
 
 			</div>
 		</form>
+		<div class="text-center mt-4 mb-4">
+			<!-- Nút Cập Nhật -->
+			<button class="btn btn-primary" onclick="downloadPDF()">Tải
+				CV Dưới Dạng PDF</button>
+
+		</div>
 	</div>
 
 
