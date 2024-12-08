@@ -58,7 +58,7 @@
 								<option value="Du lịch">Du lịch</option>
 								<option value="Hành chính văn phòng">Hành chính văn
 									phòng</option>
-								<option value="Bán lẻ">Bán lẻ</option>
+								<option value="Thương mại điện tử">Thương mại điện tử</option>
 								<option value="Nhà hàng khách sạn">Nhà hàng khách sạn</option>
 								<option value="Quản trị kinh doanh">Quản trị kinh doanh</option>
 								<option value="Xuất nhập khẩu">Xuất nhập khẩu</option>
