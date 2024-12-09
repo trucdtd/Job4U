@@ -16,10 +16,12 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- html2pdf Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <link rel="stylesheet" href="/css/cv7.css">
 <body>
 <html>
@@ -27,7 +29,6 @@
 <%@ include file="/views/headerNoPanner.jsp"%>
 <%@ include file="/views/chat.jsp"%>
 <div class="cv-container" id="cv-content">
-
 	<div class="sidebar" id="sortable-left">
 		<input type="file" id="fileInput" onchange="previewImage(event)"
 			accept="image/*" style="display: none;"> <img
@@ -36,7 +37,7 @@
 			onclick="document.getElementById('fileInput').click();">
 		<div class="section">
 			<h3 class="section-title">Contact</h3>
-			<ul>
+			<ul id="contact-list">
 				<li><input class="hidden-input" type="text" placeholder="Email"></li>
 				<li><input class="hidden-input" type="text"
 					placeholder="Phone Number"></li>
@@ -46,7 +47,8 @@
 					placeholder="Date of Birth"></li>
 				<li><input class="hidden-input" type="text"
 					placeholder="Address"></li>
-
+				<li><input class="hidden-input" type="text"
+					placeholder="Language"></li>
 			</ul>
 		</div>
 
@@ -54,44 +56,53 @@
 			<h3 class="section-title">Skills</h3>
 			<ul id="skills-list">
 				<li><input class="hidden-input" type="text"
-					placeholder="Skills"></li>
+					placeholder="Skill"></li>
 			</ul>
 			<button class="add-button" onclick="addSkill()">Add</button>
 		</div>
-
 		<div class="section">
-			<h3 class="section-title">Education</h3>
-			<ul id="education-list">
+			<h3 class="section-title">Certificates</h3>
+			<ul id="certificates-list">
 				<li><input class="hidden-input" type="text"
-					placeholder="School Name"> <input class="hidden-input"
-					type="text" placeholder="Study Duration"> <textarea
-						style="width: 100%;" class="hidden-input"
-						placeholder="Description of Major"></textarea></li>
+					placeholder="Certificate Name"></li>
 			</ul>
-			<button class="add-button" onclick="addEducation()">Add</button>
+			<button class="add-button" onclick="addCertificate()">Add</button>
 		</div>
 	</div>
 
 	<!-- Main Content -->
 	<div class="main-content" id="sortable-right">
 		<div class="main-header">
-			<h1 contenteditable="true">Olivia Schumacher</h1>
+			<h1 contenteditable="true">OLIVIA WILSON</h1>
 			<h4 contenteditable="true">Marketing Manager</h4>
 		</div>
 
 		<div class="section">
-			<h3 class="section-title">About Me</h3>
+			<h3 class="section-title">Career Goal</h3>
 			<textarea class="hidden-input"
-				placeholder="Write something about yourself..."></textarea>
+				placeholder="I am a creative, cheerful, hardworking person who strives for excellence in everything I do. I am a curious learner always looking for ways to improve the lives of those around me."></textarea>
+		</div>
+		<div class="section">
+			<h3 class="section-title">Education</h3>
+			<div class="education">
+				<ul id="education-list">
+					<li><input class="hidden-input project-name" type="text"
+						placeholder="School Name"> <input class="hidden-input"
+						type="text" placeholder="Dates"> <textarea
+							class="hidden-input" style="width: 100%;" placeholder="Description"></textarea>
+					</li>
+				</ul>
+				<button class="add-button" onclick="addEducation()">Add</button>
+			</div>
 		</div>
 
 		<div class="section">
-			<h3 class="section-title">Projects Participated</h3>
+			<h3 class="section-title">Projects Participated In</h3>
 			<div class="experience">
 				<ul id="projects-list">
-					<li><input class="hidden-input" type="text"
+					<li><input class="hidden-input project-name" type="text"
 						placeholder="Project Name"> <input class="hidden-input"
-						type="text" placeholder="Duration"> <textarea
+						type="text" placeholder="Dates"> <textarea
 							class="hidden-input" placeholder="Description"></textarea></li>
 				</ul>
 				<button class="add-button" onclick="addProject()">Add</button>
@@ -102,7 +113,7 @@
 			<h3 class="section-title">Hobbies</h3>
 			<ul id="hobbies-list">
 				<li><input class="hidden-input" type="text"
-					placeholder="Hobbies"></li>
+					placeholder="Hobby"></li>
 			</ul>
 			<button class="add-button" onclick="addHobby()">Add</button>
 		</div>
@@ -112,6 +123,7 @@
 	<button class="download-button" type="button"
 		onclick="downloadCVAsPDF()">Download CV as PDF</button>
 </div>
+
 <!-- footer -->
 <%@ include file="/views/footer.jsp"%>
 <!-- footer -->
@@ -119,17 +131,22 @@
 function addSkill() {
     const skillsList = document.getElementById("skills-list");
     const newSkill = document.createElement("li");
-    newSkill.innerHTML = `<input class="hidden-input" type="text" placeholder="Skills">`;
+    newSkill.innerHTML = `<input class="hidden-input" type="text" placeholder="Skill">`;
     skillsList.appendChild(newSkill);
 }
-
+function addCertificate() {
+    const certificatesList = document.getElementById("certificates-list");
+    const newCertificate = document.createElement("li");
+    newCertificate.innerHTML = `<input class="hidden-input" type="text" placeholder="Certificates">`;
+    certificatesList.appendChild(newCertificate);
+}
 function addEducation() {
     const educationList = document.getElementById("education-list");
     const newEducation = document.createElement("li");
     newEducation.innerHTML = `
-        <input class="hidden-input" type="text" placeholder="School Name">
-        <input class="hidden-input" type="text" placeholder="Study Duration">
-        <textarea class="hidden-input" placeholder="Description of Major"></textarea>
+        <input class="hidden-input project-name" style="width: 100%;" type="text" placeholder="School Name">
+        <input class="hidden-input" type="text" style="width: 100%;" placeholder="Time">
+        <textarea class="hidden-input" style="width: 100%;" placeholder="Descripcation"></textarea>
     `;
     educationList.appendChild(newEducation);
 }
@@ -138,9 +155,9 @@ function addProject() {
     const projectsList = document.getElementById("projects-list");
     const newProject = document.createElement("li");
     newProject.innerHTML = `
-        <input class="hidden-input" type="text" placeholder="Project Name">
-        <input class="hidden-input" type="text" placeholder="Duration">
-        <textarea class="hidden-input" placeholder="Description"></textarea>
+        <input class="hidden-input project-name" type="text" placeholder="Project Name">
+        <input class="hidden-input" type="text" placeholder="Time">
+        <textarea class="hidden-input" style="width: 100%;" placeholder="Descripcation"></textarea>
     `;
     projectsList.appendChild(newProject);
 }
@@ -148,7 +165,7 @@ function addProject() {
 function addHobby() {
     const hobbiesList = document.getElementById("hobbies-list");
     const newHobby = document.createElement("li");
-    newHobby.innerHTML = `<input class="hidden-input" type="text" placeholder="Hobbies">`;
+    newHobby.innerHTML = `<input class="hidden-input" type="text" placeholder="Hobby">`;
     hobbiesList.appendChild(newHobby);
 }
 //Enable drag-and-drop functionality for sections in both columns
@@ -175,12 +192,42 @@ function previewImage(event) {
     var reader = new FileReader();
     reader.onload = function() {
         var output = document.getElementById('profileImage');
-        output.src = reader.result;  // Update image after selection
+        output.src = reader.result;  // Cập nhật ảnh sau khi chọn
     };
-    reader.readAsDataURL(event.target.files[0]);  // Read the selected image
+    reader.readAsDataURL(event.target.files[0]);  // Đọc ảnh đã chọn
 }
-</script>
+document.addEventListener("DOMContentLoaded", function () {
+	  function adjustInputSize() {
+	    // Lấy tất cả các input trong cv-container
+	    const inputs = document.querySelectorAll(".cv-container .hidden-input");
+	    inputs.forEach((input) => {
+	      input.style.width = "100%"; // Đặt chiều rộng cố định
+	      input.style.boxSizing = "border-box"; // Đảm bảo padding không ảnh hưởng kích thước
+	    });
+	  }
 
+	  new Sortable(document.getElementById("sortable-left"), {
+	    animation: 150,
+	    group: "shared",
+	    draggable: ".section",
+	    handle: ".section-title",
+	    ghostClass: "sortable-ghost",
+	    onEnd: adjustInputSize, // Gọi hàm khi kết thúc kéo thả
+	  });
+
+	  new Sortable(document.getElementById("sortable-right"), {
+	    animation: 150,
+	    group: "shared",
+	    draggable: ".section",
+	    handle: ".section-title",
+	    ghostClass: "sortable-ghost",
+	    onEnd: adjustInputSize, // Gọi hàm khi kết thúc kéo thả
+	  });
+
+	  // Điều chỉnh kích thước ngay khi tải trang
+	  adjustInputSize();
+	});
+</script>
 <script>
 	function downloadCVAsPDF() {
 	    const { jsPDF } = window.jspdf;

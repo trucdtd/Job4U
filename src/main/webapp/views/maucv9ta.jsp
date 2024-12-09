@@ -18,152 +18,176 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
-	<link rel="stylesheet" href="/css/cv9.css">
+<link rel="stylesheet" href="/css/cv9.css">
 </head>
 <body>
 	<!-- header -->
-<%@ include file="/views/headerNoPanner.jsp"%>
+	<%@ include file="/views/headerNoPanner.jsp"%>
 
-<%@ include file="/views/chat.jsp"%>
-<!-- header -->
-<div class="containerr" id="cv-content">
-    <!-- Title -->
-    <div class="header">
-        <h1 contenteditable="true">OLIVIA WILSON</h1>
-        <h5 contenteditable="true">Marketing Manager</h5>
-    </div>
+	<%@ include file="/views/chat.jsp"%>
+	<!-- header -->
+	<div class="containerr" id="cv-content">
+	<!-- Header -->
+	<div class="header">
+		<h1 contenteditable="true">OLIVIA WILSON</h1>
+		<h5 contenteditable="true">Marketing Manager</h5>
+	</div>
 
-    <!-- Content -->
-    <div class="content">
-        <!-- Left Column -->
-        <div class="left-column" id="sortable-left">
-            <!-- Contact Section -->
-            <div class="section contact">
-                <h2 class="section-title">Contact</h2>
-                <input class="hidden-input" type="text" value="+123-456-7890" /> 
-                <input class="hidden-input" type="text" value="richard@example.com" /> 
-                <input class="hidden-input" type="text" value="123 Anywhere St, Any City" />
-                <input class="hidden-input" type="text" value="Nam" />
-            </div>
+	<!-- Content -->
+	<div class="content">
+		<!-- Left Column -->
+		<div class="left-column" id="sortable-left">
+			<!-- Contact Section -->
+			<div class="section contact">
+				<h2 class="section-title">Contact</h2>
+				<input class="hidden-input" type="text" value="+123-456-7890" /> 
+				<input class="hidden-input" type="text" value="richard@example.com" /> 
+				<input class="hidden-input" type="text" value="123 Anywhere St, Any City" />
+				<input class="hidden-input" type="text" value="Male" /> 
+				<input class="hidden-input" type="date" value="Date of Birth" />
+			</div>
 
-            <!-- Education Section -->
-            <div class="section">
-                <h2 class="section-title">Education</h2>
-                <div class="education-container">
-                    <div class="education-item">
-                        <input class="hidden-input project-name" type="text" placeholder="University Name" value="Rockwell University" />
-                        <input class="hidden-input" type="text" placeholder="Degree" value="Bachelor of Business Management" /> 
-                        <input class="hidden-input" type="text" placeholder="Time Period" value="2021 - 2023" />
-                    </div>
-                    <button class="add-button" onclick="addEducation()">Add</button>
-                </div>
-            </div>
+			<!-- Skills Section -->
+			<div class="section">
+				<h2 class="section-title">Skills</h2>
+				<div class="skills-container">
+					<input class="hidden-input" type="text" value="Skills" />
+				</div>
+				<button class="add-button" onclick="addSkill()">Add</button>
+			</div>
 
-            <!-- Languages Section -->
-            <div class="section">
-                <h2 class="section-title">Languages</h2>
-                <div class="language-container">
-                    <div class="language-item">
-                        <input class="hidden-input" type="text" value="English" />
-                    </div>
-                    <button class="add-button" onclick="addLanguage()">Add</button>
-                </div>
-            </div>
-        </div>
+			<!-- Hobbies Section -->
+			<div class="section">
+				<h2 class="section-title">Hobbies</h2>
+				<div class="hobbies-container">
+					<input class="hidden-input" type="text" value="Hobbies" />
+				</div>
+				<button class="add-button" onclick="addHobby()">Add</button>
+			</div>
 
-        <!-- Right Column -->
-        <div class="right-column" id="sortable-right">
-            <div class="section profile-summary">
-                <h2 class="section-title">Profile Summary</h2>
-                <textarea class="hidden-input">Experienced and detail-driven Marketing Manager with a proven track record in delivering creative and successful marketing strategies. Skilled in project management, team leadership, and campaign optimization to drive brand growth.</textarea>
-            </div>
+			<!-- Languages Section -->
+			<div class="section">
+				<h2 class="section-title">Languages</h2>
+				<div class="language-container">
+					<div class="language-item">
+						<input class="hidden-input" type="text" value="English" />
+					</div>
+					<button class="add-button" onclick="addLanguage()">Add</button>
+				</div>
+			</div>
 
-            <div class="section">
-                <h2 class="section-title">Work Experience</h2>
-                <div class="work-experience-container">
-                    <input class="hidden-input project-name" type="text" placeholder="Project Name" value="Boostle Studio" /> 
-                    <input class="hidden-input" type="text" placeholder="Time Period" value="2020 - Present" />
-                    <textarea class="hidden-input" placeholder="Description"></textarea>
-                </div>
-                <button class="add-button" onclick="addWorkExperience()">Add</button>
-            </div>
+			<!-- Certifications Section -->
+			<div class="section">
+				<h2 class="section-title">Certifications</h2>
+				<div class="certificate-container">
+					<div class="certificate-item">
+						<input class="hidden-input" type="text"
+							placeholder="Certificate Name" />
+					</div>
+					<button class="add-button" onclick="addCertificate()">Add</button>
+				</div>
+			</div>
+		</div>
 
-            <!-- Skills Section -->
-            <div class="section">
-                <h2 class="section-title">Skills</h2>
-                <div class="skills-container">
-                    <input class="hidden-input" type="text" value="Project Management" />
-                </div>
-                <button class="add-button" onclick="addSkill()">Add</button>
-            </div>
+		<!-- Right Column -->
+		<div class="right-column" id="sortable-right">
+			<div class="section profile-summary">
+				<h2 class="section-title">Profile Summary</h2>
+				<textarea class="hidden-input">As an experienced and detail-oriented Marketing Manager, I have a successful track record of implementing creative marketing strategies. I possess skills in project management, team leadership, and optimizing campaigns to drive brand growth.</textarea>
+			</div>
+			
+			<!-- Education Section -->
+			<div class="section">
+				<h2 class="section-title">Education</h2>
+				<div class="education-container">
+					<div class="education-item">
+						<input class="hidden-input project-name" type="text"
+							placeholder="University Name" value="Rockwell University" />
+							<input class="hidden-input" type="text" placeholder="Years"
+							value="2021 - 2023" />
+						<input class="hidden-input" type="text" placeholder="Degree"
+							value="Bachelor of Business Administration" /> 
+						
+					</div>
+					<button class="add-button" onclick="addEducation()">Add</button>
+				</div>
+			</div>
 
-            <!-- Hobbies Section -->
-            <div class="section">
-                <h2 class="section-title">Hobbies</h2>
-                <div class="hobbies-container">
-                    <input class="hidden-input" type="text" value="Hobby" />
-                </div>
-                <button class="add-button" onclick="addHobby()">Add</button>
-            </div>
-        </div>
-    </div>
+			<!-- Work Experience Section -->
+			<div class="section">
+				<h2 class="section-title">Projects Participated In</h2>
+				<div class="work-experience-container">
+					<input class="hidden-input project-name" type="text"
+						placeholder="Project Name" value="Boostle Studio" /> 
+					<input class="hidden-input" type="text" placeholder="Duration"
+						value="2020 - Present" />
+					<textarea class="hidden-input" placeholder="Description"></textarea>
+				</div>
+				<button class="add-button" onclick="addWorkExperience()">Add</button>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div class="button-container">
+		<!-- <button class="save-button" type="button">Save CV</button> -->
+		<button class="download-button" type="button"
+			onclick="downloadCVAsPDF()">Download CV as PDF</button>
+	</div>
 </div>
 
-<div class="button-container">
-    <!-- <button class="save-button" type="button">Save CV</button> -->
-    <button class="download-button" type="button" onclick="downloadCVAsPDF()">Download CV as PDF</button>
-</div>
-<!-- footer -->
-<%@ include file="/views/footer.jsp"%>
-<!-- footer -->
-<script>
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
+	<script>
     function addWorkExperience() {
         const section = document.querySelector('.work-experience-container');
         
         const inputProject = document.createElement('input');
         inputProject.type = 'text';
         inputProject.placeholder = 'Project Name';
-        inputProject.classList.add('hidden-input', 'project-name'); // Add hidden-input class
+        inputProject.classList.add('hidden-input', 'project-name'); // Thêm lớp hidden-input
 
         const inputPeriod = document.createElement('input');
         inputPeriod.type = 'text';
-        inputPeriod.placeholder = 'Time Period';
-        inputPeriod.classList.add('hidden-input'); // Add hidden-input class
+        inputPeriod.placeholder = 'Time';
+        inputPeriod.classList.add('hidden-input'); // Thêm lớp hidden-input
 
         const textarea = document.createElement('textarea');
-        textarea.placeholder = 'Description';
-        textarea.classList.add('hidden-input'); // Add hidden-input class
+        textarea.placeholder = 'Descripcation';
+        textarea.classList.add('hidden-input'); // Thêm lớp hidden-input
 
         section.appendChild(inputProject);
         section.appendChild(inputPeriod);
         section.appendChild(textarea);
     }
 
-    // Function to add Skills
+    // Hàm thêm mục Kỹ Năng
     function addSkill() {
         const section = document.querySelector('.skills-container');
         
         const inputSkill = document.createElement('input');
         inputSkill.type = 'text';
-        inputSkill.placeholder = 'Skill';
-        inputSkill.classList.add('hidden-input'); // Add hidden-input class
+        inputSkill.placeholder = 'Skills';
+        inputSkill.classList.add('hidden-input'); // Thêm lớp hidden-input và project-name
 
         section.appendChild(inputSkill);
     }
 
-    // Function to add Hobbies
+    // Hàm thêm mục Sở Thích
     function addHobby() {
         const section = document.querySelector('.hobbies-container');
         
         const inputHobby = document.createElement('input');
         inputHobby.type = 'text';
-        inputHobby.placeholder = 'Hobby';
-        inputHobby.classList.add('hidden-input'); // Add hidden-input class
+        inputHobby.placeholder = 'Hobbies';
+        inputHobby.classList.add('hidden-input'); // Thêm lớp hidden-input
 
         section.appendChild(inputHobby);
     }
 
-    // Function to add Education
+    // Hàm thêm mục Học Vấn
     function addEducation() {
         const section = document.querySelector('.education-container');
         const educationItem = document.createElement('div');
@@ -171,18 +195,18 @@
 
         const inputSchool = document.createElement('input');
         inputSchool.type = 'text';
-        inputSchool.placeholder = 'University Name';
-        inputSchool.classList.add('hidden-input', 'project-name'); // Add hidden-input and project-name classes
+        inputSchool.placeholder = 'School Name';
+        inputSchool.classList.add('hidden-input', 'project-name'); // Thêm lớp hidden-input và project-name
 
         const inputDegree = document.createElement('input');
         inputDegree.type = 'text';
-        inputDegree.placeholder = 'Degree';
-        inputDegree.classList.add('hidden-input'); // Add hidden-input class
+        inputDegree.placeholder = 'Time';
+        inputDegree.classList.add('hidden-input'); // Thêm lớp hidden-input
 
         const inputPeriod = document.createElement('input');
         inputPeriod.type = 'text';
-        inputPeriod.placeholder = 'Time Period';
-        inputPeriod.classList.add('hidden-input'); // Add hidden-input class
+        inputPeriod.placeholder = 'Descripcation';
+        inputPeriod.classList.add('hidden-input'); // Thêm lớp hidden-input
 
         educationItem.appendChild(inputSchool);
         educationItem.appendChild(inputDegree);
@@ -190,7 +214,7 @@
         section.insertBefore(educationItem, section.querySelector('.add-button'));
     }
 
-    // Function to add Languages
+    // Hàm thêm mục Ngôn Ngữ
     function addLanguage() {
         const section = document.querySelector('.language-container');
         const languageItem = document.createElement('div');
@@ -199,13 +223,25 @@
         const inputLanguage = document.createElement('input');
         inputLanguage.type = 'text';
         inputLanguage.placeholder = 'Language';
-        inputLanguage.classList.add('hidden-input'); // Add hidden-input class
+        inputLanguage.classList.add('hidden-input'); // Thêm lớp hidden-input
 
         languageItem.appendChild(inputLanguage);
         section.insertBefore(languageItem, section.querySelector('.add-button'));
     }
-</script>
+    function addCertificate() {
+        const section = document.querySelector('.certificate-container');
+        const certificateItem = document.createElement('div');
+        certificateItem.classList.add('certificate-item');
 
+        const inputCertificate = document.createElement('input');
+        inputCertificate.type = 'text';
+        inputCertificate.placeholder = 'Certificate';
+        inputCertificate.classList.add('hidden-input'); // Thêm lớp hidden-input
+
+        certificateItem.appendChild(inputCertificate);
+        section.insertBefore(certificateItem, section.querySelector('.add-button'));
+    }
+</script>
 	<script>
 	function downloadCVAsPDF() {
 	    const { jsPDF } = window.jspdf;

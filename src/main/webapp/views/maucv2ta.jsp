@@ -20,26 +20,27 @@
 
 <!-- html2pdf Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
-<link rel="stylesheet" href="/css/cv4.css">
+<link rel="stylesheet" href="/css/cv2.css">
 </head>
 <body>
 
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
-	
 	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
 
-	<div class="container">
+<div class="container">
     <div class="cv-container" id="cv-content">
         <div class="header">
             <div class="photo-frame">
-                <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)" style="display: none;"> 
-                <img id="profileImage" src="your-image-url.jpg" alt="Donna Stroupe" class="profile-photo" onclick="triggerFileInput()">
+                <input type="file" id="fileInput" accept="image/*"
+                    onchange="previewImage(event)" style="display: none;">
+                <img id="profileImage" src="your-image-url.jpg" alt="Donna Stroupe"
+                    class="profile-photo" onclick="triggerFileInput()">
             </div>
             <div class="header-info">
                 <h1 contenteditable="true">OLIVIA WILSON</h1>
-                <h5 contenteditable="true">Marketing</h5>
+                <h5 contenteditable="true">Marketing Manager</h5>
             </div>
         </div>
 
@@ -48,25 +49,27 @@
             <div class="left-column" id="sortable-left">
                 <div class="section">
                     <div class="section-title">Contact</div>
-                    <label>Email:</label> 
-                    <input class="hidden-input" type="email" name="email" required value="hello@reallygreatsite.com">
-                    <label>Phone:</label> 
-                    <input class="hidden-input" type="text" name="phone" required value="099876554"> 
-                    <label>Date of Birth:</label> 
+                    <input class="hidden-input" type="email"
+                        name="email" required value="hello@reallygreatsite.com">
+                   <input class="hidden-input" type="text"
+                        name="phone" required value="099876554">
                     <input class="hidden-input" type="date" name="dob" required>
-                    <label for="gender">Gender:</label> 
+                   
                     <select class="hidden-input" name="gender" id="gender" required>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                    </select> 
-                    <label>Nationality:</label> 
-                    <input class="hidden-input" type="text" name="nationality" required value="Nationality">
+                    </select>
+                     <input class="hidden-input" type="text"
+                        name="languages" required value="Languages">
+                     <input class="hidden-input" type="text"
+                        name="address" required value="Address">
                 </div>
 
                 <div class="section">
                     <div class="section-title">Skills</div>
                     <div id="skills-container">
-                        <input class="hidden-input" type="text" name="skills[]" placeholder="Add Skill" required>
+                        <input class="hidden-input" type="text" name="skills[]"
+                            placeholder="Add a skill" required>
                     </div>
                     <button type="button" onclick="addSkill()">+ Add Skill</button>
                 </div>
@@ -74,7 +77,8 @@
                 <div class="section">
                     <div class="section-title">Certificates</div>
                     <div id="certificates-container">
-                        <input class="hidden-input" type="text" name="certificates[]" placeholder="Add Certificate" required>
+                        <input class="hidden-input" type="text" name="certificates[]"
+                            placeholder="Add a certificate" required>
                     </div>
                     <button type="button" onclick="addCertificate()">+ Add Certificate</button>
                 </div>
@@ -84,13 +88,19 @@
             <div class="right-column" id="sortable-right">
                 <div class="section">
                     <div class="section-title">Career Objective</div>
-                    <textarea class="hidden-input" name="career-objective" placeholder="I am a fun, hard-working creative who strives for excellence in everything I do. I’m an avid learner and seek to enhance the lives of everyone around me." required></textarea>
+                    <textarea class="hidden-input" name="career-objective"
+                        placeholder="I am a creative, cheerful, hardworking person who always strives for excellence in everything I do. I am eager to learn and always look for ways to improve the lives of those around me."
+                        required></textarea>
                 </div>
 
                 <div class="section">
                     <div class="section-title">Education</div>
                     <div id="education">
-                        <input class="hidden-input" type="text" name="education[]" placeholder="Add Education" required>
+                        <div class="education-container">
+                            <input class="hidden-input project-name" type="text" name="education[]" placeholder="School Name" required>
+                            <input class="hidden-input" type="text" name="education[]" placeholder="Time Period" required>
+                            <textarea class="hidden-input" name="education[]" placeholder="Description" required></textarea>
+                        </div>
                     </div>
                     <button type="button" onclick="addEducation()">+ Add Education</button>
                 </div>
@@ -98,17 +108,21 @@
                 <div class="section">
                     <div class="section-title">Projects</div>
                     <div id="experience">
-                        <input class="hidden-input project-name" type="text" name="experience[]" placeholder="Project Name" required> 
-                        <input class="hidden-input" type="text" name="experience[]" placeholder="Time Period" required>
-                        <textarea class="hidden-input" name="experience[]" placeholder="Description" required></textarea>
+                        <input class="hidden-input project-name" type="text"
+                            name="experience[]" placeholder="Project Name" required>
+                        <input class="hidden-input" type="text" name="experience[]"
+                            placeholder="Time Period" required>
+                        <textarea class="hidden-input" name="experience[]"
+                            placeholder="Description" required></textarea>
                     </div>
-                    <button type="button" onclick="addExperience()">+ Add Project</button>
+                    <button type="button" onclick="addExperience()">+ Add Experience</button>
                 </div>
 
                 <div class="section">
                     <h2 class="section-title">Hobbies</h2>
                     <div id="hobbies">
-                        <input class="hidden-input" type="text" name="hobbies[]" placeholder="Add Hobby" required>
+                        <input class="hidden-input" type="text" name="hobbies[]"
+                            placeholder="Add a hobby" required>
                     </div>
                     <button type="button" onclick="addHobby()">+ Add Hobby</button>
                 </div>
@@ -116,8 +130,8 @@
         </div>
     </div>
     <div class="button-container">
-        <!-- <button class="save-button" type="button">Save CV</button> -->
-        <button class="download-button" type="button" onclick="downloadCVAsPDF()">Download CV as PDF</button>
+        <button class="download-button" type="button"
+            onclick="downloadCVAsPDF()">Download CV as PDF</button>
     </div>
 </div>
 
@@ -132,7 +146,7 @@
 			input.type = "text";
 			input.name = "skills[]";
 			input.className = "hidden-input";
-			input.placeholder = "Add Skill";
+			input.placeholder = "Skill";
 			skillsContainer.appendChild(input);
 		}
 
@@ -143,7 +157,7 @@
 			input.type = "text";
 			input.name = "certificates[]";
 			input.className = "hidden-input";
-			input.placeholder = "Add Certificate";
+			input.placeholder = "Certificates";
 			certificatesContainer.appendChild(input);
 		}
 
@@ -154,8 +168,43 @@
 			input.type = "text";
 			input.name = "education[]";
 			input.className = "hidden-input";
-			input.placeholder = "Add Education";
+			input.placeholder = "Education";
 			educationDiv.appendChild(input);
+		}
+		
+		function addEducation() {
+		    let educationDiv = document.getElementById("education");
+		    let educationContainer = document.createElement("div");
+		    educationContainer.classList.add("education-container");
+
+		    // Tên Trường
+		    let schoolNameInput = document.createElement("input");
+		    schoolNameInput.type = "text";
+		    schoolNameInput.name = "education[]";
+		    schoolNameInput.className = "hidden-input project-name";
+		    schoolNameInput.placeholder = "School Name";
+		    schoolNameInput.required = true;
+		    educationContainer.appendChild(schoolNameInput);
+
+		    // Thời Gian
+		    let timeInput = document.createElement("input");
+		    timeInput.type = "text";
+		    timeInput.name = "education[]";
+		    timeInput.className = "hidden-input";
+		    timeInput.placeholder = "Time";
+		    timeInput.required = true;
+		    educationContainer.appendChild(timeInput);
+
+		    // Mô Tả
+		    let descriptionTextarea = document.createElement("textarea");
+		    descriptionTextarea.name = "education[]";
+		    descriptionTextarea.className = "hidden-input";
+		    descriptionTextarea.placeholder = "Description";
+		    descriptionTextarea.required = true;
+		    educationContainer.appendChild(descriptionTextarea);
+
+		    // Thêm khối mới vào div giáo dục
+		    educationDiv.appendChild(educationContainer);
 		}
 
 		// Add new experience input
@@ -177,14 +226,14 @@
     timeInput.type = "text";
     timeInput.name = "experience[]";
     timeInput.className = "hidden-input";
-    timeInput.placeholder = "Time Period";
+    timeInput.placeholder = "Time";
     experienceContainer.appendChild(timeInput);
 
     // Mô Tả
     let descriptionTextarea = document.createElement("textarea");
     descriptionTextarea.name = "experience[]";
     descriptionTextarea.className = "hidden-input";
-    descriptionTextarea.placeholder = "Description";
+    descriptionTextarea.placeholder = "Add a description";
     experienceContainer.appendChild(descriptionTextarea);
 
     experienceDiv.appendChild(experienceContainer);
@@ -197,7 +246,7 @@
 			input.type = "text";
 			input.name = "hobbies[]";
 			input.className = "hidden-input";
-			input.placeholder = "Add Hobby";
+			input.placeholder = "Add a hobbies";
 			hobbiesDiv.appendChild(input);
 		}
 

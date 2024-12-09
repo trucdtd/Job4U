@@ -30,7 +30,7 @@ public class luaCVController {
 	/* cv2 */
 	@RequestMapping("/mauCV2")
 	public String luaChonCV2() {
-		return "maucv4";
+		return "maucv2";
 	}
 	
 	@RequestMapping("/mauCV2ta")
@@ -62,7 +62,7 @@ public class luaCVController {
 	/* cv4 */
 	@RequestMapping("/mauCV4")
 	public String luaChonCV4() {
-		return "maucv2";
+		return "maucv4";
 	}
 	
 	@RequestMapping("/mauCV4ta")

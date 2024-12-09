@@ -274,7 +274,7 @@ button {
 /* Hiển thị nút thêm khi hover vào vùng chứa */
 #skills-container:hover .add-button, #certifications-container:hover .add-button,
 	#experience-container:hover .add-button, #projects-container:hover .add-button,
-	#hobbies-container:hover .add-button {
+	#hobbies-container:hover .add-button, #education-container:hover .add-button  {
 	display: inline-block;
 }
 .sortable-ghost {

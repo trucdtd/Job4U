@@ -64,8 +64,8 @@
 			<div class="image-container">
 				<img src="/img/cv66.jpg" alt="CV 1">
 				<div class="buttons">
-					<a style="text-decoration: none;" href="/luaCV/truocCV6" class="preview-btn">Xem trước</a>
-					<a style="text-decoration: none;" href="/luaCV/mauCV6" class="use-btn">Dùng mẫu</a>
+					<a style="text-decoration: none;" href="/luaCV/truocCV4" class="preview-btn">Xem trước</a>
+					<a style="text-decoration: none;" href="/luaCV/mauCV4" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">
@@ -90,8 +90,8 @@
 			<div class="image-container">
 				<img src="/img/cv22.jpg" alt="CV 1">
 				<div class="buttons">
-					<a style="text-decoration: none;" href="/luaCV/truocCV4" class="preview-btn">Xem trước</a>
-					<a style="text-decoration: none;" href="/luaCV/mauCV4" class="use-btn">Dùng mẫu</a>
+					<a style="text-decoration: none;" href="/luaCV/truocCV6" class="preview-btn">Xem trước</a>
+					<a style="text-decoration: none;" href="/luaCV/mauCV6" class="use-btn">Dùng mẫu</a>
 				</div>
 			</div>
 			<div class="info">

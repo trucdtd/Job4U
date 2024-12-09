@@ -25,162 +25,247 @@
 <link rel="stylesheet" href="/css/cv6.css">
 </head>
 <body>
-<!-- header -->
-<%@ include file="/views/headerNoPanner.jsp"%>
+	<!-- header -->
+	<%@ include file="/views/headerNoPanner.jsp"%>
 
-<%@ include file="/views/chat.jsp"%>
-<!-- header -->
+	<%@ include file="/views/chat.jsp"%>
+	<!-- header -->
+	<div class="cv-container" id="cv-content">
+		<!-- Decorative Header -->
+		<!-- <div class="header-decoration"></div>
+		<div class="inner-header-decoration"></div>
 
-<div class="containerr" id="cv-content">
-    <div class="header">
-        <input type="file" id="profile-pic-input" class="profile-pic"
-            title="Upload profile picture" /> <img id="profile-pic-preview"
-            class="profile-pic" style="display: none;" />
+		Decorative Footer
+		<div class="footer-decoration"></div>
+		<div class="inner-footer-decoration"></div>
 
-        <div>
-            <h1 contenteditable="true">OLIVIA WILSON</h1>
-            <h5 contenteditable="true">Marketing Manager</h5>
-            <div>
-                <input class="hidden-input" type="tel"
-                    placeholder="Enter Phone Number" value="+123 456 7890"> <input
-                    class="hidden-input" type="email" placeholder="Email"
-                    value="olivia@email.com"> <input class="hidden-input"
-                    type="date" value="https://www.oliviaportfolio.com"> <input
-                    class="hidden-input" type="text" placeholder="Gender"
-                    value="Gender">
-            </div>
-        </div>
-    </div>
+		Corner Triangles
+		<div class="top-left-triangle"></div>
+		<div class="bottom-right-triangle"></div> -->
 
-    <div class="content">
-        <div class="left-column" id="sortable-left">
-            <div class="section">
-                <h3 class="section-title">Education</h3>
-                <ul id="education-list">
-                    <li><input class="hidden-input project-name" type="text"
-                        placeholder="School"> <input class="hidden-input"
-                        type="text" placeholder="Major"> <input
-                        class="hidden-input" type="text" placeholder="Duration">
-                    </li>
-                </ul>
-                <button class="add-button" onclick="addEducation()">Add</button>
-            </div>
+		<!-- Left Column -->
+		<div class="left-column" id="sortable-left">
+			<div class="profile-photo">
+				<!-- Hide file input and click anywhere in the box to select an image -->
+				<input class="an" type="file" id="profile-image" accept="image/*"
+					onchange="previewImage(event)"> <label for="profile-image"
+					class="upload-label"> <img id="profile-img-preview"
+					src="path/to/default-image.jpg" alt="Candidate's Photo">
+				</label>
+			</div>
+			<div class="section">
+				<div class="section-title">Contact</div>
+				<div class="contact-info">
+					
+						<input type="text" class="hidden-input" name="phone"
+							placeholder="Enter phone number">
 
-            <!-- Languages -->
-            <div class="section">
-                <h3 class="section-title">Languages</h3>
-                <ul id="languages-list">
-                    <li><input class="hidden-input" type="text"
-                        placeholder="Language"></li>
-                </ul>
-                <button class="add-button" onclick="addLanguage()">Add</button>
-            </div>
+					
+						<input type="email" class="hidden-input" name="email"
+							placeholder="alfredo@example.com">
+					
+						<input class="hidden-input" type="date" name="dob">
+					
+						<input class="hidden-input" type="text" name="language"
+							placeholder="Vietnamese">
+					
+						<select class="hidden-input" name="gender"><option
+								value="male">Male</option>
+							<option value="female">Female</option></select>
+					
+						<input class="hidden-input" type="text" name="address"
+							placeholder="Address">
+				
+				</div>
+			</div>
 
-            <!-- Hobbies -->
-            <div class="section">
-                <h3 class="section-title">Hobbies</h3>
-                <ul id="hobbies-list">
-                    <li><input class="hidden-input" type="text"
-                        placeholder="Hobby"></li>
-                </ul>
-                <button class="add-button" onclick="addHobby()">Add</button>
-            </div>
-            <div class="section">
-                <h3 class="section-title">Skills</h3>
-                <ul id="skills-list">
-                    <li><input class="hidden-input" type="text"
-                        placeholder="Skill"></li>
-                </ul>
-                <!-- Add button outside <ul> tag -->
-                <button class="add-button" onclick="addSkill()">Add</button>
-            </div>
-        </div>
+			<!-- Skills -->
+			<div class="section">
+				<div class="section-title">Skills</div>
+				<div id="skills-section" class="draggable-section">
+					<input class="hidden-input" type="text" name="skills[]"
+						placeholder="Enter skill" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('skills-section')">+ Add Skill</button>
+				</div>
+			</div>
 
-        <div class="right-column" id="sortable-right">
-            <div class="section">
-                <h3 class="section-title">Career Objective</h3>
-                <textarea class="hidden-input"
-                    placeholder="I am a creative, hardworking individual, always striving for excellence in everything I do. I am a fast learner and constantly looking for ways to improve the lives of those around me."
-                    rows="4" style="width: 100%;"></textarea>
-            </div>
+			<div class="section">
+				<div class="section-title">Certificates</div>
+				<div id="certificates-section">
+					<input class="hidden-input" type="text" name="certificates[]"
+						placeholder="Enter certificate" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('certificates-section')">+ Add Certificate</button>
+				</div>
+			</div>
+		</div>
 
-            <!-- Projects Participated In -->
-            <div class="section">
-                <h3 class="section-title">Projects Participated In</h3>
-                <ul id="experience-list">
-                    <li><input class="hidden-input project-name" type="text"
-                        placeholder="Project Name"> <input class="hidden-input"
-                        type="text" placeholder="Duration"> <textarea
-                            class="hidden-input" placeholder="Description" rows="4"
-                            style="width: 100%;"></textarea></li>
-                </ul>
-                <button class="add-button" onclick="addExperience()">Add</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="button-container">
-    <!-- <button class="save-button" type="button">Save CV</button> -->
-    <button class="download-button" type="button"
-        onclick="downloadCVAsPDF()">Download CV as PDF</button>
-</div>
-<br>
-<!-- footer -->
-<%@ include file="/views/footer.jsp"%>
-<!-- footer -->
+		<!-- Right Column -->
+		<div class="right-column" id="sortable-right">
+			<h1 placeholder="Enter career objective" contenteditable="true">OLIVIA WILSON</h1>
+			<h5 contenteditable="true">Marketing Manager</h5>
 
-<script>
-    // Add new education field
-    function addEducation() {
-        const educationList = document.getElementById('education-list');
-        const newEducation = document.createElement('li');
-        newEducation.innerHTML = `
-            <input class="hidden-input project-name" type="text" placeholder="School">
-            <input class="hidden-input" type="text" placeholder="Major">
-            <input class="hidden-input" type="text" placeholder="Duration">
-        `;
-        educationList.appendChild(newEducation); // Add to the end of the list
-    }
+			<!-- <h2><input type="text" name="title" placeholder="Position Applied For"></h2> -->
 
-    // Add new language
-    function addLanguage() {
-        const languageList = document.getElementById('languages-list');
-        const newLanguage = document.createElement('li');
-        newLanguage.innerHTML = `
-            <input class="hidden-input" type="text" placeholder="Language">
-        `;
-        languageList.appendChild(newLanguage); // Add to the end of the list
-    }
+			<div class="section">
+				<div class="section-title">Career Objective</div>
+				<textarea class="hidden-input" name="careerGoal"
+					placeholder="I am a creative, hardworking person always striving for excellence in everything I do. I am always eager to learn and look for ways to improve the lives of those around me."></textarea>
+			</div>
 
-    // Add new hobby
-    function addHobby() {
-        const hobbyList = document.getElementById('hobbies-list');
-        const newHobby = document.createElement('li');
-        newHobby.innerHTML = '<input class="hidden-input" type="text" placeholder="Hobby">';
-        hobbyList.appendChild(newHobby); // Add to the end of the list
-    }
+			<div class="section">
+				<div class="section-title">Education</div>
+				<div id="education-section" class="draggable-section">
+					<!-- First sample education entry -->
+					<div class="education-item draggable" draggable="true">
+						<input class="hidden-input project-name" type="text" name="education[]"
+							placeholder="School Name" class="education-name"> <input
+							class="hidden-input" type="text" name="education-dates[]"
+							placeholder="Dates" class="education-time">
+						<textarea class="hidden-input" name="education-descriptions[]"
+							placeholder="Description"></textarea>
+					</div>
+				</div>
+				<div class="add-button-container">
+					<button onclick="addEducationField()">+ Add Education</button>
+				</div>
+			</div>
 
-    // Add new skill
-    function addSkill() {
-        const skillList = document.getElementById('skills-list');
-        const newSkill = document.createElement('li');
-        newSkill.innerHTML = '<input class="hidden-input" type="text" placeholder="Skill">';
-        skillList.appendChild(newSkill); // Add to the end of the list
-    }
+			<div class="section">
+				<div class="section-title">Projects Involved</div>
+				<div id="projects-section" class="draggable-section">
+					<div class="work-experience-item">
+						<input class="hidden-input project-name" type="text"
+							name="projects[]" placeholder="Project Name - Company"> <input
+							class="hidden-input" type="text" name="project-dates[]"
+							placeholder="Dates">
+						<textarea class="hidden-input" name="project-descriptions[]"
+							placeholder="Description"></textarea>
+					</div>
+				</div>
+				<div class="add-button-container">
+					<button onclick="addProjectField()">+ Add Project</button>
+				</div>
+			</div>
 
-    // Add new work experience
-    function addExperience() {
-        const experienceList = document.getElementById('experience-list');
-        const newExperience = document.createElement('li');
-        newExperience.innerHTML = `
-            <input class="hidden-input project-name" type="text" placeholder="Project Name">
-            <input class="hidden-input" type="text" placeholder="Duration">
-            <textarea class="hidden-input" placeholder="Description" rows="4" style="width: 100%;"></textarea>
-        `;
-        experienceList.appendChild(newExperience); // Add to the end of the list
-    }
-</script>
+			<div class="section">
+				<div class="section-title">Hobbies</div>
+				<div id="hobbies-section" class="draggable-section">
+					<input class="hidden-input" type="text" name="hobbies[]"
+						placeholder="Enter hobby" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('hobbies-section')">+ Add Hobby</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="button-container">
+		<!-- <button class="save-button" type="button">Save CV</button> -->
+		<button class="download-button" type="button"
+			onclick="downloadCVAsPDF()">Download CV as PDF</button>
+	</div>
 
+	<br>
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+	<script>
+	function addField(sectionId) {
+		  const section = document.getElementById(sectionId);
+		  const input = document.createElement("input");
+		  input.type = "text";
+		  input.name = sectionId.replace('-section', '') + "[]";
+		  input.placeholder = "Enter Information";
+		  input.classList.add("hidden-input"); // Thêm class "hidden-input"
+		  section.appendChild(input);
+
+		  setTimeout(() => {
+		    input.style.transition = "opacity 0.5s";
+		    input.style.opacity = 1;
+		  }, 50);
+		}
+
+		function addProjectField() {
+			  const projectSection = document.getElementById('projects-section');
+			  const div = document.createElement("div");
+			  div.className = "work-experience-item";
+
+			  div.innerHTML = `
+			      <input type="text" name="projects[]" placeholder="Project Name" class="hidden-input project-name" style="opacity: 0;">
+			      <input type="text" name="project-dates[]" placeholder="Time" class="hidden-input" style="opacity: 0;">
+			      <textarea name="project-descriptions[]" placeholder="Description" class="hidden-input" style="opacity: 0;"></textarea>
+			  `;
+			  projectSection.appendChild(div);
+
+			  // Chọn tất cả các input và textarea bên trong div mới
+			  const inputs = div.querySelectorAll('input, textarea');
+			  setTimeout(() => {
+			    inputs.forEach(input => {
+			      input.style.transition = "opacity 0.5s";
+			      input.style.opacity = 1;
+			    });
+			  }, 50);
+			}
+		function addEducationField() {
+		    const educationSection = document.getElementById('education-section');
+		    const div = document.createElement('div');
+		    div.className = 'education-item';
+
+		    div.innerHTML = `
+		        <input type="text" name="educations[]" placeholder="School Name" class="hidden-input project-name education-institution" style="opacity: 0;">
+		        <input type="text" name="education-dates[]" placeholder="Time" class="hidden-input education-time" style="opacity: 0;">
+		        <textarea name="education-descriptions[]" placeholder="Description" class="hidden-input education-description" style="opacity: 0;"></textarea>
+		    `;
+
+		    educationSection.appendChild(div);
+
+		    // Hiệu ứng hiển thị mượt mà
+		    const inputs = div.querySelectorAll('input, textarea');
+		    setTimeout(() => {
+		        inputs.forEach(input => {
+		            input.style.transition = 'opacity 0.5s';
+		            input.style.opacity = 1;
+		        });
+		    }, 50);
+		}
+		 document.addEventListener("DOMContentLoaded", function() {
+		        // Cho phép kéo-thả trong cột bên trái
+		        new Sortable(document.getElementById("sortable-left"), {
+		            animation: 150,
+		            group: "shared",  // Tùy chọn: Cho phép kéo-thả qua lại giữa các cột
+		            draggable: ".section",  // Các mục có thể kéo là những mục có lớp .section
+		            handle: ".section-title",  // Kéo bằng tiêu đề của phần
+		            ghostClass: "sortable-ghost"  // Thêm lớp cho phần tử đang kéo
+		        });
+
+		        // Cho phép kéo-thả trong cột bên phải
+		        new Sortable(document.getElementById("sortable-right"), {
+		            animation: 150,
+		            group: "shared",
+		            draggable: ".section",
+		            handle: ".section-title",
+		            ghostClass: "sortable-ghost"
+		        });
+		    });
+	</script>
+	<script>
+	function previewImage(event) {
+	    const file = event.target.files[0];
+	    if (file) {
+	        const reader = new FileReader();
+	        reader.onload = function(e) {
+	            document.getElementById('profile-img-preview').src = e.target.result;
+	        };
+	        reader.readAsDataURL(file);
+	    }
+	}
+	</script>
 	<script>
 	function downloadCVAsPDF() {
 	    const { jsPDF } = window.jspdf;
@@ -215,46 +300,5 @@
 		  autoResizeTextarea(textarea);
 		});
 	</script>
-	<script>
-	// Enable drag-and-drop functionality for sections in both columns
-		document.addEventListener("DOMContentLoaded", function() {
-			// Enable dragging within left column
-			new Sortable(document.getElementById("sortable-left"), {
-				animation : 150,
-				group : "shared",
-				draggable : ".section",
-				handle : ".section-title",
-				ghostClass : "sortable-ghost"
-			});
-
-			// Enable dragging within right column
-			new Sortable(document.getElementById("sortable-right"), {
-				animation : 150,
-				group : "shared",
-				draggable : ".section",
-				handle : ".section-title",
-				ghostClass : "sortable-ghost"
-			});
-		});
-		</script>
-	<script>
-			document.getElementById('profile-pic-input').addEventListener('change', function(event) {
-	    const file = event.target.files[0];
-	    const preview = document.getElementById('profile-pic-preview');
-	    const input = document.getElementById('profile-pic-input');
-	
-	    if (file) {
-	        const reader = new FileReader();
-	        
-	        reader.onload = function(e) {
-	            preview.style.display = 'block'; // Hiển thị ảnh preview
-	            preview.src = e.target.result; // Đặt nguồn cho ảnh preview
-	            input.style.display = 'none'; // Ẩn nút chọn ảnh
-	        }
-	
-	        reader.readAsDataURL(file); // Đọc ảnh đã chọn
-	    }
-	});
-		</script>
 </body>
 </html>

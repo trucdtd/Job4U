@@ -18,7 +18,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
-	<link rel="stylesheet" href="/css/cv9.css">
+<link rel="stylesheet" href="/css/cv9.css">
 </head>
 <body>
 	<!-- header -->
@@ -43,54 +43,8 @@
 					<input class="hidden-input" type="text" value="+123-456-7890" /> <input
 						class="hidden-input" type="text" value="richard@example.com" /> <input
 						class="hidden-input" type="text" value="123 Anywhere St, Any City" />
-					<input class="hidden-input" type="text" value="Nam" />
-				</div>
-
-				<!-- Phần Học Vấn -->
-				<div class="section">
-					<h2 class="section-title">Học Vấn</h2>
-					<div class="education-container">
-						<div class="education-item">
-							<input class="hidden-input project-name" type="text"
-								placeholder="Tên Trường Đại Học" value="Rockwell University" />
-							<input class="hidden-input" type="text" placeholder="Bằng Cấp"
-								value="Cử Nhân Quản Trị Kinh Doanh" /> <input
-								class="hidden-input" type="text" placeholder="Thời Gian"
-								value="2021 - 2023" />
-						</div>
-						<button class="add-button" onclick="addEducation()">Thêm</button>
-					</div>
-				</div>
-
-				<!-- Phần Ngôn Ngữ -->
-				<div class="section">
-					<h2 class="section-title">Ngôn Ngữ</h2>
-					<div class="language-container">
-						<div class="language-item">
-							<input class="hidden-input" type="text" value="Tiếng Anh" />
-						</div>
-						<button class="add-button" onclick="addLanguage()">Thêm</button>
-					</div>
-				</div>
-			</div>
-
-			<!-- Cột phải -->
-			<div class="right-column" id="sortable-right">
-				<div class="section profile-summary">
-					<h2 class="section-title">Tóm Tắt Hồ Sơ</h2>
-					<textarea class="hidden-input">Là một Quản Lý Tiếp Thị giàu kinh nghiệm và chi tiết, tôi có một lịch sử thành công trong việc triển khai các chiến lược marketing sáng tạo. Tôi có kỹ năng trong quản lý dự án, lãnh đạo nhóm và tối ưu hóa chiến dịch để thúc đẩy sự phát triển của thương hiệu.</textarea>
-				</div>
-
-				<div class="section">
-					<h2 class="section-title">Kinh Nghiệm Làm Việc</h2>
-					<div class="work-experience-container">
-						<input class="hidden-input project-name" type="text"
-							placeholder="Tên Dự Án" value="Boostle Studio" /> <input
-							class="hidden-input" type="text" placeholder="Thời Gian"
-							value="2020 - Hiện tại" />
-						<textarea class="hidden-input" placeholder="Mô Tả"></textarea>
-					</div>
-					<button class="add-button" onclick="addWorkExperience()">Thêm</button>
+					<input class="hidden-input" type="text" value="Nam" /> <input
+						class="hidden-input" type="date" value="Ngày Sinh" />
 				</div>
 
 				<!-- Phần Kỹ Năng -->
@@ -110,6 +64,66 @@
 					</div>
 					<button class="add-button" onclick="addHobby()">Thêm</button>
 				</div>
+
+				<!-- Phần Ngôn Ngữ -->
+				<div class="section">
+					<h2 class="section-title">Ngôn Ngữ</h2>
+					<div class="language-container">
+						<div class="language-item">
+							<input class="hidden-input" type="text" value="Tiếng Anh" />
+						</div>
+						<button class="add-button" onclick="addLanguage()">Thêm</button>
+					</div>
+				</div>
+				<div class="section">
+					<h2 class="section-title">Chứng Chỉ</h2>
+					<div class="certificate-container">
+						<div class="certificate-item">
+							<input class="hidden-input" type="text"
+								placeholder="Tên Chứng Chỉ" />
+						</div>
+						<button class="add-button" onclick="addCertificate()">Thêm</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Cột phải -->
+			<div class="right-column" id="sortable-right">
+				<div class="section profile-summary">
+					<h2 class="section-title">Tóm Tắt Hồ Sơ</h2>
+					<textarea class="hidden-input">Là một Quản Lý Tiếp Thị giàu kinh nghiệm và chi tiết, tôi có một lịch sử thành công trong việc triển khai các chiến lược marketing sáng tạo. Tôi có kỹ năng trong quản lý dự án, lãnh đạo nhóm và tối ưu hóa chiến dịch để thúc đẩy sự phát triển của thương hiệu.</textarea>
+				</div>
+				
+				<!-- Phần Học Vấn -->
+				<div class="section">
+					<h2 class="section-title">Học Vấn</h2>
+					<div class="education-container">
+						<div class="education-item">
+							<input class="hidden-input project-name" type="text"
+								placeholder="Tên Trường Đại Học" value="Rockwell University" />
+								<input
+								class="hidden-input" type="text" placeholder="Thời Gian"
+								value="2021 - 2023" />
+							<input class="hidden-input" type="text" placeholder="Mô Tả"
+								value="Mô Tả" /> 
+						</div>
+						<button class="add-button" onclick="addEducation()">Thêm</button>
+					</div>
+				</div>
+
+				<div class="section">
+					<h2 class="section-title">Dự Án Đã Tham Gia</h2>
+					<div class="work-experience-container">
+						<input class="hidden-input project-name" type="text"
+							placeholder="Tên Dự Án" value="Boostle Studio" /> <input
+							class="hidden-input" type="text" placeholder="Thời Gian"
+							value="2020 - Hiện tại" />
+						<textarea class="hidden-input" placeholder="Mô Tả"></textarea>
+					</div>
+					<button class="add-button" onclick="addWorkExperience()">Thêm</button>
+				</div>
+
+				
 			</div>
 		</div>
 	</div>
@@ -180,19 +194,20 @@
         inputSchool.placeholder = 'Tên Trường Đại Học';
         inputSchool.classList.add('hidden-input', 'project-name'); // Thêm lớp hidden-input và project-name
 
-        const inputDegree = document.createElement('input');
-        inputDegree.type = 'text';
-        inputDegree.placeholder = 'Bằng Cấp';
-        inputDegree.classList.add('hidden-input'); // Thêm lớp hidden-input
-
         const inputPeriod = document.createElement('input');
         inputPeriod.type = 'text';
         inputPeriod.placeholder = 'Thời Gian';
         inputPeriod.classList.add('hidden-input'); // Thêm lớp hidden-input
+        
+        const inputDegree = document.createElement('input');
+        inputDegree.type = 'text';
+        inputDegree.placeholder = 'Mô Tả';
+        inputDegree.classList.add('hidden-input'); // Thêm lớp hidden-input
 
         educationItem.appendChild(inputSchool);
-        educationItem.appendChild(inputDegree);
+       
         educationItem.appendChild(inputPeriod);
+        educationItem.appendChild(inputDegree);
         section.insertBefore(educationItem, section.querySelector('.add-button'));
     }
 
@@ -209,6 +224,19 @@
 
         languageItem.appendChild(inputLanguage);
         section.insertBefore(languageItem, section.querySelector('.add-button'));
+    }
+    function addCertificate() {
+        const section = document.querySelector('.certificate-container');
+        const certificateItem = document.createElement('div');
+        certificateItem.classList.add('certificate-item');
+
+        const inputCertificate = document.createElement('input');
+        inputCertificate.type = 'text';
+        inputCertificate.placeholder = 'Tên Chứng Chỉ';
+        inputCertificate.classList.add('hidden-input'); // Thêm lớp hidden-input
+
+        certificateItem.appendChild(inputCertificate);
+        section.insertBefore(certificateItem, section.querySelector('.add-button'));
     }
 </script>
 	<script>

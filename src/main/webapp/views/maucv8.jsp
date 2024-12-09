@@ -16,10 +16,12 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- html2pdf Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <link rel="stylesheet" href="/css/cv8.css">
 </head>
 <body>
@@ -39,20 +41,25 @@
 					</label>
 				</div>
 				<div class="contact section">
-					<div  class="section-title">Liên Hệ</div>
-					<input class="hidden-input" type="text" class="input-field" placeholder="Số điện thoại" /> <input class="hidden-input" type="email"
-						placeholder="Email" id="emailcv" class="input-field"> <input class="hidden-input"
-						type="date" placeholder="Ngày sinh" id="dateOfbirth"
-						class="input-field"> <input class="hidden-input" type="text"
-						placeholder="Ngôn Ngữ" id="languages" class="input-field">
-					<input class="hidden-input" type="text" placeholder="Giới tính" id="gender"
-						class="input-field">
+					<div class="section-title">Liên Hệ</div>
+					<input class="hidden-input" type="text" class="input-field"
+						placeholder="Số điện thoại" /> <input class="hidden-input"
+						type="email" placeholder="Email" id="emailcv" class="input-field">
+					<input class="hidden-input" type="date" placeholder="Ngày sinh"
+						id="dateOfbirth" class="input-field"> <input
+						class="hidden-input" type="text" placeholder="Ngôn Ngữ"
+						id="languages" class="input-field"> <input
+						class="hidden-input" type="text" placeholder="Giới tính"
+						id="gender" class="input-field">
+						<input
+						class="hidden-input" type="text" placeholder="Địa Chỉ"
+						id="address" class="input-field">
 				</div>
 				<div class="skills section">
 					<div class="section-title">Kỹ Năng</div>
 					<div id="skills-container">
-						<input class="hidden-input" type="text" id="skills" class="input-field"
-							placeholder="Kỹ năng">
+						<input class="hidden-input" type="text" id="skills"
+							class="input-field" placeholder="Kỹ năng">
 						<button id="add-skill-button" class="add-button" type="button"
 							onclick="addSkillField()">+ Thêm Kỹ Năng</button>
 					</div>
@@ -61,8 +68,8 @@
 				<div class="certifications section">
 					<div class="section-title">Chứng chỉ</div>
 					<div id="certifications-container">
-						<input class="hidden-input" type="text" id="certifications" class="input-field"
-							placeholder="Chứng chỉ">
+						<input class="hidden-input" type="text" id="certifications"
+							class="input-field" placeholder="Chứng chỉ">
 						<button id="add-certification-button" class="add-button"
 							type="button" onclick="addCertificationField()">+ Thêm
 							Chứng Chỉ</button>
@@ -72,13 +79,28 @@
 
 			<div class="right-column" id="sortable-right">
 				<h1 contenteditable="true">NGUYỄN VĂN A</h1>
-                <p contenteditable="true">Quản Lý Tiếp Thị</p>
+				<p contenteditable="true">Quản Lý Tiếp Thị</p>
 				<div class="experience section">
 					<div class="section-title">Kinh Nghiệm</div>
 					<div id="experience-container">
-						<textarea class="hidden-input" id="experience" 
+						<textarea class="hidden-input" id="experience"
 							placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh."></textarea>
-						
+
+					</div>
+				</div>
+
+				<div class="education section">
+					<div class="section-title">Học Vấn</div>
+					<div id="education-container">
+						<div class="education-field">
+							<input class="hidden-input project-name" type="text"
+								placeholder="Tên Trường"> <input
+								class="hidden-input input-field" type="text"
+								placeholder="Thời Gian">
+							<textarea class="hidden-input input-area" placeholder="Mô Tả"></textarea>
+						</div>
+						<button id="add-education-button" class="add-button" type="button"
+							onclick="addEducationField()">+ Thêm Học Vấn</button>
 					</div>
 				</div>
 
@@ -86,9 +108,12 @@
 					<div class="section-title">Dự Án Đã Tham Gia</div>
 					<div id="projects-container">
 						<div class="project-field">
-							<input class="hidden-input project-name" type="text" class="input-field" placeholder="Tên Dự Án">
-							<input class="hidden-input" type="text" class="input-field" placeholder="Thời Gian">
-							<textarea class="hidden-input" class="input-area" placeholder="Mô Tả"></textarea>
+							<input class="hidden-input project-name" type="text"
+								class="input-field" placeholder="Tên Dự Án"> <input
+								class="hidden-input" type="text" class="input-field"
+								placeholder="Thời Gian">
+							<textarea class="hidden-input" class="input-area"
+								placeholder="Mô Tả"></textarea>
 						</div>
 						<button id="add-project-button" class="add-button" type="button"
 							onclick="addProjectField()">+ Thêm Dự Án</button>
@@ -97,8 +122,8 @@
 				<div class="hobbies section">
 					<div class="section-title">Sở Thích</div>
 					<div id="hobbies-container">
-						<input class="hidden-input" type="text" id="hobbies" class="input-field"
-							placeholder="Sở Thích">
+						<input class="hidden-input" type="text" id="hobbies"
+							class="input-field" placeholder="Sở Thích">
 						<button id="add-hobbies-button" class="add-button" type="button"
 							onclick="addHobbiesField()">+ Thêm Sở Thích</button>
 					</div>
@@ -187,6 +212,36 @@
 
 			projectsContainer.insertBefore(newProjectField, addProjectButton);
 		}
+		
+		function addEducationField() {
+		    const educationContainer = document.getElementById('education-container');
+		    const addEducationButton = document.getElementById('add-education-button');
+
+		    const newEducationField = document.createElement('div');
+		    newEducationField.classList.add('education-field');
+
+		    const schoolName = document.createElement('input');
+		    schoolName.type = 'text';
+		    schoolName.className = 'input-field hidden-input project-name';
+		    schoolName.placeholder = 'Tên Trường';
+
+		    const educationTime = document.createElement('input');
+		    educationTime.type = 'text';
+		    educationTime.className = 'input-field hidden-input';
+		    educationTime.placeholder = 'Thời Gian';
+
+		    const educationDescription = document.createElement('textarea');
+		    educationDescription.className = 'input-area hidden-input';
+		    educationDescription.placeholder = 'Mô Tả';
+
+		    newEducationField.appendChild(schoolName);
+		    newEducationField.appendChild(educationTime);
+		    newEducationField.appendChild(educationDescription);
+
+		    educationContainer.insertBefore(newEducationField, addEducationButton);
+		}
+
+		
 		document.addEventListener("DOMContentLoaded", function() {
 			// Cho phép kéo-thả trong cột bên trái
 			new Sortable(document.getElementById("sortable-left"), {
@@ -234,7 +289,7 @@
 	    html2pdf().from(cvContent).set(options).save();
 	}
 	</script>
-		<script>
+	<script>
 // Hàm tự động thay đổi chiều cao
 function autoResizeTextarea(textarea) {
   textarea.style.height = 'auto'; // Đặt chiều cao về auto để tính lại kích thước
@@ -252,4 +307,4 @@ document.querySelectorAll('textarea').forEach((textarea) => {
 });
 </script>
 </body>
-</html> 
+</html>
