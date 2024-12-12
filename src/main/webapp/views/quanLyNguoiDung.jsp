@@ -70,7 +70,7 @@
 					<!-- Nội dung thông báo sẽ được cập nhật từ JavaScript -->
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
+					<button style="background-color: #4CAF50" type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Đóng</button>
 				</div>
 			</div>
