@@ -605,15 +605,34 @@
 <script>
 function confirmDelete(id) {
     if (confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
-        // Cập nhật giá trị của input ẩn trong form xóa
-        document.getElementById('deleteId').value = id;
-        // Gửi form để thực hiện xóa
-        document.getElementById('deleteForm').submit();
-        return false; // Ngăn việc điều hướng đến URL
+        // Gửi yêu cầu AJAX để xóa bài viết
+        $.ajax({
+            url: '/admin/deletePost',
+            type: 'POST',
+            data: { id: id },
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message); // Hiển thị thông báo thành công
+                    // Xóa bài viết khỏi bảng
+                    $('#postTable tr').each(function() {
+                        var rowId = $(this).find('th').first().text(); // Lấy ID bài viết từ cột đầu tiên
+                        if (rowId == id) {
+                            $(this).remove(); // Xóa dòng tương ứng
+                        }
+                    });
+                } else {
+                    alert(response.message); // Hiển thị thông báo thất bại
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Xảy ra lỗi khi xóa bài viết.");
+            }
+        });
     }
-    return false; // Ngăn việc thực hiện hành động nếu người dùng chọn hủy
+    return false; // Ngăn chặn việc điều hướng tới URL mặc định
 }
 </script>
+
 
 <script>
     function confirmDeleteAccount(userid) {
