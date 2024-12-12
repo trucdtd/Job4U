@@ -25,6 +25,8 @@ import demo.dao.UsersDao;
 import demo.entity.JoblistingsEntity;
 import demo.entity.UserServicesEntity;
 import demo.entity.UsersEntity;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -47,33 +49,40 @@ public class ThongKeController {
 	@Autowired
 	PaymentsDao paymentDao;
 
+	@Autowired
+	HttpSession session;
+
 	@GetMapping("")
 	public String getSoldServices(Model model) {
-	    // Lấy ngày hiện tại
-	    LocalDate currentDate = LocalDate.now();
-	    LocalDateTime startOfDay = currentDate.atStartOfDay();  // 00:00:00 hôm nay
-	    LocalDateTime endOfDay = currentDate.atTime(23, 59, 59);  // 23:59:59 hôm nay
+		// Lấy ngày hiện tại
+		String giaoDien = "thongKeMoi"; 
+		Integer role = (Integer) session.getAttribute("role");
 
-	    // Lấy danh sách dịch vụ đã bán từ userServicesDao
-	    List<UserServicesEntity> qlTK = userServicesDao.selectServiceSold(startOfDay, endOfDay);
+		if (role == null || role != 0) { // Không phải admin
+			model.addAttribute("message", "Bạn không có quyền truy cập vào trang này.");
+			 giaoDien = "dangnhap";
+		}
+		LocalDate currentDate = LocalDate.now();
+		LocalDateTime startOfDay = currentDate.atStartOfDay(); // 00:00:00 hôm nay
+		LocalDateTime endOfDay = currentDate.atTime(23, 59, 59); // 23:59:59 hôm nay
 
-	    // Thống kê trong ngày
-	    Long countJoblisting = joblistingsDao.countJobToDay(LocalDate.now());
-	    long countUserToday = userDao.countUsersToday(startOfDay, endOfDay); // Đếm người dùng tạo trong ngày hôm nay
+		// Lấy danh sách dịch vụ đã bán từ userServicesDao
+		List<UserServicesEntity> qlTK = userServicesDao.selectServiceSold(startOfDay, endOfDay);
 
-	    Long countService = userServicesDao.countServiceSold(startOfDay, endOfDay);
+		// Thống kê trong ngày
+		Long countJoblisting = joblistingsDao.countJobToDay(LocalDate.now());
+		long countUserToday = userDao.countUsersToday(startOfDay, endOfDay); // Đếm người dùng tạo trong ngày hôm nay
 
-	    // Đưa thông tin vào model để hiển thị trên giao diện
-	    model.addAttribute("qlTK", qlTK);
-	    model.addAttribute("countJoblisting", countJoblisting);
-	    model.addAttribute("countUser", countUserToday);
-	    model.addAttribute("countService", countService);
-	    model.addAttribute("status", "d-none");
+		Long countService = userServicesDao.countServiceSold(startOfDay, endOfDay);
 
-	    System.out.println("job" + countJoblisting);
-	    return "thongKeMoi";
+		// Đưa thông tin vào model để hiển thị trên giao diện
+		model.addAttribute("qlTK", qlTK);
+		model.addAttribute("countJoblisting", countJoblisting);
+		model.addAttribute("countUser", countUserToday);
+		model.addAttribute("countService", countService);
+		model.addAttribute("status", "d-none");
+		return giaoDien;
 	}
-
 
 	@PostMapping("")
 	public String thongKe(Model model, @RequestParam("startdate") Optional<LocalDate> startDate,
@@ -108,10 +117,10 @@ public class ThongKeController {
 					23, 59);
 			LocalDateTime endDateLocalDateTime = LocalDateTime.of(yearOfEndDate, monthOfEndDate, dayOfEndDate, 23, 59);
 			endDateLocalDate = LocalDate.of(yearOfEndDate, monthOfEndDate, dayOfEndDate);
-			if(!starDateLocalDate.isBefore(endDateLocalDate)) {
+			if (!starDateLocalDate.isBefore(endDateLocalDate)) {
 				model.addAttribute("status", "d-block");
 				model.addAttribute("text", "Lỗi! ngày kết thúc phải lớn hơn ngày bắt đầu.");
-			}else {
+			} else {
 				Long demBaiViet = joblistingsDao.countJobStartDateEndDate(startDate, endDate);
 				Long demNguoiDung = userDao.countUserStartDateEndDate(startDateLocalDateTime, endDateLocalDateTime);
 
@@ -124,7 +133,7 @@ public class ThongKeController {
 				model.addAttribute("qlTK", list);
 				model.addAttribute("status", "d-none");
 				model.addAttribute("text", "Vui lòng chọn ngày bắt đầu và ngày kết thúc để thống kê!");
-			}		
+			}
 		} else if (starDateLocalDate == null || endDateLocalDate == null) {
 			model.addAttribute("status", "d-block");
 			model.addAttribute("text", "Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc để thống kê!");
@@ -133,4 +142,28 @@ public class ThongKeController {
 		return "thongKeMoi";
 	}
 
+	@RequestMapping("/tat-ca")
+	public String thongKeTatCa(Model model, @RequestParam("startdate") Optional<LocalDate> startDate,
+			@RequestParam("enddate") Optional<LocalDate> endDate) {
+		String giaoDien = "thongKeMoi"; 
+		Integer role = (Integer) session.getAttribute("role");
+
+		if (role == null || role != 0) { // Không phải admin
+			model.addAttribute("message", "Bạn không có quyền truy cập vào trang này.");
+			 giaoDien = "dangnhap";
+		}
+		// TODO: process POST request
+		// lay du lieu
+		Long demDichVu = userServicesDao.count();
+		Long demBaiViet = joblistingsDao.count();
+		Long demNguoiDung = userDao.count();
+		List<UserServicesEntity> list = userServicesDao.findAll();
+		model.addAttribute("countService", demDichVu);
+		model.addAttribute("countJoblisting", demBaiViet);
+		model.addAttribute("countUser", demNguoiDung);
+		model.addAttribute("qlTK", list);
+		model.addAttribute("status", "d-none");
+
+		return giaoDien;
+	}
 }
