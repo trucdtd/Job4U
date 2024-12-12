@@ -49,28 +49,31 @@ public class ThongKeController {
 
 	@GetMapping("")
 	public String getSoldServices(Model model) {
-	    // Chuyển đổi LocalDate thành LocalDateTime (bắt đầu ngày hôm nay)
-	    LocalDateTime startOfDay = LocalDate.now().atStartOfDay();  // 00:00:00 hôm nay
-	    LocalDateTime endOfDay = LocalDate.now().atTime(23, 59, 59);  // 23:59:59 hôm nay
+	    // Lấy ngày hiện tại
+	    LocalDate currentDate = LocalDate.now();
+	    LocalDateTime startOfDay = currentDate.atStartOfDay();  // 00:00:00 hôm nay
+	    LocalDateTime endOfDay = currentDate.atTime(23, 59, 59);  // 23:59:59 hôm nay
 
 	    // Lấy danh sách dịch vụ đã bán từ userServicesDao
 	    List<UserServicesEntity> qlTK = userServicesDao.selectServiceSold(startOfDay, endOfDay);
 
 	    // Thống kê trong ngày
 	    Long countJoblisting = joblistingsDao.countJobToDay(LocalDate.now());
-	    Long countUser = userDao.count();
+	    long countUserToday = userDao.countUsersToday(startOfDay, endOfDay); // Đếm người dùng tạo trong ngày hôm nay
+
 	    Long countService = userServicesDao.countServiceSold(startOfDay, endOfDay);
 
-	    // Đưa danh sách vào model để sử dụng trong view
+	    // Đưa thông tin vào model để hiển thị trên giao diện
 	    model.addAttribute("qlTK", qlTK);
 	    model.addAttribute("countJoblisting", countJoblisting);
-	    model.addAttribute("countUser", countUser);
+	    model.addAttribute("countUser", countUserToday);
 	    model.addAttribute("countService", countService);
 	    model.addAttribute("status", "d-none");
 
 	    System.out.println("job" + countJoblisting);
 	    return "thongKeMoi";
 	}
+
 
 	@PostMapping("")
 	public String thongKe(Model model, @RequestParam("startdate") Optional<LocalDate> startDate,
