@@ -284,7 +284,6 @@ p {
 								src="${pageContext.request.contextPath}/uploads/${cv.image}"
 								id="profileImage" class="rounded-circle profile-image shadow"
 								onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
-
 							<!-- Nếu ảnh không có, hiển thị ảnh placeholder -->
 							<div class="placeholder-photo" style="display: none;">
 								<img src="path/to/placeholder-image.png" alt="Khung ảnh"
