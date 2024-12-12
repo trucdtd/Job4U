@@ -97,8 +97,9 @@
 							</div>
 							<div class="modal-body">${param.error}</div>
 							<div class="modal-footer">
+								<!-- Khi nhấn OK, chỉ cần đóng modal -->
 								<button type="button" class="btn btn-primary"
-									onclick="window.location.href='/admin'">OK</button>
+									data-bs-dismiss="modal">OK</button>
 							</div>
 						</div>
 					</div>
@@ -187,7 +188,8 @@
 							</form>
 
 							<form action="/admin">
-								<button type="submit" class="btn btn-secondary">Quay lại</button>
+								<button type="submit" class="btn btn-secondary">Quay
+									lại</button>
 							</form>
 
 						</div>
