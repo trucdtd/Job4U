@@ -245,12 +245,12 @@ public class UsersController {
 	                }
 
 	                // Xóa ảnh cũ (nếu có) trước khi lưu ảnh mới
-	                if (jobSeeker.getImage() != null) {
-	                    File oldImageFile = new File(uploadsDir, jobSeeker.getImage());
-	                    if (oldImageFile.exists()) {
-	                        oldImageFile.delete();
-	                    }
-	                }
+//	                if (jobSeeker.getImage() != null) {
+//	                    File oldImageFile = new File(uploadsDir, jobSeeker.getImage());
+//	                    if (oldImageFile.exists()) {
+//	                        oldImageFile.delete();
+//	                    }
+//	                }
 
 	                // Lưu ảnh mới vào thư mục uploads
 	                Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
