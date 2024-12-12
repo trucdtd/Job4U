@@ -204,7 +204,9 @@
 		<div class="container mt-4">
 			<div class="row">
 				<c:forEach var="emp" items="${dsCTy.content}">
+							
 					<div class="col-4 mb-4">
+					<a href="/ListEmployers/${emp.employerid}" class="text-decoration-none">
 						<!-- Mỗi hàng sẽ có 3 card -->
 						<div class="card shadow-sm rounded-3 h-100">
 							<!-- Sử dụng h-100 để card có chiều cao cố định -->
@@ -221,6 +223,7 @@
 								<p class="card-text">${emp.address}</p>
 							</div>
 						</div>
+						</a>
 					</div>
 				</c:forEach>
 			</div>
