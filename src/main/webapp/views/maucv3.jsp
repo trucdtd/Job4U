@@ -231,20 +231,25 @@
 	</script>
 	<script>
 	function downloadCVAsPDF() {
-	    const { jsPDF } = window.jspdf;
-	    const cvContent = document.getElementById('cv-content'); // Your CV container
+		  const { jsPDF } = window.jspdf;
+		  const cvContent = document.getElementById('cv-content'); // Your CV container
 
-	    // Ensure html2pdf is loaded correctly
-	    const options = {
-	        margin: [10, 10, 10, 10], // Set margins
-	        filename: 'CV.pdf', // The filename of the PDF
-	        html2canvas: { scale: 2 }, // Increase the scale for better quality
-	        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
-	    };
+		  // Ensure html2pdf is loaded correctly
+		  const options = {
+				  margin: [2, 2, 2, 2], // Set margins
+		    filename: 'CV.pdf', // The filename of the PDF
+		    html2canvas: { scale: 2 }, // Increase the scale for better quality
+		    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
+		  };
 
-	    // Use html2pdf to convert HTML to PDF
-	    html2pdf().from(cvContent).set(options).save();
-	}
+		  // Pre-render textarea heights
+		  document.querySelectorAll('textarea').forEach(textarea => {
+		    textarea.style.height = textarea.scrollHeight + 'px';
+		  });
+
+		  // Use html2pdf to convert HTML to PDF
+		  html2pdf().from(cvContent).set(options).save();
+		}
 	</script>
 	<script>
 		// Hàm tự động thay đổi chiều cao

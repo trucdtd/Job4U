@@ -269,10 +269,10 @@
 
 	    // Ensure html2pdf is loaded correctly
 	    const options = {
-	        margin: [10, 10, 10, 10], // Set margins
+	    		margin: [2, 2, 2, 2], // Set margins
 	        filename: 'CV.pdf', // The filename of the PDF
 	        html2canvas: { scale: 2 }, // Increase the scale for better quality
-	        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
+	        jsPDF: { unit: 'mm', format: 'a1', orientation: 'portrait' } // Set PDF format
 	    };
 
 	    // Use html2pdf to convert HTML to PDF
