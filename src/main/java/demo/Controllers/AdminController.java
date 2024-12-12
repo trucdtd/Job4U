@@ -433,10 +433,8 @@ public class AdminController {
 			// Lưu dịch vụ sau khi cập nhật
 			servicesDao.save(updv);
 			System.out.println("dich vu da them" + updv);
-			// Trả về trang với thông báo thành công (có thể thêm thông báo vào model nếu
-			// cần)
 			redirectAttributes.addAttribute("error", "Cập nhật dịch vụ thành công!");
-			return "redirect:/admin";
+			return "redirect:/admin/detailDV/" + id;
 		} else {
 			// Nếu không tìm thấy dịch vụ với id đã cho
 			redirectAttributes.addAttribute("error", "Dịch vụ không tồn tại!");
