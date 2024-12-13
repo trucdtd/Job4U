@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Xem Trước Mẫu CV</title>
 <style>
         .cv-wrapper {
             display: flex;

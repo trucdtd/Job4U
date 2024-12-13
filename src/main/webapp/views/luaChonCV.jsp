@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Chọn CV</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -21,7 +21,6 @@
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	
 	<%@ include file="/views/chat.jsp"%>
-	<br>
 	<div class="container">
 		<div class="cv-template">
 			<div class="image-container">
@@ -63,7 +62,7 @@
 
 		<div class="cv-template">
 			<div class="image-container">
-				<img src="/img/cv22.jpg" alt="CV 1">
+				<img src="/img/cv66.jpg" alt="CV 1">
 				<div class="buttons">
 					<a style="text-decoration: none;" href="/luaCV/truocCV4" class="preview-btn">Xem trước</a>
 					<a style="text-decoration: none;" href="/luaCV/mauCV4" class="use-btn">Dùng mẫu</a>
@@ -89,7 +88,7 @@
 		
 		<div class="cv-template">
 			<div class="image-container">
-				<img src="/img/cv66.jpg" alt="CV 1">
+				<img src="/img/cv22.jpg" alt="CV 1">
 				<div class="buttons">
 					<a style="text-decoration: none;" href="/luaCV/truocCV6" class="preview-btn">Xem trước</a>
 					<a style="text-decoration: none;" href="/luaCV/mauCV6" class="use-btn">Dùng mẫu</a>

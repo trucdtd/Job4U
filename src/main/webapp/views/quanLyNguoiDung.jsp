@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>User Management</title>
+<title>Trang ADMIN</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -14,10 +14,24 @@
 <!-- jQuery -->
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="/css/thongke.css">
+<link rel="stylesheet" href="/css/thongke.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/quanlyuser.css">
+<style type="text/css">
+#messageModal .modal-content {
+    padding: 20px;
+}
 
+#messageModal .modal-header {
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+}
+
+#messageModal .modal-footer {
+    border-top: 1px solid #ddd;
+}
+}
+</style>
 </head>
 <body>
 	<!-- header -->
@@ -42,6 +56,27 @@
 			</div>
 		</div>
 	</c:if>
+	<!-- Modal thông báo trúc-->
+	<div class="modal fade" id="messageModal" tabindex="-1"
+		aria-labelledby="messageModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="messageModalLabel">Thông báo</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="modalMessageBody">
+					<!-- Nội dung thông báo sẽ được cập nhật từ JavaScript -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="container">
 		<div class="container">
 			<div class="row">
@@ -526,7 +561,7 @@
 							<div class="card-title">Quản Lý Vi Phạm</div>
 						</div>
 						<div class="card-body p-0">
-						
+
 							<div class="table-responsive">
 								<table id="vpTable" class="table align-items-center mb-0">
 									<thead class="thead-light">
@@ -554,9 +589,9 @@
 														<a href="/admin/detailPost/${vp.job.jobid}" class="btn"
 															type="button" title="Xem Chi Tiết"> <img
 															src="/img/detail-icon.png" style="padding-bottom: 7px;"
-															width="25px" height="30px" alt="Detail">														
+															width="25px" height="30px" alt="Detail">
 													</div></td>
-													
+
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -605,13 +640,63 @@
 <script>
 function confirmDelete(id) {
     if (confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
-        // Cập nhật giá trị của input ẩn trong form xóa
-        document.getElementById('deleteId').value = id;
-        // Gửi form để thực hiện xóa
-        document.getElementById('deleteForm').submit();
-        return false; // Ngăn việc điều hướng đến URL
+        // Gửi yêu cầu AJAX để xóa bài viết
+        $.ajax({
+            url: '/admin/deletePost',
+            type: 'POST',
+            data: { id: id },
+            success: function(response) {
+                // Lấy nội dung modal
+                var modalBody = document.getElementById('modalMessageBody');
+                var modalTitle = document.getElementById('messageModalLabel');
+                
+                // Cập nhật nội dung và tiêu đề modal với thông báo từ server
+                modalBody.textContent = response.message;
+
+                // Xử lý màu sắc và kiểu dáng modal tùy thuộc vào kết quả trả về
+                if (response.success) {
+                    // Thông báo thành công
+                    modalBody.classList.remove("text-danger"); // Xóa màu đỏ cũ
+                    modalBody.classList.add("text-success"); // Thêm màu xanh cho thông báo thành công
+                    modalTitle.textContent = "Thành công!"; // Tiêu đề modal thành "Thành công"
+                } else {
+                    // Thông báo thất bại
+                    modalBody.classList.remove("text-success"); // Xóa màu xanh cũ
+                    modalBody.classList.add("text-danger"); // Thêm màu đỏ cho thông báo lỗi
+                    modalTitle.textContent = "Thất bại!"; // Tiêu đề modal thành "Thất bại"
+                }
+
+                // Hiển thị modal
+                var modal = new bootstrap.Modal(document.getElementById('messageModal'));
+                modal.show();
+
+                // Nếu xóa thành công, xóa bài viết khỏi bảng
+                if (response.success) {
+                    document.querySelectorAll('#postTable tr').forEach(function(row) {
+                        var rowId = row.querySelector('th').textContent; // Lấy ID bài viết từ cột đầu tiên
+                        if (rowId == id) {
+                            row.remove(); // Xóa dòng tương ứng
+                        }
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                // Hiển thị thông báo lỗi trong modal
+                var modalBody = document.getElementById('modalMessageBody');
+                var modalTitle = document.getElementById('messageModalLabel');
+                
+                modalBody.textContent = "Xảy ra lỗi khi xóa bài viết.";
+                modalBody.classList.remove("text-success"); // Xóa màu xanh cũ
+                modalBody.classList.add("text-danger"); // Màu đỏ cho thông báo lỗi
+                modalTitle.textContent = "Lỗi!"; // Tiêu đề modal thành "Lỗi!"
+
+                // Hiển thị modal
+                var modal = new bootstrap.Modal(document.getElementById('messageModal'));
+                modal.show();
+            }
+        });
     }
-    return false; // Ngăn việc thực hiện hành động nếu người dùng chọn hủy
+    return false; // Ngăn chặn việc điều hướng tới URL mặc định
 }
 </script>
 

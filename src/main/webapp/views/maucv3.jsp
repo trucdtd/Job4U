@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Mẫu CV 3</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -16,16 +16,18 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- html2pdf Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <link rel="stylesheet" href="/css/cv3.css">
 </head>
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
-	
+
 	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
 	<br>
@@ -43,29 +45,28 @@
 			<div class="section">
 				<div class="contact-info">
 					<h2 class="section-title">Thông Tin</h2>
-					<label for="email">Email:</label> <input class="hidden-input"
-						type="email" id="email" value="hello@reallygreatsite.com">
-					<label for="phone">Phone:</label> <input class="hidden-input"
-						type="text" id="phone" value="+1 234 567 8910"> <label
-						for="dob">Ngày Sinh:</label> <input class="hidden-input"
-						type="date" id="dob" value="2004-09-28"> <label
-						for="gender">Giới Tính:</label> <select class="hidden-input"
-						id="gender">
+					<input class="hidden-input" type="email" id="email"
+						value="hello@reallygreatsite.com"> <input
+						class="hidden-input" type="text" id="phone"
+						value="+1 234 567 8910"> <input class="hidden-input"
+						type="date" id="dob" value="2004-09-28"> <select
+						class="hidden-input" id="gender">
 						<option value="male" selected>Nam</option>
 						<option value="female">Nữ</option>
 						<option value="other">Khác</option>
-					</select> <label for="language">Ngôn Ngữ:</label> <input
-						class="hidden-input" type="text" id="language" value="Việt Nam">
+					</select> <input class="hidden-input" type="text" id="language"
+						value="Việt Nam"> <input class="hidden-input" type="text"
+						id="address" value="Địa Chỉ">
 				</div>
 			</div>
-
-			<div class="section" id="educationSection">
-				<h2 class="section-title">Học Vấn</h2>
+			<div class="section" id="experienceSection">
+				<h2 class="section-title">Kinh Nghiệm</h2>
 				<div class="input-group">
-					<input class="hidden-input" type="text" placeholder="Nhập học vấn">
+					<input class="hidden-input" type="text"
+						placeholder="Nhập kinh nghiệm">
 				</div>
-				<button class="hidden" type="button" onclick="addEducationField()">+
-					Thêm Học Vấn</button>
+				<button class="hidden" type="button" onclick="addExperienceField()">+
+					Thêm Kinh Nghiệm</button>
 			</div>
 
 			<div class="section" id="certificateSection">
@@ -81,7 +82,7 @@
 
 		<!-- Right Column -->
 		<div class="right-column" id="sortable-right">
-			<div >
+			<div>
 				<div class="personal-info">
 					<h1 contenteditable="true">NGUYỄN VĂN A</h1>
 					<h4 contenteditable="true">Quản Lý Tiếp Thị</h4>
@@ -90,14 +91,16 @@
 				</div>
 			</div>
 
-			<div class="section" id="experienceSection">
-				<h2 class="section-title">Kinh Nghiệm</h2>
+			<div class="section" id="educationSection">
+				<h2 class="section-title">Học Vấn</h2>
 				<div class="input-group">
-					<input class="hidden-input" type="text"
-						placeholder="Nhập kinh nghiệm">
+					<input class="hidden-input project-name" type="text"
+						placeholder="Tên Trường"> <input class="hidden-input"
+						type="text" placeholder="Thời Gian">
+					<textarea class="hidden-input" placeholder="Mô Tả"></textarea>
 				</div>
-				<button class="hidden" type="button" onclick="addExperienceField()">+
-					Thêm Kinh Nghiệm</button>
+				<button class="hidden" type="button" onclick="addEducationField()">+
+					Thêm Học Vấn</button>
 			</div>
 
 			<div class="section" id="projectSection">
@@ -173,13 +176,21 @@
 			});
 		});
 
-		// Add new fields (education, certificate, experience, etc.)
 		function addEducationField() {
-			var section = document.createElement("div");
-			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Nhập học vấn">';
-			document.getElementById("educationSection").insertBefore(section,
-					document.querySelector("#educationSection button"));
+		    // Tạo một khối mới
+		    var section = document.createElement("div");
+		    section.classList.add("input-group");
+
+		    // Nội dung HTML của khối
+		    section.innerHTML = `
+		        <input class="hidden-input project-name" type="text" placeholder="Tên Trường">
+		        <input class="hidden-input" type="text" placeholder="Thời Gian">
+		        <textarea class="hidden-input" placeholder="Mô Tả"></textarea>
+		    `;
+
+		    // Chèn khối mới trước nút "Thêm Học Vấn"
+		    document.getElementById("educationSection").insertBefore(section,
+		        document.querySelector("#educationSection button"));
 		}
 
 		function addCertificateField() {
@@ -220,20 +231,25 @@
 	</script>
 	<script>
 	function downloadCVAsPDF() {
-	    const { jsPDF } = window.jspdf;
-	    const cvContent = document.getElementById('cv-content'); // Your CV container
+		  const { jsPDF } = window.jspdf;
+		  const cvContent = document.getElementById('cv-content'); // Your CV container
 
-	    // Ensure html2pdf is loaded correctly
-	    const options = {
-	        margin: [10, 10, 10, 10], // Set margins
-	        filename: 'CV.pdf', // The filename of the PDF
-	        html2canvas: { scale: 2 }, // Increase the scale for better quality
-	        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
-	    };
+		  // Ensure html2pdf is loaded correctly
+		  const options = {
+				  margin: [2, 2, 2, 2], // Set margins
+		    filename: 'CV.pdf', // The filename of the PDF
+		    html2canvas: { scale: 2 }, // Increase the scale for better quality
+		    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
+		  };
 
-	    // Use html2pdf to convert HTML to PDF
-	    html2pdf().from(cvContent).set(options).save();
-	}
+		  // Pre-render textarea heights
+		  document.querySelectorAll('textarea').forEach(textarea => {
+		    textarea.style.height = textarea.scrollHeight + 'px';
+		  });
+
+		  // Use html2pdf to convert HTML to PDF
+		  html2pdf().from(cvContent).set(options).save();
+		}
 	</script>
 	<script>
 		// Hàm tự động thay đổi chiều cao

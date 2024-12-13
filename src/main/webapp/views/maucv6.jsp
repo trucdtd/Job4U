@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Mẫu CV 6</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -30,93 +30,139 @@
 
 	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
+	<div class="cv-container" id="cv-content">
+		<!-- Decorative Header -->
+		<!-- <div class="header-decoration"></div>
+		<div class="inner-header-decoration"></div>
 
-	<div class="containerr" id="cv-content">
-		<div class="header">
-			<input type="file" id="profile-pic-input" class="profile-pic"
-				title="Upload profile picture" /> <img id="profile-pic-preview"
-				class="profile-pic" style="display: none;" />
+		Decorative Footer
+		<div class="footer-decoration"></div>
+		<div class="inner-footer-decoration"></div>
 
-			<div>
-				<h1 contenteditable="true">NGUYỄN VĂN A</h1>
-				<h5 contenteditable="true">Quản Lý Tiếp Thị</h5>
-				<div>
-					<input class="hidden-input" type="tel"
-						placeholder="Enter Phone Number" value="+123 456 7890"> <input
-						class="hidden-input" type="email" placeholder="Email"
-						value="olivia@email.com"> <input class="hidden-input"
-						type="date" value="https://www.oliviaportfolio.com"> <input
-						class="hidden-input" type="text" placeholder="Giới Tính"
-						value="Giới Tính">
+		Corner Triangles
+		<div class="top-left-triangle"></div>
+		<div class="bottom-right-triangle"></div> -->
+
+		<!-- Left Column -->
+		<div class="left-column" id="sortable-left">
+			<div class="profile-photo">
+				<!-- Ẩn input file và bấm vào bất kỳ chỗ nào trong khung để chọn ảnh -->
+				<input class="an" type="file" id="profile-image" accept="image/*"
+					onchange="previewImage(event)"> <label for="profile-image"
+					class="upload-label"> <img id="profile-img-preview"
+					src="path/to/default-image.jpg" alt="Ảnh ứng viên">
+				</label>
+			</div>
+			<div class="section">
+				<div class="section-title">Liên Hệ</div>
+				<div class="contact-info">
+					
+						<input type="text" class="hidden-input" name="phone"
+							placeholder="Nhập số điện thoại">
+
+						<input type="email" class="hidden-input" name="email"
+							placeholder="alfredo@example.com">
+					
+						<input class="hidden-input" type="date" name="dob">
+					
+						<input class="hidden-input" type="text" name="language"
+							placeholder="Tiếng Việt">
+					
+						<select class="hidden-input" name="gender"><option
+								value="male">Nam</option>
+							<option value="female">Nữ</option></select>
+					
+						<input class="hidden-input" type="text" name="address"
+							placeholder="Địa Chỉ">
+				
+				</div>
+			</div>
+
+			<!-- Kỹ Năng -->
+			<div class="section">
+				<div class="section-title">Kỹ Năng</div>
+				<div id="skills-section" class="draggable-section">
+					<input class="hidden-input" type="text" name="skills[]"
+						placeholder="Nhập kỹ năng" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('skills-section')">+ Thêm Kỹ
+						Năng</button>
+				</div>
+			</div>
+			
+
+			<div class="section">
+				<div class="section-title">Chứng Chỉ</div>
+				<div id="certificates-section">
+					<input class="hidden-input" type="text" name="certificates[]"
+						placeholder="Nhập chứng chỉ" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('certificates-section')">+ Thêm
+						Chứng Chỉ</button>
 				</div>
 			</div>
 		</div>
 
-		<div class="content">
-			<div class="left-column" id="sortable-left">
-				<div class="section">
-					<h3 class="section-title">Học Vấn</h3>
-					<ul id="education-list">
-						<li><input class="hidden-input project-name" type="text"
-							placeholder="Trường Học"> <input class="hidden-input"
-							type="text" placeholder="Chuyên Ngành"> <input
-							class="hidden-input" type="text" placeholder="Thời Gian">
-						</li>
-					</ul>
-					<button class="add-button" onclick="addEducation()">Thêm</button>
-				</div>
+		<div class="right-column" id="sortable-right">
+			<h1 placeholder="Nhập mục tiêu nghề nghiệp" contenteditable="true">NGUYỄN
+				VĂN A</h1>
+			<h5 contenteditable="true">Quản Lý Tiếp Thị</h5>
 
-				<!-- Ngôn Ngữ -->
-				<div class="section">
-					<h3 class="section-title">Ngôn Ngữ</h3>
-					<ul id="languages-list">
-						<li><input class="hidden-input" type="text"
-							placeholder="Ngôn Ngữ"></li>
-					</ul>
-					<button class="add-button" onclick="addLanguage()">Thêm</button>
-				</div>
+			<!-- <h2><input type="text" name="title" placeholder="Vị Tí Ứng Tuyển"></h2> -->
 
-				<!-- Sở Thích -->
-				<div class="section">
-					<h3 class="section-title">Sở Thích</h3>
-					<ul id="hobbies-list">
-						<li><input class="hidden-input" type="text"
-							placeholder="Sở thích"></li>
-					</ul>
-					<button class="add-button" onclick="addHobby()">Thêm</button>
+			<div class="section">
+				<div class="section-title">Mục Tiêu Nghề Nghiệp</div>
+				<textarea class="hidden-input" name="careerGoal"
+					placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh."></textarea>
+			</div>
+
+			
+			
+			<div class="section">
+				<div class="section-title">Học Vấn</div>
+				<div id="education-section" class="draggable-section">
+					<!-- Mẫu trường học vấn đầu tiên -->
+					<div class="education-item draggable" draggable="true">
+						<input class="hidden-input project-name" type="text" name="education[]"
+							placeholder="Tên Trường" class="education-name"> <input
+							class="hidden-input" type="text" name="education-dates[]"
+							placeholder="Thời Gian" class="education-time">
+						<textarea class="hidden-input" name="education-descriptions[]"
+							placeholder="Mô Tả"></textarea>
+					</div>
 				</div>
-				<div class="section">
-					<h3 class="section-title">Kỹ Năng</h3>
-					<ul id="skills-list">
-						<li><input class="hidden-input" type="text"
-							placeholder="Kỹ Năng"></li>
-					</ul>
-					<!-- Nút Thêm nằm ngoài thẻ <ul> -->
-					<button class="add-button" onclick="addSkill()">Thêm</button>
+				<div class="add-button-container">
+					<button onclick="addEducationField()">+ Thêm Học Vấn</button>
 				</div>
 			</div>
 
-			<div class="right-column" id="sortable-right">
-				<div class="section">
-					<h3 class="section-title">Mục Tiêu Nghề Ngiệp</h3>
-					<textarea class="hidden-input"
-						placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh."
-						rows="4" style="width: 100%;"></textarea>
+			<div class="section">
+				<div class="section-title">Dự Án Đã Tham Gia</div>
+				<div id="projects-section" class="draggable-section">
+					<div class="work-experience-item">
+						<input class="hidden-input project-name" type="text"
+							name="projects[]" placeholder="Tên dự án - Công ty"> <input
+							class="hidden-input" type="text" name="project-dates[]"
+							placeholder="Thời gian">
+						<textarea class="hidden-input" name="project-descriptions[]"
+							placeholder="Mô tả"></textarea>
+					</div>
 				</div>
-
-
-
-				<!-- Dự Án Đã Tham Gia -->
-				<div class="section">
-					<h3 class="section-title">Dự Án Đã Tham Gia</h3>
-					<ul id="experience-list">
-						<li><input class="hidden-input project-name" type="text"
-							placeholder="Tên Dự Án"> <input class="hidden-input"
-							type="text" placeholder="Thời Gian"> <textarea
-								class="hidden-input" placeholder="Mô Tả" rows="4"
-								style="width: 100%;"></textarea></li>
-					</ul>
-					<button class="add-button" onclick="addExperience()">Thêm</button>
+				<div class="add-button-container">
+					<button onclick="addProjectField()">+ Thêm Dự Án</button>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section-title">Sở Thích</div>
+				<div id="hobbies-section" class="draggable-section">
+					<input class="hidden-input" type="text" name="hobbies[]"
+						placeholder="Nhập Sở Thích" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('hobbies-section')">+ Thêm Kỹ
+						Năng</button>
 				</div>
 			</div>
 		</div>
@@ -130,71 +176,115 @@
 	<!-- footer -->
 	<%@ include file="/views/footer.jsp"%>
 	<!-- footer -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 	<script>
-    // Thêm mới trường học
-    function addEducation() {
-        const educationList = document.getElementById('education-list');
-        const newEducation = document.createElement('li');
-        newEducation.innerHTML = `
-            <input class="hidden-input project-name" type="text" placeholder="Trường Học">
-            <input class="hidden-input" type="text" placeholder="Chuyên Ngành">
-            <input class="hidden-input" type="text" placeholder="Thời Gian">
-        `;
-        educationList.appendChild(newEducation); // Thêm vào cuối danh sách
-    }
+	function addField(sectionId) {
+		  const section = document.getElementById(sectionId);
+		  const input = document.createElement("input");
+		  input.type = "text";
+		  input.name = sectionId.replace('-section', '') + "[]";
+		  input.placeholder = "Nhập thông tin";
+		  input.classList.add("hidden-input"); // Thêm class "hidden-input"
+		  section.appendChild(input);
 
-    // Thêm mới ngôn ngữ
-    function addLanguage() {
-        const languageList = document.getElementById('languages-list');
-        const newLanguage = document.createElement('li');
-        newLanguage.innerHTML = `
-            <input class="hidden-input" type="text" placeholder="Ngôn Ngữ">
-        `;
-        languageList.appendChild(newLanguage); // Thêm vào cuối danh sách
-    }
+		  setTimeout(() => {
+		    input.style.transition = "opacity 0.5s";
+		    input.style.opacity = 1;
+		  }, 50);
+		}
 
-    // Thêm mới sở thích
-    function addHobby() {
-        const hobbyList = document.getElementById('hobbies-list');
-        const newHobby = document.createElement('li');
-        newHobby.innerHTML = '<input class="hidden-input" type="text" placeholder="Sở Thích">';
-        hobbyList.appendChild(newHobby); // Thêm vào cuối danh sách
-    }
+		function addProjectField() {
+			  const projectSection = document.getElementById('projects-section');
+			  const div = document.createElement("div");
+			  div.className = "work-experience-item";
 
-    // Thêm mới kỹ năng
-    function addSkill() {
-        const skillList = document.getElementById('skills-list');
-        const newSkill = document.createElement('li');
-        newSkill.innerHTML = '<input class="hidden-input" type="text" placeholder="Kỹ Năng">';
-        skillList.appendChild(newSkill); // Thêm vào cuối danh sách
-    }
+			  div.innerHTML = `
+			      <input type="text" name="projects[]" placeholder="Tên dự án - Công ty" class="hidden-input project-name" style="opacity: 0;">
+			      <input type="text" name="project-dates[]" placeholder="Thời gian" class="hidden-input" style="opacity: 0;">
+			      <textarea name="project-descriptions[]" placeholder="Mô tả" class="hidden-input" style="opacity: 0;"></textarea>
+			  `;
+			  projectSection.appendChild(div);
 
-    // Thêm mới kinh nghiệm làm việc
-    function addExperience() {
-        const experienceList = document.getElementById('experience-list');
-        const newExperience = document.createElement('li');
-        newExperience.innerHTML = `
-            <input class="hidden-input project-name" type="text" placeholder="Tên Dự Án">
-            <input class="hidden-input" type="text" placeholder="Thời Gian">
-            <textarea class="hidden-input" placeholder="Mô Tả" rows="4" style="width: 100%;"></textarea>
-        `;
-        experienceList.appendChild(newExperience); // Thêm vào cuối danh sách
-    }
-</script>
+			  // Chọn tất cả các input và textarea bên trong div mới
+			  const inputs = div.querySelectorAll('input, textarea');
+			  setTimeout(() => {
+			    inputs.forEach(input => {
+			      input.style.transition = "opacity 0.5s";
+			      input.style.opacity = 1;
+			    });
+			  }, 50);
+			}
+		function addEducationField() {
+		    const educationSection = document.getElementById('education-section');
+		    const div = document.createElement('div');
+		    div.className = 'education-item';
+
+		    div.innerHTML = `
+		        <input type="text" name="educations[]" placeholder="Tên Trường" class="hidden-input project-name education-institution" style="opacity: 0;">
+		        <input type="text" name="education-dates[]" placeholder="Thời Gian" class="hidden-input education-time" style="opacity: 0;">
+		        <textarea name="education-descriptions[]" placeholder="Mô Tả" class="hidden-input education-description" style="opacity: 0;"></textarea>
+		    `;
+
+		    educationSection.appendChild(div);
+
+		    // Hiệu ứng hiển thị mượt mà
+		    const inputs = div.querySelectorAll('input, textarea');
+		    setTimeout(() => {
+		        inputs.forEach(input => {
+		            input.style.transition = 'opacity 0.5s';
+		            input.style.opacity = 1;
+		        });
+		    }, 50);
+		}
+		 document.addEventListener("DOMContentLoaded", function() {
+		        // Cho phép kéo-thả trong cột bên trái
+		        new Sortable(document.getElementById("sortable-left"), {
+		            animation: 150,
+		            group: "shared",  // Tùy chọn: Cho phép kéo-thả qua lại giữa các cột
+		            draggable: ".section",  // Các mục có thể kéo là những mục có lớp .section
+		            handle: ".section-title",  // Kéo bằng tiêu đề của phần
+		            ghostClass: "sortable-ghost"  // Thêm lớp cho phần tử đang kéo
+		        });
+
+		        // Cho phép kéo-thả trong cột bên phải
+		        new Sortable(document.getElementById("sortable-right"), {
+		            animation: 150,
+		            group: "shared",
+		            draggable: ".section",
+		            handle: ".section-title",
+		            ghostClass: "sortable-ghost"
+		        });
+		    });
+	</script>
+	<script>
+	function previewImage(event) {
+	    const file = event.target.files[0];
+	    if (file) {
+	        const reader = new FileReader();
+	        reader.onload = function(e) {
+	            document.getElementById('profile-img-preview').src = e.target.result;
+	        };
+	        reader.readAsDataURL(file);
+	    }
+	}
+	</script>
 	<script>
 	function downloadCVAsPDF() {
 	    const { jsPDF } = window.jspdf;
-	    const cvContent = document.getElementById('cv-content'); // Your CV container
+	    const cvContent = document.getElementById('cv-content');
 
-	    // Ensure html2pdf is loaded correctly
 	    const options = {
-	        margin: [10, 10, 10, 10], // Set margins
-	        filename: 'CV.pdf', // The filename of the PDF
-	        html2canvas: { scale: 2 }, // Increase the scale for better quality
-	        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
+	    		margin: [2, 2, 2, 2], // Set margins
+	        filename: 'CV.pdf',
+	        html2canvas: { scale: 2 },
+	        jsPDF: {
+	            unit: 'mm',
+	            format: 'a4', // Có thể thay đổi thành 'a3' nếu cần
+	            orientation: 'portrait'
+	        }
 	    };
 
-	    // Use html2pdf to convert HTML to PDF
 	    html2pdf().from(cvContent).set(options).save();
 	}
 	</script>
@@ -215,46 +305,5 @@
 		  autoResizeTextarea(textarea);
 		});
 	</script>
-	<script>
-	// Enable drag-and-drop functionality for sections in both columns
-		document.addEventListener("DOMContentLoaded", function() {
-			// Enable dragging within left column
-			new Sortable(document.getElementById("sortable-left"), {
-				animation : 150,
-				group : "shared",
-				draggable : ".section",
-				handle : ".section-title",
-				ghostClass : "sortable-ghost"
-			});
-
-			// Enable dragging within right column
-			new Sortable(document.getElementById("sortable-right"), {
-				animation : 150,
-				group : "shared",
-				draggable : ".section",
-				handle : ".section-title",
-				ghostClass : "sortable-ghost"
-			});
-		});
-		</script>
-	<script>
-			document.getElementById('profile-pic-input').addEventListener('change', function(event) {
-	    const file = event.target.files[0];
-	    const preview = document.getElementById('profile-pic-preview');
-	    const input = document.getElementById('profile-pic-input');
-	
-	    if (file) {
-	        const reader = new FileReader();
-	        
-	        reader.onload = function(e) {
-	            preview.style.display = 'block'; // Hiển thị ảnh preview
-	            preview.src = e.target.result; // Đặt nguồn cho ảnh preview
-	            input.style.display = 'none'; // Ẩn nút chọn ảnh
-	        }
-	
-	        reader.readAsDataURL(file); // Đọc ảnh đã chọn
-	    }
-	});
-		</script>
 </body>
 </html>

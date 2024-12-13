@@ -1,130 +1,207 @@
 @charset "UTF-8";
-body {
-	font-family: 'Arial', sans-serif;
-	background-color: #f4f4f4;
+* {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
 }
 
-.containerr {
-	width: 750px;
-	margin: 30px auto;
-	background-color: #ffffff;
-	padding: 30px;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-.header {
+body {
+	background-color: #f4f4f4;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
-	justify-content: space-between;
-	padding-bottom: 15px;
-	border-bottom: 2px solid #ddd;
+	min-height: 100vh;
+	margin: 0;
+}
+
+header, footer {
+	width: 100%;
+	background-color: #fff;
+	z-index: 10;
+}
+
+footer {
+	margin-top: auto;
+}
+
+/* CV Container */
+.cv-container {
+	width: 850px;
+	background-color: #fff;
+	padding: 40px;
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	gap: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	position: relative;
+	overflow: hidden;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+h1 {
+	font-size: 24px;
+	color: #4d5c4b;
+}
+
+/* Left Column */
+.left-column {
+	background-color: #f4f4f4;
+	padding: 20px;
+	border-radius: 8px;
+	border-right: 3px solid #2c3e50;
+	z-index: 1;
+}
+
+.profile-photo {
+	width: 100%;
+	height: 0;
+	padding-bottom: 102.33%; /* Tỉ lệ 3x4 (3 / 4 * 100) */
+	background-color: rgba(221, 221, 221, 0.7); /* Nền mờ */
+	background-image: url('path/to/default-image.jpg'); /* Ảnh mặc định */
+	background-size: cover;
+	background-position: center;
+	border-radius: 8px;
+	cursor: pointer; /* Cho phép người dùng bấm vào bất kỳ chỗ nào */
+	position: relative;
+	transition: background-color 0.3s ease-in-out;
+}
+
+#profile-img-preview {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 8px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.upload-label {
+	display: block;
+	width: 100%;
+	height: 100%;
+	cursor: pointer; /* Cho phép người dùng bấm vào ảnh */
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* Ẩn input file */
+.an[type="file"] {
+	display: none;
+}
+
+.section-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.contact-info, .education, .skills {
+	margin-bottom: 20px;
+}
+
+.contact-info p, .education p, .skills p {
+	margin: 5px 0;
+	color: #555;
+	font-size: 14px;
+}
+
+/* Right Column */
+.right-column {
+	z-index: 1;
+	padding: 0 20px;
+	padding-bottom: 40px;
+}
+
+.right-column h1 {
+	font-size: 50px;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 5px;
+	margin-top: 15px;
+	border-radius: 5px;
+}
+
+.right-column h2 {
+	margin-top: -50px;
+	font-size: 17px;
+	color: #666;
+}
+
+/* Work Experience Section */
+.work-experience-item {
 	margin-bottom: 15px;
 }
 
-.header h1 {
-	font-size: 20px; /* Giảm kích thước font */
-	margin: 0;
+.work-experience-item h4 {
+	font-size: 16px;
+	font-weight: bold;
 	color: #333;
 }
 
-.header h5 {
-	font-size: 14px; /* Giảm kích thước font */
-	margin: 5px 0;
-	color: #777;
+.work-experience-item p {
+	color: #555;
+	font-size: 14px;
+	margin: 2px 0;
 }
+textarea {
+    width: 100%;
+    padding: 10px;
+    overflow: hidden; /* Ẩn thanh cuộn */
+    resize: none; /* Tắt tính năng thay đổi kích thước */
+  }
 
-.header input[type="tel"], .header input[type="email"], .header input[type="date"],
-	.header input[type="text"] {
-	font-size: 12px; /* Giảm kích thước font */
-	width: 46%; /* Giảm chiều rộng */
-	padding: 6px; /* Giảm padding */
-	border-radius: 5px;
-}
-
-/* Vùng tải ảnh */
-.profile-pic {
-    border-radius: 50%; /* Vòng tròn */
-    width: 100px;
-    height: 100px;
-    background-color: #b3acac; /* Nền xám nếu chưa có ảnh */
-    margin-right: 100px;
-    margin-left: 55px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* Ẩn phần ảnh vượt ra ngoài */
-}
-
-/* Ảnh hiển thị */
-#profile-pic-preview {
-    width: 100px;
-    height: 100px;
-    object-fit: cover; /* Đảm bảo ảnh vừa khít */
-    border-radius: 50%;
-}
-
-.header div {
-	flex: 1;
-}
-
-.content {
-	display: flex;
-	justify-content: space-between;
-}
-
-.left-column, .right-column {
+input[type="text"], input[type="email"], input[type="date"], select {
+	width: 100%;
 	padding: 10px;
-}
-
-.left-column {
-	width: 30%;
-	border-right: 2px solid #ddd;
-}
-
-.right-column {
-	width: 65%;
-}
-
-.section {
-	margin-bottom: 30px;
-}
-
-.section h3 {
-	font-size: 22px;
+	margin: 5px 0;
+	font-size: 14px;
 	color: #333;
-	border-bottom: 2px solid #ddd;
-	padding-bottom: 5px;
 }
 
-.section ul {
-	list-style-type: none;
-	padding-left: 0;
-}
-
-.section ul li {
-	position: relative;
-}
-
-.section ul li input {
-	font-size: 14px;
-	width: 100%;
-	padding: 8px;
+button {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 6px 12px; /* Giảm padding */
+	cursor: pointer;
+	margin-top: 10px;
 	border-radius: 5px;
+	font-size: 13px; /* Giảm font-size */
+	transition: background-color 0.3s ease;
 }
 
-.section textarea {
-	font-size: 14px;
-	width: 100%;
-	padding: 8px;
-	border-radius: 5px;
+button:hover {
+	background-color: #45a049;
 }
 
-/* Hiện nút thêm khi người dùng hover vào ô nhập liệu */
-.section ul li:hover .add-button {
-	display: inline-block;
+button:focus {
+	outline: none;
+}
+
+/* Thêm hiệu ứng xuất hiện từ từ cho các nút "Thêm" */
+button.add-field {
+	opacity: 0;
+	animation: fadeIn 0.5s forwards;
+	animation-delay: 0.3s; /* Tạo độ trễ cho nút */
+}
+
+/* Ẩn nút thêm ban đầu */
+.add-button-container {
+	display: none;
+	margin-top: 10px;
+}
+
+/* Hiển thị nút thêm khi hover vào khu vực nhập liệu */
+.section:hover .add-button-container {
+	display: block;
 }
 
 .hidden-input {
@@ -138,49 +215,10 @@ body {
     border: 1px dashed #45a049; /* Thay đổi màu và độ dày viền theo ý muốn */
   }
 }
-textarea {
-	width: 100%;
-	padding: 10px;
-	overflow: hidden; /* Ẩn thanh cuộn */
-	resize: none; /* Tắt tính năng thay đổi kích thước */
-}
-
 .project-name {
-	font-size: 18px; /* Kích thước chữ lớn hơn */
-	font-weight: bold; /* Chữ đậm hơn */
-	color: #333; /* Tùy chỉnh màu sắc (tùy chọn) */
+    font-size: 18px; /* Kích thước chữ lớn hơn */
+    font-weight: bold; /* Chữ đậm hơn */
+    color: #333; /* Tùy chỉnh màu sắc (tùy chọn) */
 }
 
-.button-container {
-	display: flex; /* Aligns buttons horizontally */
-	justify-content: center; /* Centers buttons */
-	gap: 10px; /* Adds space between buttons */
-	margin-top: 20px;
-}
 
-.download-button {
-	background-color: #4CAF50; /* Green background */
-	color: white; /* White text */
-	border: none; /* Remove border */
-	padding: 10px 20px; /* Add padding */
-	font-size: 14px; /* Adjust font size */
-	cursor: pointer; /* Pointer cursor on hover */
-	border-radius: 4px; /* Rounded corners */
-	transition: background-color 0.3s; /* Smooth transition on hover */
-}
-
-.add-button {
-	display: none;
-	background-color: #4CAF50; /* Màu xanh lá */
-	color: white;
-	border: none;
-	padding: 6px 12px;
-	font-size: 12px;
-	border-radius: 5px;
-	cursor: pointer;
-	margin-top: 10px;
-}
-
-.section:hover .add-button {
-    display: inline-block; /* Hiển thị nút "Thêm" khi hover vào phần `.section` */
-}

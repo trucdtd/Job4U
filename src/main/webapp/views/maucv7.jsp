@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Mẫu CV 7</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -16,10 +16,12 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- html2pdf Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <link rel="stylesheet" href="/css/cv7.css">
 <body>
 <html>
@@ -27,7 +29,6 @@
 <%@ include file="/views/headerNoPanner.jsp"%>
 <%@ include file="/views/chat.jsp"%>
 <div class="cv-container" id="cv-content">
-
 	<div class="sidebar" id="sortable-left">
 		<input type="file" id="fileInput" onchange="previewImage(event)"
 			accept="image/*" style="display: none;"> <img
@@ -35,7 +36,7 @@
 			alt="Profile Photo" class="sidebar-img"
 			onclick="document.getElementById('fileInput').click();">
 		<div class="section">
-			<h3 class="section-title">Contact</h3>
+			<h3 class="section-title">Liên Hệ</h3>
 			<ul id="contact-list">
 				<li><input class="hidden-input" type="text" placeholder="Email"></li>
 				<li><input class="hidden-input" type="text"
@@ -46,7 +47,8 @@
 					placeholder="Ngày Sinh"></li>
 				<li><input class="hidden-input" type="text"
 					placeholder="Địa Chỉ"></li>
-
+				<li><input class="hidden-input" type="text"
+					placeholder="Ngôn Ngữ"></li>
 			</ul>
 		</div>
 
@@ -58,17 +60,13 @@
 			</ul>
 			<button class="add-button" onclick="addSkill()">Thêm</button>
 		</div>
-
 		<div class="section">
-			<h3 class="section-title">Học Vấn</h3>
-			<ul id="education-list">
+			<h3 class="section-title">Chứng Chỉ</h3>
+			<ul id="certificates-list">
 				<li><input class="hidden-input" type="text"
-					placeholder="Tên Trường"> <input class="hidden-input"
-					type="text" placeholder="Thời Gian Học"> <textarea
-						style="width: 100%;" class="hidden-input"
-						placeholder="Mô Tả Ngành Học"></textarea></li>
+					placeholder="Tên Chứng Chỉ"></li>
 			</ul>
-			<button class="add-button" onclick="addEducation()">Thêm</button>
+			<button class="add-button" onclick="addCertificate()">Thêm</button>
 		</div>
 	</div>
 
@@ -80,16 +78,29 @@
 		</div>
 
 		<div class="section">
-			<h3 class="section-title">Giới Thiệu Bản Thân</h3>
+			<h3 class="section-title">Mục Tiêu Nghề Nghiệp</h3>
 			<textarea class="hidden-input"
 				placeholder="Tôi là một người sáng tạo vui vẻ, chăm chỉ và luôn phấn đấu để đạt được sự xuất sắc trong mọi việc mình làm. Tôi là một người ham học hỏi và luôn tìm cách nâng cao cuộc sống của mọi người xung quanh.""></textarea>
+		</div>
+		<div class="section">
+			<h3 class="section-title">Học Vấn</h3>
+			<div class="education">
+				<ul id="education-list">
+					<li><input class="hidden-input project-name" type="text"
+						placeholder="Tên Trường"> <input class="hidden-input"
+						type="text" placeholder="Thời Gian"> <textarea
+							class="hidden-input" style="width: 100%;" placeholder="Mô Tả"></textarea>
+					</li>
+				</ul>
+				<button class="add-button" onclick="addEducation()">Thêm</button>
+			</div>
 		</div>
 
 		<div class="section">
 			<h3 class="section-title">Dự Án Đã Tham Gia</h3>
 			<div class="experience">
 				<ul id="projects-list">
-					<li><input class="hidden-input" type="text"
+					<li><input class="hidden-input project-name" type="text"
 						placeholder="Tên Dự Án"> <input class="hidden-input"
 						type="text" placeholder="Thời Gian"> <textarea
 							class="hidden-input" placeholder="Mô Tả"></textarea></li>
@@ -122,14 +133,19 @@ function addSkill() {
     newSkill.innerHTML = `<input class="hidden-input" type="text" placeholder="Kỹ Năng">`;
     skillsList.appendChild(newSkill);
 }
-
+function addCertificate() {
+    const certificatesList = document.getElementById("certificates-list");
+    const newCertificate = document.createElement("li");
+    newCertificate.innerHTML = `<input class="hidden-input" type="text" placeholder="Tên Chứng Chỉ">`;
+    certificatesList.appendChild(newCertificate);
+}
 function addEducation() {
     const educationList = document.getElementById("education-list");
     const newEducation = document.createElement("li");
     newEducation.innerHTML = `
-        <input class="hidden-input" type="text" placeholder="Tên Trường">
-        <input class="hidden-input" type="text" placeholder="Thời Gian Học">
-        <textarea class="hidden-input" placeholder="Mô Tả Ngành Học"></textarea>
+        <input class="hidden-input project-name" style="width: 100%;" type="text" placeholder="Tên Trường">
+        <input class="hidden-input" type="text" style="width: 100%;" placeholder="Thời Gian">
+        <textarea class="hidden-input" style="width: 100%;" placeholder="Mô Tả"></textarea>
     `;
     educationList.appendChild(newEducation);
 }
@@ -138,9 +154,9 @@ function addProject() {
     const projectsList = document.getElementById("projects-list");
     const newProject = document.createElement("li");
     newProject.innerHTML = `
-        <input class="hidden-input" type="text" placeholder="Tên Dự Án">
+        <input class="hidden-input project-name" type="text" placeholder="Tên Dự Án">
         <input class="hidden-input" type="text" placeholder="Thời Gian">
-        <textarea class="hidden-input" placeholder="Mô Tả"></textarea>
+        <textarea class="hidden-input" style="width: 100%;" placeholder="Mô Tả"></textarea>
     `;
     projectsList.appendChild(newProject);
 }
@@ -179,6 +195,37 @@ function previewImage(event) {
     };
     reader.readAsDataURL(event.target.files[0]);  // Đọc ảnh đã chọn
 }
+document.addEventListener("DOMContentLoaded", function () {
+	  function adjustInputSize() {
+	    // Lấy tất cả các input trong cv-container
+	    const inputs = document.querySelectorAll(".cv-container .hidden-input");
+	    inputs.forEach((input) => {
+	      input.style.width = "100%"; // Đặt chiều rộng cố định
+	      input.style.boxSizing = "border-box"; // Đảm bảo padding không ảnh hưởng kích thước
+	    });
+	  }
+
+	  new Sortable(document.getElementById("sortable-left"), {
+	    animation: 150,
+	    group: "shared",
+	    draggable: ".section",
+	    handle: ".section-title",
+	    ghostClass: "sortable-ghost",
+	    onEnd: adjustInputSize, // Gọi hàm khi kết thúc kéo thả
+	  });
+
+	  new Sortable(document.getElementById("sortable-right"), {
+	    animation: 150,
+	    group: "shared",
+	    draggable: ".section",
+	    handle: ".section-title",
+	    ghostClass: "sortable-ghost",
+	    onEnd: adjustInputSize, // Gọi hàm khi kết thúc kéo thả
+	  });
+
+	  // Điều chỉnh kích thước ngay khi tải trang
+	  adjustInputSize();
+	});
 </script>
 <script>
 	function downloadCVAsPDF() {

@@ -12,10 +12,10 @@ nav{
 header nav .navbar-link:hover {
   color: #198754;
 }
-.nav-link {
-    color: #000; /* Màu chữ mặc định */
-    font-weight: bold; /* Chữ đậm */
-}
+/* .nav-link {
+    color: #000; Màu chữ mặc định
+    font-weight: bold; Chữ đậm
+} */
 
 .nav-link:hover,
 .nav-link.active {

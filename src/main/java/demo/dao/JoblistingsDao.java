@@ -200,4 +200,5 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	@Query("SELECT j FROM JoblistingsEntity j WHERE j.posteddate = :toDay")
 	List<JoblistingsDao> selectJobToDay(@Param("toDay") LocalDate toDay);
 
+
 }

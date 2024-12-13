@@ -272,16 +272,28 @@ p {
 	<!-- header -->
 	<div class="container mt-4">
 
-		<form action="/user/updateCv/${cv.jobseekerid}" method="post">
+		<form action="/user/updateCv/${cv.jobseekerid}" method="post"
+			enctype="multipart/form-data">
 			<div class="cv-container" id="cv-content">
 				<div class="left-column" id="sortable-left">
 					<div class="profile-photo">
-						<img src="${pageContext.request.contextPath}/uploads/${cv.image}"
-							alt="Ảnh ứng viên" class="cv-photo"
-							onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
-						<div class="placeholder-photo" style="display: none;">
-							<img src="path/to/placeholder-image.png" alt="Khung ảnh"
-								class="placeholder">
+						<div class="image-upload position-relative"
+							onclick="document.getElementById('imageInput').click();">
+							<!-- Hiển thị ảnh từ cơ sở dữ liệu -->
+							<img alt="Ảnh ứng viên"
+								src="${pageContext.request.contextPath}/uploads/${cv.image}"
+								id="profileImage" class="rounded-circle profile-image shadow"
+								onerror="this.style.display='none'; document.querySelector('.placeholder-photo').style.display='block';">
+							<!-- Nếu ảnh không có, hiển thị ảnh placeholder -->
+							<div class="placeholder-photo" style="display: none;">
+								<img src="path/to/placeholder-image.png" alt="Khung ảnh"
+									class="placeholder">
+							</div>
+
+							<!-- Hiển thị thông báo và ô tải ảnh lên -->
+							<p class="mt-2 text-muted">Nhấn để chọn ảnh (không bắt buộc)</p>
+							<input type="file" id="imageInput" name="image" accept="image/*"
+								style="display: none;" onchange="previewImage(event);">
 						</div>
 					</div>
 					<div class="contact section">
@@ -339,10 +351,9 @@ p {
 			</div>
 
 
+
 			<!-- </div> -->
 			<div class="text-center mt-4 mb-4">
-				<button class="btn btn-primary" onclick="downloadPDF()">Tải
-					CV Dưới Dạng PDF</button>
 				<!-- Nút Cập Nhật -->
 				<div class="text-center mt-4 mb-4">
 					<button type="submit" class="btn btn-success">Cập nhật</button>
@@ -350,20 +361,26 @@ p {
 
 			</div>
 		</form>
-</div>
+		<div class="text-center mt-4 mb-4">
+			<!-- Nút Cập Nhật -->
+			<button class="btn btn-primary" onclick="downloadPDF()">Tải
+				CV Dưới Dạng PDF</button>
+
+		</div>
+	</div>
 
 
-		<!-- footer -->
-		<%@ include file="/views/footer.jsp"%>
-		<!-- footer -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 
-		<script>
+	<script>
 	
     function downloadPDF() {
         var element = document.getElementById('cv-content'); // Chọn nội dung form
@@ -388,8 +405,8 @@ p {
 </script>
 
 
-		<!--di chuyển các class lớn của form -->
-		<script>
+	<!--di chuyển các class lớn của form -->
+	<script>
 	document.addEventListener("DOMContentLoaded", function() {
     // Kích hoạt SortableJS trên left-column
     Sortable.create(document.getElementById('sortable-left'), {
@@ -432,6 +449,16 @@ p {
 	        this.appendChild(input);  // Thêm vào form trước khi gửi
 	    });
 	});
+	
+	//tải ảnh lên
+	function previewImage(event) {
+		  var reader = new FileReader();
+		  reader.onload = function() {
+		    var output = document.getElementById('profileImage');
+		    output.src = reader.result;  // Cập nhật ảnh mới vào thẻ img
+		  };
+		  reader.readAsDataURL(event.target.files[0]);
+		}
 </script>
 </body>
 </html>

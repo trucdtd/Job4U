@@ -197,51 +197,86 @@ public class UsersController {
 
 	@PostMapping("/updateCv/{jobseekerId}")
 	public String updateCv(@PathVariable("jobseekerId") Integer jobseekerId,
-			@RequestParam Map<String, String> updatedData, Model model) {
-		try {
-			JobSeekersEntity jobSeeker = dao.findById(jobseekerId).orElse(null);
+	                       @RequestParam Map<String, String> updatedData,
+	                       @RequestParam(value = "image", required = false) MultipartFile image, // Nhận ảnh mới (nếu có)
+	                       Model model) {
+	    try {
+	        JobSeekersEntity jobSeeker = dao.findById(jobseekerId).orElse(null);
 
-			if (jobSeeker == null) {
-				model.addAttribute("errorMessage", "Không tìm thấy thông tin CV.");
-				return "redirect:/user/cv/list2"; // Chuyển hướng nếu không tìm thấy
-			}
+	        if (jobSeeker == null) {
+	            model.addAttribute("errorMessage", "Không tìm thấy thông tin CV.");
+	            return "redirect:/user/cv/list2"; // Chuyển hướng nếu không tìm thấy
+	        }
 
-			// Cập nhật các trường thông tin từ form
-			jobSeeker.setFullnamecv(updatedData.get("fullnamecv"));
-			jobSeeker.setPhonenumbercv(updatedData.get("phonenumbercv"));
-			jobSeeker.setEmailcv(updatedData.get("emailcv"));
-			jobSeeker.setProfilesummary(updatedData.get("profilesummary"));
-			jobSeeker.setExperience(updatedData.get("experience"));
-			jobSeeker.setEducation(updatedData.get("education"));
-			jobSeeker.setGender(updatedData.get("gender"));
-			jobSeeker.setSkills(updatedData.get("skills"));
-			jobSeeker.setLanguages(updatedData.get("languages"));
-			jobSeeker.setImage(updatedData.get("image"));
-			jobSeeker.setCertifications(updatedData.get("certifications"));
-			jobSeeker.setInterests(updatedData.get("interests"));
+	        // Cập nhật các trường thông tin từ form
+	        jobSeeker.setFullnamecv(updatedData.get("fullnamecv"));
+	        jobSeeker.setPhonenumbercv(updatedData.get("phonenumbercv"));
+	        jobSeeker.setEmailcv(updatedData.get("emailcv"));
+	        jobSeeker.setProfilesummary(updatedData.get("profilesummary"));
+	        jobSeeker.setExperience(updatedData.get("experience"));
+	        jobSeeker.setEducation(updatedData.get("education"));
+	        jobSeeker.setGender(updatedData.get("gender"));
+	        jobSeeker.setSkills(updatedData.get("skills"));
+	        jobSeeker.setLanguages(updatedData.get("languages"));
+	        jobSeeker.setCertifications(updatedData.get("certifications"));
+	        jobSeeker.setInterests(updatedData.get("interests"));
 
-			// Cập nhật ngày sinh (dateOfbirth)
-			String dateOfbirthStr = updatedData.get("dateOfbirth");
-			if (dateOfbirthStr != null && !dateOfbirthStr.isEmpty()) {
-				try {
-					// Chuyển đổi chuỗi ngày tháng sang java.sql.Date (kiểu "yyyy-MM-dd")
-					java.sql.Date dateOfbirth = java.sql.Date.valueOf(dateOfbirthStr);
-					jobSeeker.setDateOfbirth(dateOfbirth);
-				} catch (IllegalArgumentException e) {
-					// Xử lý nếu chuỗi ngày tháng không hợp lệ
-					System.err.println("Ngày sinh không hợp lệ: " + dateOfbirthStr);
-				}
-			}
-			// Lưu thay đổi vào cơ sở dữ liệu
-			dao.save(jobSeeker);
-			System.out.println("cập nhật thông công" + updatedData);
-			return "redirect:/user/cv/list2"; // Quay lại trang chi tiết CV
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
-			System.out.println("Có lỗi xảy ra" + e.getMessage());
-			return "redirect:/user/cv/list2"; // Chuyển hướng nếu có lỗi
-		}
+	        // Cập nhật ngày sinh (dateOfbirth)
+	        String dateOfbirthStr = updatedData.get("dateOfbirth");
+	        if (dateOfbirthStr != null && !dateOfbirthStr.isEmpty()) {
+	            try {
+	                // Chuyển đổi chuỗi ngày tháng sang java.sql.Date (kiểu "yyyy-MM-dd")
+	                java.sql.Date dateOfbirth = java.sql.Date.valueOf(dateOfbirthStr);
+	                jobSeeker.setDateOfbirth(dateOfbirth);
+	            } catch (IllegalArgumentException e) {
+	                // Xử lý nếu chuỗi ngày tháng không hợp lệ
+	                System.err.println("Ngày sinh không hợp lệ: " + dateOfbirthStr);
+	            }
+	        }
+
+	        // Kiểm tra và xử lý ảnh mới (nếu có)
+	        if (image != null && !image.isEmpty()) {
+	            // Xử lý ảnh mới
+	            String logoFilename = StringUtils.cleanPath(image.getOriginalFilename());
+	            try {
+	                File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
+	                if (!uploadsDir.exists()) {
+	                    uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+	                }
+
+	                // Xóa ảnh cũ (nếu có) trước khi lưu ảnh mới
+//	                if (jobSeeker.getImage() != null) {
+//	                    File oldImageFile = new File(uploadsDir, jobSeeker.getImage());
+//	                    if (oldImageFile.exists()) {
+//	                        oldImageFile.delete();
+//	                    }
+//	                }
+
+	                // Lưu ảnh mới vào thư mục uploads
+	                Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
+	                Files.write(path, image.getBytes());
+
+	                // Cập nhật tên ảnh mới vào đối tượng jobSeeker
+	                jobSeeker.setImage(logoFilename);
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	                model.addAttribute("errorMessage", "Lỗi khi tải ảnh lên: " + e.getMessage());
+	                return "redirect:/user/cv/list2"; // Chuyển hướng nếu có lỗi
+	            }
+	        }
+
+	        // Lưu thay đổi vào cơ sở dữ liệu
+	        dao.save(jobSeeker);
+	        System.out.println("Cập nhật thông tin CV thành công: " + updatedData);
+	        return "redirect:/user/cv/list2"; // Quay lại trang chi tiết CV
+
+	    } catch (Exception e) {
+	        model.addAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
+	        System.out.println("Có lỗi xảy ra: " + e.getMessage());
+	        return "redirect:/user/cv/list2"; // Chuyển hướng nếu có lỗi
+	    }
 	}
+
 
 	@PostMapping("/deleteCV")
 	public String deleteCV(@RequestParam("jobseekerId") Integer jobseekerId, RedirectAttributes redirectAttributes) {

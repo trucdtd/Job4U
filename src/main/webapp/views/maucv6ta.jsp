@@ -1,177 +1,304 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
+<meta charset="UTF-8">
+<title>Mẫu CV 6</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+<!-- Bootstrap Icons CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 2px solid #ddd;
-            background-color: #e3f2fd;
-        }
-
-        .header h1 {
-            font-size: 40px;
-            margin: 0;
-            color: #1e88e5;
-        }
-
-        .header p {
-            font-size: 20px;
-            color: #64b5f6;
-            margin: 10px 0 0 0;
-        }
-
-        .content {
-            display: flex;
-            gap: 20px;
-        }
-
-        .left-column {
-            flex: 3;
-            border-right: 2px solid #ddd; /* Thêm đường gạch dọc */
-            padding-right: 20px;
-        }
-
-        .right-column {
-            flex: 7;
-            padding-left: 20px; /* Thêm khoảng cách cho cột phải */
-        }
-
-        .section {
-            margin-bottom: 20px;
-        }
-
-        .section h2 {
-            font-size: 20px;
-            color: #333;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        .profile-summary p {
-            margin: 0;
-            line-height: 1.6;
-        }
-
-        .work-experience .job {
-            margin-bottom: 15px;
-        }
-
-        .job h3 {
-            font-size: 16px;
-            margin: 0 0 5px;
-        }
-
-        .job p {
-            margin: 5px 0;
-            line-height: 1.6;
-        }
-    </style>
+<!-- html2pdf Library -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<link rel="stylesheet" href="/css/cv6.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>RICHARD SANCHEZ</h1>
-            <p>Marketing Manager</p>
-        </div>
+	<!-- header -->
+	<%@ include file="/views/headerNoPanner.jsp"%>
 
-        <!-- Content -->
-        <div class="content">
-            <!-- Left Column -->
-            <div class="left-column">
-                <div class="section contact">
-                    <h2>Contact</h2>
-                    <ul>
-                        <li>📞 +123-456-7890</li>
-                        <li>✉️ richard@example.com</li>
-                        <li>🏠 123 Anywhere St, Any City</li>
-                        <li>🌐 www.richardsanchez.com</li>
-                    </ul>
-                </div>
+	<%@ include file="/views/chat.jsp"%>
+	<!-- header -->
+	<div class="cv-container" id="cv-content">
+		<!-- Decorative Header -->
+		<!-- <div class="header-decoration"></div>
+		<div class="inner-header-decoration"></div>
 
-                <div class="section education">
-                    <h2>Education</h2>/-strong/-heart:>:o:-((:-h <p><strong>2021 - 2023:</strong> Bachelor of Business Management, Rockwell University</p>
-                    <p><strong>2018 - 2021:</strong> Bachelor of Marketing, City College</p>
-                </div>
-            </div>
+		Decorative Footer
+		<div class="footer-decoration"></div>
+		<div class="inner-footer-decoration"></div>
 
-            <!-- Right Column -->
-            <div class="right-column">
-                <div class="section profile-summary">
-                    <h2>Profile Summary</h2>
-                    <p>Experienced and detail-driven Marketing Manager with a proven track record in delivering creative and successful marketing strategies. Skilled in project management, team leadership, and campaign optimization to drive brand growth.</p>
-                </div>
+		Corner Triangles
+		<div class="top-left-triangle"></div>
+		<div class="bottom-right-triangle"></div> -->
 
-                <div class="section work-experience">
-                    <h2>Work Experience</h2>
-                    <div class="job">
-                        <h3>Boostle Studio | Marketing Manager & Specialist | 2020 - Present</h3>
-                        <p>Successfully led branding projects for international corporations. Collaborated with teams to create marketing strategies that increased revenue by 25%.</p>
-                    </div>
-                    <div class="job">
-                        <h3>Frugal Square | Marketing Manager | 2019 - 2020</h3>
-                        <p>Developed multi-channel marketing strategies and executed campaigns that increased customer engagement by 30%.</p>
-                    </div>
-                    <div class="job">
-                        <h3>Studio Shoreline | Marketing Specialist | 2017 - 2019</h3>
-                        <p>Managed digital marketing initiatives and optimized social media presence to grow audience reach by 50%.</p>
-                    </div>
-                </div>
+		<!-- Left Column -->
+		<div class="left-column" id="sortable-left">
+			<div class="profile-photo">
+				<!-- Hide file input and click anywhere in the box to select an image -->
+				<input class="an" type="file" id="profile-image" accept="image/*"
+					onchange="previewImage(event)"> <label for="profile-image"
+					class="upload-label"> <img id="profile-img-preview"
+					src="path/to/default-image.jpg" alt="Candidate's Photo">
+				</label>
+			</div>
+			<div class="section">
+				<div class="section-title">Contact</div>
+				<div class="contact-info">
+					
+						<input type="text" class="hidden-input" name="phone"
+							placeholder="Enter phone number">
 
-                <div class="section skills">
-                    <h2>Skills</h2>
-                    <ul>
-                        <li>Project Management</li>
-                        <li>Marketing Campaigns</li>
-                        <li>Team Leadership</li>
-                        <li>Data Analysis</li>
-                        <li>Creative Thinking</li>
-                    </ul>
-                </div>
+					
+						<input type="email" class="hidden-input" name="email"
+							placeholder="alfredo@example.com">
+					
+						<input class="hidden-input" type="date" name="dob">
+					
+						<input class="hidden-input" type="text" name="language"
+							placeholder="Vietnamese">
+					
+						<select class="hidden-input" name="gender"><option
+								value="male">Male</option>
+							<option value="female">Female</option></select>
+					
+						<input class="hidden-input" type="text" name="address"
+							placeholder="Address">
+				
+				</div>
+			</div>
 
-                <div class="section languages">
-                    <h2>Languages</h2>
-                    <ul>
-                        <li>English - Fluent</li>
-                        <li>Spanish - Intermediate</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+			<!-- Skills -->
+			<div class="section">
+				<div class="section-title">Skills</div>
+				<div id="skills-section" class="draggable-section">
+					<input class="hidden-input" type="text" name="skills[]"
+						placeholder="Enter skill" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('skills-section')">+ Add Skill</button>
+				</div>
+			</div>
+
+			<div class="section">
+				<div class="section-title">Certificates</div>
+				<div id="certificates-section">
+					<input class="hidden-input" type="text" name="certificates[]"
+						placeholder="Enter certificate" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('certificates-section')">+ Add Certificate</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Right Column -->
+		<div class="right-column" id="sortable-right">
+			<h1 placeholder="Enter career objective" contenteditable="true">OLIVIA WILSON</h1>
+			<h5 contenteditable="true">Marketing Manager</h5>
+
+			<!-- <h2><input type="text" name="title" placeholder="Position Applied For"></h2> -->
+
+			<div class="section">
+				<div class="section-title">Career Objective</div>
+				<textarea class="hidden-input" name="careerGoal"
+					placeholder="I am a creative, hardworking person always striving for excellence in everything I do. I am always eager to learn and look for ways to improve the lives of those around me."></textarea>
+			</div>
+
+			<div class="section">
+				<div class="section-title">Education</div>
+				<div id="education-section" class="draggable-section">
+					<!-- First sample education entry -->
+					<div class="education-item draggable" draggable="true">
+						<input class="hidden-input project-name" type="text" name="education[]"
+							placeholder="School Name" class="education-name"> <input
+							class="hidden-input" type="text" name="education-dates[]"
+							placeholder="Dates" class="education-time">
+						<textarea class="hidden-input" name="education-descriptions[]"
+							placeholder="Description"></textarea>
+					</div>
+				</div>
+				<div class="add-button-container">
+					<button onclick="addEducationField()">+ Add Education</button>
+				</div>
+			</div>
+
+			<div class="section">
+				<div class="section-title">Projects Involved</div>
+				<div id="projects-section" class="draggable-section">
+					<div class="work-experience-item">
+						<input class="hidden-input project-name" type="text"
+							name="projects[]" placeholder="Project Name - Company"> <input
+							class="hidden-input" type="text" name="project-dates[]"
+							placeholder="Dates">
+						<textarea class="hidden-input" name="project-descriptions[]"
+							placeholder="Description"></textarea>
+					</div>
+				</div>
+				<div class="add-button-container">
+					<button onclick="addProjectField()">+ Add Project</button>
+				</div>
+			</div>
+
+			<div class="section">
+				<div class="section-title">Hobbies</div>
+				<div id="hobbies-section" class="draggable-section">
+					<input class="hidden-input" type="text" name="hobbies[]"
+						placeholder="Enter hobby" draggable="true" class="draggable">
+				</div>
+				<div class="add-button-container">
+					<button onclick="addField('hobbies-section')">+ Add Hobby</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="button-container">
+		<!-- <button class="save-button" type="button">Save CV</button> -->
+		<button class="download-button" type="button"
+			onclick="downloadCVAsPDF()">Download CV as PDF</button>
+	</div>
+
+	<br>
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+	<script>
+	function addField(sectionId) {
+		  const section = document.getElementById(sectionId);
+		  const input = document.createElement("input");
+		  input.type = "text";
+		  input.name = sectionId.replace('-section', '') + "[]";
+		  input.placeholder = "Enter Information";
+		  input.classList.add("hidden-input"); // Thêm class "hidden-input"
+		  section.appendChild(input);
+
+		  setTimeout(() => {
+		    input.style.transition = "opacity 0.5s";
+		    input.style.opacity = 1;
+		  }, 50);
+		}
+
+		function addProjectField() {
+			  const projectSection = document.getElementById('projects-section');
+			  const div = document.createElement("div");
+			  div.className = "work-experience-item";
+
+			  div.innerHTML = `
+			      <input type="text" name="projects[]" placeholder="Project Name" class="hidden-input project-name" style="opacity: 0;">
+			      <input type="text" name="project-dates[]" placeholder="Time" class="hidden-input" style="opacity: 0;">
+			      <textarea name="project-descriptions[]" placeholder="Description" class="hidden-input" style="opacity: 0;"></textarea>
+			  `;
+			  projectSection.appendChild(div);
+
+			  // Chọn tất cả các input và textarea bên trong div mới
+			  const inputs = div.querySelectorAll('input, textarea');
+			  setTimeout(() => {
+			    inputs.forEach(input => {
+			      input.style.transition = "opacity 0.5s";
+			      input.style.opacity = 1;
+			    });
+			  }, 50);
+			}
+		function addEducationField() {
+		    const educationSection = document.getElementById('education-section');
+		    const div = document.createElement('div');
+		    div.className = 'education-item';
+
+		    div.innerHTML = `
+		        <input type="text" name="educations[]" placeholder="School Name" class="hidden-input project-name education-institution" style="opacity: 0;">
+		        <input type="text" name="education-dates[]" placeholder="Time" class="hidden-input education-time" style="opacity: 0;">
+		        <textarea name="education-descriptions[]" placeholder="Description" class="hidden-input education-description" style="opacity: 0;"></textarea>
+		    `;
+
+		    educationSection.appendChild(div);
+
+		    // Hiệu ứng hiển thị mượt mà
+		    const inputs = div.querySelectorAll('input, textarea');
+		    setTimeout(() => {
+		        inputs.forEach(input => {
+		            input.style.transition = 'opacity 0.5s';
+		            input.style.opacity = 1;
+		        });
+		    }, 50);
+		}
+		 document.addEventListener("DOMContentLoaded", function() {
+		        // Cho phép kéo-thả trong cột bên trái
+		        new Sortable(document.getElementById("sortable-left"), {
+		            animation: 150,
+		            group: "shared",  // Tùy chọn: Cho phép kéo-thả qua lại giữa các cột
+		            draggable: ".section",  // Các mục có thể kéo là những mục có lớp .section
+		            handle: ".section-title",  // Kéo bằng tiêu đề của phần
+		            ghostClass: "sortable-ghost"  // Thêm lớp cho phần tử đang kéo
+		        });
+
+		        // Cho phép kéo-thả trong cột bên phải
+		        new Sortable(document.getElementById("sortable-right"), {
+		            animation: 150,
+		            group: "shared",
+		            draggable: ".section",
+		            handle: ".section-title",
+		            ghostClass: "sortable-ghost"
+		        });
+		    });
+	</script>
+	<script>
+	function previewImage(event) {
+	    const file = event.target.files[0];
+	    if (file) {
+	        const reader = new FileReader();
+	        reader.onload = function(e) {
+	            document.getElementById('profile-img-preview').src = e.target.result;
+	        };
+	        reader.readAsDataURL(file);
+	    }
+	}
+	</script>
+	<script>
+	function downloadCVAsPDF() {
+	    const { jsPDF } = window.jspdf;
+	    const cvContent = document.getElementById('cv-content'); // Your CV container
+
+	    // Ensure html2pdf is loaded correctly
+	    const options = {
+	    		margin: [2, 2, 2, 2], // Set margins
+	        filename: 'CV.pdf', // The filename of the PDF
+	        html2canvas: { scale: 2 }, // Increase the scale for better quality
+	        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
+	    };
+
+	    // Use html2pdf to convert HTML to PDF
+	    html2pdf().from(cvContent).set(options).save();
+	}
+	</script>
+	<script>
+		// Hàm tự động thay đổi chiều cao
+		function autoResizeTextarea(textarea) {
+		  textarea.style.height = 'auto'; // Đặt chiều cao về auto để tính lại kích thước
+		  textarea.style.height = textarea.scrollHeight + 'px'; // Gán chiều cao bằng chiều cao nội dung
+		}
+		
+		// Gắn sự kiện cho textarea
+		document.querySelectorAll('textarea').forEach((textarea) => {
+		  textarea.addEventListener('input', function () {
+		    autoResizeTextarea(this);
+		  });
+		
+		  // Gọi hàm ngay khi tải trang (để điều chỉnh nếu có dữ liệu sẵn)
+		  autoResizeTextarea(textarea);
+		});
+	</script>
 </body>
 </html>

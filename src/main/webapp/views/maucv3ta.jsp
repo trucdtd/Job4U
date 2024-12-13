@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Mẫu CV 3</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
@@ -16,54 +16,50 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- html2pdf Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <link rel="stylesheet" href="/css/cv3.css">
 </head>
 <body>
-<!-- header -->
-<%@ include file="/views/headerNoPanner.jsp"%>
+	<!-- header -->
+	<%@ include file="/views/headerNoPanner.jsp"%>
 
-<%@ include file="/views/chat.jsp"%>
-<!-- header -->
-<br>
+	<%@ include file="/views/chat.jsp"%>
+	<!-- header -->
+	<br>
 
-<div class="resume-container" id="cv-content">
+	<div class="resume-container" id="cv-content">
     <!-- Left Column -->
     <div class="left-column" id="sortable-left">
-
         <div class="photo-frame">
-            <input type="file" accept="image/*" onchange="previewImage(event)" style="display: none;" id="fileInput"> 
+            <input type="file" accept="image/*" onchange="previewImage(event)" style="display: none;" id="fileInput">
             <img id="profileImage" src="profile.jpg" alt="Profile Image" onclick="triggerFileInput()">
         </div>
         <div class="section">
             <div class="contact-info">
                 <h2 class="section-title">Contact Information</h2>
-                <label for="email">Email:</label> 
                 <input class="hidden-input" type="email" id="email" value="hello@reallygreatsite.com">
-                <label for="phone">Phone:</label> 
-                <input class="hidden-input" type="text" id="phone" value="+1 234 567 8910"> 
-                <label for="dob">Date of Birth:</label> 
-                <input class="hidden-input" type="date" id="dob" value="2004-09-28"> 
-                <label for="gender">Gender:</label> 
+                <input class="hidden-input" type="text" id="phone" value="+1 234 567 8910">
+                <input class="hidden-input" type="date" id="dob" value="2004-09-28">
                 <select class="hidden-input" id="gender">
                     <option value="male" selected>Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
-                </select> 
-                <label for="language">Language:</label> 
+                </select>
                 <input class="hidden-input" type="text" id="language" value="Vietnamese">
+                <input class="hidden-input" type="text" id="address" value="Your Address">
             </div>
         </div>
-
-        <div class="section" id="educationSection">
-            <h2 class="section-title">Education</h2>
+        <div class="section" id="experienceSection">
+            <h2 class="section-title">Experience</h2>
             <div class="input-group">
-                <input class="hidden-input" type="text" placeholder="Enter education">
+                <input class="hidden-input" type="text" placeholder="Enter experience">
             </div>
-            <button class="hidden" type="button" onclick="addEducationField()">+ Add Education</button>
+            <button class="hidden" type="button" onclick="addExperienceField()">+ Add Experience</button>
         </div>
 
         <div class="section" id="certificateSection">
@@ -80,24 +76,27 @@
         <div>
             <div class="personal-info">
                 <h1 contenteditable="true">OLIVIA WILSON</h1>
-                <h4 contenteditable="true">Marketing</h4>
-                <textarea class="hidden-input" name="careerGoal" placeholder="I am a creative, hardworking individual who strives for excellence in everything I do. I am a quick learner and always find ways to enhance the lives of those around me."></textarea>
+                <h4 contenteditable="true">Marketing Manager</h4>
+                <textarea class="hidden-input" name="careerGoal"
+                    placeholder="I am a creative, cheerful, and hardworking individual who strives for excellence in all that I do. I am eager to learn and always look for ways to improve the lives of those around me."></textarea>
             </div>
         </div>
 
-        <div class="section" id="experienceSection">
-            <h2 class="section-title">Experience</h2>
+        <div class="section" id="educationSection">
+            <h2 class="section-title">Education</h2>
             <div class="input-group">
-                <input class="hidden-input" type="text" placeholder="Enter experience">
+                <input class="hidden-input project-name" type="text" placeholder="School Name">
+                <input class="hidden-input" type="text" placeholder="Duration">
+                <textarea class="hidden-input" placeholder="Description"></textarea>
             </div>
-            <button class="hidden" type="button" onclick="addExperienceField()">+ Add Experience</button>
+            <button class="hidden" type="button" onclick="addEducationField()">+ Add Education</button>
         </div>
 
         <div class="section" id="projectSection">
             <h2 class="section-title">Projects</h2>
             <div class="input-group">
-                <input class="hidden-input project-name" type="text" placeholder="Project Name"> 
-                <input class="hidden-input" type="text" placeholder="Enter time period">
+                <input class="hidden-input project-name" type="text" placeholder="Project Name">
+                <input class="hidden-input" type="text" placeholder="Enter Time">
                 <textarea class="hidden-input" placeholder="Project description..."></textarea>
             </div>
             <button class="hidden" type="button" onclick="addProjectField()">+ Add Project</button>
@@ -112,7 +111,6 @@
         </div>
     </div>
 </div>
-
 <div class="button-container">
     <!-- <button class="save-button" type="button">Save CV</button> -->
     <button class="download-button" type="button" onclick="downloadCVAsPDF()">Download CV as PDF</button>
@@ -164,19 +162,27 @@
 			});
 		});
 
-		// Add new fields (education, certificate, experience, etc.)
 		function addEducationField() {
-			var section = document.createElement("div");
-			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Enter education">';
-			document.getElementById("educationSection").insertBefore(section,
-					document.querySelector("#educationSection button"));
+		    // Tạo một khối mới
+		    var section = document.createElement("div");
+		    section.classList.add("input-group");
+
+		    // Nội dung HTML của khối
+		    section.innerHTML = `
+		        <input class="hidden-input project-name" type="text" placeholder="School Name">
+		        <input class="hidden-input" type="text" placeholder="Time">
+		        <textarea class="hidden-input" placeholder="Description"></textarea>
+		    `;
+
+		    // Chèn khối mới trước nút "Thêm Học Vấn"
+		    document.getElementById("educationSection").insertBefore(section,
+		        document.querySelector("#educationSection button"));
 		}
 
 		function addCertificateField() {
 			var section = document.createElement("div");
 			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Enter certificate">';
+			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Certificate">';
 			// Thêm trường nhập liệu vào đầu danh sách
 			document.getElementById("certificateSection").insertBefore(section,
 					document.querySelector("#certificateSection button"));
@@ -185,7 +191,7 @@
 		function addExperienceField() {
 			var section = document.createElement("div");
 			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Enter experience">';
+			section.innerHTML = '<input class="hidden-input" type="text" placeholder="Experience">';
 			// Thêm trường nhập liệu vào đầu danh sách
 			document.getElementById("experienceSection").insertBefore(section,
 					document.querySelector("#experienceSection button"));
@@ -194,7 +200,7 @@
 		function addProjectField() {
 			var section = document.createElement("div");
 			section.classList.add("input-group");
-			section.innerHTML = '<input class="hidden-input project-name" type="text" placeholder="Project Name"><input class="hidden-input" type="text" placeholder="Enter time period"><textarea class="hidden-input" placeholder="Project description..."></textarea>';
+			section.innerHTML = '<input class="hidden-input project-name" type="text" placeholder="Project Name"><input class="hidden-input" type="text" placeholder="Time"><textarea class="hidden-input" placeholder="Description"></textarea>';
 			// Thêm trường nhập liệu vào đầu danh sách
 			document.getElementById("projectSection").insertBefore(section,
 					document.querySelector("#projectSection button"));
@@ -216,7 +222,7 @@
 
 	    // Ensure html2pdf is loaded correctly
 	    const options = {
-	        margin: [10, 10, 10, 10], // Set margins
+	    		margin: [2, 2, 2, 2], // Set margins
 	        filename: 'CV.pdf', // The filename of the PDF
 	        html2canvas: { scale: 2 }, // Increase the scale for better quality
 	        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
