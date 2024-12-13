@@ -22,5 +22,9 @@ public interface EmployersDao extends JpaRepository<EmployersEntity, Integer> {
 	// Phương thức tìm kiếm nhà tuyển dụng theo userId
 	@Query("SELECT e FROM EmployersEntity e WHERE e.user.userid = :userId")
 	Optional<EmployersEntity> findByUserId(@Param("userId") Integer userId);
+	
+	@Query("SELECT e FROM EmployersEntity e WHERE e.employerid = :id")
+	EmployersEntity findByID(@Param("id") Optional<Integer> id);
+
 
 }

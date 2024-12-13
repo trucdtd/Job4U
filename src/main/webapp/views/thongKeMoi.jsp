@@ -47,7 +47,7 @@
 									kê</button>
 							</div>
 							<div class="mb-3 me-2">
-								<a type="button" href="/thongke" class="btn btn-warning shadow">Thống
+								<a type="button" href="/thongke/tat-ca" class="btn btn-warning shadow">Thống
 									kê tất cả</a>
 							</div>
 						</form>

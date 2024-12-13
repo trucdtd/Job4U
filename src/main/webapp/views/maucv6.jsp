@@ -272,17 +272,19 @@
 	<script>
 	function downloadCVAsPDF() {
 	    const { jsPDF } = window.jspdf;
-	    const cvContent = document.getElementById('cv-content'); // Your CV container
+	    const cvContent = document.getElementById('cv-content');
 
-	    // Ensure html2pdf is loaded correctly
 	    const options = {
-	        margin: [10, 10, 10, 10], // Set margins
-	        filename: 'CV.pdf', // The filename of the PDF
-	        html2canvas: { scale: 2 }, // Increase the scale for better quality
-	        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // Set PDF format
+	    		margin: [2, 2, 2, 2], // Set margins
+	        filename: 'CV.pdf',
+	        html2canvas: { scale: 2 },
+	        jsPDF: {
+	            unit: 'mm',
+	            format: 'a4', // Có thể thay đổi thành 'a3' nếu cần
+	            orientation: 'portrait'
+	        }
 	    };
 
-	    // Use html2pdf to convert HTML to PDF
 	    html2pdf().from(cvContent).set(options).save();
 	}
 	</script>
