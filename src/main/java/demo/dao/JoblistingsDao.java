@@ -59,7 +59,6 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 			+ "(:jobtitle IS NULL OR LOWER(j.jobtitle) LIKE LOWER(CONCAT('%', :jobtitle, '%'))) AND "
 			+ "(:joblocation IS NULL OR LOWER(j.joblocation) LIKE LOWER(CONCAT('%', :joblocation, '%'))) AND "
 			+ "(:industry IS NULL OR LOWER(j.employer.industry) LIKE LOWER(CONCAT('%', :industry, '%'))) AND "
-			+ "(:jobcategory IS NULL OR LOWER(j.jobcategories.jobcategoryname) LIKE LOWER(CONCAT('%', :jobcategory, '%'))) AND "
 			+ "j.applicationdeadline > CURRENT_DATE AND "
 			+ "j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	Page<JoblistingsEntity> findByJobTitleAndJobLocationAndIndustry(@Param("jobtitle") String jobtitle,
