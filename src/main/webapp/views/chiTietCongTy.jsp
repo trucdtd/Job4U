@@ -125,11 +125,14 @@
         </div>
 
         <h2>Tuyển dụng</h2>
-        <div class="job-card">
-            <h3>Sales Admin</h3>
-            <p><strong>Thu nhập:</strong> 10-12 triệu/tháng</p>
-            <p><strong>Hạn tuyển dụng:</strong> Còn 23 ngày</p>
+        <c:forEach var="entity" items="${list}">
+        <div class="job-card shadow border-0 bg-light">
+            <h3>${entity.jobtitle}</h3>
+            <p><strong>Chi tiết:</strong> ${entity.jobdescription}</p>
+            <p><strong>Thu nhập:</strong> ${entity.salary}</p>
+            <p><strong>Thời gian:</strong> ${entity.posteddate} - ${entity.applicationdeadline}</p>
         </div>
+        </c:forEach>
 
        <!--  <div class="map">
             <h3>Bản đồ</h3>
