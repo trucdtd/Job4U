@@ -61,7 +61,7 @@ public class AdminController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	private EmailService emailService;
 
@@ -217,11 +217,16 @@ public class AdminController {
 	public String lockUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,
 			HttpSession session) {
 		try {
-
-			// Kiểm tra vai trò của người dùng
+			// Tìm người dùng theo ID
 			UsersEntity user = userDao.findById(id).orElse(null);
 
-			// Kiểm tra vai trò
+			// Kiểm tra nếu người dùng không tồn tại
+			if (user == null) {
+				redirectAttributes.addAttribute("error", "Người dùng không tồn tại.");
+				return "redirect:/admin";
+			}
+
+			// Kiểm tra vai trò của người dùng, không thể khóa tài khoản Admin
 			if (user.getRole() != null && user.getRole() == 0) {
 				redirectAttributes.addAttribute("error", "Không thể khóa tài khoản Admin.");
 				return "redirect:/admin/detailUser/" + id;
@@ -231,27 +236,40 @@ public class AdminController {
 			user.setStatus(false); // false để khóa tài khoản
 			userDao.save(user); // Lưu lại thay đổi
 
-			redirectAttributes.addAttribute("error", "Tài khoản đã được khóa thành công!");
-			return "redirect:/admin/detailUser/" + id; // Quay về trang admin
+			// Gửi email thông báo tài khoản đã bị khóa
+			emailService.sendAccountLockedEmail(user.getEmail(), user.getUsername());
+
+			redirectAttributes.addAttribute("error",
+					"Tài khoản đã được khóa thành công!\n\n " + "Và đã gửi mail thông báo đến tài khoản.");
+			return "redirect:/admin/detailUser/" + id; // Quay về trang chi tiết người dùng
 		} catch (Exception e) {
 			redirectAttributes.addAttribute("error", "Lỗi khi khóa tài khoản: " + e.getMessage());
-			return "redirect:/admin/detailUser/" + id; // Quay về trang admin nếu có lỗi
+			return "redirect:/admin/detailUser/" + id; // Quay về trang chi tiết người dùng nếu có lỗi
 		}
 	}
 
 	@PostMapping("/open/{id}")
 	public String openUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		try {
-
+			// Tìm người dùng theo ID
 			UsersEntity user = userDao.findById(id).orElse(null);
+
+			// Kiểm tra nếu người dùng không tồn tại
+			if (user == null) {
+				redirectAttributes.addAttribute("error", "Người dùng không tồn tại.");
+				return "redirect:/admin";
+			}
 
 			// Cập nhật trạng thái mở tài khoản
 			user.setStatus(true); // true để mở tài khoản
 			userDao.save(user); // Lưu lại thay đổi
 
-			redirectAttributes.addAttribute("error", "Tài khoản đã được mở thành công!");
+			// Gửi email thông báo tài khoản đã được mở
+			emailService.sendAccountOpenedEmail(user.getEmail(), user.getUsername());
 
-			return "redirect:/admin/detailUser/" + id; // Quay về trang admin
+			redirectAttributes.addAttribute("error",
+					"Tài khoản đã được mở thành công!\n\n" + " Và đã gửi mail thông báo đến tài khoản.");
+			return "redirect:/admin/detailUser/" + id; // Quay về trang chi tiết người dùng
 		} catch (Exception e) {
 			redirectAttributes.addAttribute("error", "Lỗi khi mở tài khoản: " + e.getMessage());
 			System.out.println("Lỗi khi mở tài khoản: " + e.getMessage());
@@ -269,37 +287,35 @@ public class AdminController {
 	@PostMapping("/deletePost")
 	@ResponseBody
 	public Map<String, Object> deletePost(@RequestParam("id") Integer id) {
-	    Map<String, Object> response = new HashMap<>();
-	    // Câu truy vấn để kiểm tra và xử lý bài viết
-	    String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
-	    String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
-	    String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
-	    
-	    try {
-	        int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
-	        if (serviceCount > 0) {
-	            // Nếu bài viết đang mua dịch vụ, cập nhật trạng thái thành ẩn
-	            joblistingsDao.updatePostActiveStatus(id, false);
-	            response.put("message", "Bài viết không thể xóa vì đang mua dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
-	            response.put("success", false);
-	        } else {
-	            // Nếu không có dịch vụ, xóa các bản ghi liên quan
-	            jdbcTemplate.update(deleteApplicationsSql, id);
-	            jdbcTemplate.update(deleteJobListingsSql, id);
-	            response.put("message", "Xóa bài viết thành công.");
-	            response.put("success", true);
-	        }
-	    } catch (Exception e) {
-	        response.put("message", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
-	        response.put("success", false);
-	        e.printStackTrace();
-	    }
-	    
-	    return response;
+		Map<String, Object> response = new HashMap<>();
+		// Câu truy vấn để kiểm tra và xử lý bài viết
+		String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
+		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
+		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
+
+		try {
+			int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
+			if (serviceCount > 0) {
+				// Nếu bài viết đang mua dịch vụ, cập nhật trạng thái thành ẩn
+				joblistingsDao.updatePostActiveStatus(id, false);
+				response.put("message",
+						"Bài viết không thể xóa vì đang mua dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
+				response.put("success", false);
+			} else {
+				// Nếu không có dịch vụ, xóa các bản ghi liên quan
+				jdbcTemplate.update(deleteApplicationsSql, id);
+				jdbcTemplate.update(deleteJobListingsSql, id);
+				response.put("message", "Xóa bài viết thành công.");
+				response.put("success", true);
+			}
+		} catch (Exception e) {
+			response.put("message", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
+			response.put("success", false);
+			e.printStackTrace();
+		}
+
+		return response;
 	}
-
-
-
 
 	/*
 	 * @PostMapping("/updatePost/{jobid}") public String
@@ -349,28 +365,26 @@ public class AdminController {
 
 	@PostMapping("/hidePost/{jobid}")
 	public String hidePost(@PathVariable Integer jobid, RedirectAttributes redirectAttributes) {
-	    // Lấy thông tin bài viết từ database
-	    JoblistingsEntity job = joblistingsDao.findById(jobid)
-	            .orElseThrow(() -> new RuntimeException("Job not found"));
+		// Lấy thông tin bài viết từ database
+		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
 
-	    // Lấy thông tin nhà tuyển dụng từ bài viết
-	    EmployersEntity employer = job.getEmployer();
-	    UsersEntity user = employer.getUser(); // Lấy thông tin người dùng liên kết
+		// Lấy thông tin nhà tuyển dụng từ bài viết
+		EmployersEntity employer = job.getEmployer();
+		UsersEntity user = employer.getUser(); // Lấy thông tin người dùng liên kết
 
-	    // Cập nhật trạng thái ẩn bài viết
-	    job.setActive(false);
-	    joblistingsDao.save(job);
+		// Cập nhật trạng thái ẩn bài viết
+		job.setActive(false);
+		joblistingsDao.save(job);
 
-	    String reason = "Bài viết vi phạm các quy định của chúng tôi"; // Ví dụ lý do xóa bài viết
-	    emailService.sendDeletionNotificationEmail(user.getEmail(), job.getJobtitle(), reason); // Gọi phương thức gửi email
+		String reason = "Bài viết vi phạm các quy định của chúng tôi"; // Ví dụ lý do xóa bài viết
+		emailService.sendDeletionNotificationEmail(user.getEmail(), job.getJobtitle(), reason); // Gọi phương thức gửi
+																								// email
 
-	    // Thêm thông báo ẩn thành công
-	    redirectAttributes.addFlashAttribute("message", "Đã ẩn bài viết thành công và gửi email thông báo!");
+		// Thêm thông báo ẩn thành công
+		redirectAttributes.addFlashAttribute("message", "Đã ẩn bài viết thành công và gửi email thông báo!");
 
-	    return "redirect:/admin/detailPost/" + jobid; // Quay về trang admin
+		return "redirect:/admin/detailPost/" + jobid; // Quay về trang admin
 	}
-	
-	
 
 	@PostMapping("/showPost/{jobid}")
 	public String showPost(@PathVariable Integer jobid, RedirectAttributes redirectAttributes) {
@@ -394,20 +408,25 @@ public class AdminController {
 		return "chiTietCV";
 	}
 
-	@GetMapping("/detailDV/{id}")
-	public String showDVDetail(@PathVariable("id") Integer id, Model model) {
-		ServicesEntity dv = servicesDao.findById(id).orElse(null);
+	// phần dịch vụ
+	@GetMapping("/detailDV/{serviceid}")
+	public String showDVDetail(@PathVariable("serviceid") Integer serviceid, Model model) {
+		ServicesEntity dv = servicesDao.findById(serviceid).orElse(null);
+		if (dv == null) {
+			model.addAttribute("error", "Dịch vụ không tồn tại.");
+			return "errorPage"; // Trang lỗi nếu dịch vụ không tồn tại
+		}
 		model.addAttribute("dv", dv);
-		return "chiTietDichVu";
+		return "chiTietDichVu"; // Trang chi tiết dịch vụ
 	}
 
-	@PostMapping("/updateDV/{id}")
-	public String capnhatDv(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes,
+	@PostMapping("/updateDV/{serviceid}")
+	public String capnhatDv(@PathVariable("serviceid") Integer serviceid, RedirectAttributes redirectAttributes,
 			@RequestParam("servicename") String servicename, @RequestParam("price") String price,
 			@RequestParam("numberofjobsallowed") Integer numberofjobsallowed,
 			@RequestParam("description") String description) {
 		// Tìm dịch vụ theo id
-		ServicesEntity updv = servicesDao.findById(id).orElse(null);
+		ServicesEntity updv = servicesDao.findById(serviceid).orElse(null);
 
 		if (updv != null) {
 			// Cập nhật tên dịch vụ và mô tả
@@ -434,7 +453,7 @@ public class AdminController {
 			servicesDao.save(updv);
 			System.out.println("dich vu da them" + updv);
 			redirectAttributes.addAttribute("error", "Cập nhật dịch vụ thành công!");
-			return "redirect:/admin/detailDV/" + id;
+			return "redirect:/admin/detailDV/" + serviceid;
 		} else {
 			// Nếu không tìm thấy dịch vụ với id đã cho
 			redirectAttributes.addAttribute("error", "Dịch vụ không tồn tại!");
@@ -494,9 +513,10 @@ public class AdminController {
 		// Lưu dịch vụ mới vào cơ sở dữ liệu
 		servicesDao.save(newDv);
 
-		// Trả về trang với thông báo thành công
-		redirectAttributes.addAttribute("error", "Thêm dịch vụ thành công!");
-		return "redirect:/admin";
+		// Trả về trang chi tiết dịch vụ sau khi thêm mới thành công
+		redirectAttributes.addAttribute("message", "Thêm dịch vụ thành công!");
+		return "redirect:/admin/detailDV/" + newDv.getServiceid(); // Chuyển hướng đến trang chi tiết dịch vụ bằng ID
+																	// của dịch vụ vừa tạo
 	}
 
 }

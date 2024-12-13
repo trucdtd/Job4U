@@ -403,7 +403,7 @@
 											placeholder="Tổng số lượng bài viết">
 									</div>
 									<div class="col-md-6">
-										<label for="contactperson">Thời gian chạy dịch vụ: </label> <input
+										<label for="contactperson">Thời gian chạy dịch vụ (theo ngày): </label> <input
 											class="form-control" type="text" id="durationindays"
 											name="durationindays" placeholder="Theo ngày">
 									</div>
