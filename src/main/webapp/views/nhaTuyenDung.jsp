@@ -161,10 +161,7 @@
 								class="bi bi-bag-heart me-2"></i> Gói Dịch Dụ đã mua
 						</a></li>
 						<li><a href="#" class="navnhatuyendung nav-link text-dark"
-							onclick="showTable(event, 'postingServices')"> <img
-								width="20" height="20"
-								src="https://img.icons8.com/ios/50/card-in-use.png"
-								alt="card-in-use" /> Mua Dịch Vụ
+							onclick="showTable(event, 'postingServices')"> <i class="bi bi-bag"></i> Mua Dịch Vụ
 						</a></li>
 						<li><a href="#" class="navnhatuyendung nav-link text-dark"
 							onclick="showTable(event, 'statistical')"> <img width="20"

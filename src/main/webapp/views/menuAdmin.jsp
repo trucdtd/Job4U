@@ -45,8 +45,7 @@
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto">
 				<li><a href="#" class=" navqlndung nav-link text-dark active"
-					onclick="showTable(event, 'userManagement')"> <i
-						class="bi bi-speedometer2 me-2"></i> Quản Lý Tài Khoản
+					onclick="showTable(event, 'userManagement')"> <i class="bi bi-person"></i> Quản Lý Tài Khoản
 				</a></li>
 				<li><a href="#" class="navqlndung nav-link text-dark"
 					onclick="showTable(event, 'postManagement')"> <i
