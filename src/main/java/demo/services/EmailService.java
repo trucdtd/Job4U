@@ -35,7 +35,7 @@ public class EmailService {
 	    // Chèn thông tin tên công ty và tiêu đề công việc vào nội dung email
 	    message.setText("Kính gửi " + applicantName + ",\n\n" +
 	                    "Chúng tôi rất tiếc phải thông báo rằng đơn ứng tuyển của bạn vào vị trí " + jobTitle + 
-	                    " tại công ty " + companyName + " đã bị từ chối.\n\n " +
+	                    " tại công ty " + companyName + " đã bị từ chối.\n\n " + "Do không phù hợp với yêu cầu của công ty" +
 	                    "Cảm ơn bạn đã dành thời gian tham gia quy trình tuyển dụng cùng chúng tôi. Chúng tôi sẽ lưu ý hồ sơ của bạn cho các cơ hội trong tương lai.\n\n" +
 	                    "Trân trọng,\nĐội ngũ Tuyển dụng");
 
