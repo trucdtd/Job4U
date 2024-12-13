@@ -167,46 +167,41 @@
 									</div>
 								</div>
 
-								<hr>
-								<div class="row p-2">
-									<div class="card-action d-flex justify-content-start">
-
-										<!-- Nút Xóa -->
-										<button type="submit" class="btn btn-danger text-white">Xóa</button>
 							</form>
+							<div class="row p-2">
+								<div class="card-action d-flex justify-content-start">
+									<!-- Nút Khóa -->
+									<form action="/admin/lock/${nd.userid}" method="post">
+										<button type="submit" class="btn btn-warning">Khóa
+											tài khoản</button>
+									</form>
 
-							<!-- Nút Khóa -->
-							<form action="/admin/lock/${nd.userid}" method="post">
-								<button type="submit" class="btn btn-warning">Khóa tài
-									khoản</button>
-							</form>
+									<!-- Nút Mở tài khoản -->
+									<form action="/admin/open/${nd.userid}" method="post">
+										<button type="submit" class="btn btn-success">Mở tài
+											khoản</button>
+									</form>
 
-							<!-- Nút Mở tài khoản -->
-							<form action="/admin/open/${nd.userid}" method="post">
-								<button type="submit" class="btn btn-success">Mở tài
-									khoản</button>
-							</form>
+									<form action="/admin">
+										<button type="submit" class="btn btn-secondary">Quay
+											lại</button>
+									</form>
 
-							<form action="/admin">
-								<button type="submit" class="btn btn-secondary">Quay
-									lại</button>
-							</form>
-
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+
+
+
+				<!-- article -->
 			</div>
-		</div>
 
+			<!-- footer -->
+			<%@ include file="/views/footer.jsp"%>
 
-
-		<!-- article -->
-	</div>
-
-	<!-- footer -->
-	<%@ include file="/views/footer.jsp"%>
-
-	<!-- footer -->
+			<!-- footer -->
 </body>
 <script>
 	function showTable(event, tableId) {
