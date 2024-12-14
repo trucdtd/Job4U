@@ -235,14 +235,14 @@
 														onsubmit="return confirmDelete();">
 														<input type="hidden" name="jobId" value="${job.jobid}">
 														<button type="submit" class="btn btn-sm" title="Xóa">
-															<img alt="Xóa" src="/img/icons8-delete-50.png"
+															<img alt="Xóa" src="/img/delete_red.png"
 																height="25px" width="25px" />
 														</button>
 													</form>
 													<!-- Nút mua dịch vụ lên top -->
 													<button type="button" class="btn btn-sm btn-mua"
-														title="Mua" data-jobidmua="${job.jobid}" data-jobtitle="${job.jobtitle}">
-														<img alt="Mua" src="/img/icons8-pin-50.png" height="25px"
+														title="Mua Top" data-jobidmua="${job.jobid}" data-jobtitle="${job.jobtitle}">
+														<img alt="Mua" src="/img/icons8-cart-50.png" height="25px"
 															width="25px">
 													</button>
 													<!-- Nút mua dịch vụ lên top -->
@@ -256,7 +256,7 @@
 													<input type="hidden" name="jobId" value="${job.jobid}">
 													<button type="submit" class="btn btn-sm btn-detail"
 														title="Xem CV">
-														<img alt="Xem CV" src="/img/icons8-eye-48.png"
+														<img alt="Xem CV" src="/img/icons8-eye-50.png"
 															height="25px">
 													</button>
 												</form>

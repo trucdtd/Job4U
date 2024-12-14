@@ -123,13 +123,27 @@
 }
 
 .card-footer {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0.75rem 1.25rem;
-	border-top: 1px solid #e9ecef;
-	background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid #e9ecef;
+    background-color: transparent;
 }
+
+.card-footer span {
+    flex-grow: 1; /* Làm cho span chiếm không gian còn lại */
+    white-space: nowrap; /* Ngăn tràn dòng */
+    overflow: hidden; /* Ẩn văn bản tràn */
+    text-overflow: ellipsis; /* Hiển thị dấu ... khi văn bản dài */
+    margin-right: 10px; /* Thêm khoảng cách giữa span và nút */
+}
+
+.card-footer a {
+    flex-shrink: 0; /* Giữ kích thước của nút ổn định */
+    white-space: nowrap; /* Đảm bảo văn bản trong nút không bị xuống dòng */
+}
+
 /* Responsive Design */
 @media ( max-width : 576px) {
 	.card-title {
