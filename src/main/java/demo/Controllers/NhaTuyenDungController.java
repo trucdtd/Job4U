@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import demo.services.ApplicationService;
+import demo.services.EmailService;
 import demo.services.JoblistingsService;
 import demo.services.SessionService;
 import demo.services.UserRepository;
@@ -60,6 +62,12 @@ import java.util.Map;
 public class NhaTuyenDungController {
 
 	private static final Logger logger = LoggerFactory.getLogger(XemCvUngVienController.class);
+	
+	@Autowired
+	private JavaMailSender mailSender;
+
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	private SessionService sessionService;
@@ -544,6 +552,9 @@ public class NhaTuyenDungController {
 					job.setIsTop(true);
 					joblistingsDao.save(job);
 				}
+				
+				// Gửi email hóa đơn
+	            emailService.sendEmail(user, service, payment);
 
 				redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
 			} else {

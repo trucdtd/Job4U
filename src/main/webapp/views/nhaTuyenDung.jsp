@@ -241,7 +241,7 @@
 													</form>
 													<!-- Nút mua dịch vụ lên top -->
 													<button type="button" class="btn btn-sm btn-mua"
-														title="Mua" data-jobidmua="${job.jobid}">
+														title="Mua" data-jobidmua="${job.jobid}" data-jobtitle="${job.jobtitle}">
 														<img alt="Mua" src="/img/icons8-pin-50.png" height="25px"
 															width="25px">
 													</button>
@@ -607,7 +607,7 @@
 						<h3>Tóm tắt thanh toán</h3>
 						<ul>
 							<li><span>Gói đã chọn:</span> Gói đặc biệt lên Top</li>
-							<li><span>ID Bài Viết:</span> <span id="jobIdDisplay"></span></li>
+							<li><span>Bài Viết:</span> <span id="jobTitleDisplay"></span></li>
 						</ul>
 						<div class="total-price">
 							<h2>Tổng Tiền</h2>
@@ -634,9 +634,6 @@
 				</div>
 			</div>
 		</div>
-
-
-
 
 
 	</div>
@@ -907,22 +904,26 @@ document.getElementById('logo').addEventListener('change', function(event) {
         const buyButtons = document.querySelectorAll('.btn-mua'); // Nút Mua
         const paymentModalGhim = document.getElementById('paymentModalghim'); // Modal thanh toán
         const jobIdInput = document.getElementById('jobid'); // Đồng bộ với ID trong HTML
-        const jobIdDisplay = document.getElementById('jobIdDisplay'); // Hiển thị Job ID trong modal
+        const jobTitleDisplay = document.getElementById('jobTitleDisplay'); // Hiển thị tên bài viết trong modal
         const submitButton = document.querySelector('.submit-btn'); // Nút Thanh Toán
         const paymentForm = document.querySelector('.payment-form'); // Form thanh toán
 
         let selectedService = {}; // Thông tin dịch vụ đã chọn
         let jobIdSelected = null; // ID bài viết đã chọn
+        let jobTitleSelected = ''; // Tên bài viết đã chọn
 
         // Gắn sự kiện click vào các nút Mua
         buyButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const jobId = button.getAttribute('data-jobidmua'); // Lấy Job ID từ data attribute
-                jobIdDisplay.textContent = jobId; // Hiển thị Job ID trong modal
+                const jobTitle = button.getAttribute('data-jobtitle'); // Lấy tên bài viết từ data attribute
+
+                jobTitleDisplay.textContent = jobTitle; // Hiển thị tên bài viết trong modal
                 jobIdInput.value = jobId; // Gán giá trị cho input hidden (jobId)
 
-                openModal('paymentModalghim');
                 console.log("Job ID ngay khi mở modal:", jobId); // Debug giá trị Job ID
+                console.log("Job Title ngay khi mở modal:", jobTitle); // Debug giá trị tên bài viết
+                openModal('paymentModalghim');
             });
         });
 
@@ -969,7 +970,6 @@ document.getElementById('logo').addEventListener('change', function(event) {
             });
         });
     });
-
 </script>
 
 	<script>
@@ -1053,18 +1053,18 @@ document.getElementById('logo').addEventListener('change', function(event) {
         }
     }
 
-    // Chọn bài viết và mở modal thanh toán
+ // Chọn bài viết và mở modal thanh toán
     function selectJobPost(job) {
         closeJobSelectionModal();
         jobIdSelected = job.jobid; // Cập nhật jobIdSelected từ bài viết được chọn
 
-        openPaymentModal();
-
-        // Hiển thị jobId đã chọn
-        document.getElementById('jobIdSelected').innerText = jobIdSelected;
+        // Hiển thị tên công việc trong modal thanh toán
+        document.getElementById('jobIdSelected').innerText = job.jobtitle;
 
         // Cập nhật giá trị cho hidden input
         document.getElementById('jobId').value = jobIdSelected;
+
+        openPaymentModal();
     }
 
     // Submit form thanh toán

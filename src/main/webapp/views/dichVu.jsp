@@ -145,7 +145,7 @@
 					<h3>Tóm tắt thanh toán</h3>
 					<ul>
 						<li><span>Gói đã chọn:</span> <span id="serviceName"></span></li>
-						<li><span>ID Bài Viết:</span> <span id="jobIdSelected"></span></li>
+						<li><span>Bài Viết:</span> <span id="jobIdSelected"></span></li>
 					</ul>
 					<div class="total-price">
 						<h2>Tổng Tiền</h2>
