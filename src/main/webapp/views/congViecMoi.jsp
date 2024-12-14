@@ -13,36 +13,24 @@
 <!-- <link rel="stylesheet" href="/css/topJob.css"> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-.top-jobs-container {
-	background-color: #f8f9fa;
-	padding: 15px;
-	border-radius: 5px;
-	margin-bottom: 20px;
+/* Hiệu ứng hover cho các card */
+.hover-shadow:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
 }
 
-.top-job-title {
-	font-size: 18px;
-	font-weight: bold;
-	margin-bottom: 10px;
-	color: #007bff;
+/* Hiệu ứng cho nút */
+.btn-success:hover {
+    background-color: #218838; /* Tối màu nền khi hover */
+    border-color: #1e7e34; /* Màu biên khi hover */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.top-job-item {
-	border-bottom: 1px solid #ddd;
-	padding: 10px 0;
-}
-
-.top-job-item:last-child {
-	border-bottom: none;
-}
-
-.top-job-item h5 {
-	margin: 0;
-}
-
-.top-job-item p {
-	margin: 5px 0;
-	color: #555;
+/* Hiệu ứng cho hình ảnh */
+.bg-image img:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
 }
 
 .pagination-container {
@@ -92,7 +80,7 @@
 <body>
 	<!-- Include header -->
 	<%@ include file="/views/header.jsp"%>
-	
+
 
 	<!-- Include top employers -->
 	<%-- <%@ include file="/views/nhaTuyenDungHangDau.jsp"%> --%>
@@ -220,72 +208,54 @@
 	<c:if test="${not empty message}">
 		<div class="mt-4 alert alert-info" role="alert">${message}</div>
 	</c:if>
-	<!-- Top Jobs Section -->
-	<c:if test="${not empty topJobs}">
-		<div class="container">
-			<div class="top-jobs-container">
-				<div class="top-job-title">Top Công Việc</div>
-				<c:forEach var="job" items="${topJobs}">
-					<div class="top-job-item">
-						<h5>${job.title}</h5>
-						<p>Công ty: ${job.employer.companyname}</p>
-						<p>Địa điểm: ${job.location}</p>
-						<a href="/chiTiet/${job.jobid}"
-							class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-	</c:if>
 
 	<!-- Main Job List Section -->
 	<section style="background-color: #eee;">
-		<div class="container py-4">
+		<div class="container py-5">
 			<div class="row justify-content-center">
-				<h4 class="mb-4"></h4>
 				<c:forEach var="job" items="${dsSP.content}">
 					<div class="col-md-12 col-xl-10 mb-4">
-						<div class="card shadow-0 border rounded-3">
+						<div class="card shadow-lg border-0 rounded-3 position-relative">
 							<div class="card-body">
 								<div class="row">
+									<!-- Phần logo công ty -->
 									<div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-										<div class="bg-image hover-zoom ripple rounded ripple-surface">
+										<div
+											class="bg-image hover-zoom ripple rounded-3 ripple-surface">
 											<img
 												src="${pageContext.request.contextPath}/uploads/${job.employer.logo}"
-												class="w-100" alt="${job.employer.companyname}" />
+												class="w-100 rounded-3" alt="${job.employer.companyname}" />
 										</div>
 									</div>
+									<!-- Phần mô tả công việc -->
 									<div class="col-md-6 col-lg-6 col-xl-6">
-										<h5>${job.employer.companyname}<!-- Hiển thị ngôi sao vàng nếu là công việc top -->
-										<c:if test="${job.isTop}">
-											<i class="bi bi-star-fill text-warning"></i>
-											<!-- Ngôi sao vàng -->
-										</c:if></h5>
-										<p class="text-truncate mb-4 mb-md-0">Mô tả:
-											${job.jobdescription}</p>
-									</div>
-									<div
-										class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-										<div class="d-flex flex-column mt-4">
-											<a href="/applyCV/${job.jobid}"
-												class="btn btn-success btn-sm">Ứng tuyển</a> <a
-												href="/chiTiet/${job.jobid}"
-												class="btn btn-outline-success btn-sm mt-2">Thông tin
-												chi tiết</a>
-										</div>
+										<h5 class="text-truncate">${job.employer.companyname}
+											<c:if test="${job.isTop}">
+												<i class="bi bi-star-fill text-warning"></i>
+											</c:if>
+										</h5>
+										<p class="text-muted">
+											Tuyển dụng: <strong>${job.jobtitle}</strong>
+										</p>
+										<p class="text-truncate mb-4">${job.jobdescription}</p>
 									</div>
 								</div>
+							</div>
+							<!-- Phần nút thông tin chi tiết -->
+							<div class="position-absolute bottom-0 end-0 p-3">
+								<a href="/chiTiet/${job.jobid}"
+									class="btn btn-success btn-lg rounded-pill shadow-sm">Thông
+									tin chi tiết</a>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
-
 			</div>
 		</div>
-		
+
 		<%@ include file="/views/chat.jsp"%>
-		
-		
+
+
 	</section>
 
 	<!-- Pagination -->
