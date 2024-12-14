@@ -101,10 +101,10 @@
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
-	
+
 	<%@ include file="/views/chat.jsp"%>
 	<!-- header -->
-	
+
 	<c:if test="${not empty message}">
 		<div id="paymentSuccessModal" class="modal" style="display: flex;">
 			<div class="modal-content">
@@ -243,20 +243,25 @@
 
 					<div class="row">
 						<div class="col-md-12 d-flex justify-content-start">
-							<form action="/admin/hidePost/${bv.jobid}" method="post"
-								class="me-2">
-								<button type="submit" class="btn btn-success">Ẩn Bài
-									Viết</button>
-							</form>
-							<form action="/admin/showPost/${bv.jobid}" method="post"
-								class="me-2">
-								<button type="submit" class="btn btn-success">Hiện Bài
-									Viết</button>
-							</form>
+							<c:if test="${bv.active == false}">
+								<form action="/admin/showPost/${bv.jobid}" method="post"
+									class="me-2">
+									<button type="submit" class="btn btn-success">Hiện Bài
+										Viết</button>
+								</form>
+							</c:if>
+
+							<c:if test="${bv.active == true}">
+								<form action="/admin/hidePost/${bv.jobid}" method="post"
+									class="me-2">
+									<button type="submit" class="btn btn-success">Ẩn Bài
+										Viết</button>
+								</form>
+							</c:if>
+
 							<form action="/admin">
 								<button type="submit" class="btn btn-danger">Quay lại</button>
 							</form>
-							
 						</div>
 					</div>
 				</div>
@@ -273,7 +278,7 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<script>
+<!-- <script>
 	// Giả sử giá trị salary ban đầu là một số
 	const salaryInput = document.getElementById('salary');
 	let salaryValue = parseFloat(salaryInput.value.replace(/,/g, '')); // Chuyển đổi thành số, bỏ dấu phẩy
@@ -285,6 +290,25 @@
 
 	// Gán giá trị đã định dạng vào input
 	salaryInput.value = formatSalary(salaryValue);
+</script> -->
+<script>
+	// Lấy phần tử input salary
+	const salaryInput = document.getElementById('salary');
+
+	// Lấy giá trị từ input
+	let salaryValue = salaryInput.value.trim();
+
+	// Kiểm tra nếu giá trị là số và không rỗng
+	if (!isNaN(salaryValue) && salaryValue !== "") {
+		// Chuyển giá trị thành số để định dạng
+		salaryValue = parseFloat(salaryValue);
+		// Định dạng lại giá trị với dấu phẩy và thêm " VND"
+		salaryInput.value = new Intl.NumberFormat('vi-VN').format(salaryValue)
+				+ ' VND';
+	} else {
+		// Nếu giá trị không hợp lệ, đảm bảo vẫn thêm " VND"
+		salaryInput.value += " VND";
+	}
 </script>
 <script>
 	window.onload = function() {
@@ -303,9 +327,9 @@
 	};
 </script>
 <script>
-    // Close modal function
-    function closeModal() {
-        document.getElementById("paymentSuccessModal").style.display = "none";
-    }
-    </script>
+	// Close modal function
+	function closeModal() {
+		document.getElementById("paymentSuccessModal").style.display = "none";
+	}
+</script>
 </html>

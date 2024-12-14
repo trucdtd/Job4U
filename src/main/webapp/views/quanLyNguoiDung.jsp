@@ -297,8 +297,8 @@
 									<thead class="thead-light">
 										<tr>
 											<th scope="col">ID</th>
-											<th scope="col">Nội Dung HS</th>
-											<th scope="col">Tóm Tắt HS</th>
+											<th scope="col">Nội Dung CV</th>
+											<th scope="col">Tóm Tắt CV</th>
 											<th scope="col">Kinh Nghiệm</th>
 											<th scope="col">Học Vấn</th>
 											<th scope="col">Kỹ Năng</th>
