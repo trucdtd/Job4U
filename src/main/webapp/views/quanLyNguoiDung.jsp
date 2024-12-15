@@ -343,7 +343,7 @@
 											<th scope="col">ID</th>
 											<th scope="col">Tên Dịch Vụ</th>
 											<th scope="col">Giá</th>
-											<th scope="col">Ngày chạy dịch vụ</th>
+											<th scope="col">Ngày chạy dịch vụ (theo ngày)</th>
 											<th scope="col">Ngày Tạo</th>
 											<th scope="col">Hành Động</th>
 
@@ -566,10 +566,9 @@
 								<table id="vpTable" class="table align-items-center mb-0">
 									<thead class="thead-light">
 										<tr>
-											<th scope="col">TK Báo Cáo</th>
-											<th scope="col">TK Bị Báo Cáo</th>
-											<th scope="col">Bài Viết Bị Báo Cáo</th>
-											<th scope="col">Nội Dung Báo Cáo</th>
+											<th scope="col">Người Báo Cáo</th>
+											<th scope="col">Bài Viết</th>
+											<th scope="col">Nội Dung</th>
 											<th scope="col">Trạng Thái</th>
 											<th scope="col">Hành Động</th>
 										</tr>
@@ -577,10 +576,7 @@
 									<tbody>
 										<c:forEach items="${qlvp}" var="vp">
 											<tr>
-												<th scope="row">${vp.user.username}</th>
-												<td>Tài khoản: ${vp.employers.employerid} <br> Tên
-													TK: ${vp.employers.companyname}
-												</td>
+												<th scope="row">${vp.user.fullname}</th>
 												<td>${vp.job.jobtitle}</td>
 												<td>${vp.reason}</td>
 												<td>${vp.job.active ? 'Đang hoạt động' : 'Đã Xóa'}</td>
