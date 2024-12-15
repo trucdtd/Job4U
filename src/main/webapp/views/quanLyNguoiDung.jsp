@@ -248,7 +248,10 @@
 										<c:forEach items="${qlBV}" var="bv">
 											<tr>
 												<th scope="row">${bv.jobid}</th>
-												<td>${bv.employer.companyname}</td>
+												<td><c:if test="${bv.isTop}">
+													<i class="bi bi-star-fill text-warning"></i>
+													<!-- Ngôi sao vàng -->
+												</c:if>${bv.employer.companyname}</td>
 												<td>${bv.jobtitle}</td>
 												<%-- <td>${bv.joblocation}</td> --%>
 												<td>${bv.jobdescription}</td>

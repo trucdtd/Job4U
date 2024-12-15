@@ -287,34 +287,29 @@ public class AdminController {
 	@PostMapping("/deletePost")
 	@ResponseBody
 	public Map<String, Object> deletePost(@RequestParam("id") Integer id) {
-		Map<String, Object> response = new HashMap<>();
-		// Câu truy vấn để kiểm tra và xử lý bài viết
-		String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
-		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
-		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
+	    Map<String, Object> response = new HashMap<>();
+	    // Câu truy vấn kiểm tra bài viết có đang sử dụng dịch vụ
+	    String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
 
-		try {
-			int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
-			if (serviceCount > 0) {
-				// Nếu bài viết đang mua dịch vụ, cập nhật trạng thái thành ẩn
-				joblistingsDao.updatePostActiveStatus(id, false);
-				response.put("message",
-						"Bài viết không thể xóa vì đang mua dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
-				response.put("success", false);
-			} else {
-				// Nếu không có dịch vụ, xóa các bản ghi liên quan
-				jdbcTemplate.update(deleteApplicationsSql, id);
-				jdbcTemplate.update(deleteJobListingsSql, id);
-				response.put("message", "Xóa bài viết thành công.");
-				response.put("success", true);
-			}
-		} catch (Exception e) {
-			response.put("message", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
-			response.put("success", false);
-			e.printStackTrace();
-		}
+	    try {
+	        int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
+	        if (serviceCount > 0) {
+	            // Nếu bài viết đang mua dịch vụ, cập nhật trạng thái thành ẩn
+	            joblistingsDao.updatePostActiveStatus(id, false);
+	            response.put("message", "Bài viết đang sử dụng dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
+	        } else {
+	            // Nếu bài viết không sử dụng dịch vụ, cũng cập nhật trạng thái thành ẩn
+	            joblistingsDao.updatePostActiveStatus(id, false);
+	            response.put("message", "Bài viết đã được xóa.");
+	        }
+	        response.put("success", true);
+	    } catch (Exception e) {
+	        response.put("message", "Cập nhật trạng thái bài viết thất bại. Lỗi: " + e.getMessage());
+	        response.put("success", false);
+	        e.printStackTrace();
+	    }
 
-		return response;
+	    return response;
 	}
 
 	/*
