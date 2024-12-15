@@ -343,7 +343,7 @@
 											<th scope="col">ID</th>
 											<th scope="col">Tên Dịch Vụ</th>
 											<th scope="col">Giá</th>
-											<th scope="col">Ngày chạy dịch vụ</th>
+											<th scope="col">Ngày chạy dịch vụ (theo ngày)</th>
 											<th scope="col">Ngày Tạo</th>
 											<th scope="col">Hành Động</th>
 

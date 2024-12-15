@@ -424,6 +424,7 @@ public class AdminController {
 	public String capnhatDv(@PathVariable("serviceid") Integer serviceid, RedirectAttributes redirectAttributes,
 			@RequestParam("servicename") String servicename, @RequestParam("price") String price,
 			@RequestParam("numberofjobsallowed") Integer numberofjobsallowed,
+			@RequestParam("durationindays") Integer durationindays,
 			@RequestParam("description") String description) {
 		// Tìm dịch vụ theo id
 		ServicesEntity updv = servicesDao.findById(serviceid).orElse(null);
@@ -448,6 +449,15 @@ public class AdminController {
 			}
 			// Lưu số lượng công việc vào đối tượng
 			updv.setNumberofjobsallowed(numberofjobsallowed);
+			// Kiểm tra tính hợp lệ của durationindays
+			if (durationindays <= 0) {
+				redirectAttributes.addAttribute("error", "Số ngày không hợp lệ. Phải lớn hơn 0.");
+				return "redirect:/admin"; // Trả về trang quản lý với thông báo lỗi
+			}
+
+			// Lưu durationindays vào đối tượng
+			updv.setDurationindays(durationindays);
+
 
 			// Lưu dịch vụ sau khi cập nhật
 			servicesDao.save(updv);
