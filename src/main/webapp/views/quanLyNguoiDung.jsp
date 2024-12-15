@@ -269,9 +269,9 @@
 															src="/img/detail-icon.png" style="padding-bottom: 7px;"
 															width="25px" height="30px" alt="Detail">
 														</a> <a href="#" onclick="return confirmDelete(${bv.jobid});"
-															title="Xóa"> <img src="/img/delete-icon.png"
-															style="padding-bottom: 7px;" width="25px" height="30px"
-															alt="Delete">
+															title="Xóa"> <img alt="Xóa" src="/img/delete_red.png"
+																style="padding-bottom: 7px;"
+															width="25px" height="30px" />
 														</a>
 													</div>
 												</td>
