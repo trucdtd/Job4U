@@ -55,7 +55,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
             helper.setTo(toEmail);
-            helper.setSubject("Thông báo về bài viết được mở lại");
+            helper.setSubject("Thông báo về việc ẩn bài viết");
 
             // Nội dung HTML của email
             String htmlContent = """
@@ -128,7 +128,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
             helper.setTo(toEmail);
-            helper.setSubject("Thông báo về việc ẩn bài viết");
+            helper.setSubject("Thông báo về việc bài viết được mở lại");
 
             // Nội dung HTML của email
             String htmlContent = """
