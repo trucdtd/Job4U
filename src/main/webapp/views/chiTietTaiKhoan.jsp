@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
-<title>Detail User</title>
+<title>Chi Tiết Tài Khoản</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 <!-- Bootstrap Icons CSS -->
