@@ -90,60 +90,61 @@ public class EmailService {
 		mailSender.send(message);
 	}
 	
-	//Gủi email khi thanh toán thành công
 	public void sendEmail(UsersEntity user, ServicesEntity service, PaymentsEntity payment) {
-        String emailContent = "<!DOCTYPE html>"
-            + "<html lang=\"vi\">"
-            + "<head>"
-            + "<meta charset=\"UTF-8\">"
-            + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-            + "<title>Thanh toán thành công</title>"
-            + "<link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap\" rel=\"stylesheet\">"
-            + "<style>"
-            + "body { font-family: 'Roboto', sans-serif; background-color: #f4f7fc; margin: 0; padding: 0; }"
-            + ".container { max-width: 600px; margin: 50px auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }"
-            + ".success-icon { width: 70px; height: 70px; background-color: #4CAF50; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; }"
-            + ".success-icon i { font-size: 36px; color: #fff; }"
-            + "h1 { text-align: center; color: #333; }"
-            + ".order-info { margin-bottom: 20px; }"
-            + ".order-info p { margin: 5px 0; font-size: 16px; }"
-            + ".order-info strong { color: #333; }"
-            + ".order-info .status { font-weight: bold; color: #f44336; }"
-            + ".message { text-align: center; margin-top: 20px; }"
-            + ".message p { font-size: 16px; }"
-            + ".button { text-align: center; margin-top: 20px; }"
-            + ".button a { text-decoration: none; background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; transition: background-color 0.3s; }"
-            + ".button a:hover { background-color: #45a049; }"
-            + "</style>"
-            + "</head>"
-            + "<body>"
-            + "<div class=\"container\">"
-            + "<div class=\"success-icon\"><i class=\"fa fa-check\"></i></div>"
-            + "<h1>MUA THÀNH CÔNG!</h1>"
-            + "<div class=\"order-info\">"
-            + "<p><strong>Người thanh toán:</strong> " + user.getFullname() + "</p>"
-            + "<p><strong>Tên gói dịch vụ:</strong> " + service.getServicename() + "</p>"
-            + "<p><strong>Dịch vụ:</strong> " + service.getDescription() + "</p>"
-            + "<p><strong>Số tiền thanh toán:</strong> " + payment.getAmount() + " VND</p>"
-            + "<p><strong>Thời gian hiệu lực:</strong> " + service.getUpdatedat() + " đến " + service.getCreatedat() + "</p>"
-            + "<p><strong>Thời gian thanh toán:</strong> " + payment.getPaymentdate() + "</p>"
-            + "<p><strong>Trạng thái thanh toán:</strong> <span class=\"status\">" + payment.getStatus() + "</span></p>"
-            + "</div>"
-            + "<div class=\"message\">"
-            + "<p>Cảm ơn bạn đã mua gói dịch vụ của chúng tôi!</p>"
-            + "</div>"
-            + "</body>"
-            + "</html>";
+		String emailContent = "<!DOCTYPE html>"
+			    + "<html lang=\"vi\">"
+			    + "<head>"
+			    + "<meta charset=\"UTF-8\">"
+			    + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+			    + "<title>Thanh toán thành công</title>"
+			    + "<style>"
+			    + "body { font-family: 'Roboto', sans-serif; background-color: #f4f7fc; margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; }"
+			    + ".container { max-width: 600px; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center; }"
+			    + ".success-icon { margin: 0 auto 20px; }"
+			    + ".success-icon img { width: 50px; height: 50px; }"
+			    + "h1 { color: #ff0000; font-size: 24px; margin-bottom: 20px; }"
+			    + ".order-info { margin-bottom: 20px; text-align: left; }"
+			    + ".order-info p { margin: 5px 0; font-size: 16px; }"
+			    + ".order-info strong { color: #333; }"
+			    + ".status { color: #40C057; font-weight: bold; }"
+			    + ".message { margin-top: 20px; }"
+			    + ".message p { font-size: 16px; }"
+			    + ".button { margin-top: 20px; }"
+			    + ".button a { text-decoration: none; background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; transition: background-color 0.3s; }"
+			    + ".button a:hover { background-color: #45a049; }"
+			    + "</style>"
+			    + "</head>"
+			    + "<body>"
+			    + "<div class=\"container\">"
+			    + "<div class=\"success-icon\">"
+			    + "<img width=\"50\" height=\"50\" src=\"https://img.icons8.com/ios-filled/50/40C057/ok--v1.png\" alt=\"ok--v1\"/>"
+			    + "</div>"
+			    + "<h1>THANH TOÁN THÀNH CÔNG!</h1>"
+			    + "<div class=\"order-info\">"
+			    + "<p><strong>Người thanh toán:</strong> " + user.getFullname() + "</p>"
+			    + "<p><strong>Tên gói dịch vụ:</strong> " + service.getServicename() + "</p>"
+			    + "<p><strong>Dịch vụ:</strong> " + service.getDescription() + "</p>"
+			    + "<p><strong>Số tiền thanh toán:</strong> " + payment.getAmount() + " VND</p>"
+			    + "<p><strong>Thời gian hiệu lực:</strong> " + service.getUpdatedat() + " đến " + service.getCreatedat() + "</p>"
+			    + "<p><strong>Thời gian thanh toán:</strong> " + payment.getPaymentdate() + "</p>"
+			    + "<p><strong>Trạng thái thanh toán:</strong> <span class=\"status\">" + payment.getStatus() + "</span></p>"
+			    + "</div>"
+			    + "<div class=\"message\">"
+			    + "<p>Cảm ơn bạn đã mua gói dịch vụ của chúng tôi!</p>"
+			    + "</div>"
+			    + "</div>"
+			    + "</body>"
+			    + "</html>";
+	    try {
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+	        helper.setTo(user.getEmail());
+	        helper.setSubject("Hóa đơn thanh toán thành công");
+	        helper.setText(emailContent, true);  // true to send as HTML
+	        mailSender.send(message);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setTo(user.getEmail());
-            helper.setSubject("Hóa đơn thanh toán thành công");
-            helper.setText(emailContent, true);  // true to send as HTML
-            mailSender.send(message);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
