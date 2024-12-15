@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import demo.entity.PaymentsEntity;
 import demo.entity.ServicesEntity;
 import demo.entity.UsersEntity;
+import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
 @Service
@@ -46,21 +47,149 @@ public class EmailService {
 
 		mailSender.send(message);
 	}
-
+	
+	//Gửi email khi ẩn bài viết
 	public void sendDeletionNotificationEmail(String toEmail, String jobTitle, String reason) {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(toEmail);
-		message.setSubject("Thông báo về việc xóa bài viết");
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
-		// Chèn thông tin tiêu đề công việc và lý do xóa bài viết vào nội dung email
-		message.setText(
-				"Kính gửi Quý công ty,\n\n" + "Chúng tôi rất tiếc phải thông báo rằng bài viết của bạn về công việc \""
-						+ jobTitle + "\" đã bị xóa vì lý do: " + reason + ".\n\n"
-						+ "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi.\n\n"
-						+ "Trân trọng,\nĐội ngũ quản trị");
+            helper.setTo(toEmail);
+            helper.setSubject("Thông báo về bài viết được mở lại");
 
-		mailSender.send(message);
-	}
+            // Nội dung HTML của email
+            String htmlContent = """
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                line-height: 1.6;
+                                color: #333333;
+                                margin: 0;
+                                padding: 0;
+                                background-color: #f9f9f9;
+                            }
+                            .container {
+                                max-width: 600px;
+                                margin: 20px auto;
+                                background: #ffffff;
+                                padding: 20px;
+                                border-radius: 10px;
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            }
+                            .footer {
+                                text-align: center;
+                                font-size: 12px;
+                                color: #888888;
+                                margin-top: 20px;
+                            }
+                            .footer a {
+                                color: #6666ff;
+                                text-decoration: none;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <h2>Kính gửi Quý công ty</h2>
+                            <p>Chúng tôi rất tiếc phải thông báo rằng bài viết của bạn về công việc 
+                            <strong>“%s”</strong> đã bị ẩn vì lý do:</p>
+                            <blockquote style="background: #f5f5f5; color: #df0b0b; padding: 10px; border-left: 4px solid #cccccc;">
+                                %s
+                            </blockquote>
+                            <p>Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi qua email hoặc điện thoại.</p>
+                            <p>Trân trọng,</p>
+                            <p>Đội ngũ quản trị Job4U</p>
+                            <div class="footer">
+                                © 2024 Copyright: <a href="https://job4u.com">Job4U</a>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    """.formatted(jobTitle, reason);
+
+            helper.setText(htmlContent, true); // true để kích hoạt HTML
+
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            // Thêm xử lý lỗi nếu cần
+        }
+    }
+	
+	//Gửi email khi hiện bài viết
+	public void sendOpenEmail(String toEmail, String jobTitle, String reason) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            helper.setTo(toEmail);
+            helper.setSubject("Thông báo về việc ẩn bài viết");
+
+            // Nội dung HTML của email
+            String htmlContent = """
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                line-height: 1.6;
+                                color: #333333;
+                                margin: 0;
+                                padding: 0;
+                                background-color: #f9f9f9;
+                            }
+                            .container {
+                                max-width: 600px;
+                                margin: 20px auto;
+                                background: #ffffff;
+                                padding: 20px;
+                                border-radius: 10px;
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            }
+                            .footer {
+                                text-align: center;
+                                font-size: 12px;
+                                color: #888888;
+                                margin-top: 20px;
+                            }
+                            .footer a {
+                                color: #6666ff;
+                                text-decoration: none;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <h2>Kính gửi Quý công ty</h2>
+                            <p>Bài viết của bạn về công việc
+                            <strong>“%s”</strong> đã được mở lại</p>
+                            <p>Hãy chú ý tuân thủ các quy định của nền tảng để bài viết được duy trì. Cảm ơn bạn</p>
+                            <p>Trân trọng,</p>
+                            <p>Đội ngũ quản trị Job4U</p>
+                            <div class="footer">
+                                © 2024 Copyright: <a href="https://job4u.com">Job4U</a>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    """.formatted(jobTitle, reason);
+
+            helper.setText(htmlContent, true); // true để kích hoạt HTML
+
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            // Thêm xử lý lỗi nếu cần
+        }
+    }
 
 	// Gửi email khi tài khoản bị khóa
 	public void sendAccountLockedEmail(String toEmail, String username) {

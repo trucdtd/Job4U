@@ -391,9 +391,17 @@ public class AdminController {
 		// Lấy thông tin bài viết từ database
 		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
 
+		// Lấy thông tin nhà tuyển dụng từ bài viết
+		EmployersEntity employer = job.getEmployer();
+		UsersEntity user = employer.getUser(); // Lấy thông tin người dùng liên kết
+
 		// Cập nhật trạng thái hiện bài viết
 		job.setActive(true);
 		joblistingsDao.save(job);
+
+		String reason = "Bài viết vi phạm các quy định của chúng tôi"; // Ví dụ lý do xóa bài viết
+		emailService.sendOpenEmail(user.getEmail(), job.getJobtitle(), reason); // Gọi phương thức gửi
+																								// email
 
 		// Thêm thông báo hiện thành công
 		redirectAttributes.addFlashAttribute("message", "Đã hiển thị bài viết thành công!");
