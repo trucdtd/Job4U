@@ -23,7 +23,7 @@
 <body>
 	<div class="container">
 		<div class="d-flex align-items-center">
-			<form action="/thongke" method="post" class="d-flex rounded-3">
+			
 				<div class="mb-3 me-2">
 					<input type="date" class="form-control border-0 shadow"
 						name="startdate" id="" aria-describedby="helpId" placeholder="" />
@@ -36,10 +36,10 @@
 					<button type="submit" class="btn btn-danger mt-0 shadow">Tìm Kiếm</button>
 				</div>
 				<div class="mb-3 me-2">
-					<a type="button" href=""
+					<a type="submit"
 						class="btn btn-warning shadow">Thống kê tất cả</a>
 				</div>
-			</form>
+	
 			<div class="mb-3 me-2">
 				<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
 					Excel</button>
