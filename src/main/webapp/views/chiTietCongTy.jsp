@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <h2>Tuyển dụng</h2>
+        <h2>Các bài tuyển dụng của công ty</h2>
         <c:forEach var="entity" items="${list}">
         <div class="job-card shadow border-0 bg-light">
             <h3>${entity.jobtitle}</h3>
