@@ -1135,6 +1135,12 @@ document.getElementById('logo').addEventListener('change', function(event) {
             // Hiển thị modal
             var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
             errorModal.show();
+
+            // Lắng nghe sự kiện khi modal bị đóng
+            document.getElementById('errorModal').addEventListener('hidden.bs.modal', function () {
+                // Điều hướng về trang gốc (chưa có errorModal trong URL)
+                window.location.href = window.location.pathname.split('?')[0]; // Quay lại trang hiện tại mà không có query string
+            });
         }
     }
 </script>
