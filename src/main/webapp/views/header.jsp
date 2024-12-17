@@ -48,9 +48,11 @@
 					</ul>
 					<div class="d-flex-custom no-login" id="no-login">
 						<a name="" id="" class="btn btn-outline-success me-2 mb-3"
-							href="/Login" role="button">Đăng nhập</a> <a name="" id=""
-							class="btn btn-success me-2 mb-3" href="/DangKy" role="button">Đăng
-							ký</a>
+							href="/Login" role="button">Đăng nhập</a> 
+							<!-- Nút Đăng ký -->
+						<a name="" id="" class="btn btn-success me-2 mb-3" href="#"
+							role="button" data-bs-toggle="modal"
+							data-bs-target="#accountTypeModal">Đăng ký</a>
 						<div>						
 							<a name="" id="" class="btn btn-dark me-2" href="/employers" role="button">Dành cho nhà tuyển dụng</a>
 						</div>
@@ -104,6 +106,29 @@
 			<img src="/img/poster1.png" class="img-fluid" alt="Banner Image">
 		</section>
 		<!-- end nav -->
+		
+		<!-- Modal -->
+<div class="modal fade" id="accountTypeModal" tabindex="-1" aria-labelledby="accountTypeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="accountTypeModalLabel">Chọn loại tài khoản đăng ký</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Bạn muốn đăng ký với tài khoản nào?</p>
+        <div class="d-flex justify-content-center gap-3">
+          <!-- Nút Ứng viên -->
+          <a href="/DangKy" class="btn btn-success">Ứng viên</a>
+          <!-- Nút Nhà tuyển dụng -->
+          <a href="/DangKy2" class="btn btn-success">Nhà tuyển dụng</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 	</header>
 
 	<!-- Include jQuery -->

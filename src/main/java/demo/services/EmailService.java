@@ -48,6 +48,65 @@ public class EmailService {
 		mailSender.send(message);
 	}
 	
+	
+	// Gửi email xác nhận đăng ký tài khoản
+	public void sendVerificationCode(String toEmail, String token) {
+	    try {
+	        // Tạo đối tượng MimeMessage
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+	        // Cấu hình thông tin người nhận và tiêu đề
+	        helper.setTo(toEmail);
+	        helper.setSubject("Mã xác thực đăng ký");
+
+	        // Nội dung HTML của email
+	        String htmlContent = "<!DOCTYPE html>\n" +
+	                "<html lang=\"en\">\n" +
+	                "<head>\n" +
+	                "    <meta charset=\"UTF-8\">\n" +
+	                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+	                "    <title>Reset Password</title>\n" +
+	                "</head>\n" +
+	                "<body style=\"font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;\">\n" +
+	                "    <table align=\"center\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background-color: #ffffff; margin: 40px auto; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;\">\n" +
+	                "        <!-- Header -->\n" +
+	                "        <tr>\n" +
+	                "            <td style=\"padding: 30px 20px; text-align: left;\">\n" +
+	                "                <h2 style=\"margin: 0; font-size: 20px; color: #333;\">Xác thực tài khoản</h2>\n" +
+	                "            </td>\n" +
+	                "        </tr>\n" +
+	                "        <!-- Body -->\n" +
+	                "        <tr>\n" +
+	                "            <td style=\"padding: 40px 20px; text-align: left; color: #333;\">\n" +
+	                "                <p style=\"margin: 10px 0; font-size: 16px; color: #333;\">Mã xác thực của bạn là:</p>\n" +
+	                "                <div style=\"text-align: center; margin: 30px 0;\">\n" +
+	                "                    <span style=\"display: inline-block; background-color: #e8f0fe; padding: 20px 40px; border-radius: 10px; font-size: 24px; font-weight: bold; color: #333; border: 1px solid #c3d4e9;\">" + token + "</span>\n" +
+	                "                </div>\n" +
+	                "                <p style=\"margin: 10px 0; font-size: 16px; color: #333;\">Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.</p>\n" +
+	                "            </td>\n" +
+	                "        </tr>\n" +
+	                "        <!-- Footer -->\n" +
+	                "        <tr>\n" +
+	                "            <td style=\"padding: 30px 20px; text-align: center; font-size: 12px; color: #888;\">\n" +
+	                "                <p style=\"margin: 0;\">&copy; 2024 Job4U. All rights reserved.</p>\n" +
+	                "            </td>\n" +
+	                "        </tr>\n" +
+	                "    </table>\n" +
+	                "</body>\n" +
+	                "</html>";
+
+	        // Gán nội dung HTML vào email
+	        helper.setText(htmlContent, true);
+
+	        // Gửi email
+	        mailSender.send(message);
+	    } catch (MessagingException e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("Lỗi khi gửi email xác thực");
+	    }
+	}
+	
 	//Gửi email khi ẩn bài viết
 	public void sendDeletionNotificationEmail(String toEmail, String jobTitle, String reason) {
         try {
