@@ -42,11 +42,17 @@ public class DanhSachCongTyController {
 	}
 
 	@RequestMapping("/{employerid}")
-	public String chiTietCongTy(@PathVariable("employerid") Optional<Integer> empid, Model model) {
-		EmployersEntity emp = employersDao.findByID(empid);
-		List<JoblistingsEntity> list = dao.findByEmployer(emp);
-		model.addAttribute("list", list);
-		model.addAttribute("emp", emp);
-		return "chiTietCongTy";
+	public String chiTietCongTy(@PathVariable("employerid") Integer empid, Model model) {
+	    EmployersEntity emp = employersDao.findById(empid).orElse(null);
+	    if (emp == null) {
+	        model.addAttribute("error", "Nhà tuyển dụng không tồn tại.");
+	        return "errorPage"; // Trang lỗi
+	    }
+	    
+	    List<JoblistingsEntity> validJobs = dao.findValidJobListingsByEmployer(emp);
+	    model.addAttribute("list", validJobs);
+	    model.addAttribute("emp", emp);
+	    return "chiTietCongTy";
 	}
+
 }
