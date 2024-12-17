@@ -287,34 +287,29 @@ public class AdminController {
 	@PostMapping("/deletePost")
 	@ResponseBody
 	public Map<String, Object> deletePost(@RequestParam("id") Integer id) {
-		Map<String, Object> response = new HashMap<>();
-		// Câu truy vấn để kiểm tra và xử lý bài viết
-		String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
-		String deleteApplicationsSql = "DELETE FROM Applications WHERE JobID = ?";
-		String deleteJobListingsSql = "DELETE FROM Joblistings WHERE JobID = ?";
+	    Map<String, Object> response = new HashMap<>();
+	    // Câu truy vấn kiểm tra bài viết có đang sử dụng dịch vụ
+	    String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
 
-		try {
-			int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
-			if (serviceCount > 0) {
-				// Nếu bài viết đang mua dịch vụ, cập nhật trạng thái thành ẩn
-				joblistingsDao.updatePostActiveStatus(id, false);
-				response.put("message",
-						"Bài viết không thể xóa vì đang mua dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
-				response.put("success", false);
-			} else {
-				// Nếu không có dịch vụ, xóa các bản ghi liên quan
-				jdbcTemplate.update(deleteApplicationsSql, id);
-				jdbcTemplate.update(deleteJobListingsSql, id);
-				response.put("message", "Xóa bài viết thành công.");
-				response.put("success", true);
-			}
-		} catch (Exception e) {
-			response.put("message", "Xóa bài viết thất bại. Lỗi: " + e.getMessage());
-			response.put("success", false);
-			e.printStackTrace();
-		}
+	    try {
+	        int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
+	        if (serviceCount > 0) {
+	            // Nếu bài viết đang mua dịch vụ, cập nhật trạng thái thành ẩn
+	            joblistingsDao.updatePostActiveStatus(id, false);
+	            response.put("message", "Bài viết đang sử dụng dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
+	        } else {
+	            // Nếu bài viết không sử dụng dịch vụ, cũng cập nhật trạng thái thành ẩn
+	            joblistingsDao.updatePostActiveStatus(id, false);
+	            response.put("message", "Bài viết đã được xóa.");
+	        }
+	        response.put("success", true);
+	    } catch (Exception e) {
+	        response.put("message", "Cập nhật trạng thái bài viết thất bại. Lỗi: " + e.getMessage());
+	        response.put("success", false);
+	        e.printStackTrace();
+	    }
 
-		return response;
+	    return response;
 	}
 
 	/*
@@ -391,9 +386,17 @@ public class AdminController {
 		// Lấy thông tin bài viết từ database
 		JoblistingsEntity job = joblistingsDao.findById(jobid).orElseThrow(() -> new RuntimeException("Job not found"));
 
+		// Lấy thông tin nhà tuyển dụng từ bài viết
+		EmployersEntity employer = job.getEmployer();
+		UsersEntity user = employer.getUser(); // Lấy thông tin người dùng liên kết
+
 		// Cập nhật trạng thái hiện bài viết
 		job.setActive(true);
 		joblistingsDao.save(job);
+
+		String reason = "Bài viết vi phạm các quy định của chúng tôi"; // Ví dụ lý do xóa bài viết
+		emailService.sendOpenEmail(user.getEmail(), job.getJobtitle(), reason); // Gọi phương thức gửi
+																								// email
 
 		// Thêm thông báo hiện thành công
 		redirectAttributes.addFlashAttribute("message", "Đã hiển thị bài viết thành công!");
@@ -424,6 +427,7 @@ public class AdminController {
 	public String capnhatDv(@PathVariable("serviceid") Integer serviceid, RedirectAttributes redirectAttributes,
 			@RequestParam("servicename") String servicename, @RequestParam("price") String price,
 			@RequestParam("numberofjobsallowed") Integer numberofjobsallowed,
+			@RequestParam("durationindays") Integer durationindays,
 			@RequestParam("description") String description) {
 		// Tìm dịch vụ theo id
 		ServicesEntity updv = servicesDao.findById(serviceid).orElse(null);
@@ -448,6 +452,15 @@ public class AdminController {
 			}
 			// Lưu số lượng công việc vào đối tượng
 			updv.setNumberofjobsallowed(numberofjobsallowed);
+			// Kiểm tra tính hợp lệ của durationindays
+			if (durationindays <= 0) {
+				redirectAttributes.addAttribute("error", "Số ngày không hợp lệ. Phải lớn hơn 0.");
+				return "redirect:/admin"; // Trả về trang quản lý với thông báo lỗi
+			}
+
+			// Lưu durationindays vào đối tượng
+			updv.setDurationindays(durationindays);
+
 
 			// Lưu dịch vụ sau khi cập nhật
 			servicesDao.save(updv);

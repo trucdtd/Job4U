@@ -19,16 +19,16 @@
 <link rel="stylesheet" href="/css/quanlyuser.css">
 <style type="text/css">
 #messageModal .modal-content {
-    padding: 20px;
+	padding: 20px;
 }
 
 #messageModal .modal-header {
-    background-color: #f1f1f1;
-    border-bottom: 1px solid #ddd;
+	background-color: #f1f1f1;
+	border-bottom: 1px solid #ddd;
 }
 
 #messageModal .modal-footer {
-    border-top: 1px solid #ddd;
+	border-top: 1px solid #ddd;
 }
 }
 </style>
@@ -70,8 +70,8 @@
 					<!-- Nội dung thông báo sẽ được cập nhật từ JavaScript -->
 				</div>
 				<div class="modal-footer">
-					<button style="background-color: #4CAF50" type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Đóng</button>
+					<button style="background-color: #4CAF50" type="button"
+						class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
 				</div>
 			</div>
 		</div>
@@ -246,11 +246,12 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${qlBV}" var="bv">
-											<tr>
+											<tr data-id="${bv.jobid}">
 												<th scope="row">${bv.jobid}</th>
-												<td>${bv.employer.companyname}</td>
+												<td><c:if test="${bv.isTop}">
+														<i class="bi bi-star-fill text-warning"></i>
+													</c:if>${bv.employer.companyname}</td>
 												<td>${bv.jobtitle}</td>
-												<%-- <td>${bv.joblocation}</td> --%>
 												<td>${bv.jobdescription}</td>
 												<td><c:choose>
 														<c:when test="${bv.salary != null}">
@@ -259,24 +260,22 @@
 																VND </span>
 														</c:when>
 													</c:choose></td>
-
 												<td>${bv.active ? 'Đang hoạt động' : 'Đang ẩn'}</td>
-
 												<td>
 													<div style="display: flex; align-items: center; gap: 10px;">
 														<a href="/admin/detailPost/${bv.jobid}" class="btn"
-															type="button" title="Xem Chi Tiết"> <img
-															src="/img/detail-icon.png" style="padding-bottom: 7px;"
-															width="25px" height="30px" alt="Detail">
-														</a> <a href="#" onclick="return confirmDelete(${bv.jobid});"
-															title="Xóa"> <img src="/img/delete-icon.png"
+															title="Xem Chi Tiết"> <img src="/img/detail-icon.png"
 															style="padding-bottom: 7px;" width="25px" height="30px"
-															alt="Delete">
+															alt="Detail">
+														</a> <a href="#" onclick="return confirmDelete(${bv.jobid});"
+															title="Xóa"> <img alt="Xóa" src="/img/delete_red.png"
+															style="padding-bottom: 7px;" width="25px" height="30px" />
 														</a>
 													</div>
 												</td>
 											</tr>
 										</c:forEach>
+
 									</tbody>
 								</table>
 							</div>
@@ -343,7 +342,7 @@
 											<th scope="col">ID</th>
 											<th scope="col">Tên Dịch Vụ</th>
 											<th scope="col">Giá</th>
-											<th scope="col">Ngày chạy dịch vụ</th>
+											<th scope="col">Ngày chạy dịch vụ (theo ngày)</th>
 											<th scope="col">Ngày Tạo</th>
 											<th scope="col">Hành Động</th>
 
@@ -403,9 +402,10 @@
 											placeholder="Tổng số lượng bài viết">
 									</div>
 									<div class="col-md-6">
-										<label for="contactperson">Thời gian chạy dịch vụ (theo ngày): </label> <input
-											class="form-control" type="text" id="durationindays"
-											name="durationindays" placeholder="Theo ngày">
+										<label for="contactperson">Thời gian chạy dịch vụ
+											(theo ngày): </label> <input class="form-control" type="text"
+											id="durationindays" name="durationindays"
+											placeholder="Theo ngày">
 									</div>
 								</div>
 								<div class="row mb-3">
@@ -566,10 +566,9 @@
 								<table id="vpTable" class="table align-items-center mb-0">
 									<thead class="thead-light">
 										<tr>
-											<th scope="col">TK Báo Cáo</th>
-											<th scope="col">TK Bị Báo Cáo</th>
-											<th scope="col">Bài Viết Bị Báo Cáo</th>
-											<th scope="col">Nội Dung Báo Cáo</th>
+											<th scope="col">Người Báo Cáo</th>
+											<th scope="col">Bài Viết</th>
+											<th scope="col">Nội Dung</th>
 											<th scope="col">Trạng Thái</th>
 											<th scope="col">Hành Động</th>
 										</tr>
@@ -577,10 +576,7 @@
 									<tbody>
 										<c:forEach items="${qlvp}" var="vp">
 											<tr>
-												<th scope="row">${vp.user.username}</th>
-												<td>Tài khoản: ${vp.employers.employerid} <br> Tên
-													TK: ${vp.employers.companyname}
-												</td>
+												<th scope="row">${vp.user.fullname}</th>
 												<td>${vp.job.jobtitle}</td>
 												<td>${vp.reason}</td>
 												<td>${vp.job.active ? 'Đang hoạt động' : 'Đã Xóa'}</td>
@@ -640,64 +636,55 @@
 <script>
 function confirmDelete(id) {
     if (confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
-        // Gửi yêu cầu AJAX để xóa bài viết
         $.ajax({
             url: '/admin/deletePost',
             type: 'POST',
             data: { id: id },
             success: function(response) {
-                // Lấy nội dung modal
                 var modalBody = document.getElementById('modalMessageBody');
                 var modalTitle = document.getElementById('messageModalLabel');
                 
-                // Cập nhật nội dung và tiêu đề modal với thông báo từ server
                 modalBody.textContent = response.message;
 
-                // Xử lý màu sắc và kiểu dáng modal tùy thuộc vào kết quả trả về
                 if (response.success) {
-                    // Thông báo thành công
-                    modalBody.classList.remove("text-danger"); // Xóa màu đỏ cũ
-                    modalBody.classList.add("text-success"); // Thêm màu xanh cho thông báo thành công
-                    modalTitle.textContent = "Thành công!"; // Tiêu đề modal thành "Thành công"
+                    modalBody.classList.remove("text-danger");
+                    modalBody.classList.add("text-success");
+                    modalTitle.textContent = "Thành công!";
+
+                    // Cập nhật trạng thái trực tiếp trong bảng
+                    var rowToUpdate = document.querySelector(`#postTable tr[data-id="${id}"]`);
+                    if (rowToUpdate) {
+                        var statusCell = rowToUpdate.querySelector("td:nth-child(6)"); // Cột Trạng Thái
+                        if (statusCell) {
+                            statusCell.textContent = response.newStatus; // Cập nhật trạng thái mới
+                        }
+                    }
                 } else {
-                    // Thông báo thất bại
-                    modalBody.classList.remove("text-success"); // Xóa màu xanh cũ
-                    modalBody.classList.add("text-danger"); // Thêm màu đỏ cho thông báo lỗi
-                    modalTitle.textContent = "Thất bại!"; // Tiêu đề modal thành "Thất bại"
+                    modalBody.classList.remove("text-success");
+                    modalBody.classList.add("text-danger");
+                    modalTitle.textContent = "Thất bại!";
                 }
 
-                // Hiển thị modal
                 var modal = new bootstrap.Modal(document.getElementById('messageModal'));
                 modal.show();
-
-                // Nếu xóa thành công, xóa bài viết khỏi bảng
-                if (response.success) {
-                    document.querySelectorAll('#postTable tr').forEach(function(row) {
-                        var rowId = row.querySelector('th').textContent; // Lấy ID bài viết từ cột đầu tiên
-                        if (rowId == id) {
-                            row.remove(); // Xóa dòng tương ứng
-                        }
-                    });
-                }
             },
-            error: function(xhr, status, error) {
-                // Hiển thị thông báo lỗi trong modal
+            error: function() {
                 var modalBody = document.getElementById('modalMessageBody');
                 var modalTitle = document.getElementById('messageModalLabel');
-                
-                modalBody.textContent = "Xảy ra lỗi khi xóa bài viết.";
-                modalBody.classList.remove("text-success"); // Xóa màu xanh cũ
-                modalBody.classList.add("text-danger"); // Màu đỏ cho thông báo lỗi
-                modalTitle.textContent = "Lỗi!"; // Tiêu đề modal thành "Lỗi!"
 
-                // Hiển thị modal
+                modalBody.textContent = "Xảy ra lỗi khi xóa bài viết.";
+                modalBody.classList.remove("text-success");
+                modalBody.classList.add("text-danger");
+                modalTitle.textContent = "Lỗi!";
+
                 var modal = new bootstrap.Modal(document.getElementById('messageModal'));
                 modal.show();
             }
         });
     }
-    return false; // Ngăn chặn việc điều hướng tới URL mặc định
+    return false;
 }
+
 </script>
 
 <script>
