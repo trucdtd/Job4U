@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <h2>Tuyển dụng</h2>
+        <h2>Các bài tuyển dụng của công ty</h2>
         <c:forEach var="entity" items="${list}">
         <div class="job-card shadow border-0 bg-light">
             <h3>${entity.jobtitle}</h3>
@@ -144,7 +144,8 @@
         </div> -->
     </div>
 </div>
-
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!--footer  -->
 <%@ include file="/views/footer.jsp"%>
 </body>
