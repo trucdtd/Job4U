@@ -44,6 +44,7 @@ import demo.entity.UserServicesEntity;
 import demo.entity.UsersEntity;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.file.Files;
@@ -56,15 +57,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("/employers")
 public class NhaTuyenDungController {
 
 	private static final Logger logger = LoggerFactory.getLogger(XemCvUngVienController.class);
-	
-	@Autowired
-	private JavaMailSender mailSender;
 
 	@Autowired
 	private EmailService emailService;
@@ -467,30 +466,51 @@ public class NhaTuyenDungController {
 
 	@PostMapping("/pay")
 	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal servicePrice,
-			@RequestParam(value = "serviceId", required = false) Integer serviceId,
-			@RequestParam(value = "userId", required = false) Integer userId,
-			@RequestParam(value = "jobId", required = false) Integer jobId, HttpServletRequest request) {
+	                               @RequestParam(value = "serviceId", required = false) Integer serviceId,
+	                               @RequestParam(value = "userId", required = false) Integer userId,
+	                               @RequestParam(value = "jobId", required = false) Integer jobId,
+	                               HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
-		System.out.println("userId: " + userId);
-		System.out.println("serviceId: " + serviceId);
-		System.out.println("jobId: " + jobId);
+	    System.out.println("userId: " + userId);
+	    System.out.println("serviceId: " + serviceId);
+	    System.out.println("jobId: " + jobId);
 
-		// Kiểm tra các tham số cần thiết
-		if (servicePrice == null || serviceId == null || userId == null || (serviceId == 4 && jobId == null)) {
-			return "redirect:/employers";
-		}
+	    // Kiểm tra các tham số cần thiết
+	    if (servicePrice == null || serviceId == null || userId == null || (serviceId == 4 && jobId == null)) {
+	        return "redirect:/employers";
+	    }
 
-		// Lưu các tham số vào session
-		HttpSession session = request.getSession();
-		session.setAttribute("userId", userId);
-		session.setAttribute("serviceId", serviceId);
-		session.setAttribute("jobId", jobId);
+	    // Truy vấn ngày hết hạn nộp hồ sơ từ bảng Joblistings
+	    LocalDate applicationDeadline = joblistingsDao.findApplicationdeadlineByJobid(jobId);
 
-		int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
-		String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/vnpay-payment";
-		String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho dịch vụ: " + serviceId, baseUrl);
+	    if (applicationDeadline == null) {
+	        return "redirect:/employers"; // Nếu không tìm thấy công việc
+	    }
 
-		return "redirect:" + vnpayUrl;
+	    // Kiểm tra nếu ngày hết hạn đã qua hoặc còn dưới 3 ngày
+	    if (applicationDeadline.isBefore(LocalDate.now())) {
+	        // Thêm thông báo lỗi vào model
+	    	redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ đã qua, không thể mua dịch vụ.");
+	        return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
+	    }
+
+	    if (applicationDeadline.isBefore(LocalDate.now().plusDays(3))) {
+	        // Thêm thông báo lỗi vào model
+	    	redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ còn dưới 3 ngày, không thể mua dịch vụ.");
+	        return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
+	    }
+
+	    // Nếu không có lỗi, thực hiện thanh toán
+	    HttpSession session = request.getSession();
+	    session.setAttribute("userId", userId);
+	    session.setAttribute("serviceId", serviceId);
+	    session.setAttribute("jobId", jobId);
+
+	    int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
+	    String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/vnpay-payment";
+	    String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho dịch vụ: " + serviceId, baseUrl);
+
+	    return "redirect:" + vnpayUrl;
 	}
 
 	@GetMapping("/vnpay-payment")

@@ -474,6 +474,7 @@
 						</div>
 					</div>
 				</div>
+				
 
 				<!-- Dịch vụ -->
 				<div id="postingServices" class="card" style="display: none;">
@@ -634,6 +635,24 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- Modal thông báo không thể mua dịch vụ -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Thông Báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="errorModalBody">
+                <!-- Nội dung thông báo lỗi sẽ được chèn vào đây -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 	</div>
@@ -1099,6 +1118,26 @@ document.getElementById('logo').addEventListener('change', function(event) {
     });
 </script>
 
+<script>
+    window.onload = function() {
+        // Kiểm tra nếu có thông báo lỗi trong URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get('errorModal');
+        
+        if (errorMessage) {
+            // Giải mã thông báo lỗi từ URL
+            const decodedMessage = decodeURIComponent(errorMessage);
+
+            // Cập nhật tiêu đề và nội dung của modal thông báo
+            document.getElementById('errorModalLabel').innerText = "Thông Báo";
+            document.getElementById('errorModalBody').innerText = decodedMessage;
+
+            // Hiển thị modal
+            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        }
+    }
+</script>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- JS for DataTables -->
