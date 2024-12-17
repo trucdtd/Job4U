@@ -216,13 +216,14 @@
 									alt="logo" class="img-fluid"
 									style="object-fit: cover; height: 150px; width: 100%;">
 							</div> 
-							<div class="card-body d-flex flex-column align-items-start">
-							<a href="/ListEmployers/${emp.employerid}" class="text-decoration-underline overline">
+							<div class="card-body d-flex flex-column">						
 								<h5 class="card-title">${emp.companyname}</h5>
-								</a>
 								<p class="text-muted">${emp.companywebsite}</p>
 								<p class="card-text">${emp.companydescription}</p>
 								<p class="card-text">${emp.address}</p>
+								<a href="/ListEmployers/${emp.employerid}" class="btn btn-outline-success mt-3">
+								Thông tin chi tiết
+								</a>
 							</div>
 						</div>
 						
