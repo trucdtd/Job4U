@@ -25,7 +25,6 @@ public class EmployersEntity implements Serializable {
 	@Column(name = "employerid")
 	private Integer employerid;
 
-	@NotNull
 	@Column(name = "companyname", nullable = false)
 	private String companyname;
 

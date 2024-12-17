@@ -19,6 +19,9 @@ public interface UsersDao extends JpaRepository<UsersEntity, Integer> {
 	// Tìm user theo username
 	@Query("SELECT u FROM UsersEntity u WHERE u.username = ?1")
 	List<UsersEntity> findByUsername(String username);
+	
+	// Kiểm tra xem usernam đã tồn tại chưa
+	boolean existsByUsername(String username);
 
 	// Kiểm tra xem email đã tồn tại chưa
 	boolean existsByEmail(String email);

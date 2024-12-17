@@ -1,37 +1,25 @@
 package demo.Controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
-import demo.dao.EmployersDao;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
 import demo.dao.UserAgreementsDao;
 import demo.dao.UsersDao;
-import demo.entity.EmployersEntity;
 import demo.entity.UserAgreementsEntity;
 import demo.entity.UsersEntity;
-import demo.services.UserService;
+import demo.services.EmailService;
 import demo.util.MaHoa;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -43,16 +31,13 @@ public class dangkyController {
 	private UsersDao userDao;
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private EmployersDao employersDao;
+	private EmailService emailService;
 
 	@Autowired
 	private UserAgreementsDao userAgreementsDao;
 
 	@GetMapping("")
-	public String dangKy(Model model) {
+	public String dangKyUngVien(Model model) {
 		model.addAttribute("usersEntity", new UsersEntity()); // Khởi tạo UsersEntity để gửi tới view
 		return "dangky";
 	}
@@ -60,177 +45,139 @@ public class dangkyController {
 	@PostMapping("/submit")
 	public String submitForm(@RequestParam("username") String username, @RequestParam("fullname") String fullname,
 			@RequestParam("password") String password, @RequestParam("email") String email,
-			@RequestParam("phonenumber") String phonenumber,
-			@RequestParam(value = "companyName", required = false) String companyName,
-			@RequestParam(value = "companyWebsite", required = false) String companyWebsite,
-			@RequestParam(value = "companyAddress", required = false) String companyAddress,
-			@RequestParam(value = "industry", required = false) String industry,
-			@RequestParam(value = "contactPerson", required = false) String contactPerson,
-			@RequestParam(value = "companyDescription", required = false) String companyDescription,
-			@RequestParam(value = "usertype", required = false) String usertype,
-			@RequestParam(value = "taxid", required = false) String taxid,
-			@RequestParam(value = "termsAgreed", required = false) String termsAgreed,
-			@RequestParam(value = "logo", required = false) MultipartFile logo, Model model, HttpServletRequest req) {
+			@RequestParam("phonenumber") String phonenumber, Model model, HttpServletRequest req) {
 
 		boolean hasErrors = false;
 
-		// Kiểm tra điều khoản
-		if (termsAgreed == null) {
-			model.addAttribute("termsError", "Bạn phải đồng ý với điều khoản để tiếp tục.");
-			hasErrors = true;
-		}
-
 		// Kiểm tra các thông tin bắt buộc
 		if (username.isEmpty()) {
-			model.addAttribute("usernameError", "Tên đăng nhập không được để trống");
+			model.addAttribute("usernameError", "Tên tài khoản không được để trống.");
 			hasErrors = true;
-		} else if (userService.isUsernameExists(username)) {
-			model.addAttribute("usernameError", "Tên đăng nhập đã được sử dụng");
+		} else if (userDao.existsByUsername(username)) {
+			model.addAttribute("usernameError", "Tên tài khoản đã tồn tại. Vui lòng chọn tên khác.");
 			hasErrors = true;
 		}
 
-		// Kiểm tra Họ và Tên
 		if (fullname.isEmpty()) {
-			model.addAttribute("fullnameError", "Họ và tên không được để trống");
+			model.addAttribute("fullnameError", "Họ và tên không được để trống.");
+			hasErrors = true;
+		}
+		if (password.isEmpty()) {
+			model.addAttribute("passwordError", "Mật khẩu không được để trống.");
+			hasErrors = true;
+		}else if (!isValidPassword(password)) {
+			model.addAttribute("passwordError", "Mật khẩu phải có ít nhất 8 ký tự.");
+			hasErrors = true;
+		}
+		
+		// Kiểm tra lỗi cho email
+		if (email.isEmpty()) {
+			model.addAttribute("emailError", "Email không được để trống.");
+			hasErrors = true;
+		} else if (!isValidEmail(email)) {
+			model.addAttribute("emailError", "Email không hợp lệ.");
+			hasErrors = true;
+		} else if (userDao.existsByEmail(email)) {
+			model.addAttribute("emailError", "Email đã tồn tại trong hệ thống.");
 			hasErrors = true;
 		}
 
-		// Kiểm tra Mật khẩu
-		if (password.isEmpty() || !isValidPassword(password)) {
-			model.addAttribute("passwordError",
-					password.isEmpty() ? "Mật khẩu không được để trống" : "Mật khẩu phải ít nhất 8 ký tự");
+		// Kiểm tra lỗi cho số điện thoại
+		if (phonenumber == null || phonenumber.isEmpty()) {
+			model.addAttribute("phonenumberError", "Số điện thoại không được để trống.");
+			hasErrors = true;
+		} else if (!isValidPhoneNumber(phonenumber)) {
+			model.addAttribute("phonenumberError", "Số điện thoại không hợp lệ.");
+			hasErrors = true;
+		} else if (userDao.existsByPhonenumber(phonenumber)) {
+			model.addAttribute("phonenumberError", "Số điện thoại đã tồn tại.");
 			hasErrors = true;
 		}
 
-		// Kiểm tra Email
-		if (email.isEmpty() || !isValidEmail(email) || userService.isEmailExists(email)) {
-			model.addAttribute("emailError", email.isEmpty() ? "Email không được để trống"
-					: !isValidEmail(email) ? "Email không hợp lệ" : "Email đã được sử dụng");
-			hasErrors = true;
+		// Nếu có lỗi, trả về form đăng ký
+		if (hasErrors) {
+			return "dangky";
 		}
-
-		// Kiểm tra Số điện thoại
-		if (phonenumber.isEmpty() || !isValidPhoneNumber(phonenumber) || userService.isPhoneNumberExists(phonenumber)) {
-			model.addAttribute("phonenumberError",
-					phonenumber.isEmpty() ? "Số điện thoại không được để trống"
-							: !isValidPhoneNumber(phonenumber) ? "Số điện thoại không hợp lệ (chỉ cho phép số)"
-									: "Số điện thoại đã được sử dụng");
-			hasErrors = true;
-		}
-
-		if (usertype == null || usertype.isEmpty()) {
-			model.addAttribute("usertypeError", "Vui lòng chọn loại tài khoản");
-			hasErrors = true;
-		}
-
-		// Kiểm tra thông tin nhà tuyển dụng nếu loại tài khoản là "employer"
-		if ("employer".equals(usertype)) {
-			if (companyName == null || companyName.isEmpty()) {
-				model.addAttribute("companyNameError", "Tên công ty không được để trống");
-				hasErrors = true;
-			}
-			if (companyWebsite == null || companyWebsite.isEmpty()) {
-				model.addAttribute("companyWebsiteError", "Website công ty không được để trống");
-				hasErrors = true;
-			}
-			if (companyAddress == null || companyAddress.isEmpty()) {
-				model.addAttribute("companyAddressError", "Địa chỉ công ty không được để trống");
-				hasErrors = true;
-			}
-			if (industry == null || industry.isEmpty()) {
-				model.addAttribute("industryError", "Ngành công nghiệp không được để trống");
-				hasErrors = true;
-			}
-			if (contactPerson == null || contactPerson.isEmpty()) {
-				model.addAttribute("contactPersonError", "Người liên hệ không được để trống");
-				hasErrors = true;
-			}
-
-			if (taxid == null || taxid.isEmpty()) {
-				model.addAttribute("taxidError", "Mã số thuế không được để trống");
-				hasErrors = true;
-			} else if (!isValidTaxCodeFormat(taxid)) {
-				model.addAttribute("taxidError", "Định dạng mã số thuế không hợp lệ");
-				hasErrors = true;
-			} else if (!isTaxCodeValid(taxid)) {
-				model.addAttribute("taxidError", "Mã số thuế không tồn tại hoặc không hợp lệ");
-				hasErrors = true;
-			}
-
-		}
-
-		// Kiểm tra và lưu logo
-		String logoFilename = null;
-		if (logo != null && !logo.isEmpty()) {
-			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
-			try {
-				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
-				if (!uploadsDir.exists()) {
-					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
-				}
-				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
-				Files.write(path, logo.getBytes());
-			} catch (IOException e) {
-				e.printStackTrace();
-				return "error"; // Xử lý lỗi tải lên
-			}
-		} // Có thể bổ sung logic để upload logo
 
 		try {
-			// Tạo đối tượng người dùng mới
-			UsersEntity newUser = new UsersEntity();
-			Integer role = "employer".equals(usertype) ? 2 : 1;
-			newUser.setUsername(username);
-			newUser.setFullname(fullname);
-			newUser.setPassword(MaHoa.toSHA1(password)); // Mã hóa mật khẩu
-			newUser.setEmail(email);
-			newUser.setPhonenumber(phonenumber);
-			newUser.setRole(role);
-			LocalDateTime now = LocalDateTime.now();
-			newUser.setCreatedat(now);
-			newUser.setUpdatedat(now);
-			newUser.setStatus(true); // Thiết lập status
+			// Tạo mã token ngẫu nhiên 6 số
+			String token = String.format("%06d", new Random().nextInt(999999));
 
-			userDao.save(newUser);
+			// Gửi mã token qua email
+			emailService.sendVerificationCode(email, token);
 
-			// Nếu người dùng là nhà tuyển dụng, lưu thêm thông tin công ty
-			if ("employer".equals(usertype)) {
-				EmployersEntity employerDetails = new EmployersEntity();
-				employerDetails.setCompanyname(companyName);
-				employerDetails.setCompanywebsite(companyWebsite);
-				employerDetails.setAddress(companyAddress);
-				employerDetails.setIndustry(industry);
-				employerDetails.setContactperson(contactPerson);
-				employerDetails.setCompanydescription(companyDescription);
-				if (logoFilename != null) {
-					employerDetails.setLogo(logoFilename); // Chỉ cập nhật logo nếu nó không null
-				}
-				employerDetails.setTaxid(taxid);
+			// Lưu token và thông tin người dùng vào session
+			req.getSession().setAttribute("email", email);
+			req.getSession().setAttribute("token", token);
+			req.getSession().setAttribute("username", username);
+			req.getSession().setAttribute("fullname", fullname);
+			req.getSession().setAttribute("password", password);
+			req.getSession().setAttribute("phonenumber", phonenumber);
 
-				employerDetails.setUser(newUser);
-				employersDao.save(employerDetails);
-			}
+			// Hiển thị modal xác minh
+			model.addAttribute("showVerificationForm", true);
+			model.addAttribute("email", email); // Gửi email để hiển thị trong modal
 
-			// Lưu thông tin điều khoản và chính sách
-			UserAgreementsEntity Useragreements = new UserAgreementsEntity();
-			Useragreements.setUserid(newUser);
-			Useragreements.setAgreementdate(LocalDate.now());
-			Useragreements.setAgreementcontent(
-					"Chính Sách: Để đảm bảo chất lượng dịch vụ, Job4U không cho phép một người dùng tạo nhiều tài khoản khác nhau..."); // Nội
-																																		// dung
-																																		// chính
-																																		// sách
-			Useragreements.setStatus(1); // Thiết lập giá trị cho cột status
-
-			userAgreementsDao.save(Useragreements); // Lưu vào cơ sở dữ liệu
-
-			model.addAttribute("successMessage", "Đăng ký thành công!");
-			return "dangky";
+			// Trả về trang đăng ký với form nhập mã xác thực
+			return "dangky"; // Trả về form đăng ký
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errorMessage", "Đã xảy ra lỗi trong quá trình đăng ký, vui lòng thử lại.");
+			model.addAttribute("errorMessage", false);
 			return "dangky";
 		}
+	}
+
+	@PostMapping("/verifyToken")
+	public String verifyToken(@RequestParam("token") String inputToken, HttpServletRequest req,
+			RedirectAttributes redirectAttributes, Model model) {
+
+		String email = (String) req.getSession().getAttribute("email");
+		String token = (String) req.getSession().getAttribute("token");
+
+		if (token != null && token.equals(inputToken)) {
+			try {
+				// Lấy thông tin từ session
+				String username = (String) req.getSession().getAttribute("username");
+				String fullname = (String) req.getSession().getAttribute("fullname");
+				String rawPassword = (String) req.getSession().getAttribute("password");
+				String phoneNumber = (String) req.getSession().getAttribute("phonenumber");
+
+				// Tạo đối tượng người dùng mới
+				UsersEntity newUser = new UsersEntity();
+				newUser.setUsername(username);
+				newUser.setFullname(fullname);
+				newUser.setPassword(MaHoa.toSHA1(rawPassword)); // Mã hóa mật khẩu
+				newUser.setEmail(email);
+				newUser.setPhonenumber(phoneNumber);
+				newUser.setRole(1);
+				newUser.setCreatedat(LocalDateTime.now());
+				newUser.setUpdatedat(LocalDateTime.now());
+				newUser.setStatus(true);
+
+				// Lưu người dùng
+				userDao.save(newUser);
+
+				// Lưu điều khoản và chính sách
+				UserAgreementsEntity userAgreements = new UserAgreementsEntity();
+				userAgreements.setUserid(newUser);
+				userAgreements.setAgreementdate(LocalDate.now());
+				userAgreements.setAgreementcontent("Nội dung chính sách...");
+				userAgreements.setStatus(1);
+				userAgreementsDao.save(userAgreements);
+
+				// Đăng ký thành công
+				req.getSession().invalidate();
+				req.setAttribute("successModal", true); // Đánh dấu thành công
+				return "dangky"; // Trả về trang đăng ký
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("errorMessage", false);
+			}
+		} else {
+			// Mã xác minh không đúng
+			model.addAttribute("errorMessage", false);
+		}
+		return "dangky";
 	}
 
 	private boolean isValidPassword(String password) {
@@ -243,58 +190,9 @@ public class dangkyController {
 		return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
 	}
 
-	private boolean isValidUsername(String username) {
-		// Kiểm tra tên đăng nhập có ít nhất một số, chỉ chứa chữ cái và số, và độ dài
-		// từ 3 đến 15 ký tự
-		return username.matches("^(?=.*\\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{3,15}$");
-	}
-
 	private boolean isValidPhoneNumber(String phonenumber) {
 		// Kiểm tra số điện thoại chỉ chứa số
 		return phonenumber.matches("\\d+");
-	}
-
-	private boolean isValidTaxCodeFormat(String taxCode) {
-		// Mã số thuế có thể có 10 hoặc 13 chữ số
-		return taxCode != null && taxCode.matches("^\\d{10}(\\d{3})?$");
-	}
-
-	private boolean isTaxCodeValid(String taxCode) {
-		try {
-			// URL của API
-			String apiUrl = "https://api.vietqr.io/v2/tax/tax-code/" + taxCode;
-
-			// Tạo đối tượng RestTemplate
-			RestTemplate restTemplate = new RestTemplate();
-
-			// Thêm header nếu cần thiết (ví dụ: API key)
-			HttpHeaders headers = new HttpHeaders();
-			headers.set("x-client-id", "YOUR_CLIENT_ID");
-			headers.set("x-api-key", "YOUR_API_KEY");
-			HttpEntity<String> entity = new HttpEntity<>(headers);
-
-			// Gửi yêu cầu GET
-			ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.GET, entity, String.class);
-
-			// Kiểm tra mã trạng thái
-			if (response.getStatusCode() == HttpStatus.OK) {
-				// Phân tích JSON trả về nếu cần
-				// Ví dụ: kiểm tra một trường cụ thể trong JSON để xác định mã số thuế hợp lệ
-				String responseBody = response.getBody();
-				// Giả sử nếu có dữ liệu trả về thì mã số thuế hợp lệ
-				return true;
-			} else {
-				// Mã số thuế không hợp lệ
-				return false;
-			}
-		} catch (HttpClientErrorException.NotFound e) {
-			// Mã số thuế không tồn tại
-			return false;
-		} catch (Exception e) {
-			e.printStackTrace();
-			// Xử lý ngoại lệ khác
-			return false;
-		}
 	}
 
 }
