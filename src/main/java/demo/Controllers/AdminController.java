@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +38,8 @@ import demo.services.EmailService;
 import demo.services.UserService;
 import demo.entity.EmployersEntity;
 import demo.entity.JobSeekersEntity;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -287,29 +291,58 @@ public class AdminController {
 	@PostMapping("/deletePost")
 	@ResponseBody
 	public Map<String, Object> deletePost(@RequestParam("id") Integer id) {
-	    Map<String, Object> response = new HashMap<>();
-	    // Câu truy vấn kiểm tra bài viết có đang sử dụng dịch vụ
-	    String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
+		Map<String, Object> response = new HashMap<>();
+		String checkServiceSql = "SELECT COUNT(*) FROM UserServices us JOIN Joblistings p ON us.userserviceid = p.userserviceid WHERE p.jobid = ? AND us.isactive = 1";
+		String getEmployerInfoSql = """
+							    SELECT
+				    j.JobTitle AS jobTitle,
+				    e.CompanyName AS employerName,
+				    e.EmployerID AS employerId,
+				    u.Email AS employerEmail,
+				    u.FullName AS employerFulltName
+				FROM
+				    Joblistings j
+				JOIN
+				    Employers e
+				ON
+				    j.EmployerID = e.EmployerID
+				JOIN
+				    Users u
+				ON
+				    e.UserID = u.UserID
+				WHERE
+				    j.JobID = ?;
+							""";
 
-	    try {
-	        int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
-	        if (serviceCount > 0) {
-	            // Nếu bài viết đang mua dịch vụ, cập nhật trạng thái thành ẩn
-	            joblistingsDao.updatePostActiveStatus(id, false);
-	            response.put("message", "Bài viết đang sử dụng dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
-	        } else {
-	            // Nếu bài viết không sử dụng dịch vụ, cũng cập nhật trạng thái thành ẩn
-	            joblistingsDao.updatePostActiveStatus(id, false);
-	            response.put("message", "Bài viết đã được xóa.");
-	        }
-	        response.put("success", true);
-	    } catch (Exception e) {
-	        response.put("message", "Cập nhật trạng thái bài viết thất bại. Lỗi: " + e.getMessage());
-	        response.put("success", false);
-	        e.printStackTrace();
-	    }
+		try {
+			// Kiểm tra bài viết có dịch vụ hay không
+			int serviceCount = jdbcTemplate.queryForObject(checkServiceSql, Integer.class, id);
 
-	    return response;
+			// Lấy thông tin nhà tuyển dụng và bài viết
+			Map<String, Object> employerInfo = jdbcTemplate.queryForMap(getEmployerInfoSql, id);
+			String employerFulltName = (String) employerInfo.get("employerFulltName");
+			String employerEmail = (String) employerInfo.get("employerEmail");
+			String jobTitle = (String) employerInfo.get("jobTitle");
+
+			// Cập nhật trạng thái bài viết
+			joblistingsDao.updatePostActiveStatus(id, false);
+
+			if (serviceCount > 0) {
+				response.put("message", "Bài viết đang sử dụng dịch vụ. Trạng thái đã được cập nhật thành 'Đang ẩn'.");
+			} else {
+				response.put("message", "Bài viết đã được xóa.");
+			}
+			response.put("success", true);
+
+			// Gửi email thông báo
+			emailService.sendEmailToEmployer(employerFulltName, employerEmail, jobTitle, id);
+		} catch (Exception e) {
+			response.put("message", "Cập nhật trạng thái bài viết thất bại. Lỗi: " + e.getMessage());
+			response.put("success", false);
+			e.printStackTrace();
+		}
+
+		return response;
 	}
 
 	/*
@@ -396,7 +429,7 @@ public class AdminController {
 
 		String reason = "Bài viết vi phạm các quy định của chúng tôi"; // Ví dụ lý do xóa bài viết
 		emailService.sendOpenEmail(user.getEmail(), job.getJobtitle(), reason); // Gọi phương thức gửi
-																								// email
+																				// email
 
 		// Thêm thông báo hiện thành công
 		redirectAttributes.addFlashAttribute("message", "Đã hiển thị bài viết thành công!");
@@ -427,8 +460,7 @@ public class AdminController {
 	public String capnhatDv(@PathVariable("serviceid") Integer serviceid, RedirectAttributes redirectAttributes,
 			@RequestParam("servicename") String servicename, @RequestParam("price") String price,
 			@RequestParam("numberofjobsallowed") Integer numberofjobsallowed,
-			@RequestParam("durationindays") Integer durationindays,
-			@RequestParam("description") String description) {
+			@RequestParam("durationindays") Integer durationindays, @RequestParam("description") String description) {
 		// Tìm dịch vụ theo id
 		ServicesEntity updv = servicesDao.findById(serviceid).orElse(null);
 
@@ -460,7 +492,6 @@ public class AdminController {
 
 			// Lưu durationindays vào đối tượng
 			updv.setDurationindays(durationindays);
-
 
 			// Lưu dịch vụ sau khi cập nhật
 			servicesDao.save(updv);
