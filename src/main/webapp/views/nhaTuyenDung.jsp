@@ -109,7 +109,7 @@
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
-	
+
 	<!-- header -->
 
 	<!-- Modal Hiển Thị Thông Báo Thanh Toán -->
@@ -161,11 +161,13 @@
 								class="bi bi-bag-heart me-2"></i> Gói Dịch Dụ đã mua
 						</a></li>
 						<li><a href="#" class="navnhatuyendung nav-link text-dark"
-							onclick="showTable(event, 'postingServices')"> <i class="bi bi-bag"></i> Mua Dịch Vụ
+							onclick="showTable(event, 'postingServices')"> <i
+								class="bi bi-bag"></i> Mua Dịch Vụ
 						</a></li>
-						<li><a href="#" class="navnhatuyendung nav-link text-dark"
-							onclick="showTable(event, 'statistical')"> <img width="20"
-								height="20" src="https://img.icons8.com/ios/50/card-in-use.png"
+						<li><a href="/employers/thongKeTheoNgay"
+							class="navnhatuyendung nav-link text-dark"> <img
+								width="20" height="20"
+								src="https://img.icons8.com/ios/50/card-in-use.png"
 								alt="card-in-use" /> Thống Kê
 						</a></li>
 					</ul>
@@ -235,13 +237,14 @@
 														onsubmit="return confirmDelete();">
 														<input type="hidden" name="jobId" value="${job.jobid}">
 														<button type="submit" class="btn btn-sm" title="Xóa">
-															<img alt="Xóa" src="/img/delete_red.png"
-																height="25px" width="25px" />
+															<img alt="Xóa" src="/img/delete_red.png" height="25px"
+																width="25px" />
 														</button>
 													</form>
 													<!-- Nút mua dịch vụ lên top -->
 													<button type="button" class="btn btn-sm btn-mua"
-														title="Mua Top" data-jobidmua="${job.jobid}" data-jobtitle="${job.jobtitle}">
+														title="Mua Top" data-jobidmua="${job.jobid}"
+														data-jobtitle="${job.jobtitle}">
 														<img alt="Mua" src="/img/icons8-cart-50.png" height="25px"
 															width="25px">
 													</button>
@@ -527,9 +530,7 @@
 						<div class="card-title">Bảng Thống Kê Nhà Tuyển Dụng</div>
 					</div>
 					<br>
-					<div class="card-body p-2">
-						<%@ include file="/views/thongKeNhaTuyenDung.jsp"%>
-					</div>
+
 				</div>
 
 			</div>

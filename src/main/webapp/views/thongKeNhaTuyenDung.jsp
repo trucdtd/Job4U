@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Thống Kê Nhà Tuyển Dụng</title>
+
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 <link rel="stylesheet"
@@ -21,30 +22,41 @@
 </head>
 
 <body>
+	<!-- header -->
+	<%@ include file="/views/headerNoPanner.jsp"%>
 	<div class="container">
-		<div class="d-flex align-items-center">
-			
+
+		<form action="/employers/thongKeTheoNgay" method="post">
+			<div class="d-flex align-items-center p-2">
 				<div class="mb-3 me-2">
 					<input type="date" class="form-control border-0 shadow"
-						name="startdate" id="" aria-describedby="helpId" placeholder="" />
+						name="startdate" id="startdate" />
 				</div>
 				<div class="mb-3 me-3">
 					<input type="date" class="form-control border-0 shadow"
-						name="enddate" id="" aria-describedby="helpId" placeholder="" />
+						name="enddate" id="enddate" />
 				</div>
+				<div class="row p-2">
 				<div class="mb-3 me-2">
-					<button type="submit" class="btn btn-danger mt-0 shadow">Tìm Kiếm</button>
+					<button type="submit" class="btn btn-danger mt-0 shadow">Tìm
+						Kiếm</button>
 				</div>
-				<div class="mb-3 me-2">
-					<a type="submit"
-						class="btn btn-warning shadow">Thống kê tất cả</a>
-				</div>
-	
-			<div class="mb-3 me-2">
-				<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
-					Excel</button>
 			</div>
+		</form>
+		<form action="/employers/thongKeTatCa" method="post">
+			<input type="hidden" name="employerid" value="${employer.employerid}" />
+			<div class="mb-3 me-2">
+				<button type="submit" class="btn btn-warning shadow">Thống
+					kê tất cả</button>
+			</div>
+		</form>
+
+		<div class="mb-3 me-2">
+			<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
+				Excel</button>
 		</div>
+		</div>
+
 
 		<!-- Row for the 3 Cards -->
 		<div class="row mt-3 justify-content-between">
@@ -102,7 +114,7 @@
 		</div>
 
 
-		<!-- Bảng thống kê bài viết chấp nhận và từ chối -->
+
 		<!-- Bảng thống kê bài viết chấp nhận và từ chối -->
 		<div class="table-responsive">
 			<table id="statisticalTable" class="table align-items-center">
@@ -138,10 +150,12 @@
 				</tbody>
 			</table>
 		</div>
-
-
 	</div>
 
+
+	<!-- footer -->
+	<%@ include file="/views/footer.jsp"%>
+	<!-- footer -->
 
 	<script>
 		$(document)

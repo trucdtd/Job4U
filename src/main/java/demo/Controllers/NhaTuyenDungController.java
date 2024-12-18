@@ -53,9 +53,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/employers")
@@ -140,42 +142,18 @@ public class NhaTuyenDungController {
 				List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
 				model.addAttribute("jobPostings", jobPostings);
 
-				// Khởi tạo một Map để lưu trữ số lượng ứng tuyển cho từng job
-				Map<Integer, Integer> totalApplicationsMap = new HashMap<>();
-				Map<Integer, Integer> acceptedApplicationsMap = new HashMap<>();
-				Map<Integer, Integer> rejectedApplicationsMap = new HashMap<>();
-				Map<Integer, Integer> pendingApplicationsMap = new HashMap<>();
+				
 
 				for (JoblistingsEntity jobPosting : jobPostings) {
 					// Lấy danh sách ứng tuyển cho bài đăng này
 					List<ApplicationsEntity> jobApplicationsList = applicationsDao
 							.findApplicationsByJoblistingId(jobPosting.getJobid());
-					// Lưu số lượng ứng tuyển vào Map với key là jobPosting.jobid
-					totalApplicationsMap.put(jobPosting.getJobid(), jobApplicationsList.size());
-
-					// Lọc ứng tuyển đã chấp nhận (status == 1) và từ chối (status == 2)
-					long acceptedCount = jobApplicationsList.stream()
-							.filter(application -> application.getStatus() == 1).count();
-					long rejectedCount = jobApplicationsList.stream()
-							.filter(application -> application.getStatus() == 2).count();
-					long pendingCount = jobApplicationsList.stream().filter(application -> application.getStatus() == 0)
-							.count();
-
-					// Lưu số lượng đã chấp nhận và đã từ chối vào Map
-					acceptedApplicationsMap.put(jobPosting.getJobid(), (int) acceptedCount);
-					rejectedApplicationsMap.put(jobPosting.getJobid(), (int) rejectedCount);
-					pendingApplicationsMap.put(jobPosting.getJobid(), (int) pendingCount);
-
+				
 					// Thêm danh sách ứng tuyển vào model để sử dụng trong JSP
 					model.addAttribute("applications" + jobPosting.getJobid(), jobApplicationsList);
 				}
 
-				// Truyền Map vào model
-				model.addAttribute("totalApplicationsMap", totalApplicationsMap);
-				model.addAttribute("acceptedApplicationsMap", acceptedApplicationsMap);
-				model.addAttribute("rejectedApplicationsMap", rejectedApplicationsMap);
-				model.addAttribute("pendingApplicationsMap", pendingApplicationsMap);
-
+				
 				// Lấy danh sách CV ứng tuyển
 				List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
 				model.addAttribute("dsCV", cv);
@@ -616,8 +594,129 @@ public class NhaTuyenDungController {
 		return giaoDien; // Trả về trang JSP
 	}
 
-	@RequestMapping("/thongke")
+	
+	@RequestMapping("/thongKeTatCa")
 	public String chiTietThongKe(@RequestParam Integer employerid, Model model) {
+
+		Integer userId = sessionService.getCurrentUserId();
+
+		if (userId != null) {
+			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
+
+			if (employer != null) {
+				// Chỉ lấy những bài đăng có active = true
+				List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
+				model.addAttribute("jobPostings", jobPostings);
+
+				// Khởi tạo một Map để lưu trữ số lượng ứng tuyển cho từng job
+				Map<Integer, Integer> totalApplicationsMap = new HashMap<>();
+				Map<Integer, Integer> acceptedApplicationsMap = new HashMap<>();
+				Map<Integer, Integer> rejectedApplicationsMap = new HashMap<>();
+				Map<Integer, Integer> pendingApplicationsMap = new HashMap<>();
+
+				for (JoblistingsEntity jobPosting : jobPostings) {
+					// Lấy danh sách ứng tuyển cho bài đăng này
+					List<ApplicationsEntity> jobApplicationsList = applicationsDao
+							.findApplicationsByJoblistingId(jobPosting.getJobid());
+					// Lưu số lượng ứng tuyển vào Map với key là jobPosting.jobid
+					totalApplicationsMap.put(jobPosting.getJobid(), jobApplicationsList.size());
+
+					// Lọc ứng tuyển đã chấp nhận (status == 1) và từ chối (status == 2)
+					long acceptedCount = jobApplicationsList.stream()
+							.filter(application -> application.getStatus() == 1).count();
+					long rejectedCount = jobApplicationsList.stream()
+							.filter(application -> application.getStatus() == 2).count();
+					long pendingCount = jobApplicationsList.stream().filter(application -> application.getStatus() == 0)
+							.count();
+
+					// Lưu số lượng đã chấp nhận và đã từ chối vào Map
+					acceptedApplicationsMap.put(jobPosting.getJobid(), (int) acceptedCount);
+					rejectedApplicationsMap.put(jobPosting.getJobid(), (int) rejectedCount);
+					pendingApplicationsMap.put(jobPosting.getJobid(), (int) pendingCount);
+
+					// Thêm danh sách ứng tuyển vào model để sử dụng trong JSP
+					model.addAttribute("applications" + jobPosting.getJobid(), jobApplicationsList);
+				}
+
+				// Truyền Map vào model
+				model.addAttribute("totalApplicationsMap", totalApplicationsMap);
+				model.addAttribute("acceptedApplicationsMap", acceptedApplicationsMap);
+				model.addAttribute("rejectedApplicationsMap", rejectedApplicationsMap);
+				model.addAttribute("pendingApplicationsMap", pendingApplicationsMap);
+
+				// Lấy danh sách CV ứng tuyển
+				List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
+				model.addAttribute("dsCV", cv);
+
+				// Lấy danh sách dịch vụ đã mua của nhà tuyển dụng
+				List<UserServicesEntity> dv = userservicesDao.findByUser(employer.getUser());
+				model.addAttribute("dsDV", dv);
+
+				model.addAttribute("employer", employer);
+			} else {
+				model.addAttribute("error", "Không tìm thấy nhà tuyển dụng.");
+			}
+		} else {
+			model.addAttribute("error", "Vui lòng đăng nhập để tiếp tục.");
+		}
+		
+		return "thongKeNhaTuyenDung";
+	}
+	
+	@RequestMapping("/thongKeTheoNgay")
+	public String ThongKeTheoNgay(Model model) {
+		Integer userId = sessionService.getCurrentUserId();
+
+		List<ServicesEntity> service = servicesDao.findAll();
+		model.addAttribute("service", service);
+		// Lấy danh sách nghề nghiệp từ cơ sở dữ liệu
+		List<JobCategoriesEntity> dsnghe = jobCareDao.findAll();
+		model.addAttribute("dsnghe", dsnghe);
+		if (userId != null) {
+			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
+
+			if (employer != null) {
+	            // Lấy thời gian hiện tại
+	            LocalDateTime now = LocalDateTime.now();
+
+	            // Lọc công việc đã đăng trong ngày hiện tại
+	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
+	            jobPostings = jobPostings.stream()
+	                                     .filter(job -> job.getPosteddate().atStartOfDay().isEqual(now.toLocalDate().atStartOfDay()))
+	                                     .collect(Collectors.toList());
+
+	            // Lọc ứng tuyển trong ngày hiện tại
+	            Map<Integer, List<ApplicationsEntity>> applicationsMap = new HashMap<>();
+	            for (JoblistingsEntity jobPosting : jobPostings) {
+	                List<ApplicationsEntity> jobApplicationsList = applicationsDao
+	                        .findApplicationsByJoblistingId(jobPosting.getJobid()).stream()
+	                        .filter(application -> application.getApplicationdate().toLocalDate().isEqual(now.toLocalDate()))
+	                        .collect(Collectors.toList());
+
+	                applicationsMap.put(jobPosting.getJobid(), jobApplicationsList);
+	            }
+
+	            // Thêm các ứng tuyển vào model
+	            model.addAttribute("applicationsMap", applicationsMap);
+
+	            // Lọc dịch vụ đã mua trong ngày hiện tại
+	            List<UserServicesEntity> userServices = userservicesDao.findByUser(employer.getUser()).stream()
+	                                                                  .filter(serviceEntity -> serviceEntity.getPurchasedate().toLocalDate().isEqual(now.toLocalDate()))
+	                                                                  .collect(Collectors.toList());
+
+	            model.addAttribute("userServices", userServices);
+
+	            // Sắp xếp các bài đăng công việc theo ngày đăng
+	            jobPostings.sort(Comparator.comparing(JoblistingsEntity::getPosteddate).reversed());
+
+	            model.addAttribute("jobPostings", jobPostings);
+	            model.addAttribute("employer", employer);
+			} else {
+				model.addAttribute("error", "Không tìm thấy nhà tuyển dụng.");
+			}
+		} else {
+			model.addAttribute("error", "Vui lòng đăng nhập để tiếp tục.");
+		}
 
 		return "thongKeNhaTuyenDung";
 	}
