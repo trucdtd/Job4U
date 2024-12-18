@@ -474,32 +474,31 @@ public class NhaTuyenDungController {
 	    System.out.println("userId: " + userId);
 	    System.out.println("serviceId: " + serviceId);
 	    System.out.println("jobId: " + jobId);
-
+	    
 	    // Kiểm tra các tham số cần thiết
 	    if (servicePrice == null || serviceId == null || userId == null || (serviceId == 4 && jobId == null)) {
 	        return "redirect:/employers";
 	    }
 
-	    // Truy vấn ngày hết hạn nộp hồ sơ từ bảng Joblistings
-	    LocalDate applicationDeadline = joblistingsDao.findApplicationdeadlineByJobid(jobId);
-
-	    if (applicationDeadline == null) {
-	        return "redirect:/employers"; // Nếu không tìm thấy công việc
+	    LocalDate applicationDeadline = null;
+	    if (serviceId != null && serviceId == 4) {
+	        applicationDeadline = joblistingsDao.findApplicationdeadlineByJobid(jobId);
+	        if (applicationDeadline == null) {
+	            return "redirect:/employers"; // Nếu không tìm thấy công việc
+	        }
 	    }
 
-	    // Kiểm tra nếu ngày hết hạn đã qua hoặc còn dưới 3 ngày
-	    if (applicationDeadline.isBefore(LocalDate.now())) {
-	        // Thêm thông báo lỗi vào model
-	    	redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ đã qua, không thể mua dịch vụ.");
-	        return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
-	    }
+	    if (applicationDeadline != null) {
+	        if (applicationDeadline.isBefore(LocalDate.now())) {
+	            redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ đã qua, không thể mua dịch vụ.");
+	            return "redirect:/employers";
+	        }
 
-	    if (applicationDeadline.isBefore(LocalDate.now().plusDays(3))) {
-	        // Thêm thông báo lỗi vào model
-	    	redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ còn dưới 3 ngày, không thể mua dịch vụ.");
-	        return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
+	        if (applicationDeadline.isBefore(LocalDate.now().plusDays(3))) {
+	            redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ còn dưới 3 ngày, không thể mua dịch vụ.");
+	            return "redirect:/employers";
+	        }
 	    }
-
 	    // Nếu không có lỗi, thực hiện thanh toán
 	    HttpSession session = request.getSession();
 	    session.setAttribute("userId", userId);
@@ -522,10 +521,9 @@ public class NhaTuyenDungController {
 
 		// Kiểm tra các tham số cần thiết
 		if (userId == null || serviceId == null || (serviceId == 4 && jobId == null)) {
-			redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
-			return "redirect:/employers";
+		    redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
+		    return "redirect:/employers";
 		}
-
 		// Gọi JoblistingsService để kiểm tra dịch vụ "Lên Top"
 		if (!joblistingsService.canPurchaseTopService(serviceId, jobId)) {
 			redirectAttributes.addFlashAttribute("message",
@@ -540,7 +538,7 @@ public class NhaTuyenDungController {
 			ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
 			JoblistingsEntity job = (serviceId == 4 && jobId != null) ? joblistingsDao.findById(jobId).orElse(null)
 					: null;
-
+		    System.out.println("lỗi ở đây 4");
 			if (user != null && service != null) {
 				// Lưu thông tin thanh toán
 				PaymentsEntity payment = new PaymentsEntity();

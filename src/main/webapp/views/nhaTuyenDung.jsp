@@ -1123,7 +1123,7 @@ document.getElementById('logo').addEventListener('change', function(event) {
         // Kiểm tra nếu có thông báo lỗi trong URL
         const urlParams = new URLSearchParams(window.location.search);
         const errorMessage = urlParams.get('errorModal');
-        
+
         if (errorMessage) {
             // Giải mã thông báo lỗi từ URL
             const decodedMessage = decodeURIComponent(errorMessage);
@@ -1138,8 +1138,23 @@ document.getElementById('logo').addEventListener('change', function(event) {
 
             // Lắng nghe sự kiện khi modal bị đóng
             document.getElementById('errorModal').addEventListener('hidden.bs.modal', function () {
-                // Điều hướng về trang gốc (chưa có errorModal trong URL)
-                window.location.href = window.location.pathname.split('?')[0]; // Quay lại trang hiện tại mà không có query string
+                const currentParams = new URLSearchParams(window.location.search);
+
+                // Kiểm tra nếu URL chứa các tham số liên quan đến dịch vụ
+                if (currentParams.has('serviceId') || currentParams.has('jobId')) {
+                    // Không điều hướng nếu có tham số cần thiết
+                    return;
+                }
+
+                // Xóa chỉ tham số `errorModal` và giữ lại các tham số khác
+                currentParams.delete('errorModal');
+                if (currentParams.toString()) {
+                    // Điều hướng về URL mà không chứa `errorModal`
+                    window.location.search = currentParams.toString();
+                } else {
+                    // Nếu không còn query string nào, quay về trang gốc
+                    window.location.href = window.location.pathname;
+                }
             });
         }
     }
