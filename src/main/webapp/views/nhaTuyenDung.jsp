@@ -18,6 +18,8 @@
 <!-- CSS for DataTables -->
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+		<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
 
