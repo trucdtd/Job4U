@@ -322,12 +322,12 @@ public class EmailService {
     }
 
 	// Gửi email khi tài khoản bị khóa
-	public void sendAccountLockedEmail(String toEmail, String username) {
+	public void sendAccountLockedEmail(String toEmail, String fullname) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(toEmail);
 		message.setSubject("Thông báo khóa tài khoản");
 
-		message.setText("Kính gửi " + username + ",\n\n" + "Tài khoản mà bạn đã đăng ký trên website JOB4U đã bị khóa bởi quản trị viên.\n\n"
+		message.setText("Kính gửi " + fullname + ",\n\n" + "Tài khoản mà bạn đã đăng ký trên website JOB4U đã bị khóa bởi quản trị viên.\n\n"
 				+ "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi.\n\n"
 				+ "0834341699 hoặc gmail: job4yousine2024@gmail.com.\n\n"
 				+ "Trân trọng,\nĐội ngũ quản trị");
@@ -336,12 +336,12 @@ public class EmailService {
 	}
 
 	// Gửi email khi tài khoản được mở lại
-	public void sendAccountOpenedEmail(String toEmail, String username) {
+	public void sendAccountOpenedEmail(String toEmail, String fullname) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(toEmail);
 		message.setSubject("Thông báo mở tài khoản");
 
-		message.setText("Kính gửi " + username + ",\n\n" + "Tài khoản mà bạn đã đăng ký trên website JOB4U đã được mở lại bởi quản trị viên.\n\n"
+		message.setText("Kính gửi " + fullname + ",\n\n" + "Tài khoản mà bạn đã đăng ký trên website JOB4U đã được mở lại bởi quản trị viên.\n\n"
 				+ "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi.\n\n"
 				+ "0834341699 hoặc gmail: job4yousine2024@gmail.com.\n\n"
 				+ "Trân trọng,\nĐội ngũ quản trị");
