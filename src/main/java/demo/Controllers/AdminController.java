@@ -241,7 +241,7 @@ public class AdminController {
 			userDao.save(user); // Lưu lại thay đổi
 
 			// Gửi email thông báo tài khoản đã bị khóa
-			emailService.sendAccountLockedEmail(user.getEmail(), user.getUsername());
+			emailService.sendAccountLockedEmail(user.getEmail(), user.getFullname());
 
 			redirectAttributes.addAttribute("error",
 					"Tài khoản đã được khóa thành công!\n\n " + "Và đã gửi mail thông báo đến tài khoản.");
@@ -269,7 +269,7 @@ public class AdminController {
 			userDao.save(user); // Lưu lại thay đổi
 
 			// Gửi email thông báo tài khoản đã được mở
-			emailService.sendAccountOpenedEmail(user.getEmail(), user.getUsername());
+			emailService.sendAccountOpenedEmail(user.getEmail(), user.getFullname());
 
 			redirectAttributes.addAttribute("error",
 					"Tài khoản đã được mở thành công!\n\n" + " Và đã gửi mail thông báo đến tài khoản.");
