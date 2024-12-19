@@ -221,9 +221,9 @@ public class dangKy2Controller {
 			employer.setCompanywebsite((String) req.getSession().getAttribute("companywebsite"));
 			employer.setAddress((String) req.getSession().getAttribute("address"));
 			employer.setIndustry((String) req.getSession().getAttribute("industry"));
-			employer.setContactperson((String) req.getSession().getAttribute("companydescription"));
+			employer.setContactperson((String) req.getSession().getAttribute("contactperson"));
 			employer.setTaxid((String) req.getSession().getAttribute("taxid"));
-			employer.setCompanydescription((String) req.getSession().getAttribute("contactperson"));
+			employer.setCompanydescription((String) req.getSession().getAttribute("companydescription"));
 			employer.setLogo((String) req.getSession().getAttribute("logo"));
 			employer.setUser(newUser); // Liên kết với user mới tạo
 			employersdao.save(employer); // Lưu thông tin nhà tuyển dụng vào CSDL
