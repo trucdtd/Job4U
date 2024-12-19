@@ -445,12 +445,11 @@ public class NhaTuyenDungController {
 
 	@PostMapping("/pay")
 	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal servicePrice,
-			@RequestParam(value = "serviceId", required = false) Integer serviceId,
-			@RequestParam(value = "userId", required = false) Integer userId,
-			@RequestParam(value = "jobId", required = false) Integer jobId, HttpServletRequest request,
-			RedirectAttributes redirectAttributes) {
+	                               @RequestParam(value = "serviceId", required = false) Integer serviceId,
+	                               @RequestParam(value = "userId", required = false) Integer userId,
+	                               @RequestParam(value = "jobId", required = false) Integer jobId,
+	                               HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
-<<<<<<< HEAD
 	    System.out.println("userId: " + userId);
 	    System.out.println("serviceId: " + serviceId);
 	    System.out.println("jobId: " + jobId);
@@ -484,48 +483,12 @@ public class NhaTuyenDungController {
 	    session.setAttribute("userId", userId);
 	    session.setAttribute("serviceId", serviceId);
 	    session.setAttribute("jobId", jobId);
-=======
-		System.out.println("userId: " + userId);
-		System.out.println("serviceId: " + serviceId);
-		System.out.println("jobId: " + jobId);
 
-		// Kiểm tra các tham số cần thiết
-		if (servicePrice == null || serviceId == null || userId == null || (serviceId == 4 && jobId == null)) {
-			return "redirect:/employers";
-		}
+	    int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
+	    String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/vnpay-payment";
+	    String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho dịch vụ: " + serviceId, baseUrl);
 
-		// Truy vấn ngày hết hạn nộp hồ sơ từ bảng Joblistings
-		LocalDate applicationDeadline = joblistingsDao.findApplicationdeadlineByJobid(jobId);
-
-		if (applicationDeadline == null) {
-			return "redirect:/employers"; // Nếu không tìm thấy công việc
-		}
-
-		// Kiểm tra nếu ngày hết hạn đã qua hoặc còn dưới 3 ngày
-		if (applicationDeadline.isBefore(LocalDate.now())) {
-			// Thêm thông báo lỗi vào model
-			redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ đã qua, không thể mua dịch vụ.");
-			return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
-		}
-
-		if (applicationDeadline.isBefore(LocalDate.now().plusDays(3))) {
-			// Thêm thông báo lỗi vào model
-			redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ còn dưới 3 ngày, không thể mua dịch vụ.");
-			return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
-		}
-
-		// Nếu không có lỗi, thực hiện thanh toán
-		HttpSession session = request.getSession();
-		session.setAttribute("userId", userId);
-		session.setAttribute("serviceId", serviceId);
-		session.setAttribute("jobId", jobId);
->>>>>>> trinhtt
-
-		int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
-		String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/vnpay-payment";
-		String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho dịch vụ: " + serviceId, baseUrl);
-
-		return "redirect:" + vnpayUrl;
+	    return "redirect:" + vnpayUrl;
 	}
 
 	@GetMapping("/vnpay-payment")
@@ -538,7 +501,7 @@ public class NhaTuyenDungController {
 		// Kiểm tra các tham số cần thiết
 		if (userId == null || serviceId == null || (serviceId == 4 && jobId == null)) {
 		    redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
-		    return "redirect:/employers";
+return "redirect:/employers";
 		}
 		// Gọi JoblistingsService để kiểm tra dịch vụ "Lên Top"
 		if (!joblistingsService.canPurchaseTopService(serviceId, jobId)) {
@@ -586,9 +549,9 @@ public class NhaTuyenDungController {
 					job.setIsTop(true);
 					joblistingsDao.save(job);
 				}
-
+				
 				// Gửi email hóa đơn
-				emailService.sendEmail(user, service, payment);
+	            emailService.sendEmail(user, service, payment);
 
 				redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
 			} else {
