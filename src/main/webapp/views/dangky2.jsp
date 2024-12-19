@@ -6,11 +6,12 @@
 <title>Đăng Ký</title>
 <!-- Required meta tags -->
 <meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 
 <!-- Bootstrap CSS v5.3.2 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <style>
@@ -396,7 +397,7 @@
 				.getElementById('logo')
 				.addEventListener(
 						'change',
-						function(event) {
+						function logoPreview(event) {
 							const file = event.target.files[0]; // Lấy tệp được chọn
 							if (file) {
 								const reader = new FileReader(); // Tạo đối tượng FileReader
