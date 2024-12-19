@@ -753,7 +753,7 @@
 	    if (currentDate > deadlineDate) {
 	        // Nếu thời gian đã hết hạn, vô hiệu hóa nút chỉnh sửa
 	        button.disabled = true;
-	        //có thể thay đổi hình ảnh hoặc thay đổi kiểu dáng của nút, ví dụ:
+	        //có thể thay đổi hình ảnh hoặc thay đổi kiểu dáng của nút
 	        button.title = "Thời gian nộp hồ sơ đã hết hạn";
 	    } else {
 	        // Nếu thời gian còn hiệu lực, giữ nút chỉnh sửa hoạt động
