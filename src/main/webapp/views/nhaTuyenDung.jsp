@@ -738,6 +738,29 @@
 </script>
 
 	<script>
+	// Lấy tất cả các nút chỉnh sửa
+	const editButtons = document.querySelectorAll('.btn-edit');
+
+	editButtons.forEach(button => {
+	    // Lấy giá trị của applicationdeadline từ data attribute
+	    const applicationDeadline = button.getAttribute('data-applicationdeadline');
+
+	    // Chuyển đổi applicationDeadline thành đối tượng Date
+	    const deadlineDate = new Date(applicationDeadline);
+	    const currentDate = new Date();
+
+	    // Kiểm tra nếu thời gian hiện tại nhỏ hơn thời gian deadline
+	    if (currentDate > deadlineDate) {
+	        // Nếu thời gian đã hết hạn, vô hiệu hóa nút chỉnh sửa
+	        button.disabled = true;
+	        // Bạn có thể thay đổi hình ảnh hoặc thay đổi kiểu dáng của nút, ví dụ:
+	        button.title = "Thời gian nộp hồ sơ đã hết hạn";
+	    } else {
+	        // Nếu thời gian còn hiệu lực, giữ nút chỉnh sửa hoạt động
+	        button.disabled = false;
+	    }
+	});
+
 document.addEventListener('DOMContentLoaded', () => {
     const editButtons = document.querySelectorAll('.btn-edit');
 
