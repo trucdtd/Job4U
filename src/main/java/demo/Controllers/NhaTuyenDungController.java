@@ -22,6 +22,7 @@ import demo.services.JoblistingsService;
 import demo.services.SessionService;
 import demo.services.UserRepository;
 import demo.services.VNPayService;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -52,6 +53,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -143,18 +145,15 @@ public class NhaTuyenDungController {
 				List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
 				model.addAttribute("jobPostings", jobPostings);
 
-				
-
 				for (JoblistingsEntity jobPosting : jobPostings) {
 					// Lấy danh sách ứng tuyển cho bài đăng này
 					List<ApplicationsEntity> jobApplicationsList = applicationsDao
 							.findApplicationsByJoblistingId(jobPosting.getJobid());
-				
+
 					// Thêm danh sách ứng tuyển vào model để sử dụng trong JSP
 					model.addAttribute("applications" + jobPosting.getJobid(), jobApplicationsList);
 				}
 
-				
 				// Lấy danh sách CV ứng tuyển
 				List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
 				model.addAttribute("dsCV", cv);
@@ -317,11 +316,11 @@ public class NhaTuyenDungController {
 		jobListing.setJobdescription(jobdescription);
 		jobListing.setEmployer(employer);
 		// Tìm và gán JobCategoriesEntity vào JobListing
-	    JobCategoriesEntity jobCategory = jobCareDao.findById(jobcategoryid).orElse(null);
-	    if (jobCategory == null) {
-	        return "error"; // Nếu không tìm thấy nghề nghiệp, trả về lỗi
-	    }
-	    jobListing.setJobcategories(jobCategory);
+		JobCategoriesEntity jobCategory = jobCareDao.findById(jobcategoryid).orElse(null);
+		if (jobCategory == null) {
+			return "error"; // Nếu không tìm thấy nghề nghiệp, trả về lỗi
+		}
+		jobListing.setJobcategories(jobCategory);
 
 		// Xử lý ngày
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -446,51 +445,51 @@ public class NhaTuyenDungController {
 
 	@PostMapping("/pay")
 	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal servicePrice,
-	                               @RequestParam(value = "serviceId", required = false) Integer serviceId,
-	                               @RequestParam(value = "userId", required = false) Integer userId,
-	                               @RequestParam(value = "jobId", required = false) Integer jobId,
-	                               HttpServletRequest request, RedirectAttributes redirectAttributes) {
+			@RequestParam(value = "serviceId", required = false) Integer serviceId,
+			@RequestParam(value = "userId", required = false) Integer userId,
+			@RequestParam(value = "jobId", required = false) Integer jobId, HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
 
-	    System.out.println("userId: " + userId);
-	    System.out.println("serviceId: " + serviceId);
-	    System.out.println("jobId: " + jobId);
+		System.out.println("userId: " + userId);
+		System.out.println("serviceId: " + serviceId);
+		System.out.println("jobId: " + jobId);
 
-	    // Kiểm tra các tham số cần thiết
-	    if (servicePrice == null || serviceId == null || userId == null || (serviceId == 4 && jobId == null)) {
-	        return "redirect:/employers";
-	    }
+		// Kiểm tra các tham số cần thiết
+		if (servicePrice == null || serviceId == null || userId == null || (serviceId == 4 && jobId == null)) {
+			return "redirect:/employers";
+		}
 
-	    // Truy vấn ngày hết hạn nộp hồ sơ từ bảng Joblistings
-	    LocalDate applicationDeadline = joblistingsDao.findApplicationdeadlineByJobid(jobId);
+		// Truy vấn ngày hết hạn nộp hồ sơ từ bảng Joblistings
+		LocalDate applicationDeadline = joblistingsDao.findApplicationdeadlineByJobid(jobId);
 
-	    if (applicationDeadline == null) {
-	        return "redirect:/employers"; // Nếu không tìm thấy công việc
-	    }
+		if (applicationDeadline == null) {
+			return "redirect:/employers"; // Nếu không tìm thấy công việc
+		}
 
-	    // Kiểm tra nếu ngày hết hạn đã qua hoặc còn dưới 3 ngày
-	    if (applicationDeadline.isBefore(LocalDate.now())) {
-	        // Thêm thông báo lỗi vào model
-	    	redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ đã qua, không thể mua dịch vụ.");
-	        return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
-	    }
+		// Kiểm tra nếu ngày hết hạn đã qua hoặc còn dưới 3 ngày
+		if (applicationDeadline.isBefore(LocalDate.now())) {
+			// Thêm thông báo lỗi vào model
+			redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ đã qua, không thể mua dịch vụ.");
+			return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
+		}
 
-	    if (applicationDeadline.isBefore(LocalDate.now().plusDays(3))) {
-	        // Thêm thông báo lỗi vào model
-	    	redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ còn dưới 3 ngày, không thể mua dịch vụ.");
-	        return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
-	    }
+		if (applicationDeadline.isBefore(LocalDate.now().plusDays(3))) {
+			// Thêm thông báo lỗi vào model
+			redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ còn dưới 3 ngày, không thể mua dịch vụ.");
+			return "redirect:/employers"; // Trở lại trang employers với thông báo lỗi
+		}
 
-	    // Nếu không có lỗi, thực hiện thanh toán
-	    HttpSession session = request.getSession();
-	    session.setAttribute("userId", userId);
-	    session.setAttribute("serviceId", serviceId);
-	    session.setAttribute("jobId", jobId);
+		// Nếu không có lỗi, thực hiện thanh toán
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", userId);
+		session.setAttribute("serviceId", serviceId);
+		session.setAttribute("jobId", jobId);
 
-	    int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
-	    String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/vnpay-payment";
-	    String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho dịch vụ: " + serviceId, baseUrl);
+		int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
+		String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/vnpay-payment";
+		String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho dịch vụ: " + serviceId, baseUrl);
 
-	    return "redirect:" + vnpayUrl;
+		return "redirect:" + vnpayUrl;
 	}
 
 	@GetMapping("/vnpay-payment")
@@ -552,9 +551,9 @@ public class NhaTuyenDungController {
 					job.setIsTop(true);
 					joblistingsDao.save(job);
 				}
-				
+
 				// Gửi email hóa đơn
-	            emailService.sendEmail(user, service, payment);
+				emailService.sendEmail(user, service, payment);
 
 				redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
 			} else {
@@ -616,7 +615,6 @@ public class NhaTuyenDungController {
 		return giaoDien; // Trả về trang JSP
 	}
 
-	
 	@RequestMapping("/thongKeTatCa")
 	public String chiTietThongKe(@RequestParam Integer employerid, Model model) {
 
@@ -667,12 +665,13 @@ public class NhaTuyenDungController {
 				model.addAttribute("pendingApplicationsMap", pendingApplicationsMap);
 
 				// Lấy danh sách CV ứng tuyển
-				List<ApplicationsEntity> cv = applicationsDao.findByJob_Employer(employer);
-				model.addAttribute("dsCV", cv);
+				List<ApplicationsEntity> applicationsMap = applicationsDao.findByJob_Employer(employer);
+				// Thêm các ứng tuyển vào model
+				model.addAttribute("applicationsMap", applicationsMap);
 
 				// Lấy danh sách dịch vụ đã mua của nhà tuyển dụng
-				List<UserServicesEntity> dv = userservicesDao.findByUser(employer.getUser());
-				model.addAttribute("dsDV", dv);
+				List<UserServicesEntity> userServices = userservicesDao.findByUser(employer.getUser());
+				model.addAttribute("userServices", userServices);
 
 				model.addAttribute("employer", employer);
 			} else {
@@ -681,38 +680,35 @@ public class NhaTuyenDungController {
 		} else {
 			model.addAttribute("error", "Vui lòng đăng nhập để tiếp tục.");
 		}
-		
+
 		return "thongKeNhaTuyenDung";
 	}
-	
+
 	@RequestMapping("/thongKeTheoNgay")
-	public String ThongKeTheoNgay(Model model) {
-		Integer userId = sessionService.getCurrentUserId();
+	public String thongKeTheoNgay(Model model) {
+	    Integer userId = sessionService.getCurrentUserId();
 
-		List<ServicesEntity> service = servicesDao.findAll();
-		model.addAttribute("service", service);
-		// Lấy danh sách nghề nghiệp từ cơ sở dữ liệu
-		List<JobCategoriesEntity> dsnghe = jobCareDao.findAll();
-		model.addAttribute("dsnghe", dsnghe);
-		if (userId != null) {
-			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
+	    if (userId != null) {
+	        EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
-			if (employer != null) {
-	            // Lấy thời gian hiện tại
-	            LocalDateTime now = LocalDateTime.now();
+	        if (employer != null) {
+	            // Lấy thời gian hiện tại dưới dạng LocalDate (chỉ ngày, không có giờ)
+	            LocalDate now = LocalDate.now();  // Lấy ngày hiện tại
 
-	            // Lọc công việc đã đăng trong ngày hiện tại
+	            System.out.println("Current date: " + now);  // In ra ngày hiện tại
+
+	            // Lọc bài đăng theo ngày hiện tại (Dùng LocalDate để so sánh)
 	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
 	            jobPostings = jobPostings.stream()
-	                                     .filter(job -> job.getPosteddate().atStartOfDay().isEqual(now.toLocalDate().atStartOfDay()))
+	                                     .filter(job -> job.getPosteddate().isEqual(now))  // So sánh ngày đăng với ngày hiện tại
 	                                     .collect(Collectors.toList());
 
-	            // Lọc ứng tuyển trong ngày hiện tại
+	            // Lọc ứng tuyển trong ngày hiện tại (So sánh phần ngày của LocalDateTime)
 	            Map<Integer, List<ApplicationsEntity>> applicationsMap = new HashMap<>();
 	            for (JoblistingsEntity jobPosting : jobPostings) {
 	                List<ApplicationsEntity> jobApplicationsList = applicationsDao
 	                        .findApplicationsByJoblistingId(jobPosting.getJobid()).stream()
-	                        .filter(application -> application.getApplicationdate().toLocalDate().isEqual(now.toLocalDate()))
+	                        .filter(application -> application.getApplicationdate().toLocalDate().isEqual(now))  // Chuyển LocalDateTime thành LocalDate và so sánh
 	                        .collect(Collectors.toList());
 
 	                applicationsMap.put(jobPosting.getJobid(), jobApplicationsList);
@@ -720,10 +716,11 @@ public class NhaTuyenDungController {
 
 	            // Thêm các ứng tuyển vào model
 	            model.addAttribute("applicationsMap", applicationsMap);
+	            System.out.println("Total applications for today: " + applicationsMap.size());
 
-	            // Lọc dịch vụ đã mua trong ngày hiện tại
+	            // Lọc dịch vụ đã mua trong ngày hiện tại (So sánh phần ngày của LocalDateTime)
 	            List<UserServicesEntity> userServices = userservicesDao.findByUser(employer.getUser()).stream()
-	                                                                  .filter(serviceEntity -> serviceEntity.getPurchasedate().toLocalDate().isEqual(now.toLocalDate()))
+	                                                                  .filter(serviceEntity -> serviceEntity.getPurchasedate().toLocalDate().isEqual(now))  // Chuyển LocalDateTime thành LocalDate và so sánh
 	                                                                  .collect(Collectors.toList());
 
 	            model.addAttribute("userServices", userServices);
@@ -731,16 +728,19 @@ public class NhaTuyenDungController {
 	            // Sắp xếp các bài đăng công việc theo ngày đăng
 	            jobPostings.sort(Comparator.comparing(JoblistingsEntity::getPosteddate).reversed());
 
+	            // Thêm các bài đăng công việc vào model
 	            model.addAttribute("jobPostings", jobPostings);
 	            model.addAttribute("employer", employer);
-			} else {
-				model.addAttribute("error", "Không tìm thấy nhà tuyển dụng.");
-			}
-		} else {
-			model.addAttribute("error", "Vui lòng đăng nhập để tiếp tục.");
-		}
 
-		return "thongKeNhaTuyenDung";
+	        } else {
+	            model.addAttribute("error", "Không tìm thấy nhà tuyển dụng.");
+	        }
+	    } else {
+	        model.addAttribute("error", "Vui lòng đăng nhập để tiếp tục.");
+	    }
+
+	    return "thongKeNhaTuyenDung";
 	}
-
+	
+	
 }
