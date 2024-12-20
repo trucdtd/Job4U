@@ -25,7 +25,7 @@
 				<tr>
 					<th>Họ và Tên</th>
 					<th>Tóm tắt hồ sơ</th>
-					<th>Tên Cty đã nộp</th>
+					<th>Tên bài viết</th>
 					<th>Ngày nộp</th>
 					<th>Trạng Thái</th>
 				</tr>
