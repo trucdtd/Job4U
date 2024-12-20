@@ -181,8 +181,8 @@ public class dangkyController {
 	}
 
 	private boolean isValidPassword(String password) {
-		// Kiểm tra mật khẩu có ít nhất 8 ký tự
-		return password.length() >= 8;
+	    // Kiểm tra mật khẩu có ít nhất 8 ký tự, chứa ít nhất một số và một chữ cái
+	    return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
 	}
 
 	private boolean isValidEmail(String email) {

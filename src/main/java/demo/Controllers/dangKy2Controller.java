@@ -250,8 +250,8 @@ public class dangKy2Controller {
 	}
 
 	private boolean isValidPassword(String password) {
-		// Kiểm tra mật khẩu có ít nhất 8 ký tự và 1 ký tự số
-		return password.length() >= 8 && password.matches(".*[0-9].*"); // Ít nhất 1 ký tự số
+	    // Kiểm tra mật khẩu có ít nhất 8 ký tự, chứa ít nhất một số và một chữ cái
+	    return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
 	}
 
 	private boolean isValidEmail(String email) {
