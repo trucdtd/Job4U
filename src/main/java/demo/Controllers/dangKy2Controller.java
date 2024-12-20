@@ -108,7 +108,7 @@ public class dangKy2Controller {
 			model.addAttribute("passwordError", "Mật khẩu không được để trống.");
 			hasErrors = true;
 		} else if (!isValidPassword(password)) {
-			model.addAttribute("passwordError", "Mật khẩu phải có ít nhất 8 ký tự và 1 ký tự số.");
+			model.addAttribute("passwordError", "Mật khẩu có ít nhất 8 ký tự, chứa ít nhất một số và một chữ cái.");
 			hasErrors = true;
 		}
 

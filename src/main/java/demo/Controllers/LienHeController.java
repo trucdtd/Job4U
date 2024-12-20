@@ -23,7 +23,7 @@ public class LienHeController {
 
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	@Autowired
 	private ContactDao contactdao;
 
@@ -42,14 +42,45 @@ public class LienHeController {
 	    System.out.println("Request received for sending email with details:");
 	    System.out.println("Name: " + fullname + ", Phone: " + phonenumber + ", Email: " + email + ", Content: " + content);
 
+	    boolean hasErrors = false;
+
+	 // Kiểm tra các trường đầu vào
+	    if (fullname == null || fullname.trim().isEmpty()) {
+	        redirectAttributes.addFlashAttribute("errorfullname", "Họ và tên không được để trống.");
+	        hasErrors = true;
+	    }
+	    if (phonenumber == null || phonenumber.trim().isEmpty()) {
+	        redirectAttributes.addFlashAttribute("errorphonenumber", "Số điện thoại không được để trống.");
+	        hasErrors = true;
+	    } else if (!isValidPhoneNumber(phonenumber)) {
+	        redirectAttributes.addFlashAttribute("errorphonenumber", "Số điện thoại không hợp lệ. Vui lòng nhập lại.");
+	        hasErrors = true;
+	    }
+	    if (email == null || email.trim().isEmpty()) {
+	        redirectAttributes.addFlashAttribute("erroremail", "Email không được để trống.");
+	        hasErrors = true;
+	    } else if (!isValidEmail(email)) {
+	        redirectAttributes.addFlashAttribute("erroremail", "Email không hợp lệ. Vui lòng nhập lại.");
+	        hasErrors = true;
+	    }
+	    if (content == null || content.trim().isEmpty()) {
+	        redirectAttributes.addFlashAttribute("errorcontent", "Nội dung không được để trống.");
+	        hasErrors = true;
+	    }
+
+	    // Nếu có lỗi, quay lại trang liên hệ
+	    if (hasErrors) {
+	        return "redirect:/lienhe";
+	    }
+
 	    try {
 	        // Tạo email với thông tin liên hệ
 	        SimpleMailMessage mailMessage = new SimpleMailMessage();
 	        mailMessage.setFrom("your-email@gmail.com"); // Email của bạn
 	        mailMessage.setTo("lanhbvpc07752@fpt.edu.vn"); // Email nhận thông tin liên hệ
 	        mailMessage.setSubject("Liên hệ từ: " + fullname);
-	        mailMessage.setText("Họ và tên: " + fullname + "\n" + "Điện thoại: " + phonenumber + "\n" + "Email: " + email + "\n"
-	                + "Nội dung: " + content);
+	        mailMessage.setText("Họ và tên: " + fullname + "\n" + "Điện thoại: " + phonenumber + "\n" 
+	                            + "Email: " + email + "\n" + "Nội dung: " + content);
 
 	        // Gửi email
 	        mailSender.send(mailMessage);
@@ -70,7 +101,18 @@ public class LienHeController {
 	        // Thêm Flash Attribute thông báo lỗi
 	        redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi gửi email. Vui lòng thử lại!");
 	    }
+
 	    return "redirect:/lienhe"; // Redirect về trang liên hệ hoặc trang chủ sau khi gửi
+	}
+
+	private boolean isValidEmail(String email) {
+		// Sử dụng regex đơn giản để kiểm tra email
+		return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+	}
+
+	private boolean isValidPhoneNumber(String phonenumber) {
+	    // Kiểm tra số điện thoại chỉ chứa số và có độ dài từ 10 đến 15 ký tự
+	    return phonenumber.matches("^\\d{10,15}$");
 	}
 
 }

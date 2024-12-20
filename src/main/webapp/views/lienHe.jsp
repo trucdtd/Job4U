@@ -56,15 +56,17 @@
             <c:if test="${not empty success}">
         <p style="color: green;">${success}</p>
     </c:if>
-    <c:if test="${not empty error}">
-        <p style="color: red;">${error}</p>
-    </c:if>
             <h3 style="color: #00688b;">Gửi yêu cầu liên hệ </h3>
             <form id="contactForm" method="POST" action="/lienhe/sendEmail">
-                <input type="text" name="fullname" placeholder="* Họ & tên" required>
-                <input type="text" name="phonenumber" placeholder="* Điện thoại" required>
-                <input type="email" name="email" placeholder="* Email" required>
+                <input type="text" name="fullname" placeholder="* Họ & tên">
+                <span class="text-danger" style="font-size: 0.9em;">${errorfullname}</span>
+                <input type="text" name="phonenumber" placeholder="* Điện thoại">
+                <span class="text-danger" style="font-size: 0.9em;">${errorphonenumber}</span>
+                <input type="email" name="email" placeholder="* Email">
+                <span class="text-danger" style="font-size: 0.9em;">${erroremail}</span>
                 <textarea placeholder="Nội dung liên hệ" name="content" ></textarea>
+                <span class="text-danger" style="font-size: 0.9em;">${errorcontent}</span>
+                <br>
                 <button style="background-color: #00688b;" type="submit">Liên hệ</button>
             </form>
         </div>
