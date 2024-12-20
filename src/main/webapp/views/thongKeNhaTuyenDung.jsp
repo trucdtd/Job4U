@@ -25,130 +25,141 @@
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<div class="container">
-
-		<form action="/employers/thongKeTheoNgay" method="post">
+		<div class="d-flex align-items-center p-2">
+		<form action="/employers/thongKeTheoKhoangThoiGian" method="get">
 			<div class="d-flex align-items-center p-2">
+				<!-- First Input Field for Start Date -->
 				<div class="mb-3 me-2">
 					<input type="date" class="form-control border-0 shadow"
 						name="startdate" id="startdate" />
 				</div>
-				<div class="mb-3 me-3">
+
+				<!-- Second Input Field for End Date -->
+				<div class="mb-3 me-2">
 					<input type="date" class="form-control border-0 shadow"
 						name="enddate" id="enddate" />
 				</div>
-				<div class="row p-2">
-					<div class="mb-3 me-2">
-						<button type="submit" class="btn btn-danger mt-0 shadow">Tìm
-							Kiếm</button>
-					</div>
+
+				<!-- Search Button -->
+				<div class="mb-3 me-2">
+					<button type="submit" class="btn btn-danger mt-0 shadow">Tìm
+						Kiếm</button>
 				</div>
+			</div>
 		</form>
-		<form action="/employers/thongKeTatCa" method="post">
+
+		<!-- Second Form for Statistics -->
+		<form action="/employers/thongKeTatCa" method="post"
+			>
 			<input type="hidden" name="employerid" value="${employer.employerid}" />
+			<!-- Button for "Thống kê tất cả" -->
 			<div class="mb-3 me-2">
-				<button type="submit" class="btn btn-warning shadow">Thống
+				<button type="submit" class="btn btn-warning shadow mt-0">Thống
 					kê tất cả</button>
 			</div>
 		</form>
 
-
-		<div class="mb-3 me-2">
-			<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
-				Excel</button>
-		</div>
-	</div>
-
-
-	<!-- Row for the 3 Cards -->
-	<div class="row mt-3 justify-content-between">
-		<div class="col-md-4">
-			<div class="pricing-card special">
-				<div class="pricing-header">
-					<h4 class="text-center">Bài Đăng</h4>
-				</div>
-				<div
-					class="pricing-body text-center d-flex align-items-center justify-content-center"
-					style="height: 80px;">
-					<i class="bi bi-file-text me-2"
-						style="color: green; font-size: 3rem;"></i>
-					<h2 style="margin-bottom: 0;">${jobPostings.size()}</h2>
-				</div>
+		<!-- Export Button -->
+		<div class="d-flex align-items-center p-2">
+			<div class="mb-3 me-2">
+				<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
+					Excel</button>
 			</div>
 		</div>
-
-		<div class="col-md-4">
-			<div class="pricing-card special">
-				<div class="pricing-header">
-					<h4 class="text-center">CV Ứng tuyển</h4>
-				</div>
-				<div
-					class="pricing-body text-center d-flex align-items-center justify-content-center"
-					style="height: 80px;">
-					<i class="bi bi-people me-2" style="color: green; font-size: 3rem;"></i>
-					<h2 style="margin-bottom: 0;">${applicationsMap.size()}</h2>
-					<!-- Màu xanh và kích thước lớn -->
-
-				</div>
-			</div>
 		</div>
 
-		<div class="col-md-4">
-			<div class="pricing-card special">
-				<div class="pricing-header">
-					<h4 class="text-center">Dịch Vụ Đã Mua</h4>
-				</div>
-				<div class="pricing-body text-center" style="height: 80px;">
+		<!-- Row for the 3 Cards -->
+		<div class="row mt-3 justify-content-between">
+			<div class="col-md-4">
+				<div class="pricing-card special">
+					<div class="pricing-header">
+						<h4 class="text-center">Bài Đăng</h4>
+					</div>
 					<div
 						class="pricing-body text-center d-flex align-items-center justify-content-center"
 						style="height: 80px;">
-						<!-- Sử dụng Flexbox để căn chỉnh icon và số lượng trên cùng một hàng -->
-						<i class="bi bi-bag-heart me-2"
+						<i class="bi bi-file-text me-2"
 							style="color: green; font-size: 3rem;"></i>
-						<h2 style="margin-bottom: 0;">${userServices.size()}</h2>
-						<!-- Xóa margin dưới của h6 để căn chỉnh đúng -->
+						<h2 style="margin-bottom: 0;">${jobPostings.size()}</h2>
 					</div>
 				</div>
 			</div>
+
+			<div class="col-md-4">
+				<div class="pricing-card special">
+					<div class="pricing-header">
+						<h4 class="text-center">CV Ứng tuyển</h4>
+					</div>
+					<div
+						class="pricing-body text-center d-flex align-items-center justify-content-center"
+						style="height: 80px;">
+						<i class="bi bi-people me-2"
+							style="color: green; font-size: 3rem;"></i>
+						<h2 style="margin-bottom: 0;">${applicationsMap.size()}</h2>
+						<!-- Màu xanh và kích thước lớn -->
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="pricing-card special">
+					<div class="pricing-header">
+						<h4 class="text-center">Dịch Vụ Đã Mua</h4>
+					</div>
+					<div class="pricing-body text-center" style="height: 80px;">
+						<div
+							class="pricing-body text-center d-flex align-items-center justify-content-center"
+							style="height: 80px;">
+							<!-- Sử dụng Flexbox để căn chỉnh icon và số lượng trên cùng một hàng -->
+							<i class="bi bi-bag-heart me-2"
+								style="color: green; font-size: 3rem;"></i>
+							<h2 style="margin-bottom: 0;">${userServices.size()}</h2>
+							<!-- Xóa margin dưới của h6 để căn chỉnh đúng -->
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
-	</div>
 
 
-
-	<!-- Bảng thống kê bài viết chấp nhận và từ chối -->
-	<div class="table-responsive">
-		<table id="statisticalTable" class="table align-items-center">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">Tên Bài Viết</th>
-					<th scope="col">Số Lượng CV</th>
-					<th scope="col">Chấp Nhận</th>
-					<th scope="col">Từ chối</th>
-					<th scope="col">Chờ xem</th>
-			</thead>
-			<tbody>
-				<!-- Lặp qua từng bài đăng -->
-				<c:forEach items="${jobPostings}" var="jobPosting">
+		<!-- Bảng thống kê bài viết chấp nhận và từ chối -->
+		<div class="table-responsive">
+			<table id="statisticalTable" class="table align-items-center">
+				<thead class="thead-light">
 					<tr>
-						<!-- Lấy tên bài viết -->
-						<td>${jobPosting.jobtitle}</td>
+						<th scope="col">Tên Bài Viết</th>
+						<th scope="col">Số Lượng CV</th>
+						<th scope="col">Chấp Nhận</th>
+						<th scope="col">Từ chối</th>
+						<th scope="col">Chờ xem</th>
+				</thead>
+				<tbody>
+					<!-- Lặp qua từng bài đăng -->
+					<c:forEach items="${jobPostings}" var="jobPosting">
+						<tr>
+							<!-- Lấy tên bài viết -->
+							<td>${jobPosting.jobtitle}</td>
 
-						<!-- Hiển thị tổng số CV đã ứng tuyển cho bài viết này -->
-						<td>${totalApplicationsMap[jobPosting.jobid]}</td>
-						<!-- Truy xuất số lượng ứng tuyển từ Map -->
+							<!-- Hiển thị tổng số CV đã ứng tuyển cho bài viết này -->
+							<td>${totalApplicationsMap[jobPosting.jobid]}</td>
+							<!-- Truy xuất số lượng ứng tuyển từ Map -->
 
-						<!-- Hiển thị số lượng CV đã chấp nhận -->
-						<td>${acceptedApplicationsMap[jobPosting.jobid]}</td>
+							<!-- Hiển thị số lượng CV đã chấp nhận -->
+							<td>${acceptedApplicationsMap[jobPosting.jobid]}</td>
 
-						<!-- Hiển thị số lượng CV đã từ chối -->
-						<td>${rejectedApplicationsMap[jobPosting.jobid]}</td>
+							<!-- Hiển thị số lượng CV đã từ chối -->
+							<td>${rejectedApplicationsMap[jobPosting.jobid]}</td>
 
-						<!-- Hiển thị số lượng CV đang chờ -->
-						<td>${pendingApplicationsMap[jobPosting.jobid]}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+							<!-- Hiển thị số lượng CV đang chờ -->
+							<td>${pendingApplicationsMap[jobPosting.jobid]}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 
@@ -226,6 +237,35 @@ document.getElementById("exportExcel").addEventListener("click", function() {
     // Xuất workbook ra file Excel
     XLSX.writeFile(wb, "ThongKeNhaTuyenDung.xlsx");
 });
+
+
+
+document.querySelector('form').addEventListener('submit', function(event) {
+    // Lấy giá trị ngày bắt đầu và ngày kết thúc
+    const startdate = document.getElementById('startdate').value;
+    const enddate = document.getElementById('enddate').value;
+
+    // Kiểm tra xem người dùng có nhập ngày bắt đầu và ngày kết thúc không
+    if (!startdate) {
+        alert("Vui lòng chọn ngày bắt đầu ");
+        event.preventDefault(); // Ngừng gửi form nếu điều kiện không thỏa mãn
+        return;
+    }
+ // Kiểm tra xem người dùng có nhập ngày bắt đầu và ngày kết thúc không
+    if ( !enddate) {
+        alert("Vui lòng chọn ngày kết thúc.");
+        event.preventDefault(); // Ngừng gửi form nếu điều kiện không thỏa mãn
+        return;
+    }
+
+    // Kiểm tra ngày kết thúc không được lớn hơn ngày bắt đầu
+    if (new Date(enddate) < new Date(startdate)) {
+        alert("Ngày kết thúc không được lớn hơn ngày bắt đầu.");
+        event.preventDefault(); // Ngừng gửi form nếu điều kiện không thỏa mãn
+        return;
+    }
+});
+
 </script>
 
 </body>

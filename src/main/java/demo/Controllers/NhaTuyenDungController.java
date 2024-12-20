@@ -64,7 +64,6 @@ import java.net.URLEncoder;
 
 import java.util.stream.Collectors;
 
-
 @Controller
 @RequestMapping("/employers")
 public class NhaTuyenDungController {
@@ -445,50 +444,50 @@ public class NhaTuyenDungController {
 
 	@PostMapping("/pay")
 	public String initiatePayment(@RequestParam(value = "servicePrice", required = false) BigDecimal servicePrice,
-	                               @RequestParam(value = "serviceId", required = false) Integer serviceId,
-	                               @RequestParam(value = "userId", required = false) Integer userId,
-	                               @RequestParam(value = "jobId", required = false) Integer jobId,
-	                               HttpServletRequest request, RedirectAttributes redirectAttributes) {
+			@RequestParam(value = "serviceId", required = false) Integer serviceId,
+			@RequestParam(value = "userId", required = false) Integer userId,
+			@RequestParam(value = "jobId", required = false) Integer jobId, HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
 
-	    System.out.println("userId: " + userId);
-	    System.out.println("serviceId: " + serviceId);
-	    System.out.println("jobId: " + jobId);
-	    
-	    // Kiểm tra các tham số cần thiết
-	    if (servicePrice == null || serviceId == null || userId == null || (serviceId == 4 && jobId == null)) {
-	        return "redirect:/employers";
-	    }
+		System.out.println("userId: " + userId);
+		System.out.println("serviceId: " + serviceId);
+		System.out.println("jobId: " + jobId);
 
-	    LocalDate applicationDeadline = null;
-	    if (serviceId != null && serviceId == 4) {
-	        applicationDeadline = joblistingsDao.findApplicationdeadlineByJobid(jobId);
-	        if (applicationDeadline == null) {
-	            return "redirect:/employers"; // Nếu không tìm thấy công việc
-	        }
-	    }
+		// Kiểm tra các tham số cần thiết
+		if (servicePrice == null || serviceId == null || userId == null || (serviceId == 4 && jobId == null)) {
+			return "redirect:/employers";
+		}
 
-	    if (applicationDeadline != null) {
-	        if (applicationDeadline.isBefore(LocalDate.now())) {
-	            redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ đã qua, không thể mua dịch vụ.");
-	            return "redirect:/employers";
-	        }
+		LocalDate applicationDeadline = null;
+		if (serviceId != null && serviceId == 4) {
+			applicationDeadline = joblistingsDao.findApplicationdeadlineByJobid(jobId);
+			if (applicationDeadline == null) {
+				return "redirect:/employers"; // Nếu không tìm thấy công việc
+			}
+		}
 
-	        if (applicationDeadline.isBefore(LocalDate.now().plusDays(3))) {
-	            redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ còn dưới 3 ngày, không thể mua dịch vụ.");
-	            return "redirect:/employers";
-	        }
-	    }
-	    // Nếu không có lỗi, thực hiện thanh toán
-	    HttpSession session = request.getSession();
-	    session.setAttribute("userId", userId);
-	    session.setAttribute("serviceId", serviceId);
-	    session.setAttribute("jobId", jobId);
+		if (applicationDeadline != null) {
+			if (applicationDeadline.isBefore(LocalDate.now())) {
+				redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ đã qua, không thể mua dịch vụ.");
+				return "redirect:/employers";
+			}
 
-	    int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
-	    String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/vnpay-payment";
-	    String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho dịch vụ: " + serviceId, baseUrl);
+			if (applicationDeadline.isBefore(LocalDate.now().plusDays(3))) {
+				redirectAttributes.addAttribute("errorModal", "Hạn nộp hồ sơ còn dưới 3 ngày, không thể mua dịch vụ.");
+				return "redirect:/employers";
+			}
+		}
+		// Nếu không có lỗi, thực hiện thanh toán
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", userId);
+		session.setAttribute("serviceId", serviceId);
+		session.setAttribute("jobId", jobId);
 
-	    return "redirect:" + vnpayUrl;
+		int totalAmount = servicePrice.setScale(0, RoundingMode.HALF_UP).intValue();
+		String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/vnpay-payment";
+		String vnpayUrl = vnPayService.createOrder(totalAmount, "Thanh toán cho dịch vụ: " + serviceId, baseUrl);
+
+		return "redirect:" + vnpayUrl;
 	}
 
 	@GetMapping("/vnpay-payment")
@@ -500,8 +499,8 @@ public class NhaTuyenDungController {
 
 		// Kiểm tra các tham số cần thiết
 		if (userId == null || serviceId == null || (serviceId == 4 && jobId == null)) {
-		    redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
-return "redirect:/employers";
+			redirectAttributes.addFlashAttribute("message", "Thiếu thông tin userId, serviceId hoặc jobId.");
+			return "redirect:/employers";
 		}
 		// Gọi JoblistingsService để kiểm tra dịch vụ "Lên Top"
 		if (!joblistingsService.canPurchaseTopService(serviceId, jobId)) {
@@ -517,7 +516,7 @@ return "redirect:/employers";
 			ServicesEntity service = servicesDao.findById(serviceId).orElse(null);
 			JoblistingsEntity job = (serviceId == 4 && jobId != null) ? joblistingsDao.findById(jobId).orElse(null)
 					: null;
-		    System.out.println("lỗi ở đây 4");
+			System.out.println("lỗi ở đây 4");
 			if (user != null && service != null) {
 				// Lưu thông tin thanh toán
 				PaymentsEntity payment = new PaymentsEntity();
@@ -549,9 +548,9 @@ return "redirect:/employers";
 					job.setIsTop(true);
 					joblistingsDao.save(job);
 				}
-				
+
 				// Gửi email hóa đơn
-	            emailService.sendEmail(user, service, payment);
+				emailService.sendEmail(user, service, payment);
 
 				redirectAttributes.addFlashAttribute("message", "Thanh toán thành công!");
 			} else {
@@ -690,36 +689,62 @@ return "redirect:/employers";
 	        EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
 	        if (employer != null) {
+	            // Lấy ngày hiện tại
+	            LocalDate currentDate = LocalDate.now();
 	            // Lấy thời gian hiện tại dưới dạng LocalDate (chỉ ngày, không có giờ)
-	            LocalDate now = LocalDate.now();  // Lấy ngày hiện tại
+	            LocalDate now = LocalDate.now(); // Lấy ngày hiện tại
 
-	            System.out.println("Current date: " + now);  // In ra ngày hiện tại
-
-	            // Lọc bài đăng theo ngày hiện tại (Dùng LocalDate để so sánh)
+	            System.out.println("Current date: " + currentDate); // In ra ngày hiện tại
+	            
+	         // Lọc bài đăng theo ngày hiện tại (Dùng LocalDate để so sánh)
 	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
 	            jobPostings = jobPostings.stream()
-	                                     .filter(job -> job.getPosteddate().isEqual(now))  // So sánh ngày đăng với ngày hiện tại
-	                                     .collect(Collectors.toList());
+	                    .filter(job -> job.getPosteddate().isEqual(now)) // So sánh ngày đăng với ngày hiện tại
+	                    .collect(Collectors.toList());
 
 	            // Lọc ứng tuyển trong ngày hiện tại (So sánh phần ngày của LocalDateTime)
 	            Map<Integer, List<ApplicationsEntity>> applicationsMap = new HashMap<>();
-	            for (JoblistingsEntity jobPosting : jobPostings) {
-	                List<ApplicationsEntity> jobApplicationsList = applicationsDao
-	                        .findApplicationsByJoblistingId(jobPosting.getJobid()).stream()
-	                        .filter(application -> application.getApplicationdate().toLocalDate().isEqual(now))  // Chuyển LocalDateTime thành LocalDate và so sánh
-	                        .collect(Collectors.toList());
+	            Map<Integer, Integer> acceptedApplicationsMap = new HashMap<>();
+	            Map<Integer, Integer> rejectedApplicationsMap = new HashMap<>();
+	            Map<Integer, Integer> pendingApplicationsMap = new HashMap<>();
+	            Map<Integer, Integer> totalApplicationsMap = new HashMap<>();
 
+	            for (JoblistingsEntity jobPosting : jobPostings) {
+	            	List<ApplicationsEntity> jobApplicationsList = applicationsDao
+	            		    .findApplicationsByJoblistingId(jobPosting.getJobid()).stream()
+	            		    .filter(application -> application.getApplicationdate() != null && 
+	            		            application.getApplicationdate().toLocalDate().isEqual(currentDate)) // So sánh phần ngày
+	            		    .collect(Collectors.toList());
+	            	
+	                // Lưu ứng tuyển vào Map
 	                applicationsMap.put(jobPosting.getJobid(), jobApplicationsList);
+
+	                // Tính số lượng ứng tuyển theo trạng thái
+	                long acceptedCount = jobApplicationsList.stream().filter(application -> application.getStatus() == 1).count();
+	                long rejectedCount = jobApplicationsList.stream().filter(application -> application.getStatus() == 2).count();
+	                long pendingCount = jobApplicationsList.stream().filter(application -> application.getStatus() == 0).count();
+	                long totalCount = jobApplicationsList.size();
+
+	                // Lưu số lượng vào các Map
+	                acceptedApplicationsMap.put(jobPosting.getJobid(), (int) acceptedCount);
+	                rejectedApplicationsMap.put(jobPosting.getJobid(), (int) rejectedCount);
+	                pendingApplicationsMap.put(jobPosting.getJobid(), (int) pendingCount);
+	                totalApplicationsMap.put(jobPosting.getJobid(), (int) totalCount);
 	            }
 
-	            // Thêm các ứng tuyển vào model
+	            // Thêm các thông tin vào model để hiển thị
 	            model.addAttribute("applicationsMap", applicationsMap);
-	            System.out.println("Total applications for today: " + applicationsMap.size());
+	            model.addAttribute("acceptedApplicationsMap", acceptedApplicationsMap);
+	            model.addAttribute("rejectedApplicationsMap", rejectedApplicationsMap);
+	            model.addAttribute("pendingApplicationsMap", pendingApplicationsMap);
+	            model.addAttribute("totalApplicationsMap", totalApplicationsMap);
 
-	            // Lọc dịch vụ đã mua trong ngày hiện tại (So sánh phần ngày của LocalDateTime)
+	            System.out.println("Total applications for today: " + totalApplicationsMap.size());
+	           
+	            // Lọc dịch vụ đã mua trong ngày hiện tại
 	            List<UserServicesEntity> userServices = userservicesDao.findByUser(employer.getUser()).stream()
-	                                                                  .filter(serviceEntity -> serviceEntity.getPurchasedate().toLocalDate().isEqual(now))  // Chuyển LocalDateTime thành LocalDate và so sánh
-	                                                                  .collect(Collectors.toList());
+	                    .filter(serviceEntity -> serviceEntity.getPurchasedate().toLocalDate().isEqual(currentDate)) // So sánh phần ngày
+	                    .collect(Collectors.toList());
 
 	            model.addAttribute("userServices", userServices);
 
@@ -739,6 +764,127 @@ return "redirect:/employers";
 
 	    return "thongKeNhaTuyenDung";
 	}
+
+
 	
-	
+	@RequestMapping("/thongKeTheoKhoangThoiGian")
+	public String thongKeTheoKhoangThoiGian(@RequestParam(required = false) String startdate,
+	                                         @RequestParam(required = false) String enddate,
+	                                         Model model) {
+	    Integer userId = sessionService.getCurrentUserId();
+
+	    if (userId != null) {
+	        EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
+
+	        if (employer != null) {
+	            // Kiểm tra nếu startdate và enddate không null và hợp lệ
+	            LocalDate start = startdate != null ? LocalDate.parse(startdate) : null;
+	            LocalDate end = enddate != null ? LocalDate.parse(enddate) : null;
+
+	            // Chuyển startdate và enddate thành LocalDateTime nếu cần
+	            LocalDateTime startDateTime = (start != null) ? start.atStartOfDay() : null;
+	            LocalDateTime endDateTime = (end != null) ? end.atTime(23, 59, 59, 999999999) : null;
+
+	            // Lọc bài đăng công việc theo ngày đăng
+	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
+	            jobPostings = jobPostings.stream()
+	                    .filter(job -> {
+	                        boolean isWithinDateRange = true;
+	                        if (start != null) {
+	                            isWithinDateRange &= !job.getPosteddate().atStartOfDay().isBefore(startDateTime);
+	                        }
+	                        if (end != null) {
+	                            isWithinDateRange &= !job.getPosteddate().atStartOfDay().isAfter(endDateTime);
+	                        }
+	                        return isWithinDateRange;
+	                    })
+	                    .collect(Collectors.toList());
+
+	            // Lọc ứng tuyển trong khoảng thời gian từ startdate đến enddate
+	            Map<Integer, List<ApplicationsEntity>> applicationsMap = new HashMap<>();
+	            Map<Integer, Integer> acceptedApplicationsMap = new HashMap<>();
+	            Map<Integer, Integer> rejectedApplicationsMap = new HashMap<>();
+	            Map<Integer, Integer> pendingApplicationsMap = new HashMap<>();
+	            Map<Integer, Integer> submittedApplicationsMap = new HashMap<>(); // Đã nộp
+	            Map<Integer, Integer> totalApplicationsMap = new HashMap<>(); // Tổng số ứng tuyển
+
+	            for (JoblistingsEntity jobPosting : jobPostings) {
+	                List<ApplicationsEntity> jobApplicationsList = applicationsDao
+	                        .findApplicationsByJoblistingId(jobPosting.getJobid()).stream()
+	                        .filter(application -> {
+	                            boolean isWithinDateRange = true;
+	                            if (startDateTime != null) {
+	                                isWithinDateRange &= !application.getApplicationdate().isBefore(startDateTime);
+	                            }
+	                            if (endDateTime != null) {
+	                                isWithinDateRange &= !application.getApplicationdate().isAfter(endDateTime);
+	                            }
+	                            return isWithinDateRange;
+	                        })
+	                        .collect(Collectors.toList());
+
+	                // Lưu các ứng tuyển vào Map
+	                applicationsMap.put(jobPosting.getJobid(), jobApplicationsList);
+
+	                // Lọc theo trạng thái
+	                long acceptedCount = jobApplicationsList.stream()
+	                        .filter(application -> application.getStatus() == 1).count();
+	                long rejectedCount = jobApplicationsList.stream()
+	                        .filter(application -> application.getStatus() == 2).count();
+	                long pendingCount = jobApplicationsList.stream().filter(application -> application.getStatus() == 0)
+	                        .count();
+	                long submittedCount = jobApplicationsList.stream()
+	                        .filter(application -> application.getStatus() != 0).count();  // Đã nộp
+
+	                // Lưu số lượng vào Map
+	                acceptedApplicationsMap.put(jobPosting.getJobid(), (int) acceptedCount);
+	                rejectedApplicationsMap.put(jobPosting.getJobid(), (int) rejectedCount);
+	                pendingApplicationsMap.put(jobPosting.getJobid(), (int) pendingCount);
+	                submittedApplicationsMap.put(jobPosting.getJobid(), (int) submittedCount);  // Đã nộp
+
+	                // Tổng số ứng tuyển
+	                int totalCount = jobApplicationsList.size();
+	                totalApplicationsMap.put(jobPosting.getJobid(), totalCount);
+	            }
+
+	            // Thêm các thông tin vào model
+	            model.addAttribute("applicationsMap", applicationsMap);
+	            model.addAttribute("acceptedApplicationsMap", acceptedApplicationsMap);
+	            model.addAttribute("rejectedApplicationsMap", rejectedApplicationsMap);
+	            model.addAttribute("pendingApplicationsMap", pendingApplicationsMap);
+	            model.addAttribute("submittedApplicationsMap", submittedApplicationsMap);  // Đã nộp
+	            model.addAttribute("totalApplicationsMap", totalApplicationsMap);  // Tổng số ứng tuyển
+
+	            // Lọc dịch vụ đã mua trong khoảng thời gian từ startdate đến enddate
+	            List<UserServicesEntity> userServices = userservicesDao.findByUser(employer.getUser()).stream()
+	                    .filter(serviceEntity -> {
+	                        boolean isWithinDateRange = true;
+	                        if (startDateTime != null) {
+	                            isWithinDateRange &= !serviceEntity.getPurchasedate().isBefore(startDateTime);
+	                        }
+	                        if (endDateTime != null) {
+	                            isWithinDateRange &= !serviceEntity.getPurchasedate().isAfter(endDateTime);
+	                        }
+	                        return isWithinDateRange;
+	                    })
+	                    .collect(Collectors.toList());
+
+	            model.addAttribute("userServices", userServices);
+
+	            // Sắp xếp các bài đăng công việc theo ngày đăng
+	            jobPostings.sort(Comparator.comparing(JoblistingsEntity::getPosteddate).reversed());
+
+	            // Thêm các bài đăng công việc vào model
+	            model.addAttribute("jobPostings", jobPostings);
+	            model.addAttribute("employer", employer);
+	        } else {
+	            model.addAttribute("error", "Không tìm thấy nhà tuyển dụng.");
+	        }
+	    } else {
+	        model.addAttribute("error", "Vui lòng đăng nhập để tiếp tục.");
+	    }
+
+	    return "thongKeNhaTuyenDung";
+	}
+
 }
