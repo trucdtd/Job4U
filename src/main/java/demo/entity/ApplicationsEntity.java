@@ -35,6 +35,7 @@ public class ApplicationsEntity implements Serializable {
 	private String resume;
 	@Column(name = "filename")
 	private String filename;
+	
 	@Column(name = "createdat")
 	@NotNull
 	private LocalDateTime createdat;
