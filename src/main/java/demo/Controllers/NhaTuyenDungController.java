@@ -787,100 +787,103 @@ public class NhaTuyenDungController {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
 			if (employer != null) {
-				// Kiểm tra nếu startdate và enddate không null và hợp lệ
-				LocalDate start = startdate != null ? LocalDate.parse(startdate) : null;
-				LocalDate end = enddate != null ? LocalDate.parse(enddate) : null;
+				// Chuyển đổi startdate và enddate thành LocalDate nếu có giá trị
+				LocalDate startDate = (startdate != null) ? LocalDate.parse(startdate) : null;
+				LocalDate endDate = (enddate != null) ? LocalDate.parse(enddate) : null;
 
-				// Chuyển startdate và enddate thành LocalDateTime nếu cần
-				LocalDateTime startDateTime = (start != null) ? start.atStartOfDay() : null;
-				LocalDateTime endDateTime = (end != null) ? end.atTime(23, 59, 59, 999999999) : null;
-
-				// Lọc bài đăng công việc theo ngày đăng
+				// Lọc bài đăng (JoblistingsEntity) theo khoảng thời gian startdate đến enddate
 				List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
 				jobPostings = jobPostings.stream().filter(job -> {
 					boolean isWithinDateRange = true;
-					if (start != null) {
-						isWithinDateRange &= !job.getPosteddate().atStartOfDay().isBefore(startDateTime);
+					if (startDate != null) {
+						isWithinDateRange &= !job.getPosteddate().isBefore(startDate);
 					}
-					if (end != null) {
-						isWithinDateRange &= !job.getPosteddate().atStartOfDay().isAfter(endDateTime);
+					if (endDate != null) {
+						isWithinDateRange &= !job.getPosteddate().isAfter(endDate);
 					}
 					return isWithinDateRange;
 				}).collect(Collectors.toList());
+				model.addAttribute("jobPostings", jobPostings);
 
-				// Lọc ứng tuyển trong khoảng thời gian từ startdate đến enddate
-				Map<Integer, List<ApplicationsEntity>> applicationsMap = new HashMap<>();
+				// Khởi tạo Map để lưu trữ số lượng ứng tuyển cho từng job
+				Map<Integer, Integer> totalApplicationsMap = new HashMap<>();
 				Map<Integer, Integer> acceptedApplicationsMap = new HashMap<>();
 				Map<Integer, Integer> rejectedApplicationsMap = new HashMap<>();
 				Map<Integer, Integer> pendingApplicationsMap = new HashMap<>();
-				Map<Integer, Integer> submittedApplicationsMap = new HashMap<>(); // Đã nộp
-				Map<Integer, Integer> totalApplicationsMap = new HashMap<>(); // Tổng số ứng tuyển
 
 				for (JoblistingsEntity jobPosting : jobPostings) {
+					// Lọc ứng tuyển của từng bài đăng theo khoảng thời gian startdate đến enddate
 					List<ApplicationsEntity> jobApplicationsList = applicationsDao
 							.findApplicationsByJoblistingId(jobPosting.getJobid()).stream().filter(application -> {
 								boolean isWithinDateRange = true;
-								if (startDateTime != null) {
-									isWithinDateRange &= !application.getApplicationdate().isBefore(startDateTime);
+								if (startDate != null) {
+									isWithinDateRange &= !application.getApplicationdate().toLocalDate()
+											.isBefore(startDate);
 								}
-								if (endDateTime != null) {
-									isWithinDateRange &= !application.getApplicationdate().isAfter(endDateTime);
+								if (endDate != null) {
+									isWithinDateRange &= !application.getApplicationdate().toLocalDate()
+											.isAfter(endDate);
 								}
 								return isWithinDateRange;
 							}).collect(Collectors.toList());
 
-					// Lưu các ứng tuyển vào Map
-					applicationsMap.put(jobPosting.getJobid(), jobApplicationsList);
+					// Lưu số lượng ứng tuyển vào Map với key là jobPosting.jobid
+					totalApplicationsMap.put(jobPosting.getJobid(), jobApplicationsList.size());
 
-					// Lọc theo trạng thái
+					// Lọc ứng tuyển theo trạng thái (accepted, rejected, pending)
 					long acceptedCount = jobApplicationsList.stream()
 							.filter(application -> application.getStatus() == 1).count();
 					long rejectedCount = jobApplicationsList.stream()
 							.filter(application -> application.getStatus() == 2).count();
 					long pendingCount = jobApplicationsList.stream().filter(application -> application.getStatus() == 0)
 							.count();
-					long submittedCount = jobApplicationsList.stream()
-							.filter(application -> application.getStatus() != 0).count(); // Đã nộp
 
-					// Lưu số lượng vào Map
+					// Lưu số lượng đã chấp nhận và đã từ chối vào Map
 					acceptedApplicationsMap.put(jobPosting.getJobid(), (int) acceptedCount);
 					rejectedApplicationsMap.put(jobPosting.getJobid(), (int) rejectedCount);
 					pendingApplicationsMap.put(jobPosting.getJobid(), (int) pendingCount);
-					submittedApplicationsMap.put(jobPosting.getJobid(), (int) submittedCount); // Đã nộp
 
-					// Tổng số ứng tuyển
-					int totalCount = jobApplicationsList.size();
-					totalApplicationsMap.put(jobPosting.getJobid(), totalCount);
+					// Thêm danh sách ứng tuyển vào model để sử dụng trong JSP
+					model.addAttribute("applications" + jobPosting.getJobid(), jobApplicationsList);
 				}
 
-				// Thêm các thông tin vào model
-				model.addAttribute("applicationsMap", applicationsMap);
+				// Truyền Map vào model
+				model.addAttribute("totalApplicationsMap", totalApplicationsMap);
 				model.addAttribute("acceptedApplicationsMap", acceptedApplicationsMap);
 				model.addAttribute("rejectedApplicationsMap", rejectedApplicationsMap);
 				model.addAttribute("pendingApplicationsMap", pendingApplicationsMap);
-				model.addAttribute("submittedApplicationsMap", submittedApplicationsMap); // Đã nộp
-				model.addAttribute("totalApplicationsMap", totalApplicationsMap); // Tổng số ứng tuyển
 
-				// Lọc dịch vụ đã mua trong khoảng thời gian từ startdate đến enddate
-				List<UserServicesEntity> userServices = userservicesDao.findByUser(employer.getUser()).stream()
-						.filter(serviceEntity -> {
+				// Lọc CV ứng tuyển của nhà tuyển dụng theo khoảng thời gian startdate đến
+				// enddate
+				List<ApplicationsEntity> applicationsMap = applicationsDao.findByJob_Employer(employer).stream()
+						.filter(application -> {
 							boolean isWithinDateRange = true;
-							if (startDateTime != null) {
-								isWithinDateRange &= !serviceEntity.getPurchasedate().isBefore(startDateTime);
+							if (startDate != null) {
+								isWithinDateRange &= !application.getApplicationdate().toLocalDate()
+										.isBefore(startDate);
 							}
-							if (endDateTime != null) {
-								isWithinDateRange &= !serviceEntity.getPurchasedate().isAfter(endDateTime);
+							if (endDate != null) {
+								isWithinDateRange &= !application.getApplicationdate().toLocalDate().isAfter(endDate);
 							}
 							return isWithinDateRange;
 						}).collect(Collectors.toList());
+				model.addAttribute("applicationsMap", applicationsMap);
 
+				// Lọc dịch vụ đã mua của nhà tuyển dụng theo khoảng thời gian startdate đến
+				// enddate (purchasedate là LocalDateTime)
+				List<UserServicesEntity> userServices = userservicesDao.findByUser(employer.getUser()).stream()
+						.filter(serviceEntity -> {
+							boolean isWithinDateRange = true;
+							if (startDate != null) {
+								isWithinDateRange &= !serviceEntity.getPurchasedate().toLocalDate().isBefore(startDate);
+							}
+							if (endDate != null) {
+								isWithinDateRange &= !serviceEntity.getPurchasedate().toLocalDate().isAfter(endDate);
+							}
+							return isWithinDateRange;
+						}).collect(Collectors.toList());
 				model.addAttribute("userServices", userServices);
 
-				// Sắp xếp các bài đăng công việc theo ngày đăng
-				jobPostings.sort(Comparator.comparing(JoblistingsEntity::getPosteddate).reversed());
-
-				// Thêm các bài đăng công việc vào model
-				model.addAttribute("jobPostings", jobPostings);
 				model.addAttribute("employer", employer);
 			} else {
 				model.addAttribute("error", "Không tìm thấy nhà tuyển dụng.");
