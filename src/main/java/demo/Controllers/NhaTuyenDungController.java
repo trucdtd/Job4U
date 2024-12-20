@@ -696,10 +696,10 @@ public class NhaTuyenDungController {
 
 	            System.out.println("Current date: " + currentDate); // In ra ngày hiện tại
 	            
-	         // Lọc bài đăng theo ngày hiện tại (Dùng LocalDate để so sánh)
+	            // Lọc bài đăng của nhà tuyển dụng theo ngày hiện tại
 	            List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
 	            jobPostings = jobPostings.stream()
-	                    .filter(job -> job.getPosteddate().isEqual(now)) // So sánh ngày đăng với ngày hiện tại
+	                    .filter(job -> job.getPosteddate().isEqual(currentDate)) // So sánh ngày đăng với ngày hiện tại (LocalDate)
 	                    .collect(Collectors.toList());
 
 	            // Lọc ứng tuyển trong ngày hiện tại (So sánh phần ngày của LocalDateTime)
@@ -710,14 +710,15 @@ public class NhaTuyenDungController {
 	            Map<Integer, Integer> totalApplicationsMap = new HashMap<>();
 
 	            for (JoblistingsEntity jobPosting : jobPostings) {
-	            	List<ApplicationsEntity> jobApplicationsList = applicationsDao
-	            		    .findApplicationsByJoblistingId(jobPosting.getJobid()).stream()
-	            		    .filter(application -> application.getApplicationdate() != null && 
-	            		            application.getApplicationdate().toLocalDate().isEqual(currentDate)) // So sánh phần ngày
-	            		    .collect(Collectors.toList());
-	            	
+	            	  // Lọc ứng tuyển của bài đăng theo ngày hiện tại
+	                List<ApplicationsEntity> jobApplicationsList = applicationsDao
+	                        .findApplicationsByJoblistingId(jobPosting.getJobid()).stream()
+	                        .filter(application -> application.getCreatedat() != null && 
+	                                application.getCreatedat().toLocalDate().isEqual(currentDate)) // So sánh ngày ứng tuyển (LocalDateTime) với ngày hiện tại
+	                        .collect(Collectors.toList());
 	                // Lưu ứng tuyển vào Map
 	                applicationsMap.put(jobPosting.getJobid(), jobApplicationsList);
+	                System.out.println("" + applicationsMap);
 
 	                // Tính số lượng ứng tuyển theo trạng thái
 	                long acceptedCount = jobApplicationsList.stream().filter(application -> application.getStatus() == 1).count();
