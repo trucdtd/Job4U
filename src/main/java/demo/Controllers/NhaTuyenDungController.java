@@ -621,42 +621,24 @@ public class NhaTuyenDungController {
 			EmployersEntity employer = nhaTuyenDungDao.findByUserId(userId).orElse(null);
 
 			if (employer != null) {
-				// Lấy ngày hiện tại
-				LocalDate currentDate = LocalDate.now();
-
-				// Lọc bài đăng (JoblistingsEntity) theo ngày hiện tại
+				// Chỉ lấy những bài đăng có active = true
 				List<JoblistingsEntity> jobPostings = danhSachViecLamDao.findByEmployerAndActive(employer, true);
-				jobPostings = jobPostings.stream().filter(job -> job.getPosteddate().isEqual(currentDate)) // So sánh
-																											// ngày đăng
-																											// với ngày
-																											// hiện tại
-						.collect(Collectors.toList());
 				model.addAttribute("jobPostings", jobPostings);
 
-				// Khởi tạo Map để lưu trữ số lượng ứng tuyển cho từng job
+				// Khởi tạo một Map để lưu trữ số lượng ứng tuyển cho từng job
 				Map<Integer, Integer> totalApplicationsMap = new HashMap<>();
 				Map<Integer, Integer> acceptedApplicationsMap = new HashMap<>();
 				Map<Integer, Integer> rejectedApplicationsMap = new HashMap<>();
 				Map<Integer, Integer> pendingApplicationsMap = new HashMap<>();
 
 				for (JoblistingsEntity jobPosting : jobPostings) {
-					// Lọc ứng tuyển của từng bài đăng theo ngày hiện tại (applicationdate là
-					// LocalDateTime)
+					// Lấy danh sách ứng tuyển cho bài đăng này
 					List<ApplicationsEntity> jobApplicationsList = applicationsDao
-							.findApplicationsByJoblistingId(jobPosting.getJobid()).stream()
-							.filter(application -> application.getApplicationdate() != null
-									&& application.getApplicationdate().toLocalDate().isEqual(currentDate)) // So sánh
-																											// ngày tạo
-																											// đơn ứng
-																											// tuyển với
-																											// ngày hiện
-																											// tại
-							.collect(Collectors.toList());
-
+							.findApplicationsByJoblistingId(jobPosting.getJobid());
 					// Lưu số lượng ứng tuyển vào Map với key là jobPosting.jobid
 					totalApplicationsMap.put(jobPosting.getJobid(), jobApplicationsList.size());
 
-					// Lọc ứng tuyển theo trạng thái (accepted, rejected, pending)
+					// Lọc ứng tuyển đã chấp nhận (status == 1) và từ chối (status == 2)
 					long acceptedCount = jobApplicationsList.stream()
 							.filter(application -> application.getStatus() == 1).count();
 					long rejectedCount = jobApplicationsList.stream()
@@ -679,24 +661,13 @@ public class NhaTuyenDungController {
 				model.addAttribute("rejectedApplicationsMap", rejectedApplicationsMap);
 				model.addAttribute("pendingApplicationsMap", pendingApplicationsMap);
 
-				// Lọc CV ứng tuyển của nhà tuyển dụng theo ngày hiện tại
-				List<ApplicationsEntity> applicationsMap = applicationsDao.findByJob_Employer(employer).stream()
-						.filter(application -> application.getApplicationdate() != null
-								&& application.getApplicationdate().toLocalDate().isEqual(currentDate)) // So sánh ngày
-																										// ứng tuyển với
-																										// ngày hiện tại
-						.collect(Collectors.toList());
+				// Lấy danh sách CV ứng tuyển
+				List<ApplicationsEntity> applicationsMap = applicationsDao.findByJob_Employer(employer);
+				// Thêm các ứng tuyển vào model
 				model.addAttribute("applicationsMap", applicationsMap);
 
-				// Lọc dịch vụ đã mua của nhà tuyển dụng theo ngày hiện tại (purchasedate là
-				// LocalDateTime)
-				List<UserServicesEntity> userServices = userservicesDao.findByUser(employer.getUser()).stream()
-						.filter(serviceEntity -> serviceEntity.getPurchasedate() != null
-								&& serviceEntity.getPurchasedate().toLocalDate().isEqual(currentDate)) // So sánh ngày
-																										// mua dịch vụ
-																										// với ngày hiện
-																										// tại
-						.collect(Collectors.toList());
+				// Lấy danh sách dịch vụ đã mua của nhà tuyển dụng
+				List<UserServicesEntity> userServices = userservicesDao.findByUser(employer.getUser());
 				model.addAttribute("userServices", userServices);
 
 				model.addAttribute("employer", employer);
