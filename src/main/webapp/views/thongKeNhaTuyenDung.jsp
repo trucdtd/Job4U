@@ -26,46 +26,46 @@
 	<%@ include file="/views/headerNoPanner.jsp"%>
 	<div class="container">
 		<div class="d-flex align-items-center p-2">
-		<form action="/employers/thongKeTheoKhoangThoiGian" method="get">
+			<form action="/employers/thongKeTheoKhoangThoiGian" method="get">
+				<div class="d-flex align-items-center p-2">
+					<!-- First Input Field for Start Date -->
+					<div class="mb-3 me-2">
+						<input type="date" class="form-control border-0 shadow"
+							name="startdate" id="startdate" />
+					</div>
+
+					<!-- Second Input Field for End Date -->
+					<div class="mb-3 me-2">
+						<input type="date" class="form-control border-0 shadow"
+							name="enddate" id="enddate" />
+					</div>
+
+					<!-- Search Button -->
+					<div class="mb-3 me-2">
+						<button type="submit" class="btn btn-danger mt-0 shadow">Tìm
+							Kiếm</button>
+					</div>
+				</div>
+			</form>
+
+			<!-- Second Form for Statistics -->
+			<form action="/employers/thongKeTatCa" method="post">
+				<input type="hidden" name="employerid"
+					value="${employer.employerid}" />
+				<!-- Button for "Thống kê tất cả" -->
+				<div class="mb-3 me-2">
+					<button type="submit" class="btn btn-warning shadow mt-0">Thống
+						kê tất cả</button>
+				</div>
+			</form>
+
+			<!-- Export Button -->
 			<div class="d-flex align-items-center p-2">
-				<!-- First Input Field for Start Date -->
 				<div class="mb-3 me-2">
-					<input type="date" class="form-control border-0 shadow"
-						name="startdate" id="startdate" />
-				</div>
-
-				<!-- Second Input Field for End Date -->
-				<div class="mb-3 me-2">
-					<input type="date" class="form-control border-0 shadow"
-						name="enddate" id="enddate" />
-				</div>
-
-				<!-- Search Button -->
-				<div class="mb-3 me-2">
-					<button type="submit" class="btn btn-danger mt-0 shadow">Tìm
-						Kiếm</button>
+					<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
+						Excel</button>
 				</div>
 			</div>
-		</form>
-
-		<!-- Second Form for Statistics -->
-		<form action="/employers/thongKeTatCa" method="post"
-			>
-			<input type="hidden" name="employerid" value="${employer.employerid}" />
-			<!-- Button for "Thống kê tất cả" -->
-			<div class="mb-3 me-2">
-				<button type="submit" class="btn btn-warning shadow mt-0">Thống
-					kê tất cả</button>
-			</div>
-		</form>
-
-		<!-- Export Button -->
-		<div class="d-flex align-items-center p-2">
-			<div class="mb-3 me-2">
-				<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
-					Excel</button>
-			</div>
-		</div>
 		</div>
 
 		<!-- Row for the 3 Cards -->
@@ -202,71 +202,58 @@
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
 	<script>
-document.getElementById("exportExcel").addEventListener("click", function() {
-    // Lấy dữ liệu từ JSP (đã chuyển thành JSON)
-    const jobPostings = ${jobPostings}; // Dữ liệu jobPostings (list các job)
-    const totalApplicationsMap = ${totalApplicationsMap}; // Dữ liệu totalApplicationsMap
-    const acceptedApplicationsMap = ${acceptedApplicationsMap}; // Dữ liệu acceptedApplicationsMap
-    const rejectedApplicationsMap = ${rejectedApplicationsMap}; // Dữ liệu rejectedApplicationsMap
-    const pendingApplicationsMap = ${pendingApplicationsMap}; // Dữ liệu pendingApplicationsMap
+		document
+				.querySelector('form')
+				.addEventListener(
+						'submit',
+						function(event) {
+							// Lấy giá trị ngày bắt đầu và ngày kết thúc
+							const startdate = document
+									.getElementById('startdate').value;
+							const enddate = document.getElementById('enddate').value;
 
-    // Tạo workbook mới
-    const wb = XLSX.utils.book_new();
+							// Kiểm tra xem người dùng có nhập ngày bắt đầu và ngày kết thúc không
+							if (!startdate) {
+								alert("Vui lòng chọn ngày bắt đầu ");
+								event.preventDefault(); // Ngừng gửi form nếu điều kiện không thỏa mãn
+								return;
+							}
+							// Kiểm tra xem người dùng có nhập ngày bắt đầu và ngày kết thúc không
+							if (!enddate) {
+								alert("Vui lòng chọn ngày kết thúc.");
+								event.preventDefault(); // Ngừng gửi form nếu điều kiện không thỏa mãn
+								return;
+							}
 
-    // Tạo header cho worksheet
-    const header = ["Tên Bài Viết", "Số Lượng CV", "Chấp Nhận", "Từ Chối", "Chờ Xử Lý"];
+							// Kiểm tra ngày kết thúc không được lớn hơn ngày bắt đầu
+							if (new Date(enddate) < new Date(startdate)) {
+								alert("Ngày kết thúc không được lớn hơn ngày bắt đầu.");
+								event.preventDefault(); // Ngừng gửi form nếu điều kiện không thỏa mãn
+								return;
+							}
+						});
+	</script>
 
-    // Tạo dữ liệu cho worksheet từ các job postings
-    const data = jobPostings.map(job => [
-        job.jobtitle, // Tên bài viết
-        totalApplicationsMap[job.jobid] || 0, // Tổng số ứng tuyển
-        acceptedApplicationsMap[job.jobid] || 0, // Số ứng tuyển đã chấp nhận
-        rejectedApplicationsMap[job.jobid] || 0, // Số ứng tuyển đã từ chối
-        pendingApplicationsMap[job.jobid] || 0 // Số ứng tuyển đang chờ xử lý
-    ]);
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+	<script>
+		document.getElementById("exportExcel").addEventListener(
+				"click",
+				function() {
+					const table = document.getElementById("statisticalTable"); // ID của bảng
+					const wb = XLSX.utils.book_new(); // Tạo workbook mới
+					const ws = XLSX.utils.table_to_sheet(table); // Tạo worksheet từ bảng
 
-    // Thêm header vào đầu dữ liệu
-    data.unshift(header);
+					// Thêm worksheet vào workbook
+					XLSX.utils.book_append_sheet(wb, ws,
+							"ThongKeBaiDangTuyenDung");
 
-    // Chuyển dữ liệu thành worksheet
-    const ws = XLSX.utils.aoa_to_sheet(data);
-
-    // Thêm worksheet vào workbook
-    XLSX.utils.book_append_sheet(wb, ws, "ThongKe");
-
-    // Xuất workbook ra file Excel
-    XLSX.writeFile(wb, "ThongKeNhaTuyenDung.xlsx");
-});
+					// Xuất workbook ra file Excel
+					XLSX.writeFile(wb, "ThongKeBaiDangTuyenDung.xlsx");
+				});
+	</script>
 
 
-
-document.querySelector('form').addEventListener('submit', function(event) {
-    // Lấy giá trị ngày bắt đầu và ngày kết thúc
-    const startdate = document.getElementById('startdate').value;
-    const enddate = document.getElementById('enddate').value;
-
-    // Kiểm tra xem người dùng có nhập ngày bắt đầu và ngày kết thúc không
-    if (!startdate) {
-        alert("Vui lòng chọn ngày bắt đầu ");
-        event.preventDefault(); // Ngừng gửi form nếu điều kiện không thỏa mãn
-        return;
-    }
- // Kiểm tra xem người dùng có nhập ngày bắt đầu và ngày kết thúc không
-    if ( !enddate) {
-        alert("Vui lòng chọn ngày kết thúc.");
-        event.preventDefault(); // Ngừng gửi form nếu điều kiện không thỏa mãn
-        return;
-    }
-
-    // Kiểm tra ngày kết thúc không được lớn hơn ngày bắt đầu
-    if (new Date(enddate) < new Date(startdate)) {
-        alert("Ngày kết thúc không được lớn hơn ngày bắt đầu.");
-        event.preventDefault(); // Ngừng gửi form nếu điều kiện không thỏa mãn
-        return;
-    }
-});
-
-</script>
 
 </body>
 
