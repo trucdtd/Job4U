@@ -1,20 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Đảm bảo responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh Sách Việc Làm</title>
     
     <!-- Bootstrap Icons CSS -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     
     <!-- Bootstrap CSS v5.3.2 -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -197,36 +196,33 @@
         </div>
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-inner">
-                <c:forEach var="job" items="${latestJobs}" varStatus="status">
-                    <c:if test="${status.index % 4 == 0}">
-                        <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-                            <div class="row">
-                    </c:if>
-                    <div class="col-12 col-sm-6 col-md-3">
-                        <div class="card shadow-sm rounded-3">
-                            <div class="card-body d-flex align-items-start">
-                                <div class="bg-image">
-                                    <img src="${pageContext.request.contextPath}/uploads/${job.employer.logo}"
-                                         alt="logo" class="img-fluid">
-                                </div>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <div class="flex-grow-1">
-                                    <h6 class="text-center">${job.jobtitle}</h6>
-                                    <p class="text-center">${job.employer.companyname}</p>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <span class="text-success font-weight-bold">${job.salary}</span>
-                                <a href="${pageContext.request.contextPath}/chiTiet/${job.jobid}" class="btn btn-outline-success btn-sm">
-                                    Thông tin chi tiết
-                                </a>
-                            </div>
+                <c:forEach var="i" begin="0" end="${fn:length(latestJobs) / 4}" step="1">
+                    <div class="carousel-item ${i == 0 ? 'active' : ''}">
+                        <div class="row">
+                            <c:forEach var="job" items="${latestJobs}" varStatus="status">
+                                <c:if test="${status.index >= i * 4 && status.index < (i + 1) * 4}">
+                                    <div class="col-12 col-sm-6 col-md-3">
+                                        <div class="card shadow-sm rounded-3">
+                                            <div class="card-body d-flex align-items-start">
+                                                <div class="bg-image">
+                                                    <img src="${pageContext.request.contextPath}/uploads/${job.employer.logo}" alt="logo" class="img-fluid">
+                                                </div>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="text-center">${job.jobtitle}</h6>
+                                                    <p class="text-center">${job.employer.companyname}</p>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <span class="text-success font-weight-bold">${job.salary}</span>
+                                                <a href="${pageContext.request.contextPath}/chiTiet/${job.jobid}" class="btn btn-outline-success btn-sm">Thông tin chi tiết</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
                         </div>
                     </div>
-
-                    <c:if test="${(status.index + 1) % 4 == 0 || status.last}">
-                        </div>
-                    </c:if>
                 </c:forEach>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">

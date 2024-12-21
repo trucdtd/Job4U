@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -107,7 +108,7 @@ public class dangKy2Controller {
 			model.addAttribute("passwordError", "Mật khẩu không được để trống.");
 			hasErrors = true;
 		} else if (!isValidPassword(password)) {
-			model.addAttribute("passwordError", "Mật khẩu phải có ít nhất 8 ký tự.");
+			model.addAttribute("passwordError", "Mật khẩu có ít nhất 8 ký tự, chứa ít nhất một số và một chữ cái.");
 			hasErrors = true;
 		}
 
@@ -147,20 +148,20 @@ public class dangKy2Controller {
 			return "dangky2";
 		}
 
-		// Xử lý tải lên logo
+		// Kiểm tra và lưu logo
 		String logoFilename = null;
 		if (logo != null && !logo.isEmpty()) {
-			String logoOriginalFilename = StringUtils.cleanPath(logo.getOriginalFilename());
+			logoFilename = StringUtils.cleanPath(logo.getOriginalFilename());
 			try {
 				File uploadsDir = new File(req.getServletContext().getRealPath("/uploads/"));
-				if (!uploadsDir.exists())
-					uploadsDir.mkdirs();
-				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoOriginalFilename);
+				if (!uploadsDir.exists()) {
+					uploadsDir.mkdirs(); // Tạo thư mục nếu không tồn tại
+				}
+				Path path = Paths.get(uploadsDir.getAbsolutePath(), logoFilename);
 				Files.write(path, logo.getBytes());
-				logoFilename = logoOriginalFilename;
 			} catch (IOException e) {
-				model.addAttribute("logoError", "Tải logo không thành công.");
-				return "dangky2";
+				e.printStackTrace();
+				return "error"; // Xử lý lỗi tải lên
 			}
 		}
 
@@ -181,7 +182,7 @@ public class dangKy2Controller {
 		req.getSession().setAttribute("industry", industry);
 		req.getSession().setAttribute("contactperson", contactperson);
 		req.getSession().setAttribute("taxid", taxid);
-		req.getSession().setAttribute("logoFilename", logoFilename);
+		req.getSession().setAttribute("logo", logoFilename);
 		req.getSession().setAttribute("token", token);
 
 		// Hiển thị modal xác nhận
@@ -221,9 +222,9 @@ public class dangKy2Controller {
 			employer.setCompanywebsite((String) req.getSession().getAttribute("companywebsite"));
 			employer.setAddress((String) req.getSession().getAttribute("address"));
 			employer.setIndustry((String) req.getSession().getAttribute("industry"));
-			employer.setContactperson((String) req.getSession().getAttribute("companydescription"));
+			employer.setContactperson((String) req.getSession().getAttribute("contactperson"));
 			employer.setTaxid((String) req.getSession().getAttribute("taxid"));
-			employer.setCompanydescription((String) req.getSession().getAttribute("contactperson"));
+			employer.setCompanydescription((String) req.getSession().getAttribute("companydescription"));
 			employer.setLogo((String) req.getSession().getAttribute("logo"));
 			employer.setUser(newUser); // Liên kết với user mới tạo
 			employersdao.save(employer); // Lưu thông tin nhà tuyển dụng vào CSDL
@@ -249,8 +250,8 @@ public class dangKy2Controller {
 	}
 
 	private boolean isValidPassword(String password) {
-		// Kiểm tra mật khẩu có ít nhất 8 ký tự
-		return password.length() >= 8;
+	    // Kiểm tra mật khẩu có ít nhất 8 ký tự, chứa ít nhất một số và một chữ cái
+	    return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
 	}
 
 	private boolean isValidEmail(String email) {

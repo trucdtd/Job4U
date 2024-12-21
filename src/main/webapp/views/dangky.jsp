@@ -79,12 +79,12 @@
 	<!-- /header -->
 	<section class="vh-90">
 		<div class="container d-flex justify-content-center align-items-center">
-			<div class="row g-0">
-				<div class="col-sm-6 col-md-8">
+			<div class="row">
+				<div class="col-sm-8">
 					<%@ include file="/views/formDieuKhoan.jsp"%>
 					<br>
 				</div>
-				<div class="col-6 col-md-4">
+				<div class="col-sm-4">
 					<div class="form-container">
 						<form action="/DangKy/submit" method="post"
 							enctype="multipart/form-data" id="registerForm">

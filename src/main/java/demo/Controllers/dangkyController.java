@@ -66,7 +66,7 @@ public class dangkyController {
 			model.addAttribute("passwordError", "Mật khẩu không được để trống.");
 			hasErrors = true;
 		}else if (!isValidPassword(password)) {
-			model.addAttribute("passwordError", "Mật khẩu phải có ít nhất 8 ký tự.");
+			model.addAttribute("passwordError", "Mật khẩu có ít nhất 8 ký tự, chứa ít nhất một số và một chữ cái.");
 			hasErrors = true;
 		}
 		
@@ -181,8 +181,8 @@ public class dangkyController {
 	}
 
 	private boolean isValidPassword(String password) {
-		// Kiểm tra mật khẩu có ít nhất 8 ký tự
-		return password.length() >= 8;
+	    // Kiểm tra mật khẩu có ít nhất 8 ký tự, chứa ít nhất một số và một chữ cái
+	    return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
 	}
 
 	private boolean isValidEmail(String email) {

@@ -55,6 +55,9 @@
 							<button id="exportExcel" class="btn btn-primary shadow mt-0">Xuất
 								Excel</button>
 						</div>
+						<div class="mb-3 me-2">
+								<a type="button" href="/thongke" class="btn btn-danger shadow">Làm mới</a>
+							</div>
 					</div>
 
 					

@@ -18,6 +18,8 @@
 <!-- CSS for DataTables -->
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+		<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
 
@@ -109,7 +111,7 @@
 <body>
 	<!-- header -->
 	<%@ include file="/views/headerNoPanner.jsp"%>
-	
+
 	<!-- header -->
 
 	<!-- Modal Hiển Thị Thông Báo Thanh Toán -->
@@ -161,11 +163,13 @@
 								class="bi bi-bag-heart me-2"></i> Gói Dịch Dụ đã mua
 						</a></li>
 						<li><a href="#" class="navnhatuyendung nav-link text-dark"
-							onclick="showTable(event, 'postingServices')"> <i class="bi bi-bag"></i> Mua Dịch Vụ
+							onclick="showTable(event, 'postingServices')"> <i
+								class="bi bi-bag"></i> Mua Dịch Vụ
 						</a></li>
-						<li><a href="#" class="navnhatuyendung nav-link text-dark"
-							onclick="showTable(event, 'statistical')"> <img width="20"
-								height="20" src="https://img.icons8.com/ios/50/card-in-use.png"
+						<li><a href="/employers/thongKeTheoNgay"
+							class="navnhatuyendung nav-link text-dark"> <img
+								width="20" height="20"
+								src="https://img.icons8.com/ios/50/card-in-use.png"
 								alt="card-in-use" /> Thống Kê
 						</a></li>
 					</ul>
@@ -235,13 +239,14 @@
 														onsubmit="return confirmDelete();">
 														<input type="hidden" name="jobId" value="${job.jobid}">
 														<button type="submit" class="btn btn-sm" title="Xóa">
-															<img alt="Xóa" src="/img/delete_red.png"
-																height="25px" width="25px" />
+															<img alt="Xóa" src="/img/delete_red.png" height="25px"
+																width="25px" />
 														</button>
 													</form>
 													<!-- Nút mua dịch vụ lên top -->
 													<button type="button" class="btn btn-sm btn-mua"
-														title="Mua Top" data-jobidmua="${job.jobid}" data-jobtitle="${job.jobtitle}">
+														title="Mua Top" data-jobidmua="${job.jobid}"
+														data-jobtitle="${job.jobtitle}">
 														<img alt="Mua" src="/img/icons8-cart-50.png" height="25px"
 															width="25px">
 													</button>
@@ -474,6 +479,7 @@
 						</div>
 					</div>
 				</div>
+				
 
 				<!-- Dịch vụ -->
 				<div id="postingServices" class="card" style="display: none;">
@@ -527,9 +533,7 @@
 						<div class="card-title">Bảng Thống Kê Nhà Tuyển Dụng</div>
 					</div>
 					<br>
-					<div class="card-body p-2">
-						<%@ include file="/views/thongKeNhaTuyenDung.jsp"%>
-					</div>
+
 				</div>
 
 			</div>
@@ -634,6 +638,24 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- Modal thông báo không thể mua dịch vụ -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Thông Báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="errorModalBody">
+                <!-- Nội dung thông báo lỗi sẽ được chèn vào đây -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 	</div>
@@ -716,6 +738,29 @@
 </script>
 
 	<script>
+	// Lấy tất cả các nút chỉnh sửa
+	const editButtons = document.querySelectorAll('.btn-edit');
+
+	editButtons.forEach(button => {
+	    // Lấy giá trị của applicationdeadline từ data attribute
+	    const applicationDeadline = button.getAttribute('data-applicationdeadline');
+
+	    // Chuyển đổi applicationDeadline thành đối tượng Date
+	    const deadlineDate = new Date(applicationDeadline);
+	    const currentDate = new Date();
+
+	    // Kiểm tra nếu thời gian hiện tại nhỏ hơn thời gian deadline
+	    if (currentDate > deadlineDate) {
+	        // Nếu thời gian đã hết hạn, vô hiệu hóa nút chỉnh sửa
+	        button.disabled = true;
+	        //có thể thay đổi hình ảnh hoặc thay đổi kiểu dáng của nút
+	        button.title = "Thời gian nộp hồ sơ đã hết hạn";
+	    } else {
+	        // Nếu thời gian còn hiệu lực, giữ nút chỉnh sửa hoạt động
+	        button.disabled = false;
+	    }
+	});
+
 document.addEventListener('DOMContentLoaded', () => {
     const editButtons = document.querySelectorAll('.btn-edit');
 
@@ -1099,6 +1144,47 @@ document.getElementById('logo').addEventListener('change', function(event) {
     });
 </script>
 
+<script>
+    window.onload = function() {
+        // Kiểm tra nếu có thông báo lỗi trong URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get('errorModal');
+
+        if (errorMessage) {
+            // Giải mã thông báo lỗi từ URL
+            const decodedMessage = decodeURIComponent(errorMessage);
+
+            // Cập nhật tiêu đề và nội dung của modal thông báo
+            document.getElementById('errorModalLabel').innerText = "Thông Báo";
+            document.getElementById('errorModalBody').innerText = decodedMessage;
+
+            // Hiển thị modal
+            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+
+            // Lắng nghe sự kiện khi modal bị đóng
+            document.getElementById('errorModal').addEventListener('hidden.bs.modal', function () {
+                const currentParams = new URLSearchParams(window.location.search);
+
+                // Kiểm tra nếu URL chứa các tham số liên quan đến dịch vụ
+                if (currentParams.has('serviceId') || currentParams.has('jobId')) {
+                    // Không điều hướng nếu có tham số cần thiết
+                    return;
+                }
+
+                // Xóa chỉ tham số `errorModal` và giữ lại các tham số khác
+                currentParams.delete('errorModal');
+                if (currentParams.toString()) {
+                    // Điều hướng về URL mà không chứa `errorModal`
+                    window.location.search = currentParams.toString();
+                } else {
+                    // Nếu không còn query string nào, quay về trang gốc
+                    window.location.href = window.location.pathname;
+                }
+            });
+        }
+    }
+</script>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- JS for DataTables -->
