@@ -92,67 +92,53 @@ public class quenMatKhauController {
 	}
 
 	public void sendEmail(String userEmail, String token) {
-	    try {
-	        // Lấy thông tin người dùng từ cơ sở dữ liệu
-	        UsersEntity user = userRepository.findByEmail(userEmail);
-	        String username = user != null ? user.getUsername() : "User"; // Tránh lỗi nếu không tìm thấy người dùng
+		try {
+			// Lấy thông tin người dùng từ cơ sở dữ liệu
+			UsersEntity user = userRepository.findByEmail(userEmail);
+			String username = user != null ? user.getUsername() : "User"; // Tránh lỗi nếu không tìm thấy người dùng
 
-	        // Tạo đối tượng MimeMessage
-	        MimeMessage message = mailSender.createMimeMessage();
-	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+			// Tạo đối tượng MimeMessage
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-	        // Cấu hình người nhận và tiêu đề
-	        helper.setTo(userEmail);
-	        helper.setSubject("Yêu cầu đặt lại mật khẩu");
+			// Cấu hình người nhận và tiêu đề
+			helper.setTo(userEmail);
+			helper.setSubject("Yêu cầu đặt lại mật khẩu");
 
-	        //  // Nội dung HTML của email
-	        String htmlContent = "<!DOCTYPE html>\n" +
-	                "<html lang=\"en\">\n" +
-	                "<head>\n" +
-	                "    <meta charset=\"UTF-8\">\n" +
-	                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-	                "    <title>Reset Password</title>\n" +
-	                "</head>\n" +
-	                "<body style=\"font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;\">\n" +
-	                "    <table align=\"center\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background-color: #ffffff; margin: 40px auto; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;\">\n" +
-	                "        <!-- Header -->\n" +
-	                "        <tr>\n" +
-	                "            <td style=\"padding: 30px 20px; text-align: left;\">\n" +
-	                "                <h2 style=\"margin: 0; font-size: 20px; color: #333;\">Yêu cầu đặt lại mật khẩu</h2>\n" +
-	                "            </td>\n" +
-	                "        </tr>\n" +
-	                "        <!-- Body -->\n" +
-	                "        <tr>\n" +
-	                "            <td style=\"padding: 40px 20px; text-align: left; color: #333;\">\n" +
-	                "                <p style=\"margin: 0; font-size: 16px; color: #333;\">Xin chào <span style=\"color: #28a745; font-weight: bold; font-style: italic;\">" + username + "</span>,</p>\n" + 
-	                "                <p style=\"margin: 10px 0; font-size: 16px; color: #333;\">Mã xác thực để đặt lại mật khẩu của bạn là:</p>\n" + 
-	                "                <div style=\"text-align: center; margin: 30px 0;\">\n" +
-	                "                    <span style=\"display: inline-block; background-color: #e8f0fe; padding: 20px 40px; border-radius: 10px; font-size: 24px; font-weight: bold; color: #333; border: 1px solid #c3d4e9;\">" + token + "</span>\n" +
-	                "                </div>\n" +
-	                "                <p style=\"margin: 10px 0; font-size: 16px; color: #333;\">Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.</p>\n" +
-	                "            </td>\n" +
-	                "        </tr>\n" +
-	                "        <!-- Footer -->\n" +
-	                "        <tr>\n" +
-	                "            <td style=\"padding: 30px 20px; text-align: center; font-size: 12px; color: #888;\">\n" +
-	                "                <p style=\"margin: 0;\">&copy; 2024 Job4U. All rights reserved.</p>\n" +
-	                "            </td>\n" +
-	                "        </tr>\n" +
-	                "    </table>\n" +
-	                "</body>\n" +
-	                "</html>";
+			// // Nội dung HTML của email
+			String htmlContent = "<!DOCTYPE html>\n" + "<html lang=\"en\">\n" + "<head>\n"
+					+ "    <meta charset=\"UTF-8\">\n"
+					+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+					+ "    <title>Reset Password</title>\n" + "</head>\n"
+					+ "<body style=\"font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;\">\n"
+					+ "    <table align=\"center\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background-color: #ffffff; margin: 40px auto; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;\">\n"
+					+ "        <!-- Header -->\n" + "        <tr>\n"
+					+ "            <td style=\"padding: 30px 20px; text-align: left;\">\n"
+					+ "                <h2 style=\"margin: 0; font-size: 20px; color: #333;\">Yêu cầu đặt lại mật khẩu</h2>\n"
+					+ "            </td>\n" + "        </tr>\n" + "        <!-- Body -->\n" + "        <tr>\n"
+					+ "            <td style=\"padding: 40px 20px; text-align: left; color: #333;\">\n"
+					+ "                <p style=\"margin: 0; font-size: 16px; color: #333;\">Xin chào <span style=\"color: #28a745; font-weight: bold; font-style: italic;\">"
+					+ username + "</span>,</p>\n"
+					+ "                <p style=\"margin: 10px 0; font-size: 16px; color: #333;\">Mã xác thực để đặt lại mật khẩu của bạn là:</p>\n"
+					+ "                <div style=\"text-align: center; margin: 30px 0;\">\n"
+					+ "                    <span style=\"display: inline-block; background-color: #e8f0fe; padding: 20px 40px; border-radius: 10px; font-size: 24px; font-weight: bold; color: #333; border: 1px solid #c3d4e9;\">"
+					+ token + "</span>\n" + "                </div>\n"
+					+ "                <p style=\"margin: 10px 0; font-size: 16px; color: #333;\">Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.</p>\n"
+					+ "            </td>\n" + "        </tr>\n" + "        <!-- Footer -->\n" + "        <tr>\n"
+					+ "            <td style=\"padding: 30px 20px; text-align: center; font-size: 12px; color: #888;\">\n"
+					+ "                <p style=\"margin: 0;\">&copy; 2024 Job4U. All rights reserved.</p>\n"
+					+ "            </td>\n" + "        </tr>\n" + "    </table>\n" + "</body>\n" + "</html>";
 
-	        // Thiết lập nội dung email là HTML
-	        helper.setText(htmlContent, true);
+			// Thiết lập nội dung email là HTML
+			helper.setText(htmlContent, true);
 
-	        // Gửi email
-	        mailSender.send(message);
-	    } catch (MessagingException e) {
-	        // Xử lý lỗi nếu có
-	        System.out.println("Error sending email: " + e.getMessage());
-	    }
+			// Gửi email
+			mailSender.send(message);
+		} catch (MessagingException e) {
+			// Xử lý lỗi nếu có
+			System.out.println("Error sending email: " + e.getMessage());
+		}
 	}
-
 
 	private static final String NUMERIC_CHARACTERS = "0123456789";
 	private static final int TOKEN_LENGTH = 6;
@@ -217,10 +203,13 @@ public class quenMatKhauController {
 			return "datLaiMatKhau"; // Trả về trang đặt lại mật khẩu với thông báo lỗi
 		}
 
-		// Kiểm tra độ dài mật khẩu
-		if (newPassword.length() < 8) {
-			model.addAttribute("error", "Mật khẩu phải chứa ít nhất 8 ký tự.");
-			return "datLaiMatKhau"; // Trả về trang đặt lại mật khẩu với thông báo lỗi
+		// Kiểm tra lỗi cho mật khẩu
+		if (newPassword.isEmpty()) {
+			model.addAttribute("error", "Mật khẩu không được để trống.");
+			return "datLaiMatKhau";
+		} else if (!isValidPassword(newPassword)) {
+			model.addAttribute("error", "Mật khẩu có ít nhất 8 ký tự, chứa ít nhất một số và một chữ cái.");
+			return "datLaiMatKhau";
 		}
 
 		// Kiểm tra mật khẩu mới và xác nhận mật khẩu có khớp không
@@ -265,6 +254,11 @@ public class quenMatKhauController {
 	// Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
 	public boolean isEmailExists(String email) {
 		return userRepository.findByEmail(email) != null;
+	}
+
+	private boolean isValidPassword(String password) {
+		// Kiểm tra mật khẩu có ít nhất 8 ký tự, chứa ít nhất một số và một chữ cái
+		return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
 	}
 
 }
