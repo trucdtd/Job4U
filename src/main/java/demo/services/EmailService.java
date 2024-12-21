@@ -48,6 +48,77 @@ public class EmailService {
 		mailSender.send(message);
 	}
 	
+	//Gửi email thông báo về việc xóa bài viết
+	public void sendEmailToEmployer(String employerFulltName, String toEmail, String jobTitle, Integer postId) {
+	    try {
+	        MimeMessage mimeMessage = mailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+	        helper.setTo(toEmail);
+	        helper.setSubject("Thông báo về việc xóa bài viết");
+
+	        // Nội dung HTML
+	        String htmlContent = """
+	            <!DOCTYPE html>
+	            <html lang="vi">
+	            <head>
+	                <meta charset="UTF-8">
+	                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	                <style>
+	                    body {
+	                        font-family: Arial, sans-serif;
+	                        line-height: 1.6;
+	                        color: #333333;
+	                        background-color: #f9f9f9;
+	                        margin: 0;
+	                        padding: 0;
+	                    }
+	                    .container {
+	                        max-width: 600px;
+	                        margin: 20px auto;
+	                        background: #ffffff;
+	                        padding: 20px;
+	                        border-radius: 10px;
+	                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	                    }
+	                    .footer {
+	                        text-align: center;
+	                        font-size: 12px;
+	                        color: #888888;
+	                        margin-top: 20px;
+	                    }
+	                    .footer a {
+	                        color: #6666ff;
+	                        text-decoration: none;
+	                    }
+	                </style>
+	            </head>
+	            <body>
+	                <div class="container">
+	                    <h2>Kính gửi <strong>%s</strong></h2>
+	                    <p>Chúng tôi rất tiếc phải thông báo rằng bài viết <strong>"%s"</strong> của bạn đã bị xóa.</p>
+	                    <p>Lý do có thể là do bài viết vi phạm quy định hoặc đã hết hạn sử dụng dịch vụ. Nếu có bất kỳ thắc mắc nào, xin vui lòng liên hệ với chúng tôi.</p>
+	                    <p>Chúng tôi khuyến khích bạn đọc lại các nguyên tắc cộng đồng để hiểu rõ hơn và tránh vi phạm trong tương lai.</p>
+	                    <p>Nếu bạn cần thêm thông tin hoặc có bất kỳ thắc mắc nào, đừng ngần ngại liên hệ với đội ngũ hỗ trợ.</p>
+	                    <p>Cảm ơn bạn đã thông cảm và đồng hành cùng chúng tôi</p>
+	                    <p>Chúng tôi luôn sẵn sàng hỗ trợ bạn.</p>
+	                    <p>Trân trọng,</p>
+	                    <p>Đội ngũ hỗ trợ Job4U</p>
+	                    <div class="footer">
+	                        © 2024 Job4U - <a href="https://job4u.com">job4u.com</a>
+	                    </div>
+	                </div>
+	            </body>
+	            </html>
+	            """.formatted(employerFulltName, jobTitle, postId);
+
+	        helper.setText(htmlContent, true); // true để kích hoạt HTML
+	        mailSender.send(mimeMessage);
+	    } catch (MessagingException e) {
+	        e.printStackTrace();
+	        System.out.println("Gửi email thất bại: " + e.getMessage());
+	    }
+	}
 	
 	// Gửi email xác nhận đăng ký tài khoản
 	public void sendVerificationCode(String toEmail, String token) {
@@ -251,12 +322,12 @@ public class EmailService {
     }
 
 	// Gửi email khi tài khoản bị khóa
-	public void sendAccountLockedEmail(String toEmail, String username) {
+	public void sendAccountLockedEmail(String toEmail, String fullname) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(toEmail);
 		message.setSubject("Thông báo khóa tài khoản");
 
-		message.setText("Kính gửi " + username + ",\n\n" + "Tài khoản mà bạn đã đăng ký trên website JOB4U đã bị khóa bởi quản trị viên.\n\n"
+		message.setText("Kính gửi " + fullname + ",\n\n" + "Tài khoản mà bạn đã đăng ký trên website JOB4U đã bị khóa bởi quản trị viên.\n\n"
 				+ "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi.\n\n"
 				+ "0834341699 hoặc gmail: job4yousine2024@gmail.com.\n\n"
 				+ "Trân trọng,\nĐội ngũ quản trị");
@@ -265,12 +336,12 @@ public class EmailService {
 	}
 
 	// Gửi email khi tài khoản được mở lại
-	public void sendAccountOpenedEmail(String toEmail, String username) {
+	public void sendAccountOpenedEmail(String toEmail, String fullname) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(toEmail);
 		message.setSubject("Thông báo mở tài khoản");
 
-		message.setText("Kính gửi " + username + ",\n\n" + "Tài khoản mà bạn đã đăng ký trên website JOB4U đã được mở lại bởi quản trị viên.\n\n"
+		message.setText("Kính gửi " + fullname + ",\n\n" + "Tài khoản mà bạn đã đăng ký trên website JOB4U đã được mở lại bởi quản trị viên.\n\n"
 				+ "Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi.\n\n"
 				+ "0834341699 hoặc gmail: job4yousine2024@gmail.com.\n\n"
 				+ "Trân trọng,\nĐội ngũ quản trị");

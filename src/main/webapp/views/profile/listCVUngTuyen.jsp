@@ -23,9 +23,9 @@
 		<table id="listCV" class="table table-striped">
 			<thead>
 				<tr>
-					<th>ID</th>
+					<th>Họ và Tên</th>
 					<th>Tóm tắt hồ sơ</th>
-					<th>Tên Cty đã nộp</th>
+					<th>Tên bài viết</th>
 					<th>Ngày nộp</th>
 					<th>Trạng Thái</th>
 				</tr>
@@ -33,7 +33,7 @@
 			<tbody>
 				<c:forEach var="cv" items="${cvList}">
 					<tr>
-						<td>${cv.jobseeker.jobseekerid}</td>
+						<td>${cv.jobseeker.fullnamecv}</td>
 						<td>${cv.jobseeker.profilesummary}</td>
 						<td>${cv.job.jobtitle}</td>
 						<td class="formatted-date" data-date="${cv.applicationdate}"></td>

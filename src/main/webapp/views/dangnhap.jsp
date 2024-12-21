@@ -120,18 +120,16 @@
 							</div>
 
 							<!-- Password input -->
-							<div data-mdb-input-init class="form-outline mb-3">
-								<label class="form-label" for="form3Example4">Mật khẩu</label>
-								<div class="input-group">
-									<input type="password" id="form3Example4"
-										class="form-control form-control-lg" placeholder="Mật khẩu"
-										name="password" />
-									<button class="btn btn-outline-secondary" type="button"
-										id="passwordToggle">
-										<i class="fas fa-eye"></i>
-									</button>
-								</div>
-							</div>
+                            <div class="form-outline mb-3">
+                                <label class="form-label" for="form3Example4">Mật khẩu</label>
+                                <div class="input-group">
+                                    <input type="password" id="form3Example4" class="form-control form-control-lg"
+                                        placeholder="Mật khẩu" name="password" />
+                                    <span class="input-group-text" id="passwordToggle">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
 
 							<div
 								class="text-center text-lg-start mt-4 pt-2 d-flex justify-content-between align-items-center">
@@ -185,6 +183,5 @@
 					}
 				});
 	</script>
-	<link rel="stylesheet" href="styles.css">
 </body>
 </html>

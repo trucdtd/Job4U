@@ -124,15 +124,19 @@
             </div>
         </div>
 
-        <h2>Tuyển dụng</h2>
+        <h2>Các bài tuyển dụng của công ty</h2>
         <c:forEach var="entity" items="${list}">
-        <div class="job-card shadow border-0 bg-light">
-            <h3>${entity.jobtitle}</h3>
-            <p><strong>Chi tiết:</strong> ${entity.jobdescription}</p>
-            <p><strong>Thu nhập:</strong> ${entity.salary}</p>
-            <p><strong>Thời gian:</strong> ${entity.posteddate} - ${entity.applicationdeadline}</p>
-        </div>
-        </c:forEach>
+    <div class="job-card shadow border-0 bg-light">
+        <h3>${entity.jobtitle}</h3>
+        <p><strong>Chi tiết:</strong> ${entity.jobdescription}</p>
+        <p><strong>Thu nhập:</strong> ${entity.salary}</p>
+        <p><strong>Thời gian:</strong> ${entity.posteddate} - ${entity.applicationdeadline}</p>
+        <!-- Nút Thông tin chi tiết -->
+        <a href="${pageContext.request.contextPath}/chiTiet/${entity.jobid}" class="btn btn-success justify-content-end">
+            Thông tin chi tiết
+        </a>
+    </div>
+</c:forEach>
 
        <!--  <div class="map">
             <h3>Bản đồ</h3>

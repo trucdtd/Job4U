@@ -54,7 +54,7 @@
 		<table id="listCV" class="table table-striped">
 			<thead>
 				<tr>
-					<th>ID</th>
+					<!-- <th>ID</th> -->
 					<th>Họ & Tên CV</th>
 					<th>Hồ sơ</th>
 					<th>Tóm tắt hồ sơ</th>
@@ -66,7 +66,7 @@
 			<tbody>
 				<c:forEach var="cv" items="${List}">
 					<tr>
-						<td>${cv.jobseekerid}</td>
+						<%-- <td>${cv.jobseekerid}</td> --%>
 						<td>${cv.fullnamecv}</td>
 						<td>${cv.resume}</td>
 						<td>${cv.profilesummary}</td>

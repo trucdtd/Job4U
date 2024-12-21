@@ -198,6 +198,10 @@ public interface JoblistingsDao extends JpaRepository<JoblistingsEntity, Integer
 	
 	@Query("SELECT j FROM JoblistingsEntity j WHERE j.posteddate = :toDay")
 	List<JoblistingsDao> selectJobToDay(@Param("toDay") LocalDate toDay);
+	
+	//Lành Truy vấn ngày hết hạn nộp hồ sơ của công việc theo jobId
+    @Query("SELECT j.applicationdeadline FROM JoblistingsEntity j WHERE j.jobid = :jobId")
+    LocalDate findApplicationdeadlineByJobid(@Param("jobId") Integer jobId);
 
 	@Query("SELECT j FROM JoblistingsEntity j WHERE j.employer = :employer AND j.applicationdeadline > CURRENT_DATE AND j.active = true ORDER BY j.isTop DESC, j.applicationdeadline ASC")
 	List<JoblistingsEntity> findValidJobListingsByEmployer(@Param("employer") EmployersEntity employer);

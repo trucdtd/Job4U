@@ -35,7 +35,7 @@ public class DanhSachCongTyController {
 	public String ListEmployerd(Model model, @RequestParam("page") Optional<Integer> page) {
 		int pageNumber = page.orElse(0);
 //		Pageable pageable = PageRequest.of(pageNumber, 8);
-		Pageable pageable = PageRequest.of(pageNumber, 8);
+		Pageable pageable = PageRequest.of(pageNumber, 9);
 		Page<EmployersEntity> dsCTy = employersDao.findAll(pageable);
 		model.addAttribute("dsCTy", dsCTy);
 		return "danhSachCongTy";
